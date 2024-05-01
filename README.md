@@ -1,3 +1,3 @@
 # krishnakanthb.github.io
 All about me:
-http://krishnakanthb.github.io/
+https://krishnakanthb.github.io/
