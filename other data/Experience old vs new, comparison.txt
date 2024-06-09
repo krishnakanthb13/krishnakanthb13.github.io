@@ -1,0 +1,556 @@
+Sep 2010Mar 2011 Customer Service Professional
+@Sitel India
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Dell-On-Call (DOC) Services - Technical & Customer Support:
+~ Troubleshot Laptops and Desktops.
+~ Inbound team provided telephonic/remote diagnostic, technical, and customer support for Dell and non-Dell customers (warranty-based).
+~ Fixed complex issues related to installation, operation, configuration, customization, performance, and usage of assigned products, including system software, routers, LAN, docking stations, printers, and gaming consoles.
+~ Pitched warranty support and warranty extensions.
+~ Suggested machine upgrades and additional supportive electronics based on customer requirements.
+~ Outbound team contacted recent customers to obtain the status of their issues.
+~ Managed and handled irate/escalated issues, focusing on customer satisfaction.
+~ Routed customers to appropriate support queues for unsupported issues.
+
+latest:
+
+= Technical & Customer Support Specialist (Dell-On-Call Services) =
+
+~ Provided comprehensive technical and customer support to both Dell and non-Dell customers (warranty-based) through inbound and outbound channels.
+~ Troubleshooted a wide range of issues on laptops, desktops, system software, routers, LANs, docking stations, printers, and gaming consoles.
+~ Resolved complex technical problems related to installation, operation, configuration, customization, performance, and usage of assigned products.
+~ Offered exceptional customer service by managing escalated issues, focusing on customer satisfaction, and effectively handling irate customers.
+~ Leveraged strong communication skills to provide clear and concise technical guidance via phone and remote diagnostics.
+~ Increased customer lifetime value by pitching warranty support, extensions, and suggesting relevant product upgrades and additional electronics.
+~ Enhanced customer experience by following up with recent customers and efficiently routing unsupported issues to appropriate support queues.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Specific Mention of Inbound and Outbound Teams:**
+   - Original: Differentiated roles of inbound and outbound teams.
+   - Latest: Combined roles into a general description of inbound and outbound channels.
+
+2. **Detail on Outbound Team's Role:**
+   - Original: Outbound team contacted recent customers to obtain the status of their issues.
+   - Latest: General follow-up mentioned but not the specific activity of obtaining status updates.
+
+### Points Added in the Latest Version
+
+1. **Comprehensive Support:**
+   - Emphasis on providing support through both inbound and outbound channels, combining them for a holistic view.
+
+2. **Exceptional Customer Service:**
+   - Highlighting exceptional customer service, with a focus on managing escalated issues and handling irate customers.
+
+3. **Communication Skills:**
+   - Specific mention of leveraging strong communication skills for providing clear and concise technical guidance.
+
+4. **Customer Lifetime Value:**
+   - Mention of increasing customer lifetime value through pitching warranty support, extensions, and suggesting relevant product upgrades.
+
+5. **Enhanced Customer Experience:**
+   - Specific mention of enhancing customer experience by following up with recent customers and efficiently routing unsupported issues.
+
+### Summary
+
+The latest version combines and condenses some of the specific details found in the original, while adding emphasis on comprehensive support, exceptional customer service, communication skills, customer lifetime value, and enhanced customer experience. The role differentiation of inbound and outbound teams and the specific tasks of the outbound team are less detailed in the latest version.
+
+------------------------------------------------------------------
+
+Apr 2011Jul 2011 Product Support Analyst
+@Symantec
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Support for Norton Products:
+~ Assisted customers in protecting their infrastructure, information, and interactions on the internet by delivering software and services addressing risks related to security, availability, compliance, and performance.
+~ Provided support for downloading and installing Norton products on any Windows platform, troubleshooting various error messages that occur during installation, modification, or usage of Norton products.
+~ Configured firewalls in various Norton products.
+~ Backed up and restored files using Norton Secure Online Data Backup and Norton 360.
+~ Troubleshot different error messages based on error logs using various knowledge-based articles, regularly updating these articles when encountering new scenarios.
+~ Identified and resolved conflicts between Norton and other software/operating system settings.
+~ Manually removed various threats (viruses, spyware, adware, malware, rootkits, trojan horses) using safe mode, safe mode with networking, and registry edit mode.
+
+latest:
+
+= Technical Support Specialist (Norton Security Products) =
+
+~ Guided customers in securing their online environment: Provided comprehensive support to help customers protect their infrastructure, information, and online interactions using Norton security solutions.
+~ Installation & Configuration Expertise: Assisted with seamless downloads, installations, and configuration of Norton products on Windows platforms. Resolved various error messages encountered during these processes.
+~ Advanced Troubleshooting & Threat Mitigation: Effectively troubleshooted a wide range of issues using error logs and knowledge base articles. Contributed to knowledge base updates by documenting solutions for new scenarios. Identified and manually removed diverse threats like viruses, spyware, and malware using advanced safe mode techniques.
+~ Software Compatibility Specialist: Proactively identified and resolved potential software conflicts between Norton products and other applications or operating system settings.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Details on Specific Tasks:**
+   - Original: Configured firewalls in various Norton products.
+   - Latest: This specific task is not mentioned.
+
+2. **Backup and Restore Tasks:**
+   - Original: Backed up and restored files using Norton Secure Online Data Backup and Norton 360.
+   - Latest: These tasks are not mentioned.
+
+### Points Added in the Latest Version
+
+1. **Enhanced Introduction:**
+   - Original: Brief introduction about assisting customers in protecting their infrastructure, information, and interactions.
+   - Latest: Emphasis on securing the online environment and providing comprehensive support using Norton security solutions.
+
+2. **Advanced Troubleshooting & Threat Mitigation:**
+   - Original: Troubleshooting error messages and manually removing threats.
+   - Latest: Emphasizes "advanced troubleshooting," "threat mitigation," and the use of "advanced safe mode techniques."
+
+3. **Proactivity in Software Compatibility:**
+   - Original: Identified and resolved conflicts between Norton and other software/operating system settings.
+   - Latest: Described as "Proactively identified and resolved potential software conflicts."
+
+### Summary
+
+The latest version consolidates the original's detailed tasks into broader categories and introduces more sophisticated terminology such as "advanced troubleshooting," "threat mitigation," and "proactively identified." The specific task of configuring firewalls and using Norton Secure Online Data Backup and Norton 360 for file backup and restoration is omitted. Additionally, the latest version enhances the introduction to emphasize comprehensive support and securing the online environment.
+
+------------------------------------------------------------------
+
+
+Jul 2013Dec 2013 Customer Care Voice Sr. Rep
+@Dell
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Health Care Eligibility Benefit Inquiry and Response:
+~ Processed professional and facility US healthcare claims for Conifer Health Solutions.
+~ Ensured HIPAA (Health Insurance Portability and Accountability Act of 1996) compliance, meeting privacy, security, and breach notification rules.
+~ Contacted various health insurance companies in the USA (AETNA, AARP, Blue Cross Blue Shield Association, CIGNA, Health Springs, HUMANA, Uni-care Health Insurance, United Health Group Inc., and other healthcare providers) to obtain plan details, verify patients’ healthcare plan eligibility, and inquire about benefits using AAPC (American Academy of Professional Coders) medical codes.
+~ Worked on Medicare and Medicaid claims.
+~ Possessed a clear understanding of calculating deductible, co-insurance, and co-pay during calls and verifying patient eligibility for insurance.
+~ Understood authorization scenarios and proceeded accordingly.
+
+latest:
+
+= Healthcare Claims Processing & Eligibility Verification =
+
+~ Processed professional and facility claims for US healthcare patients at Conifer Health Solutions.
+~ Ensured HIPAA compliance by adhering to privacy, security, and breach notification regulations.
+~ Verified patient eligibility and benefits by directly contacting various US health insurance companies (Aetna, AARP, BCBS, Cigna, etc.) and interpreting AAPC medical codes.
+~ Improved data organization and search-ability by implementing data classification and taxonomy development using UNSPSC codes.
+~ Processed Medicare and Medicaid claims.
+~ Calculated deductibles, co-insurance, and co-pays on the spot to determine patient insurance eligibility and authorization requirements.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Detailed List of Health Insurance Companies:**
+   - Original: Specific mention of AETNA, AARP, Blue Cross Blue Shield Association, CIGNA, Health Springs, HUMANA, Uni-care Health Insurance, United Health Group Inc., and other healthcare providers.
+   - Latest: Abbreviated to general names like Aetna, AARP, BCBS, Cigna, etc.
+
+2. **Authorization Scenarios:**
+   - Original: Understood authorization scenarios and proceeded accordingly.
+   - Latest: This specific point is not mentioned.
+
+### Points Added in the Latest Version
+
+1. **Data Organization and Search-ability:**
+   - Latest: Added a new point about improving data organization and search-ability by implementing data classification and taxonomy development using UNSPSC codes.
+
+### Summary
+
+The latest version of the description consolidates the detailed list of health insurance companies into more generalized names and omits the specific mention of understanding and proceeding with authorization scenarios. Additionally, it introduces a new point about improving data organization and search-ability through the implementation of data classification and taxonomy development using UNSPSC codes. The core responsibilities of processing claims, ensuring HIPAA compliance, verifying patient eligibility, and calculating deductibles, co-insurance, and co-pays remain consistent between both versions.
+
+------------------------------------------------------------------
+
+
+Dec 2013Feb 2015 Content Analyst
+@Premier Inc. (Medusind Solutions)
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Premier, Inc. Healthcare Master Data Management.
+~ Conducted data mapping and validation of products from manufacturers/vendors from respective sites/catalogs.
+~ Validated packaging string/unit of measure (UOM) for products (manufacturers/vendors) by considering both inner and exterior packaging s, and vice versa. Utilized ANSI (American National Standards Institute) UOMs for the validation process.
+~ Performed data extraction, enrichment, and cataloging using customized method attribution (multiple field attribution).
+~ Developed data classification/taxonomy using the UNSPSC (United Nations Standard Products and Services Code).
+~ Thoroughly QA'd (quality assured) and cleansed all datasets.
+~ Implemented HIPAA (Health Insurance Portability and Accountability Act of 1996) compliance policies.
+
+latest:
+
+= Healthcare Claims Processing & Eligibility Verification =
+
+= Premier Inc. | Healthcare Master Data Management =
+
+~ Enhanced product data accuracy and completeness for various healthcare systems by performing data mapping and validation across products from manufacturers/vendors and their respective sites and catalogs.
+~ Ensured data integrity by validating packaging strings, units of measure (UOM) for both inner and exterior packaging, adhering to ANSI (American National Standards Institute) UOMs.
+~ Enriched product data through customized extraction, enrichment, and cataloging methods, including multi-field attribution.
+~ Improved data organization and search-ability by implementing data classification and taxonomy development using UNSPSC codes.
+~ Maintained high data quality through rigorous quality assurance (QA) processes and data cleansing practices.
+~ Adhered to HIPAA compliance regulations by implementing and ensuring compliance with the Health Insurance Portability and Accountability Act of 1996.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Specific Terminology for Data Tasks:**
+   - Original: Mentioned "conducted data mapping and validation."
+   - Latest: Uses "performing data mapping and validation," which is similar but less specific to the task of "conducting."
+
+### Points Added in the Latest Version
+
+1. **Enhanced Product Data Accuracy:**
+   - Latest: Emphasizes enhancing product data accuracy and completeness for various healthcare systems.
+
+2. **Ensured Data Integrity:**
+   - Latest: Added a specific mention of ensuring data integrity.
+
+3. **Adherence to ANSI UOMs:**
+   - Latest: Retains this point but integrates it more smoothly into the sentence about validating packaging strings and units of measure.
+
+4. **Improved Data Organization and Search-ability:**
+   - Latest: Added a specific point about improving data organization and search-ability.
+
+5. **Maintained High Data Quality:**
+   - Latest: Emphasizes maintaining high data quality through rigorous QA processes and data cleansing.
+
+### Summary
+
+The latest version of the description includes all the original points but with refined language that enhances clarity and emphasis on certain aspects. It introduces new points about ensuring data integrity, enhancing product data accuracy and completeness, and improving data organization and search-ability. These additions emphasize a more proactive and comprehensive approach to data management. The mention of adhering to ANSI UOMs and HIPAA compliance remains consistent, ensuring the core responsibilities are preserved.
+
+------------------------------------------------------------------
+
+Mar 2015Feb 2017 Analyst Level I & II & III
+@Johnson & Johnson (GVW Technologies)
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Research:
+~ Researched the basics of Data Analytics, Data Visualization, and Data Reporting.
+~ Gained hands-on practice with Spotfire Desktop/Cloud, Tableau, Minitab, and basic Hadoop
+~ Worked on a project related to:
+HPLC-CDS reports consolidation - Obtained different types of HPLC-CDS reports and consolidated them into a single report to implement analytics and visualization for better understanding.
+Data Reporting & Visualization - (Complex/Multi-variant) – Used Spotfire (Desktop, Cloud), Tableau, and Minitab to identify patterns in pharmaceutical data.
+Predictive Analysis – Implemented basic statistical methods and regression analysis in big data analysis. Acquired basic knowledge of installing and running Hadoop and various algorithms.
+Process:
+~ Master Data Configuration on LabWare LIMS V6 for McNeil Consumer Healthcare & Janssen Pharmaceutical (A Johnson and Johnson Company).
+~ Responsible for the build, configuration, testing, and review of Master Data Objects (including but not limited to specifications, analyses, batch templates, test methods, sample plans, products, ELNs item codes, etc.) for the sites in Guelph, ON, Canada, and Pomezia, Lazio, Italy, in support of Catalyst LIMS deployments.
+~ Utilized Lot Manager to facilitate checking of lots/batches against specifications.
+~ Generated, filed, scanned, and archived QC documentation for built products, ensuring compliance with GDP (Good Documentation Practice).
+~ Maintained quality and worked with cross-functional teams to identify actionable root cause analysis tools when deviating from results and implemented CAPAs to prevent re-occurrence of events.
+~ Interacted with clients daily through emails and calls to meet client requirements.
+
+latest:
+
+= Research & Development =
+
+~ Developed foundational knowledge of data analytics, data visualization, and data reporting.
+~ Gained hands-on experience with data visualization tools like Spotfire (Desktop/Cloud), Tableau, and Minitab.
+~ Completed a project on HPLC-CDS data consolidation and analysis:
+- Consolidated various HPLC-CDS reports into a single format.
+- Utilized Spotfire, Tableau, and Minitab to identify patterns in pharmaceutical data.
+~ Explored basic statistical methods and regression analysis in big data, including fundamental knowledge of Hadoop installation and algorithms.
+
+= Process & Quality Management =
+
+~ Mastered LabWare LIMS V6 data configuration for McNeil Consumer Healthcare and Janssen Pharmaceutical.
+~ Streamlined LIMS deployments by building, configuring, testing, and reviewing master data objects (specifications, analyses, batch templates, etc.) for sites in Canada and Italy.
+~ Facilitated quality control by using Lot Manager to verify batches against specifications.
+~ Ensured Good Documentation Practices (GDP) compliance by generating, filing, scanning, and maintaining an archive of QC documentation for manufactured products.
+~ Maintained process quality by identifying root causes of deviations and implementing corrective and preventive actions (CAPAs) to prevent recurrence.
+~ Collaborated with cross-functional teams to address quality issues.
+~ Effectively communicated with clients daily through emails and calls to meet their requirements.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Details on Specific Tools and Hands-on Practice:**
+   - Original: "Basic Hadoop" mentioned alongside other tools.
+   - Latest: Mentions fundamental knowledge of Hadoop but lacks the "hands-on practice" emphasis.
+
+2. **Detailed Project Description:**
+   - Original: Specific mention of working on a project related to "HPLC-CDS reports consolidation."
+   - Latest: The project is mentioned but in a more generalized form, lacking the detailed context of the project goal ("to implement analytics and visualization for better understanding").
+
+3. **Predictive Analysis Detail:**
+   - Original: Mention of implementing basic statistical methods and regression analysis in big data analysis.
+   - Latest: General mention of exploring basic statistical methods and regression analysis without the same depth.
+
+4. **Master Data Objects:**
+   - Original: Includes a detailed list of master data objects (e.g., specifications, analyses, batch templates, test methods, sample plans, products, ELNs item codes).
+   - Latest: Generalizes this list without the same level of detail.
+
+5. **Quality Assurance Specifics:**
+   - Original: Detailed mention of generating, filing, scanning, and archiving QC documentation.
+   - Latest: Retains this but with less specific language.
+
+### Points Added in the Latest Version
+
+1. **Foundational Knowledge Development:**
+   - Latest: Emphasizes developing a foundational knowledge of data analytics, data visualization, and data reporting.
+
+2. **Streamlined LIMS Deployments:**
+   - Latest: Adds the concept of streamlining LIMS deployments by building, configuring, testing, and reviewing master data objects.
+
+3. **Enhanced Quality Control Facilitation:**
+   - Latest: Uses the term "facilitated quality control" to describe the use of Lot Manager to verify batches against specifications.
+
+4. **Collaboration Emphasis:**
+   - Latest: Highlights collaboration with cross-functional teams to address quality issues.
+
+5. **Effective Client Communication:**
+   - Latest: Uses the term "effectively communicated" with clients, emphasizing the quality of communication.
+
+### Summary
+
+The latest version simplifies and generalizes some of the specific details found in the original description while adding new emphases on foundational knowledge development, streamlined LIMS deployments, enhanced quality control facilitation, collaboration, and effective client communication. It omits some of the specific details regarding tools, project context, and master data objects, focusing instead on broader descriptions and improved readability. The core responsibilities remain consistent, ensuring that key activities and skills are still represented.
+
+------------------------------------------------------------------
+
+
+May 2017Jan 2019 Strategic Analyst
+@Optum
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Healthcare finance:
+~ Worked on Health Quest Systems and Atrium Health (Carolinas HealthCare System).
+~ Built the Organization Hierarchy and ensured it fit structurally into the system.
+~ Mapped and Matched various aspects and data points of the healthcare systems, including:
+General ledger (Accounts*, Departments).
+Payroll (Personnel, Departments, Job Codes*, Pay Codes*, Payroll Periods).
+Billing (Personnel, Departments, Adjustment Types*, Billing Codes, Professional Billing Codes).
+Personnel Specialty* & Department Specialty*
+(Items with a "*" have Type, Group, Category levels of separation for enhanced grouping and analysis).
+~ Performed quality checks throughout the data flow, matching, mappings, and in the final reporting web page to provide prescriptive answers for various financial decision-making scenarios.
+~ Made additional modifications based on requests to enhance usability.
+~ Interacted with business analysts and clients daily through emails/calls to meet client requirements.
+Technical - SQL:
+~ Possess in-depth knowledge of SQL querying, stored procedures, database-related functions, and debugging errors.
+~ Demonstrate excellent logical, analytical, and critical thinking skills.
+Contributions towards the Project:
+~ Developed various automation s to eliminate redundant tasks and improve control over various methods, including:
+General Ledger Validation Automation (across different internal layers).
+Organization Hierarchy Automation (when a predefined structure is formed).
+Initial checks (addressing all presumptive areas of potential errors).
+
+latest:
+
+= Project: Data Integration and Automation for Healthcare Systems =
+
+~ Performed data mapping and integration for Health Quest Systems and Atrium Health (Carolinas HealthCare System). This involved mapping various data points across General Ledger, Payroll, Billing, Personnel Specialty, and Department Specialty.
+~ Developed a multi-level classification system (Type, Group, Category) for enhanced data organization and analysis.
+~ Implemented robust quality checks throughout the data flow, ensuring accurate data mapping and reporting.
+~ Leveraged SQL expertise (queries, stored procedures) to automate key processes, including:
+~~ General Ledger Validation (across internal layers)
+~~ Organization Hierarchy Automation (for predefined structures)
+~~ Initial Error Checks (to identify potential data issues)
+~ This automation significantly reduced manual effort, reduced validation time by 60%, improved data accuracy, and facilitated faster financial decision-making.
+
+~ SQL (Queries, Stored Procedures)
+~ Data Mapping and Integration
+~ Data Quality Assurance
+~ Excellent analytical and problem-solving skills
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Building Organization Hierarchy:**
+   - Original: "Built the Organization Hierarchy and ensured it fit structurally into the system."
+   - Latest: Generalizes this task within data mapping and integration.
+
+2. **Detailed Aspects and Data Points:**
+   - Original: Specifies various aspects like General Ledger (Accounts*, Departments), Payroll (Personnel, Departments, Job Codes*, Pay Codes*, Payroll Periods), Billing (Personnel, Departments, Adjustment Types*, Billing Codes, Professional Billing Codes), Personnel Specialty* & Department Specialty*.
+   - Latest: Consolidates these into general categories without listing specific items.
+
+3. **Daily Interactions with Business Analysts and Clients:**
+   - Original: "Interacted with business analysts and clients daily through emails/calls to meet client requirements."
+   - Latest: This point is omitted.
+
+4. **Prescriptive Answers for Financial Decision-Making:**
+   - Original: Mention of providing prescriptive answers for various financial decision-making scenarios.
+   - Latest: This specific outcome is not mentioned.
+
+5. **Modifications Based on Requests:**
+   - Original: "Made additional modifications based on requests to enhance usability."
+   - Latest: This point is omitted.
+
+### Points Added in the Latest Version
+
+1. **Project Title:**
+   - Latest: Adds a project title "Data Integration and Automation for Healthcare Systems."
+
+2. **Multi-Level Classification System:**
+   - Latest: Emphasizes the development of a multi-level classification system (Type, Group, Category) for enhanced data organization and analysis.
+
+3. **Improvement Metrics:**
+   - Latest: Adds specific metrics showing improvements due to automation: "reduced manual effort, reduced validation time by 60%, improved data accuracy, and facilitated faster financial decision-making."
+
+4. **Summary of Skills:**
+   - Latest: Summarizes key skills at the end: "SQL (Queries, Stored Procedures), Data Mapping and Integration, Data Quality Assurance, Excellent analytical and problem-solving skills."
+
+### Summary
+
+The latest version generalizes and consolidates some of the specific details found in the original description while adding new emphases on project title, multi-level classification systems, improvement metrics, and a summary of key skills. It omits specific details about building the organization hierarchy, listing various data points, daily interactions with business analysts and clients, providing prescriptive answers for financial decision-making, and making modifications based on requests. Instead, it focuses on the overall impact and efficiencies gained through automation and data integration efforts.
+
+------------------------------------------------------------------
+
+Jul 2020Aug 2021 Management Information Systems
+@Amazon
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Key Projects @Amazon: - 3D Support Coordinator
+~ Before I joined the 3D India Team (Operations & Support), managing, analyzing, troubleshooting, and publishing key performance metrics for users/artists/leads/managers involved using multiple tools (Excel, Quip, Data Extracts, Emails, etc.), with significant manual effort. This process resulted in increased latency and decreased accuracy/troubleshooting scope for the final reports.
+~ When I joined as the 3D Support Coordinator (MIS) for the 3D India Team on July 6, 2020, these tasks were assigned to me as an immediate goal.
+~ I began automating the process and performed detailed analysis and smoke testing to understand and innovate the existing process flow, restructuring the process and reports for optimal efficiency and accuracy.
+~ This was achieved using SQL queries, stored procedures, events, Excel advanced formulas, macros, etc.
+~ From week 34 of 2020 on-wards, the KPI metrics for the Operations Team went live with automation, saving approximately 6+ manager/lead hours per week. From week 38 of 2020 onwards, the KPI metrics for the Support-QA Team went live with automation, saving approximately 5+ manager/lead hours per week.
+~ Automation s were created from scratch, resulting in 30 stored procedures and 20 events, till date, to accommodate various tasks for the 3D India Teams (Operations, Support-QA). Additionally, I developed an automation event/steps log table to track and troubleshoot various failures, pinpointing the exact segment of code that needs to be tweaked/addressed.
+
+latest:
+
+= Automating Key Performance Indicator (KPI) Reporting for 3D India Team (Operation & Support) - 3D Support Coordinator (MIS) =
+
+~ Challenge: Prior to July 2020, the 3D India team (Operations & Support) relied on manual processes and multiple tools (Excel, Quip, Data Extracts, Emails) to track and analyze KPIs for users, artists, leads, and managers. This resulted in high latency, decreased accuracy, and limited troubleshooting capabilities.
+~ Solution: Upon joining as a 3D Support Coordinator (MIS) in July 2020, I led the automation of the KPI reporting process. Leveraging SQL queries, stored procedures, events, advanced Excel formulas, and macros, I streamlined the workflow and re-structured reports for enhanced efficiency and accuracy.
+~ Impact:
+~~ Automated reports went live for the Operations team in Week Y-34 of 2020, saving an estimated 6+ manager/lead hours per week.
+~~ Support-QA team reports were automated in Week Y-38 of 2020, further saving 5+ manager/lead hours per week.
+~~ Developed custom automation scripts including 30 stored procedures and 20 events to handle various tasks and functionalities for the 3D India teams.
+~~ Implemented an event/step log table to facilitate troubleshooting and pinpoint specific code segments requiring adjustments.
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Specific Start Date:**
+   - Original: "Joined as the 3D Support Coordinator (MIS) for the 3D India Team on July 6, 2020."
+   - Latest: Does not specify the exact start date.
+
+2. **Manual Effort Before Automation:**
+   - Original: Details the significant manual effort involved before automation and its impact on latency and accuracy.
+   - Latest: Generalizes this point, not emphasizing the extent of manual effort.
+
+### Points Added in the Latest Version
+
+1. **Structured Challenge-Solution-Impact Format:**
+   - Latest: Adds a structured format, breaking down the description into "Challenge," "Solution," and "Impact."
+
+2. **Challenge Section:**
+   - Latest: Explicitly describes the challenges faced before automation, providing a clearer context.
+
+3. **Impact Metrics:**
+   - Latest: Clearly outlines the impact, specifying the time savings and improvements in efficiency.
+
+4. **Generalization of Dates:**
+   - Latest: Uses "Week Y-34" and "Week Y-38" instead of specific week numbers, which could be less precise but maintains clarity in the timeline.
+
+### Summary
+
+The latest version of the description introduces a more structured format, presenting the information under "Challenge," "Solution," and "Impact" sections. This format helps in clearly understanding the problem, the steps taken to resolve it, and the outcomes. It adds emphasis on the impact metrics, highlighting the time savings and efficiency improvements due to automation. However, it omits specific details like the exact start date and the extent of manual effort involved before automation. The core responsibilities and achievements remain consistent, but the latest version focuses more on the narrative of problem-solving and results.
+
+------------------------------------------------------------------
+
+Sep 2022Oct 2023 Technical Support Engineer Specialist
+@PowerSchool (GlowTouch)
+
+from the below, original and latest version of description. Let me know what all points are missed out from the original in the latest version and what all points are added in the latest version.
+
+original:
+
+Role - Technical Support Engineer Specialist:
+~ As a seasoned Technical Support Engineer Specialist, I bring a wealth of expertise in troubleshooting and resolving complex technical issues.
+~ With a robust background in SQL, I excel in providing top-notch support to ensure seamless operations for clients.
+~ Known for my analytical mindset and excellent problem-solving skills, I thrive in dynamic environments where precision and quick decision-making are paramount.
+~ Whether collaborating with cross-functional teams or providing direct client assistance, I am driven by a passion for delivering superior technical support. Always ready to take on new challenges and contribute my expertise to elevate technical operations.
+Experience - Process Followed:
+~ Managed Ticketing and Articles systems, utilizing Salesforce, JIRA, and Atlassian Confluence for streamlined processes and improved team collaboration.
+~ Utilized Aqua Data Studio, SSMS, Snowflake, MobaXterm, SSH Putty, Jump box, and other tools for effective software development and system management.
+~ Performed Build Processes and monitored cases, specializing in the PowerSchool Unified Insights product. Checked build statuses for phrases like SUCCESS, SUCCESS WITH WARNINGS, and FAILURE. Created Salesforce tickets and addressed issues related to product data structure through JIRA. Coordinated with product and development teams for prompt resolutions.
+~ Handled customization-related issues by creating JIRA tickets and liaising with the Services team through Slack messenger or email, ensuring adherence to customer requests.
+~ Addressed connection or storage issues by collaborating with Cloud Ops or Hosting teams, initiating service tickets through the Salesforce web-page.
+~ Managed assigned cases by providing support to customers through the support team or coordinating with other teams (product/development, Cloud Ops/Hosting/Fresh service Services) to resolve issues effectively.
+
+latest:
+
+= Technical Support Engineer (Specialist) = 
+
+~ Streamlined ticketing and knowledge base processes using Salesforce, JIRA, and Confluence for improved team collaboration and efficiency.
+~ Utilized a variety of tools (mentioned above) for effective software development and system management.
+~ Monitored PowerSchool Unified Insights build processes and addressed data structure issues through JIRA. 
+~ Collaborated with product and development teams for prompt resolutions.
+~ Managed customization and connection/storage issues by creating JIRA tickets, liaising with relevant teams (Services, Cloud Ops, Hosting), and ensuring adherence to customer requests.
+~ Provided exceptional support to customers by collaborating with internal teams and directly addressing their concerns.
+
+~ Highly skilled Technical Support Engineer Specialist with expertise in troubleshooting complex technical issues and a strong background in SQL. 
+~ Thrive in dynamic environments utilizing analytical skills and excellent problem-solving to make quick decisions. 
+~ Passionate about exceeding expectations through collaboration with cross-functional teams and providing direct client assistance. 
+~ Eager to leverage expertise to elevate technical operations and take on new challenges.
+
+~ SQL (Aqua Data Studio, SSMS, SnowFlake)
+~ Ticketing Systems (Salesforce, JIRA)
+~ Knowledge Management (Atlassian Confluence)
+~ Remote Access Tools (MobaXterm, SSH Putty, Jump Box)
+~ Cloud Platforms (SnowFlake Cloud, Azure)
+
+=======
+
+### Points Missed Out in the Latest Version
+
+1. **Specific Role Responsibilities:**
+   - Original: Detailed roles such as "Performed Build Processes and monitored cases" and "Checked build statuses for phrases like SUCCESS, SUCCESS WITH WARNINGS, and FAILURE."
+   - Latest: Generalizes the task to "Monitored PowerSchool Unified Insights build processes."
+
+2. **Coordination Methods:**
+   - Original: Mentioned using Slack messenger or email for liaising with the Services team.
+   - Latest: Does not specify the communication methods used for coordination.
+
+3. **Detailed Tools List:**
+   - Original: Lists specific tools used for various tasks (e.g., Aqua Data Studio, SSMS, Snowflake, MobaXterm, SSH Putty, Jump box).
+   - Latest: Consolidates these into a summarized mention at the end.
+
+4. **Handling Connection or Storage Issues:**
+   - Original: Describes handling connection or storage issues by collaborating with Cloud Ops or Hosting teams.
+   - Latest: Generalizes this task without specifying the type of issues handled.
+
+5. **Experience Context:**
+   - Original: Mentions specific phrases and terms used during the build process monitoring (e.g., "SUCCESS," "SUCCESS WITH WARNINGS," "FAILURE").
+   - Latest: Does not provide this detailed context.
+
+### Points Added in the Latest Version
+
+1. **Streamlined Processes Emphasis:**
+   - Latest: Emphasizes the impact of streamlining ticketing and knowledge base processes using Salesforce, JIRA, and Confluence.
+
+2. **Tool Categories and Functions:**
+   - Latest: Summarizes the tools into categories like SQL tools, ticketing systems, knowledge management, remote access tools, and cloud platforms, providing a clearer overview.
+
+3. **General Skills and Attributes:**
+   - Latest: Adds a section highlighting key skills and attributes such as thriving in dynamic environments, having an analytical mindset, and being passionate about exceeding expectations.
+
+4. **Cloud Platforms Mention:**
+   - Latest: Specifically mentions "Cloud Platforms (SnowFlake Cloud, Azure)" which was not explicitly highlighted in the original version.
+
+### Summary
+
+The latest version of the description provides a more streamlined and categorized overview of the role and responsibilities, emphasizing the impact of streamlining processes and highlighting key skills and attributes. However, it omits some specific details regarding role responsibilities, coordination methods, specific tools used, handling connection or storage issues, and context for the experience. The original version provided a more detailed and specific account of tasks and tools, while the latest version focuses on summarizing and categorizing information for clarity and impact.
+
+------------------------------------------------------------------
