@@ -74,13 +74,13 @@
 		-webkit-text-size-adjust: 100%;
  }
 
-
 /* #Typography
 ================================================== */
 	h1, h2, h3, h4, h5, h6 {
 		color: black;
 		font-family: "Open Sans", "Georgia", "Times New Roman", serif;
 		font-weight: 300; }
+
 	h4, h5, h6 {
 		font-weight: 300;
 		font-size: 13px;
@@ -125,7 +125,7 @@
 	blockquote cite a, blockquote cite a:visited, blockquote cite a:visited { color: #555; }
 
 	hr { border: dotted #dadada; border-width: 1px 0 0; clear: both; margin: 10px 0 30px; height: 0; }
-
+	
 
 /* #Links
 ================================================== */
@@ -239,6 +239,11 @@
     border: 0;
     padding: 0;
 	}
+	
+	buttonab {
+		  all: unset;
+		  cursor: pointer;
+		}
 
 
 /* #Forms
@@ -369,14 +374,17 @@
 		padding: 1px 0.3em;
 		border-radius: 2px;
 		color: #bf7b43;
+		font-weight: bold;
 	}
 	a:hover {
 		background-color:	rgb(214, 141, 76);
 		color: white !important;
 		box-shadow: 1px 1px 6px #ddd;
+		font-weight: bold;
 	}
 	h2 a {
 		color: white;
+		font-weight: bold;
 	}
 	a img {
 		border: 1px solid #555;
@@ -766,3 +774,12 @@ h4 {
 .subheader {
 	padding-bottom: 0.3em;
 }
+
+	.dark-mode {
+		  background-color: black !important;
+		  color: white !important;
+		}
+		
+.subheader.dark-mode {
+			  color: white !important;
+		}
