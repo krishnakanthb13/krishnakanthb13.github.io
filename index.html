@@ -1446,7 +1446,9 @@
 				  document.querySelectorAll("h6").forEach(h6 => h6.classList.add("dark-mode"));
 				  document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.add("dark-mode"));
 				  document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.add("dark-mode"));
-				  document.querySelectorAll(".tag,.tag b,li,.a").forEach(subheader => subheader.classList.add("dark-mode"));
+				  document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.add("dark-mode"));
+				  document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.add("dark-mode1"));
+				  document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.add("dark-mode1"));
 				  darkIcon.setAttribute("display", "none");
 				} else {
 				  lightIcon.setAttribute("display", "none");
@@ -1467,7 +1469,9 @@
 				  document.querySelectorAll("h6").forEach(h6 => h6.classList.toggle("dark-mode"));
 				  document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.toggle("dark-mode"));
 				  document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.toggle("dark-mode"));
-				  document.querySelectorAll(".tag,.tag b,li,.a").forEach(subheader => subheader.classList.toggle("dark-mode"));
+				  document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.toggle("dark-mode"));
+				  document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.toggle("dark-mode1"));
+				  document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.toggle("dark-mode1"));
 
 				  // Toggle light and dark icons
 				  if (darkMode) {

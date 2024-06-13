@@ -382,6 +382,19 @@
 		box-shadow: 1px 1px 6px #ddd;
 		font-weight: bold;
 	}
+	a.dark-mode1 {
+		text-decoration: none;
+		padding: 1px 0.3em;
+		border-radius: 2px;
+		color: #03fc28;
+		font-weight: bold;
+	}
+	a:hover.dark-mode1 {
+		background-color:	rgb(48, 232, 54);
+		color: black !important;
+		box-shadow: 1px 1px 6px #ddd;
+		font-weight: bold;
+	}
 	h2 a {
 		color: white;
 		font-weight: bold;
@@ -780,6 +793,6 @@ h4 {
 		  color: white !important;
 		}
 		
-.subheader.dark-mode {
+    .subheader.dark-mode {
 			  color: white !important;
 		}
