@@ -386,7 +386,7 @@
 		text-decoration: none;
 		padding: 1px 0.3em;
 		border-radius: 2px;
-		color: #03fc28;
+		color: #03fc28 !important;
 		font-weight: bold;
 	}
 	a:hover.dark-mode1 {
@@ -565,6 +565,10 @@
 		margin-bottom: 0.4em;
 		color: #E8822E !important;
 	}
+/* 	.summary.toc.dark-mode1 .email.dark-mode1 {
+		margin-bottom: 0.4em;
+		color: #03fc28 !important;
+	} */
 	.summary .toc .email .arobase {
 		color: #9d5921 !important;
 		padding-left: 0.1em;
