@@ -1392,97 +1392,95 @@
                <a class="email" href="mailto:krishnakanthb13@gmail.com">E-mail Me</a> 
                <!-- <hr> -->
                <!-- <a href="#top">Move to Top ^</a>  -->
-			   			   <br>
-			   <center>
-			   	<buttonab onclick="toggleDarkMode()">
-				  <svg width="30" height="30" id="light-icon">
-					<circle cx="15" cy="15" r="6" fill=white />
-
-					<line
-					  id="ray"
-					  stroke=white
-					  stroke-width="2"
-					  stroke-linecap="round"
-					  x1="15"
-					  y1="1"
-					  x2="15"
-					  y2="4"
-					></line>
-
-					<use href="#ray" transform="rotate(45 15 15)" />
-					<use href="#ray" transform="rotate(90 15 15)" />
-					<use href="#ray" transform="rotate(135 15 15)" />
-					<use href="#ray" transform="rotate(180 15 15)" />
-					<use href="#ray" transform="rotate(225 15 15)" />
-					<use href="#ray" transform="rotate(270 15 15)" />
-					<use href="#ray" transform="rotate(315 15 15)" />
-				  </svg>
-				  <svg width="30" height="30" id="dark-icon">
-					<path
-					  fill=white
-					  d="
-					  M 23, 5
-					  A 12 12 0 1 0 23, 25
-					  A 12 12 0 0 1 23, 5"
-					/>
-				  </svg>
-				</buttonab>
-			   </center>
-		<script>
-				const lightIcon = document.getElementById("light-icon");
-				const darkIcon = document.getElementById("dark-icon");
-				// Check if dark mode is preferred
-				const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-				let darkMode = darkModeMediaQuery.matches;
-
-				// Set dark-mode class on body if darkMode is true and pick icon
-				if (darkMode) {
-				  document.body.classList.add("dark-mode");
-				  document.querySelector("h1").classList.add("dark-mode");
-				  document.querySelectorAll("h2").forEach(h2 => h2.classList.add("dark-mode"));
-				  document.querySelectorAll("h3").forEach(h3 => h3.classList.add("dark-mode"));
-				  document.querySelectorAll("h4").forEach(h4 => h4.classList.add("dark-mode"));
-				  document.querySelectorAll("h5").forEach(h5 => h5.classList.add("dark-mode"));
-				  document.querySelectorAll("h6").forEach(h6 => h6.classList.add("dark-mode"));
-				  document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.add("dark-mode"));
-				  document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.add("dark-mode"));
-				  document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.add("dark-mode"));
-				  document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.add("dark-mode1"));
-				  document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.add("dark-mode1"));
-				  darkIcon.setAttribute("display", "none");
-				} else {
-				  lightIcon.setAttribute("display", "none");
-				}
-
-				// Toggle dark mode on button click
-				function toggleDarkMode() {
-				  // Toggle darkMode variable
-				  darkMode = !darkMode;
-
-				  // Toggle dark-mode class on body
-				  document.body.classList.toggle("dark-mode");
-				  document.querySelector("h1").classList.toggle("dark-mode");
-				  document.querySelectorAll("h2").forEach(h2 => h2.classList.toggle("dark-mode"));
-				  document.querySelectorAll("h3").forEach(h3 => h3.classList.toggle("dark-mode"));
-				  document.querySelectorAll("h4").forEach(h4 => h4.classList.toggle("dark-mode"));
-				  document.querySelectorAll("h5").forEach(h5 => h5.classList.toggle("dark-mode"));
-				  document.querySelectorAll("h6").forEach(h6 => h6.classList.toggle("dark-mode"));
-				  document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.toggle("dark-mode"));
-				  document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.toggle("dark-mode"));
-				  document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.toggle("dark-mode"));
-				  document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.toggle("dark-mode1"));
-				  document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.toggle("dark-mode1"));
-
-				  // Toggle light and dark icons
-				  if (darkMode) {
-					lightIcon.setAttribute("display", "block");
-					darkIcon.setAttribute("display", "none");
-				  } else {
-					lightIcon.setAttribute("display", "none");
-					darkIcon.setAttribute("display", "block");
-				  }
-				}
-		</script>
+               <br>
+               <center>
+                  <buttonab onclick="toggleDarkMode()">
+                     <svg width="30" height="30" id="light-icon">
+                        <circle cx="15" cy="15" r="6" fill=white />
+                        <line
+                           id="ray"
+                           stroke=white
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           x1="15"
+                           y1="1"
+                           x2="15"
+                           y2="4"
+                           ></line>
+                        <use href="#ray" transform="rotate(45 15 15)" />
+                        <use href="#ray" transform="rotate(90 15 15)" />
+                        <use href="#ray" transform="rotate(135 15 15)" />
+                        <use href="#ray" transform="rotate(180 15 15)" />
+                        <use href="#ray" transform="rotate(225 15 15)" />
+                        <use href="#ray" transform="rotate(270 15 15)" />
+                        <use href="#ray" transform="rotate(315 15 15)" />
+                     </svg>
+                     <svg width="30" height="30" id="dark-icon">
+                        <path
+                           fill=white
+                           d="
+                           M 23, 5
+                           A 12 12 0 1 0 23, 25
+                           A 12 12 0 0 1 23, 5"
+                           />
+                     </svg>
+                  </buttonab>
+               </center>
+               <script>
+                  const lightIcon = document.getElementById("light-icon");
+                  const darkIcon = document.getElementById("dark-icon");
+                  // Check if dark mode is preferred
+                  const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+                  let darkMode = darkModeMediaQuery.matches;
+                  
+                  // Set dark-mode class on body if darkMode is true and pick icon
+                  if (darkMode) {
+                    document.body.classList.add("dark-mode");
+                    document.querySelector("h1").classList.add("dark-mode");
+                    document.querySelectorAll("h2").forEach(h2 => h2.classList.add("dark-mode"));
+                    document.querySelectorAll("h3").forEach(h3 => h3.classList.add("dark-mode"));
+                    document.querySelectorAll("h4").forEach(h4 => h4.classList.add("dark-mode"));
+                    document.querySelectorAll("h5").forEach(h5 => h5.classList.add("dark-mode"));
+                    document.querySelectorAll("h6").forEach(h6 => h6.classList.add("dark-mode"));
+                    document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.add("dark-mode"));
+                    document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.add("dark-mode"));
+                    document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.add("dark-mode"));
+                    document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.add("dark-mode1"));
+                    document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.add("dark-mode1"));
+                    darkIcon.setAttribute("display", "none");
+                  } else {
+                    lightIcon.setAttribute("display", "none");
+                  }
+                  
+                  // Toggle dark mode on button click
+                  function toggleDarkMode() {
+                    // Toggle darkMode variable
+                    darkMode = !darkMode;
+                  
+                    // Toggle dark-mode class on body
+                    document.body.classList.toggle("dark-mode");
+                    document.querySelector("h1").classList.toggle("dark-mode");
+                    document.querySelectorAll("h2").forEach(h2 => h2.classList.toggle("dark-mode"));
+                    document.querySelectorAll("h3").forEach(h3 => h3.classList.toggle("dark-mode"));
+                    document.querySelectorAll("h4").forEach(h4 => h4.classList.toggle("dark-mode"));
+                    document.querySelectorAll("h5").forEach(h5 => h5.classList.toggle("dark-mode"));
+                    document.querySelectorAll("h6").forEach(h6 => h6.classList.toggle("dark-mode"));
+                    document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.toggle("dark-mode"));
+                    document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.toggle("dark-mode"));
+                    document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.toggle("dark-mode"));
+                    document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.toggle("dark-mode1"));
+                    document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.toggle("dark-mode1"));
+                  
+                    // Toggle light and dark icons
+                    if (darkMode) {
+                  	lightIcon.setAttribute("display", "block");
+                  	darkIcon.setAttribute("display", "none");
+                    } else {
+                  	lightIcon.setAttribute("display", "none");
+                  	darkIcon.setAttribute("display", "block");
+                    }
+                  }
+               </script>
             </div>
          </div>
          <div class="container footer noprint">
