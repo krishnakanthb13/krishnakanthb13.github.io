@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B. Krishna Kanth's Biodata & Horoscope</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>B. Krishna Kanth <a href="https://www.vysyamala.com/Profilev2.aspx?q=VM30053_41">(VM30053)</a></h1>
+        <!-- <p>Age: 34 years | Height: 177 cms</p> -->
+		<p id="ageDisplay"></p>
+        <p>M.Sc., Biotechnology | Not Working | Chennai</p>
+				<script>
+					function calculateAge() {
+					  // Pre-defined DOB (replace with your actual logic if needed)
+					  var dobString = "1989-12-13";
+					  var dobDate = new Date(dobString);
+					  var today = new Date();
+					  
+					  var ageDiffInMs = today.getTime() - dobDate.getTime();
+					  var ageInYears = Math.floor(ageDiffInMs / (1000 * 60 * 60 * 24 * 365));
+					  
+					  var message = "Age: " + ageInYears + " years | Height: 177 cms";
+					  document.getElementById("ageDisplay").innerHTML = message;
+					}
+
+					calculateAge();
+				 </script>
+    </header>
+
+    <main>
+        <section id="personal-details">
+            <h2 onclick="toggleSection(this)">Personal Details</h2>
+            <div class="content">
+                <p data-label="Name:"> B. Krishna Kanth</p>
+                <p data-label="Gender:"> Male</p>
+                <p data-label="DOB:"> 13 Dec 1989</p>
+                <p data-label="Age:"> 34 yrs</p>
+                <p data-label="Place of Birth:"> Chittoor</p>
+                <p data-label="Time of Birth:"> 11:48 AM</p>
+                <p data-label="Profile Created By:"> Self</p>
+                <p data-label="Marital Status:"> Unmarried</p>
+                <p data-label="Complexion:"> Fair</p>
+                <p data-label="Body Type:"> Normal</p>
+                <p data-label="Height:"> 177 cm</p>
+                <p data-label="Weight:"> 80 kg</p>
+                <p data-label="Blood Group:"> O+</p>
+                <p data-label="Physical Status:"> Normal</p>
+                <p data-label="Eye Wear:"> Yes</p>
+                <p data-label="Hobbies:"> Basketball, Carrom, Online Games, Painting, Movies, Cooking, and Traveling.</p>
+            </div>
+        </section>
+
+        <section id="education-profession">
+            <h2 onclick="toggleSection(this)"> Educational and Professional Details</h2>
+            <div class="content">
+                <p data-label="Education Level:"> Masters - Arts/Science/Commerce/M Phil</p>
+                <p data-label="Educational Details:"> M.Sc., Biotechnology</p>
+                <p data-label="About Education:"> BSc Biotechnology at D G Vaishnav College // MSc Biotechnology at VIT Vellore</p>
+                <p data-label="Profession:"> Not Working</p>
+                <p data-label="Annual Income:"> Not Mentioned</p>
+                <p data-label="Gross Annual Income:"> ~0.00</p>
+                <p data-label="Place of Stay:"> Chennai</p>
+            </div>
+        </section>
+
+        <section id="family-details">
+            <h2 onclick="toggleSection(this)"> Family Details</h2>
+            <div class="content">
+                <p data-label="Father Name:"> B. Srinivasalu</p>
+                <p data-label="Father Alive:"> No</p>
+                <p data-label="Mother Name:"> B. Tara Srinivasalu</p>
+                <p data-label="Mother Alive:"> Yes</p>
+                <p data-label="Father's Occupation:"> None</p>
+                <p data-label="Family Status:"> Upper Middle Class</p>
+                <p data-label="Mother's Occupation:"> House Wife</p>
+                <p data-label="Sisters:"> No</p>
+                <p data-label="Sisters Married:"> No</p>
+                <p data-label="Brother:"> No</p>
+                <p data-label="Brother Married:"> 0</p>
+                <p data-label="Property Details:"> Residing in our Ancestral Property</p>
+            </div>
+        </section>
+
+        <section id="horoscope-details">
+            <h2 onclick="toggleSection(this)">Horoscope Details</h2>
+            <div class="content">
+                <p data-label="Rasi:"> Midhunam</p>
+                <p data-label="Star - Padham:"> Mirugasiridam - 4</p>
+                <p data-label="Lagnam:"> Kumbam</p>
+                <p data-label="Suya Gothram:"> Punagasila</p>
+                <p data-label="Madhulam:"> Pendlidula</p>
+                <p data-label="Dasa:"></p>
+                <p data-label="Dasa Balance:"> 0 years, 8 months, 7 days</p>
+                <p data-label="Chevvai Dosham:"> Unknown</p>
+                <p data-label="Sarpa Dosham:"> Unknown</p>
+            </div>
+        </section>
+
+        <section id="contact-details">
+            <h2 onclick="toggleSection(this)">Contact Details</h2>
+            <div class="content">
+                <p data-label="Address:"> B. Tara, OLD 24/1, New 47, Govindappa Naicken Street, George Town, Chennai - 600001, Tamil Nadu, India</p>
+                <p data-label="Phone:"> +916381590583</p>
+                <p data-label="Mobile:"> +917667360114</p>
+                <p data-label="Email:"> krishnakanthb13@gmail.com</p>
+                <p data-label="WhatsApp Mobile:"> 7667360114</p>
+            </div>
+        </section>
+
+        <section id="contact-links">
+            <h2 onclick="toggleSection(this)">Contact Links</h2>
+            <div class="content">
+				<p data-label="Wanna Message:"> <a class="email" href="Hi%2C%20I%20am%20reaching%20out%20to%20you%20after%20checking%20your%20Online%20Horoscope."> WhatsApp Me</a> 
+				<p data-label="Wanna Talk:"> <a href="tel:+917667360114"> Call Me</a></p>
+				<p data-label="Wanna connect:"> <a href="https://bio.site/krishnakanthb"> Bio Site</a></p>
+            </div>
+        </section>
+
+        <section id="more-details">
+            <h2 onclick="toggleSection(this)">More Details</h2>
+            <div class="content">
+                <p data-label="About Myself:"> I believe in the beauty of simplicity. I am fun to be around with. In my free time, I enjoy Hobbies as mentioned. I value the importance of Respect, Integrity, Open-mindedness and am always open to new experiences. I find fulfillment in what I do. I am seeking a life partner who shares similar values, appreciates the small joys of life, and is ready to embark on this beautiful journey of companionship and growth. Check out details on <a href="https://bio.site/krishnakanthb13" target="_blank">bio.site/krishnakanthb13</a></p>
+                <p data-label="About My Family:"> My mother, maternal grandma, and I live with my uncle in our ancestral property. Both my mother and grandma are housewives, while my uncle works part-time handling TDS returns and taxes.</p>
+            </div>
+        </section>
+    </main>
+				
+    <footer>
+        <p>&copy; 2024 B. Krishna Kanth</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

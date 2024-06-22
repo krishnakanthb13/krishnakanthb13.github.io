@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Age Calculator</title>
+</head>
+<body>
+  <p id="ageDisplay"></p>
+
+  <script>
+    function calculateAge() {
+      // Pre-defined DOB (replace with your actual logic if needed)
+      var dobString = "1989-12-13";
+      var dobDate = new Date(dobString);
+      var today = new Date();
+      
+      var ageDiffInMs = today.getTime() - dobDate.getTime();
+      var ageInYears = Math.floor(ageDiffInMs / (1000 * 60 * 60 * 24 * 365));
+      
+      var message = "Your age is " + ageInYears + " years old.";
+      document.getElementById("ageDisplay").innerHTML = message;
+    }
+
+    calculateAge();
+  </script>
+</body>
+</html>

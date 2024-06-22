@@ -54,8 +54,28 @@
                -->                                                            
             <div class="row">
                <div class="one-third column">
-                  <h2>Chronological List<a id="Chronological" href="#Chronological"></a></h2>
+                  <h2>README <a id="README" href="#README"></a></h2>
                </div>
+               <br>
+               <a onclick="myFunction5()"><u>View README</u></a>
+               <div id="myDIV5" style="display: none;">
+<p>HELLO WORLD</p>
+               </div>
+               <script>
+                  function myFunction5() {
+                  									  var x = document.getElementById("myDIV5");
+                  									  if (x.style.display === "none") {
+                  										x.style.display = "block";
+                  									  } else {
+                  										x.style.display = "none";
+                  									  }
+                  									}
+               </script>
+               <hr>
+               <div class="one-third column">
+                  <h2>My Spare Time<a id="Chronological" href="#Chronological"></a></h2>
+               </div>
+               <br>
                <style>
                   table, th, td {
                   border: 0px solid black;
@@ -99,47 +119,20 @@
                   <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
                   <thead>
                      <th onclick="sortTable(0)">Year_Month</th>
-                     <th onclick="sortTable(1)">Linked Topic</th>
-                     <th onclick="sortTable(2)">Issue Year</th>
-                     <th onclick="sortTable(3)">Type</th>
-                     <th onclick="sortTable(4)">Credential URL</th>
+                     <th onclick="sortTable(1)">Topic</th>
+                     <th onclick="sortTable(2)">Category</th>
+                     <th onclick="sortTable(3)">Progress</th>
+                     <th onclick="sortTable(4)">Reference Link</th>
                   </thead>
                   <tbody id="myTable">
                      <tr class="subhead2">
                         <td>2024-06</td>
-                        <td><a href=https://achieve.snowflake.com/0f6d5c09-7807-45df-9759-f32c76828c64#gs.8p6vcn target=_blank>This is my link the Certificate</a></td>
+                        <td>Future of DataFrames and Data Systems with Wes McKinney</td>
                         <td><b><span style="color:RoyalBlue">Inspirational</span></b></td>
-                        <td>Completion</td>
-                        <td></td>
-                     </tr>
-                     <tr class="subhead2">
-                        <td>2024-06</td>
-                        <td><a href=https://achieve.snowflake.com/0f6d5c09-7807-45df-9759-f32c76828c64#gs.8p6vcn target=_blank>This is my link the Certificate</a></td>
-                        <td><b><span style="color:DarkGoldenRod">Snowflake</span></b></td>
-                        <td>Completion</td>
-                        <td></td>
-                     </tr>
-                     <tr class="subhead2">
-                        <td>2024-06</td>
-                        <td><a href=https://achieve.snowflake.com/0f6d5c09-7807-45df-9759-f32c76828c64#gs.8p6vcn target=_blank>This is my link the Certificate</a></td>
-                        <td><b><span style="color:DarkGoldenRod">Snowflake</span></b></td>
-                        <td>Completion</td>
-                        <td></td>
-                     </tr>
-                     <tr class="subhead2">
-                        <td>2024-06</td>
-                        <td><a href=https://achieve.snowflake.com/0f6d5c09-7807-45df-9759-f32c76828c64#gs.8p6vcn target=_blank>This is my link the Certificate</a></td>
-                        <td><b><span style="color:Fuchsia">SQL</span></b></td>
-                        <td>Completion</td>
-                        <td></td>
-                     </tr>
-                     <tr class="subhead2">
-                        <td>2024-06</td>
-                        <td><a href=https://achieve.snowflake.com/0f6d5c09-7807-45df-9759-f32c76828c64#gs.8p6vcn target=_blank>This is my link the Certificate</a></td>
-                        <td><b><span style="color:Fuchsia">SQL</span></b></td>
-                        <td>Completion</td>
-                        <td></td>
-                     </tr>
+                        <td><progress value="40" max="100"></progress></td>
+                        <td>
+                           <center><a href="../D/I1.html" target=_blank>OPEN</a></center>
+                        </td>
                   </tbody>
                </table>
                <script>
@@ -213,379 +206,406 @@
                   							  }
                   							}
                </script>
-            </div>
-            <hr>
-            <div class="one-third column">
-               <h2>Read_me <a id="Read_me" href="#Read_me"></a></h2>
+               <hr>
+               <div class="one-third column">
+                  <h2>Future Plans<a id="Future Plans" href="#Future Plans"></a></h2>
+               </div>
+               <hr>
+               <div class="one-third column">
+                  <h2>Color Template [Name]<a id="Color" href="#Color"></a></h2>
+               </div>
+               <br>
+               <a onclick="myFunction3()"><u>Expand</u></a>
+               <div id="myDIV3" style="display: none;">
+                  <ul>
+                     <li class="taglist">
+                        <br> 
+                        <center><b>
+                           <span style="color:AliceBlue">AliceBlue</span> - 
+                           <span style="color:AntiqueWhite">AntiqueWhite</span> - 
+                           <span style="color:Aqua">Aqua</span> - 
+                           <span style="color:Aquamarine">Aquamarine</span> - 
+                           <span style="color:Azure">Azure</span> - 
+                           <span style="color:Beige">Beige</span> - 
+                           <span style="color:Bisque">Bisque</span> - 
+                           <span style="color:Black">Black</span> - 
+                           <span style="color:BlanchedAlmond">BlanchedAlmond</span> - 
+                           <span style="color:Blue">Blue</span> - 
+                           <span style="color:BlueViolet">BlueViolet</span> - 
+                           <span style="color:Brown">Brown</span> - 
+                           <span style="color:BurlyWood">BurlyWood</span> - 
+                           <span style="color:CadetBlue">CadetBlue</span> - 
+                           <span style="color:Chartreuse">Chartreuse</span> - 
+                           <span style="color:Chocolate">Chocolate</span> - 
+                           <span style="color:Coral">Coral</span> - 
+                           <span style="color:CornflowerBlue">CornflowerBlue</span> - 
+                           <span style="color:Cornsilk">Cornsilk</span> - 
+                           <span style="color:Crimson">Crimson</span> - 
+                           <span style="color:Cyan">Cyan</span> - 
+                           <span style="color:DarkBlue">DarkBlue</span> - 
+                           <span style="color:DarkCyan">DarkCyan</span> - 
+                           <span style="color:DarkGoldenRod">DarkGoldenRod</span> - 
+                           <span style="color:DarkGrey">DarkGrey</span> - 
+                           <span style="color:DarkGreen">DarkGreen</span> - 
+                           <span style="color:DarkKhaki">DarkKhaki</span> - 
+                           <span style="color:DarkMagenta">DarkMagenta</span> - 
+                           <span style="color:DarkOliveGreen">DarkOliveGreen</span> - 
+                           <span style="color:Darkorange">Darkorange</span> - 
+                           <span style="color:DarkOrchid">DarkOrchid</span> - 
+                           <span style="color:DarkRed">DarkRed</span> - 
+                           <span style="color:DarkSalmon">DarkSalmon</span> - 
+                           <span style="color:DarkSeaGreen">DarkSeaGreen</span> - 
+                           <span style="color:DarkSlateBlue">DarkSlateBlue</span> - 
+                           <span style="color:DarkSlateGrey">DarkSlateGrey</span> - 
+                           <span style="color:DarkTurquoise">DarkTurquoise</span> - 
+                           <span style="color:DarkViolet">DarkViolet</span> - 
+                           <span style="color:DeepPink">DeepPink</span> - 
+                           <span style="color:DeepSkyBlue">DeepSkyBlue</span> - 
+                           <span style="color:DimGray">DimGray</span> - 
+                           <span style="color:DodgerBlue">DodgerBlue</span> - 
+                           <span style="color:FireBrick">FireBrick</span> - 
+                           <span style="color:FloralWhite">FloralWhite</span> - 
+                           <span style="color:ForestGreen">ForestGreen</span> - 
+                           <span style="color:Fuchsia">Fuchsia</span> - 
+                           <span style="color:Gainsboro">Gainsboro</span> - 
+                           <span style="color:GhostWhite">GhostWhite</span> - 
+                           <span style="color:Gold">Gold</span> - 
+                           <span style="color:GoldenRod">GoldenRod</span> - 
+                           <span style="color:Grey">Grey</span> - 
+                           <span style="color:Green">Green</span> - 
+                           <span style="color:GreenYellow">GreenYellow</span> - 
+                           <span style="color:HoneyDew">HoneyDew</span> - 
+                           <span style="color:HotPink">HotPink</span> - 
+                           <span style="color:IndianRed">IndianRed</span> - 
+                           <span style="color:Indigo">Indigo</span> - 
+                           <span style="color:Ivory">Ivory</span> - 
+                           <span style="color:Khaki">Khaki</span> - 
+                           <span style="color:Lavender">Lavender</span> - 
+                           <span style="color:LavenderBlush">LavenderBlush</span> - 
+                           <span style="color:LawnGreen">LawnGreen</span> - 
+                           <span style="color:LemonChiffon">LemonChiffon</span> - 
+                           <span style="color:LightBlue">LightBlue</span> - 
+                           <span style="color:LightCoral">LightCoral</span> - 
+                           <span style="color:LightCyan">LightCyan</span> - 
+                           <span style="color:LightGoldenRodYellow">LightGoldenRodYellow</span> - 
+                           <span style="color:LightGrey">LightGrey</span> - 
+                           <span style="color:LightGreen">LightGreen</span> - 
+                           <span style="color:LightPink">LightPink</span> - 
+                           <span style="color:LightSalmon">LightSalmon</span> - 
+                           <span style="color:LightSeaGreen">LightSeaGreen</span> - 
+                           <span style="color:LightSkyBlue">LightSkyBlue</span> - 
+                           <span style="color:LightSlateGrey">LightSlateGrey</span> - 
+                           <span style="color:LightSteelBlue">LightSteelBlue</span> - 
+                           <span style="color:LightYellow">LightYellow</span> - 
+                           <span style="color:Lime">Lime</span> - 
+                           <span style="color:LimeGreen">LimeGreen</span> - 
+                           <span style="color:Linen">Linen</span> - 
+                           <span style="color:Magenta">Magenta</span> - 
+                           <span style="color:Maroon">Maroon</span> - 
+                           <span style="color:MediumAquaMarine">MediumAquaMarine</span> - 
+                           <span style="color:MediumBlue">MediumBlue</span> - 
+                           <span style="color:MediumOrchid">MediumOrchid</span> - 
+                           <span style="color:MediumPurple">MediumPurple</span> - 
+                           <span style="color:MediumSeaGreen">MediumSeaGreen</span> - 
+                           <span style="color:MediumSlateBlue">MediumSlateBlue</span> - 
+                           <span style="color:MediumSpringGreen">MediumSpringGreen</span> - 
+                           <span style="color:MediumTurquoise">MediumTurquoise</span> - 
+                           <span style="color:MediumVioletRed">MediumVioletRed</span> - 
+                           <span style="color:MidnightBlue">MidnightBlue</span> - 
+                           <span style="color:MintCream">MintCream</span> - 
+                           <span style="color:MistyRose">MistyRose</span> - 
+                           <span style="color:Moccasin">Moccasin</span> - 
+                           <span style="color:NavajoWhite">NavajoWhite</span> - 
+                           <span style="color:Navy">Navy</span> - 
+                           <span style="color:OldLace">OldLace</span> - 
+                           <span style="color:Olive">Olive</span> - 
+                           <span style="color:OliveDrab">OliveDrab</span> - 
+                           <span style="color:Orange">Orange</span> - 
+                           <span style="color:OrangeRed">OrangeRed</span> - 
+                           <span style="color:Orchid">Orchid</span> - 
+                           <span style="color:PaleGoldenRod">PaleGoldenRod</span> - 
+                           <span style="color:PaleGreen">PaleGreen</span> - 
+                           <span style="color:PaleTurquoise">PaleTurquoise</span> - 
+                           <span style="color:PaleVioletRed">PaleVioletRed</span> - 
+                           <span style="color:PapayaWhip">PapayaWhip</span> - 
+                           <span style="color:PeachPuff">PeachPuff</span> - 
+                           <span style="color:Peru">Peru</span> - 
+                           <span style="color:Pink">Pink</span> - 
+                           <span style="color:Plum">Plum</span> - 
+                           <span style="color:PowderBlue">PowderBlue</span> - 
+                           <span style="color:Purple">Purple</span> - 
+                           <span style="color:Red">Red</span> - 
+                           <span style="color:RosyBrown">RosyBrown</span> - 
+                           <span style="color:RoyalBlue">RoyalBlue</span> - 
+                           <span style="color:SaddleBrown">SaddleBrown</span> - 
+                           <span style="color:Salmon">Salmon</span> - 
+                           <span style="color:SandyBrown">SandyBrown</span> - 
+                           <span style="color:SeaGreen">SeaGreen</span> - 
+                           <span style="color:SeaShell">SeaShell</span> - 
+                           <span style="color:Sienna">Sienna</span> - 
+                           <span style="color:Silver">Silver</span> - 
+                           <span style="color:SkyBlue">SkyBlue</span> - 
+                           <span style="color:SlateBlue">SlateBlue</span> - 
+                           <span style="color:SlateGrey">SlateGrey</span> - 
+                           <span style="color:Snow">Snow</span> - 
+                           <span style="color:SpringGreen">SpringGreen</span> - 
+                           <span style="color:SteelBlue">SteelBlue</span> - 
+                           <span style="color:Tan">Tan</span> - 
+                           <span style="color:Teal">Teal</span> - 
+                           <span style="color:Thistle">Thistle</span> - 
+                           <span style="color:Tomato">Tomato</span> - 
+                           <span style="color:Turquoise">Turquoise</span> - 
+                           <span style="color:Violet">Violet</span> - 
+                           <span style="color:Wheat">Wheat</span> - 
+                           <span style="color:White">White</span> - 
+                           <span style="color:WhiteSmoke">WhiteSmoke</span> - 
+                           <span style="color:Yellow">Yellow</span> - 
+                           <span style="color:YellowGreen">YellowGreen</span>
+                        </center>
+                        </b>
+                        <div class="endtag"></div>
+                     </li>
+                  </ul>
+               </div>
+               <script>
+                  function myFunction3() {
+                  									  var x = document.getElementById("myDIV3");
+                  									  if (x.style.display === "none") {
+                  										x.style.display = "block";
+                  									  } else {
+                  										x.style.display = "none";
+                  									  }
+                  									}
+               </script>
+               <hr>
+               <div class="one-third column">
+                  <h2>Color Template [Code]<a id="Color0" href="#Color0"></a></h2>
+               </div>
+               <br>
+               <a onclick="myFunction4()"><u>Expand</u></a>
+               <div id="myDIV4" style="display: none;">
+                  <ul>
+                     <li class="taglist">
+                        <br> 
+                        <center><b>
+                           <span style="color:#F0F8FF">#F0F8FF</span> - 
+                           <span style="color:#FAEBD7">#FAEBD7</span> - 
+                           <span style="color:#00FFFF">#00FFFF</span> - 
+                           <span style="color:#7FFFD4">#7FFFD4</span> - 
+                           <span style="color:#F0FFFF">#F0FFFF</span> - 
+                           <span style="color:#F5F5DC">#F5F5DC</span> - 
+                           <span style="color:#FFE4C4">#FFE4C4</span> - 
+                           <span style="color:#000000">#000000</span> - 
+                           <span style="color:#FFEBCD">#FFEBCD</span> - 
+                           <span style="color:#0000FF">#0000FF</span> - 
+                           <span style="color:#8A2BE2">#8A2BE2</span> - 
+                           <span style="color:#A52A2A">#A52A2A</span> - 
+                           <span style="color:#DEB887">#DEB887</span> - 
+                           <span style="color:#5F9EA0">#5F9EA0</span> - 
+                           <span style="color:#7FFF00">#7FFF00</span> - 
+                           <span style="color:#D2691E">#D2691E</span> - 
+                           <span style="color:#FF7F50">#FF7F50</span> - 
+                           <span style="color:#6495ED">#6495ED</span> - 
+                           <span style="color:#FFF8DC">#FFF8DC</span> - 
+                           <span style="color:#DC143C">#DC143C</span> - 
+                           <span style="color:#00FFFF">#00FFFF</span> - 
+                           <span style="color:#00008B">#00008B</span> - 
+                           <span style="color:#008B8B">#008B8B</span> - 
+                           <span style="color:#B8860B">#B8860B</span> - 
+                           <span style="color:#A9A9A9">#A9A9A9</span> - 
+                           <span style="color:#006400">#006400</span> - 
+                           <span style="color:#BDB76B">#BDB76B</span> - 
+                           <span style="color:#8B008B">#8B008B</span> - 
+                           <span style="color:#556B2F">#556B2F</span> - 
+                           <span style="color:#FF8C00">#FF8C00</span> - 
+                           <span style="color:#9932CC">#9932CC</span> - 
+                           <span style="color:#8B0000">#8B0000</span> - 
+                           <span style="color:#E9967A">#E9967A</span> - 
+                           <span style="color:#8FBC8F">#8FBC8F</span> - 
+                           <span style="color:#483D8B">#483D8B</span> - 
+                           <span style="color:#2F4F4F">#2F4F4F</span> - 
+                           <span style="color:#00CED1">#00CED1</span> - 
+                           <span style="color:#9400D3">#9400D3</span> - 
+                           <span style="color:#FF1493">#FF1493</span> - 
+                           <span style="color:#00BFFF">#00BFFF</span> - 
+                           <span style="color:#696969">#696969</span> - 
+                           <span style="color:#1E90FF">#1E90FF</span> - 
+                           <span style="color:#B22222">#B22222</span> - 
+                           <span style="color:#FFFAF0">#FFFAF0</span> - 
+                           <span style="color:#228B22">#228B22</span> - 
+                           <span style="color:#FF00FF">#FF00FF</span> - 
+                           <span style="color:#DCDCDC">#DCDCDC</span> - 
+                           <span style="color:#F8F8FF">#F8F8FF</span> - 
+                           <span style="color:#FFD700">#FFD700</span> - 
+                           <span style="color:#DAA520">#DAA520</span> - 
+                           <span style="color:#808080">#808080</span> - 
+                           <span style="color:#008000">#008000</span> - 
+                           <span style="color:#ADFF2F">#ADFF2F</span> - 
+                           <span style="color:#F0FFF0">#F0FFF0</span> - 
+                           <span style="color:#FF69B4">#FF69B4</span> - 
+                           <span style="color:#CD5C5C">#CD5C5C</span> - 
+                           <span style="color:#4B0082">#4B0082</span> - 
+                           <span style="color:#FFFFF0">#FFFFF0</span> - 
+                           <span style="color:#F0E68C">#F0E68C</span> - 
+                           <span style="color:#E6E6FA">#E6E6FA</span> - 
+                           <span style="color:#FFF0F5">#FFF0F5</span> - 
+                           <span style="color:#7CFC00">#7CFC00</span> - 
+                           <span style="color:#FFFACD">#FFFACD</span> - 
+                           <span style="color:#ADD8E6">#ADD8E6</span> - 
+                           <span style="color:#F08080">#F08080</span> - 
+                           <span style="color:#E0FFFF">#E0FFFF</span> - 
+                           <span style="color:#FAFAD2">#FAFAD2</span> - 
+                           <span style="color:#D3D3D3">#D3D3D3</span> - 
+                           <span style="color:#90EE90">#90EE90</span> - 
+                           <span style="color:#FFB6C1">#FFB6C1</span> - 
+                           <span style="color:#FFA07A">#FFA07A</span> - 
+                           <span style="color:#20B2AA">#20B2AA</span> - 
+                           <span style="color:#87CEFA">#87CEFA</span> - 
+                           <span style="color:#778899">#778899</span> - 
+                           <span style="color:#B0C4DE">#B0C4DE</span> - 
+                           <span style="color:#FFFFE0">#FFFFE0</span> - 
+                           <span style="color:#00FF00">#00FF00</span> - 
+                           <span style="color:#32CD32">#32CD32</span> - 
+                           <span style="color:#FAF0E6">#FAF0E6</span> - 
+                           <span style="color:#FF00FF">#FF00FF</span> - 
+                           <span style="color:#800000">#800000</span> - 
+                           <span style="color:#66CDAA">#66CDAA</span> - 
+                           <span style="color:#0000CD">#0000CD</span> - 
+                           <span style="color:#BA55D3">#BA55D3</span> - 
+                           <span style="color:#9370D8">#9370D8</span> - 
+                           <span style="color:#3CB371">#3CB371</span> - 
+                           <span style="color:#7B68EE">#7B68EE</span> - 
+                           <span style="color:#00FA9A">#00FA9A</span> - 
+                           <span style="color:#48D1CC">#48D1CC</span> - 
+                           <span style="color:#C71585">#C71585</span> - 
+                           <span style="color:#191970">#191970</span> - 
+                           <span style="color:#F5FFFA">#F5FFFA</span> - 
+                           <span style="color:#FFE4E1">#FFE4E1</span> - 
+                           <span style="color:#FFE4B5">#FFE4B5</span> - 
+                           <span style="color:#FFDEAD">#FFDEAD</span> - 
+                           <span style="color:#000080">#000080</span> - 
+                           <span style="color:#FDF5E6">#FDF5E6</span> - 
+                           <span style="color:#808000">#808000</span> - 
+                           <span style="color:#6B8E23">#6B8E23</span> - 
+                           <span style="color:#FFA500">#FFA500</span> - 
+                           <span style="color:#FF4500">#FF4500</span> - 
+                           <span style="color:#DA70D6">#DA70D6</span> - 
+                           <span style="color:#EEE8AA">#EEE8AA</span> - 
+                           <span style="color:#98FB98">#98FB98</span> - 
+                           <span style="color:#AFEEEE">#AFEEEE</span> - 
+                           <span style="color:#D87093">#D87093</span> - 
+                           <span style="color:#FFEFD5">#FFEFD5</span> - 
+                           <span style="color:#FFDAB9">#FFDAB9</span> - 
+                           <span style="color:#CD853F">#CD853F</span> - 
+                           <span style="color:#FFC0CB">#FFC0CB</span> - 
+                           <span style="color:#DDA0DD">#DDA0DD</span> - 
+                           <span style="color:#B0E0E6">#B0E0E6</span> - 
+                           <span style="color:#800080">#800080</span> - 
+                           <span style="color:#FF0000">#FF0000</span> - 
+                           <span style="color:#BC8F8F">#BC8F8F</span> - 
+                           <span style="color:#4169E1">#4169E1</span> - 
+                           <span style="color:#8B4513">#8B4513</span> - 
+                           <span style="color:#FA8072">#FA8072</span> - 
+                           <span style="color:#F4A460">#F4A460</span> - 
+                           <span style="color:#2E8B57">#2E8B57</span> - 
+                           <span style="color:#FFF5EE">#FFF5EE</span> - 
+                           <span style="color:#A0522D">#A0522D</span> - 
+                           <span style="color:#C0C0C0">#C0C0C0</span> - 
+                           <span style="color:#87CEEB">#87CEEB</span> - 
+                           <span style="color:#6A5ACD">#6A5ACD</span> - 
+                           <span style="color:#708090">#708090</span> - 
+                           <span style="color:#FFFAFA">#FFFAFA</span> - 
+                           <span style="color:#00FF7F">#00FF7F</span> - 
+                           <span style="color:#4682B4">#4682B4</span> - 
+                           <span style="color:#D2B48C">#D2B48C</span> - 
+                           <span style="color:#008080">#008080</span> - 
+                           <span style="color:#D8BFD8">#D8BFD8</span> - 
+                           <span style="color:#FF6347">#FF6347</span> - 
+                           <span style="color:#40E0D0">#40E0D0</span> - 
+                           <span style="color:#EE82EE">#EE82EE</span> - 
+                           <span style="color:#F5DEB3">#F5DEB3</span> - 
+                           <span style="color:#FFFFFF">#FFFFFF</span> - 
+                           <span style="color:#F5F5F5">#F5F5F5</span> - 
+                           <span style="color:#FFFF00">#FFFF00</span> - 
+                           <span style="color:#9ACD32">#9ACD32</span>
+                        </center>
+                        </b>
+                        <div class="endtag"></div>
+                     </li>
+                  </ul>
+               </div>
+               <script>
+                  function myFunction4() {
+                  									  var x = document.getElementById("myDIV4");
+                  									  if (x.style.display === "none") {
+                  										x.style.display = "block";
+                  									  } else {
+                  										x.style.display = "none";
+                  									  }
+                  									}
+               </script>
+               <hr>
             </div>
          </div>
-         <hr>
-         <div class="one-third column">
-            <h2>Color Template [Name]<a id="Color" href="#Color"></a></h2>
-         </div>
-         <ul>
-            <li class="taglist">
-               <br> 
-               <center><b>
-                  <span style="color:AliceBlue">AliceBlue</span> - 
-                  <span style="color:AntiqueWhite">AntiqueWhite</span> - 
-                  <span style="color:Aqua">Aqua</span> - 
-                  <span style="color:Aquamarine">Aquamarine</span> - 
-                  <span style="color:Azure">Azure</span> - 
-                  <span style="color:Beige">Beige</span> - 
-                  <span style="color:Bisque">Bisque</span> - 
-                  <span style="color:Black">Black</span> - 
-                  <span style="color:BlanchedAlmond">BlanchedAlmond</span> - 
-                  <span style="color:Blue">Blue</span> - 
-                  <span style="color:BlueViolet">BlueViolet</span> - 
-                  <span style="color:Brown">Brown</span> - 
-                  <span style="color:BurlyWood">BurlyWood</span> - 
-                  <span style="color:CadetBlue">CadetBlue</span> - 
-                  <span style="color:Chartreuse">Chartreuse</span> - 
-                  <span style="color:Chocolate">Chocolate</span> - 
-                  <span style="color:Coral">Coral</span> - 
-                  <span style="color:CornflowerBlue">CornflowerBlue</span> - 
-                  <span style="color:Cornsilk">Cornsilk</span> - 
-                  <span style="color:Crimson">Crimson</span> - 
-                  <span style="color:Cyan">Cyan</span> - 
-                  <span style="color:DarkBlue">DarkBlue</span> - 
-                  <span style="color:DarkCyan">DarkCyan</span> - 
-                  <span style="color:DarkGoldenRod">DarkGoldenRod</span> - 
-                  <span style="color:DarkGrey">DarkGrey</span> - 
-                  <span style="color:DarkGreen">DarkGreen</span> - 
-                  <span style="color:DarkKhaki">DarkKhaki</span> - 
-                  <span style="color:DarkMagenta">DarkMagenta</span> - 
-                  <span style="color:DarkOliveGreen">DarkOliveGreen</span> - 
-                  <span style="color:Darkorange">Darkorange</span> - 
-                  <span style="color:DarkOrchid">DarkOrchid</span> - 
-                  <span style="color:DarkRed">DarkRed</span> - 
-                  <span style="color:DarkSalmon">DarkSalmon</span> - 
-                  <span style="color:DarkSeaGreen">DarkSeaGreen</span> - 
-                  <span style="color:DarkSlateBlue">DarkSlateBlue</span> - 
-                  <span style="color:DarkSlateGrey">DarkSlateGrey</span> - 
-                  <span style="color:DarkTurquoise">DarkTurquoise</span> - 
-                  <span style="color:DarkViolet">DarkViolet</span> - 
-                  <span style="color:DeepPink">DeepPink</span> - 
-                  <span style="color:DeepSkyBlue">DeepSkyBlue</span> - 
-                  <span style="color:DimGray">DimGray</span> - 
-                  <span style="color:DodgerBlue">DodgerBlue</span> - 
-                  <span style="color:FireBrick">FireBrick</span> - 
-                  <span style="color:FloralWhite">FloralWhite</span> - 
-                  <span style="color:ForestGreen">ForestGreen</span> - 
-                  <span style="color:Fuchsia">Fuchsia</span> - 
-                  <span style="color:Gainsboro">Gainsboro</span> - 
-                  <span style="color:GhostWhite">GhostWhite</span> - 
-                  <span style="color:Gold">Gold</span> - 
-                  <span style="color:GoldenRod">GoldenRod</span> - 
-                  <span style="color:Grey">Grey</span> - 
-                  <span style="color:Green">Green</span> - 
-                  <span style="color:GreenYellow">GreenYellow</span> - 
-                  <span style="color:HoneyDew">HoneyDew</span> - 
-                  <span style="color:HotPink">HotPink</span> - 
-                  <span style="color:IndianRed">IndianRed</span> - 
-                  <span style="color:Indigo">Indigo</span> - 
-                  <span style="color:Ivory">Ivory</span> - 
-                  <span style="color:Khaki">Khaki</span> - 
-                  <span style="color:Lavender">Lavender</span> - 
-                  <span style="color:LavenderBlush">LavenderBlush</span> - 
-                  <span style="color:LawnGreen">LawnGreen</span> - 
-                  <span style="color:LemonChiffon">LemonChiffon</span> - 
-                  <span style="color:LightBlue">LightBlue</span> - 
-                  <span style="color:LightCoral">LightCoral</span> - 
-                  <span style="color:LightCyan">LightCyan</span> - 
-                  <span style="color:LightGoldenRodYellow">LightGoldenRodYellow</span> - 
-                  <span style="color:LightGrey">LightGrey</span> - 
-                  <span style="color:LightGreen">LightGreen</span> - 
-                  <span style="color:LightPink">LightPink</span> - 
-                  <span style="color:LightSalmon">LightSalmon</span> - 
-                  <span style="color:LightSeaGreen">LightSeaGreen</span> - 
-                  <span style="color:LightSkyBlue">LightSkyBlue</span> - 
-                  <span style="color:LightSlateGrey">LightSlateGrey</span> - 
-                  <span style="color:LightSteelBlue">LightSteelBlue</span> - 
-                  <span style="color:LightYellow">LightYellow</span> - 
-                  <span style="color:Lime">Lime</span> - 
-                  <span style="color:LimeGreen">LimeGreen</span> - 
-                  <span style="color:Linen">Linen</span> - 
-                  <span style="color:Magenta">Magenta</span> - 
-                  <span style="color:Maroon">Maroon</span> - 
-                  <span style="color:MediumAquaMarine">MediumAquaMarine</span> - 
-                  <span style="color:MediumBlue">MediumBlue</span> - 
-                  <span style="color:MediumOrchid">MediumOrchid</span> - 
-                  <span style="color:MediumPurple">MediumPurple</span> - 
-                  <span style="color:MediumSeaGreen">MediumSeaGreen</span> - 
-                  <span style="color:MediumSlateBlue">MediumSlateBlue</span> - 
-                  <span style="color:MediumSpringGreen">MediumSpringGreen</span> - 
-                  <span style="color:MediumTurquoise">MediumTurquoise</span> - 
-                  <span style="color:MediumVioletRed">MediumVioletRed</span> - 
-                  <span style="color:MidnightBlue">MidnightBlue</span> - 
-                  <span style="color:MintCream">MintCream</span> - 
-                  <span style="color:MistyRose">MistyRose</span> - 
-                  <span style="color:Moccasin">Moccasin</span> - 
-                  <span style="color:NavajoWhite">NavajoWhite</span> - 
-                  <span style="color:Navy">Navy</span> - 
-                  <span style="color:OldLace">OldLace</span> - 
-                  <span style="color:Olive">Olive</span> - 
-                  <span style="color:OliveDrab">OliveDrab</span> - 
-                  <span style="color:Orange">Orange</span> - 
-                  <span style="color:OrangeRed">OrangeRed</span> - 
-                  <span style="color:Orchid">Orchid</span> - 
-                  <span style="color:PaleGoldenRod">PaleGoldenRod</span> - 
-                  <span style="color:PaleGreen">PaleGreen</span> - 
-                  <span style="color:PaleTurquoise">PaleTurquoise</span> - 
-                  <span style="color:PaleVioletRed">PaleVioletRed</span> - 
-                  <span style="color:PapayaWhip">PapayaWhip</span> - 
-                  <span style="color:PeachPuff">PeachPuff</span> - 
-                  <span style="color:Peru">Peru</span> - 
-                  <span style="color:Pink">Pink</span> - 
-                  <span style="color:Plum">Plum</span> - 
-                  <span style="color:PowderBlue">PowderBlue</span> - 
-                  <span style="color:Purple">Purple</span> - 
-                  <span style="color:Red">Red</span> - 
-                  <span style="color:RosyBrown">RosyBrown</span> - 
-                  <span style="color:RoyalBlue">RoyalBlue</span> - 
-                  <span style="color:SaddleBrown">SaddleBrown</span> - 
-                  <span style="color:Salmon">Salmon</span> - 
-                  <span style="color:SandyBrown">SandyBrown</span> - 
-                  <span style="color:SeaGreen">SeaGreen</span> - 
-                  <span style="color:SeaShell">SeaShell</span> - 
-                  <span style="color:Sienna">Sienna</span> - 
-                  <span style="color:Silver">Silver</span> - 
-                  <span style="color:SkyBlue">SkyBlue</span> - 
-                  <span style="color:SlateBlue">SlateBlue</span> - 
-                  <span style="color:SlateGrey">SlateGrey</span> - 
-                  <span style="color:Snow">Snow</span> - 
-                  <span style="color:SpringGreen">SpringGreen</span> - 
-                  <span style="color:SteelBlue">SteelBlue</span> - 
-                  <span style="color:Tan">Tan</span> - 
-                  <span style="color:Teal">Teal</span> - 
-                  <span style="color:Thistle">Thistle</span> - 
-                  <span style="color:Tomato">Tomato</span> - 
-                  <span style="color:Turquoise">Turquoise</span> - 
-                  <span style="color:Violet">Violet</span> - 
-                  <span style="color:Wheat">Wheat</span> - 
-                  <span style="color:White">White</span> - 
-                  <span style="color:WhiteSmoke">WhiteSmoke</span> - 
-                  <span style="color:Yellow">Yellow</span> - 
-                  <span style="color:YellowGreen">YellowGreen</span>
+         <div class="summary">
+            <p>Krishna Kanth B
+            </p>
+            <div class="toc">
+               <br>
+               <!-- <a class="email" href="https://krishnakanthb13.github.io/"><b> << GO BACK</b></a>  -->
+               <!-- <a class="email" href="index.html"><b> << GO BACK</b></a>  -->
+               <a href="#README">README</a>
+               <a href="#Chronological">Chronological List</a>
+               <a href="#2024">2024</a>
+               <a href="#Future Plans">Future Plans</a>
+               <a href="#Color">Color Template</a>
+               <br>
+               <center>
+                  <buttonab onclick="toggleDarkMode()">
+                     <svg width="30" height="30" id="light-icon">
+                        <circle cx="15" cy="15" r="6" fill=white />
+                        <line
+                           id="ray"
+                           stroke=white
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           x1="15"
+                           y1="1"
+                           x2="15"
+                           y2="4"
+                           ></line>
+                        <use href="#ray" transform="rotate(45 15 15)" />
+                        <use href="#ray" transform="rotate(90 15 15)" />
+                        <use href="#ray" transform="rotate(135 15 15)" />
+                        <use href="#ray" transform="rotate(180 15 15)" />
+                        <use href="#ray" transform="rotate(225 15 15)" />
+                        <use href="#ray" transform="rotate(270 15 15)" />
+                        <use href="#ray" transform="rotate(315 15 15)" />
+                     </svg>
+                     <svg width="30" height="30" id="dark-icon">
+                        <path
+                           fill=white
+                           d="
+                           M 23, 5
+                           A 12 12 0 1 0 23, 25
+                           A 12 12 0 0 1 23, 5"
+                           />
+                     </svg>
+                  </buttonab>
                </center>
-               </b>
-               <div class="endtag"></div>
-            </li>
-         </ul>
-         <hr>
-         <div class="one-third column">
-            <h2>Color Template [Code]<a id="Color0" href="#Color0"></a></h2>
-         </div>
-         <ul>
-            <li class="taglist">
-               <br> 
-               <center><b>
-                  <span style="color:#F0F8FF">#F0F8FF</span> - 
-                  <span style="color:#FAEBD7">#FAEBD7</span> - 
-                  <span style="color:#00FFFF">#00FFFF</span> - 
-                  <span style="color:#7FFFD4">#7FFFD4</span> - 
-                  <span style="color:#F0FFFF">#F0FFFF</span> - 
-                  <span style="color:#F5F5DC">#F5F5DC</span> - 
-                  <span style="color:#FFE4C4">#FFE4C4</span> - 
-                  <span style="color:#000000">#000000</span> - 
-                  <span style="color:#FFEBCD">#FFEBCD</span> - 
-                  <span style="color:#0000FF">#0000FF</span> - 
-                  <span style="color:#8A2BE2">#8A2BE2</span> - 
-                  <span style="color:#A52A2A">#A52A2A</span> - 
-                  <span style="color:#DEB887">#DEB887</span> - 
-                  <span style="color:#5F9EA0">#5F9EA0</span> - 
-                  <span style="color:#7FFF00">#7FFF00</span> - 
-                  <span style="color:#D2691E">#D2691E</span> - 
-                  <span style="color:#FF7F50">#FF7F50</span> - 
-                  <span style="color:#6495ED">#6495ED</span> - 
-                  <span style="color:#FFF8DC">#FFF8DC</span> - 
-                  <span style="color:#DC143C">#DC143C</span> - 
-                  <span style="color:#00FFFF">#00FFFF</span> - 
-                  <span style="color:#00008B">#00008B</span> - 
-                  <span style="color:#008B8B">#008B8B</span> - 
-                  <span style="color:#B8860B">#B8860B</span> - 
-                  <span style="color:#A9A9A9">#A9A9A9</span> - 
-                  <span style="color:#006400">#006400</span> - 
-                  <span style="color:#BDB76B">#BDB76B</span> - 
-                  <span style="color:#8B008B">#8B008B</span> - 
-                  <span style="color:#556B2F">#556B2F</span> - 
-                  <span style="color:#FF8C00">#FF8C00</span> - 
-                  <span style="color:#9932CC">#9932CC</span> - 
-                  <span style="color:#8B0000">#8B0000</span> - 
-                  <span style="color:#E9967A">#E9967A</span> - 
-                  <span style="color:#8FBC8F">#8FBC8F</span> - 
-                  <span style="color:#483D8B">#483D8B</span> - 
-                  <span style="color:#2F4F4F">#2F4F4F</span> - 
-                  <span style="color:#00CED1">#00CED1</span> - 
-                  <span style="color:#9400D3">#9400D3</span> - 
-                  <span style="color:#FF1493">#FF1493</span> - 
-                  <span style="color:#00BFFF">#00BFFF</span> - 
-                  <span style="color:#696969">#696969</span> - 
-                  <span style="color:#1E90FF">#1E90FF</span> - 
-                  <span style="color:#B22222">#B22222</span> - 
-                  <span style="color:#FFFAF0">#FFFAF0</span> - 
-                  <span style="color:#228B22">#228B22</span> - 
-                  <span style="color:#FF00FF">#FF00FF</span> - 
-                  <span style="color:#DCDCDC">#DCDCDC</span> - 
-                  <span style="color:#F8F8FF">#F8F8FF</span> - 
-                  <span style="color:#FFD700">#FFD700</span> - 
-                  <span style="color:#DAA520">#DAA520</span> - 
-                  <span style="color:#808080">#808080</span> - 
-                  <span style="color:#008000">#008000</span> - 
-                  <span style="color:#ADFF2F">#ADFF2F</span> - 
-                  <span style="color:#F0FFF0">#F0FFF0</span> - 
-                  <span style="color:#FF69B4">#FF69B4</span> - 
-                  <span style="color:#CD5C5C">#CD5C5C</span> - 
-                  <span style="color:#4B0082">#4B0082</span> - 
-                  <span style="color:#FFFFF0">#FFFFF0</span> - 
-                  <span style="color:#F0E68C">#F0E68C</span> - 
-                  <span style="color:#E6E6FA">#E6E6FA</span> - 
-                  <span style="color:#FFF0F5">#FFF0F5</span> - 
-                  <span style="color:#7CFC00">#7CFC00</span> - 
-                  <span style="color:#FFFACD">#FFFACD</span> - 
-                  <span style="color:#ADD8E6">#ADD8E6</span> - 
-                  <span style="color:#F08080">#F08080</span> - 
-                  <span style="color:#E0FFFF">#E0FFFF</span> - 
-                  <span style="color:#FAFAD2">#FAFAD2</span> - 
-                  <span style="color:#D3D3D3">#D3D3D3</span> - 
-                  <span style="color:#90EE90">#90EE90</span> - 
-                  <span style="color:#FFB6C1">#FFB6C1</span> - 
-                  <span style="color:#FFA07A">#FFA07A</span> - 
-                  <span style="color:#20B2AA">#20B2AA</span> - 
-                  <span style="color:#87CEFA">#87CEFA</span> - 
-                  <span style="color:#778899">#778899</span> - 
-                  <span style="color:#B0C4DE">#B0C4DE</span> - 
-                  <span style="color:#FFFFE0">#FFFFE0</span> - 
-                  <span style="color:#00FF00">#00FF00</span> - 
-                  <span style="color:#32CD32">#32CD32</span> - 
-                  <span style="color:#FAF0E6">#FAF0E6</span> - 
-                  <span style="color:#FF00FF">#FF00FF</span> - 
-                  <span style="color:#800000">#800000</span> - 
-                  <span style="color:#66CDAA">#66CDAA</span> - 
-                  <span style="color:#0000CD">#0000CD</span> - 
-                  <span style="color:#BA55D3">#BA55D3</span> - 
-                  <span style="color:#9370D8">#9370D8</span> - 
-                  <span style="color:#3CB371">#3CB371</span> - 
-                  <span style="color:#7B68EE">#7B68EE</span> - 
-                  <span style="color:#00FA9A">#00FA9A</span> - 
-                  <span style="color:#48D1CC">#48D1CC</span> - 
-                  <span style="color:#C71585">#C71585</span> - 
-                  <span style="color:#191970">#191970</span> - 
-                  <span style="color:#F5FFFA">#F5FFFA</span> - 
-                  <span style="color:#FFE4E1">#FFE4E1</span> - 
-                  <span style="color:#FFE4B5">#FFE4B5</span> - 
-                  <span style="color:#FFDEAD">#FFDEAD</span> - 
-                  <span style="color:#000080">#000080</span> - 
-                  <span style="color:#FDF5E6">#FDF5E6</span> - 
-                  <span style="color:#808000">#808000</span> - 
-                  <span style="color:#6B8E23">#6B8E23</span> - 
-                  <span style="color:#FFA500">#FFA500</span> - 
-                  <span style="color:#FF4500">#FF4500</span> - 
-                  <span style="color:#DA70D6">#DA70D6</span> - 
-                  <span style="color:#EEE8AA">#EEE8AA</span> - 
-                  <span style="color:#98FB98">#98FB98</span> - 
-                  <span style="color:#AFEEEE">#AFEEEE</span> - 
-                  <span style="color:#D87093">#D87093</span> - 
-                  <span style="color:#FFEFD5">#FFEFD5</span> - 
-                  <span style="color:#FFDAB9">#FFDAB9</span> - 
-                  <span style="color:#CD853F">#CD853F</span> - 
-                  <span style="color:#FFC0CB">#FFC0CB</span> - 
-                  <span style="color:#DDA0DD">#DDA0DD</span> - 
-                  <span style="color:#B0E0E6">#B0E0E6</span> - 
-                  <span style="color:#800080">#800080</span> - 
-                  <span style="color:#FF0000">#FF0000</span> - 
-                  <span style="color:#BC8F8F">#BC8F8F</span> - 
-                  <span style="color:#4169E1">#4169E1</span> - 
-                  <span style="color:#8B4513">#8B4513</span> - 
-                  <span style="color:#FA8072">#FA8072</span> - 
-                  <span style="color:#F4A460">#F4A460</span> - 
-                  <span style="color:#2E8B57">#2E8B57</span> - 
-                  <span style="color:#FFF5EE">#FFF5EE</span> - 
-                  <span style="color:#A0522D">#A0522D</span> - 
-                  <span style="color:#C0C0C0">#C0C0C0</span> - 
-                  <span style="color:#87CEEB">#87CEEB</span> - 
-                  <span style="color:#6A5ACD">#6A5ACD</span> - 
-                  <span style="color:#708090">#708090</span> - 
-                  <span style="color:#FFFAFA">#FFFAFA</span> - 
-                  <span style="color:#00FF7F">#00FF7F</span> - 
-                  <span style="color:#4682B4">#4682B4</span> - 
-                  <span style="color:#D2B48C">#D2B48C</span> - 
-                  <span style="color:#008080">#008080</span> - 
-                  <span style="color:#D8BFD8">#D8BFD8</span> - 
-                  <span style="color:#FF6347">#FF6347</span> - 
-                  <span style="color:#40E0D0">#40E0D0</span> - 
-                  <span style="color:#EE82EE">#EE82EE</span> - 
-                  <span style="color:#F5DEB3">#F5DEB3</span> - 
-                  <span style="color:#FFFFFF">#FFFFFF</span> - 
-                  <span style="color:#F5F5F5">#F5F5F5</span> - 
-                  <span style="color:#FFFF00">#FFFF00</span> - 
-                  <span style="color:#9ACD32">#9ACD32</span>
-               </center>
-               </b>
-               <div class="endtag"></div>
-            </li>
-         </ul>
-         <hr>
-      </div>
-      </div>
-      <div class="summary">
-         <p>Krishna Kanth B
-         </p>
-         <div class="toc">
-            <br>
-            <!-- <a class="email" href="https://krishnakanthb13.github.io/"><b> << GO BACK</b></a>  -->
-            <!-- <a class="email" href="index.html"><b> << GO BACK</b></a>  -->
-            <a href="#Chronological">Chronological List</a>
-            <a href="#Read_me">Read_me</a>
-            <a href="#2024">2024</a>
-            <a href="#Color">Color Template</a>
-            <br>
-            <center>
-               <buttonab onclick="toggleDarkMode()">
-                  <svg width="30" height="30" id="light-icon">
-                     <circle cx="15" cy="15" r="6" fill=white />
-                     <line
-                        id="ray"
-                        stroke=white
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        x1="15"
-                        y1="1"
-                        x2="15"
-                        y2="4"
-                        ></line>
-                     <use href="#ray" transform="rotate(45 15 15)" />
-                     <use href="#ray" transform="rotate(90 15 15)" />
-                     <use href="#ray" transform="rotate(135 15 15)" />
-                     <use href="#ray" transform="rotate(180 15 15)" />
-                     <use href="#ray" transform="rotate(225 15 15)" />
-                     <use href="#ray" transform="rotate(270 15 15)" />
-                     <use href="#ray" transform="rotate(315 15 15)" />
-                  </svg>
-                  <svg width="30" height="30" id="dark-icon">
-                     <path
-                        fill=white
-                        d="
-                        M 23, 5
-                        A 12 12 0 1 0 23, 25
-                        A 12 12 0 0 1 23, 5"
-                        />
-                  </svg>
-               </buttonab>
-            </center>
-         </div>
-      </div>
-      <div class="container footer noprint">
-         <div class="row">
-            <div class="one-third column">
-               &nbsp;
-            </div>
-            <div class="two-thirds column">
-               <b><a href="">Last Updated: 2024-06-08 13:12:29</a></b>
-               <!-- STABLE VERSION -->
             </div>
          </div>
-      </div>
+         <div class="container footer noprint">
+            <div class="row">
+               <div class="one-third column">
+                  &nbsp;
+               </div>
+               <div class="two-thirds column">
+                  <b><a href="">Last Updated: 2024-06-22 19:43:02</a></b>
+                  <!-- STABLE VERSION -->
+               </div>
+            </div>
+         </div>
       </div>
    </body>
    <style>

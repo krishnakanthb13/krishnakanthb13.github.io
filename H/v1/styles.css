@@ -1,0 +1,51 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #1f1f1f;
+    padding: 10px 20px;
+    text-align: center;
+    border-bottom: 2px solid #3f3f3f;
+    border-top: 2px solid #3f3f3f;
+}
+
+h1, h2 {
+    color: #00ff99; /* Neon accent color */
+}
+
+a {
+    color: #00ff99;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 20px;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    section {
+        padding: 10px;
+    }
+}

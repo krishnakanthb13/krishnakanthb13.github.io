@@ -830,3 +830,22 @@ h4 {
 		  border-radius: 50%;
 		  display: inline-block;
 		} */
+
+
+progress {
+  /* Adjust width as needed */
+  width: 100px;
+  height: 15px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #ddd;
+}
+
+progress::-webkit-progress-value {
+  background-color: #007bff;
+}
