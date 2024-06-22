@@ -90,3 +90,18 @@ p::before {
         grid-template-columns: 1fr;
     }
 }
+
+body {
+  margin: 0; /* Remove default body margins */
+  overflow: auto; /* Prevent scrollbars if video covers entire viewport */
+}
+
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* Stretch video to cover the entire viewport */
+  z-index: -1; /* Place the video behind other website content */
+}
