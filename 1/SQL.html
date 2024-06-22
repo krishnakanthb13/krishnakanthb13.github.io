@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Krishna Kanth B</title>
+      <meta name="description" content="" />
+      <meta name="author" content="Krishna Kanth B" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+      <!-- CSS -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css' />
+      <link href='http://fonts.googleapis.com/css?family=Muli:300' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="../css/skeleton.css" />
+      <link rel="stylesheet" href="../css/layout.css" />
+      <link rel="stylesheet" href="../css/base.css" />
+      <script src="../js/respond.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script>
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="one-third column myname">
+               <h1 class="remove-bottom">Krishna Kanth B</h1>
+               <div class="subheader"><span class="nowrap">SQL</span></div>
+            </div>
+            <div class="two-thirds column infos">
+               <h4>
+                  <center>
+                     <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank"><b>| LinkedIn |</b></a>
+                     <a href="https://sites.google.com/view/krishnakanthb/home" target="_blank"><b>| Projects |</b></a>
+                     <a href="https://github.com/krishnakanthb13/" target="_blank"><b>| GitHub |</b></a>
+                     <a href="https://bio.site/krishnakanthb13" target="_blank"><b>| BioLink |</b></a>
+                  </center>
+               </h4>
+            </div>
+         </div>
+         <hr>
+         <p> HELLO WORLD! </p>
+         <b>
+            <pre><code>
+
+SELECT
+  e.employee_id AS "Employee #"
+  , e.first_name || ' ' || e.last_name AS "Name"
+  , e.email AS "Email"
+  , e.phone_number AS "Phone"
+  , TO_CHAR(e.hire_date, 'MM/DD/YYYY') AS "Hire Date"
+  , TO_CHAR(e.salary, 'L99G999D99', 'NLS_NUMERIC_CHARACTERS = ''.,'' NLS_CURRENCY = ''$''') AS "Salary"
+  , e.commission_pct AS "Comission %"
+  , 'works as ' || j.job_title || ' in ' || d.department_name || ' department (manager: '
+    || dm.first_name || ' ' || dm.last_name || ') and immediate supervisor: ' || m.first_name || ' ' || m.last_name AS "Current Job"
+  , TO_CHAR(j.min_salary, 'L99G999D99', 'NLS_NUMERIC_CHARACTERS = ''.,'' NLS_CURRENCY = ''$''') || ' - ' ||
+      TO_CHAR(j.max_salary, 'L99G999D99', 'NLS_NUMERIC_CHARACTERS = ''.,'' NLS_CURRENCY = ''$''') AS "Current Salary"
+  , l.street_address || ', ' || l.postal_code || ', ' || l.city || ', ' || l.state_province || ', '
+    || c.country_name || ' (' || r.region_name || ')' AS "Location"
+  , jh.job_id AS "History Job ID"
+  , 'worked from ' || TO_CHAR(jh.start_date, 'MM/DD/YYYY') || ' to ' || TO_CHAR(jh.end_date, 'MM/DD/YYYY') ||
+    ' as ' || jj.job_title || ' in ' || dd.department_name || ' department' AS "History Job Title"
+  
+FROM employees e
+-- to get title of current job_id
+  JOIN jobs j 
+    ON e.job_id = j.job_id
+-- to get name of current manager_id
+  LEFT JOIN employees m 
+    ON e.manager_id = m.employee_id
+-- to get name of current department_id
+  LEFT JOIN departments d 
+    ON d.department_id = e.department_id
+-- to get name of manager of current department
+-- (not equal to current manager and can be equal to the employee itself)
+  LEFT JOIN employees dm 
+    ON d.manager_id = dm.employee_id
+-- to get name of location
+  LEFT JOIN locations l
+    ON d.location_id = l.location_id
+  LEFT JOIN countries c
+    ON l.country_id = c.country_id
+  LEFT JOIN regions r
+    ON c.region_id = r.region_id
+-- to get job history of employee
+  LEFT JOIN job_history jh
+    ON e.employee_id = jh.employee_id
+-- to get title of job history job_id
+  LEFT JOIN jobs jj
+    ON jj.job_id = jh.job_id
+-- to get namee of department from job history
+  LEFT JOIN departments dd
+    ON dd.department_id = jh.department_id
+
+ORDER BY e.employee_id;
+
+</code></pre>
+         </b>
+         <hr>
+         <div class="summary">
+            <p>Krishna Kanth B
+            </p>
+            <div class="toc">
+               <br>
+               <!-- <a class="email" href="https://krishnakanthb13.github.io/"><b> << GO BACK</b></a>  -->
+               <!-- <a class="email" href="index.html"><b> << GO BACK</b></a>  -->
+               <br>
+               <center>
+                  <buttonab onclick="toggleDarkMode()">
+                     <svg width="30" height="30" id="light-icon">
+                        <circle cx="15" cy="15" r="6" fill=white />
+                        <line
+                           id="ray"
+                           stroke=white
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           x1="15"
+                           y1="1"
+                           x2="15"
+                           y2="4"
+                           ></line>
+                        <use href="#ray" transform="rotate(45 15 15)" />
+                        <use href="#ray" transform="rotate(90 15 15)" />
+                        <use href="#ray" transform="rotate(135 15 15)" />
+                        <use href="#ray" transform="rotate(180 15 15)" />
+                        <use href="#ray" transform="rotate(225 15 15)" />
+                        <use href="#ray" transform="rotate(270 15 15)" />
+                        <use href="#ray" transform="rotate(315 15 15)" />
+                     </svg>
+                     <svg width="30" height="30" id="dark-icon">
+                        <path
+                           fill=white
+                           d="
+                           M 23, 5
+                           A 12 12 0 1 0 23, 25
+                           A 12 12 0 0 1 23, 5"
+                           />
+                     </svg>
+                  </buttonab>
+               </center>
+            </div>
+         </div>
+         <div class="container footer noprint">
+            <div class="row">
+               <div class="one-third column">
+                  &nbsp;
+               </div>
+               <div class="two-thirds column">
+                  <b><a href="">Last Updated: 2024-06-08 13:12:29</a></b>
+                  <!-- STABLE VERSION -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+   <style>
+      #myBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      font-size: 12px;
+      border: none;
+      outline: none;
+      background-color: orange;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      }
+      #myBtn:hover {
+      background-color: liteorange;
+      }
+   </style>
+   </head>
+   <body>
+      <button onclick="topFunction()" id="myBtn" title="Go to top">Scroll to Top</button>
+      <!-- <div style="background-color:black;color:white;padding:30px">Scroll Down</div> -->
+      <!-- <div style="background-color:lightgrey;padding:30px 30px 2500px">This example demonstrates how to create a "scroll to top" button that becomes visible  -->
+      <!-- <strong>when the user starts to scroll the page</strong>.</div> -->
+      <script>
+         // Get the button
+         let mybutton = document.getElementById("myBtn");
+         
+         // When the user scrolls down 20px from the top of the document, show the button
+         window.onscroll = function() {scrollFunction()};
+         
+         function scrollFunction() {
+           if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+             mybutton.style.display = "block";
+           } else {
+             mybutton.style.display = "none";
+           }
+         }
+         
+         // When the user clicks on the button, scroll to the top of the document
+         function topFunction() {
+           document.body.scrollTop = 0;
+           document.documentElement.scrollTop = 0;
+         }
+      </script>
+      <script>
+         const lightIcon = document.getElementById("light-icon");
+         const darkIcon = document.getElementById("dark-icon");
+         // Check if dark mode is preferred
+         const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+         let darkMode = darkModeMediaQuery.matches;
+         
+         // Set dark-mode class on body if darkMode is true and pick icon
+         if (darkMode) {
+           document.body.classList.add("dark-mode");
+           document.querySelector("h1").classList.add("dark-mode");
+           document.querySelectorAll("h2").forEach(h2 => h2.classList.add("dark-mode"));
+           document.querySelectorAll("h3").forEach(h3 => h3.classList.add("dark-mode"));
+           document.querySelectorAll("h4").forEach(h4 => h4.classList.add("dark-mode"));
+           document.querySelectorAll("h5").forEach(h5 => h5.classList.add("dark-mode"));
+           document.querySelectorAll("h6").forEach(h6 => h6.classList.add("dark-mode"));
+           document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.add("dark-mode"));
+           document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.add("dark-mode"));
+           document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.add("dark-mode"));
+           document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.add("dark-mode1"));
+           document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.add("dark-mode1"));
+           darkIcon.setAttribute("display", "none");
+         } else {
+           lightIcon.setAttribute("display", "none");
+         }
+         
+         // Toggle dark mode on button click
+         function toggleDarkMode() {
+           // Toggle darkMode variable
+           darkMode = !darkMode;
+         
+           // Toggle dark-mode class on body
+           document.body.classList.toggle("dark-mode");
+           document.querySelector("h1").classList.toggle("dark-mode");
+           document.querySelectorAll("h2").forEach(h2 => h2.classList.toggle("dark-mode"));
+           document.querySelectorAll("h3").forEach(h3 => h3.classList.toggle("dark-mode"));
+           document.querySelectorAll("h4").forEach(h4 => h4.classList.toggle("dark-mode"));
+           document.querySelectorAll("h5").forEach(h5 => h5.classList.toggle("dark-mode"));
+           document.querySelectorAll("h6").forEach(h6 => h6.classList.toggle("dark-mode"));
+           document.querySelectorAll("h6,p,center").forEach(h6 => h6.classList.toggle("dark-mode"));
+           document.querySelectorAll(".subheader,.nowrap").forEach(subheader => subheader.classList.toggle("dark-mode"));
+           document.querySelectorAll(".tag,.tag b,li").forEach(subheader => subheader.classList.toggle("dark-mode"));
+           document.querySelectorAll("a,.email").forEach(subheader => subheader.classList.toggle("dark-mode1"));
+           document.querySelectorAll("a:hover").forEach(subheader => subheader.classList.toggle("dark-mode1"));
+         
+           // Toggle light and dark icons
+           if (darkMode) {
+         	lightIcon.setAttribute("display", "block");
+         	darkIcon.setAttribute("display", "none");
+           } else {
+         	lightIcon.setAttribute("display", "none");
+         	darkIcon.setAttribute("display", "block");
+           }
+         }
+      </script>
+   </body>
+</html>
