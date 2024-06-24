@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Future of DataFrames and Data Systems</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-        h1, h2 {
-            color: #00ff7f; /* Neon green */
-        }
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        p {
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
-    <h1>Future of DataFrames and Data Systems with Wes McKinney</h1>
-    <p><strong>Completed at:</strong> Jun 22, 2024 12:57 PM</p>
-    <p><strong>Video Duration:</strong> 1 Hour</p>
-
-    <h2>Overview</h2>
-    <p>The video covers the future of dataframes and data systems, featuring Wes McKinney, the creator of pandas and Apache Arrow. Several key software projects are discussed, focusing on data interchange, analysis, and storage.</p>
-
-    <h2>Key Software Projects</h2>
-    <ul>
-        <li><strong>Pandas:</strong> An open-source library providing data structures and data analysis tools for Python.</li>
-        <li><strong>Apache Arrow:</strong> An open-source project for in-memory data interchange.</li>
-        <li><strong>Ibis:</strong> An open-source project aiming to bridge the world of relational databases and data science tools.</li>
-        <li><strong>Spark:</strong> An open-source unified analytics engine for large-scale data processing.</li>
-        <li><strong>Presto:</strong> An open-source distributed SQL query engine.</li>
-        <li><strong>SQL:</strong> A structured query language.</li>
-        <li><strong>Iceberg:</strong> An open-source table format for big data.</li>
-        <li><strong>Parquet:</strong> An open-source columnar data file format.</li>
-    </ul>
-
-    <h2>Key Points from the Video</h2>
-    <p>Apache Arrow is highlighted as a language-agnostic data interchange standard being used in composable data systems. Ibis is noted for allowing SQL queries to be run on various data sources.</p>
-    <p>One challenge of composable data systems is the absence of a unified data frame interface, but multiple projects are working towards standardizing data frames. Another challenge is managing unstructured data within these systems, with approaches like storing unstructured data separately from structured data being explored.</p>
-
-    <h2>Software Projects Mentioned by Wes McKinney</h2>
-    <ul>
-        <li><strong>Apache Arrow:</strong> An open-source project for data interchange and in-memory processing.</li>
-        <li><strong>Ibis:</strong> A Python library providing a unified API for various SQL databases and data warehouses.</li>
-        <li><strong>Posit:</strong> A data science platform company offering a variety of tools and services.</li>
-        <li><strong>Pandas:</strong> A popular Python library for data analysis.</li>
-        <li><strong>DBT:</strong> A data transformation tool using SQL.</li>
-        <li><strong>Snowflake:</strong> A cloud-based data warehouse.</li>
-        <li><strong>Spark:</strong> A unified analytics engine for large-scale data processing.</li>
-        <li><strong>Modin:</strong> A library for scaling pandas workloads on Apache Spark or Ray.</li>
-        <li><strong>Iceberg:</strong> An open-source table format for data lakes.</li>
-        <li><strong>Parquet:</strong> A columnar data file format.</li>
-        <li><strong>Nimble:</strong> A new open-source file format designed for use with Arrow.</li>
-        <li><strong>Lance DB:</strong> A new storage project optimized for AI and vector search applications.</li>
-    </ul>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Future of DataFrames and Data Systems</title>
+      <style>
+         body {
+         font-family: Arial, sans-serif;
+         line-height: 1.6;
+         margin: 20px;
+         background-color: #121212;
+         color: #e0e0e0;
+         }
+         h1, h2 {
+         color: #00ff7f; /* Neon green */
+         }
+         ul {
+         list-style-type: disc;
+         padding-left: 20px;
+         }
+         p {
+         margin: 10px 0;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Future of DataFrames and Data Systems with Wes McKinney</h1>
+      <p><strong>Completed at:</strong> Jun 22, 2024 12:57 PM</p>
+      <p><strong>Video Duration:</strong> 1 Hour</p>
+      <h2>Overview</h2>
+      <p>The video covers the future of dataframes and data systems, featuring Wes McKinney, the creator of pandas and Apache Arrow. Several key software projects are discussed, focusing on data interchange, analysis, and storage.</p>
+      <h2>Key Software Projects</h2>
+      <ul>
+         <li><strong>Pandas:</strong> An open-source library providing data structures and data analysis tools for Python.</li>
+         <li><strong>Apache Arrow:</strong> An open-source project for in-memory data interchange.</li>
+         <li><strong>Ibis:</strong> An open-source project aiming to bridge the world of relational databases and data science tools.</li>
+         <li><strong>Spark:</strong> An open-source unified analytics engine for large-scale data processing.</li>
+         <li><strong>Presto:</strong> An open-source distributed SQL query engine.</li>
+         <li><strong>SQL:</strong> A structured query language.</li>
+         <li><strong>Iceberg:</strong> An open-source table format for big data.</li>
+         <li><strong>Parquet:</strong> An open-source columnar data file format.</li>
+      </ul>
+      <h2>Key Points from the Video</h2>
+      <p>Apache Arrow is highlighted as a language-agnostic data interchange standard being used in composable data systems. Ibis is noted for allowing SQL queries to be run on various data sources.</p>
+      <p>One challenge of composable data systems is the absence of a unified data frame interface, but multiple projects are working towards standardizing data frames. Another challenge is managing unstructured data within these systems, with approaches like storing unstructured data separately from structured data being explored.</p>
+      <h2>Software Projects Mentioned by Wes McKinney</h2>
+      <ul>
+         <li><strong>Apache Arrow:</strong> An open-source project for data interchange and in-memory processing.</li>
+         <li><strong>Ibis:</strong> A Python library providing a unified API for various SQL databases and data warehouses.</li>
+         <li><strong>Posit:</strong> A data science platform company offering a variety of tools and services.</li>
+         <li><strong>Pandas:</strong> A popular Python library for data analysis.</li>
+         <li><strong>DBT:</strong> A data transformation tool using SQL.</li>
+         <li><strong>Snowflake:</strong> A cloud-based data warehouse.</li>
+         <li><strong>Spark:</strong> A unified analytics engine for large-scale data processing.</li>
+         <li><strong>Modin:</strong> A library for scaling pandas workloads on Apache Spark or Ray.</li>
+         <li><strong>Iceberg:</strong> An open-source table format for data lakes.</li>
+         <li><strong>Parquet:</strong> A columnar data file format.</li>
+         <li><strong>Nimble:</strong> A new open-source file format designed for use with Arrow.</li>
+         <li><strong>Lance DB:</strong> A new storage project optimized for AI and vector search applications.</li>
+      </ul>
+      <hr>
+      <h1>Data Technologies for Data Science</h1>
+      <p>Here's a breakdown of the data technologies mentioned in the talk along with some additional insights:</p>
+      <h2>Data Interchange and Processing</h2>
+      <ul>
+         <li>Pandas: An open-source Python library providing data structures and data analysis tools.</li>
+         <li>Apache Arrow: An open-source project for in-memory data interchange. Arrow is a language-agnostic standard that facilitates communication between different data systems.</li>
+         <li>Parquet: An open-source columnar data file format for efficient storage and retrieval of data.</li>
+         <li>Iceberg: An open-source table format for big data, designed for reliability and scalability in data lakes.</li>
+         <li>Nimble: A new open-source file format designed for efficient use with Apache Arrow.</li>
+      </ul>
+      <h2>SQL and Data Warehouses</h2>
+      <ul>
+         <li>SQL: A structured query language for interacting with relational databases.</li>
+         <li>Ibis: An open-source project that allows you to write SQL queries that can be run on a variety of data sources, bridging the gap between relational databases and data science tools.</li>
+         <li>DBT (Data Build Tool): A transformation tool that uses SQL to define and execute data transformations in a data warehouse.</li>
+         <li>Snowflake: A cloud-based data warehouse platform.</li>
+      </ul>
+      <h2>Large-Scale Data Processing</h2>
+      <ul>
+         <li>Spark: An open-source unified analytics engine for large-scale data processing.</li>
+         <li>Modin: A library for scaling pandas workloads on Apache Spark or Ray, enabling distributed computing for pandas dataframes.</li>
+      </ul>
+      <h2>Other Technologies</h2>
+      <ul>
+         <li>Posit: A data science platform company offering a variety of data science tools and services. (Not mentioned in the video, but included in the speaker's list)</li>
+         <li>Lance DB: A new storage project specifically optimized for AI and vector search applications. (Not mentioned in the video, but included in the speaker's list)</li>
+      </ul>
+      <h2>Challenges and Future of Data Systems</h2>
+      <p>The video highlights the challenges of composable data systems, including the lack of a single unified data frame interface and handling unstructured data. While there are ongoing efforts to standardize data frames, approaches for integrating unstructured data are still being explored.</p>
+      <p>The speaker emphasizes the importance of open standards for data lakes, such as Iceberg, to ensure interoperability and flexibility within the data ecosystem.</p>
+   </body>
 </html>
