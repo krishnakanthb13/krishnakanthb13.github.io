@@ -97,3 +97,7 @@ button:hover {
     background-color: green;
     color: black;
 }
+
+html {
+    scroll-behavior: smooth;
+}
