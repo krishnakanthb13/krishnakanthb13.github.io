@@ -34,6 +34,20 @@ a {
     position: relative;
 }
 
+.content::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.content::-webkit-scrollbar-track {
+    background: black; /* Track color */
+}
+
+.content::-webkit-scrollbar-thumb {
+    background-color: green; /* Thumb color */
+    border-radius: 4px; /* Rounded corners */
+    border: 2px solid black; /* Border color */
+}
+
 .cursor {
     display: inline-block;
     animation: blink 1s step-end infinite;
@@ -60,4 +74,26 @@ a {
     padding: 10px;
     font-size: 0.9em;
     text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+button {
+    background-color: black;
+    color: green;
+    border: 1px solid green;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: green;
+    color: black;
 }
