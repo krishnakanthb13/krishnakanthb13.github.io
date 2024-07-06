@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const enterButton = document.getElementById('enterButton');
 
     const sections = [
-        { title: 'Welcome Note', details: '<p>$ Welcome to my resume!<br><br>Hello there! I hope you are doing Great.<br><br>And you have a nice time Navigating my career path.</p>', type: 'section' },
+        { title: 'Welcome Note', details: '<h2>$ Welcome to my resume!</h2><br><h3>Hello there! I hope you are doing Great.<br><br>And you have a nice time Navigating my career path.<h3>', type: 'section' },
         { title: 'Access Krishna Kanth B\'s Resume!', type: 'menu', children: [
             { title: '../', type: 'back' },
             { title: 'About Me', details: '<p>With my extensive background in data analysis and my zeal for discovering insights from challenging datasets, I am certain that I would be a significant asset to your team.<br><br>As an Analyst with over eight years of experience, I’ve developed a deep understanding of data management, analysis, visualization, and storytelling methodologies and technologies. I am highly competent in extracting, transforming, analysing, reporting, and inferring complex datasets to produce actionable insights. I have successfully implemented data-driven initiatives, leveraging my knowledge in Excel, SQL, Python, and Tableau, resulting in considerable FTE savings and productivity growth for my prior employers.<br><br>One of the most remarkable achievements would be for Optum was the creation of a fully independent layer in the data model that was fully Automated End to End. The “Validation method using Stored Procedures” project resulted in a 90% time saving and a 50% increase in accuracy.<br><br>I am certain that my analytical skills, attention to detail, and ability to document and present complicated findings in a clear and simple manner will make me an asset to your team. I thrive in fast-paced workplaces (with adequate unwinding and intentional defocusing period) and enjoy collaborating with variety of stakeholders to implement data-informed plan and strategies.<br><br>Not only I excel in Hard Skill, but I have also developed and upskilled my Soft Skills as well. I have presented multiple findings through various Rollouts, Reviews and Sprint Retrospective Meetings. I have also trained myself in handling and conflict resolutions, negotiation skills.<br><br>Thank you for making it till here and considering my application. I am confident that my skills and passion makes me qualify for this position. I would appreciate the opportunity to further discuss how my qualifications connect with your needs.</p>', type: 'section' },
@@ -30,70 +30,122 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'How to Navigate', details: 'Use ArrowUp, ArrowDown to navigate, Enter or ArrowRight to select, ../ to go back in selection page', type: 'section' }
     ];
 
-let currentMenu = sections;
-let menuStack = [];
-let currentIndex = 0;
-let hasDisplayedMenu = false;
+    let currentMenu = sections;
+    let menuStack = [];
+    let currentIndex = 0; // Start after '../' back option
+    const typingSpeed = 50; // ms per character
 
-function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
-}
+    function playSound(sound) {
+        sound.currentTime = 0;
+        sound.play();
+    }
 
-function displayMenu() {
-    content.innerHTML = '';
-    const menuItems = currentMenu.map((item, index) => `<div class="menu-item">${item.title}</div>`).join('');
-    content.innerHTML = menuItems;
-    addHighlighting();
-    hasDisplayedMenu = true;
-}
+    function displayMenu() {
+        content.innerHTML = '';
+        const menuItems = currentMenu.map((item, index) => `<div class="menu-item">${item.title}</div>`).join('');
+        typeText(menuItems, () => {
+            addHighlighting();
+            addCursor();
+        });
+    }
 
-function displayDetails(index) {
-    content.innerHTML = `<div class="details">${currentMenu[index].details}</div>`;
-}
+    function displayDetails(index) {
+        content.innerHTML = '';
+        const details = `<div class="details">${currentMenu[index].details}</div>`;
+        typeText(details);
+    }
 
-function addHighlighting() {
-    const menuItems = content.querySelectorAll('.menu-item');
-    menuItems.forEach((item, index) => {
-        if (index === currentIndex) {
-            item.classList.add('highlight');
-        } else {
-            item.classList.remove('highlight');
-        }
-    });
-}
+    function addHighlighting() {
+        const menuItems = content.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+            if (index === currentIndex) {
+                item.classList.add('highlight');
+            } else {
+                item.classList.remove('highlight');
+            }
+        });
+    }
 
-function navigate(e) {
-    if (e.key === 'ArrowUp' || e.target === upButton) {
-        playSound(keySound1);
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentMenu.length - 1;
-        displayMenu();
-    } else if (e.key === 'ArrowDown' || e.target === downButton) {
-        playSound(keySound1);
-        currentIndex = (currentIndex < currentMenu.length - 1) ? currentIndex + 1 : 0;
-        displayMenu();
-    } else if (e.key === 'Enter' || e.key === 'ArrowRight' || e.target === enterButton) {
-        playSound(keySound2);
-        const selectedItem = currentMenu[currentIndex];
-        if (selectedItem.type === 'section') {
-            displayDetails(currentIndex);
-        } else if (selectedItem.type === 'menu') {
-            menuStack.push(currentMenu);
-            currentMenu = selectedItem.children;
-            currentIndex = 0;
-            hasDisplayedMenu = false;
-            displayMenu();
-        } else if (selectedItem.type === 'back') {
-            currentMenu = menuStack.pop() || sections;
-            currentIndex = 0;
-            hasDisplayedMenu = false;
-            displayMenu();
+    function addCursor() {
+        const highlightElement = document.querySelector('.highlight');
+        if (highlightElement) {
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            cursor.textContent = ' ';
+            highlightElement.appendChild(cursor);
         }
     }
-}
 
-displayMenu();
-document.addEventListener('keydown', navigate);
-upButton.addEventListener('click', navigate);
-downButton.addEventListener('click', navigate);
-enterButton.addEventListener('click', navigate);
+    function typeText(htmlContent, callback) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        const nodes = Array.from(tempDiv.childNodes);
+        let i = 0;
+
+        function typeNode() {
+            if (i < nodes.length) {
+                content.appendChild(nodes[i]);
+                typeNodeContent(nodes[i], () => {
+                    i++;
+                    typeNode();
+                });
+            } else if (callback) {
+                callback();
+            }
+        }
+
+        function typeNodeContent(node, nodeCallback) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                let text = node.textContent;
+                node.textContent = '';
+                let j = 0;
+                const interval = setInterval(() => {
+                    if (j < text.length) {
+                        node.textContent += text[j];
+                        j++;
+                    } else {
+                        clearInterval(interval);
+                        nodeCallback();
+                    }
+                }, typingSpeed);
+            } else {
+                nodeCallback();
+            }
+        }
+
+        typeNode();
+    }
+
+    function navigate(e) {
+        if (e.key === 'ArrowUp' || e.target === upButton) {
+            playSound(keySound1);
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentMenu.length - 1;
+            displayMenu();
+        } else if (e.key === 'ArrowDown' || e.target === downButton) {
+            playSound(keySound1);
+            currentIndex = (currentIndex < currentMenu.length - 1) ? currentIndex + 1 : 0;
+            displayMenu();
+        } else if (e.key === 'Enter' || e.key === 'ArrowRight' || e.target === enterButton) {
+            playSound(keySound2);
+            const selectedItem = currentMenu[currentIndex];
+            if (selectedItem.type === 'section') {
+                displayDetails(currentIndex);
+            } else if (selectedItem.type === 'menu') {
+                menuStack.push(currentMenu);
+                currentMenu = selectedItem.children;
+                currentIndex = 0; // Start after '../' back option
+                displayMenu();
+            } else if (selectedItem.type === 'back') {
+                currentMenu = menuStack.pop() || sections;
+                currentIndex = 0;
+                displayMenu();
+            }
+        }
+    }
+
+    displayMenu();
+    document.addEventListener('keydown', navigate);
+	upButton.addEventListener('click', navigate);
+    downButton.addEventListener('click', navigate);
+    enterButton.addEventListener('click', navigate);
+});
