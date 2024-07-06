@@ -1,0 +1,10 @@
+/* Example styles */
+body {
+  font-family: 'PT Sans', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+circle {
+  cursor: pointer;
+}
