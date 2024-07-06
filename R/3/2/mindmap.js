@@ -48,12 +48,13 @@ const svg = d3.select("#mindmap")
     .append("svg")
     .attr("width", width)
     .attr("height", height)
+    .call(d3.zoom().on("zoom", function (event) {
+        svg.attr("transform", event.transform);
+    }))
     .append("g")
     .attr("transform", "translate(40,0)");
 
 const tree = d3.tree().size([height, width - 160]);
-const stratify = d3.stratify()
-    .parentId(d => d.id.substring(0, d.id.lastIndexOf(".")));
 
 const root = d3.hierarchy(resumeData);
 
@@ -69,7 +70,11 @@ const node = svg.selectAll(".node")
     .data(root.descendants())
     .enter().append("g")
     .attr("class", d => `node${d.children ? " node--internal" : " node--leaf"}`)
-    .attr("transform", d => `translate(${d.y},${d.x})`);
+    .attr("transform", d => `translate(${d.y},${d.x})`)
+    .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
 
 node.append("circle")
     .attr("r", 10);
@@ -80,6 +85,34 @@ node.append("text")
     .style("text-anchor", d => d.children ? "end" : "start")
     .text(d => d.data.name);
 
+const popup = d3.select("#popup");
+
 node.on("click", function(event, d) {
-    alert(d.data.details);
+    popup.style("left", (event.pageX + 10) + "px")
+         .style("top", (event.pageY - 20) + "px")
+         .style("display", "block")
+         .html(d.data.details);
+});
+
+d3.select("body").on("click", function(event) {
+    if (!event.target.closest(".node")) {
+        popup.style("display", "none");
+    }
+});
+
+function dragstarted(event, d) {
+    d3.select(this).raise().attr("stroke", "black");
+}
+
+function dragged(event, d) {
+    d3.select(this).attr("transform", `translate(${event.x},${event.y})`);
+}
+
+function dragended(event, d) {
+    d3.select(this).attr("stroke", null);
+}
+
+const darkModeToggle = document.querySelector(".dark-mode-toggle");
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
 });

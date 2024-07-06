@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Mind Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: #cfcfcf;
+        }
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .node circle {
+            fill: #999;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+        .node text {
+            font: 12px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #555;
+            stroke-opacity: 0.4;
+            stroke-width: 1.5px;
+        }
+        .popup {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        .dark-mode .popup {
+            background: #333;
+            color: #fff;
+            border: 1px solid #666;
+        }
+        .dark-mode .node circle {
+            fill: #444;
+            stroke: #888;
+        }
+        .dark-mode .link {
+            stroke: #888;
+        }
+        .dark-mode .node text {
+            fill: #cfcfcf;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ccc;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle">Toggle Dark Mode</button>
+    <div class="mindmap-container" id="mindmap"></div>
+    <div class="popup" id="popup"></div>
+
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="mindmap.js"></script>
+</body>
+</html>
