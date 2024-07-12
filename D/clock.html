@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clock</title>
 
-    <script defer src="clock.js"></script>
-    <link rel="stylesheet" href="style.css">
-	
     <style>
         * {
             box-sizing: border-box;
@@ -18,6 +15,9 @@
             margin: 0;
             padding: 2rem;
             background-color: hsl(0, 0%, 13%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .clock {
@@ -29,8 +29,23 @@
         .clock-joint {
             fill: hsl(0, 0%, 90%);
         }
+
+        button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: hsl(0, 0%, 30%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: hsl(0, 0%, 40%);
+        }
     </style>
-	
 </head>
 <body>
     <svg viewBox="-50 -50 100 100">
@@ -40,72 +55,89 @@
     </svg>
 
     <div>
-        <!-- Buttons to change colors -->
-        <button onclick="changeHandColor('secondHand', 'hsl(180, 70%, 50%)')">Second Hand Color</button>
-        <button onclick="changeHandColor('minuteHand', 'hsl(240, 70%, 50%)')">Minute Hand Color</button>
-        <button onclick="changeHandColor('hourHand', 'hsl(300, 70%, 50%)')">Hour Hand Color</button>
+        <!-- Buttons to change themes -->
+        <button onclick="changeTheme('default')">Default Theme</button>
+        <button onclick="changeTheme('dark')">Dark Theme</button>
+        <button onclick="changeTheme('light')">Light Theme</button>
     </div>
 
     <script>
-        const clockNode = document.getElementById('clock')
-        const svgNode = document.querySelector('svg')
-        const handsContainer = document.getElementById('hands')
+        const svgNode = document.querySelector('svg');
 
-        const numTimes = 60
-        for (i = 0; i < numTimes; i++) {
-            const handRotationOffset = 360 / numTimes
+        const numTimes = 60;
+        for (let i = 0; i < numTimes; i++) {
+            const handRotationOffset = 360 / numTimes;
 
             if ((i % 15 == 0 || i == 0) && numTimes != i + 1) {
-                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 80%)', width: 15 })
+                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 80%)', width: 15 });
             } else if (i % 5 == 0 && numTimes != i + 1) {
-                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 40%)', width: 12 })
+                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 40%)', width: 12 });
             } else {
-                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 30%)' })
+                addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 30%)' });
             }
         }
 
-        const secondHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 40, x: 0, height: 1 })
-        const minuteHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 25, x: 0, height: 1.5 })
-        const hourHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 15, x: 0, height: 2 })
+        const secondHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 40, x: 0, height: 1 });
+        const minuteHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 25, x: 0, height: 1.5 });
+        const hourHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 15, x: 0, height: 2 });
 
-        render()
+        render();
         function render() {
-            const time = new Date()
+            const time = new Date();
 
             const secondsDegrees = (time.getSeconds() * 6) + 90;
             const minutesDegrees = (time.getMinutes() * 6) - 90;
             const hoursDegrees = (time.getHours() * 30) - 90;
             
-            secondHand.style.transform = `rotate(${secondsDegrees}deg)`
-            minuteHand.style.transform = `rotate(${minutesDegrees}deg)`
-            hourHand.style.transform = `rotate(${hoursDegrees}deg)`
+            secondHand.setAttribute('transform', `rotate(${secondsDegrees} 0 0)`);
+            minuteHand.setAttribute('transform', `rotate(${minutesDegrees} 0 0)`);
+            hourHand.setAttribute('transform', `rotate(${hoursDegrees} 0 0)`);
 
-            requestAnimationFrame(render)
+            requestAnimationFrame(render);
         }
 
         function addHand({ width = 10, height = 1.5, x = 35, rotation = 0, color = 'black' } = {}) {
-            const handNode = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-            const handNodeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+            const handNode = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            const handNodeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
-            handNode.setAttribute('width', width)
-            handNode.setAttribute('height', height)
-            handNode.setAttribute('x', x)
-            handNode.setAttribute('fill', color)
+            handNode.setAttribute('width', width);
+            handNode.setAttribute('height', height);
+            handNode.setAttribute('x', x);
+            handNode.setAttribute('fill', color);
 
-            handNodeGroup.style.transform = `rotate(${rotation - 90}deg)`
-            handNodeGroup.style.transformOrigin = `0px ${height / 2}px`
-            handNodeGroup.style.translate = `0px -${height / 2}px`
+            handNodeGroup.setAttribute('transform', `rotate(${rotation - 90})`);
+            handNodeGroup.style.transformOrigin = `0px ${height / 2}px`;
 
-            handNodeGroup.appendChild(handNode)
+            handNodeGroup.appendChild(handNode);
+            svgNode.appendChild(handNodeGroup);
 
-            svgNode.appendChild(handNodeGroup)
-
-            return handNodeGroup
+            return handNodeGroup;
         }
 
-        function changeHandColor(handId, newColor) {
-            const hand = document.getElementById(handId)
-            hand.firstChild.setAttribute('fill', newColor)
+        function changeTheme(theme) {
+            switch (theme) {
+                case 'default':
+                    changeHandColor(secondHand, 'hsl(0, 0%, 90%)');
+                    changeHandColor(minuteHand, 'hsl(0, 0%, 90%)');
+                    changeHandColor(hourHand, 'hsl(0, 0%, 90%)');
+                    break;
+                case 'dark':
+                    changeHandColor(secondHand, 'hsl(180, 70%, 50%)');
+                    changeHandColor(minuteHand, 'hsl(240, 70%, 50%)');
+                    changeHandColor(hourHand, 'hsl(300, 70%, 50%)');
+                    break;
+                case 'light':
+                    changeHandColor(secondHand, 'hsl(120, 70%, 50%)');
+                    changeHandColor(minuteHand, 'hsl(180, 70%, 50%)');
+                    changeHandColor(hourHand, 'hsl(240, 70%, 50%)');
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function changeHandColor(hand, newColor) {
+            hand.firstChild.setAttribute('fill', newColor);
         }
     </script>
 </body>
