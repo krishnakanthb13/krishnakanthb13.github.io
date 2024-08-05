@@ -162,6 +162,52 @@
         sub {
             font-size: 0.75em; /* Adjust the size as needed */
         }
+		/* Style for the info button */
+        .info-button {
+            position: relative;
+            display: inline-block;
+            border: none;
+            <!-- background-color: #007bff; -->
+            <!-- color: white; -->
+            padding: 2px 2px;
+            border-radius: 2px;
+            cursor: pointer;
+			vertical-align: top; /* Align to the top */
+        }
+        /* Style for the info tooltip */
+        .info-tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the button */
+            left: 50%;
+            margin-left: -10px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+			font-size: 0.75em; /* Adjust font size as needed */
+        }
+        /* Arrow at the bottom of the tooltip */
+        .info-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        /* Show the tooltip when hovering over the button */
+        .info-button:hover .info-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -171,11 +217,23 @@
         <br>
         <!-- Buy Me a Coffee button -->
         <a href="https://www.buymeacoffee.com/krishnakanthb?" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=krishnakanthb&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: 5% transaction fee + payment processing fees.
+        </div>
+		</div>
         <br><br>
         <!-- PayPal button -->
         <a href="https://www.paypal.com/paypalme/krishnakanthb13?" target="_blank">
             <img src="paypal.png" alt="Sponsor with PayPal" style="width: 300px; height: 40px;" />
         </a>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: Standard PayPal transaction fees (2.9% + $0.30 per transaction).
+        </div>
+		</div>
         <br><br>
         <!-- GitHub Sponsor button -->
         <a class="sponsor-button" href="https://github.com/sponsors/krishnakanthb13?" target="_blank">
@@ -186,12 +244,24 @@
         </a>
         &nbsp;&nbsp;
         <i class="fa fa-github" style="font-size:30px;color:#ea4aaa"></i>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: Standard GitHub Sponsors fees (up to 6% for sponsorships from organization accounts).
+        </div>
+		</div>
         <br><br>
         <!-- UPI payment button -->
         <a href="upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna" target="_blank">
-            <img src="upi-icon-black.png" alt="Sponsor with UPI" style="width: 180px; height: 35px; background-color: white; border-radius: 10px; padding: 5px;" />
+            <img src="upi-icon-black.png" alt="Sponsor with UPI" style="width: 180px; height: 35px; background-color: white; border-radius: 10px; padding: 2px;" />
         </a>
-		<sub>(Mobile Only!)</sub>
+		<!-- <sub>(Mobile Only!)</sub> -->
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            In India & On Mobile Only!
+        </div>
+		</div>
         <br><br>
         <hr><br>
         <!-- QR code images -->
