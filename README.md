@@ -8,10 +8,10 @@ https://krishnakanthb13.github.io/
 - D - Dump Data
 - H - Personal Horoscope Data
 - R - Online Resume Variations & Try outs
-
+-
 - 0 - High Level Data Links
 - 1 - Next Level (1) Data Links
-
+-
 - audio - Contains Audio used in the Web pages
 - images - Contains Images used in the Web pages
 - css - Contains CSS Scripts used in the Web pages
