@@ -9,7 +9,7 @@ Two Plugins in the Top 5 Plugins List (Q1 2025)
 Issued by Amplenote · Jan 2025
 Associated with Freelance | Self-Employed
 
-My Task Manager Pro and Gemini AI Plugins, were ranked by Amplenote users installation and interaction for the top 3 and 5 respectively.
+My "Task Manager Pro" and "Gemini AI Plugins", were ranked by Amplenote users installation and interaction for the top 3 and 5 respectively.
 
 https://www.amplenote.com/blog/q1_2025_product_roundup_slash_menu_auto_save_files_global_capture_and_more
 
@@ -37,7 +37,6 @@ General Ledger Validation Automation (across various internal layers of the prod
 
 Analyst Level III
 Global Value Web · Full-time
-Analyst Level III
 Jun 2016 - Feb 2017 · 2 yrs
 Greater Chennai Area · On-site
 
