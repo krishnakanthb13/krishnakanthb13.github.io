@@ -34,7 +34,7 @@ Download and install Anki from the official website:
 
 ### 2. Download the Deck
 
-- Visit the [download page](https://yourusername.github.io/your-repo/F/)
+- Visit the [download page](https://github.com/krishnakanthb13/krishnakanthb13.github.io/tree/master/F)
 - Click the download button to get the `.apkg` file
 - Or download directly "SQL Bolt (By-BKK)" from this repo: [flashcards.apkg](./SQL BT (By-BKK).apkg)
 - Or download directly "SQL W3School (By-BKK)" from this repo: [flashcards.apkg](./SQL W3S (By-BKK).apkg)
@@ -86,7 +86,7 @@ Found an error or want to improve a card? Contributions are welcome!
 
 ## 📊 Deck Statistics
 
-- **Total Cards**: [Add number of cards]
+- **Total Decks**: 2
 - **Topics Covered**: SQL (Python, Data Analytics & Science)
 - **Estimated Study Time**: [Add estimated time to complete]
 - **Difficulty Level**: [Beginner/Intermediate/Advanced]
@@ -113,8 +113,8 @@ Anki automates this process by tracking your performance and scheduling reviews 
 
 Have questions or feedback?
 
-- **LinkedIn**: [Your LinkedIn Profile](https://www.linkedin.com/in/bkrishnakanth/)
-- **GitHub Issues**: [Report an issue](https://github.com/yourusername/your-repo/issues)
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/bkrishnakanth/)
+- **GitHub Issues**: [Report an issue](https://github.com/krishnakanthb13/krishnakanthb13.github.io/issues)
 - **Email**: your.email@example.com
 
 ## 📄 License
@@ -131,7 +131,7 @@ If you find these flashcards helpful:
 
 ## 🔄 Updates
 
-- **v1.0** (Oct 2025) - Initial release with [X] cards
+- **v1.0** (Oct 2025) - Initial release with 2 Decks.
 - Check back regularly for new decks and updates!
 
 ---
