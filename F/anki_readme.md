@@ -115,7 +115,7 @@ Have questions or feedback?
 
 - **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/bkrishnakanth/)
 - **GitHub Issues**: [Report an issue](https://github.com/krishnakanthb13/krishnakanthb13.github.io/issues)
-- **Email**: your.email@example.com
+- **Email**: kkvitbiotech@gmail.com
 
 ## 📄 License
 
