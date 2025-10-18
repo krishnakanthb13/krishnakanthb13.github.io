@@ -14,21 +14,21 @@ Experience
 
 Plugin Web Development
 
-- Developed 20+ open-source plugins for note-taking apps using JavaScript, HTML, CSS, AI, used by 500+ active users.
-- Ensured maintainability and created community documentation.
-- [View Plugins](https://public.amplenote.com/Y3dy91/krishna-plugins)
+- Developed 20+ open-source plugins for note-taking apps, used by 1000+ active users.
+- Ensured maintainability and created community documentation (using JavaScript, HTML, CSS, AI, APIs).
+- View Plugins - https://public.amplenote.com/Y3dy91/krishna-plugins
 
 Personal Branding & Web Presence
 
 - Built a professional online portfolio on GitHub & Google Sites using web technologies and AI.
 - Showcases technical expertise and personal branding.
-- [View Portfolio](https://krishnakanthb13.github.io/BKK.html)
+- View Portfolio - https://krishnakanthb13.github.io/BKK.html
 
 Digital Garden
 
 - Created a public digital garden in Obsidian, versioned on GitHub and hosted via Vercel.
 - Serves as a long-term knowledge base for learning and community sharing.
-- [Explore Digital Garden](https://krishnakanthb13.vercel.app/)
+- Explore Digital Garden - https://krishnakanthb13.vercel.app/
 
 ---
 
