@@ -16,6 +16,7 @@ https://krishnakanthb13.github.io/
 	- other data - Contains random Data
 
 - D > Dump Data
+- F > Anki Flashcards Repo
 - H > Personal Horoscope Data
 - R > Online Resume Variations & Try outs
 - S > Payment Gateway Page
