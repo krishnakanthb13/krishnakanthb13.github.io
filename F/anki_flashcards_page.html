@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna's Anki Flashcards - Free Study Decks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .description {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-box {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .step {
+            margin: 20px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .github-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: #24292e;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content-card {
+                padding: 25px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Krishna's Anki Flashcards</h1>
+            <p>Supercharge your learning with professionally crafted flashcard decks</p>
+            <a href="https://www.linkedin.com/in/bkrishnakanth/" class="nav-link">← Back to LinkedIn Profile</a>
+        </header>
+
+        <div class="content-card">
+            <h2 class="section-title">About These Flashcards</h2>
+            <div class="description">
+                <p>Welcome to my collection of Anki flashcards! These decks are designed to help you master various subjects through spaced repetition learning. Each deck has been carefully crafted with clear questions, comprehensive answers, and organized topics to optimize your learning experience.</p>
+                <p style="margin-top: 15px;">Anki is a powerful, intelligent flashcard program that helps you remember information efficiently. It uses spaced repetition to show you cards at optimal intervals, making your study time more effective.</p>
+            </div>
+
+            <div class="features">
+                <div class="feature-box">
+                    <h3>🎯 Well-Structured</h3>
+                    <p>Cards organized by topic and difficulty for progressive learning</p>
+                </div>
+                <div class="feature-box">
+                    <h3>🔄 Spaced Repetition</h3>
+                    <p>Optimized review schedules based on memory science</p>
+                </div>
+                <div class="feature-box">
+                    <h3>📱 Cross-Platform</h3>
+                    <p>Use on desktop, mobile, and sync across all devices</p>
+                </div>
+                <div class="feature-box">
+                    <h3>✨ Free & Open</h3>
+                    <p>Completely free to download and use forever</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">How to Download & Use</h2>
+            
+            <div class="instructions">
+                <div class="step" data-step="1">
+                    <h3>Install Anki</h3>
+                    <p>Download Anki from <a href="https://apps.ankiweb.net/" target="_blank" style="color: #667eea;">apps.ankiweb.net</a>. It's available for Windows, Mac, Linux, iOS, and Android.</p>
+                </div>
+
+                <div class="step" data-step="2">
+                    <h3>Download the Deck</h3>
+                    <p>Click the download button below to get the flashcard deck (.apkg file). Save it to a location you can easily find.</p>
+                </div>
+
+                <div class="step" data-step="3">
+                    <h3>Import into Anki</h3>
+                    <p>Open Anki, click "Import File" at the bottom of the main window, and select the downloaded .apkg file. The deck will be added to your collection automatically.</p>
+                </div>
+
+                <div class="step" data-step="4">
+                    <h3>Start Studying</h3>
+                    <p>Click on the deck name to begin studying. Anki will show you cards and ask you to rate how well you remembered them. The app will automatically schedule reviews based on your responses.</p>
+                </div>
+
+                <div class="step" data-step="5">
+                    <h3>Study Daily (Optional but Recommended)</h3>
+                    <p>For best results, review your cards daily. Even 10-15 minutes a day can lead to significant long-term retention!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="download-section">
+                <h2>Ready to Start Learning?</h2>
+                <p style="margin: 20px 0;">Download your flashcard deck now and begin your learning journey!</p>
+                <a href="YOUR_GITHUB_RAW_URL/flashcards.apkg" class="download-btn" download>⬇️ Download Flashcards</a>
+                <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.9;">File format: .apkg | Compatible with all Anki versions</p>
+            </div>
+
+            <div class="github-section">
+                <p style="margin-bottom: 15px; color: #666;">Want to see the source or contribute?</p>
+                <a href="YOUR_GITHUB_REPO_URL" class="github-link" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with ❤️ for effective learning | © BKK-2025</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Questions? Connect with me on <a href="https://www.linkedin.com/in/bkrishnakanth/" style="color: white; text-decoration: underline;">LinkedIn</a></p>
+        </footer>
+    </div>
+</body>
+</html>
