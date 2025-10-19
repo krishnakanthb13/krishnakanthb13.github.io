@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VTT Text Extractor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .copy-button {
+            background: #4b5563;
+            margin-top: 1rem;
+        }
+
+        .copy-button:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VTT Text Extractor</h1>
+        <p class="description">Clean up and extract text from VTT caption files. - A VTT (Web Video Text Tracks) text extractor is a tool that converts a VTT subtitle file into a plain text (.txt) file, removing the timestamps and other formatting.</p>
+
+        <div class="card">
+            <textarea id="input" placeholder="Paste your VTT content here..."></textarea>
+            <button onclick="extract()">Extract Text</button>
+        </div>
+
+        <div class="card">
+            <div id="output"></div>
+            <button onclick="copyText()" class="copy-button">Copy Text</button>
+        </div>
+    </div>
+
+    <script>
+        function extract() {
+            const input = document.getElementById('input').value;
+            const lines = input.split('\n');
+            let result = [];
+            let isHeader = true;
+            
+            for (const line of lines) {
+                // Skip header section
+                if (isHeader) {
+                    if (line.trim() === '') {
+                        isHeader = false;
+                    }
+                    continue;
+                }
+                
+                // Skip lines with technical information
+                if (line.includes('-->') || 
+                    line.includes('align:') || 
+                    line.includes('position:') || 
+                    line.trim() === '') {
+                    continue;
+                }
+                
+                // Clean the line of timestamps and tags
+                let cleanLine = line
+                    .replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '')
+                    .replace(/<\/c>/g, '')
+                    .replace(/<c>/g, '')
+                    .trim();
+                
+                if (cleanLine) {
+                    // Only add if we haven't seen this exact text before
+                    if (!result.includes(cleanLine)) {
+                        result.push(cleanLine);
+                    }
+                }
+            }
+            
+            document.getElementById('output').textContent = result.join(' ');
+        }
+
+        function copyText() {
+            const output = document.getElementById('output');
+            navigator.clipboard.writeText(output.textContent)
+                .then(() => {
+                    const button = document.querySelector('.copy-button');
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                });
+        }
+    </script>
+</body>
+</html>
