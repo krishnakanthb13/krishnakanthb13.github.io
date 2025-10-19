@@ -453,7 +453,7 @@ This is a subtitle example"></textarea>
                 </div>
                 <div class="loading" id="loading">⏳ Processing with AI...</div>
                 <div id="geminiOutput"></div>
-                <div class="button-group" style="margin-top: 1rem;">
+                <div class="button-group" style="margin-top: 1rem;" id="aiButtonGroup">
                     <button onclick="copyAIText()" class="success-btn">📋 Copy AI Output</button>
                     <button onclick="downloadAITxt()" class="secondary-btn">💾 Download TXT</button>
                     <button onclick="clearAIOutput()" class="danger-btn">🗑️ Clear</button>
@@ -469,6 +469,43 @@ This is a subtitle example"></textarea>
     <script>
         let extractedText = '';
         let vttData = [];
+
+        function copyAIText() {
+            const output = document.getElementById('geminiOutput');
+            const text = output.textContent;
+            
+            if (!text || text === '') {
+                alert('⚠️ No AI output to copy!');
+                return;
+            }
+            
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert('✅ AI output copied to clipboard!');
+                });
+        }
+
+        function downloadAITxt() {
+            const output = document.getElementById('geminiOutput');
+            const text = output.textContent;
+            
+            if (!text || text === '') {
+                alert('⚠️ No AI output to download!');
+                return;
+            }
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ai_analysis.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function clearAIOutput() {
+            document.getElementById('geminiOutput').textContent = '';
+        }
 
         function extract() {
             const input = document.getElementById('input').value;
