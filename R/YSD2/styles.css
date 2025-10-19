@@ -1,0 +1,10 @@
+body { font-family: Arial, sans-serif; width: 320px; margin: 0; padding: 12px; background: #111; color: #eee; }
+.container { display: flex; flex-direction: column; gap: 8px; }
+h3 { margin: 0 0 6px 0; font-size: 16px; }
+.meta { font-size: 12px; color: #bbb; max-height: 36px; overflow: hidden; }
+.hidden { display: none; }
+.controls { display: flex; gap: 8px; margin-top: 6px; }
+button { padding: 6px 10px; cursor: pointer; }
+.status { font-size: 12px; color: #9f9; }
+select { padding: 6px; }
+#noCaptions { color: #f88; font-size: 13px; }
