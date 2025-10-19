@@ -91,45 +91,81 @@
         }
 
         .button-group {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+			padding: 1rem 1rem;
         }
 
         button {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 0.875rem 1.25rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
 
         button:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .secondary-btn {
             background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+        }
+
+        .secondary-btn:hover {
+            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.4);
         }
 
         .danger-btn {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+        }
+
+        .danger-btn:hover {
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
         }
 
         .success-btn {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .success-btn:hover {
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
         }
 
         #output {
@@ -193,30 +229,50 @@
             grid-column: 1 / -1;
         }
 
+        .ai-action-group {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 0.75rem;
+            align-items: stretch;
+        }
+
+        .ai-action-group input {
+            margin-bottom: 0;
+        }
+
+        .ai-action-group button {
+            height: 100%;
+            white-space: nowrap;
+        }
+
         .api-input {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.875rem 1rem;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            transition: all 0.3s ease;
         }
 
         .api-input:focus {
             outline: none;
             border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .command-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 0.75rem;
             margin-bottom: 1rem;
         }
 
         .command-btn {
-            padding: 0.6rem 1rem;
+            padding: 0.875rem 1rem;
             font-size: 0.85rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
         }
 
         #geminiOutput {
@@ -298,6 +354,15 @@
             .header h1 {
                 font-size: 2rem;
             }
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+            .ai-action-group {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -353,12 +418,12 @@ This is a subtitle example"></textarea>
             </div>
 
             <div class="card gemini-section">
-                <h2>🤖 AI Assistant (Google Gemini)</h2>
+                <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys">Google AI Studio</a></h2>
                 <input 
                     type="password" 
                     id="apiKey" 
                     class="api-input" 
-                    placeholder="Enter your Google Gemini API Key (get it from https://makersuite.google.com/app/apikey)"
+                    placeholder="Enter your Google Gemini API Key (get it from https://aistudio.google.com/app/api-keys)"
                 >
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #475569;">Select Model:</label>
@@ -370,20 +435,22 @@ This is a subtitle example"></textarea>
                 </div>
                 <div class="command-grid">
                     <button onclick="geminiCommand('summarize')" class="command-btn">📝 Summarize</button>
-                    <button onclick="geminiCommand('translate')" class="command-btn">🌐 Translate to Spanish</button>
-                    <button onclick="geminiCommand('keywords')" class="command-btn">🔑 Extract Keywords</button>
-                    <button onclick="geminiCommand('sentiment')" class="command-btn">😊 Sentiment Analysis</button>
+                    <button onclick="geminiCommand('translate')" class="command-btn">🌐 Translate</button>
+                    <button onclick="geminiCommand('keywords')" class="command-btn">🔑 Keywords</button>
+                    <button onclick="geminiCommand('sentiment')" class="command-btn">😊 Sentiment</button>
                     <button onclick="geminiCommand('bullet')" class="command-btn">📌 Bullet Points</button>
-                    <button onclick="geminiCommand('questions')" class="command-btn">❓ Generate Questions</button>
+                    <button onclick="geminiCommand('questions')" class="command-btn">❓ Questions</button>
                 </div>
-                <input 
-                    type="text" 
-                    id="customCommand" 
-                    class="api-input" 
-                    placeholder="Or enter custom command (e.g., 'Explain this in simple terms')"
-                    onkeypress="if(event.key==='Enter') geminiCommand('custom')"
-                >
-                <button onclick="geminiCommand('custom')" class="success-btn">🚀 Execute Custom Command</button>
+                <div class="ai-action-group">
+                    <input 
+                        type="text" 
+                        id="customCommand" 
+                        class="api-input" 
+                        placeholder="Or enter custom command (e.g., 'Explain this in simple terms')"
+                        onkeypress="if(event.key==='Enter') geminiCommand('custom')"
+                    >
+                    <button onclick="geminiCommand('custom')" class="success-btn">🚀 Execute</button>
+                </div>
                 <div class="loading" id="loading">⏳ Processing with AI...</div>
                 <div id="geminiOutput"></div>
             </div>
