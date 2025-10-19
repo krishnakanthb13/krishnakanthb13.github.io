@@ -94,7 +94,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-			padding: 1rem 1rem;
+            padding: 1rem 1rem;
         }
 
         button {
@@ -418,7 +418,7 @@ This is a subtitle example"></textarea>
             </div>
 
             <div class="card gemini-section">
-                <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys">Google AI Studio</a></h2>
+                <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys" target="_blank">Google AI Studio</a></h2>
                 <input 
                     type="password" 
                     id="apiKey" 
@@ -453,6 +453,11 @@ This is a subtitle example"></textarea>
                 </div>
                 <div class="loading" id="loading">⏳ Processing with AI...</div>
                 <div id="geminiOutput"></div>
+                <div class="button-group" style="margin-top: 1rem;">
+                    <button onclick="copyAIText()" class="success-btn">📋 Copy AI Output</button>
+                    <button onclick="downloadAITxt()" class="secondary-btn">💾 Download TXT</button>
+                    <button onclick="clearAIOutput()" class="danger-btn">🗑️ Clear</button>
+                </div>
             </div>
         </div>
 
