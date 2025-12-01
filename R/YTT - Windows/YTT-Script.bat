@@ -37,7 +37,7 @@ if "!vid!"=="" (
 )
 
 REM Run the Python code
-python -c "from youtube_transcript_api import YouTubeTranscriptApi; import re; import pyperclip; api = YouTubeTranscriptApi(); trans = api.fetch('!vid!'); raw = trans.to_raw_data(); paragraph = ' '.join(snippet['text'] for snippet in raw); paragraph = re.sub(r'\s+', ' ', paragraph).strip(); pyperclip.copy(paragraph); print('\nTranscript copied to clipboard!'); print(f'\nPreview (first 200 chars):\n{paragraph[:200]}...')"
+python -c "from youtube_transcript_api import YouTubeTranscriptApi; import re; import pyperclip; api = YouTubeTranscriptApi(); trans = api.fetch('!vid!'); raw = trans.to_raw_data(); paragraph = ' '.join(snippet['text'] for snippet in raw); paragraph = re.sub(r'\s+', ' ', paragraph).strip(); pyperclip.copy(paragraph); print('\nTranscript copied to clipboard!'); print('\nPreview (first 200 chars):\n' + paragraph[:200] + '...')"
 
 if errorlevel 1 (
     echo.
