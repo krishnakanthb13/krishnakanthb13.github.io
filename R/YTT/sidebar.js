@@ -29,22 +29,23 @@ async function fetchTranscript() {
             func: extractTranscript
         });
 
-        const transcript = results[0].result;
+        const result = results[0].result;
 
-        if (transcript.error) {
-            throw new Error(transcript.error);
+        if (result.error) {
+            throw new Error(result.error);
         }
 
-        currentTranscript = transcript.text;
+        currentTranscript = result.text;
         transcriptEl.textContent = currentTranscript;
         transcriptEl.classList.remove('hidden');
         actionsEl.classList.remove('hidden');
 
         statusEl.className = 'success';
-        statusEl.textContent = 'Transcript fetched successfully (' + transcript.text.length + ' characters)';
+        statusEl.textContent = 'Transcript fetched successfully (' + result.text.length + ' characters)';
     } catch (error) {
         statusEl.className = 'error';
         statusEl.textContent = 'Error: ' + error.message;
+        console.error('Transcript fetch error:', error);
     } finally {
         fetchBtn.disabled = false;
     }
@@ -72,6 +73,13 @@ function downloadTranscript() {
 }
 
 async function extractTranscript() {
+    // Helper function to decode HTML entities
+    function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
+
     try {
         let videoId = new URLSearchParams(window.location.search).get('v');
 
@@ -92,59 +100,113 @@ async function extractTranscript() {
             return { error: 'Could not find video ID in URL' };
         }
 
-        // Use YouTube's timedtext API directly (similar to youtube_transcript_api)
-        // First, get the caption track list
-        const videoPageUrl = `https://www.youtube.com/watch?v=${videoId}`;
-        const videoPageResponse = await fetch(videoPageUrl);
-        const videoPageHtml = await videoPageResponse.text();
+        console.log('Fetching transcript for video:', videoId);
 
-        // Extract caption tracks from the page
-        const captionTracksMatch = videoPageHtml.match(/"captionTracks":(\[.*?\])/);
-        if (!captionTracksMatch) {
-            return { error: 'No captions available for this video. Make sure captions/subtitles are enabled.' };
+        // 1. Try to find captionTracks in the current page global variable
+        let captionTracks = null;
+
+        try {
+            if (window.ytInitialPlayerResponse &&
+                window.ytInitialPlayerResponse.captions &&
+                window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer &&
+                window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer.captionTracks) {
+                captionTracks = window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer.captionTracks;
+                console.log('Found captionTracks in window.ytInitialPlayerResponse');
+            }
+        } catch (e) {
+            console.log('Error checking window.ytInitialPlayerResponse:', e);
         }
 
-        const captionTracks = JSON.parse(captionTracksMatch[1]);
-        if (captionTracks.length === 0) {
-            return { error: 'No caption tracks found for this video' };
+        // 2. If not found, try to fetch the video page and extract it (Python library approach)
+        if (!captionTracks) {
+            console.log('Fetching video page to find captions...');
+            const videoPageResponse = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
+            const videoPageHtml = await videoPageResponse.text();
+
+            const match = videoPageHtml.match(/"captionTracks":(\[.*?\])/);
+            if (match) {
+                captionTracks = JSON.parse(match[1]);
+                console.log('Found captionTracks in video page HTML');
+            }
         }
 
-        // Get the first caption track URL
-        const captionUrl = captionTracks[0].baseUrl;
-
-        // Fetch the transcript using the timedtext API
-        const transcriptResponse = await fetch(captionUrl);
-        const transcriptXml = await transcriptResponse.text();
-
-        // Parse the XML response
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(transcriptXml, 'text/xml');
-        const textElements = xmlDoc.getElementsByTagName('text');
-
-        if (textElements.length === 0) {
-            return { error: 'No transcript text found in captions' };
+        if (!captionTracks || captionTracks.length === 0) {
+            return { error: 'No captions available for this video. Make sure captions are enabled.' };
         }
 
-        // Extract text from all elements
-        let transcriptParts = [];
-        for (let element of textElements) {
-            let text = element.textContent;
-            // Decode HTML entities
-            text = text.replace(/&amp;/g, '&')
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>')
-                .replace(/&quot;/g, '"')
-                .replace(/&#39;/g, "'")
-                .replace(/\n/g, ' ');
-            transcriptParts.push(text);
+        // Get the first caption track
+        const track = captionTracks[0];
+        const baseUrl = track.baseUrl;
+        console.log('Caption URL:', baseUrl);
+
+        let errors = [];
+
+        // 3. Try fetching as XML (fmt=3) - This matches Python library behavior
+        try {
+            const xmlUrl = baseUrl + '&fmt=3';
+            console.log('Fetching XML:', xmlUrl);
+            const response = await fetch(xmlUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const text = await response.text();
+
+            if (text.includes('<transcript>')) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, 'text/xml');
+                const textElements = xmlDoc.getElementsByTagName('text');
+
+                if (textElements.length > 0) {
+                    let transcript = [];
+                    for (let element of textElements) {
+                        transcript.push(decodeHtml(element.textContent));
+                    }
+                    return { text: transcript.join(' ').replace(/\s+/g, ' ').trim() };
+                } else {
+                    errors.push('XML parsed but no text elements found');
+                }
+            } else {
+                errors.push('XML response did not contain <transcript>');
+            }
+        } catch (e) {
+            console.log('XML fetch/parse failed:', e);
+            errors.push(`XML error: ${e.message}`);
         }
 
-        // Join and clean up
-        let paragraph = transcriptParts.join(' ');
-        paragraph = paragraph.replace(/\s+/g, ' ').trim();
+        // 4. Fallback: Try fetching as JSON3 (fmt=json3)
+        try {
+            const jsonUrl = baseUrl + '&fmt=json3';
+            console.log('Fetching JSON3:', jsonUrl);
+            const response = await fetch(jsonUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const jsonData = await response.json();
 
-        return { text: paragraph };
+            if (jsonData.events) {
+                let transcript = [];
+                for (let event of jsonData.events) {
+                    if (event.segs) {
+                        for (let seg of event.segs) {
+                            if (seg.utf8 && seg.utf8 !== '\n') {
+                                transcript.push(seg.utf8);
+                            }
+                        }
+                    }
+                }
+                if (transcript.length > 0) {
+                    return { text: transcript.join('').replace(/\s+/g, ' ').trim() };
+                } else {
+                    errors.push('JSON3 parsed but no events/segs found');
+                }
+            } else {
+                errors.push('JSON3 response missing events');
+            }
+        } catch (e) {
+            console.log('JSON3 fetch/parse failed:', e);
+            errors.push(`JSON3 error: ${e.message}`);
+        }
+
+        return { error: `Could not extract text. Errors: ${errors.join('; ')}` };
+
     } catch (error) {
+        console.error('Extract transcript error:', error);
         return { error: error.message };
     }
 }
