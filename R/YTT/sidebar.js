@@ -24,9 +24,10 @@ async function fetchTranscript() {
             throw new Error('Please open a YouTube video page or Short');
         }
 
+        // Step 1: Get the caption URL from the page
         const results = await chrome.scripting.executeScript({
             target: { tabId: tab.id },
-            func: extractTranscript
+            func: extractCaptionUrl
         });
 
         const result = results[0].result;
@@ -35,13 +36,79 @@ async function fetchTranscript() {
             throw new Error(result.error);
         }
 
-        currentTranscript = result.text;
+        const baseUrl = result.baseUrl;
+        console.log('Got caption URL:', baseUrl);
+
+        // Step 2: Fetch the transcript from the extension side (bypassing page CSP)
+        let transcriptText = null;
+        let errors = [];
+
+        // Try XML (fmt=3)
+        try {
+            const xmlUrl = baseUrl + '&fmt=3';
+            console.log('Fetching XML from sidebar:', xmlUrl);
+            const response = await fetch(xmlUrl);
+            const text = await response.text();
+
+            if (text.includes('<transcript>')) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, 'text/xml');
+                const textElements = xmlDoc.getElementsByTagName('text');
+
+                if (textElements.length > 0) {
+                    let parts = [];
+                    for (let element of textElements) {
+                        parts.push(decodeHtml(element.textContent));
+                    }
+                    transcriptText = parts.join(' ').replace(/\s+/g, ' ').trim();
+                }
+            } else {
+                errors.push('XML response invalid');
+            }
+        } catch (e) {
+            errors.push('XML fetch failed: ' + e.message);
+        }
+
+        // Fallback to JSON3 if XML failed
+        if (!transcriptText) {
+            try {
+                const jsonUrl = baseUrl + '&fmt=json3';
+                console.log('Fetching JSON3 from sidebar:', jsonUrl);
+                const response = await fetch(jsonUrl);
+                const jsonData = await response.json();
+
+                if (jsonData.events) {
+                    let parts = [];
+                    for (let event of jsonData.events) {
+                        if (event.segs) {
+                            for (let seg of event.segs) {
+                                if (seg.utf8 && seg.utf8 !== '\n') {
+                                    parts.push(seg.utf8);
+                                }
+                            }
+                        }
+                    }
+                    if (parts.length > 0) {
+                        transcriptText = parts.join('').replace(/\s+/g, ' ').trim();
+                    }
+                }
+            } catch (e) {
+                errors.push('JSON3 fetch failed: ' + e.message);
+            }
+        }
+
+        if (!transcriptText) {
+            throw new Error(`Could not fetch transcript. Details: ${errors.join(', ')}`);
+        }
+
+        currentTranscript = transcriptText;
         transcriptEl.textContent = currentTranscript;
         transcriptEl.classList.remove('hidden');
         actionsEl.classList.remove('hidden');
 
         statusEl.className = 'success';
-        statusEl.textContent = 'Transcript fetched successfully (' + result.text.length + ' characters)';
+        statusEl.textContent = 'Transcript fetched successfully (' + transcriptText.length + ' characters)';
+
     } catch (error) {
         statusEl.className = 'error';
         statusEl.textContent = 'Error: ' + error.message;
@@ -49,6 +116,12 @@ async function fetchTranscript() {
     } finally {
         fetchBtn.disabled = false;
     }
+}
+
+function decodeHtml(html) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
 }
 
 function copyTranscript() {
@@ -72,23 +145,15 @@ function downloadTranscript() {
     statusEl.textContent = 'Downloaded!';
 }
 
-async function extractTranscript() {
-    // Helper function to decode HTML entities
-    function decodeHtml(html) {
-        const txt = document.createElement("textarea");
-        txt.innerHTML = html;
-        return txt.value;
-    }
-
+// This function runs inside the tab
+async function extractCaptionUrl() {
     try {
         let videoId = new URLSearchParams(window.location.search).get('v');
 
-        // Handle youtu.be short links
         if (!videoId && window.location.hostname === 'youtu.be') {
             videoId = window.location.pathname.slice(1);
         }
 
-        // Handle YouTube Shorts
         if (!videoId && window.location.pathname.includes('/shorts/')) {
             const match = window.location.pathname.match(/\/shorts\/([^/?]+)/);
             if (match) {
@@ -97,116 +162,34 @@ async function extractTranscript() {
         }
 
         if (!videoId) {
-            return { error: 'Could not find video ID in URL' };
+            return { error: 'Could not find video ID' };
         }
 
-        console.log('Fetching transcript for video:', videoId);
-
-        // 1. Try to find captionTracks in the current page global variable
+        // 1. Try Global Variable
         let captionTracks = null;
-
         try {
-            if (window.ytInitialPlayerResponse &&
-                window.ytInitialPlayerResponse.captions &&
-                window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer &&
-                window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer.captionTracks) {
+            if (window.ytInitialPlayerResponse?.captions?.playerCaptionsTracklistRenderer?.captionTracks) {
                 captionTracks = window.ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer.captionTracks;
-                console.log('Found captionTracks in window.ytInitialPlayerResponse');
             }
-        } catch (e) {
-            console.log('Error checking window.ytInitialPlayerResponse:', e);
-        }
+        } catch (e) { }
 
-        // 2. If not found, try to fetch the video page and extract it (Python library approach)
+        // 2. Try Fetching Page (if global var missing)
         if (!captionTracks) {
-            console.log('Fetching video page to find captions...');
-            const videoPageResponse = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
-            const videoPageHtml = await videoPageResponse.text();
-
-            const match = videoPageHtml.match(/"captionTracks":(\[.*?\])/);
+            const pageRes = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
+            const pageHtml = await pageRes.text();
+            const match = pageHtml.match(/"captionTracks":(\[.*?\])/);
             if (match) {
                 captionTracks = JSON.parse(match[1]);
-                console.log('Found captionTracks in video page HTML');
             }
         }
 
         if (!captionTracks || captionTracks.length === 0) {
-            return { error: 'No captions available for this video. Make sure captions are enabled.' };
+            return { error: 'No captions found' };
         }
 
-        // Get the first caption track
-        const track = captionTracks[0];
-        const baseUrl = track.baseUrl;
-        console.log('Caption URL:', baseUrl);
+        return { baseUrl: captionTracks[0].baseUrl };
 
-        let errors = [];
-
-        // 3. Try fetching as XML (fmt=3) - This matches Python library behavior
-        try {
-            const xmlUrl = baseUrl + '&fmt=3';
-            console.log('Fetching XML:', xmlUrl);
-            const response = await fetch(xmlUrl);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const text = await response.text();
-
-            if (text.includes('<transcript>')) {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(text, 'text/xml');
-                const textElements = xmlDoc.getElementsByTagName('text');
-
-                if (textElements.length > 0) {
-                    let transcript = [];
-                    for (let element of textElements) {
-                        transcript.push(decodeHtml(element.textContent));
-                    }
-                    return { text: transcript.join(' ').replace(/\s+/g, ' ').trim() };
-                } else {
-                    errors.push('XML parsed but no text elements found');
-                }
-            } else {
-                errors.push('XML response did not contain <transcript>');
-            }
-        } catch (e) {
-            console.log('XML fetch/parse failed:', e);
-            errors.push(`XML error: ${e.message}`);
-        }
-
-        // 4. Fallback: Try fetching as JSON3 (fmt=json3)
-        try {
-            const jsonUrl = baseUrl + '&fmt=json3';
-            console.log('Fetching JSON3:', jsonUrl);
-            const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const jsonData = await response.json();
-
-            if (jsonData.events) {
-                let transcript = [];
-                for (let event of jsonData.events) {
-                    if (event.segs) {
-                        for (let seg of event.segs) {
-                            if (seg.utf8 && seg.utf8 !== '\n') {
-                                transcript.push(seg.utf8);
-                            }
-                        }
-                    }
-                }
-                if (transcript.length > 0) {
-                    return { text: transcript.join('').replace(/\s+/g, ' ').trim() };
-                } else {
-                    errors.push('JSON3 parsed but no events/segs found');
-                }
-            } else {
-                errors.push('JSON3 response missing events');
-            }
-        } catch (e) {
-            console.log('JSON3 fetch/parse failed:', e);
-            errors.push(`JSON3 error: ${e.message}`);
-        }
-
-        return { error: `Could not extract text. Errors: ${errors.join('; ')}` };
-
-    } catch (error) {
-        console.error('Extract transcript error:', error);
-        return { error: error.message };
+    } catch (e) {
+        return { error: e.message };
     }
 }
