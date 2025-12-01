@@ -92,98 +92,58 @@ async function extractTranscript() {
             return { error: 'Could not find video ID in URL' };
         }
 
-        // Try to get captions from ytInitialPlayerResponse
-        let ytInitialPlayerResponse = window.ytInitialPlayerResponse;
+        // Use YouTube's timedtext API directly (similar to youtube_transcript_api)
+        // First, get the caption track list
+        const videoPageUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        const videoPageResponse = await fetch(videoPageUrl);
+        const videoPageHtml = await videoPageResponse.text();
 
-        if (!ytInitialPlayerResponse) {
-            const scripts = document.querySelectorAll('script');
-            for (let script of scripts) {
-                if (script.textContent.includes('ytInitialPlayerResponse')) {
-                    // Try multiple regex patterns
-                    let match = script.textContent.match(/var ytInitialPlayerResponse\s*=\s*({.+?});/);
-                    if (!match) {
-                        match = script.textContent.match(/ytInitialPlayerResponse\s*=\s*({.+?});/);
-                    }
-                    if (match) {
-                        try {
-                            ytInitialPlayerResponse = JSON.parse(match[1]);
-                            break;
-                        } catch (e) {
-                            console.error('Failed to parse ytInitialPlayerResponse:', e);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (!ytInitialPlayerResponse || !ytInitialPlayerResponse.captions) {
+        // Extract caption tracks from the page
+        const captionTracksMatch = videoPageHtml.match(/"captionTracks":(\[.*?\])/);
+        if (!captionTracksMatch) {
             return { error: 'No captions available for this video. Make sure captions/subtitles are enabled.' };
         }
 
-        const captionTracks = ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer?.captionTracks;
-
-        if (!captionTracks || captionTracks.length === 0) {
+        const captionTracks = JSON.parse(captionTracksMatch[1]);
+        if (captionTracks.length === 0) {
             return { error: 'No caption tracks found for this video' };
         }
 
-        // Get the first available caption track (usually auto-generated or first language)
-        const captionTrack = captionTracks[0];
-        const captionUrl = captionTrack.baseUrl;
+        // Get the first caption track URL
+        const captionUrl = captionTracks[0].baseUrl;
 
-        const response = await fetch(captionUrl);
-        const captionData = await response.text();
+        // Fetch the transcript using the timedtext API
+        const transcriptResponse = await fetch(captionUrl);
+        const transcriptXml = await transcriptResponse.text();
 
-        // Try parsing as XML first
+        // Parse the XML response
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(captionData, 'text/xml');
+        const xmlDoc = parser.parseFromString(transcriptXml, 'text/xml');
         const textElements = xmlDoc.getElementsByTagName('text');
 
-        if (textElements.length > 0) {
-            // XML format (traditional captions)
-            let transcript = [];
-            for (let element of textElements) {
-                let text = element.textContent;
-                text = text.replace(/&amp;/g, '&')
-                    .replace(/&lt;/g, '<')
-                    .replace(/&gt;/g, '>')
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#39;/g, "'")
-                    .replace(/\n/g, ' ');
-                transcript.push(text);
-            }
-
-            let paragraph = transcript.join(' ');
-            paragraph = paragraph.replace(/\s+/g, ' ').trim();
-
-            return { text: paragraph };
+        if (textElements.length === 0) {
+            return { error: 'No transcript text found in captions' };
         }
 
-        // Try parsing as JSON (newer format)
-        try {
-            const jsonData = JSON.parse(captionData);
-            if (jsonData.events) {
-                let transcript = [];
-                for (let event of jsonData.events) {
-                    if (event.segs) {
-                        for (let seg of event.segs) {
-                            if (seg.utf8) {
-                                transcript.push(seg.utf8);
-                            }
-                        }
-                    }
-                }
-
-                if (transcript.length > 0) {
-                    let paragraph = transcript.join(' ');
-                    paragraph = paragraph.replace(/\s+/g, ' ').trim();
-                    return { text: paragraph };
-                }
-            }
-        } catch (e) {
-            // Not JSON format, continue
+        // Extract text from all elements
+        let transcriptParts = [];
+        for (let element of textElements) {
+            let text = element.textContent;
+            // Decode HTML entities
+            text = text.replace(/&amp;/g, '&')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                .replace(/\n/g, ' ');
+            transcriptParts.push(text);
         }
 
-        return { error: 'Could not parse caption data. The caption format may not be supported.' };
+        // Join and clean up
+        let paragraph = transcriptParts.join(' ');
+        paragraph = paragraph.replace(/\s+/g, ' ').trim();
+
+        return { text: paragraph };
     } catch (error) {
         return { error: error.message };
     }
