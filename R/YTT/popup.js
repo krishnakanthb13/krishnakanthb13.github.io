@@ -20,7 +20,7 @@ async function fetchTranscript() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
-    if (!tab.url.includes('youtube.com/watch')) {
+    if (!tab.url || (!tab.url.includes('youtube.com/watch') && !tab.url.includes('youtu.be/'))) {
       throw new Error('Please open a YouTube video page');
     }
 
@@ -41,10 +41,10 @@ async function fetchTranscript() {
     actionsEl.classList.remove('hidden');
     
     statusEl.className = 'success';
-    statusEl.textContent = `✓ Transcript fetched successfully (${transcript.text.length} characters)`;
+    statusEl.textContent = 'Transcript fetched successfully (' + transcript.text.length + ' characters)';
   } catch (error) {
     statusEl.className = 'error';
-    statusEl.textContent = `✗ Error: ${error.message}`;
+    statusEl.textContent = 'Error: ' + error.message;
   } finally {
     fetchBtn.disabled = false;
   }
@@ -54,7 +54,7 @@ function copyTranscript() {
   navigator.clipboard.writeText(currentTranscript);
   const statusEl = document.getElementById('status');
   statusEl.className = 'success';
-  statusEl.textContent = '✓ Copied to clipboard!';
+  statusEl.textContent = 'Copied to clipboard!';
 }
 
 function downloadTranscript() {
@@ -68,19 +68,35 @@ function downloadTranscript() {
   
   const statusEl = document.getElementById('status');
   statusEl.className = 'success';
-  statusEl.textContent = '✓ Downloaded!';
+  statusEl.textContent = 'Downloaded!';
 }
 
-// This function runs in the context of the YouTube page
-function extractTranscript() {
+async function extractTranscript() {
   try {
-    const videoId = new URLSearchParams(window.location.search).get('v');
+    let videoId = new URLSearchParams(window.location.search).get('v');
+    
+    if (!videoId && window.location.hostname === 'youtu.be') {
+      videoId = window.location.pathname.slice(1);
+    }
+    
     if (!videoId) {
-      return { error: 'Could not find video ID' };
+      return { error: 'Could not find video ID in URL' };
     }
 
-    // Try to get transcript from YouTube's player response
-    const ytInitialPlayerResponse = window.ytInitialPlayerResponse;
+    let ytInitialPlayerResponse = window.ytInitialPlayerResponse;
+    
+    if (!ytInitialPlayerResponse) {
+      const scripts = document.querySelectorAll('script');
+      for (let script of scripts) {
+        if (script.textContent.includes('ytInitialPlayerResponse')) {
+          const match = script.textContent.match(/var ytInitialPlayerResponse = ({.+?});/);
+          if (match) {
+            ytInitialPlayerResponse = JSON.parse(match[1]);
+            break;
+          }
+        }
+      }
+    }
     
     if (!ytInitialPlayerResponse || !ytInitialPlayerResponse.captions) {
       return { error: 'No captions available for this video' };
@@ -89,43 +105,39 @@ function extractTranscript() {
     const captionTracks = ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer?.captionTracks;
     
     if (!captionTracks || captionTracks.length === 0) {
-      return { error: 'No caption tracks found' };
+      return { error: 'No caption tracks found for this video' };
     }
 
-    // Get the first available caption track (usually auto-generated or English)
     const captionTrack = captionTracks[0];
     const captionUrl = captionTrack.baseUrl;
 
-    // Fetch the transcript XML
-    return fetch(captionUrl)
-      .then(response => response.text())
-      .then(xml => {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xml, 'text/xml');
-        const textElements = xmlDoc.getElementsByTagName('text');
-        
-        let transcript = [];
-        for (let element of textElements) {
-          let text = element.textContent;
-          // Decode HTML entities
-          text = text.replace(/&amp;/g, '&')
-                     .replace(/&lt;/g, '<')
-                     .replace(/&gt;/g, '>')
-                     .replace(/&quot;/g, '"')
-                     .replace(/&#39;/g, "'")
-                     .replace(/\n/g, ' ');
-          transcript.push(text);
-        }
-        
-        // Join and clean up whitespace (similar to your Python code)
-        let paragraph = transcript.join(' ');
-        paragraph = paragraph.replace(/\s+/g, ' ').trim();
-        
-        return { text: paragraph };
-      })
-      .catch(err => {
-        return { error: `Failed to fetch captions: ${err.message}` };
-      });
+    const response = await fetch(captionUrl);
+    const xml = await response.text();
+    
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xml, 'text/xml');
+    const textElements = xmlDoc.getElementsByTagName('text');
+    
+    if (textElements.length === 0) {
+      return { error: 'No transcript text found in captions' };
+    }
+    
+    let transcript = [];
+    for (let element of textElements) {
+      let text = element.textContent;
+      text = text.replace(/&amp;/g, '&')
+                 .replace(/&lt;/g, '<')
+                 .replace(/&gt;/g, '>')
+                 .replace(/&quot;/g, '"')
+                 .replace(/&#39;/g, "'")
+                 .replace(/\n/g, ' ');
+      transcript.push(text);
+    }
+    
+    let paragraph = transcript.join(' ');
+    paragraph = paragraph.replace(/\s+/g, ' ').trim();
+    
+    return { text: paragraph };
   } catch (error) {
     return { error: error.message };
   }
