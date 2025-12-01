@@ -19,9 +19,9 @@ async function fetchTranscript() {
 
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    
-    if (!tab.url || (!tab.url.includes('youtube.com/watch') && !tab.url.includes('youtu.be/'))) {
-      throw new Error('Please open a YouTube video page');
+
+    if (!tab.url || (!tab.url.includes('youtube.com/watch') && !tab.url.includes('youtube.com/shorts') && !tab.url.includes('youtu.be/'))) {
+      throw new Error('Please open a YouTube video page or Short');
     }
 
     const results = await chrome.scripting.executeScript({
@@ -30,7 +30,7 @@ async function fetchTranscript() {
     });
 
     const transcript = results[0].result;
-    
+
     if (transcript.error) {
       throw new Error(transcript.error);
     }
@@ -39,7 +39,7 @@ async function fetchTranscript() {
     transcriptEl.textContent = currentTranscript;
     transcriptEl.classList.remove('hidden');
     actionsEl.classList.remove('hidden');
-    
+
     statusEl.className = 'success';
     statusEl.textContent = 'Transcript fetched successfully (' + transcript.text.length + ' characters)';
   } catch (error) {
@@ -65,7 +65,7 @@ function downloadTranscript() {
   a.download = 'transcript.txt';
   a.click();
   URL.revokeObjectURL(url);
-  
+
   const statusEl = document.getElementById('status');
   statusEl.className = 'success';
   statusEl.textContent = 'Downloaded!';
@@ -74,17 +74,26 @@ function downloadTranscript() {
 async function extractTranscript() {
   try {
     let videoId = new URLSearchParams(window.location.search).get('v');
-    
+
+    // Handle youtu.be short links
     if (!videoId && window.location.hostname === 'youtu.be') {
       videoId = window.location.pathname.slice(1);
     }
-    
+
+    // Handle YouTube Shorts
+    if (!videoId && window.location.pathname.includes('/shorts/')) {
+      const match = window.location.pathname.match(/\/shorts\/([^/?]+)/);
+      if (match) {
+        videoId = match[1];
+      }
+    }
+
     if (!videoId) {
       return { error: 'Could not find video ID in URL' };
     }
 
     let ytInitialPlayerResponse = window.ytInitialPlayerResponse;
-    
+
     if (!ytInitialPlayerResponse) {
       const scripts = document.querySelectorAll('script');
       for (let script of scripts) {
@@ -97,13 +106,13 @@ async function extractTranscript() {
         }
       }
     }
-    
+
     if (!ytInitialPlayerResponse || !ytInitialPlayerResponse.captions) {
       return { error: 'No captions available for this video' };
     }
 
     const captionTracks = ytInitialPlayerResponse.captions.playerCaptionsTracklistRenderer?.captionTracks;
-    
+
     if (!captionTracks || captionTracks.length === 0) {
       return { error: 'No caption tracks found for this video' };
     }
@@ -113,30 +122,30 @@ async function extractTranscript() {
 
     const response = await fetch(captionUrl);
     const xml = await response.text();
-    
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xml, 'text/xml');
     const textElements = xmlDoc.getElementsByTagName('text');
-    
+
     if (textElements.length === 0) {
       return { error: 'No transcript text found in captions' };
     }
-    
+
     let transcript = [];
     for (let element of textElements) {
       let text = element.textContent;
       text = text.replace(/&amp;/g, '&')
-                 .replace(/&lt;/g, '<')
-                 .replace(/&gt;/g, '>')
-                 .replace(/&quot;/g, '"')
-                 .replace(/&#39;/g, "'")
-                 .replace(/\n/g, ' ');
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\n/g, ' ');
       transcript.push(text);
     }
-    
+
     let paragraph = transcript.join(' ');
     paragraph = paragraph.replace(/\s+/g, ' ').trim();
-    
+
     return { text: paragraph };
   } catch (error) {
     return { error: error.message };
