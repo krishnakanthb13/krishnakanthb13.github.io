@@ -1,19 +1,38 @@
 {
   "manifest_version": 3,
   "name": "YouTube Transcript Fetcher",
-  "version": "1.0",
-  "description": "Fetch transcripts from YouTube videos",
-  "permissions": ["activeTab", "scripting"],
+  "version": "1.1",
+  "description": "Fetch transcripts from YouTube videos and Shorts in a sidebar",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
   "action": {
-    "default_popup": "popup.html"
+    "default_title": "Open Transcript Sidebar"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidebar.html"
   },
   "host_permissions": [
     "https://www.youtube.com/*"
   ],
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "js": ["content.js"]
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
-  ]
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
 }
