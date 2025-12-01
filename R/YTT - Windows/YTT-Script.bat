@@ -60,7 +60,7 @@ set "pyfilepath=!filepath:\=\\!"
 
 REM Run the Python code
 REM FIX APPLIED BELOW: Used string concatenation (+ filepath) instead of embedding !filepath! inside quotes
-python -c "from youtube_transcript_api import YouTubeTranscriptApi; import re; import pyperclip; import os; api = YouTubeTranscriptApi(); trans = api.fetch('!vid!'); raw = trans.to_raw_data(); paragraph = ' '.join(snippet['text'] for snippet in raw); paragraph = re.sub(r'\s+', ' ', paragraph).strip(); pyperclip.copy(paragraph); filepath = '!pyfilepath!'; open(filepath, 'w', encoding='utf-8').write(paragraph); print('\n✓ Transcript copied to clipboard!'); print('✓ Saved to: ' + filepath); print('\nPreview (first 200 chars):\n' + paragraph[:200] + '...')"
+python -c "from youtube_transcript_api import YouTubeTranscriptApi; import re; import pyperclip; import os; api = YouTubeTranscriptApi(); trans = api.fetch('!vid!'); raw = trans.to_raw_data(); paragraph = ' '.join(snippet['text'] for snippet in raw); paragraph = re.sub(r'\s+', ' ', paragraph).strip(); pyperclip.copy(paragraph); filepath = '!pyfilepath!'; open(filepath, 'w', encoding='utf-8').write(paragraph); print('\nTranscript copied to clipboard.\nFile Saved to:'); print(filepath); print('\nPreview (first 200 chars):\n' + paragraph[:200] + '...')"
 
 if errorlevel 1 (
     echo.
