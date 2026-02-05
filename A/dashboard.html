@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna's Amplenote Plugins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- YAML Parser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --accent-primary: #3cc07d;
+            /* Amplenote Green */
+            --accent-secondary: #f8914d;
+            /* Orange */
+            --accent-pink: #e5569e;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% -10%, #1a2c24 0%, #0d1117 100%);
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+            pointer-events: none;
+        }
+
+        .container.loaded {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #3cc07d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(60, 192, 125, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border-color: var(--accent-secondary);
+            color: var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+        }
+
+        /* Grid */
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(15px);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(60, 192, 125, 0.4);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            margin-bottom: 1.5rem;
+            color: white;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .plugin-list {
+            list-style: none;
+        }
+
+        .plugin-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .plugin-item:last-child {
+            border-bottom: none;
+        }
+
+        .plugin-name {
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .plugin-name:hover {
+            color: var(--accent-primary);
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status-badge[data-status*="Updated"],
+        .status-badge[data-status*="New"],
+        .status-badge[data-status*="Recent"] {
+            background: rgba(248, 145, 77, 0.2);
+            color: var(--accent-secondary);
+        }
+
+        .status-badge[data-status*="Latest"],
+        .status-badge[data-status*="Core"] {
+            background: rgba(60, 192, 125, 0.2);
+            color: var(--accent-primary);
+        }
+
+        .status-badge[data-status*="Trending"] {
+            background: rgba(255, 255, 0, 0.1);
+            color: #ffee00;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            margin-top: 5rem;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .timeline-table th {
+            text-align: left;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--accent-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .timeline-table td {
+            padding: 1.2rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        .install-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .install-link:hover {
+            text-decoration: underline;
+        }
+
+        .plan-details {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.6rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-primary);
+            line-height: 1.4;
+        }
+
+        /* Milestones */
+        .milestones {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .milestone-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .milestone-date {
+            color: var(--accent-secondary);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-item p {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-support {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-pink));
+            padding: 2.5rem;
+            border-radius: 24px;
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .support-btn {
+            background: white;
+            color: var(--bg-color);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.5s;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--card-bg);
+            border-bottom-color: var(--accent-primary);
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #error-ui {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div id="loader-content">
+            <span class="loader"></span>
+            <p style="color:var(--text-muted)">Loading your plugin data...</p>
+        </div>
+        <div id="error-ui">
+            <h2 style="color:white; margin-bottom: 1rem;">Local Security Restriction</h2>
+            <p style="color:var(--text-muted); max-width: 500px; margin-bottom: 2rem;">
+                Browsers block automatic file loading for security when opened locally. <br />
+                Please select your <strong>plugins.yaml</strong> file manually to continue.
+            </p>
+            <div class="btn-group">
+                <label for="yaml-upload" class="btn">
+                    <span class="material-symbols-outlined" style="margin-right:8px">file_open</span>
+                    Select plugins.yaml
+                </label>
+                <input type="file" id="yaml-upload" accept=".yaml,.yml" style="display:none">
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="main-container">
+        <header>
+            <h1 class="hero-title" id="page-title">Loading Dashboard...</h1>
+            <p class="hero-subtitle" id="hero-subtitle"></p>
+            <div class="btn-group">
+                <a href="#" id="referral-link" class="btn">
+                    <span class="material-symbols-outlined" style="margin-right:8px">rocket_launch</span>
+                    Get Started Free
+                </a>
+            </div>
+        </header>
+
+        <section class="section-grid" id="categories-grid"></section>
+
+        <section class="timeline-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Full Chronological Timeline</h2>
+            <table class="timeline-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Plugin & Future Plans</th>
+                        <th>Category</th>
+                        <th>Release Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="timeline-body"></tbody>
+            </table>
+        </section>
+
+        <section class="milestones" id="milestones-grid"></section>
+
+        <footer>
+            <div class="footer-support">
+                <p id="support-text"></p>
+                <a href="#" id="support-link" class="support-btn"></a>
+            </div>
+            <p style="margin-top: 3rem; color: var(--text-muted); font-size: 0.9rem;">
+                © 2025 Krishna Kanth B. <br />
+                <a href="https://www.amplenote.com/user_profiles/2030-krishna-kanth-b"
+                    style="color:var(--accent-primary); text-decoration:none;">Amplenote Public Profile</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function renderData(data) {
+            // Populate Header
+            document.getElementById('page-title').textContent = data.page_title;
+            document.getElementById('hero-subtitle').textContent = data.hero_subtitle;
+            document.getElementById('referral-link').href = data.referral_link;
+
+            // Populate Categories
+            const categoriesGrid = document.getElementById('categories-grid');
+            categoriesGrid.innerHTML = '';
+            data.categories.forEach(cat => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <span class="material-symbols-outlined card-icon">${cat.icon}</span>
+                    <h2>${cat.name}</h2>
+                    <ul class="plugin-list">
+                        ${cat.plugins.map(p => `
+                            <li class="plugin-item">
+                                <a href="${p.link}" class="plugin-name" target="_blank">${p.name}</a>
+                                ${p.badge ? `<span class="status-badge" data-status="${p.badge}">${p.badge}</span>` : ''}
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                categoriesGrid.appendChild(card);
+            });
+
+            // Populate Timeline
+            const timelineBody = document.getElementById('timeline-body');
+            timelineBody.innerHTML = '';
+            data.timeline.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'timeline-row';
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>
+                        <strong style="color:white">${item.name}</strong>
+                        <div class="plan-details">
+                            ${item.plans.map(p => `• ${p}<br/>`).join('')}
+                        </div>
+                    </td>
+                    <td>${item.category}</td>
+                    <td>${item.published}</td>
+                    <td><a href="${item.install}" class="install-link" target="_blank">Install</a></td>
+                `;
+                timelineBody.appendChild(row);
+            });
+
+            // Populate Milestones
+            const milestonesGrid = document.getElementById('milestones-grid');
+            milestonesGrid.innerHTML = '';
+            data.milestones.forEach(m => {
+                const mItem = document.createElement('div');
+                mItem.className = 'milestone-item';
+                mItem.innerHTML = `
+                    <span class="milestone-date">${m.date}</span>
+                    <p>${m.event}</p>
+                `;
+                milestonesGrid.appendChild(mItem);
+            });
+
+            // Populate Footer
+            document.getElementById('support-text').textContent = data.support.text;
+            document.getElementById('support-link').href = data.support.link;
+            document.getElementById('support-link').textContent = data.support.link_label;
+
+            // Reveal
+            document.getElementById('loading-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading-overlay').style.display = 'none';
+                document.getElementById('main-container').classList.add('loaded');
+            }, 500);
+        }
+
+        async function init() {
+            try {
+                const response = await fetch(`plugins.yaml?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error("File not found");
+                const text = await response.text();
+                const data = jsyaml.load(text);
+                renderData(data);
+            } catch (error) {
+                console.error("Auto-fetch failed:", error);
+                document.getElementById('loader-content').style.display = 'none';
+                document.getElementById('error-ui').style.display = 'block';
+            }
+        }
+
+        // Handle Manual File Selection
+        document.getElementById('yaml-upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                try {
+                    const data = jsyaml.load(event.target.result);
+                    renderData(data);
+                } catch (err) {
+                    alert("Error parsing YAML: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+# Amplenote Plugins Data Source
+# =========================================================================
+# This file is the "brain" of your dashboard.
+# Update this file to automatically update the web page.
+
+page_title: "Future Plan - Amplenote Plugins!"
+hero_subtitle: "My collection of tools designed to streamline your workflow and expand the power of Amplenote."
+referral_link: "https://www.amplenote.com/signup?ref=7JGSMI4H0"
+
+categories:
+  - id: managing-filtering
+    name: "Filtering & Metadata"
+    icon: "filter_list"
+    plugins:
+      - name: "Metadata 1.0 (Note_Tag)"
+        link: "https://www.amplenote.com/notes/af332c24-4064-11ef-b9a5-6ef34fa959ce"
+        install: "https://www.amplenote.com/plugins/WL34r5m5xnFX2C1bVcL7RypF"
+        badge: "Core"
+      - name: "URL-Search-GUI"
+        link: "https://www.amplenote.com/notes/cfc0398e-467a-11ef-bc7e-26e37c279344"
+        install: "https://www.amplenote.com/plugins/vewHxrqobCUGj2LUAYtdXGL1"
+      - name: "Calendar Pro"
+        link: "https://www.amplenote.com/notes/02a65ee0-639b-11ef-96c6-b6c19b417745"
+        install: "https://www.amplenote.com/plugins/36dwpzEP5QoAcJ6GDeHor1SS"
+        badge: "🔴 Updated"
+      - name: "Daily Jots Generator"
+        link: "https://www.amplenote.com/notes/9508ccfe-9826-11ef-980c-fde8113e5c94"
+        install: "https://www.amplenote.com/plugins/vLQj5decWRQdYLNgMaqikYCY"
+      - name: "Gemini AI"
+        link: "https://www.amplenote.com/notes/cffb3c06-99f3-11ef-95a0-2f716e8e6f44"
+        install: "https://www.amplenote.com/plugins/GhcHPJJS2wrcx9Y8rdUhzLTt"
+        badge: "🟡 Trending"
+
+  - id: managing-objects
+    name: "Objects & Media"
+    icon: "grid_view"
+    plugins:
+      - name: "Gallery"
+        link: "https://www.amplenote.com/notes/0e218580-5be7-11ef-b179-22074e34eefe"
+        install: "https://www.amplenote.com/plugins/LpRxpXKGkgqC4G1Ba4iV6nDf"
+      - name: "Graph Utility"
+        link: "https://www.amplenote.com/notes/2d631ce2-6169-11ef-a048-22074e34eefe"
+        install: "https://www.amplenote.com/plugins/sDBcbBrdEhAuerZ5HzLyaTn5"
+      - name: "Kanban Board"
+        link: "https://www.amplenote.com/notes/fd5f08f8-7757-11ef-bfb2-f222b153c6e3"
+        install: "https://www.amplenote.com/plugins/qWiUEMAuZVX4FguvSTgrgDoH"
+      - name: "Task Manager Pro"
+        link: "https://www.amplenote.com/notes/6c5991b0-6457-11ef-b225-22074e34eefe"
+        install: "https://www.amplenote.com/plugins/H6HbzDxR638mVNduhbXW36kX"
+      - name: "Media Manager"
+        link: "https://www.amplenote.com/notes/e47c701e-88af-11ef-9b0a-ceeb1c0a5b1e"
+        install: "https://www.amplenote.com/plugins/eE9LqMWqfQ4vhdSnQ2A5JLen"
+
+  - id: independent-tools
+    name: "Independent Tools"
+    icon: "construction"
+    plugins:
+      - name: "Text MagiQ"
+        link: "https://www.amplenote.com/notes/afed7270-44f9-11ef-bdf6-26e37c279344"
+        install: "https://www.amplenote.com/plugins/TpeF4HbPgwVRfBrg21Xb3QGF"
+      - name: "YTD Wrapped"
+        link: "https://www.amplenote.com/notes/cca2ec48-c77a-11ef-bd81-a5f2e99dda3a"
+        install: "https://www.amplenote.com/plugins/mHrFLdGF9JWViWTXfKcYoNLc"
+        badge: "🟢 Latest"
+      - name: "Dice (Randomizer)"
+        link: "https://www.amplenote.com/notes/7ef401f6-bf9d-11ef-91b5-53b9a30e37b9"
+        install: "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm"
+      - name: "Timestamp"
+        link: "https://www.amplenote.com/notes/0fc33c04-3d0a-11ef-92e0-6ef34fa959ce"
+        install: "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR"
+        badge: "🔴 Updated"
+      - name: "Time - Progress Bar"
+        link: "https://www.amplenote.com/notes/9e46b70a-6b9d-11ef-a330-22d98565c2c0"
+        install: "https://www.amplenote.com/plugins/JQCyGhYkx3iGkm3Fwb25phT8"
+
+timeline:
+  - id: 1
+    name: "Timestamp"
+    category: "Time Stamps"
+    published: "July 8th, 2024"
+    install: "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR"
+    plans:
+      - "Move single selection options to a dynamic prompt."
+      - "Add more than one standard and customized formatting."
+  - id: 2
+    name: "Metadata 1.0 (Note_Tag)"
+    category: "Note Metadata"
+    published: "July 12th, 2024"
+    install: "https://www.amplenote.com/plugins/WL34r5m5xnFX2C1bVcL7RypF"
+    plans:
+      - "Code Optimization."
+      - "Report legend streamlining."
+  - id: 3
+    name: "Text MagiQ"
+    category: "Text Formatting"
+    published: "July 18th, 2024"
+    install: "https://www.amplenote.com/plugins/TpeF4HbPgwVRfBrg21Xb3QGF"
+    plans:
+      - "Add more robust fonts and interface."
+  - id: 10
+    name: "Calendar Pro"
+    category: "Calendar Tool"
+    published: "August 26th, 2024"
+    install: "https://www.amplenote.com/plugins/36dwpzEP5QoAcJ6GDeHor1SS"
+    plans:
+      - "Fix the week number duplication issue."
+  - id: 11
+    name: "Task Manager Pro"
+    category: "Task Tool"
+    published: "August 27th, 2024"
+    install: "https://www.amplenote.com/plugins/H6HbzDxR638mVNduhbXW36kX"
+    plans:
+      - "Sort by Note Scores."
+      - "Have a real 2x2 matrix for EM."
+  - id: 15
+    name: "Kanban Board"
+    category: "Task Tool"
+    published: "October 18th, 2024"
+    install: "https://www.amplenote.com/plugins/qWiUEMAuZVX4FguvSTgrgDoH"
+    plans:
+      - "Drag and drop Tasks."
+      - "Streamline refresh process and optimize code."
+  - id: 17
+    name: "Gemini AI"
+    category: "AI Tool"
+    published: "November 3rd, 2024"
+    install: "https://www.amplenote.com/plugins/GhcHPJJS2wrcx9Y8rdUhzLTt"
+    plans:
+      - "In Development: Detailed integration in main note."
+  - id: 20
+    name: "YTD Wrapped"
+    category: "Annual Reviewer"
+    published: "December 31st, 2024"
+    install: "https://www.amplenote.com/plugins/mHrFLdGF9JWViWTXfKcYoNLc"
+    plans:
+      - "More Visual representations."
+      - "Exclude/Include Trending Words options."
+
+milestones:
+  - date: "June 30th, 2024"
+    event: "Started my journey in here!"
+  - date: "August 28th, 2024"
+    event: "Delivered 11 Plugins."
+  - date: "September 26th, 2024"
+    event: "Got bounty for 3 Plugins (Metadata, Gallery, Notes Reviewer)."
+  - date: "December 29th, 2024"
+    event: "Reached #19 plugin milestone."
+  - date: "January 1st, 2025"
+    event: "Completed 20 unique Plugins. Nice way to end and start a year!"
+
+support:
+  text: "Enjoying the plugins? Upvote it right from the install link!"
+  link: "https://krishnakanthb13.github.io/S/PLP"
+  link_label: "Support Original Work (Secured!)"
