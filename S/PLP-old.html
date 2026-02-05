@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Me</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Basic body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Container styling */
+        .container {
+            background-color: var(--container-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        /* Heading styling */
+        h1 {
+            color: var(--heading-color);
+        }
+        /* General button styling */
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        /* Sponsor button styling */
+        .sponsor-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            color: #ea4aaa;
+            background-color: var(--sponsor-bg);
+            border: 1px solid #ea4aaa;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .sponsor-button svg {
+            margin-right: 8px;
+        }
+        .sponsor-button:hover {
+            background-color: #ea4aaa;
+            color: #fff;
+        }
+        /* PayPal button styling */
+        .paypal-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #ffc439;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #005ea6;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .paypal-button:hover {
+            background-color: #e6b037;
+        }
+        /* Theme toggle button styling */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+        /* Button container styling */
+        .button-container {
+            text-align: center;
+        }
+        /* Specific button styling */
+        .button2 {
+            display: inline-block;
+            padding: 5px 20px;
+            margin: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #fff;
+            background-color: #ff6b20;
+            border: 2px solid #ff6b20;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .button2:hover {
+            background-color: #fc9946;
+            border-color: #fc9946;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(0, 204, 102, 0.7);
+        }
+        /* Popup container styling */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        /* Popup content styling */
+        .popup-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        /* Close button styling */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #f1f1f1;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+        }
+        /* Thumbnail image styling */
+        .thumbnail {
+            width: 150px;
+            cursor: pointer;
+        }
+        sub {
+            font-size: 0.75em; /* Adjust the size as needed */
+        }
+		/* Style for the info button */
+        .info-button {
+            position: relative;
+            display: inline-block;
+            border: none;
+            <!-- background-color: #007bff; -->
+            <!-- color: white; -->
+            padding: 2px 2px;
+            border-radius: 2px;
+            cursor: pointer;
+			vertical-align: top; /* Align to the top */
+        }
+        /* Style for the info tooltip */
+        .info-tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the button */
+            left: 50%;
+            margin-left: -10px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+			font-size: 0.75em; /* Adjust font size as needed */
+        }
+        /* Arrow at the bottom of the tooltip */
+        .info-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        /* Show the tooltip when hovering over the button */
+        .info-button:hover .info-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <p>
+    <center>
+        <h2>Payment Landing Page - Krishna Kanth B</h2>
+        <br>
+        <!-- Buy Me a Coffee button -->
+        <a href="https://www.buymeacoffee.com/krishnakanthb?" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=krishnakanthb&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: 5% transaction fee + payment processing fees.
+        </div>
+		</div>
+        <br><br>
+        <!-- PayPal button -->
+        <a href="https://www.paypal.com/paypalme/krishnakanthb13?" target="_blank">
+            <img src="paypal.png" alt="Sponsor with PayPal" style="width: 300px; height: 40px;" />
+        </a>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: Standard PayPal transaction fees (2.9% + $0.30 per transaction).
+        </div>
+		</div>
+        <br><br>
+        <!-- GitHub Sponsor button -->
+        <a class="sponsor-button" href="https://github.com/sponsors/krishnakanthb13?" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3.278C12.438-1.415 23.534 4.08 8 15-7.534 4.08 3.562-1.415 8 3.278z"/>
+            </svg>
+            Sponsor
+        </a>
+        &nbsp;&nbsp;
+        <i class="fa fa-github" style="font-size:30px;color:#ea4aaa"></i>
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            Fee: Standard GitHub Sponsors fees (up to 6% for sponsorships from organization accounts).
+        </div>
+		</div>
+        <br><br>
+        <!-- UPI payment button -->
+        <a href="upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna" target="_blank">
+            <img src="upi-icon-black.png" alt="Sponsor with UPI" style="width: 180px; height: 35px; background-color: white; border-radius: 10px; padding: 2px;" />
+        </a>
+		<!-- <sub>(Mobile Only!)</sub> -->
+		<div class="info-button">
+			<img src="information-sign.png" alt="Info" style="width: 10px; height: 10px; background-color: gray; border-radius: 10px; padding: 2px;" />
+        <div class="info-tooltip">
+            In India & On Mobile Only!
+        </div>
+		</div>
+        <br><br>
+        <hr><br>
+        <!-- QR code images -->
+        <div class="image-container">
+            <h3>Quick Response (QR) Code for Payment</h3>
+            <img src="NM72E2jg.png" alt="buymeacoffee" class="thumbnail" onclick="openPopup('popup1')" style="width: 50px; height: 50px;" />
+            &nbsp;&nbsp;
+            <img src="paypal2.png" alt="paypal" class="thumbnail" onclick="openPopup('popup2')" style="width: 50px; height: 50px; background-color: white; border-radius: 5px; padding: 1px;" />
+            &nbsp;&nbsp;
+            <img src="google-pay.png" alt="google-pay" class="thumbnail" onclick="openPopup('popup3')" style="width: 50px; height: 50px;" />
+        </div>
+        <!-- Popup Images -->
+        <div id="popup1" class="popup">
+            <span class="close" onclick="closePopup('popup1')">&times;</span>
+            <img src="bmc_qr.png" alt="buymeacoffee" class="popup-content" style="width: 250px; height: 250px;" />
+        </div>
+        <div id="popup2" class="popup">
+            <span class="close" onclick="closePopup('popup2')">&times;</span>
+            <img src="Sponsor-Krishn-qrcode.png" alt="paypal" class="popup-content" style="width: 250px; height: 250px;" />
+        </div>
+        <div id="popup3" class="popup">
+            <span class="close" onclick="closePopup('popup3')">&times;</span>
+            <img src="gpay.png" alt="google-pay" class="popup-content" style="width: 250px; height: 250px;" />
+        </div>
+        <br><br>
+        <hr><br>
+        <h2>Personal Webpages - Krishna Kanth B</h2>
+        <br>
+        <!-- Personal webpage buttons -->
+        <div class="button-container">
+            <a href="https://krishnakanthb13.github.io/" target="_blank" class="button2">Online Resume</a>
+            <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" class="button2">LinkedIn</a>
+            <a href="https://sites.google.com/view/krishnakanthb/about" target="_blank" class="button2">Projects</a>
+            <a href="https://github.com/krishnakanthb13/" target="_blank" class="button2">GitHub</a>
+            <a href="https://bio.site/krishnakanthb13" target="_blank" class="button2">BioLink</a>
+        </div>
+        <!-- Theme toggle button -->
+        <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+    </center>
+    </p>
+    <script>
+        // Detect if the user prefers a dark color scheme
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        // Define dark mode styles
+        const darkMode = {
+            '--bg-color': '#121212',
+            '--text-color': '#3df507',
+            '--container-bg': '#1e1e1e',
+            '--heading-color': '#3df507',
+            '--sponsor-bg': '#333'
+        };
+
+        // Define light mode styles
+        const lightMode = {
+            '--bg-color': '#f4f4f4',
+            '--text-color': '#000000',
+            '--container-bg': '#ffffff',
+            '--heading-color': '#333333',
+            '--sponsor-bg': '#ffffff'
+        };
+
+        // Function to apply the selected theme
+        function applyTheme(theme) {
+            Object.keys(theme).forEach(key => {
+                document.documentElement.style.setProperty(key, theme[key]);
+            });
+        }
+
+        // Function to toggle between dark and light themes
+        function toggleTheme() {
+            const isDark = document.documentElement.style.getPropertyValue('--bg-color') === darkMode['--bg-color'];
+            applyTheme(isDark ? lightMode : darkMode);
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+        }
+
+        // Apply the saved theme or the preferred color scheme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme === 'dark' ? darkMode : lightMode);
+            document.querySelector('.theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        } else {
+            applyTheme(prefersDarkScheme ? darkMode : lightMode);
+            document.querySelector('.theme-toggle').textContent = prefersDarkScheme ? '☀️' : '🌙';
+        }
+    </script>
+    <script>
+        // Function to open the popup
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "block";
+        }
+
+        // Function to close the popup
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+        }
+
+        // Function to close the popup on Escape key press
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeAllPopups();
+            }
+        });
+
+        // Function to close all popups
+        function closeAllPopups() {
+            var popups = document.querySelectorAll('.popup');
+            popups.forEach(function(popup) {
+                popup.style.display = "none";
+            });
+        }
+    </script>
+</body>
+</html>
