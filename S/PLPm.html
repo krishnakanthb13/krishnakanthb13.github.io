@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Checkout | krishnakanthb13</title>
+
+    <!-- Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon-32x32.png">
+    
+    <style>
+        :root {
+            /* Corporate Palette - Razorpay/Stripe vibes */
+            --bg-body: #F3F4F6;
+            --bg-panel: #FFFFFF;
+            --bg-header: #FFFFFF;
+            --text-main: #111827;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+            --primary: #2563EB;
+            --primary-hover: #1D4ED8;
+            --success-bg: #D1FAE5;
+            --success-text: #065F46;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px; /* matched PLP */
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #050505; 
+            --bg-panel: #111827;
+            --bg-header: #111827;
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border-color: #374151;
+            --primary: #3B82F6;
+            --primary-hover: #60A5FA;
+            --success-bg: #064E3B;
+            --success-text: #6EE7B7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.2s, color 0.2s; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 0.75rem; /* Reset outer padding */
+        }
+
+        .app-wrapper {
+            background-color: var(--bg-panel);
+            width: 100%;
+            max-width: 600px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header.top-nav {
+            background-color: var(--bg-header);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .theme-switch {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            cursor: pointer;
+        }
+
+        .tabs-container {
+            background: var(--bg-panel);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 61px;
+            z-index: 9;
+        }
+
+        .payment-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            list-style: none;
+            width: 100%;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 0.5rem;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .nav-btn .fa-chevron-right { display: none; }
+
+        main { flex: 1; display: flex; flex-direction: column; }
+        
+        .content-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-panel);
+        }
+
+        .content-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--success-text);
+            background: var(--success-bg);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-weight: 600;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.3s; flex-direction: column; padding: 1rem; }
+        .tab-content.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .info-group { margin-bottom: 1rem; }
+        .label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; }
+        .value { font-size: 1rem; color: var(--text-main); line-height: 1.5; }
+        .fee-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic; display: flex; align-items: center; gap: 6px; }
+
+        .qr-card {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: var(--radius);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            background: white;
+            padding: 2px; /* reduced padding */
+            border: 1px solid #eee;
+            width: 250px; /* BIGGER QR */
+        }
+
+        .qr-caption {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.875rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1rem;
+            border: 1px solid transparent;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .cta-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Footer links */
+        .links-bar {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            background: var(--bg-panel);
+        }
+
+        .link-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .clickable-code {
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        @media (max-width: 380px) {
+            .payment-nav {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <header class="top-nav">
+        <a href="https://krishnakanthb13.github.io/" class="brand">
+            <span>Pay<span style="color: var(--primary);">Link</span></span>
+            <span style="font-weight: 400; font-size: 0.8rem; color: var(--text-muted); margin-left: 4px;">| Secure</span>
+        </a>
+        <button class="theme-switch" id="themeToggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <nav class="tabs-container">
+        <ul class="payment-nav">
+            <li>
+                <button class="nav-btn active" onclick="switchTab('paypal')">
+                    <i class="fab fa-paypal"></i> PayPal Standard
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="switchTab('coffee')">
+                    <i class="fas fa-coffee"></i> Buy Me a Coffee
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="switchTab('github')">
+                    <i class="fab fa-github"></i> GitHub Sponsors
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" onclick="switchTab('upi')">
+                    <i class="fas fa-mobile-alt"></i> UPI / GPay
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <header class="content-header">
+            <div>
+                <h2 id="header-title">PayPal Standard</h2>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Secure SSL Connection</span>
+            </div>
+            <div class="secure-badge">
+                <i class="fas fa-shield-alt"></i> Verified
+            </div>
+        </header>
+        
+        <!-- PAYPAL TAB -->
+        <div id="paypal" class="tab-content active">
+            <div class="payment-details">
+                <div>
+                    <div class="info-group">
+                        <span class="label">Description</span>
+                        <p class="value">International Payment Gateway. Supports all major Credit and Debit cards.</p>
+                    </div>
+                    <div class="info-group">
+                        <span class="label">Transaction Fees</span>
+                        <p class="fee-note"><i class="fas fa-info-circle"></i> Standard international fees apply (~5% + currency conversion).</p>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <a href="https://www.paypal.com/paypalme/krishnakanthb13" target="_blank">
+                            <!-- PayPal Official Donate Button Image -->
+                            <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" style="height: 50px; width: auto;" />
+                        </a>
+                    </div>
+                </div>
+                <div class="qr-card">
+                    <img src="Sponsor-Krishn-qrcode.png" alt="PayPal QR Code" class="qr-img">
+                    <p class="qr-caption">Scan to Pay securely</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- COFFEE TAB -->
+        <div id="coffee" class="tab-content">
+            <div class="payment-details">
+                <div>
+                    <div class="info-group">
+                        <span class="label">Buy Me A Coffee</span>
+                        <p class="value">Support my work with a small donation. Great for one-time support.</p>
+                    </div>
+                    <div class="info-group">
+                        <span class="label">Deductions</span>
+                        <p class="fee-note"><i class="fas fa-info-circle"></i> 5% platform fee + standard payment processing fees.</p>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <!-- Buy Me A Coffee Official Widget Button -->
+                        <a href="https://www.buymeacoffee.com/krishnakanthb" target="_blank">
+                            <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=krishnakanthb&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" style="max-width: 100%;">
+                        </a>
+                    </div>
+                </div>
+                <div class="qr-card">
+                    <img src="bmc_qr.png" alt="BMC QR Code" class="qr-img">
+                    <p class="qr-caption">Scan to Support</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GITHUB TAB -->
+        <div id="github" class="tab-content">
+            <div class="payment-details">
+                <div>
+                    <div class="info-group">
+                        <span class="label">GitHub Sponsors</span>
+                        <p class="value">Sponsor my open source contributions. Monthly or one-time tiers available.</p>
+                    </div>
+                    <div class="info-group">
+                        <span class="label">Fees</span>
+                        <p class="fee-note"><i class="fas fa-check"></i> Zero fees for individual sponsors!</p>
+                        <p class="fee-note"><i class="fas fa-info-circle"></i> Up to 6% for organizations.</p>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <!-- GitHub Sponsors Custom Button -->
+                        <a href="https://github.com/sponsors/krishnakanthb13" target="_blank" class="cta-button" style="background-color: #ea4aaa; color: white;">
+                            <i class="far fa-heart"></i> Sponsor on GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="qr-card" style="display: flex; align-items: center; justify-content: center; background: var(--bg-body);">
+                    <i class="fab fa-github" style="font-size: 64px; opacity: 0.2;"></i>
+                    <p class="qr-caption" style="margin-top: 10px;">Direct Link Only</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPI TAB -->
+        <div id="upi" class="tab-content">
+            <div class="payment-details">
+                <div>
+                    <div class="info-group">
+                        <span class="label">Unified Payments Interface (UPI)</span>
+                        <p class="value">Instant bank-to-bank transfer using any UPI app (GPay, PhonePe, Paytm).</p>
+                    </div>
+                    <div class="info-group">
+                        <span class="label">Availability</span>
+                        <p class="fee-note"><i class="fas fa-check-circle"></i> Free for direct bank transfers.</p>
+                        <p class="fee-note"><i class="fas fa-map-marker-alt"></i> India Only (Best on Mobile)</p>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <a href="upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna" class="cta-button">
+                            <i class="fab fa-google-pay"></i> Pay via UPI
+                        </a>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+                    <div class="qr-card" style="width: 100%;">
+                        <img src="gpay.png" alt="GPay QR Code" class="qr-img">
+                        <p class="qr-caption">Scan with any UPI App</p>
+                    </div>
+
+                    <div style="width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--bg-body); padding: 1rem; margin-top: 1rem; text-align: center;">
+                        <code id="upi-id" onclick="copyToClipboard('upi-id')" class="clickable-code" title="Click to Copy" style="display: inline-block; background: var(--bg-panel); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color); font-size: 1rem; font-weight: 500;">krishnakanthb13@okhdfcbank</code>
+                        <span class="label" id="copy-status-text" style="display: block; margin-top: 8px; margin-bottom: 0; font-size: 0.8rem; color: var(--text-muted); font-weight: normal; text-align: center; transition: all 0.2s;">(Click to Copy UPI ID)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="links-bar">
+        <a href="https://github.com/krishnakanthb13/" target="_blank" class="link-item"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" class="link-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://krishnakanthb13.github.io/" target="_blank" class="link-item"><i class="fas fa-file-alt"></i> Resume</a>
+        <a href="https://bio.site/krishnakanthb13" target="_blank" class="link-item"><i class="fas fa-link"></i> BioLink</a>
+        <a href="https://sites.google.com/view/krishnakanthb/about" target="_blank" class="link-item"><i class="fas fa-project-diagram"></i> Projects</a>
+        
+        <div style="width: 100%; text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+            &copy; 2026 Krishna Kanth B
+        </div>
+    </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            const titles = {
+                'paypal': 'PayPal Standard',
+                'upi': 'UPI / GPay / PhonePe',
+                'coffee': 'Buy Me A Coffee',
+                'github': 'GitHub Sponsorship'
+            };
+            document.getElementById('header-title').textContent = titles[tabId] || 'Payment';
+        }
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let isDark = savedTheme === 'dark' || (!savedTheme && systemDark);
+
+        function updateTheme() {
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            updateTheme();
+        });
+
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId).innerText;
+            const statusElement = document.getElementById('copy-status-text');
+            const originalText = "(Click to Copy UPI ID)";
+
+            navigator.clipboard.writeText(copyText).then(() => {
+                statusElement.textContent = "Copied to clipboard!";
+                statusElement.style.color = "var(--success-text)";
+                statusElement.style.fontWeight = "600";
+                setTimeout(() => {
+                    statusElement.textContent = originalText;
+                    statusElement.style.color = "var(--text-muted)";
+                    statusElement.style.fontWeight = "normal";
+                }, 3000);
+            }).catch(err => console.error('Failed to copy text: ', err));
+        }
+    </script>
+</body>
+</html>

@@ -31,7 +31,8 @@ A premium, responsive, and minimalist secure checkout page designed for unified 
 │   ├── FUNDING.yml         # GitHub Sponsorship configuration
 │   └── FUNDING_example.yml # Template for funding platforms
 ├── assets/                 # (Assumed parent directory for site assets)
-├── PLP.html                # Main Secure Checkout entry point
+├── PLP.html                # Main Secure Checkout entry point (Desktop)
+├── PLPm.html               # Mobile-optimized Secure Checkout
 ├── PLP-old.html            # Legacy version
 └── *.png                   # QR codes and branding assets
 ```
@@ -61,4 +62,33 @@ If you find this project useful, you can support my work via:
 - [BioLink](https://bio.site/krishnakanthb13)
 
 ---
+
+## Content Sync Report: PLP.html vs PLPm.html
+
+| Element | PLP.html | PLPm.html | Status |
+|---|---|---|---|
+| **Tab labels** | PayPal Standard, Buy Me a Coffee, GitHub Sponsors, UPI / GPay | Same | ✅ |
+| **Header title (dynamic)** | PayPal Standard / UPI / GPay / PhonePe / Buy Me A Coffee / GitHub Sponsorship | Same | ✅ |
+| **PayPal description** | International Payment Gateway. Supports all major Credit and Debit cards. | Same | ✅ |
+| **PayPal fee note** | Standard international fees apply (~5% + currency conversion). | Same | ✅ |
+| **PayPal button link** | `paypal.com/paypalme/krishnakanthb13` | Same | ✅ |
+| **PayPal QR image** | `Sponsor-Krishn-qrcode.png` | Same | ✅ |
+| **BMC description** | Support my work with a small donation. Great for one-time support. | Same | ✅ |
+| **BMC fee note** | 5% platform fee + standard payment processing fees. | Same | ✅ |
+| **BMC button link** | `buymeacoffee.com/krishnakanthb` | Same | ✅ |
+| **BMC QR image** | `bmc_qr.png` | Same | ✅ |
+| **GitHub description** | Sponsor my open source contributions. Monthly or one-time tiers available. | Same | ✅ |
+| **GitHub fee notes** | Zero fees / Up to 6% for orgs | Same | ✅ |
+| **GitHub Sponsors link** | `github.com/sponsors/krishnakanthb13` | Same | ✅ |
+| **UPI description** | Instant bank-to-bank transfer using any UPI app (GPay, PhonePe, Paytm). | Same | ✅ |
+| **UPI availability notes** | Free / India Only (Best on Mobile) | Same | ✅ |
+| **UPI ID** | `krishnakanthb13@okhdfcbank` | Same | ✅ |
+| **UPI deep link** | `upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna` | Same | ✅ |
+| **GPay QR image** | `gpay.png` | Same | ✅ |
+| **Secure badge** | 🛡 Verified / Secure SSL Connection | Same | ✅ |
+| **Footer links (5)** | GitHub, LinkedIn, Resume, BioLink, Projects | Same | ✅ |
+| **Copyright** | © 2026 Krishna Kanth B | Same | ✅ |
+
+---
+
 © 2026 Krishna Kanth B

@@ -27,7 +27,8 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Gap Analysis](https://krishnakanthb13.github.io/0/gap.htm): Gap Analysis for Online Resume.
 	- [Anki Flashcards](https://krishnakanthb13.github.io/F/anki_flashcards_page.html): My Anki Flashcards Page.
 - **Payment Gateway**:
-	- [Latest Payment Gateway](https://krishnakanthb13.github.io/S/PLP.html)
+	- [Latest Payment Gateway (Desktop)](https://krishnakanthb13.github.io/S/PLP.html)
+	- [Latest Payment Gateway (Mobile)](https://krishnakanthb13.github.io/S/PLPm.html)
 	- [Old Payment Gateway](https://krishnakanthb13.github.io/S/PLP-old.html)
 - **Resume**:
 	- [Resume v1](https://krishnakanthb13.github.io/R/1/1.html)
