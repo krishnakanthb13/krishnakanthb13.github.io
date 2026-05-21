@@ -10,185 +10,236 @@
   // 2. Inject CSS for settings button and modal
   const styles = `
     .settings-trigger {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
       cursor: pointer;
-      font-size: 0.85rem;
-      color: var(--settings-text, #555);
-      background: var(--settings-bg, #ffffff);
-      padding: 0.4rem 0.85rem;
+      font-family: 'Fredoka', 'Quicksand', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--settings-accent, #f25e9c);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(6px);
+      padding: 0.5rem 1rem;
       border-radius: 999px;
-      border: 1px solid var(--settings-border, #e0c8c0);
-      transition: all 0.2s ease;
+      border: 2px solid var(--settings-border, #f6cfe2);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, background 0.2s, color 0.2s;
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      z-index: 99;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-      font-weight: 500;
+      z-index: 9000;
+      box-shadow: 0 4px 14px rgba(242,94,156,0.18);
     }
     .settings-trigger:hover {
-      background: var(--settings-sec-bg, #fff0f4);
-      color: var(--settings-accent, #D4537E);
-      border-color: var(--settings-accent, #D4537E);
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, #ff9ec7, var(--settings-accent, #f25e9c));
+      color: #fff;
+      border-color: #fff;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 7px 20px rgba(242,94,156,0.35);
     }
+    .settings-trigger:active { transform: scale(0.97); }
+
     .settings-modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: rgba(80, 28, 56, 0.42);
+      backdrop-filter: blur(7px);
       z-index: 10000;
       align-items: center;
       justify-content: center;
       padding: 1rem;
       box-sizing: border-box;
     }
-    .settings-modal.show {
-      display: flex;
-    }
+    .settings-modal.show { display: flex; }
+
     .settings-content {
-      background: white;
-      border-radius: 18px;
+      background: var(--settings-bg, #fffafc);
+      border-radius: 28px;
       width: 100%;
-      max-width: 440px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      max-width: 430px;
+      max-height: 90vh;
+      box-shadow: 0 22px 55px rgba(242,94,156,0.32), 0 0 0 6px rgba(255,255,255,0.45);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      animation: settingsFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: settingsPop 0.34s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
-    @keyframes settingsFadeIn {
-      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    @keyframes settingsPop {
+      from { opacity: 0; transform: scale(0.9) translateY(16px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
+
     .settings-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.1rem 1.4rem;
-      background: var(--settings-sec-bg, #fdf6ee);
-      border-bottom: 1px solid var(--settings-border, #f0e0d8);
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, #ff9ec7 0%, var(--settings-accent, #f25e9c) 60%, #c97ce8 100%);
     }
     .settings-header h3 {
-      font-family: 'Playfair Display', serif;
-      color: var(--settings-text, #1a1a1a);
-      font-size: 1.25rem;
-      margin: 0;
+      font-family: 'Fredoka', 'Quicksand', sans-serif;
+      color: #fff;
+      font-size: 1.3rem;
       font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.3px;
+      text-shadow: 0 2px 5px rgba(150,40,90,0.25);
     }
     .settings-close-btn {
       cursor: pointer;
-      font-size: 1.5rem;
-      color: #999;
+      font-size: 1.3rem;
+      color: #fff;
       line-height: 1;
+      width: 32px;
+      height: 32px;
       border: none;
-      background: none;
-      transition: color 0.15s;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.16s, transform 0.16s;
     }
     .settings-close-btn:hover {
-      color: var(--settings-accent, #D4537E);
+      background: rgba(255,255,255,0.5);
+      transform: rotate(90deg);
     }
+
     .settings-body {
-      padding: 1.4rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      gap: 1.15rem;
       box-sizing: border-box;
+      overflow-y: auto;
+      min-height: 0;
     }
+    .settings-body::-webkit-scrollbar { width: 8px; }
+    .settings-body::-webkit-scrollbar-thumb {
+      background: var(--settings-border, #f6cfe2);
+      border-radius: 999px;
+    }
+
     .settings-field {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.4rem;
     }
     .settings-field label {
-      font-size: 0.72rem;
+      font-family: 'Fredoka', 'Quicksand', sans-serif;
+      font-size: 0.74rem;
       font-weight: 600;
-      color: #888;
+      color: var(--settings-accent, #f25e9c);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       margin: 0;
     }
     .settings-field input, .settings-field select {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      padding: 0.65rem 0.8rem;
-      border-radius: 10px;
-      border: 1.5px solid var(--settings-border, #e8d5cc);
-      background: #fefaf8;
-      color: var(--settings-text, #1a1a1a);
+      font-family: 'Quicksand', 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.92rem;
+      padding: 0.75rem 0.95rem;
+      border-radius: 15px;
+      border: 2.5px solid var(--settings-border, #f6cfe2);
+      background: #fff;
+      color: var(--settings-text, #6b2d4f);
       outline: none;
-      transition: all 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       width: 100%;
       box-sizing: border-box;
     }
-    .settings-field input:focus, .settings-field select:focus {
-      border-color: var(--settings-accent, #D4537E);
-      background: white;
+    .settings-field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23f25e9c' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.95rem center;
+      padding-right: 2.4rem;
+      cursor: pointer;
     }
+    .settings-field input:focus, .settings-field select:focus {
+      border-color: var(--settings-accent, #f25e9c);
+      box-shadow: 0 0 0 4px rgba(255,143,192,0.2);
+    }
+    .settings-field input::placeholder { color: #d9b3c6; }
+
     .settings-help {
-      font-size: 0.75rem;
-      color: #777;
-      line-height: 1.4;
-      margin-top: 0.1rem;
+      font-family: 'Quicksand', 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--settings-text, #b07f9b);
+      line-height: 1.5;
+      margin-top: 0.05rem;
     }
     .settings-help a {
-      color: var(--settings-accent, #D4537E);
+      color: var(--settings-accent, #f25e9c);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 700;
     }
-    .settings-help a:hover {
-      text-decoration: underline;
-    }
+    .settings-help a:hover { text-decoration: underline; }
+
     .settings-row {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      background: var(--settings-sec-bg, #ffeaf4);
+      border: 2px solid var(--settings-border, #f6cfe2);
+      border-radius: 15px;
+      padding: 0.8rem 0.95rem;
     }
     .settings-checkbox {
-      width: 16px;
-      height: 16px;
+      width: 19px;
+      height: 19px;
       cursor: pointer;
-      accent-color: var(--settings-accent, #D4537E);
+      flex-shrink: 0;
+      accent-color: var(--settings-accent, #f25e9c);
     }
     .settings-checkbox-label {
-      font-size: 0.85rem;
-      color: var(--settings-text, #1a1a1a);
+      font-family: 'Quicksand', 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--settings-text, #6b2d4f);
       cursor: pointer;
       user-select: none;
     }
+
     .save-settings-btn {
-      background: var(--settings-accent, #D4537E);
+      background: linear-gradient(135deg, #ff9ec7 0%, var(--settings-accent, #f25e9c) 60%, #c97ce8 100%);
       color: white;
       border: none;
-      border-radius: 12px;
-      padding: 0.8rem;
-      font-size: 0.95rem;
-      font-weight: 500;
+      border-radius: 17px;
+      padding: 0.95rem;
+      font-family: 'Fredoka', 'Quicksand', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
-      margin-top: 0.5rem;
+      transition: transform 0.15s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.2s;
+      margin-top: 0.4rem;
       width: 100%;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-      font-family: inherit;
+      box-shadow: 0 7px 20px rgba(242,94,156,0.35);
     }
     .save-settings-btn:hover {
-      opacity: 0.92;
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 11px 26px rgba(242,94,156,0.45);
     }
-    .save-settings-btn:active {
-      transform: scale(0.98);
-    }
-    
-    /* Responsive adjustment for trigger button on mobile */
+    .save-settings-btn:active { transform: scale(0.98); }
+
     @media (max-width: 600px) {
       .settings-trigger {
         top: 0.6rem;
         right: 0.6rem;
-        font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
+        font-size: 0.74rem;
+        padding: 0.4rem 0.75rem;
       }
+      .settings-content { border-radius: 24px; }
+      .settings-header { padding: 1.1rem 1.2rem; }
+      .settings-body { padding: 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .settings-content { animation-duration: 0.01ms; }
+      .settings-trigger, .save-settings-btn, .settings-close-btn { transition-duration: 0.01ms; }
     }
   `;
 
