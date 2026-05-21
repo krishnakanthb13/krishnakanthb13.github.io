@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charm School ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8614a;
+    --blush: #f9d4c4;
+    --cream: #fdf6ee;
+    --deep: #2a1a1a;
+    --muted: #7a5c5c;
+    --gold: #d4a853;
+    --soft-green: #c8ddd0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-deco {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .bg-deco span {
+    position: absolute; font-size: 2.5rem; opacity: 0.07;
+    animation: floatDeco 12s ease-in-out infinite;
+  }
+  @keyframes floatDeco {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(10deg); }
+  }
+
+  header {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 2.5rem 1rem 1rem;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--rose);
+    letter-spacing: -0.02em;
+  }
+  header h1 em { font-style: italic; color: var(--gold); }
+
+  header p {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  /* Style Pills */
+  .styles-row {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    justify-content: center;
+    padding: 1.2rem 1rem;
+    max-width: 600px; margin: 0 auto;
+  }
+
+  .style-pill {
+    cursor: pointer;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .style-pill:hover { transform: scale(1.06); }
+  .style-pill.active { border-color: var(--deep); }
+
+  .pill-funny    { background: #fff3d6; color: #8a5e00; }
+  .pill-funny.active { background: #ffd166; border-color: #8a5e00; }
+
+  .pill-flirty   { background: #fde8e4; color: #b03020; }
+  .pill-flirty.active { background: var(--rose); color: #fff; border-color: #b03020; }
+
+  .pill-cheesy   { background: #f0f7ea; color: #3a6b2a; }
+  .pill-cheesy.active { background: #7bc67e; color: #fff; border-color: #3a6b2a; }
+
+  .pill-caring   { background: #e8f0fe; color: #2345a8; }
+  .pill-caring.active { background: #5b8cf5; color: #fff; border-color: #2345a8; }
+
+  .pill-loving   { background: #fce4ec; color: #8b1a4a; }
+  .pill-loving.active { background: #e91e63; color: #fff; border-color: #8b1a4a; }
+
+  .pill-witty    { background: #ede7f6; color: #4a148c; }
+  .pill-witty.active { background: #9c27b0; color: #fff; border-color: #4a148c; }
+
+  /* Scenario Box */
+  .scenario-box {
+    position: relative; z-index: 1;
+    max-width: 560px; margin: 0 auto 1rem;
+    padding: 0 1rem;
+  }
+
+  .scenario-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  .scenario-label {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold);
+    font-weight: 500; margin-bottom: 0.3rem;
+  }
+
+  .scenario-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--deep); line-height: 1.5;
+  }
+
+  .new-scenario-btn {
+    margin-top: 0.7rem;
+    background: none; border: 1.5px solid var(--muted);
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; padding: 0.3rem 0.9rem;
+    border-radius: 999px; cursor: pointer;
+    transition: all 0.18s;
+  }
+  .new-scenario-btn:hover { background: var(--muted); color: white; }
+
+  /* Input + Generate */
+  .input-area {
+    position: relative; z-index: 1;
+    max-width: 560px; margin: 0 auto;
+    padding: 0 1rem 1rem;
+  }
+
+  .input-row {
+    display: flex; gap: 0.6rem;
+  }
+
+  textarea {
+    flex: 1;
+    background: white;
+    border: 2px solid #e8d5d0;
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    resize: none; height: 70px;
+    color: var(--deep);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: var(--rose); }
+  textarea::placeholder { color: #cbb5b0; }
+
+  .gen-btn {
+    background: var(--rose);
+    color: white; border: none;
+    border-radius: 14px;
+    padding: 0 1.1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+    flex-shrink: 0; width: 56px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gen-btn:hover { background: #d04535; transform: scale(1.05); }
+  .gen-btn:active { transform: scale(0.97); }
+  .gen-btn.loading { opacity: 0.7; pointer-events: none; }
+
+  /* Response Card */
+  .response-area {
+    position: relative; z-index: 1;
+    max-width: 560px; margin: 0 auto;
+    padding: 0 1rem 2rem;
+    display: none;
+  }
+  .response-area.show { display: block; }
+
+  .response-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.4rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    animation: slideUp 0.35s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .response-style-tag {
+    display: inline-block;
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+  }
+
+  .response-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--deep);
+    white-space: pre-wrap;
+  }
+
+  .tip-box {
+    margin-top: 1rem;
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-left: 3px solid var(--soft-green);
+    line-height: 1.5;
+  }
+  .tip-box strong { color: var(--deep); }
+
+  .actions-row {
+    display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap;
+  }
+  .action-btn {
+    flex: 1; min-width: 80px;
+    background: none; border: 1.5px solid #e0cdc8;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; padding: 0.45rem 0.6rem;
+    border-radius: 10px; cursor: pointer;
+    transition: all 0.18s; text-align: center;
+  }
+  .action-btn:hover { background: var(--blush); border-color: var(--rose); color: var(--rose); }
+
+  .typing-dots span {
+    display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; background: var(--rose); margin: 0 2px;
+    animation: bounce 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  .empty-state {
+    text-align: center; padding: 1.5rem;
+    color: var(--muted); font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-deco">
+  <span style="top:5%;left:8%;animation-delay:0s">💌</span>
+  <span style="top:15%;right:10%;animation-delay:2s">✨</span>
+  <span style="top:55%;left:4%;animation-delay:4s">🌹</span>
+  <span style="top:70%;right:6%;animation-delay:1s">💫</span>
+  <span style="top:85%;left:20%;animation-delay:3s">🎭</span>
+  <span style="top:30%;right:3%;animation-delay:5s">😄</span>
+</div>
+
+<header>
+  <h1>Charm <em>School</em> ✨</h1>
+  <p>Practice your conversation style — pick a vibe, pick a moment</p>
+</header>
+
+<div class="styles-row">
+  <div class="style-pill pill-funny active" data-style="funny" onclick="selectStyle(this)">😄 Funny</div>
+  <div class="style-pill pill-flirty" data-style="flirty" onclick="selectStyle(this)">😏 Flirty</div>
+  <div class="style-pill pill-cheesy" data-style="cheesy" onclick="selectStyle(this)">🧀 Cheesy</div>
+  <div class="style-pill pill-caring" data-style="caring" onclick="selectStyle(this)">🤍 Caring</div>
+  <div class="style-pill pill-loving" data-style="loving" onclick="selectStyle(this)">💕 Loving</div>
+  <div class="style-pill pill-witty" data-style="witty" onclick="selectStyle(this)">🧠 Witty</div>
+</div>
+
+<div class="scenario-box">
+  <div class="scenario-card">
+    <div class="scenario-label">📍 Scenario</div>
+    <div class="scenario-text" id="scenarioText">You see someone reading a book you love at a coffee shop</div>
+    <button class="new-scenario-btn" onclick="newScenario()">🎲 New scenario</button>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="input-row">
+    <textarea id="userInput" placeholder="Describe the moment, or just hit ✨ to generate a line for the current scenario..."></textarea>
+    <button class="gen-btn" id="genBtn" onclick="generate()" title="Generate">✨</button>
+  </div>
+</div>
+
+<div class="response-area" id="responseArea">
+  <div class="response-card" id="responseCard">
+    <div class="empty-state">Your lines will appear here ✨</div>
+  </div>
+</div>
+
+<script>
+const scenarios = [
+  "You see someone reading a book you love at a coffee shop",
+  "You're both waiting for the same delayed flight",
+  "You keep accidentally reaching for the same item at the grocery store",
+  "You bump into each other at a friend's party and they make you laugh",
+  "You're in the same workout class and they're clearly struggling like you are",
+  "You're both stuck in a slow line and they make eye contact",
+  "You're sat next to each other at a wedding with no one you know",
+  "You notice they have the same unusual hobby as you",
+  "You both show up to a first date at the wrong restaurant",
+  "You're volunteering at the same community event",
+  "You match on a dating app and you want to open with something memorable",
+  "You've been texting someone nice and want to ask them out",
+];
+
+const styleColors = {
+  funny:  { bg: '#fff3d6', color: '#8a5e00' },
+  flirty: { bg: '#fde8e4', color: '#b03020' },
+  cheesy: { bg: '#f0f7ea', color: '#3a6b2a' },
+  caring: { bg: '#e8f0fe', color: '#2345a8' },
+  loving: { bg: '#fce4ec', color: '#8b1a4a' },
+  witty:  { bg: '#ede7f6', color: '#4a148c' },
+};
+
+let currentStyle = 'funny';
+
+function selectStyle(el) {
+  document.querySelectorAll('.style-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentStyle = el.dataset.style;
+}
+
+function newScenario() {
+  const s = scenarios[Math.floor(Math.random() * scenarios.length)];
+  document.getElementById('scenarioText').textContent = s;
+}
+
+async function generate() {
+  const btn = document.getElementById('genBtn');
+  const userText = document.getElementById('userInput').value.trim();
+  const scenario = document.getElementById('scenarioText').textContent;
+  const style = currentStyle;
+
+  const context = userText || scenario;
+
+  btn.classList.add('loading');
+  btn.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+
+  const area = document.getElementById('responseArea');
+  const card = document.getElementById('responseCard');
+  area.classList.add('show');
+
+  const c = styleColors[style];
+  card.innerHTML = `
+    <div class="response-style-tag" style="background:${c.bg};color:${c.color}">${style.toUpperCase()}</div>
+    <div class="response-text"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+  `;
+
+  const stylePrompts = {
+    funny:  "Write 2–3 genuinely funny, light-hearted conversation lines or openers. Make them witty and natural, not forced.",
+    flirty: "Write 2–3 flirty but tasteful lines. Playful, confident, with a subtle spark — not over the top.",
+    cheesy: "Write 2–3 lovably cheesy lines — the kind that are so corny they're charming. Include a pun or two.",
+    caring: "Write 2–3 warm, thoughtful lines that show genuine interest in the other person. Soft and sincere.",
+    loving: "Write 2–3 heartfelt, tender lines that feel romantic and genuine. Poetic but not overdone.",
+    witty:  "Write 2–3 clever, intellectually playful lines. Smart wordplay, unexpected angles.",
+  };
+
+  const prompt = `You are a charming conversation coach. The user wants to practice being ${style} in real-life romantic/social situations. 
+
+Scenario: "${context}"
+
+${stylePrompts[style]}
+
+Then add a short "💡 Tip" (1 sentence) on *why* this style works in this situation or a delivery tip.
+
+Format your response exactly like:
+LINE 1: [line]
+LINE 2: [line]
+LINE 3: [line]
+TIP: [tip]`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.map(b => b.text || '').join('') || '';
+
+    // Parse lines and tip
+    const lineMatches = [...text.matchAll(/LINE \d+:\s*(.+)/g)].map(m => m[1].trim());
+    const tipMatch = text.match(/TIP:\s*(.+)/);
+    const tip = tipMatch ? tipMatch[1].trim() : '';
+
+    let html = `<div class="response-style-tag" style="background:${c.bg};color:${c.color}">${style.toUpperCase()}</div>`;
+
+    if (lineMatches.length > 0) {
+      html += `<div class="response-text">${lineMatches.map((l, i) => `<div style="margin-bottom:${i < lineMatches.length-1?'0.9rem':'0'}">${i+1}. ${l}</div>`).join('')}</div>`;
+    } else {
+      html += `<div class="response-text">${text.replace(/\n/g,'<br>')}</div>`;
+    }
+
+    if (tip) {
+      html += `<div class="tip-box"><strong>💡 Why it works:</strong> ${tip}</div>`;
+    }
+
+    html += `<div class="actions-row">
+      <button class="action-btn" onclick="copyText()">📋 Copy all</button>
+      <button class="action-btn" onclick="generate()">🔄 Regenerate</button>
+      <button class="action-btn" onclick="document.getElementById('userInput').value='';document.getElementById('userInput').focus()">✏️ New input</button>
+    </div>`;
+
+    card.innerHTML = html;
+    window._lastLines = lineMatches.join('\n');
+
+  } catch(e) {
+    card.innerHTML = `<div style="color:#c0392b;font-size:0.9rem">Oops! Something went wrong. Try again ✨</div>`;
+  }
+
+  btn.classList.remove('loading');
+  btn.innerHTML = '✨';
+}
+
+function copyText() {
+  if (window._lastLines) {
+    navigator.clipboard.writeText(window._lastLines).then(() => {
+      const btns = document.querySelectorAll('.action-btn');
+      btns[0].textContent = '✅ Copied!';
+      setTimeout(() => btns[0].textContent = '📋 Copy all', 1500);
+    });
+  }
+}
+
+// Allow Enter (without shift) to generate
+document.getElementById('userInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generate(); }
+});
+</script>
+</body>
+</html>
