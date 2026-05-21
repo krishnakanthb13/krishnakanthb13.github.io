@@ -8,6 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 <style>
+  :root {
+    --settings-accent: #D4537E;
+    --settings-bg: white;
+    --settings-text: #1a1a1a;
+    --settings-sec-bg: #FDF6F0;
+    --settings-border: #e8d5cc;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -284,6 +292,7 @@
     .vibe-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
+<script src="ai-helper.js"></script>
 </head>
 <body>
 
@@ -396,7 +405,8 @@ document.getElementById('vibe-grid').addEventListener('click', function(e) {
   selectedVibe = btn.dataset.vibe;
 });
 
-function copyLine(text, btn) {
+function copyLine(btn) {
+  const text = btn.getAttribute('data-text');
   navigator.clipboard.writeText(text).then(() => {
     btn.innerHTML = '<i class="ti ti-check"></i>';
     btn.style.color = '#3B6D11';
@@ -493,19 +503,14 @@ Rules:
 - Return ONLY valid JSON, no markdown, no extra text`;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-    const text = data.content.map(i => i.text || "").join("");
-    const clean = text.replace(/```json|```/g, "").trim();
+    const text = await callAI(prompt);
+    let clean = text.trim();
+    // Locate JSON block within the response
+    const firstBrace = clean.indexOf('{');
+    const lastBrace = clean.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1) {
+      clean = clean.substring(firstBrace, lastBrace + 1);
+    }
     const parsed = JSON.parse(clean);
 
     clearInterval(loadingInterval);
@@ -523,11 +528,16 @@ Rules:
     parsed.lines.forEach(item => {
       const card = document.createElement('div');
       card.className = 'line-card';
-      const tagClass = tagClasses[item.tag] || 'tag-charming';
-      const safeText = item.line.replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+      const rawTag = item.tag || 'Charming';
+      const itemTag = rawTag.charAt(0).toUpperCase() + rawTag.slice(1).toLowerCase();
+      const tagClass = tagClasses[itemTag] || 'tag-charming';
+      
+      // Escape HTML entities to prevent rendering issues
+      const escapedLine = item.line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      
       card.innerHTML = `
-        <button class="copy-btn" onclick="copyLine('${item.line.replace(/'/g,"\\'")}', this)" aria-label="Copy line"><i class="ti ti-copy"></i></button>
-        <div class="line-tag ${tagClass}">${item.tag}</div>
+        <button class="copy-btn" data-text="${escapedLine}" onclick="copyLine(this)" aria-label="Copy line"><i class="ti ti-copy"></i></button>
+        <div class="line-tag ${tagClass}">${itemTag}</div>
         <div class="line-text">"${item.line}"</div>
         <div class="line-tip">💡 ${item.tip}</div>
       `;

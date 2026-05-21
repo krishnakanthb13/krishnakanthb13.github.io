@@ -14,6 +14,12 @@
     --muted: #7a5c5c;
     --gold: #d4a853;
     --soft-green: #c8ddd0;
+
+    --settings-accent: var(--rose);
+    --settings-bg: white;
+    --settings-text: var(--deep);
+    --settings-sec-bg: var(--cream);
+    --settings-border: #e8d5d0;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -259,6 +265,7 @@
     color: var(--muted); font-size: 0.9rem;
   }
 </style>
+<script src="ai-helper.js"></script>
 </head>
 <body>
 
@@ -389,18 +396,7 @@ LINE 3: [line]
 TIP: [tip]`;
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
-      })
-    });
-
-    const data = await res.json();
-    const text = data.content?.map(b => b.text || '').join('') || '';
+    const text = await callAI(prompt);
 
     // Parse lines and tip
     const lineMatches = [...text.matchAll(/LINE \d+:\s*(.+)/g)].map(m => m[1].trim());
