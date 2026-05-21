@@ -80,17 +80,37 @@ Click the **⚙️ AI Config** button to swap between the following providers:
 | Provider | Key Required | Cost | Best For | Default Model |
 | :--- | :--- | :--- | :--- | :--- |
 | **Puter.js** | ❌ No | Free | Zero setup, instant play | `gpt-4o-mini` |
+| **Groq** | ⚿ Yes | Free (no card) | Blazing-fast Llama models | `llama-3.3-70b-versatile` |
 | **Google Gemini** | ⚿ Yes | Free Tier | Speed & search grounding | `gemini-1.5-flash` |
-| **OpenAI** | ⚿ Yes | Paid (per token) | High quality | `gpt-4o-mini` |
+| **Mistral AI** | ⚿ Yes | Free Tier | European open models | `mistral-small-latest` |
+| **Cohere** | ⚿ Yes | Free Trial | Command R+ chat models | `command-r-plus` |
 | **OpenRouter** | ⚿ Yes | Free & Paid models | Open-source variety | `google/gemma-2-9b-it:free` |
+| **OpenAI** | ⚿ Yes | Paid (per token) | High quality | `gpt-4o-mini` |
+
+> **Free & no credit card:** Puter.js (keyless), **Groq**, **Google Gemini**, and **Mistral** all offer genuinely free usage tiers without requiring a payment card — ideal for hosting on GitHub Pages.
 
 ### Puter.js (Free & Keyless)
 * **How it works:** Puter.js routes requests securely through its bridge. No registration is required for moderate use.
 * **Limits:** Temporary usage limits apply to avoid abuse. If limits are reached, users are prompted with a quick, free login modal.
 
+### Groq (BYOK — Free, No Card)
+1. Sign up at the [Groq Console](https://console.groq.com/keys).
+2. Click **Create API Key** — no credit card required.
+3. Paste the key into the **⚙️ AI Config** API key field. Groq runs Llama, Mixtral, and Gemma models at exceptional speed.
+
 ### Google Gemini (BYOK)
 1. Navigate to [Google AI Studio](https://aistudio.google.com/).
 2. Click **Create API Key** (Gemini offers a generous free tier for developers).
+3. Paste the key into the **⚙️ AI Config** API key field.
+
+### Mistral AI (BYOK — Free Tier)
+1. Go to the [Mistral Console](https://console.mistral.ai/api-keys).
+2. Generate an API key (free experimentation tier available).
+3. Paste the key into the **⚙️ AI Config** API key field.
+
+### Cohere (BYOK — Free Trial)
+1. Sign up at the [Cohere Dashboard](https://dashboard.cohere.com/api-keys).
+2. Create a **Trial** key (rate-limited but free for prototyping).
 3. Paste the key into the **⚙️ AI Config** API key field.
 
 ### OpenAI (BYOK)

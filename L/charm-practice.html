@@ -4,66 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Charm School ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --rose: #e8614a;
-    --blush: #f9d4c4;
-    --cream: #fdf6ee;
-    --deep: #2a1a1a;
-    --muted: #7a5c5c;
-    --gold: #d4a853;
-    --soft-green: #c8ddd0;
+    --pink: #ff8fc0;
+    --pink-deep: #f25e9c;
+    --lavender: #c9a7f5;
+    --peach: #ffd9c9;
+    --cream: #fff5fa;
+    --deep: #6b2d4f;
+    --muted: #b07f9b;
+    --gold: #f5b942;
+    --soft-green: #b9e2cc;
 
-    --settings-accent: var(--rose);
-    --settings-bg: white;
+    --settings-accent: var(--pink-deep);
+    --settings-bg: #fffafc;
     --settings-text: var(--deep);
-    --settings-sec-bg: var(--cream);
-    --settings-border: #e8d5d0;
+    --settings-sec-bg: #ffeaf4;
+    --settings-border: #f6cfe2;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    background:
+      radial-gradient(circle at 12% 18%, #ffe0ee 0%, transparent 45%),
+      radial-gradient(circle at 88% 12%, #e7d6ff 0%, transparent 42%),
+      radial-gradient(circle at 75% 88%, #ffe6d4 0%, transparent 45%),
+      linear-gradient(160deg, #fff5fa 0%, #fdeef8 55%, #f4ecff 100%);
+    background-attachment: fixed;
     color: var(--deep);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
+  /* Floating cute decorations */
   .bg-deco {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none; z-index: 0; overflow: hidden;
   }
   .bg-deco span {
-    position: absolute; font-size: 2.5rem; opacity: 0.07;
-    animation: floatDeco 12s ease-in-out infinite;
+    position: absolute; font-size: 2.6rem; opacity: 0.55;
+    filter: drop-shadow(0 4px 8px rgba(242,94,156,0.25));
+    animation: floatDeco 11s ease-in-out infinite;
   }
   @keyframes floatDeco {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-18px) rotate(10deg); }
+    0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
+    50% { transform: translateY(-22px) rotate(12deg) scale(1.12); }
+  }
+  /* Soft blurred bubbles */
+  .bg-deco .blob {
+    border-radius: 50%; filter: blur(34px); opacity: 0.5; font-size: 0;
+    animation: blobFloat 16s ease-in-out infinite;
+  }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(18px,-26px) scale(1.18); }
   }
 
   header {
     position: relative; z-index: 1;
     text-align: center;
-    padding: 2.5rem 1rem 1rem;
+    padding: 3rem 1rem 0.5rem;
   }
 
   header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    color: var(--rose);
-    letter-spacing: -0.02em;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.3rem, 7vw, 3.6rem);
+    background: linear-gradient(120deg, #f25e9c 0%, #c97ce8 55%, #ff9d6c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+    filter: drop-shadow(0 3px 6px rgba(242,94,156,0.18));
   }
-  header h1 em { font-style: italic; color: var(--gold); }
+  header h1 em { font-style: normal; }
 
   header p {
-    margin-top: 0.4rem;
+    margin-top: 0.55rem;
     color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 300;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   /* Style Pills */
@@ -71,198 +97,234 @@
     position: relative; z-index: 1;
     display: flex; flex-wrap: wrap; gap: 0.6rem;
     justify-content: center;
-    padding: 1.2rem 1rem;
-    max-width: 600px; margin: 0 auto;
+    padding: 1.4rem 1rem;
+    max-width: 620px; margin: 0 auto;
   }
 
   .style-pill {
     cursor: pointer;
-    padding: 0.45rem 1rem;
+    padding: 0.55rem 1.2rem;
     border-radius: 999px;
-    border: 2px solid transparent;
-    font-size: 0.85rem;
+    border: 2.5px solid transparent;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.92rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, background 0.2s;
     user-select: none;
+    box-shadow: 0 3px 10px rgba(242,94,156,0.10);
   }
-  .style-pill:hover { transform: scale(1.06); }
-  .style-pill.active { border-color: var(--deep); }
+  .style-pill:hover { transform: scale(1.1) rotate(-2deg); }
+  .style-pill:active { transform: scale(0.96); }
+  .style-pill.active {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(242,94,156,0.30);
+  }
 
-  .pill-funny    { background: #fff3d6; color: #8a5e00; }
-  .pill-funny.active { background: #ffd166; border-color: #8a5e00; }
+  .pill-funny    { background: #fff0cf; color: #a06a00; }
+  .pill-funny.active { background: linear-gradient(135deg,#ffd166,#ffb43d); color: #6b4700; border-color: #fff; }
 
-  .pill-flirty   { background: #fde8e4; color: #b03020; }
-  .pill-flirty.active { background: var(--rose); color: #fff; border-color: #b03020; }
+  .pill-flirty   { background: #ffe1ec; color: #c0356b; }
+  .pill-flirty.active { background: linear-gradient(135deg,#ff8fc0,#f25e9c); color: #fff; border-color: #fff; }
 
-  .pill-cheesy   { background: #f0f7ea; color: #3a6b2a; }
-  .pill-cheesy.active { background: #7bc67e; color: #fff; border-color: #3a6b2a; }
+  .pill-cheesy   { background: #e7f6dd; color: #4a7a2a; }
+  .pill-cheesy.active { background: linear-gradient(135deg,#9bdc83,#6fc46f); color: #fff; border-color: #fff; }
 
-  .pill-caring   { background: #e8f0fe; color: #2345a8; }
-  .pill-caring.active { background: #5b8cf5; color: #fff; border-color: #2345a8; }
+  .pill-caring   { background: #e4ecff; color: #3a57c8; }
+  .pill-caring.active { background: linear-gradient(135deg,#8fa9ff,#5b8cf5); color: #fff; border-color: #fff; }
 
-  .pill-loving   { background: #fce4ec; color: #8b1a4a; }
-  .pill-loving.active { background: #e91e63; color: #fff; border-color: #8b1a4a; }
+  .pill-loving   { background: #ffe1ee; color: #b6266b; }
+  .pill-loving.active { background: linear-gradient(135deg,#ff9ec7,#ff5fa2); color: #fff; border-color: #fff; }
 
-  .pill-witty    { background: #ede7f6; color: #4a148c; }
-  .pill-witty.active { background: #9c27b0; color: #fff; border-color: #4a148c; }
+  .pill-witty    { background: #efe6fb; color: #6a32b0; }
+  .pill-witty.active { background: linear-gradient(135deg,#c79bf0,#a86fe0); color: #fff; border-color: #fff; }
 
   /* Scenario Box */
   .scenario-box {
     position: relative; z-index: 1;
-    max-width: 560px; margin: 0 auto 1rem;
+    max-width: 580px; margin: 0 auto 1rem;
     padding: 0 1rem;
   }
 
   .scenario-card {
-    background: white;
-    border-radius: 16px;
-    padding: 1.2rem 1.4rem;
-    border-left: 4px solid var(--gold);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 26px;
+    padding: 1.4rem 1.6rem;
+    border: 2px solid #ffe0ee;
+    box-shadow: 0 10px 28px rgba(242,94,156,0.14);
   }
 
   .scenario-label {
-    font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.1em; color: var(--gold);
-    font-weight: 500; margin-bottom: 0.3rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--pink-deep);
+    font-weight: 600; margin-bottom: 0.4rem;
   }
 
   .scenario-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem; color: var(--deep); line-height: 1.5;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1.08rem; color: var(--deep); line-height: 1.55;
   }
 
   .new-scenario-btn {
-    margin-top: 0.7rem;
-    background: none; border: 1.5px solid var(--muted);
-    color: var(--muted); font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem; padding: 0.3rem 0.9rem;
+    margin-top: 0.9rem;
+    background: #fff;
+    border: 2px solid #f6cfe2;
+    color: var(--pink-deep); font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem; padding: 0.42rem 1.1rem;
     border-radius: 999px; cursor: pointer;
-    transition: all 0.18s;
+    transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1);
   }
-  .new-scenario-btn:hover { background: var(--muted); color: white; }
+  .new-scenario-btn:hover { background: var(--pink-deep); color: white; transform: scale(1.06); border-color: var(--pink-deep); }
 
   /* Input + Generate */
   .input-area {
     position: relative; z-index: 1;
-    max-width: 560px; margin: 0 auto;
+    max-width: 580px; margin: 0 auto;
     padding: 0 1rem 1rem;
   }
 
   .input-row {
-    display: flex; gap: 0.6rem;
+    display: flex; gap: 0.7rem;
   }
 
   textarea {
     flex: 1;
-    background: white;
-    border: 2px solid #e8d5d0;
-    border-radius: 14px;
-    padding: 0.8rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.92rem;
-    resize: none; height: 70px;
+    background: rgba(255,255,255,0.9);
+    border: 2.5px solid #f6cfe2;
+    border-radius: 22px;
+    padding: 0.95rem 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 0.96rem;
+    resize: none; height: 78px;
     color: var(--deep);
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  textarea:focus { border-color: var(--rose); }
-  textarea::placeholder { color: #cbb5b0; }
+  textarea:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,143,192,0.18); }
+  textarea::placeholder { color: #d9b3c6; }
 
   .gen-btn {
-    background: var(--rose);
+    background: linear-gradient(135deg, #ff9ec7 0%, #f25e9c 60%, #c97ce8 100%);
     color: white; border: none;
-    border-radius: 14px;
+    border-radius: 22px;
     padding: 0 1.1rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     cursor: pointer;
-    transition: transform 0.15s, background 0.2s;
-    flex-shrink: 0; width: 56px;
+    transition: transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+    flex-shrink: 0; width: 62px;
     display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 18px rgba(242,94,156,0.38);
   }
-  .gen-btn:hover { background: #d04535; transform: scale(1.05); }
-  .gen-btn:active { transform: scale(0.97); }
-  .gen-btn.loading { opacity: 0.7; pointer-events: none; }
+  .gen-btn:hover { transform: scale(1.09) rotate(6deg); box-shadow: 0 9px 24px rgba(242,94,156,0.5); }
+  .gen-btn:active { transform: scale(0.95); }
+  .gen-btn.loading { opacity: 0.75; pointer-events: none; }
 
   /* Response Card */
   .response-area {
     position: relative; z-index: 1;
-    max-width: 560px; margin: 0 auto;
-    padding: 0 1rem 2rem;
+    max-width: 580px; margin: 0 auto;
+    padding: 0 1rem 3rem;
     display: none;
   }
   .response-area.show { display: block; }
 
   .response-card {
-    background: white;
-    border-radius: 18px;
-    padding: 1.4rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    animation: slideUp 0.35s ease;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    border-radius: 28px;
+    padding: 1.6rem;
+    border: 2px solid #ffe0ee;
+    box-shadow: 0 14px 38px rgba(242,94,156,0.18);
+    animation: slideUp 0.4s cubic-bezier(0.34,1.3,0.64,1);
   }
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(18px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   .response-style-tag {
     display: inline-block;
-    font-size: 0.72rem; text-transform: uppercase;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.74rem; text-transform: uppercase;
     letter-spacing: 0.1em; font-weight: 600;
-    padding: 0.2rem 0.7rem;
+    padding: 0.32rem 0.95rem;
     border-radius: 999px;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 3px 8px rgba(242,94,156,0.14);
   }
 
   .response-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    line-height: 1.65;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    line-height: 1.7;
     color: var(--deep);
     white-space: pre-wrap;
   }
 
   .tip-box {
-    margin-top: 1rem;
-    background: var(--cream);
-    border-radius: 10px;
-    padding: 0.8rem 1rem;
-    font-size: 0.85rem;
+    margin-top: 1.1rem;
+    background: linear-gradient(135deg,#fff3f9,#f3ecff);
+    border-radius: 18px;
+    padding: 0.95rem 1.1rem;
+    font-size: 0.9rem;
     color: var(--muted);
-    border-left: 3px solid var(--soft-green);
-    line-height: 1.5;
+    border: 2px solid #ffe0ee;
+    line-height: 1.55;
   }
-  .tip-box strong { color: var(--deep); }
+  .tip-box strong { color: var(--pink-deep); }
 
   .actions-row {
-    display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap;
+    display: flex; gap: 0.6rem; margin-top: 1.1rem; flex-wrap: wrap;
   }
   .action-btn {
-    flex: 1; min-width: 80px;
-    background: none; border: 1.5px solid #e0cdc8;
+    flex: 1; min-width: 90px;
+    background: #fff;
+    border: 2px solid #f6cfe2;
     color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem; padding: 0.45rem 0.6rem;
-    border-radius: 10px; cursor: pointer;
-    transition: all 0.18s; text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem; padding: 0.55rem 0.6rem;
+    border-radius: 14px; cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1); text-align: center;
   }
-  .action-btn:hover { background: var(--blush); border-color: var(--rose); color: var(--rose); }
+  .action-btn:hover {
+    background: linear-gradient(135deg,#ffe1ec,#f3ecff);
+    border-color: var(--pink); color: var(--pink-deep);
+    transform: translateY(-2px);
+  }
 
   .typing-dots span {
-    display: inline-block; width: 7px; height: 7px;
-    border-radius: 50%; background: var(--rose); margin: 0 2px;
+    display: inline-block; width: 9px; height: 9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#ff9ec7,#f25e9c);
+    margin: 0 3px;
     animation: bounce 1.2s infinite;
   }
   .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
   .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bounce {
     0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-6px); }
+    30% { transform: translateY(-8px); }
   }
 
   .empty-state {
-    text-align: center; padding: 1.5rem;
-    color: var(--muted); font-size: 0.9rem;
+    text-align: center; padding: 1.6rem;
+    color: var(--muted); font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 0 1rem 2.5rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 500;
   }
 </style>
 <script src="ai-helper.js"></script>
@@ -270,17 +332,21 @@
 <body>
 
 <div class="bg-deco">
-  <span style="top:5%;left:8%;animation-delay:0s">💌</span>
-  <span style="top:15%;right:10%;animation-delay:2s">✨</span>
-  <span style="top:55%;left:4%;animation-delay:4s">🌹</span>
+  <span class="blob" style="top:6%;left:-6%;width:240px;height:240px;background:#ffc9e3"></span>
+  <span class="blob" style="top:50%;right:-8%;width:280px;height:280px;background:#d9c4ff;animation-delay:4s"></span>
+  <span class="blob" style="bottom:-6%;left:30%;width:260px;height:260px;background:#ffd9c4;animation-delay:8s"></span>
+  <span style="top:6%;left:8%;animation-delay:0s">💖</span>
+  <span style="top:14%;right:9%;animation-delay:2s">✨</span>
+  <span style="top:54%;left:4%;animation-delay:4s">🌸</span>
   <span style="top:70%;right:6%;animation-delay:1s">💫</span>
-  <span style="top:85%;left:20%;animation-delay:3s">🎭</span>
-  <span style="top:30%;right:3%;animation-delay:5s">😄</span>
+  <span style="top:85%;left:18%;animation-delay:3s">🎀</span>
+  <span style="top:32%;right:4%;animation-delay:5s">🦋</span>
+  <span style="bottom:8%;right:14%;animation-delay:2.5s">💕</span>
 </div>
 
 <header>
   <h1>Charm <em>School</em> ✨</h1>
-  <p>Practice your conversation style — pick a vibe, pick a moment</p>
+  <p>Practice your conversation style — pick a vibe, pick a moment 💌</p>
 </header>
 
 <div class="styles-row">
@@ -313,6 +379,8 @@
   </div>
 </div>
 
+<footer>Made with 💕 — be kind, be genuine, be you</footer>
+
 <script>
 const scenarios = [
   "You see someone reading a book you love at a coffee shop",
@@ -330,12 +398,12 @@ const scenarios = [
 ];
 
 const styleColors = {
-  funny:  { bg: '#fff3d6', color: '#8a5e00' },
-  flirty: { bg: '#fde8e4', color: '#b03020' },
-  cheesy: { bg: '#f0f7ea', color: '#3a6b2a' },
-  caring: { bg: '#e8f0fe', color: '#2345a8' },
-  loving: { bg: '#fce4ec', color: '#8b1a4a' },
-  witty:  { bg: '#ede7f6', color: '#4a148c' },
+  funny:  { bg: '#fff0cf', color: '#a06a00' },
+  flirty: { bg: '#ffe1ec', color: '#c0356b' },
+  cheesy: { bg: '#e7f6dd', color: '#4a7a2a' },
+  caring: { bg: '#e4ecff', color: '#3a57c8' },
+  loving: { bg: '#ffe1ee', color: '#b6266b' },
+  witty:  { bg: '#efe6fb', color: '#6a32b0' },
 };
 
 let currentStyle = 'funny';
@@ -381,7 +449,7 @@ async function generate() {
     witty:  "Write 2–3 clever, intellectually playful lines. Smart wordplay, unexpected angles.",
   };
 
-  const prompt = `You are a charming conversation coach. The user wants to practice being ${style} in real-life romantic/social situations. 
+  const prompt = `You are a charming conversation coach. The user wants to practice being ${style} in real-life romantic/social situations.
 
 Scenario: "${context}"
 

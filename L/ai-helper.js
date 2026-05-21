@@ -220,9 +220,12 @@
             <label>AI Provider</label>
             <select id="aiProviderSelect">
               <option value="puter">Puter.js (Free & No Key Required)</option>
-              <option value="gemini">Google Gemini (Key Required)</option>
-              <option value="openai">OpenAI (Key Required)</option>
-              <option value="openrouter">OpenRouter (Key Required)</option>
+              <option value="groq">Groq (Free Key · Super Fast)</option>
+              <option value="gemini">Google Gemini (Free Key)</option>
+              <option value="mistral">Mistral AI (Free Key)</option>
+              <option value="cohere">Cohere (Free Key)</option>
+              <option value="openrouter">OpenRouter (Free Models)</option>
+              <option value="openai">OpenAI (Paid Key)</option>
             </select>
           </div>
           
@@ -286,10 +289,22 @@
     } else {
       keyField.style.display = 'flex';
       
-      if (provider === 'gemini') {
+      if (provider === 'groq') {
+        keyLabel.textContent = 'Groq API Key';
+        keyHelp.innerHTML = 'Get a free key (no card needed) from <a href="https://console.groq.com/keys" target="_blank">Groq Console</a>';
+        modelInput.placeholder = 'llama-3.3-70b-versatile';
+      } else if (provider === 'gemini') {
         keyLabel.textContent = 'Gemini API Key';
         keyHelp.innerHTML = 'Get a free Gemini API Key from <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>';
         modelInput.placeholder = 'gemini-1.5-flash';
+      } else if (provider === 'mistral') {
+        keyLabel.textContent = 'Mistral API Key';
+        keyHelp.innerHTML = 'Get a free key from <a href="https://console.mistral.ai/api-keys" target="_blank">Mistral Console</a>';
+        modelInput.placeholder = 'mistral-small-latest';
+      } else if (provider === 'cohere') {
+        keyLabel.textContent = 'Cohere API Key';
+        keyHelp.innerHTML = 'Get a free trial key from <a href="https://dashboard.cohere.com/api-keys" target="_blank">Cohere Dashboard</a>';
+        modelInput.placeholder = 'command-r-plus';
       } else if (provider === 'openai') {
         keyLabel.textContent = 'OpenAI API Key';
         keyHelp.innerHTML = 'Get an API Key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a>';
@@ -421,12 +436,19 @@
       return data.candidates[0].content.parts[0].text;
     }
 
-    if (provider === 'openai') {
-      if (!apiKey) throw new Error("Please configure your OpenAI API Key in the settings (⚙️ AI Config).");
-      const model = customModel || 'gpt-4o-mini';
-      const url = `https://api.openai.com/v1/chat/completions`;
-      
-      const response = await fetch(url, {
+    // OpenAI-compatible providers (OpenAI, Groq, Mistral) share one request shape
+    const openAICompatible = {
+      openai:  { url: 'https://api.openai.com/v1/chat/completions',      defaultModel: 'gpt-4o-mini',               label: 'OpenAI' },
+      groq:    { url: 'https://api.groq.com/openai/v1/chat/completions', defaultModel: 'llama-3.3-70b-versatile',   label: 'Groq' },
+      mistral: { url: 'https://api.mistral.ai/v1/chat/completions',      defaultModel: 'mistral-small-latest',      label: 'Mistral' }
+    };
+
+    if (openAICompatible[provider]) {
+      const cfg = openAICompatible[provider];
+      if (!apiKey) throw new Error(`Please configure your ${cfg.label} API Key in the settings (⚙️ AI Config).`);
+      const model = customModel || cfg.defaultModel;
+
+      const response = await fetch(cfg.url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -441,14 +463,45 @@
           temperature: 0.7
         })
       });
-      
+
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData?.error?.message || `OpenAI API error: ${response.statusText}`);
+        throw new Error(errData?.error?.message || `${cfg.label} API error: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
       return data.choices[0].message.content;
+    }
+
+    if (provider === 'cohere') {
+      if (!apiKey) throw new Error("Please configure your Cohere API Key in the settings (⚙️ AI Config).");
+      const model = customModel || 'command-r-plus';
+
+      const response = await fetch('https://api.cohere.com/v2/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            ...(systemInstruction ? [{ role: 'system', content: systemInstruction }] : []),
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData?.message || `Cohere API error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      // Cohere v2 returns message.content as an array of text blocks
+      const parts = data?.message?.content || [];
+      return parts.map(p => p.text || '').join('');
     }
 
     if (provider === 'openrouter') {
