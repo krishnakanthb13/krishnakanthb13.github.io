@@ -15,6 +15,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: Dump Data
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
+- **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://krishnakanthb13.github.io/L/README.md))
 - **R**: Online Resume Variations & Try outs
 - **S**: Payment Gateway Page
 
@@ -41,6 +42,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [WEBVTT v1](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v1.html)
 	- [WEBVTT v2](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v2.html)
 	- [WEBVTT v3](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v3%20-%20IP.html): Still in progress.
+- **Charm School & Flirt Engine:**
+	- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
+	- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.
 - **Additional Info:**
 	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html)
 	- [Journaling](https://krishnakanthb13.github.io/D/1.html)
