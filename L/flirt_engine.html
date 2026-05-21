@@ -4,6 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Flirt Engine ✨</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>" />
+<meta name="theme-color" content="#f25e9c" />
+<meta name="description" content="The Flirt Engine — craft warm, witty, genuine flirting lines tailored to your moment." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
@@ -362,11 +366,52 @@
     font-weight: 500;
   }
 
+  /* ── Entrance & idle animations ── */
+  @keyframes enterPop {
+    from { opacity: 0; transform: translateY(18px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .header { animation: enterPop 0.6s cubic-bezier(0.34,1.3,0.64,1) both; }
+  .card   { animation: enterPop 0.55s cubic-bezier(0.34,1.3,0.64,1) both; }
+  .card:nth-child(2) { animation-delay: 0.07s; }
+  .card:nth-child(3) { animation-delay: 0.14s; }
+  .card:nth-child(4) { animation-delay: 0.21s; }
+  .card:nth-child(5) { animation-delay: 0.28s; }
+  .card:nth-child(6) { animation-delay: 0.35s; }
+
+  /* Gentle heartbeat on the main button (pauses on hover) */
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.035); }
+  }
+  .go-btn:not(:disabled) { animation: heartbeat 2.8s ease-in-out infinite; }
+  .go-btn:hover          { animation: none; }
+
+  /* Shimmering gradient on the title */
+  @keyframes shimmer {
+    from { background-position: 0% center; }
+    to   { background-position: 100% center; }
+  }
+  .title {
+    background-size: 220% auto;
+    animation: shimmer 7s ease-in-out infinite alternate;
+  }
+
+  .foot .ti { color: var(--pink-deep); vertical-align: -2px; }
+
   @media (max-width: 500px) {
     .title { font-size: 34px; }
     .row { grid-template-columns: 1fr; }
     .row.three { grid-template-columns: 1fr 1fr; }
     .vibe-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 <script src="ai-helper.js"></script>
@@ -474,7 +519,7 @@
     <button class="regen-btn" id="regen-btn" onclick="generateFlirt()">↺ Generate new lines</button>
   </div>
 
-  <div class="foot">Made with 💕 — charm is kindness with confidence</div>
+  <div class="foot">Made with <i class="ti ti-heart-filled"></i> — charm is kindness with confidence</div>
 </div>
 
 <script>
@@ -618,9 +663,10 @@ Rules:
       "Bold": "tag-bold"
     };
 
-    parsed.lines.forEach(item => {
+    parsed.lines.forEach((item, idx) => {
       const card = document.createElement('div');
       card.className = 'line-card';
+      card.style.animationDelay = (idx * 0.12) + 's';
       const rawTag = item.tag || 'Charming';
       const itemTag = rawTag.charAt(0).toUpperCase() + rawTag.slice(1).toLowerCase();
       const tagClass = tagClasses[itemTag] || 'tag-charming';
