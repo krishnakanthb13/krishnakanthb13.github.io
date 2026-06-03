@@ -1,0 +1,81 @@
+name: Update videos
+
+# Auto-syncs the video gallery that lives in the "A/aa" subfolder.
+# This file must stay at the repo root (.github/workflows/) — GitHub only
+# runs workflows from the root, never from inside subfolders.
+
+# ──────────────────────────────────────────────────────────────────────
+#  SYNC CONTROLS — the only knobs you change to manage the sync.
+#  Edit a value below, commit, and you're done. (GitHub cron must be a
+#  literal, so the schedule is checked daily and these decide if it acts.)
+# ──────────────────────────────────────────────────────────────────────
+env:
+  SYNC_ENABLED: "true"     # "true" = sync runs · "false" = paused (nothing runs at all)
+  SYNC_FREQUENCY: "daily"  # "daily" = every day · "weekly" = once a week
+  SYNC_WEEKLY_DAY: "1"     # weekly mode only — 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # checked daily at 06:00 UTC; SYNC_FREQUENCY decides whether it acts
+  workflow_dispatch: {} # manual run from the Actions tab
+  push:
+    branches: [master]
+    paths:
+      - "A/aa/channels.txt"
+      - "A/aa/videos.txt"
+      - "A/aa/scripts/fetch-videos.mjs"
+      - ".github/workflows/update-videos.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-videos
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: A/aa # all steps run inside the site subfolder
+    steps:
+      - uses: actions/checkout@v4
+
+      # Gate: honour SYNC_ENABLED, and in weekly mode let the daily cron act
+      # only on the chosen weekday. Manual runs and content-edit pushes are
+      # never throttled by frequency — but everything is paused when disabled.
+      - name: Decide whether to run
+        id: gate
+        run: |
+          if [ "$SYNC_ENABLED" != "true" ]; then
+            echo "⏸  Sync paused (SYNC_ENABLED=$SYNC_ENABLED). Nothing to do."
+            echo "run=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$SYNC_FREQUENCY" = "weekly" ]; then
+            today="$(date -u +%w)"   # 0=Sun … 6=Sat
+            if [ "$today" != "$SYNC_WEEKLY_DAY" ]; then
+              echo "🗓  Weekly mode: today (dow=$today) ≠ SYNC_WEEKLY_DAY=$SYNC_WEEKLY_DAY. Skipping."
+              echo "run=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+          fi
+          echo "▶  Running sync (event=$GITHUB_EVENT_NAME, frequency=$SYNC_FREQUENCY)."
+          echo "run=true" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: 20
+
+      - name: Build videos.json
+        if: steps.gate.outputs.run == 'true'
+        run: node scripts/fetch-videos.mjs
+
+      - name: Commit if changed
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add videos.json
+          git diff --staged --quiet || git commit -m "chore: auto-update videos.json [skip ci]"
+          git push

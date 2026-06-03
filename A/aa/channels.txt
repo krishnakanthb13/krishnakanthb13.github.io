@@ -1,0 +1,15 @@
+# =========================================================
+#  YOUR YOUTUBE CHANNELS  (auto-synced)
+# =========================================================
+#  Add ONE channel per line. You can paste either the handle
+#  or the full channel URL. The GitHub Action reads each
+#  channel's public RSS feed and pulls in the latest videos
+#  automatically (title + description + thumbnail).
+#
+#  Lines starting with #  are ignored.
+# =========================================================
+
+https://www.youtube.com/@AmplenoteAcademy
+# Temporarily disabled (kept for later — do not remove):
+# https://www.youtube.com/@Amplenote-Academy
+https://www.youtube.com/@KrishnaKanthB13

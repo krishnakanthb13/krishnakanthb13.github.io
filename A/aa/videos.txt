@@ -1,0 +1,18 @@
+# =========================================================
+#  YOUR VIDEO LIST
+# =========================================================
+#  HOW TO ADD A VIDEO:
+#    - Put ONE YouTube link per line.
+#    - Optionally add a description after a |  (pipe) character.
+#    - The video TITLE is pulled automatically from YouTube.
+#    - Lines starting with #  are ignored (use them for notes).
+#
+#  EXAMPLES:
+#    https://www.youtube.com/watch?v=dQw4w9WgXcQ
+#    https://youtu.be/dQw4w9WgXcQ | This one is my favorite!
+#    https://www.youtube.com/shorts/abc123def45 | A quick short.
+#
+#  Then save the file and refresh the site. That's it.
+# =========================================================
+
+# --- Add your video links below this line ---
