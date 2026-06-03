@@ -9,6 +9,26 @@ displays them in one place. Built to be hosted **for free on GitHub Pages**, wit
 
 ---
 
+## Contents
+
+- [How it stays updated (you do almost nothing)](#how-it-stays-updated-you-do-almost-nothing)
+  - [The rebuild is *stateless* — this is the important part](#the-rebuild-is-stateless--this-is-the-important-part)
+- [When does the next run happen?](#when-does-the-next-run-happen)
+- [Run the sync locally](#run-the-sync-locally)
+- [Pausing the sync, or switching daily ⇄ weekly](#pausing-the-sync-or-switching-daily--weekly)
+  - [Change the time of day](#change-the-time-of-day)
+- [The only files you ever edit](#the-only-files-you-ever-edit)
+  - [`channels.txt` — your channels (one per line)](#channelstxt--your-channels-one-per-line)
+  - [`videos.txt` — optional one-off videos](#videostxt--optional-one-off-videos)
+- [Caveats & gotchas (worth knowing)](#caveats--gotchas-worth-knowing)
+- [How the site behaves (front-end)](#how-the-site-behaves-front-end)
+- [Hosting on GitHub Pages](#hosting-on-github-pages)
+- [Local preview](#local-preview)
+- [File map](#file-map)
+- [Notes](#notes)
+
+---
+
 ## How it stays updated (you do almost nothing)
 
 A GitHub Action runs the sync script (`scripts/fetch-videos.mjs`). Each run it:
@@ -55,6 +75,25 @@ within a day**. The auto-commit it makes is tagged `[skip ci]` so it never loops
 
 ---
 
+## Run the sync locally
+
+The gate (below) only governs the **GitHub Action** — running the script directly always
+rebuilds the data, regardless of how `SYNC_ENABLED` is set. It's plain **Node 20+ with
+zero dependencies**. From the `A/aa/` folder:
+
+```powershell
+cd "A\aa"
+node scripts/fetch-videos.mjs
+```
+
+It rebuilds `videos.json` **in place** from `channels.txt` + `videos.txt` and prints a
+short summary (e.g. `Wrote videos.json with N videos.`). This is exactly what the Action
+runs — doing it locally just previews the same result; commit the regenerated
+`videos.json` if you want the change live. (If your channels have no public uploads yet,
+it writes an empty list — that's expected, not an error.)
+
+---
+
 ## Pausing the sync, or switching daily ⇄ weekly
 
 You control the automation from **three plain-text knobs** at the top of the workflow
@@ -85,6 +124,22 @@ actually run. Notes:
 - Prefer a no-code switch? You can also toggle the whole workflow from the repo's
   **Actions → "Update videos" → ⋯ → Enable/Disable workflow** — but the knobs above are
   the version-controlled, weekly-vs-daily way.
+
+### Change the time of day
+The knobs above can't move the run off **06:00 UTC** — that hour lives in the `cron:`
+line itself, near the top of `.github/workflows/update-videos.yml`:
+
+```yaml
+on:
+  schedule:
+    - cron: "0 6 * * *"   # ┌ min ┌ hour ┌ day ┌ month ┌ weekday  →  06:00 UTC daily
+```
+
+Edit the **hour** field (the `6`). Examples: `0 14 * * *` → 14:00 UTC · `30 22 * * *` →
+22:30 UTC. Two caveats: the time is always **UTC** (no daylight saving — convert from your
+local zone), and GitHub's scheduled runs can lag a few minutes under load. In **weekly**
+mode it still fires at this hour, just only on `SYNC_WEEKLY_DAY`. Commit the change for it
+to take effect.
 
 ---
 

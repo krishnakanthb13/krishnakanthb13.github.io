@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna's Amplenote Plugins</title>
+    <meta name="description"
+        content="A glassy, auto-synced showcase of Krishna Kanth B's Amplenote plugins — categories, timeline, future plans & milestones.">
+
+    <!-- Favicons (shared with the Video Hub in /A/aa) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0d1117" id="theme-color-meta">
+
+    <meta property="og:title" content="Krishna's Amplenote Plugins">
+    <meta property="og:description" content="Categories, full timeline, future plans & milestones — auto-synced.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- YAML Parser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <!-- Pre-paint theme set (avoids a flash of the wrong theme) -->
+    <script>
+        (function () {
+            try {
+                var m = localStorage.getItem('plp-theme') || 'system';
+                var dark = m === 'system'
+                    ? matchMedia('(prefers-color-scheme: dark)').matches
+                    : m === 'dark';
+                document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+            } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+        })();
+    </script>
+
+    <style>
+        :root {
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            --radius: 22px;
+            --radius-sm: 14px;
+            --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+            /* Brand accents — identical across themes so badges stay recognisable */
+            --green: #3cc07d;
+            --orange: #f8914d;
+            --pink: #e5569e;
+            --blue: #5b9bff;
+            --violet: #9b7bff;
+        }
+
+        /* ---------- Dark theme ---------- */
+        html[data-theme="dark"] {
+            --bg: #0b0f14;
+            --bg-2: #0d1117;
+            --surface: rgba(22, 27, 34, 0.72);
+            --surface-solid: #161b22;
+            --surface-2: rgba(255, 255, 255, 0.045);
+            --text: #e6edf3;
+            --muted: #9aa4b2;
+            --muted-2: #6e7681;
+            --line: rgba(255, 255, 255, 0.10);
+            --line-2: rgba(255, 255, 255, 0.18);
+            --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.85);
+            --nav-bg: rgba(13, 17, 23, 0.66);
+            --aurora-1: rgba(60, 192, 125, 0.22);
+            --aurora-2: rgba(229, 86, 158, 0.16);
+            --aurora-3: rgba(91, 155, 255, 0.16);
+            --title-grad: linear-gradient(135deg, #ffffff 0%, var(--green) 100%);
+            color-scheme: dark;
+        }
+
+        /* ---------- Light theme ---------- */
+        html[data-theme="light"] {
+            --bg: #e9eef3;
+            --bg-2: #f6f8fa;
+            --surface: rgba(255, 255, 255, 0.80);
+            --surface-solid: #ffffff;
+            --surface-2: rgba(13, 17, 23, 0.035);
+            --text: #1f2328;
+            --muted: #57606a;
+            --muted-2: #8b949e;
+            --line: rgba(13, 17, 23, 0.10);
+            --line-2: rgba(13, 17, 23, 0.16);
+            --shadow: 0 24px 48px -28px rgba(31, 35, 40, 0.38);
+            --nav-bg: rgba(255, 255, 255, 0.72);
+            --aurora-1: rgba(60, 192, 125, 0.30);
+            --aurora-2: rgba(229, 86, 158, 0.20);
+            --aurora-3: rgba(91, 155, 255, 0.22);
+            --title-grad: linear-gradient(135deg, #0d1117 0%, #1f9d63 100%);
+            color-scheme: light;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s var(--ease), color 0.3s var(--ease);
+        }
+
+        /* Animated aurora wash behind everything */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -25% -10% auto -10%;
+            height: 90vh;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(38% 50% at 18% 0%, var(--aurora-1), transparent 70%),
+                radial-gradient(36% 46% at 82% 8%, var(--aurora-2), transparent 70%),
+                radial-gradient(40% 50% at 50% 30%, var(--aurora-3), transparent 72%);
+            filter: blur(50px);
+            animation: drift 20s var(--ease) infinite alternate;
+            transition: background 0.4s var(--ease);
+            /* Promote to its own GPU layer so it never repaints while scrolling */
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        @keyframes drift {
+            to {
+                transform: translate3d(0, 36px, 0) scale(1.06);
+            }
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            letter-spacing: -0.02em;
+        }
+
+        ::selection {
+            background: var(--green);
+            color: #06140d;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* ---------- Navbar ---------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px clamp(16px, 4vw, 40px);
+            border-bottom: 1px solid transparent;
+            transition: background 0.3s var(--ease), backdrop-filter 0.3s var(--ease),
+                border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        }
+
+        .navbar.scrolled {
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            border-bottom-color: var(--line);
+            box-shadow: 0 10px 34px -22px rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Segmented theme toggle */
+        .theme-toggle {
+            display: inline-flex;
+            padding: 4px;
+            gap: 2px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-opt {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: color 0.2s var(--ease), background 0.2s var(--ease);
+        }
+
+        .theme-opt .material-symbols-outlined {
+            font-size: 19px;
+        }
+
+        .theme-opt:hover {
+            color: var(--text);
+        }
+
+        .theme-opt[aria-pressed="true"] {
+            background: linear-gradient(135deg, var(--green), #2ea36a);
+            color: #06140d;
+            box-shadow: 0 4px 14px -6px var(--green);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 8px 16px;
+            border-radius: 999px;
+            color: #06140d;
+            background: linear-gradient(135deg, var(--green), #2ea36a);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 8px 20px -12px var(--green);
+            transition: transform 0.18s var(--ease), box-shadow 0.2s var(--ease);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 14px 28px -12px var(--green);
+        }
+
+        .nav-cta .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        @media (max-width: 620px) {
+            .nav-brand span { display: none; }
+            .nav-cta span.label { display: none; }
+            .nav-cta { padding: 8px 12px; }
+        }
+
+        /* ---------- Layout ---------- */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 32px) 4rem;
+            opacity: 0;
+            transition: opacity 0.6s ease-in;
+        }
+
+        .container.loaded {
+            opacity: 1;
+        }
+
+        /* ---------- Hero ---------- */
+        header.hero {
+            text-align: center;
+            padding: clamp(7rem, 16vh, 11rem) 0 3rem;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green);
+            background: color-mix(in srgb, var(--green) 14%, transparent);
+            border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-eyebrow .material-symbols-outlined { font-size: 17px; }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 6.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.06;
+            background: var(--title-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.1rem;
+            overflow-wrap: anywhere;
+            hyphens: auto;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.4vw, 1.2rem);
+            color: var(--muted);
+            max-width: 620px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.9rem 1.7rem;
+            border-radius: 999px;
+            color: #06140d;
+            background: linear-gradient(135deg, var(--green), #2ea36a);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 14px 30px -14px var(--green);
+            transition: transform 0.2s var(--ease), box-shadow 0.25s var(--ease);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 22px 40px -14px var(--green);
+        }
+
+        /* Stats pills */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2.4rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 104px;
+            padding: 0.9rem 1.3rem;
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+        }
+
+        .stat b {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--text), var(--green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat span {
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        /* ---------- Section heading ---------- */
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin: 4.5rem 4px 1.8rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+        }
+
+        .section-head .hint {
+            font-size: 0.85rem;
+            color: var(--muted-2);
+        }
+
+        /* ---------- Category cards (4 distinct looks) ---------- */
+        .categories {
+            display: grid;
+            /* Two per row (2×2), matching the public Amplenote page */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem;
+        }
+
+        @media (max-width: 720px) {
+            .categories { grid-template-columns: 1fr; }
+        }
+
+        .cat-card {
+            --ca: var(--green);
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .cat-card.in { opacity: 1; transform: none; }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            border-color: color-mix(in srgb, var(--ca) 50%, transparent);
+            box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--ca) 60%, black);
+        }
+
+        /* gradient top hairline shared by all */
+        .cat-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--ca), transparent);
+            opacity: 0.9;
+        }
+
+        .cat-icon {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            margin-bottom: 1.2rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--ca), color-mix(in srgb, var(--ca) 55%, #000));
+            box-shadow: 0 10px 24px -10px var(--ca);
+        }
+
+        .cat-icon .material-symbols-outlined { font-size: 28px; }
+
+        .cat-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .plugin-list { list-style: none; }
+
+        .plugin-item {
+            display: flex;
+            align-items: center;
+            /* Badge sits right after the name (with a small gap) so it's easy to
+               tell which plugin is Updated/Latest — not floated to the far edge. */
+            justify-content: flex-start;
+            gap: 0.6rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--surface-2);
+        }
+
+        .plugin-item:last-child { border-bottom: none; }
+
+        .plugin-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: color 0.2s var(--ease);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .plugin-name::after {
+            content: "north_east";
+            font-family: 'Material Symbols Outlined';
+            font-size: 14px;
+            color: var(--muted-2);
+            opacity: 0;
+            transform: translate(-2px, 2px);
+            transition: opacity 0.2s var(--ease);
+        }
+
+        .plugin-name:hover { color: var(--ca); }
+        .plugin-name:hover::after { opacity: 1; }
+
+        .status-badge {
+            font-size: 0.66rem;
+            padding: 0.22rem 0.6rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .status-badge[data-status*="Updated"] { background: color-mix(in srgb, var(--orange) 18%, transparent); color: var(--orange); }
+        .status-badge[data-status*="Latest"]  { background: color-mix(in srgb, var(--green) 18%, transparent);  color: var(--green); }
+        .status-badge[data-status*="Trending"]{ background: color-mix(in srgb, #ffd23f 16%, transparent);        color: #e8b600; }
+        .status-badge[data-status*="Core"]    { background: color-mix(in srgb, var(--blue) 18%, transparent);   color: var(--blue); }
+
+        /* --- Four distinct card personalities (by index) --- */
+        .cat-card.v1 { --ca: var(--green); }
+        .cat-card.v1::after { /* soft corner aurora */
+            content: ""; position: absolute; width: 200px; height: 200px;
+            top: -70px; right: -70px; border-radius: 50%;
+            background: radial-gradient(circle, color-mix(in srgb, var(--ca) 30%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+
+        .cat-card.v2 { /* dotted texture (background-color comes from .cat-card) */
+            --ca: var(--orange);
+            background-image: radial-gradient(color-mix(in srgb, var(--ca) 22%, transparent) 1px, transparent 1.4px);
+            background-size: 18px 18px;
+            background-position: -4px -4px;
+        }
+
+        .cat-card.v3 { /* bold left ribbon */
+            --ca: var(--pink);
+            border-left: 4px solid var(--ca);
+        }
+        .cat-card.v3 .cat-icon { border-radius: 50%; }
+
+        .cat-card.v4 { --ca: var(--blue); }
+        .cat-card.v4::after { /* conic glow corner */
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: conic-gradient(from 210deg at 100% 0%, color-mix(in srgb, var(--ca) 26%, transparent), transparent 30%);
+        }
+        .cat-card.v4 .cat-icon { border-radius: 16px 16px 16px 4px; }
+
+        /* ---------- Timeline ---------- */
+        .table-wrap {
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .timeline-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        .timeline-table th {
+            text-align: left;
+            padding: 1.1rem 1.3rem;
+            background: var(--surface-2);
+            color: var(--green);
+            font-weight: 600;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+        }
+
+        .timeline-table td {
+            padding: 1.1rem 1.3rem;
+            border-top: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        .timeline-table tbody tr { transition: background 0.2s var(--ease); }
+        .timeline-table tbody tr:hover { background: var(--surface-2); }
+
+        .tl-id {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--muted-2);
+        }
+
+        .tl-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.98rem;
+        }
+
+        .plans {
+            list-style: none;
+            margin-top: 0.55rem;
+            display: grid;
+            gap: 0.35rem;
+            max-width: 46ch;
+        }
+
+        .plans li {
+            position: relative;
+            padding-left: 1.1rem;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .plans li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            opacity: 0.7;
+        }
+
+        .cat-pill {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--muted);
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .tl-date { font-size: 0.86rem; color: var(--text); white-space: nowrap; }
+        .tl-date.muted { color: var(--muted-2); }
+
+        .tl-links { white-space: nowrap; display: flex; gap: 0.5rem; align-items: center; }
+
+        .tl-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.83rem;
+        }
+
+        .tl-link.open { color: var(--orange); }
+        .tl-link.install { color: var(--green); }
+        .tl-link:hover { text-decoration: underline; }
+        .tl-link .material-symbols-outlined { font-size: 15px; }
+
+        /* ---------- Milestones ---------- */
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .milestone {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            padding: 1.4rem;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.35s var(--ease), opacity 0.35s var(--ease), border-color 0.3s var(--ease);
+        }
+
+        .milestone.in { opacity: 1; transform: none; }
+        .milestone:hover { border-color: var(--line-2); }
+
+        .milestone::before {
+            content: "flag";
+            font-family: 'Material Symbols Outlined';
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            font-size: 30px;
+            color: var(--green);
+            opacity: 0.16;
+        }
+
+        .milestone-date {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone p { font-size: 0.9rem; color: var(--text); }
+
+        /* ---------- Footer ---------- */
+        footer {
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer-support {
+            position: relative;
+            background: linear-gradient(125deg, var(--green), var(--blue) 55%, var(--pink));
+            padding: 2.6rem 2rem;
+            border-radius: var(--radius);
+            max-width: 660px;
+            margin: 0 auto;
+            box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .footer-support p {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .support-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: #0d1117;
+            padding: 0.85rem 1.9rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 1.2rem;
+            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+        }
+
+        .support-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.4); }
+
+        .footer-meta {
+            margin-top: 2.6rem;
+            color: var(--muted-2);
+            font-size: 0.86rem;
+            line-height: 1.8;
+        }
+
+        .footer-meta a { color: var(--green); text-decoration: none; }
+        .footer-meta a:hover { text-decoration: underline; }
+
+        /* ---------- Loading overlay ---------- */
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.5s var(--ease);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .loader {
+            width: 46px;
+            height: 46px;
+            border: 4px solid var(--surface-2);
+            border-bottom-color: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes rotation { to { transform: rotate(360deg); } }
+
+        #error-ui { display: none; max-width: 520px; }
+
+        #error-ui h2 { color: var(--text); margin-bottom: 1rem; }
+        #error-ui p { color: var(--muted); margin-bottom: 2rem; }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #06140d;
+            background: linear-gradient(135deg, var(--green), #2ea36a);
+            padding: 0.8rem 1.5rem;
+            border-radius: 999px;
+        }
+
+        /* ---------- a11y + motion ---------- */
+        a:focus-visible, button:focus-visible, label:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+            .cat-card, .milestone { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a class="nav-brand" href="#top">
+            <img class="nav-logo" src="assets/favicon-192.png" alt="">
+            <span>Krishna's Plugins</span>
+        </a>
+        <div class="nav-right">
+            <div class="theme-toggle" role="group" aria-label="Color theme">
+                <button class="theme-opt" data-mode="system" title="System theme" aria-label="System theme">
+                    <span class="material-symbols-outlined">brightness_auto</span>
+                </button>
+                <button class="theme-opt" data-mode="light" title="Light theme" aria-label="Light theme">
+                    <span class="material-symbols-outlined">light_mode</span>
+                </button>
+                <button class="theme-opt" data-mode="dark" title="Dark theme" aria-label="Dark theme">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
+            <a href="#" id="nav-cta" class="nav-cta" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">rocket_launch</span>
+                <span class="label">Get Started</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Loading / error overlay -->
+    <div id="loading-overlay">
+        <div id="loader-content">
+            <span class="loader"></span>
+            <p style="color:var(--muted)">Loading your plugin data…</p>
+        </div>
+        <div id="error-ui">
+            <h2>Local security restriction</h2>
+            <p>Browsers block automatic file loading when this page is opened directly from disk.
+                Pick your <strong>plugins.yaml</strong> file to continue (or run a local server).</p>
+            <label for="yaml-upload" class="upload-btn" tabindex="0">
+                <span class="material-symbols-outlined">file_open</span> Select plugins.yaml
+            </label>
+            <input type="file" id="yaml-upload" accept=".yaml,.yml" style="display:none">
+        </div>
+    </div>
+
+    <div class="container" id="main-container">
+        <header class="hero">
+            <span class="hero-eyebrow">
+                <span class="material-symbols-outlined">extension</span> Amplenote Plugin Suite
+            </span>
+            <h1 class="hero-title" id="page-title">Loading…</h1>
+            <p class="hero-subtitle" id="hero-subtitle"></p>
+            <a href="#" id="referral-link" class="hero-cta" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">rocket_launch</span> Get Started Free
+            </a>
+            <div class="stats" id="stats"></div>
+        </header>
+
+        <div class="section-head">
+            <h2>Grouped by Dimensionality</h2>
+            <span class="hint">managing, filtering, reviewing & more</span>
+        </div>
+        <section class="categories" id="categories-grid"></section>
+
+        <div class="section-head">
+            <h2>Chronological Timeline</h2>
+            <span class="hint">every plugin & its future plans</span>
+        </div>
+        <div class="table-wrap">
+            <div class="timeline-scroll">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Plugin &amp; Future Plans</th>
+                            <th>Category</th>
+                            <th>Published</th>
+                            <th>Last Updated</th>
+                            <th>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timeline-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-head">
+            <h2>Milestones</h2>
+            <span class="hint">the journey so far</span>
+        </div>
+        <section class="milestones" id="milestones-grid"></section>
+
+        <footer>
+            <div class="footer-support">
+                <p id="support-text"></p>
+                <a href="#" id="support-link" class="support-btn" target="_blank" rel="noopener">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span id="support-label"></span>
+                </a>
+            </div>
+            <p class="footer-meta">
+                © <span id="year"></span> Krishna Kanth B · auto-synced from the
+                <a id="source-link" href="https://public.amplenote.com/Y3dy91/krishna-plugins" target="_blank"
+                    rel="noopener">public Amplenote note</a><br>
+                <a href="https://www.amplenote.com/user_profiles/2030-krishna-kanth-b" target="_blank"
+                    rel="noopener">Amplenote Public Profile ↗</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Embedded data copy: lets the page render when opened from disk (file://),
+         where fetch() of plugins.yaml is blocked. Missing/ignored when served. -->
+    <script src="plugins.js"></script>
+
+    <script>
+        /* ---------- Theme toggle (system / light / dark) ---------- */
+        (function () {
+            const html = document.documentElement;
+            const meta = document.getElementById('theme-color-meta');
+            const mq = matchMedia('(prefers-color-scheme: dark)');
+            const opts = document.querySelectorAll('.theme-opt');
+
+            function effective(mode) {
+                return mode === 'system' ? (mq.matches ? 'dark' : 'light') : mode;
+            }
+            function apply(mode) {
+                try { localStorage.setItem('plp-theme', mode); } catch (e) {}
+                const eff = effective(mode);
+                html.dataset.theme = eff;
+                meta.setAttribute('content', eff === 'dark' ? '#0d1117' : '#f6f8fa');
+                opts.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+            }
+            opts.forEach(b => b.addEventListener('click', () => apply(b.dataset.mode)));
+            mq.addEventListener('change', () => {
+                if ((localStorage.getItem('plp-theme') || 'system') === 'system') apply('system');
+            });
+            apply(localStorage.getItem('plp-theme') || 'system');
+        })();
+
+        /* ---------- Navbar scroll state ---------- */
+        (function () {
+            const nav = document.getElementById('navbar');
+            const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+
+        /* ---------- Helpers ---------- */
+        function esc(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c =>
+                ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        // Allow only safe link schemes; anything else (javascript:, data:, …) -> "#".
+        function safeUrl(u) {
+            try {
+                const url = new URL(String(u ?? ''), location.href);
+                return /^(https?:|mailto:)$/i.test(url.protocol) ? url.href : '#';
+            } catch { return '#'; }
+        }
+
+        const reveal = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+                if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
+            }
+        }, { threshold: 0.12 });
+
+        /* ---------- Render ---------- */
+        function renderData(data) {
+            document.getElementById('page-title').textContent = data.page_title || "Amplenote Plugins";
+            document.getElementById('hero-subtitle').textContent = data.hero_subtitle || "";
+            const ref = safeUrl(data.referral_link);
+            document.getElementById('referral-link').href = ref;
+            document.getElementById('nav-cta').href = ref;
+            document.getElementById('year').textContent = new Date().getFullYear();
+            if (data.source_url) document.getElementById('source-link').href = safeUrl(data.source_url);
+
+            // Stats
+            const cats = data.categories || [];
+            const tl = data.timeline || [];
+            const updated = tl.filter(t => t.last_updated).length;
+            const years = tl.map(t => (String(t.published).match(/\d{4}/) || [])[0]).filter(Boolean).sort();
+            const stats = [
+                { n: tl.length, l: 'Plugins' },
+                { n: cats.length, l: 'Categories' },
+                { n: updated, l: 'Updated' },
+                { n: years[0] ? '’' + years[0].slice(2) : '—', l: 'Since' },
+            ];
+            document.getElementById('stats').innerHTML = stats.map(s =>
+                `<div class="stat"><b>${esc(s.n)}</b><span>${esc(s.l)}</span></div>`).join('');
+
+            // Categories — each of the four gets its own personality (v1..v4).
+            // Built as one innerHTML write, then observed in a single pass.
+            const grid = document.getElementById('categories-grid');
+            grid.innerHTML = cats.map((cat, i) => `
+                <div class="cat-card v${(i % 4) + 1}">
+                    <div class="cat-icon"><span class="material-symbols-outlined">${esc(cat.icon || 'extension')}</span></div>
+                    <h3>${esc(cat.name)}</h3>
+                    <ul class="plugin-list">
+                        ${(cat.plugins || []).map(p => `
+                            <li class="plugin-item">
+                                <a href="${esc(safeUrl(p.link))}" class="plugin-name" target="_blank" rel="noopener">${esc(p.name)}</a>
+                                ${p.badge ? `<span class="status-badge" data-status="${esc(p.badge)}">${esc(p.badge)}</span>` : ''}
+                            </li>`).join('')}
+                    </ul>
+                </div>`).join('');
+            grid.querySelectorAll('.cat-card').forEach(c => reveal.observe(c));
+
+            // Timeline — single innerHTML write
+            document.getElementById('timeline-body').innerHTML = tl.map(item => {
+                const plans = (item.plans || []).map(p => `<li>${esc(p)}</li>`).join('');
+                return `
+                    <tr>
+                        <td class="tl-id">${esc(item.id)}</td>
+                        <td>
+                            <div class="tl-name">${esc(item.name)}</div>
+                            ${plans ? `<ul class="plans">${plans}</ul>` : ''}
+                        </td>
+                        <td><span class="cat-pill">${esc(item.category)}</span></td>
+                        <td class="tl-date">${esc(item.published)}</td>
+                        <td class="tl-date ${item.last_updated ? '' : 'muted'}">${item.last_updated ? esc(item.last_updated) : '—'}</td>
+                        <td>
+                            <div class="tl-links">
+                                ${item.custom_url ? `<a class="tl-link open" href="${esc(safeUrl(item.custom_url))}" target="_blank" rel="noopener"><span class="material-symbols-outlined">open_in_new</span>Open</a>` : ''}
+                                <a class="tl-link install" href="${esc(safeUrl(item.install))}" target="_blank" rel="noopener"><span class="material-symbols-outlined">download</span>Install</a>
+                            </div>
+                        </td>
+                    </tr>`;
+            }).join('');
+
+            // Milestones — single innerHTML write, then observed in one pass
+            const ms = document.getElementById('milestones-grid');
+            ms.innerHTML = (data.milestones || []).map(m =>
+                `<div class="milestone"><span class="milestone-date">${esc(m.date)}</span><p>${esc(m.event)}</p></div>`).join('');
+            ms.querySelectorAll('.milestone').forEach(el => reveal.observe(el));
+
+            // Footer support
+            const sup = data.support || {};
+            document.getElementById('support-text').textContent = sup.text || "";
+            document.getElementById('support-link').href = safeUrl(sup.link);
+            document.getElementById('support-label').textContent = sup.link_label || "Support";
+
+            // Safety net: never leave reveal elements hidden (covers any
+            // browser where IntersectionObserver fires late or not at all).
+            setTimeout(() => document.querySelectorAll('.cat-card, .milestone')
+                .forEach(el => el.classList.add('in')), 1400);
+
+            // Reveal page
+            const overlay = document.getElementById('loading-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('main-container').classList.add('loaded');
+            }, 500);
+        }
+
+        async function init() {
+            // Online: always pull the freshest plugins.yaml. Opened from disk
+            // (file://), fetch() is blocked — fall back to the embedded
+            // plugins.js, then to the manual file picker.
+            try {
+                const res = await fetch(`plugins.yaml?t=${Date.now()}`);
+                if (!res.ok) throw new Error("not found");
+                renderData(jsyaml.load(await res.text()));
+                return;
+            } catch (err) {
+                if (window.__PLUGINS__) { renderData(window.__PLUGINS__); return; }
+                console.error("Auto-fetch failed:", err);
+                document.getElementById('loader-content').style.display = 'none';
+                document.getElementById('error-ui').style.display = 'block';
+            }
+        }
+
+        // The upload control is a focusable <label>; a label only forwards CLICK
+        // activation, so wire Enter/Space to open the picker for keyboard users.
+        const uploadLabel = document.querySelector('label[for="yaml-upload"]');
+        if (uploadLabel) uploadLabel.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                document.getElementById('yaml-upload').click();
+            }
+        });
+
+        // Manual file fallback (for opening the file directly off disk)
+        document.getElementById('yaml-upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try { renderData(jsyaml.load(ev.target.result)); }
+                catch (err) { alert("Error parsing YAML: " + err.message); }
+            };
+            reader.readAsText(file);
+        });
+
+        window.addEventListener('load', init);
+    </script>
+</body>
+
+</html>

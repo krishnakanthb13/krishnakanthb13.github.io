@@ -17,8 +17,10 @@ function decodeEntities(s) {
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&#39;/g, "'")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    // Guard against out-of-range code points (String.fromCodePoint throws on
+    // e.g. &#999999999999;) so one malformed entity can't drop a whole feed.
+    .replace(/&#(\d+);/g, (m, n) => { const c = Number(n); return c <= 0x10ffff ? String.fromCodePoint(c) : m; })
+    .replace(/&#x([0-9a-fA-F]+);/g, (m, n) => { const c = parseInt(n, 16); return c <= 0x10ffff ? String.fromCodePoint(c) : m; })
     .replace(/&amp;/g, "&");
 }
 
@@ -48,6 +50,11 @@ async function resolveChannelId(handleOrUrl) {
   const res = await fetch(url, {
     headers: { "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9" },
   });
+  if (!res.ok) {
+    // Distinguish a transient/rate-limit failure from a genuinely bad handle.
+    console.warn(`⚠️  HTTP ${res.status} resolving ${handleOrUrl}`);
+    return null;
+  }
   const html = await res.text();
   const patterns = [
     /<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/(UC[\w-]{22})">/,
@@ -98,19 +105,37 @@ async function main() {
   const manual = await readLines("videos.txt");
   const all = new Map(); // id -> video (first occurrence wins, dedupes overlap)
 
-  for (const ch of channels) {
-    try {
-      const cid = await resolveChannelId(ch);
-      if (!cid) {
-        console.warn("⚠️  Could not resolve channel:", ch);
-        continue;
+  // Resolve + fetch channels concurrently (bounded pool), but merge the results
+  // in the original channels order so "first occurrence wins" stays deterministic
+  // no matter which network response arrives first.
+  const CONCURRENCY = 6;
+  const perChannel = new Array(channels.length);
+  let next = 0;
+  async function worker() {
+    while (next < channels.length) {
+      const idx = next++;
+      const ch = channels[idx];
+      try {
+        const cid = await resolveChannelId(ch);
+        if (!cid) {
+          console.warn("⚠️  Could not resolve channel:", ch);
+          perChannel[idx] = [];
+          continue;
+        }
+        const vids = await fetchChannelVideos(cid);
+        console.log(`✓ ${ch} -> ${cid}  (${vids.length} videos)`);
+        perChannel[idx] = vids;
+      } catch (e) {
+        console.warn("⚠️  Error for", ch, "-", e.message);
+        perChannel[idx] = [];
       }
-      const vids = await fetchChannelVideos(cid);
-      console.log(`✓ ${ch} -> ${cid}  (${vids.length} videos)`);
-      for (const v of vids) if (!all.has(v.id)) all.set(v.id, v);
-    } catch (e) {
-      console.warn("⚠️  Error for", ch, "-", e.message);
     }
+  }
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, channels.length) }, worker)
+  );
+  for (const vids of perChannel) {
+    for (const v of vids) if (!all.has(v.id)) all.set(v.id, v);
   }
 
   // Manual one-off links. "url | description" — manual desc wins if provided.

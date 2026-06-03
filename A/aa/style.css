@@ -195,8 +195,9 @@ body::before {
 .site-tagline {
   margin: 12px auto 24px;
   color: #d6dae2;
-  /* Scales down on narrow screens so it always stays on one line */
-  font-size: clamp(0.62rem, 2.7vw, 1.12rem);
+  /* One line on wider screens; wraps (not truncates) on small screens — see the
+     responsive override below — and never shrinks below a readable size. */
+  font-size: clamp(0.78rem, 2.7vw, 1.12rem);
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
@@ -470,6 +471,8 @@ a:focus-visible, button:focus-visible, .thumb:focus-visible {
   .grid { grid-template-columns: 1fr; gap: 18px; }
   .hero { min-height: 70vh; }
   .nav-brand span { display: none; }
+  /* Wrap the tagline instead of clipping it with an ellipsis on small screens. */
+  .site-tagline { white-space: normal; overflow: visible; text-overflow: clip; }
 }
 
 /* ---------- Reduced motion ---------- */

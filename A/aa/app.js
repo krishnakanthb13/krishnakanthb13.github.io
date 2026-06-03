@@ -131,6 +131,9 @@ function buildCard(video) {
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
     thumb.replaceWith(iframe);
+    // Keep keyboard focus on the activated control instead of resetting to <body>.
+    iframe.setAttribute("tabindex", "-1");
+    iframe.focus();
   };
   thumb.addEventListener("click", playVideo);
   thumb.addEventListener("keydown", (e) => {
@@ -168,9 +171,14 @@ function buildCard(video) {
       const expanded = desc.classList.toggle("expanded");
       more.textContent = expanded ? "Show less" : "Show more";
     });
-    requestAnimationFrame(() => {
-      if (desc.scrollHeight > desc.clientHeight + 4) body.appendChild(more);
-    });
+    // Decide if the description overflows its 3-line clamp. Measure on the next
+    // frame, then re-check once web fonts have loaded (their metrics differ from
+    // the fallback font and can change whether the clamp overflows).
+    const measureOverflow = () => {
+      if (!more.isConnected && desc.scrollHeight > desc.clientHeight + 4) body.appendChild(more);
+    };
+    requestAnimationFrame(measureOverflow);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureOverflow);
   }
 
   card.append(thumb, body);
@@ -208,7 +216,9 @@ async function init() {
   statusEl.remove();
 
   if (!videos.length) {
-    grid.outerHTML =
+    // Use innerHTML (not outerHTML) so #grid and its aria-live region survive,
+    // letting screen readers announce the empty-state message.
+    grid.innerHTML =
       '<p class="empty">No videos yet. Add a channel to <code>channels.txt</code> or a link to <code>videos.txt</code>.</p>';
     return;
   }

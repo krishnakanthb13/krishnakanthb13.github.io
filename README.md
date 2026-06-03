@@ -38,6 +38,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Resume v3.1](https://krishnakanthb13.github.io/R/3/1/index.html)
 	- [Resume v3.2](https://krishnakanthb13.github.io/R/3/2/3.html)
 	- [Resume v3.3](https://krishnakanthb13.github.io/R/3/3/3.html)
+- **Amplenote Hub:**
+	- [YouTube Video Hub](https://krishnakanthb13.github.io/A/aa/): Gallery of my YouTube channels.
+	- [Amplenote Plugins Hub](https://krishnakanthb13.github.io/A/): Gallery of my Amplenote plugins.
 - **VTT Files**:
 	- [Transcript Converter v1](https://krishnakanthb13.github.io/R/VTT/Transcript%20Converter%20v1.html)
 	- [WEBVTT v1](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v1.html)
@@ -46,8 +49,6 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Charm School & Flirt Engine:**
 	- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
 	- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.
-- **Video Hub:**
-	- [YouTube Video Hub](https://krishnakanthb13.github.io/A/aa/): Gallery of my YouTube channels. (Auto-synced with GitHub Actions).
 - **Additional Info:**
 	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html)
 	- [Journaling](https://krishnakanthb13.github.io/D/1.html)

@@ -1,6 +1,9 @@
-name: Update videos
+name: Update plugins
 
-# Auto-syncs the video gallery that lives in the "A/aa" subfolder.
+# Auto-syncs the Amplenote plugins dashboard that lives in the "A" folder by
+# re-scraping the public source note and rebuilding A/plugins.yaml.
+# Source of truth:  https://public.amplenote.com/Y3dy91/krishna-plugins
+#
 # This file must stay at the repo root (.github/workflows/) — GitHub only
 # runs workflows from the root, never from inside subfolders.
 
@@ -10,7 +13,7 @@ name: Update videos
 #  literal, so the schedule is checked daily and these decide if it acts.)
 # ──────────────────────────────────────────────────────────────────────
 env:
-  SYNC_ENABLED: "false"     # "true" = sync runs · "false" = paused (nothing runs at all)
+  SYNC_ENABLED: "false"    # "true" = sync runs · "false" = paused (nothing runs at all)
   SYNC_FREQUENCY: "daily"  # "daily" = every day · "weekly" = once a week
   SYNC_WEEKLY_DAY: "1"     # weekly mode only — 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
 
@@ -21,16 +24,14 @@ on:
   push:
     branches: [master]
     paths:
-      - "A/aa/channels.txt"
-      - "A/aa/videos.txt"
-      - "A/aa/scripts/fetch-videos.mjs"
-      - ".github/workflows/update-videos.yml"
+      - "A/scripts/fetch-plugins.mjs"
+      - ".github/workflows/update-plugins.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-videos
+  group: update-plugins
   cancel-in-progress: true
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: A/aa # all steps run inside the site subfolder
+        working-directory: A # all steps run inside the site subfolder
     steps:
       - uses: actions/checkout@v4
 
@@ -67,15 +68,15 @@ jobs:
         with:
           node-version: 20
 
-      - name: Build videos.json
+      - name: Build plugins.yaml
         if: steps.gate.outputs.run == 'true'
-        run: node scripts/fetch-videos.mjs
+        run: node scripts/fetch-plugins.mjs
 
       - name: Commit if changed
         if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add videos.json
-          git diff --staged --quiet || git commit -m "chore: auto-update videos.json [skip ci]"
+          git add plugins.yaml plugins.js
+          git diff --staged --quiet || git commit -m "chore: auto-update plugins.yaml [skip ci]"
           git push
