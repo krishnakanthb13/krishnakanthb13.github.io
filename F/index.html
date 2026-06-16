@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Krishna's Anki flashcards — free, well-structured SQL study decks (.apkg) built for spaced-repetition learning. Learn SQL faster and remember it longer.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Krishna's Anki Flashcards · KKB">
+  <meta property="og:description" content="Free, well-structured SQL study decks for spaced-repetition learning. Learn SQL faster and remember it longer.">
+  <meta property="og:type" content="website">
+  <title>Krishna's Anki Flashcards — Learn SQL, Remember It · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+  <style>
+    /* ============================================================
+       Landing page — built on the shared KKB theme tokens.
+       All colours come from base.css variables, so light / dark /
+       system theming works everywhere with zero extra JS.
+       ============================================================ */
+    .page.lp{max-width:none;padding:0}
+    .lp-wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+    .lp-section{padding:clamp(52px,8vw,92px) 0}
+    .lp-head{max-width:680px;margin:0 auto clamp(28px,5vw,44px);text-align:center}
+    .lp-kicker{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:5px 13px;font-size:12px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--border);border-radius:999px}
+    .lp-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .lp-h2{font-size:clamp(26px,4.4vw,38px);line-height:1.15;letter-spacing:-.02em;color:var(--heading);font-weight:800;margin:0 0 12px}
+    .lp-sub{font-size:clamp(16px,2.2vw,18.5px);line-height:1.6;color:var(--muted);margin:0}
+
+    /* hero */
+    .hero{position:relative;overflow:hidden;padding:clamp(40px,7vw,78px) 0 clamp(48px,8vw,86px)}
+    .hero::before{content:"";position:absolute;inset:-40% 0 auto;height:560px;z-index:-1;
+      background:radial-gradient(620px 360px at 22% 12%,var(--accent-soft),transparent 70%),radial-gradient(540px 320px at 88% 0%,var(--ring),transparent 72%);
+      opacity:.9;pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,56px);align-items:center}
+    .hero-copy h1{font-size:clamp(32px,5.8vw,56px);line-height:1.06;letter-spacing:-.03em;color:var(--heading);font-weight:800;margin:16px 0 0}
+    .hero-copy h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-lede{font-size:clamp(16.5px,2.4vw,20px);line-height:1.6;color:var(--muted);margin:18px 0 0;max-width:34ch}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:13px;margin:30px 0 0}
+    .btn-lg{font-size:16px;padding:14px 26px;border-radius:14px}
+    .hero-trust{display:flex;flex-wrap:wrap;gap:18px;margin:24px 0 0;font-size:13.5px;color:var(--muted)}
+    .hero-trust span{display:inline-flex;align-items:center;gap:7px}
+    .hero-trust .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+
+    /* hero visual — stacked flashcards */
+    .hero-visual{position:relative;height:clamp(300px,40vw,400px);display:grid;place-items:center}
+    .fc{position:absolute;width:min(80%,340px);border-radius:18px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-md)}
+    .fc-3{height:200px;transform:translateY(40px) rotate(-7deg) scale(.9);opacity:.55}
+    .fc-2{height:210px;transform:translateY(22px) rotate(4deg) scale(.95);opacity:.8}
+    .fc-1{position:relative;padding:24px;display:flex;flex-direction:column;gap:14px;animation:floaty 6s ease-in-out infinite}
+    .fc-1::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;pointer-events:none}
+    .fc-tag{align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--border);padding:5px 10px;border-radius:999px}
+    .fc-q{margin:0;font-size:19px;line-height:1.4;font-weight:700;color:var(--heading)}
+    .fc-q em{color:var(--accent-ink);font-style:normal}
+    .fc-div{height:1px;background:linear-gradient(90deg,var(--border-strong),transparent)}
+    .fc-a{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:15px;font-weight:700;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),var(--accent-2));align-self:flex-start;padding:8px 16px;border-radius:10px;box-shadow:var(--shadow-sm)}
+    @keyframes floaty{0%,100%{transform:translateY(-8px)}50%{transform:translateY(8px)}}
+
+    /* stat band */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+    .stat{background:var(--surface);padding:24px 18px;text-align:center}
+    .stat-n{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;color:var(--heading);line-height:1}
+    .stat-n .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat-l{margin:8px 0 0;font-size:13px;color:var(--muted);font-weight:600}
+
+    /* feature cards */
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .feat{position:relative;padding:26px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .2s,border-color .2s}
+    .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--accent)}
+    .feat-ico{display:grid;place-items:center;width:48px;height:48px;border-radius:13px;font-size:24px;background:var(--accent-soft);border:1px solid var(--border);margin-bottom:16px}
+    .feat h3{margin:0 0 7px;font-size:18px;font-weight:750;color:var(--heading)}
+    .feat p{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+
+    /* how it works */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+    .step{position:relative;padding:26px 22px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2)}
+    .step-n{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;font-weight:800;font-size:17px;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow-sm);margin-bottom:14px}
+    .step h3{margin:0 0 6px;font-size:16.5px;font-weight:750;color:var(--heading)}
+    .step p{margin:0;font-size:14px;line-height:1.55;color:var(--muted)}
+    .step p a{color:var(--accent-ink);text-decoration:none;font-weight:600}
+    .step p a:hover{text-decoration:underline}
+
+    /* deck showcase */
+    .deck-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+    .deck{position:relative;display:flex;flex-direction:column;gap:14px;padding:28px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .15s,box-shadow .2s,border-color .2s}
+    .deck:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--accent)}
+    .deck::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+    .deck-top{display:flex;align-items:center;gap:13px;margin-top:6px}
+    .deck-ico{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;font-size:23px;background:var(--accent-soft);border:1px solid var(--border)}
+    .deck-t{margin:0;font-size:19px;font-weight:800;color:var(--heading);line-height:1.2}
+    .deck-by{font-size:12.5px;color:var(--faint);font-weight:600}
+    .deck-d{margin:0;font-size:14.5px;color:var(--muted);line-height:1.6;flex:1}
+    .deck-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .deck-tag{font-size:12px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:4px 10px;border-radius:999px}
+    .deck .btn{justify-content:center}
+    .deck-meta{margin:0;font-size:12px;color:var(--faint);text-align:center}
+
+    /* final CTA banner */
+    .cta-band{position:relative;overflow:hidden;border-radius:var(--radius);padding:clamp(36px,6vw,60px) clamp(24px,5vw,52px);text-align:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow-md)}
+    .cta-band h2{margin:0 0 10px;font-size:clamp(24px,4vw,36px);font-weight:800;letter-spacing:-.02em;color:var(--on-accent)}
+    .cta-band p{margin:0 auto 26px;max-width:50ch;font-size:16.5px;line-height:1.6;color:var(--on-accent);opacity:.88}
+    .cta-band .btn-white{background:var(--surface);color:var(--accent-ink);border-color:var(--surface)}
+    .cta-band .btn-white:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+
+    .lp-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),transparent)}
+
+    @media (max-width:880px){
+      .hero-grid{grid-template-columns:1fr;text-align:center}
+      .hero-lede{margin-left:auto;margin-right:auto}
+      .hero-cta,.hero-trust{justify-content:center}
+      .hero-visual{order:-1;height:clamp(260px,60vw,340px)}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .steps{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:520px){
+      .stats{grid-template-columns:1fr 1fr}
+      .steps{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body data-section="Anki Flashcards" data-section-href="index.html" data-updated="June 16, 2026">
+  <main class="page lp">
+
+    <!-- ░░ HERO ░░ -->
+    <section class="hero">
+      <div class="lp-wrap hero-grid">
+        <div class="hero-copy">
+          <span class="lp-kicker">📚 Free Anki decks</span>
+          <h1>Learn SQL.<br><span class="grad">Actually remember it.</span></h1>
+          <p class="hero-lede">Hand-crafted, spaced-repetition flashcard decks that turn SQL from "looked it up again" into knowledge that sticks. Download, import, done.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="#decks">⬇️ Get the decks</a>
+            <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+          </div>
+          <div class="hero-trust">
+            <span><i class="dot"></i> 100% free, forever</span>
+            <span><i class="dot"></i> No account needed</span>
+            <span><i class="dot"></i> Works on every device</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="fc fc-3"></div>
+          <div class="fc fc-2"></div>
+          <div class="fc fc-1">
+            <span class="fc-tag">SQL · Card 12 / 80</span>
+            <p class="fc-q">Which clause filters rows <em>after</em> they're grouped?</p>
+            <div class="fc-div"></div>
+            <span class="fc-a">▸ HAVING</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ STATS ░░ -->
+    <section class="lp-section" style="padding-top:0">
+      <div class="lp-wrap">
+        <div class="stats">
+          <div class="stat"><div class="stat-n"><span class="grad">2</span></div><p class="stat-l">Curated decks</p></div>
+          <div class="stat"><div class="stat-n"><span class="grad">$0</span></div><p class="stat-l">Cost, forever</p></div>
+          <div class="stat"><div class="stat-n"><span class="grad">5+</span></div><p class="stat-l">Platforms</p></div>
+          <div class="stat"><div class="stat-n"><span class="grad">.apkg</span></div><p class="stat-l">One-click import</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ FEATURES ░░ -->
+    <section class="lp-section" id="features" style="padding-top:clamp(20px,3vw,36px)">
+      <div class="lp-wrap">
+        <div class="lp-head">
+          <span class="lp-kicker">Why it works</span>
+          <h2 class="lp-h2">Built for retention, not just review</h2>
+          <p class="lp-sub">Every deck is structured around how memory actually works — so your study time compounds instead of evaporating.</p>
+        </div>
+        <div class="feat-grid">
+          <div class="feat">
+            <div class="feat-ico">🔄</div>
+            <h3>Spaced repetition</h3>
+            <p>Anki shows each card right before you'd forget it. Reviews land at the optimal moment, tuned by memory science.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-ico">🎯</div>
+            <h3>Thoughtfully structured</h3>
+            <p>Cards are organised by topic and difficulty so you build from fundamentals to fluency without the overwhelm.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-ico">📱</div>
+            <h3>Study anywhere</h3>
+            <p>Desktop, web, iOS, and Android — your progress syncs across every device with a free AnkiWeb account.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-ico">✨</div>
+            <h3>Free &amp; open</h3>
+            <p>Download, edit, and share freely. No paywall, no sign-up, no catch — just open <code>.apkg</code> files.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="lp-wrap"><div class="lp-divider"></div></div>
+
+    <!-- ░░ HOW IT WORKS ░░ -->
+    <section class="lp-section" id="how">
+      <div class="lp-wrap">
+        <div class="lp-head">
+          <span class="lp-kicker">Get started</span>
+          <h2 class="lp-h2">From download to studying in four steps</h2>
+          <p class="lp-sub">No setup headaches. If you can open a file, you can be reviewing cards in under two minutes.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">1</div>
+            <h3>Install Anki</h3>
+            <p>Grab it free for <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">desktop</a>, or AnkiMobile (iOS) / AnkiDroid (Android).</p>
+          </div>
+          <div class="step">
+            <div class="step-n">2</div>
+            <h3>Download a deck</h3>
+            <p>Hit a <strong>Download</strong> button below to save the <code>.apkg</code> file anywhere you like.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">3</div>
+            <h3>Import it</h3>
+            <p>In Anki, click <strong>Import File</strong>, pick the <code>.apkg</code>, and the deck appears instantly.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">4</div>
+            <h3>Study daily</h3>
+            <p>Open the deck, rate your recall, and let Anki schedule the rest. 10–15 min a day is plenty.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ DECKS ░░ -->
+    <section class="lp-section" id="decks" style="padding-top:clamp(20px,3vw,36px)">
+      <div class="lp-wrap">
+        <div class="lp-head">
+          <span class="lp-kicker">The decks</span>
+          <h2 class="lp-h2">Two ways to master SQL</h2>
+          <p class="lp-sub">Pick one, or grab both. Each mirrors a beloved free SQL course — rebuilt as clean, reviewable cards.</p>
+        </div>
+        <div class="deck-grid">
+          <div class="deck">
+            <div class="deck-top">
+              <div class="deck-ico">🟦</div>
+              <div>
+                <p class="deck-t">SQL Bolt</p>
+                <span class="deck-by">By&nbsp;BKK</span>
+              </div>
+            </div>
+            <p class="deck-d">A full run through the SQLBolt lessons — <code>SELECT</code>, filtering, joins, aggregates, and writing queries — turned into focused, recall-ready cards.</p>
+            <div class="deck-tags"><span class="deck-tag">Joins</span><span class="deck-tag">Aggregates</span><span class="deck-tag">Subqueries</span></div>
+            <a class="btn btn-primary" href="SQL BT (By-BKK).apkg" download>⬇️ Download deck</a>
+            <p class="deck-meta">.apkg · Anki 2.1+ · updated 2025-10-18</p>
+          </div>
+
+          <div class="deck">
+            <div class="deck-top">
+              <div class="deck-ico">🟩</div>
+              <div>
+                <p class="deck-t">SQL W3Schools</p>
+                <span class="deck-by">By&nbsp;BKK</span>
+              </div>
+            </div>
+            <p class="deck-d">Covers the W3Schools SQL tutorial end to end — syntax, built-in functions, and everyday query patterns — for quick, durable recall.</p>
+            <div class="deck-tags"><span class="deck-tag">Syntax</span><span class="deck-tag">Functions</span><span class="deck-tag">Patterns</span></div>
+            <a class="btn btn-primary" href="SQL W3S (By-BKK).apkg" download>⬇️ Download deck</a>
+            <p class="deck-meta">.apkg · Anki 2.1+ · updated 2025-10-18</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ FAQ ░░ -->
+    <section class="lp-section" id="faq" style="padding-top:clamp(20px,3vw,36px)">
+      <div class="lp-wrap" style="max-width:760px">
+        <div class="lp-head">
+          <span class="lp-kicker">FAQ</span>
+          <h2 class="lp-h2">Good questions</h2>
+        </div>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">?</span>What exactly is spaced repetition?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="acc-body"><div class="acc-inner">
+              <p>It's reviewing information at <strong>increasing intervals</strong> — right before you'd forget it. Research consistently shows it boosts long-term retention, cuts total study time, and beats cramming. Anki automates it by tracking your performance and timing each review for you.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">?</span>Do I need a paid account?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="acc-body"><div class="acc-inner">
+              <p>No. The decks are free, and Anki is free on desktop, web, and Android. Only AnkiMobile (iOS) is a paid app — everything else, including cross-device sync via AnkiWeb, costs nothing.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">?</span>Can I edit or add my own cards?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="acc-body"><div class="acc-inner">
+              <p>Absolutely. Once imported, the deck is yours — rewrite cards, add notes, suspend ones you know cold, or merge it with your own collection. The <code>.apkg</code> is a starting point, not a cage.</p>
+            </div></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">?</span>Which deck should I start with?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="acc-body"><div class="acc-inner">
+              <p>If you're newer to SQL, <strong>SQL Bolt</strong> builds up gently through queries and joins. <strong>SQL W3Schools</strong> is a broader reference sweep. They overlap nicely — many people run both.</p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ FINAL CTA ░░ -->
+    <section class="lp-section" style="padding-top:clamp(20px,3vw,36px)">
+      <div class="lp-wrap">
+        <div class="cta-band">
+          <h2>Start remembering SQL today</h2>
+          <p>Two free decks, two minutes of setup, and a study habit that finally sticks. Your future self will thank you.</p>
+          <div class="hero-cta" style="justify-content:center">
+            <a class="btn btn-lg btn-white" href="#decks">⬇️ Download a deck</a>
+            <a class="btn btn-lg btn-ghost" href="https://apps.ankiweb.net/" target="_blank" rel="noopener">Get Anki first</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script src="assets/base.js" defer></script>
+</body>
+</html>

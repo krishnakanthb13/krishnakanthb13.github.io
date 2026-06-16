@@ -492,12 +492,12 @@
   <div class="card">
     <div class="section-label">🍬 Tone — pick your flavour</div>
     <div class="vibe-grid" id="vibe-grid">
-      <button class="vibe-btn selected" data-vibe="charming & smooth">🌹 Charming</button>
-      <button class="vibe-btn" data-vibe="funny & playful">😂 Funny</button>
-      <button class="vibe-btn" data-vibe="witty & clever">🧠 Witty</button>
-      <button class="vibe-btn" data-vibe="warm & heartfelt">💛 Heartfelt</button>
-      <button class="vibe-btn" data-vibe="nerdy & geeky">🤓 Nerdy</button>
-      <button class="vibe-btn" data-vibe="bold & confident">🔥 Bold</button>
+      <button type="button" class="vibe-btn selected" data-vibe="charming & smooth">🌹 Charming</button>
+      <button type="button" class="vibe-btn" data-vibe="funny & playful">😂 Funny</button>
+      <button type="button" class="vibe-btn" data-vibe="witty & clever">🧠 Witty</button>
+      <button type="button" class="vibe-btn" data-vibe="warm & heartfelt">💛 Heartfelt</button>
+      <button type="button" class="vibe-btn" data-vibe="nerdy & geeky">🤓 Nerdy</button>
+      <button type="button" class="vibe-btn" data-vibe="bold & confident">🔥 Bold</button>
     </div>
   </div>
 
@@ -506,7 +506,7 @@
     <textarea id="extra" placeholder="Extra context, inside jokes, language preference, emojis they use…"></textarea>
   </div>
 
-  <button class="go-btn" id="go-btn" onclick="generateFlirt()">Generate my lines ✨</button>
+  <button type="button" class="go-btn" id="go-btn" onclick="generateFlirt()">Generate my lines ✨</button>
 
   <div class="loading" id="loading">
     <span id="loading-text">Crafting something irresistible</span><span class="loading-dots"></span>
@@ -516,7 +516,7 @@
     <hr class="divider" />
     <div class="result-label">Your lines — use wisely 💌</div>
     <div id="lines-container"></div>
-    <button class="regen-btn" id="regen-btn" onclick="generateFlirt()">↺ Generate new lines</button>
+    <button type="button" class="regen-btn" id="regen-btn" onclick="generateFlirt()">↺ Generate new lines</button>
   </div>
 
   <div class="foot">Made with <i class="ti ti-heart-filled"></i> — charm is kindness with confidence</div>
@@ -675,7 +675,7 @@ Rules:
       const escapedLine = item.line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 
       card.innerHTML = `
-        <button class="copy-btn" data-text="${escapedLine}" onclick="copyLine(this)" aria-label="Copy line"><i class="ti ti-copy"></i></button>
+        <button type="button" class="copy-btn" data-text="${escapedLine}" onclick="copyLine(this)" aria-label="Copy line"><i class="ti ti-copy"></i></button>
         <div class="line-tag ${tagClass}">${itemTag}</div>
         <div class="line-text">"${item.line}"</div>
         <div class="line-tip">💡 ${item.tip}</div>

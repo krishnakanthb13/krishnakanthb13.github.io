@@ -290,7 +290,7 @@
     </style>
 </head>
 <body>
-    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle light / dark">🌙</button>
+    <button type="button" id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle light / dark">🌙</button>
 
     <div class="container">
         <div class="header">
@@ -302,8 +302,8 @@
             <h2>📥 Input VTT</h2>
             <textarea id="input" placeholder="Paste your VTT content here…"></textarea>
             <div class="button-group">
-                <button onclick="extract()">🔄 Extract Text</button>
-                <button onclick="clearInput()" class="secondary-btn">🗑️ Clear</button>
+                <button type="button" onclick="extract()">🔄 Extract Text</button>
+                <button type="button" onclick="clearInput()" class="secondary-btn">🗑️ Clear</button>
             </div>
         </div>
 
@@ -311,7 +311,7 @@
             <h2>📤 Extracted Text</h2>
             <div id="output"></div>
             <div class="button-group">
-                <button onclick="copyText()" class="success-btn">📋 Copy Text</button>
+                <button type="button" onclick="copyText()" class="success-btn">📋 Copy Text</button>
             </div>
         </div>
 

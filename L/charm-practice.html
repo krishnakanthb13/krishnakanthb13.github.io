@@ -404,14 +404,14 @@
   <div class="scenario-card">
     <div class="scenario-label">📍 Scenario</div>
     <div class="scenario-text" id="scenarioText">You see someone reading a book you love at a coffee shop</div>
-    <button class="new-scenario-btn" onclick="newScenario()">🎲 New scenario</button>
+    <button type="button" class="new-scenario-btn" onclick="newScenario()">🎲 New scenario</button>
   </div>
 </div>
 
 <div class="input-area">
   <div class="input-row">
     <textarea id="userInput" placeholder="Describe the moment, or just hit ✨ to generate a line for the current scenario..."></textarea>
-    <button class="gen-btn" id="genBtn" onclick="generate()" title="Generate">✨</button>
+    <button type="button" class="gen-btn" id="genBtn" onclick="generate()" title="Generate">✨</button>
   </div>
 </div>
 
@@ -526,9 +526,9 @@ TIP: [tip]`;
     }
 
     html += `<div class="actions-row">
-      <button class="action-btn" onclick="copyText()"><i class="ti ti-copy"></i> Copy all</button>
-      <button class="action-btn" onclick="generate()"><i class="ti ti-refresh"></i> Regenerate</button>
-      <button class="action-btn" onclick="document.getElementById('userInput').value='';document.getElementById('userInput').focus()"><i class="ti ti-pencil"></i> New input</button>
+      <button type="button" class="action-btn" onclick="copyText()"><i class="ti ti-copy"></i> Copy all</button>
+      <button type="button" class="action-btn" onclick="generate()"><i class="ti ti-refresh"></i> Regenerate</button>
+      <button type="button" class="action-btn" onclick="document.getElementById('userInput').value='';document.getElementById('userInput').focus()"><i class="ti ti-pencil"></i> New input</button>
     </div>`;
 
     card.innerHTML = html;

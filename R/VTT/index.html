@@ -532,7 +532,7 @@
     </style>
 </head>
 <body>
-    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle light / dark">🌙</button>
+    <button type="button" id="themeToggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle light / dark">🌙</button>
 
     <div class="container">
         <div class="header">
@@ -552,7 +552,7 @@
                         placeholder="Enter YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)"
                         onkeypress="if(event.key==='Enter') fetchYouTubeVTT()"
                     >
-                    <button onclick="fetchYouTubeVTT()" style="background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%); box-shadow: 0 2px 8px rgba(255, 0, 0, 0.2);">▶️ Fetch VTT</button>
+                    <button type="button" onclick="fetchYouTubeVTT()" style="background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%); box-shadow: 0 2px 8px rgba(255, 0, 0, 0.2);">▶️ Fetch VTT</button>
                 </div>
                 <div id="fetchStatus" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--heading);"></div>
             </div>
@@ -571,10 +571,10 @@ Example (transcript):
 0:00 Hello, welcome to the video
 0:05 This is the second line"></textarea>
                 <div class="button-group">
-                    <button onclick="extract()" style="flex: 1 1 100%;">🔄 Extract Text</button>
-                    <button onclick="document.getElementById('fileInput').click()" class="secondary-btn">📁 Upload File</button>
-                    <button onclick="loadSample()" class="secondary-btn">📄 Load Sample</button>
-                    <button onclick="clearInput()" class="danger-btn">🗑️ Clear</button>
+                    <button type="button" onclick="extract()" style="flex: 1 1 100%;">🔄 Extract Text</button>
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="secondary-btn">📁 Upload File</button>
+                    <button type="button" onclick="loadSample()" class="secondary-btn">📄 Load Sample</button>
+                    <button type="button" onclick="clearInput()" class="danger-btn">🗑️ Clear</button>
                 </div>
                 <input type="file" id="fileInput" accept=".vtt,.srt,.txt,text/*" style="display:none;" onchange="handleFileUpload(event)">
                 <p class="hint">💡 Tip: paste, upload, or <strong>drag &amp; drop</strong> a .vtt / .srt / .txt file onto the box above.</p>
@@ -584,9 +584,9 @@ Example (transcript):
                 <h2>📤 Extracted Output</h2>
                 <div id="output">Your extracted text will appear here...</div>
                 <div class="button-group">
-                    <button onclick="copyText()" class="success-btn">📋 Copy Text</button>
-                    <button onclick="downloadTxt()" class="secondary-btn">💾 Download TXT</button>
-                    <button onclick="downloadSRT()" class="secondary-btn">💾 Download SRT</button>
+                    <button type="button" onclick="copyText()" class="success-btn">📋 Copy Text</button>
+                    <button type="button" onclick="downloadTxt()" class="secondary-btn">💾 Download TXT</button>
+                    <button type="button" onclick="downloadSRT()" class="secondary-btn">💾 Download SRT</button>
                 </div>
                 <label class="toggle-row">
                     <input type="checkbox" id="keepTimestamps" onchange="renderOutput()">
@@ -612,6 +612,7 @@ Example (transcript):
                 <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys" target="_blank" style="font-size: 0.85rem; color: #6366f1;">Google AI Studio</a></h2>
                 <input
                     type="password"
+                    autocomplete="current-password"
                     id="apiKey"
                     class="api-input"
                     style="margin-bottom: 0.4rem;"
@@ -649,12 +650,12 @@ Example (transcript):
                     </select>
                 </div>
                 <div class="command-grid">
-                    <button onclick="geminiCommand('summarize')" class="command-btn">📝 Summarize</button>
-                    <button onclick="geminiCommand('translate')" class="command-btn">🌐 Translate</button>
-                    <button onclick="geminiCommand('keywords')" class="command-btn">🔑 Keywords</button>
-                    <button onclick="geminiCommand('sentiment')" class="command-btn">😊 Sentiment</button>
-                    <button onclick="geminiCommand('bullet')" class="command-btn">📌 Bullet Points</button>
-                    <button onclick="geminiCommand('questions')" class="command-btn">❓ Questions</button>
+                    <button type="button" onclick="geminiCommand('summarize')" class="command-btn">📝 Summarize</button>
+                    <button type="button" onclick="geminiCommand('translate')" class="command-btn">🌐 Translate</button>
+                    <button type="button" onclick="geminiCommand('keywords')" class="command-btn">🔑 Keywords</button>
+                    <button type="button" onclick="geminiCommand('sentiment')" class="command-btn">😊 Sentiment</button>
+                    <button type="button" onclick="geminiCommand('bullet')" class="command-btn">📌 Bullet Points</button>
+                    <button type="button" onclick="geminiCommand('questions')" class="command-btn">❓ Questions</button>
                 </div>
                 <div class="ai-action-group">
                     <input
@@ -664,14 +665,14 @@ Example (transcript):
                         placeholder="Or enter custom command (e.g., 'Explain this in simple terms')"
                         onkeypress="if(event.key==='Enter') geminiCommand('custom')"
                     >
-                    <button onclick="geminiCommand('custom')" class="success-btn">🚀 Execute</button>
+                    <button type="button" onclick="geminiCommand('custom')" class="success-btn">🚀 Execute</button>
                 </div>
                 <div class="loading" id="loading">⏳ Processing with AI...</div>
                 <div id="geminiOutput"></div>
                 <div class="button-group" style="margin-top: 1rem;" id="aiButtonGroup">
-                    <button onclick="copyAIText()" class="success-btn">📋 Copy AI Output</button>
-                    <button onclick="downloadAITxt()" class="secondary-btn">💾 Download TXT</button>
-                    <button onclick="clearAIOutput()" class="danger-btn">🗑️ Clear</button>
+                    <button type="button" onclick="copyAIText()" class="success-btn">📋 Copy AI Output</button>
+                    <button type="button" onclick="downloadAITxt()" class="secondary-btn">💾 Download TXT</button>
+                    <button type="button" onclick="clearAIOutput()" class="danger-btn">🗑️ Clear</button>
                 </div>
             </div>
         </div>
