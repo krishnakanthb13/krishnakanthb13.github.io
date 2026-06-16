@@ -12,6 +12,7 @@
   <meta property="og:title" content="B. Krishna Kanth — Biodata &amp; Horoscope">
   <meta property="og:description" content="Matrimonial biodata and horoscope of B. Krishna Kanth (VM30053).">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>">
+  <script>try { var a = localStorage.getItem('kkb-h-accent'); if (a && a !== 'orange') document.documentElement.setAttribute('data-accent', a); } catch (e) {}</script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -19,19 +20,23 @@
   <style>
     /* ---------- Dark-only theme tokens ---------- */
     :root {
-      --accent: #00e676;
-      --accent-soft: rgba(0, 230, 118, .14);
+      --accent: #ff8c2b;
+      --accent-soft: rgba(255, 140, 43, .15);
       --bg: #0c0f14;
       --surface: #161b22;
       --surface-2: #1c232d;
       --text: #e7ecf3;
       --muted: #9aa6b6;
-      --label: #ffb74d;
       --border: #2a323d;
       --shadow: 0 10px 28px rgba(0, 0, 0, .5);
-      --ring: rgba(0, 230, 118, .4);
+      --ring: rgba(255, 140, 43, .4);
+      --on-accent: #241200;
       --overlay: rgba(6, 9, 13, .52);
     }
+    :root[data-accent="green"] { --accent: #00e676; --accent-soft: rgba(0, 230, 118, .15); --ring: rgba(0, 230, 118, .4); --on-accent: #04140b; }
+    :root[data-accent="blue"]  { --accent: #4f9dff; --accent-soft: rgba(79, 157, 255, .16); --ring: rgba(79, 157, 255, .4); --on-accent: #04122b; }
+    :root[data-accent="gold"]  { --accent: #ffc24b; --accent-soft: rgba(255, 194, 75, .16); --ring: rgba(255, 194, 75, .4); --on-accent: #241a00; }
+    :root[data-accent="rose"]  { --accent: #ff5d8f; --accent-soft: rgba(255, 93, 143, .16); --ring: rgba(255, 93, 143, .4); --on-accent: #2b0512; }
 
     * { box-sizing: border-box; }
     body {
@@ -68,15 +73,31 @@
     }
     .ctrl:hover { border-color: var(--accent); }
     .ctrl:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+    #accentBtn { width: 36px; padding: 0; border-radius: 50%; justify-content: center; gap: 0; }
+    #accentBtn .swatch { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .35); transition: background .2s; }
 
     .wrap { max-width: 1000px; margin: 0 auto; padding: clamp(12px, 3vw, 26px); }
 
     /* ---------- Hero ---------- */
     .hero { text-align: center; padding: clamp(14px, 4vw, 30px) 14px 4px; }
+    .avatar-btn { display: block; margin: 0 auto 12px; padding: 0; border: 0; background: none; line-height: 0; cursor: zoom-in; border-radius: 50%; }
+    .avatar-btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
     .avatar {
-      width: 92px; height: 92px; margin: 0 auto 12px; border-radius: 50%; object-fit: cover; display: block;
+      width: 92px; height: 92px; border-radius: 50%; object-fit: cover; display: block;
       background: var(--accent-soft); border: 3px solid var(--accent); box-shadow: var(--shadow);
+      transition: transform .15s;
     }
+    .avatar-btn:hover .avatar { transform: scale(1.04); }
+    /* Photo lightbox (desktop + mobile) */
+    .lightbox { position: fixed; inset: 0; z-index: 60; display: none; place-items: center; padding: 24px;
+      background: rgba(6, 9, 13, .62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: zoom-out; }
+    .lightbox.show { display: grid; animation: lbFade .18s ease; }
+    .lightbox.show img { animation: lbPop .2s ease; }
+    .lightbox img { max-width: min(440px, 92vw); max-height: 86vh; width: 100%; height: auto; object-fit: contain;
+      border-radius: 16px; border: 3px solid var(--accent); box-shadow: 0 24px 70px rgba(0, 0, 0, .7); }
+    @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes lbPop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    body.lb-open { overflow: hidden; }
     .hero h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.3rem); line-height: 1.15; }
     .hero h1 a { color: var(--accent); text-decoration: none; font-size: .55em; vertical-align: middle; }
     .hero .tag { margin: 6px 0 0; color: var(--muted); font-size: .98rem; }
@@ -93,7 +114,7 @@
     }
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
-    .btn-primary { background: var(--accent); color: #04140b; }
+    .btn-primary { background: var(--accent); color: var(--on-accent); }
     .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
 
     /* ---------- Cards: inline-expand on desktop, pop-up on mobile ---------- */
@@ -138,13 +159,15 @@
     dl { margin: 0; padding: 2px 14px 12px; }
     .row { display: grid; grid-template-columns: 40% 1fr; gap: 10px; padding: 6px 0; border-top: 1px solid var(--border); }
     .row:first-child { border-top: 0; }
-    dt { color: var(--label); font-weight: 600; }
+    dt { color: var(--accent); font-weight: 600; }
     dd { margin: 0; overflow-wrap: anywhere; }
     dd a { color: var(--accent); text-decoration: none; font-weight: 600; }
     dd a:hover { text-decoration: underline; }
     .full { grid-column: 1 / -1; }
     .full dd { margin-top: 2px; }
     .note { color: var(--muted); }
+    .linklist { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+    .linklist a { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
 
     /* ---------- Charts ---------- */
     .charts { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 6px 14px 14px; }
@@ -205,11 +228,16 @@
       <option value="te">తెలుగు</option>
       <option value="ta">தமிழ்</option>
     </select>
+    <button class="ctrl" id="accentBtn" type="button" aria-label="Toggle accent colour" title="Accent colour">
+      <span class="swatch" aria-hidden="true"></span>
+    </button>
   </header>
 
   <main class="wrap">
     <section class="hero" aria-labelledby="name">
-      <img class="avatar" src="assets/krishna.jpeg" width="92" height="92" decoding="async" alt="Portrait of B. Krishna Kanth">
+      <button class="avatar-btn" id="avatarBtn" type="button" aria-label="View photo">
+        <img class="avatar" src="assets/krishna.jpeg" width="92" height="92" decoding="async" alt="Portrait of B. Krishna Kanth">
+      </button>
       <h1 id="name">B. Krishna Kanth
         <a href="https://www.vysyamala.com/Profilev2.aspx?q=VM30053_41" target="_blank" rel="noopener">(VM30053)</a>
       </h1>
@@ -322,9 +350,8 @@
           </div>
           <div class="legend" id="legend"></div>
           <dl>
-            <div class="row full"><dt data-i18n="lDocs">Documents</dt><dd>
+            <div class="row full"><dt data-i18n="lDocs">Documents</dt><dd class="linklist">
               <a href="assets/horoscope.jpeg" target="_blank" rel="noopener"><i class="fas fa-image" aria-hidden="true"></i> <span data-i18n="docChart">Horoscope chart</span></a>
-              &nbsp;·&nbsp;
               <a href="assets/vysyamala-profile.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf" aria-hidden="true"></i> <span data-i18n="docPdf">Text profile (PDF)</span></a>
             </dd></div>
           </dl>
@@ -375,6 +402,10 @@
       </article>
     </div>
   </main>
+
+  <div class="lightbox" id="photoLb" aria-hidden="true">
+    <img src="assets/krishna.jpeg" alt="Portrait of B. Krishna Kanth">
+  </div>
 
   <footer><p>&copy; <span id="year">2026</span> B. Krishna Kanth</p></footer>
   <button id="toTop" type="button" title="Back to top" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
@@ -594,7 +625,15 @@
         if (x) x.addEventListener("click", function (e) { e.stopPropagation(); closeAll(); });
       });
       scrim.addEventListener("click", closeAll);
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeAll(); });
+
+      /* ---- Profile photo lightbox (desktop + mobile) ---- */
+      var photoLb = document.getElementById("photoLb");
+      var avatarBtn = document.getElementById("avatarBtn");
+      function closePhoto() { photoLb.classList.remove("show"); document.body.classList.remove("lb-open"); }
+      avatarBtn.addEventListener("click", function () { photoLb.classList.add("show"); document.body.classList.add("lb-open"); });
+      photoLb.addEventListener("click", closePhoto);
+
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeAll(); closePhoto(); } });
       MOBILE.addEventListener("change", function () { document.body.classList.remove("modal-open"); scrim.classList.remove("show"); });
 
       /* ---- Language ---- */
@@ -605,6 +644,22 @@
         try { localStorage.setItem("kkb-h-lang", lang); } catch (e) {}
         applyLang();
       });
+
+      /* ---- Accent colour cycle (orange default -> green -> blue -> gold -> rose) ---- */
+      var ACCENTS = ["orange", "green", "blue", "gold", "rose"];
+      var accentBtn = document.getElementById("accentBtn");
+      function curAccent() { try { var a = localStorage.getItem("kkb-h-accent"); return ACCENTS.indexOf(a) >= 0 ? a : "orange"; } catch (e) { return "orange"; } }
+      function applyAccent(a) {
+        if (a === "orange") document.documentElement.removeAttribute("data-accent");
+        else document.documentElement.setAttribute("data-accent", a);
+        accentBtn.title = "Accent: " + a + " (click to change)";
+      }
+      accentBtn.addEventListener("click", function () {
+        var next = ACCENTS[(ACCENTS.indexOf(curAccent()) + 1) % ACCENTS.length];
+        try { localStorage.setItem("kkb-h-accent", next); } catch (e) {}
+        applyAccent(next);
+      });
+      applyAccent(curAccent());
 
       /* ---- Always-on background video (respect reduced-motion) ---- */
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -627,30 +682,12 @@
         setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
       });
 
-      /* ---- Back to top ---- */
+      /* ---- Back to top (native, GPU-driven scroll — no scroll-jacking) ---- */
       var toTop = document.getElementById("toTop");
       window.addEventListener("scroll", function () { toTop.classList.toggle("show", window.scrollY > 360); }, { passive: true });
-      toTop.addEventListener("click", function () { smoothTo(0); });
-
-      /* ---- Gentle, eased scrolling (mouse only) ---- */
-      var fine = window.matchMedia("(pointer: fine)").matches;
-      var target = window.scrollY, current = window.scrollY, animating = false;
-      function maxScroll() { return document.documentElement.scrollHeight - window.innerHeight; }
-      function clamp(v) { return Math.max(0, Math.min(v, maxScroll())); }
-      function loop() {
-        current += (target - current) * 0.20;
-        if (Math.abs(target - current) < 0.6) { current = target; window.scrollTo(0, current); animating = false; return; }
-        window.scrollTo(0, current); requestAnimationFrame(loop);
-      }
-      function smoothTo(y) { if (reduce) { window.scrollTo(0, y); return; } target = clamp(y); if (!animating) { animating = true; current = window.scrollY; loop(); } }
-      function onWheel(e) {
-        if (e.ctrlKey || document.body.classList.contains("modal-open")) return;
-        e.preventDefault();
-        target = clamp(target + e.deltaY * 1.0);
-        if (!animating) { animating = true; current = window.scrollY; loop(); }
-      }
-      window.addEventListener("scroll", function () { if (!animating) target = window.scrollY; }, { passive: true });
-      if (fine && !reduce) window.addEventListener("wheel", onWheel, { passive: false });
+      toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      });
 
       /* ---- Init ---- */
       applyLang();
