@@ -5,6 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Checkout | krishnakanthb13</title>
+    <meta name="description"
+        content="Secure checkout for Krishna Kanth B — pay or support via PayPal, Buy Me a Coffee, GitHub Sponsors, or UPI / GPay.">
+    <meta name="theme-color" content="#2563EB">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Secure Checkout | krishnakanthb13">
+    <meta property="og:description" content="Pay or support via PayPal, Buy Me a Coffee, GitHub Sponsors, or UPI / GPay.">
+    <meta property="og:image" content="https://krishnakanthb13.github.io/S/assets/preview.png">
 
     <!-- Fonts - Inter for that clean Corporate Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -513,25 +523,25 @@
             <div class="nav-label">Select Payment Method</div>
             <ul class="payment-nav">
                 <li class="nav-item">
-                    <button type="button" class="nav-btn active" onclick="switchTab('paypal')">
+                    <button type="button" class="nav-btn active" onclick="switchTab('paypal', event)">
                         <i class="fab fa-paypal" style="width: 20px; text-align: center;"></i>
                         PayPal Standard
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="nav-btn" onclick="switchTab('coffee')">
+                    <button type="button" class="nav-btn" onclick="switchTab('coffee', event)">
                         <i class="fas fa-coffee" style="width: 20px; text-align: center;"></i>
                         Buy Me a Coffee
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="nav-btn" onclick="switchTab('github')">
+                    <button type="button" class="nav-btn" onclick="switchTab('github', event)">
                         <i class="fab fa-github" style="width: 20px; text-align: center;"></i>
                         GitHub Sponsors
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="nav-btn" onclick="switchTab('upi')">
+                    <button type="button" class="nav-btn" onclick="switchTab('upi', event)">
                         <i class="fas fa-mobile-alt" style="width: 20px; text-align: center;"></i>
                         UPI / GPay
                     </button>
@@ -541,7 +551,8 @@
             <div class="sidebar-footer">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span>&copy; 2026 Krishna Kanth B</span>
-                    <button type="button" class="theme-switch" id="themeToggle" title="Toggle Theme">
+                    <button type="button" class="theme-switch" id="themeToggle" title="Toggle Theme"
+                        aria-label="Toggle light/dark theme">
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -583,7 +594,7 @@
                         </div>
                     </div>
                     <div class="qr-card">
-                        <img src="Sponsor-Krishn-qrcode.png" alt="PayPal QR Code" class="qr-img">
+                        <img src="assets/paypal-qr.png" alt="PayPal QR Code" class="qr-img">
                         <p class="qr-caption">Scan to Pay securely</p>
                     </div>
                 </div>
@@ -612,7 +623,7 @@
                         </div>
                     </div>
                     <div class="qr-card">
-                        <img src="bmc_qr.png" alt="BMC QR Code" class="qr-img">
+                        <img src="assets/bmc-qr.png" alt="BMC QR Code" class="qr-img">
                         <p class="qr-caption">Scan to Support</p>
                     </div>
                 </div>
@@ -670,7 +681,7 @@
                     <div
                         style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
                         <div class="qr-card" style="width: 100%;">
-                            <img src="gpay.png" alt="GPay QR Code" class="qr-img">
+                            <img src="assets/upi-qr.png" alt="GPay QR Code" class="qr-img">
                             <p class="qr-caption">Scan with any UPI App</p>
                         </div>
 
@@ -706,12 +717,12 @@
 
     <script>
         // Tab Switching Logic
-        function switchTab(tabId) {
+        function switchTab(tabId, evt) {
             // Update Sidebar State
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            (evt || window.event).currentTarget.classList.add('active');
 
             // Update Content State
             document.querySelectorAll('.tab-content').forEach(content => {

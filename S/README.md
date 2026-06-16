@@ -2,11 +2,13 @@
 
 A premium, responsive, and minimalist secure checkout page designed for unified payment collection. This project provides a centralized hub for various payment methods, including international gateways and local Indian UPI options.
 
-![PayLink Preview](overhaul.png)
+![PayLink Preview](assets/preview.png)
 
 ## 🎯 What is it?
 
 **PayLink** is a static web-based "Secure Checkout" system. It allows users to choose from multiple payment methods through a clean, corporate-style interface inspired by modern fintech platforms like Razorpay and Stripe.
+
+There are two checkout experiences — one tuned for **desktop / large screens** and one for **mobile** — fronted by a responsive **launcher** (`index.html`) that recommends the right one for the visitor's device. Both lead to the same payment options.
 
 ### Supported Payment Methods
 - **PayPal Standard**: International payment gateway supporting all major credit/debit cards.
@@ -16,35 +18,46 @@ A premium, responsive, and minimalist secure checkout page designed for unified 
 
 ## ✨ Key Features
 
+- **Responsive launcher**: `index.html` detects the visitor's screen/pointer and highlights the recommended checkout (without forcing a redirect, so shared links always open the launcher).
 - **Corporate UI/UX**: Clean "Inter" typography with a professional color palette.
-- **Dynamic Theme support**: Built-in Dark Mode and Light Mode with system preference detection.
+- **Dynamic theme support**: Built-in Dark Mode and Light Mode with system-preference detection, shared across all pages via a single `theme` key.
 - **Interactive Tabs**: Smooth switching between payment providers without page reloads.
-- **Mobile Optimized**: Fully responsive grid layout that adapts to any screen size.
-- **Copy-to-Clipboard**: One-click copying for UPI IDs to ensure accuracy.
+- **Mobile Optimized**: Fully responsive layout that adapts to any screen size.
+- **Copy-to-Clipboard**: One-click copying for the UPI ID to ensure accuracy.
 - **Secure by Design**: Verified badges and SSL-focused messaging to build trust.
 
 ## 📂 Project Structure
 
 ```text
 /S
-├── .github/
-│   ├── FUNDING.yml         # GitHub Sponsorship configuration
-│   └── FUNDING_example.yml # Template for funding platforms
-├── assets/                 # (Assumed parent directory for site assets)
-├── PLP.html                # Main Secure Checkout entry point (Desktop)
-├── PLPm.html               # Mobile-optimized Secure Checkout
-├── PLP-old.html            # Legacy version
-└── *.png                   # QR codes and branding assets
+├── index.html              # Responsive launcher → links to both checkouts (entry point)
+├── PLP.html                # Secure Checkout — Desktop / large screens
+├── PLPm.html               # Secure Checkout — Mobile
+├── README.md
+├── assets/                 # Images used by the live pages (renamed, self-contained)
+│   ├── paypal-qr.png       # PayPal QR  (was Sponsor-Krishn-qrcode.png)
+│   ├── bmc-qr.png          # Buy Me a Coffee QR  (was bmc_qr.png)
+│   ├── upi-qr.png          # UPI / GPay QR  (was gpay.png)
+│   └── preview.png         # README preview image  (was overhaul.png)
+├── legacy/                 # Frozen relic — kept untouched, self-contained
+│   ├── PLP-old.html        # Original v1 payment page
+│   └── *.png               # All images the relic references (original names)
+└── .github/
+    ├── FUNDING.yml         # GitHub Sponsorship configuration
+    ├── FUNDING_example.yml # Template for funding platforms
+    └── README.md
 ```
+
+> Site-wide assets (fonts, favicons, etc.) live in the repository's root `assets/` folder; the checkout pages reference the favicon at `../assets/images/`.
 
 ## 🚀 How to Use
 
-1. **Deploy**: Since this is a static HTML project, you can host it anywhere (GitHub Pages, Vercel, Netlify).
-2. **Customize**: 
-   - Open `PLP.html`.
-   - Update the IDs and links in the specific `tab-content` divs (lines 564-688).
-   - Update the footer links (lines 691-702) with your personal profiles.
-3. **QR Codes**: Replace the `.png` files in the root directory with your own generated payment QR codes.
+1. **Deploy**: This is a static project — host it anywhere (GitHub Pages, Vercel, Netlify). On GitHub Pages it is served at `/S/` (the launcher).
+2. **Customize**:
+   - Open `PLP.html` / `PLPm.html`.
+   - Update the IDs and links inside each `tab-content` block (PayPal, Buy Me a Coffee, GitHub, UPI).
+   - Update the footer links with your own profiles.
+3. **QR Codes**: Replace the `.png` files in `assets/` with your own generated payment QR codes (keep the same file names, or update the `<img src>` references to match).
 
 ## 🤝 Support & Funding
 
@@ -72,11 +85,11 @@ If you find this project useful, you can support my work via:
 | **PayPal description** | International Payment Gateway. Supports all major Credit and Debit cards. | Same | ✅ |
 | **PayPal fee note** | Standard international fees apply (~5% + currency conversion). | Same | ✅ |
 | **PayPal button link** | `paypal.com/paypalme/krishnakanthb13` | Same | ✅ |
-| **PayPal QR image** | `Sponsor-Krishn-qrcode.png` | Same | ✅ |
+| **PayPal QR image** | `assets/paypal-qr.png` | Same | ✅ |
 | **BMC description** | Support my work with a small donation. Great for one-time support. | Same | ✅ |
 | **BMC fee note** | 5% platform fee + standard payment processing fees. | Same | ✅ |
 | **BMC button link** | `buymeacoffee.com/krishnakanthb` | Same | ✅ |
-| **BMC QR image** | `bmc_qr.png` | Same | ✅ |
+| **BMC QR image** | `assets/bmc-qr.png` | Same | ✅ |
 | **GitHub description** | Sponsor my open source contributions. Monthly or one-time tiers available. | Same | ✅ |
 | **GitHub fee notes** | Zero fees / Up to 6% for orgs | Same | ✅ |
 | **GitHub Sponsors link** | `github.com/sponsors/krishnakanthb13` | Same | ✅ |
@@ -84,7 +97,7 @@ If you find this project useful, you can support my work via:
 | **UPI availability notes** | Free / India Only (Best on Mobile) | Same | ✅ |
 | **UPI ID** | `krishnakanthb13@okhdfcbank` | Same | ✅ |
 | **UPI deep link** | `upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna` | Same | ✅ |
-| **GPay QR image** | `gpay.png` | Same | ✅ |
+| **UPI / GPay QR image** | `assets/upi-qr.png` | Same | ✅ |
 | **Secure badge** | 🛡 Verified / Secure SSL Connection | Same | ✅ |
 | **Footer links (5)** | GitHub, LinkedIn, Resume, BioLink, Projects | Same | ✅ |
 | **Copyright** | © 2026 Krishna Kanth B | Same | ✅ |

@@ -18,7 +18,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **H**: Personal Horoscope Data
 - **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
 - **R**: Online Resume Variations & Try Outs
-- **S**: Payment Gateway Page
+- **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
 
 ---
 
@@ -33,10 +33,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 ---
 
-- **Payment Gateway**:
-	- [Latest Payment Gateway (Desktop)](https://krishnakanthb13.github.io/S/PLP.html)
-	- [Latest Payment Gateway (Mobile)](https://krishnakanthb13.github.io/S/PLPm.html)
-	- [Old Payment Gateway](https://krishnakanthb13.github.io/S/PLP-old.html)
+- **Payment Gateway** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/S/README.md) — PayLink secure checkout):
+	- [Launcher / Home](https://krishnakanthb13.github.io/S/): Responsive front door — recommends the right checkout for your device.
+		- [Latest Payment Gateway (Desktop)](https://krishnakanthb13.github.io/S/PLP.html)
+		- [Latest Payment Gateway (Mobile)](https://krishnakanthb13.github.io/S/PLPm.html)
+	- [Old Payment Gateway (relic)](https://krishnakanthb13.github.io/S/legacy/PLP-old.html)
 
 ---
 
