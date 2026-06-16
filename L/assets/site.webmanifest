@@ -1,0 +1,14 @@
+{
+  "name": "Charm School & The Flirt Engine",
+  "short_name": "Charm",
+  "description": "Playful, AI-powered tools to practice charming, witty, genuine conversation — free and private, in your browser.",
+  "start_url": "../",
+  "scope": "../",
+  "display": "standalone",
+  "background_color": "#fff5fa",
+  "theme_color": "#f25e9c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
