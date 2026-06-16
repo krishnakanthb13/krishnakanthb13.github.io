@@ -29,6 +29,7 @@ backend, no build step, no server-side keys.
   - [Groq (BYOK — Free, No Card)](#groq-byok--free-no-card)
   - [Google Gemini (BYOK)](#google-gemini-byok)
   - [Mistral AI (BYOK — Free Tier)](#mistral-ai-byok--free-tier)
+  - [Cerebras (BYOK — Free, No Card)](#cerebras-byok--free-no-card)
   - [Cohere (BYOK — Free Trial)](#cohere-byok--free-trial)
   - [OpenRouter (BYOK)](#openrouter-byok)
   - [OpenAI (BYOK)](#openai-byok)
@@ -47,11 +48,17 @@ completely on the client-side (directly in the browser).
 
 ```
 L/
+├── index.html             # Landing page — links to both tools as huge buttons
 ├── charm-practice.html    # Charm School practice page
 ├── flirt_engine.html      # The Flirt Engine detail builder
 ├── ai-helper.js           # Shared client-side AI helper, provider router & settings panel
+├── charm-coach-skill.md   # Portable "master prompt" for Charm School
+├── flirt-engine-skill.md  # Portable "master prompt" for The Flirt Engine
 └── README.md              # This documentation file
 ```
+
+Open **`index.html`** for the front door — a mobile-friendly landing page with two big
+buttons leading to the two tools. Both tool pages also carry a 🏠 Home link back to it.
 
 There are **no dependencies to install** — fonts, the Tabler icon webfont, and the
 Puter.js library all load from public CDNs at runtime.
@@ -163,9 +170,11 @@ const text = await callAI(prompt, systemInstruction /* optional */);
 
 It reads the user's saved provider/key/model from `localStorage`, dispatches the request
 to the correct provider API, normalises the many response shapes, and returns a plain
-string. OpenAI, Groq, and Mistral share one OpenAI-compatible request path; Gemini,
-Cohere, OpenRouter, and Puter.js each have their own adapter. Errors throw with a
-human-readable message.
+string. OpenAI, Groq, Mistral, Cerebras, and OpenRouter share one OpenAI-compatible
+request path; Gemini, Cohere, and Puter.js each have their own adapter. Every network
+request is wrapped in a **60-second timeout** (via `AbortController`), and errors throw
+with a human-readable message. The provider registry is also exposed as
+`window.AI_PROVIDERS` for pages that want to read provider metadata.
 
 ### LocalStorage Persistence
 Configuration is stored locally in the visitor's own browser — never transmitted anywhere
@@ -173,10 +182,15 @@ except directly to the chosen provider:
 
 | Key | Purpose |
 | :--- | :--- |
-| `ai_provider` | Selected engine (`puter`, `groq`, `gemini`, `mistral`, `cohere`, `openrouter`, `openai`) |
+| `ai_provider` | Selected engine (`puter`, `groq`, `gemini`, `mistral`, `cerebras`, `cohere`, `openrouter`, `openai`) |
 | `ai_api_key` | API key for the chosen provider (not needed for Puter.js) |
 | `ai_model` | Optional model override; blank = provider default |
 | `ai_web_search` | Boolean toggle for internet search grounding |
+
+**Everything auto-persists.** Each field is written to `localStorage` the moment you
+change it — so your provider, key, model, and web-search choice survive reloads even if
+you never click **Save**. (Save still works: it persists, closes the panel, and shows a
+toast.) Use the **🗑 Forget key** button to wipe all four keys from the browser instantly.
 
 ---
 
@@ -189,11 +203,21 @@ theme:
 - A **provider dropdown**, a conditional **API key** field (hidden for Puter.js, shown
   with a provider-specific signup link for everyone else), an optional **model** override,
   and a **web search** toggle.
+- **👁 Show/hide** toggle on the key field, plus password-manager-ignore attributes so
+  browsers don't try to vault your key.
+- **↻ Models** button that **auto-fetches the live model list** from the provider and
+  feeds it into a `<datalist>` so you can pick from real, current model IDs (or still type
+  your own). Puter shows a curated suggestion list instead.
+- **⚡ Test connection** runs a tiny round-trip and reports ✓/✗ so you can verify a key
+  before using a tool.
+- **🗑 Forget key** wipes the stored key and all settings from this browser in one click.
+- A visible **🔒 privacy note** spelling out that keys stay local.
 - The body **scrolls** (`max-height: 90vh`) so the panel never overflows on small screens.
-- Springy pop-in animation; a confirmation toast appears after saving.
+- Springy pop-in animation; a confirmation toast appears after saving; closes on `Esc` or
+  backdrop click.
 - Fully responsive, and respects `prefers-reduced-motion`.
 
-Settings persist across visits via `localStorage` (see above).
+Settings auto-persist via `localStorage` and survive reloads (see above).
 
 ---
 
@@ -203,20 +227,25 @@ Click the **⚙️ AI Config** button to swap between the following providers:
 
 | Provider | Key Required | Cost | Best For | Default Model |
 | :--- | :--- | :--- | :--- | :--- |
-| **Puter.js** | ❌ No | Free | Zero setup, instant play | `gpt-4o-mini` |
+| **Puter.js** | ❌ No | Free | Zero setup, instant play | `gpt-5-nano` |
 | **Groq** | 🔑 Yes | Free (no card) | Blazing-fast Llama models | `llama-3.3-70b-versatile` |
-| **Google Gemini** | 🔑 Yes | Free tier | Speed & search grounding | `gemini-1.5-flash` |
+| **Google Gemini** | 🔑 Yes | Free tier | Speed & search grounding | `gemini-3.1-flash-lite` |
 | **Mistral AI** | 🔑 Yes | Free tier | European open models | `mistral-small-latest` |
-| **Cohere** | 🔑 Yes | Free trial | Command R+ chat models | `command-r-plus` |
-| **OpenRouter** | 🔑 Yes | Free & paid models | Open-source variety | `google/gemma-2-9b-it:free` |
-| **OpenAI** | 🔑 Yes | Paid (per token) | High quality | `gpt-4o-mini` |
+| **Cerebras** | 🔑 Yes | Free (no card) | The fastest inference around | `gpt-oss-120b` |
+| **Cohere** | 🔑 Yes | Free trial | Command A chat models | `command-a-03-2025` |
+| **OpenRouter** | 🔑 Yes | Free & paid models | Open-source variety | `meta-llama/llama-3.3-70b-instruct:free` |
+| **OpenAI** | 🔑 Yes | Paid (per token) | High quality | `gpt-4.1-nano` |
 
 > **No login at all:** only **Puter.js** works with zero account and zero key — it is the
-> default provider, so the apps work the moment the page loads.
+> default provider, so the apps work the moment the page loads (over `http(s)://`; see the
+> note on `file://` in §9).
 >
 > **Free, no credit card (but a free signup is needed for a key):** Groq, Google Gemini,
-> and Mistral. Cohere offers a free rate-limited trial key. OpenRouter has several
-> zero-cost models (names ending in `:free`). OpenAI is paid.
+> Mistral, and Cerebras. Cohere offers a free rate-limited trial key. OpenRouter has
+> several zero-cost models (names ending in `:free`). OpenAI is paid.
+>
+> 💡 Not sure which model string to use? Open **⚙️ AI Config**, paste your key, and click
+> **↻ Models** to pull that provider's live list straight into the model picker.
 
 ### Puter.js (Free & Keyless)
 * **How it works:** Puter.js routes requests securely through its own bridge. No
@@ -240,6 +269,12 @@ Click the **⚙️ AI Config** button to swap between the following providers:
 2. Generate an API key (free experimentation tier available).
 3. Paste the key into the **⚙️ AI Config** API key field.
 
+### Cerebras (BYOK — Free, No Card)
+1. Sign up at [Cerebras Cloud](https://cloud.cerebras.ai/).
+2. Create an API key — no credit card required.
+3. Paste the key into the **⚙️ AI Config** API key field. Cerebras serves Llama models on
+   custom silicon at industry-leading speed (OpenAI-compatible API).
+
 ### Cohere (BYOK — Free Trial)
 1. Sign up at the [Cohere Dashboard](https://dashboard.cohere.com/api-keys).
 2. Create a **Trial** key (rate-limited but free for prototyping).
@@ -248,7 +283,8 @@ Click the **⚙️ AI Config** button to swap between the following providers:
 ### OpenRouter (BYOK)
 1. Sign up on [OpenRouter](https://openrouter.ai/keys).
 2. Create an API key. OpenRouter supports several zero-cost models (ending in `:free`).
-3. Paste the key and set the Model field to a free variant (e.g. `google/gemma-2-9b-it:free`).
+3. Paste the key and set the Model field to a free variant (e.g. `meta-llama/llama-3.3-70b-instruct:free`),
+   or click **↻ Models** to see every current free/paid option.
 
 ### OpenAI (BYOK)
 1. Go to the [OpenAI Platform](https://platform.openai.com/api-keys).
@@ -263,11 +299,12 @@ Web search grounding can be toggled on inside the **⚙️ AI Config** modal. It
 by a subset of providers:
 
 * **Puter.js:** Appends `{ tools: [{ type: 'web_search' }] }` to fetch current information.
-* **Gemini:** Injects official Google Search retrieval tools (`{ tools: [{ googleSearchRetrieval: {} }] }`).
-* **OpenRouter:** Activates the OpenRouter search plugin wrapper.
+* **Gemini:** Injects the official Google Search grounding tool (`{ tools: [{ googleSearch: {} }] }`,
+  the current key for Gemini 2.x models).
+* **OpenRouter:** Activates the OpenRouter search plugin wrapper (`{ plugins: [{ id: 'web-search' }] }`).
 
-> Groq, Mistral, Cohere, and OpenAI do **not** support web search through this helper —
-> the toggle simply has no effect when one of those providers is selected.
+> Groq, Mistral, Cerebras, Cohere, and OpenAI do **not** support web search through this
+> helper — the toggle simply has no effect when one of those providers is selected.
 
 ---
 
@@ -295,8 +332,12 @@ If a variable is omitted, the script falls back to its built-in bubbly pink defa
 
 ### Run Locally
 The pages fetch fonts, icons, and the Puter.js library from CDNs and call public API
-endpoints, so they work straight from a static server. Serving over HTTP is recommended
-(some browser APIs behave better than from `file://`):
+endpoints, so they work straight from a static server.
+
+> ⚠️ **Serve over HTTP — don't double-click the file.** The keyless **Puter.js** engine
+> refuses to run from a `file://` path (it throws an *"Unsupported Protocol"* error). The
+> helper detects `file://` and skips loading Puter, showing friendly guidance instead. To
+> use the free default, run a tiny local server:
 
 ```bash
 # Python
@@ -306,8 +347,11 @@ python -m http.server 8000
 npx http-server
 ```
 
-Then open `http://localhost:8000/L/charm-practice.html` or
+Then open `http://localhost:8000/L/` (the landing page), or jump straight to
+`http://localhost:8000/L/charm-practice.html` or
 `http://localhost:8000/L/flirt_engine.html`.
+*(BYOK providers like Groq/Gemini may still work from `file://`, but a local server is the
+reliable path for everything.)*
 
 ### GitHub Pages Deployment
 This repository deploys static pages automatically. Because every API key is entered by
@@ -319,13 +363,20 @@ hosted publicly on GitHub Pages with no risk of leaking credentials or incurring
 ## 10. Privacy & Security
 
 - **No backend.** There is no server component — nothing is logged or stored remotely.
-- **Keys stay local.** API keys live only in the visitor's `localStorage` and are sent
-  directly from their browser to the provider they chose. They never touch this repo or
-  any third party.
+- **Keys stay in your browser, full stop.** API keys live **only** in the visitor's
+  `localStorage` and are sent **directly** from their browser to the provider they chose.
+  They never touch this repo, this site, or any third party — there is nowhere else for
+  them to go. The panel states this in a visible 🔒 note.
+- **One-click forget.** The **🗑 Forget key** button removes the stored key and every
+  setting (`ai_provider`, `ai_api_key`, `ai_model`, `ai_web_search`) from the browser
+  instantly. Clearing site data / using a private window also wipes them.
+- **No password-manager capture.** The key field carries `autocomplete="off"` plus
+  `data-lpignore` / `data-1p-ignore`, so browsers and password managers don't try to vault
+  your key.
 - **Default is keyless.** Out of the box the apps use Puter.js, so a visitor can use them
   without ever creating an account or pasting a key.
-- **HTML escaping.** The Flirt Engine escapes AI-returned text before rendering it, to
-  avoid markup-injection glitches.
+- **HTML escaping.** Both tools escape AI-returned text (and error messages) before
+  rendering, to avoid markup-injection glitches.
 
 ---
 
@@ -338,6 +389,7 @@ hosted publicly on GitHub Pages with no risk of leaking credentials or incurring
 | `v0.0.12` | Bubbly girly redesign; added Groq, Mistral & Cohere providers |
 | `v0.0.13` | Favicons, Tabler icons, and entrance/idle animations |
 | `v0.0.14` | Redesigned the AI Config popup to match the bubbly theme |
+| `v0.0.32` | New `index.html` landing page + 🏠 Home links; `ai-helper.js` v2 — added **Cerebras**, live model auto-fetch (↻ Models), show/hide key, ⚡ test connection, 🗑 forget key, 60s request timeout, auto-persisting settings; default models refreshed to the June 2026 lineup (Gemini → `gemini-3.1-flash-lite`, OpenAI → `gpt-4.1-nano`, Puter → `gpt-5-nano`, Cerebras → `gpt-oss-120b`, Cohere → `command-a-03-2025`, OpenRouter → `meta-llama/llama-3.3-70b-instruct:free`); `file://` guard; full mobile passes; OG/Twitter meta & a11y across all pages |
 
 ---
 

@@ -16,7 +16,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
-- **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://krishnakanthb13.github.io/L/README.md))
+- **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
 - **R**: Online Resume Variations & Try Outs
 - **S**: Payment Gateway Page
 
@@ -62,9 +62,10 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 ---
 
-- **Charm School & Flirt Engine:**
-	- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
-	- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.
+- **Charm School & Flirt Engine** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md) — free, private, AI-powered conversation coaching that runs entirely in your browser):
+	- [Home / Landing](https://krishnakanthb13.github.io/L/): Mobile-friendly front door linking both tools.
+		- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
+		- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.
 
 ---
 

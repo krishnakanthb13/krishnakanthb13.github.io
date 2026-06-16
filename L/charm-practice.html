@@ -8,7 +8,15 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 <meta name="theme-color" content="#f25e9c">
 <meta name="description" content="Charm School — practice charming, flirty, witty conversation lines for real-life moments.">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Charm School ✨">
+<meta property="og:description" content="Practice charming, flirty, witty conversation lines for real-life moments — free and private.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Charm School ✨">
+<meta name="twitter:description" content="Practice charming, flirty, witty conversation lines for real-life moments.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -44,6 +52,7 @@
     color: var(--deep);
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   /* Floating cute decorations */
@@ -333,6 +342,26 @@
   }
   footer .ti { color: var(--pink-deep); vertical-align: -2px; }
 
+  /* Home link (mirrors the AI Config pill, top-left) */
+  .home-link {
+    position: fixed; top: 1rem; left: 1rem; z-index: 9000;
+    display: flex; align-items: center; gap: 0.35rem;
+    font-family: 'Fredoka', sans-serif; font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; color: var(--pink-deep);
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
+    padding: 0.5rem 1rem; border-radius: 999px; border: 2px solid #f6cfe2;
+    box-shadow: 0 4px 14px rgba(242,94,156,0.18);
+    transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .home-link:hover {
+    background: linear-gradient(135deg, #ff9ec7, var(--pink-deep)); color: #fff; border-color: #fff;
+    transform: translateY(-2px) scale(1.05);
+  }
+  .home-link:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .home-link { top: 0.6rem; left: 0.6rem; font-size: 0.74rem; padding: 0.4rem 0.75rem; }
+  }
+
   /* ── Entrance & idle animations ── */
   @keyframes enterPop {
     from { opacity: 0; transform: translateY(18px) scale(0.96); }
@@ -361,6 +390,21 @@
     animation: shimmer 7s ease-in-out infinite alternate;
   }
 
+  @media (max-width: 600px) {
+    header { padding-top: 3.6rem; }
+    .bg-deco span { font-size: 1.8rem; }
+    .styles-row { gap: 0.45rem; padding: 1.1rem 0.8rem; }
+    .style-pill { font-size: 0.86rem; padding: 0.5rem 1rem; }
+    .scenario-card { padding: 1.15rem 1.2rem; }
+    .response-card { padding: 1.3rem; }
+    .gen-btn { width: 56px; font-size: 1.4rem; }
+    .action-btn { min-width: 0; }
+  }
+  @media (max-width: 360px) {
+    .actions-row { flex-direction: column; }
+    .action-btn { flex: none; width: 100%; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -373,7 +417,9 @@
 </head>
 <body>
 
-<div class="bg-deco">
+<a class="home-link" href="index.html" aria-label="Back to home">🏠 Home</a>
+
+<div class="bg-deco" aria-hidden="true">
   <span class="blob" style="top:6%;left:-6%;width:240px;height:240px;background:#ffc9e3"></span>
   <span class="blob" style="top:50%;right:-8%;width:280px;height:280px;background:#d9c4ff;animation-delay:4s"></span>
   <span class="blob" style="bottom:-6%;left:30%;width:260px;height:260px;background:#ffd9c4;animation-delay:8s"></span>
@@ -415,13 +461,13 @@
   </div>
 </div>
 
-<div class="response-area" id="responseArea">
+<div class="response-area" id="responseArea" aria-live="polite">
   <div class="response-card" id="responseCard">
     <div class="empty-state">Your lines will appear here ✨</div>
   </div>
 </div>
 
-<footer>Made with <i class="ti ti-heart-filled"></i> — be kind, be genuine, be you</footer>
+<footer>Made with <i class="ti ti-heart-filled"></i> — be kind, be genuine, be you<br>Last updated June 2026</footer>
 
 <script>
 const scenarios = [
@@ -535,7 +581,9 @@ TIP: [tip]`;
     window._lastLines = lineMatches.join('\n');
 
   } catch(e) {
-    card.innerHTML = `<div style="color:#c0392b;font-size:0.9rem">Oops! Something went wrong. Try again ✨</div>`;
+    const msg = (e && e.message) ? e.message : 'Something went wrong. Try again ✨';
+    const safe = msg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    card.innerHTML = `<div style="color:#c0392b;font-size:0.92rem;line-height:1.55">😟 ${safe}</div>`;
   }
 
   btn.classList.remove('loading');

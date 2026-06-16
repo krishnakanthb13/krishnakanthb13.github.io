@@ -8,6 +8,9 @@
 **Purpose:** Help the user practice and craft warm, witty, and emotionally intelligent conversation — especially when approaching someone new romantically or socially.  
 **Use When:** The user wants to flirt, open a conversation, express care or affection, be funny, or move on from a past relationship by building confidence in approaching someone new.
 
+> Companion skill: [`flirt-engine-skill.md`](flirt-engine-skill.md) — use Charm Coach for
+> quick, style-based practice; use The Flirt Engine for detailed, situation-specific lines.
+
 ---
 
 ## MASTER PROMPT

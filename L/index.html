@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Charm School & The Flirt Engine ✨</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💞</text></svg>" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💞</text></svg>" />
+<meta name="theme-color" content="#f25e9c" />
+<meta name="description" content="Charm School & The Flirt Engine — playful, AI-powered tools to practice charming, witty, genuine conversation. Free, private, runs entirely in your browser." />
+<meta name="color-scheme" content="light" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Charm School & The Flirt Engine ✨" />
+<meta property="og:description" content="Two playful, AI-powered tools to practice charming, witty, genuine conversation — free and private." />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Charm School & The Flirt Engine ✨" />
+<meta name="twitter:description" content="Practice charming, witty, genuine conversation — free, private, in your browser." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #ff8fc0;
+    --pink-deep: #f25e9c;
+    --lavender: #c9a7f5;
+    --peach: #ffd9c9;
+    --cream: #fff5fa;
+    --deep: #6b2d4f;
+    --muted: #b07f9b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    color: var(--deep);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 12% 16%, #ffe0ee 0%, transparent 45%),
+      radial-gradient(circle at 88% 12%, #e7d6ff 0%, transparent 42%),
+      radial-gradient(circle at 75% 90%, #ffe6d4 0%, transparent 45%),
+      linear-gradient(160deg, #fff5fa 0%, #fdeef8 55%, #f4ecff 100%);
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Floating decorations */
+  .bg-deco { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .bg-deco span {
+    position: absolute; font-size: 2.6rem; opacity: 0.5;
+    filter: drop-shadow(0 4px 8px rgba(242,94,156,0.22));
+    animation: floatDeco 11s ease-in-out infinite;
+  }
+  @keyframes floatDeco {
+    0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
+    50% { transform: translateY(-22px) rotate(12deg) scale(1.12); }
+  }
+  .bg-deco .blob {
+    border-radius: 50%; filter: blur(36px); opacity: 0.5; font-size: 0;
+    animation: blobFloat 16s ease-in-out infinite;
+  }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(18px,-26px) scale(1.18); }
+  }
+
+  .wrap {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 8vw, 4.5rem) 1.1rem 2rem;
+    flex: 1;
+  }
+
+  /* ── Hero ── */
+  .hero { text-align: center; margin-bottom: clamp(2rem, 6vw, 3rem); }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif; font-weight: 500;
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--pink-deep);
+    background: rgba(255,255,255,0.75);
+    border: 2px solid #ffe0ee;
+    padding: 0.4rem 1rem; border-radius: 999px;
+    box-shadow: 0 3px 12px rgba(242,94,156,0.12);
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Fredoka', sans-serif; font-weight: 600;
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    line-height: 1.08; letter-spacing: 0.5px;
+    background: linear-gradient(120deg, #f25e9c 0%, #c97ce8 55%, #ff9d6c 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 220% auto;
+    animation: shimmer 7s ease-in-out infinite alternate;
+    filter: drop-shadow(0 3px 6px rgba(242,94,156,0.16));
+  }
+  @keyframes shimmer { from { background-position: 0% center; } to { background-position: 100% center; } }
+
+  .lede {
+    margin: 1rem auto 0; max-width: 540px;
+    font-size: clamp(1rem, 2.6vw, 1.18rem);
+    color: var(--muted); font-weight: 500; line-height: 1.6;
+  }
+
+  /* ── The two huge buttons ── */
+  .cards {
+    display: grid; gap: 1.3rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: clamp(1.6rem, 5vw, 2.4rem);
+  }
+
+  .tool-card {
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(7px);
+    border: 2px solid #ffe0ee;
+    border-radius: 30px;
+    padding: clamp(1.6rem, 4vw, 2.4rem);
+    box-shadow: 0 14px 38px rgba(242,94,156,0.16);
+    transition: transform 0.22s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.22s, border-color 0.22s;
+    position: relative; overflow: hidden;
+    animation: enterPop 0.6s cubic-bezier(0.34,1.3,0.64,1) both;
+  }
+  .tool-card:nth-child(2) { animation-delay: 0.12s; }
+  .tool-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(255,158,199,0.16));
+    opacity: 0; transition: opacity 0.22s; pointer-events: none;
+  }
+  .tool-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 22px 50px rgba(242,94,156,0.28);
+    border-color: var(--pink);
+  }
+  .tool-card:hover::after { opacity: 1; }
+  .tool-card:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 3px; }
+
+  .tool-emoji {
+    font-size: clamp(2.6rem, 8vw, 3.6rem); line-height: 1;
+    margin-bottom: 0.8rem;
+    filter: drop-shadow(0 5px 10px rgba(242,94,156,0.25));
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .tool-card:hover .tool-emoji { transform: scale(1.12) rotate(-6deg); }
+
+  .tool-card h2 {
+    font-family: 'Fredoka', sans-serif; font-weight: 600;
+    font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--deep);
+    line-height: 1.15;
+  }
+  .tool-card p {
+    margin-top: 0.55rem; color: var(--muted);
+    font-size: clamp(0.92rem, 2.5vw, 1rem); line-height: 1.55; flex: 1;
+  }
+
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .tag {
+    font-family: 'Fredoka', sans-serif; font-size: 0.72rem; font-weight: 500;
+    padding: 0.28rem 0.7rem; border-radius: 999px;
+    background: #fff0f6; color: var(--pink-deep); border: 1.5px solid #ffe0ee;
+  }
+
+  .tool-cta {
+    margin-top: 1.3rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    align-self: flex-start;
+    font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1rem;
+    color: #fff; padding: 0.7rem 1.4rem; border-radius: 999px;
+    background: linear-gradient(135deg, #ff9ec7 0%, #f25e9c 60%, #c97ce8 100%);
+    box-shadow: 0 7px 18px rgba(242,94,156,0.35);
+    transition: gap 0.2s;
+  }
+  .tool-card:hover .tool-cta { gap: 0.8rem; }
+
+  /* ── Trust strip ── */
+  .trust {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem 1.4rem;
+    margin: clamp(2rem, 6vw, 3rem) auto 0; max-width: 640px;
+    text-align: center;
+  }
+  .trust span {
+    font-size: 0.9rem; color: var(--muted); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+
+  footer {
+    position: relative; z-index: 1;
+    text-align: center; padding: 2.5rem 1rem 2rem;
+    color: var(--muted); font-size: 0.85rem; font-weight: 500;
+  }
+  footer a { color: var(--pink-deep); text-decoration: none; font-weight: 700; }
+  footer a:hover { text-decoration: underline; }
+
+  @keyframes enterPop {
+    from { opacity: 0; transform: translateY(18px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .hero { animation: enterPop 0.6s cubic-bezier(0.34,1.3,0.64,1) both; }
+
+  @media (max-width: 620px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-deco" aria-hidden="true">
+  <span class="blob" style="top:6%;left:-6%;width:240px;height:240px;background:#ffc9e3"></span>
+  <span class="blob" style="top:50%;right:-8%;width:280px;height:280px;background:#d9c4ff;animation-delay:4s"></span>
+  <span class="blob" style="bottom:-6%;left:30%;width:260px;height:260px;background:#ffd9c4;animation-delay:8s"></span>
+  <span style="top:7%;left:8%;animation-delay:0s">💖</span>
+  <span style="top:15%;right:9%;animation-delay:2s">✨</span>
+  <span style="top:55%;left:4%;animation-delay:4s">🌸</span>
+  <span style="top:72%;right:6%;animation-delay:1s">💫</span>
+  <span style="top:86%;left:18%;animation-delay:3s">🎀</span>
+  <span style="top:32%;right:4%;animation-delay:5s">🦋</span>
+  <span style="bottom:9%;right:14%;animation-delay:2.5s">💕</span>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">✨ Charm, on demand</span>
+    <h1>Say it like you mean it</h1>
+    <p class="lede">
+      Two playful, AI-powered tools to practice charming, witty, and genuinely warm
+      conversation — for that coffee-shop moment, the perfect opener, or just more confidence.
+    </p>
+  </section>
+
+  <section class="cards">
+    <a class="tool-card" href="charm-practice.html">
+      <div class="tool-emoji" aria-hidden="true">✨</div>
+      <h2>Charm School</h2>
+      <p>Pick a vibe and a moment, then get instant lines to practice. Fast, playful, and perfect for warming up your social muscles.</p>
+      <div class="tool-tags">
+        <span class="tag">😄 Funny</span>
+        <span class="tag">😏 Flirty</span>
+        <span class="tag">💕 Loving</span>
+        <span class="tag">🧠 Witty</span>
+      </div>
+      <span class="tool-cta">Start practising →</span>
+    </a>
+
+    <a class="tool-card" href="flirt_engine.html">
+      <div class="tool-emoji" aria-hidden="true">💌</div>
+      <h2>The Flirt Engine</h2>
+      <p>Describe the setting and the person, choose a tone, and get three tailored, ready-to-send lines — each with a delivery tip.</p>
+      <div class="tool-tags">
+        <span class="tag">🌹 Charming</span>
+        <span class="tag">💛 Heartfelt</span>
+        <span class="tag">🤓 Nerdy</span>
+        <span class="tag">🔥 Bold</span>
+      </div>
+      <span class="tool-cta">Build my lines →</span>
+    </a>
+  </section>
+
+  <section class="trust">
+    <span>🆓 Free to use</span>
+    <span>🔒 100% private — runs in your browser</span>
+    <span>🔌 No login by default</span>
+    <span>📱 Works on any device</span>
+  </section>
+</main>
+
+<footer>
+  Made with 💕 — charm is kindness with confidence.<br />
+  Bring your own AI key or use the free, keyless default · <a href="https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md" target="_blank" rel="noopener">How it works</a><br />
+  Last updated June 2026
+</footer>
+
+</body>
+</html>
