@@ -2,7 +2,18 @@
 
 A premium, responsive, and minimalist secure checkout page designed for unified payment collection. This project provides a centralized hub for various payment methods, including international gateways and local Indian UPI options.
 
-![PayLink Preview](assets/preview.png)
+![PayLink launcher](assets/screenshot-launcher.png)
+
+| Desktop checkout (`PLP.html`) | Mobile checkout (`PLPm.html`) |
+|---|---|
+| ![Desktop checkout](assets/screenshot-desktop.png) | ![Mobile checkout](assets/screenshot-mobile.png) |
+
+<details>
+<summary>Before the v0.0.35 overhaul</summary>
+
+![Old PayLink](assets/preview.png)
+
+</details>
 
 ## 🎯 What is it?
 

@@ -13,17 +13,19 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Secure Checkout | krishnakanthb13">
     <meta property="og:description" content="Pay or support via PayPal, Buy Me a Coffee, GitHub Sponsors, or UPI / GPay.">
-    <meta property="og:image" content="https://krishnakanthb13.github.io/S/assets/preview.png">
+    <meta property="og:image" content="https://krishnakanthb13.github.io/S/assets/screenshot-mobile.png">
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="../assets/images/favicon-32x32.png">
-    
+    <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+
     <style>
         :root {
             /* Corporate Palette - Razorpay/Stripe vibes */
@@ -43,7 +45,7 @@
         }
 
         [data-theme="dark"] {
-            --bg-body: #050505; 
+            --bg-body: #0B0F19; /* unified with PLP.html */
             --bg-panel: #111827;
             --bg-header: #111827;
             --text-main: #F9FAFB;
@@ -306,24 +308,32 @@
     </header>
 
     <nav class="tabs-container">
-        <ul class="payment-nav">
-            <li>
-                <button type="button" class="nav-btn active" onclick="switchTab('paypal', event)">
+        <ul class="payment-nav" role="tablist" aria-label="Payment methods">
+            <li role="presentation">
+                <button type="button" class="nav-btn active" id="tab-paypal" role="tab"
+                    aria-selected="true" aria-controls="paypal" tabindex="0"
+                    onclick="switchTab('paypal', event)">
                     <i class="fab fa-paypal"></i> PayPal Standard
                 </button>
             </li>
-            <li>
-                <button type="button" class="nav-btn" onclick="switchTab('coffee', event)">
+            <li role="presentation">
+                <button type="button" class="nav-btn" id="tab-coffee" role="tab"
+                    aria-selected="false" aria-controls="coffee" tabindex="-1"
+                    onclick="switchTab('coffee', event)">
                     <i class="fas fa-coffee"></i> Buy Me a Coffee
                 </button>
             </li>
-            <li>
-                <button type="button" class="nav-btn" onclick="switchTab('github', event)">
+            <li role="presentation">
+                <button type="button" class="nav-btn" id="tab-github" role="tab"
+                    aria-selected="false" aria-controls="github" tabindex="-1"
+                    onclick="switchTab('github', event)">
                     <i class="fab fa-github"></i> GitHub Sponsors
                 </button>
             </li>
-            <li>
-                <button type="button" class="nav-btn" onclick="switchTab('upi', event)">
+            <li role="presentation">
+                <button type="button" class="nav-btn" id="tab-upi" role="tab"
+                    aria-selected="false" aria-controls="upi" tabindex="-1"
+                    onclick="switchTab('upi', event)">
                     <i class="fas fa-mobile-alt"></i> UPI / GPay
                 </button>
             </li>
@@ -342,7 +352,7 @@
         </header>
         
         <!-- PAYPAL TAB -->
-        <div id="paypal" class="tab-content active">
+        <div id="paypal" class="tab-content active" role="tabpanel" aria-labelledby="tab-paypal">
             <div class="payment-details">
                 <div>
                     <div class="info-group">
@@ -354,7 +364,7 @@
                         <p class="fee-note"><i class="fas fa-info-circle"></i> Standard international fees apply (~5% + currency conversion).</p>
                     </div>
                     <div style="margin-top: 1rem; text-align: center;">
-                        <a href="https://www.paypal.com/paypalme/krishnakanthb13" target="_blank">
+                        <a href="https://www.paypal.com/paypalme/krishnakanthb13" target="_blank" rel="noopener noreferrer">
                             <!-- PayPal Official Donate Button Image -->
                             <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" style="height: 50px; width: auto;" />
                         </a>
@@ -368,7 +378,7 @@
         </div>
 
         <!-- COFFEE TAB -->
-        <div id="coffee" class="tab-content">
+        <div id="coffee" class="tab-content" role="tabpanel" aria-labelledby="tab-coffee">
             <div class="payment-details">
                 <div>
                     <div class="info-group">
@@ -381,8 +391,8 @@
                     </div>
                     <div style="margin-top: 1rem; text-align: center;">
                         <!-- Buy Me A Coffee Official Widget Button -->
-                        <a href="https://www.buymeacoffee.com/krishnakanthb" target="_blank">
-                            <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=krishnakanthb&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" style="max-width: 100%;">
+                        <a href="https://www.buymeacoffee.com/krishnakanthb" target="_blank" rel="noopener noreferrer">
+                            <img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&amp;emoji=&amp;slug=krishnakanthb&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Lato&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Buy Me A Coffee" style="max-width: 100%;">
                         </a>
                     </div>
                 </div>
@@ -394,7 +404,7 @@
         </div>
 
         <!-- GITHUB TAB -->
-        <div id="github" class="tab-content">
+        <div id="github" class="tab-content" role="tabpanel" aria-labelledby="tab-github">
             <div class="payment-details">
                 <div>
                     <div class="info-group">
@@ -408,7 +418,7 @@
                     </div>
                     <div style="margin-top: 1rem;">
                         <!-- GitHub Sponsors Custom Button -->
-                        <a href="https://github.com/sponsors/krishnakanthb13" target="_blank" class="cta-button" style="background-color: #ea4aaa; color: white;">
+                        <a href="https://github.com/sponsors/krishnakanthb13" target="_blank" rel="noopener noreferrer" class="cta-button" style="background-color: #ea4aaa; color: white;">
                             <i class="far fa-heart"></i> Sponsor on GitHub
                         </a>
                     </div>
@@ -421,7 +431,7 @@
         </div>
 
         <!-- UPI TAB -->
-        <div id="upi" class="tab-content">
+        <div id="upi" class="tab-content" role="tabpanel" aria-labelledby="tab-upi">
             <div class="payment-details">
                 <div>
                     <div class="info-group">
@@ -434,7 +444,7 @@
                         <p class="fee-note"><i class="fas fa-map-marker-alt"></i> India Only (Best on Mobile)</p>
                     </div>
                     <div style="margin-top: 1rem;">
-                        <a href="upi://pay?pa=krishnakanthb13@okhdfcbank&pn=Krishna" class="cta-button">
+                        <a href="upi://pay?pa=krishnakanthb13@okhdfcbank&amp;pn=Krishna" class="cta-button">
                             <i class="fab fa-google-pay"></i> Pay via UPI
                         </a>
                     </div>
@@ -455,11 +465,11 @@
     </main>
 
     <div class="links-bar">
-        <a href="https://github.com/krishnakanthb13/" target="_blank" class="link-item"><i class="fab fa-github"></i> GitHub</a>
-        <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" class="link-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="https://krishnakanthb13.github.io/" target="_blank" class="link-item"><i class="fas fa-file-alt"></i> Resume</a>
-        <a href="https://bio.site/krishnakanthb13" target="_blank" class="link-item"><i class="fas fa-link"></i> BioLink</a>
-        <a href="https://sites.google.com/view/krishnakanthb/about" target="_blank" class="link-item"><i class="fas fa-project-diagram"></i> Projects</a>
+        <a href="https://github.com/krishnakanthb13/" target="_blank" rel="noopener noreferrer" class="link-item"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" rel="noopener noreferrer" class="link-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://krishnakanthb13.github.io/" target="_blank" rel="noopener noreferrer" class="link-item"><i class="fas fa-file-alt"></i> Resume</a>
+        <a href="https://bio.site/krishnakanthb13" target="_blank" rel="noopener noreferrer" class="link-item"><i class="fas fa-link"></i> BioLink</a>
+        <a href="https://sites.google.com/view/krishnakanthb/about" target="_blank" rel="noopener noreferrer" class="link-item"><i class="fas fa-project-diagram"></i> Projects</a>
         
         <div style="width: 100%; text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
             &copy; 2026 Krishna Kanth B
@@ -469,20 +479,46 @@
 
     <script>
         function switchTab(tabId, evt) {
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            (evt || window.event).currentTarget.classList.add('active');
+            const current = (evt && evt.currentTarget) || document.getElementById('tab-' + tabId);
 
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const on = btn === current;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-selected', on ? 'true' : 'false');
+                btn.tabIndex = on ? 0 : -1;
+            });
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.toggle('active', content.id === tabId);
+            });
 
             const titles = {
                 'paypal': 'PayPal Standard',
-                'upi': 'UPI / GPay / PhonePe',
+                'upi': 'UPI / GPay',
                 'coffee': 'Buy Me A Coffee',
                 'github': 'GitHub Sponsorship'
             };
             document.getElementById('header-title').textContent = titles[tabId] || 'Payment';
         }
+
+        // Keyboard navigation for the tablist (Arrow keys / Home / End)
+        (function () {
+            const tablist = document.querySelector('[role="tablist"]');
+            const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+            tablist.addEventListener('keydown', e => {
+                const i = tabs.indexOf(document.activeElement);
+                if (i < 0) return;
+                let n = null;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
+                else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+                else if (e.key === 'Home') n = 0;
+                else if (e.key === 'End') n = tabs.length - 1;
+                if (n === null) return;
+                e.preventDefault();
+                tabs[n].focus();
+                tabs[n].click();
+            });
+        })();
 
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
@@ -507,7 +543,7 @@
             const statusElement = document.getElementById('copy-status-text');
             const originalText = "(Click to Copy UPI ID)";
 
-            navigator.clipboard.writeText(copyText).then(() => {
+            const onOk = () => {
                 statusElement.textContent = "Copied to clipboard!";
                 statusElement.style.color = "var(--success-text)";
                 statusElement.style.fontWeight = "600";
@@ -516,7 +552,37 @@
                     statusElement.style.color = "var(--text-muted)";
                     statusElement.style.fontWeight = "normal";
                 }, 3000);
-            }).catch(err => console.error('Failed to copy text: ', err));
+            };
+            const onFail = (err) => {
+                console.error('Failed to copy text: ', err);
+                statusElement.textContent = "Copy failed — select the ID manually";
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(copyText)
+                    .then(onOk)
+                    .catch(() => legacyCopy(copyText) ? onOk() : onFail('clipboard API rejected'));
+            } else {
+                legacyCopy(copyText) ? onOk() : onFail('clipboard API unavailable');
+            }
+        }
+
+        // Legacy fallback: works in non-secure contexts (file://) where navigator.clipboard is absent
+        function legacyCopy(text) {
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'absolute';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                return ok;
+            } catch (e) {
+                return false;
+            }
         }
     </script>
 </body>
