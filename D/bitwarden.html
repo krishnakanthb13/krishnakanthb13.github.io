@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bitwarden in 2026 — the open-source, zero-knowledge password manager: plans, security, features, and what's new.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Bitwarden — Open-Source Password Manager (2026)">
+  <meta property="og:description" content="Plans, security, features, and what's new with Bitwarden in 2026.">
+  <meta property="og:type" content="article">
+  <title>Bitwarden — Open-Source Password Manager · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+</head>
+<body data-section="Dump" data-crumb="Bitwarden" data-updated="June 16, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">Security · Guide</span>
+      <h1>Bitwarden — The Open-Source Password Manager</h1>
+      <p class="lede">A 2026 overview of Bitwarden: an open-source, zero-knowledge password manager with a famously generous free tier, end-to-end encryption, and passkey support across every major platform.</p>
+      <div class="meta-row">
+        <span class="chip">🔓 <b>Model:</b> Open source</span>
+        <span class="chip">🔐 <b>Encryption:</b> AES-256, zero-knowledge</span>
+        <span class="chip">💸 <b>Free tier:</b> Unlimited passwords &amp; devices</span>
+      </div>
+
+      <div class="callout">Bitwarden encrypts your vault on your device <em>before</em> it ever reaches the servers — the company never sees your master password or your data. The apps and clients are open source and independently audited. Tap any section to expand.</div>
+
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">1</span>What Is Bitwarden?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> A cross-platform password manager that stores logins, passkeys, cards, identities, and secure notes in an encrypted vault.</li>
+              <li><strong>Everywhere:</strong> Web vault, browser extensions (Chrome, Firefox, Safari, Edge and more), desktop apps (Windows, macOS, Linux), iOS &amp; Android, and a CLI.</li>
+              <li><strong>Open &amp; portable:</strong> Source code is public on GitHub, and you can even <span class="hl">self-host</span> the whole server if you want full control of your data.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">2</span>Plans &amp; Pricing (2026)<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><span class="hl">Free</span> — Unlimited passwords across unlimited devices, password generator, one-to-one sharing, passkey storage, and basic two-factor (authenticator app, email). Genuinely usable long-term.</li>
+              <li><span class="hl">Premium</span> — ~$19.80/year. Adds the integrated TOTP authenticator, file attachments, emergency access, vault health reports, and hardware-key 2FA (YubiKey, Duo, FIDO2).</li>
+              <li><span class="hl">Families</span> — ~$47.88/year for up to 6 people, with unlimited sharing and shared collections.</li>
+              <li><span class="hl">Teams / Enterprise</span> — ~$4 and ~$6 per user / month for organizations, adding SSO, policies, directory sync, and admin controls.</li>
+            </ul>
+            <div class="callout">💡 <strong>Heads up:</strong> In <strong>January 2026</strong> Premium roughly doubled from $9.99 to $19.80/year — its first price change in about a decade. Existing subscribers got a one-time loyalty discount on renewal. (Prices vary by region and may change.)</div>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">3</span>Key Features<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Passkeys:</strong> Store and use FIDO2 passkeys for passwordless, phishing-resistant sign-in.</li>
+              <li><strong>Autofill:</strong> Across browsers and mobile, with inline suggestions.</li>
+              <li><strong>Password generator:</strong> Strong passwords, passphrases, and username/email aliases (incl. integrations with masked-email services).</li>
+              <li><strong>Bitwarden Send:</strong> Share text or files securely with expiry and access limits.</li>
+              <li><strong>Vault Health Reports:</strong> Surface weak, reused, exposed, and unsecured credentials (Premium).</li>
+              <li><strong>Authenticator:</strong> Built-in TOTP plus a standalone <em>Bitwarden Authenticator</em> app.</li>
+              <li><strong>Emergency Access:</strong> Grant trusted contacts time-delayed access (Premium).</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">4</span>Security &amp; Encryption<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Zero-knowledge:</strong> Your vault is encrypted and decrypted locally; Bitwarden's servers only ever store ciphertext.</li>
+              <li><strong>Encryption:</strong> AES-256 for vault data, with your master password strengthened via a key-derivation function — <span class="hl">PBKDF2-SHA256</span> or the stronger, memory-hard <span class="hl">Argon2id</span> (recommended).</li>
+              <li><strong>Open source:</strong> All client and server code is public and subject to community review.</li>
+              <li><strong>Audited &amp; compliant:</strong> Regular third-party security audits and penetration tests; SOC 2 Type 2, GDPR, and similar attestations.</li>
+              <li><strong>Self-hosting:</strong> Run the server on your own infrastructure for complete data ownership.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">5</span>What's New (2025–2026)<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>SSH Agent</strong> (Jan 2025): Manage and use SSH keys directly from the desktop app's vault.</li>
+              <li><strong>Passkey login for browser extensions:</strong> Passwordless unlock on Chromium browsers using the WebAuthn PRF standard.</li>
+              <li><strong>Native Windows 11 passkeys:</strong> Built with Microsoft — store and use passkeys at the OS level, managed through your Bitwarden vault.</li>
+              <li><strong>Passkey portability:</strong> Contributions to the <em>FIDO Credential Exchange Protocol</em> enable secure passkey transfer and recovery across devices and ecosystems.</li>
+              <li><strong>MCP server:</strong> A Model Context Protocol server lets AI agents retrieve and manage secrets via authenticated CLI/API — <em>without</em> exposing raw secrets or breaking zero-knowledge.</li>
+              <li><strong>Access Intelligence</strong> (Enterprise): Credential-risk insights and guided remediation at organizational scale.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">★</span>Recommended Setup<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Strong master password:</strong> Use a long, unique passphrase you never reuse — it is the one key that protects everything.</li>
+              <li><strong>Switch KDF to Argon2id:</strong> In <em>Settings → Security → Keys</em>, prefer Argon2id over PBKDF2 for stronger resistance to brute force.</li>
+              <li><strong>Turn on two-step login:</strong> Authenticator app at minimum; a hardware key (YubiKey/FIDO2) for the best protection.</li>
+              <li><strong>Save your recovery code:</strong> Store the two-step recovery code somewhere safe and offline.</li>
+              <li><strong>Adopt passkeys:</strong> Where sites support them, prefer passkeys — phishing-resistant and storable in Bitwarden.</li>
+              <li><strong>Run Vault Health:</strong> Periodically fix weak, reused, or exposed credentials it flags.</li>
+            </ul>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://bitwarden.com/" target="_blank" rel="noopener">Get Bitwarden →</a>
+        <a class="btn btn-ghost" href="https://bitwarden.com/pricing/" target="_blank" rel="noopener">Compare plans</a>
+      </div>
+
+      <p>Bitwarden's pitch is simple: strong, open, audited encryption with a free tier that's actually enough for most people — and paid tiers that stay inexpensive. For a related personal organising guide, see the <a href="nordpass.html">NordPass readme</a>.</p>
+    </article>
+  </main>
+  <script src="assets/base.js" defer></script>
+</body>
+</html>

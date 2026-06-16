@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The future of DataFrames and data systems with Wes McKinney — pandas, Apache Arrow, Ibis, Iceberg, and the composable data stack.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Future of DataFrames and Data Systems">
+  <meta property="og:description" content="Notes on Wes McKinney's talk: pandas, Apache Arrow, Ibis, Iceberg, and the composable data stack.">
+  <meta property="og:type" content="article">
+  <title>Future of DataFrames &amp; Data Systems · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+</head>
+<body data-section="Dump" data-crumb="DataFrames" data-updated="June 16, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">Data Engineering · Notes</span>
+      <h1>Future of DataFrames and Data Systems</h1>
+      <p class="lede">A summary of Wes McKinney's talk — the creator of pandas and Apache Arrow — on where dataframes, interchange formats, and composable data systems are heading.</p>
+      <div class="meta-row">
+        <span class="chip">🎤 <b>Speaker:</b> Wes McKinney</span>
+        <span class="chip">⏱ <b>Duration:</b> 1 hour</span>
+        <span class="chip">📅 <b>Logged:</b> Jun 22, 2024</span>
+      </div>
+
+      <h2>Overview</h2>
+      <p>The video covers the future of dataframes and data systems, featuring Wes McKinney, the creator of pandas and Apache Arrow. Several key software projects are discussed, focusing on data interchange, analysis, and storage.</p>
+
+      <h2>Key Software Projects</h2>
+      <ul>
+        <li><strong>Pandas:</strong> An open-source library providing data structures and data analysis tools for Python.</li>
+        <li><strong>Apache Arrow:</strong> An open-source project for in-memory data interchange.</li>
+        <li><strong>Ibis:</strong> An open-source project aiming to bridge the world of relational databases and data science tools.</li>
+        <li><strong>Spark:</strong> An open-source unified analytics engine for large-scale data processing.</li>
+        <li><strong>Presto:</strong> An open-source distributed SQL query engine.</li>
+        <li><strong>SQL:</strong> A structured query language.</li>
+        <li><strong>Iceberg:</strong> An open-source table format for big data.</li>
+        <li><strong>Parquet:</strong> An open-source columnar data file format.</li>
+      </ul>
+
+      <h2>Key Points from the Video</h2>
+      <p>Apache Arrow is highlighted as a language-agnostic data interchange standard being used in composable data systems. Ibis is noted for allowing SQL queries to be run on various data sources.</p>
+      <p>One challenge of composable data systems is the absence of a unified data frame interface, but multiple projects are working towards standardizing data frames. Another challenge is managing unstructured data within these systems, with approaches like storing unstructured data separately from structured data being explored.</p>
+
+      <h2>Software Projects Mentioned by Wes McKinney</h2>
+      <ul>
+        <li><strong>Apache Arrow:</strong> An open-source project for data interchange and in-memory processing.</li>
+        <li><strong>Ibis:</strong> A Python library providing a unified API for various SQL databases and data warehouses.</li>
+        <li><strong>Posit:</strong> A data science platform company offering a variety of tools and services.</li>
+        <li><strong>Pandas:</strong> A popular Python library for data analysis.</li>
+        <li><strong>DBT:</strong> A data transformation tool using SQL.</li>
+        <li><strong>Snowflake:</strong> A cloud-based data warehouse.</li>
+        <li><strong>Spark:</strong> A unified analytics engine for large-scale data processing.</li>
+        <li><strong>Modin:</strong> A library for scaling pandas workloads on Apache Spark or Ray.</li>
+        <li><strong>Iceberg:</strong> An open-source table format for data lakes.</li>
+        <li><strong>Parquet:</strong> A columnar data file format.</li>
+        <li><strong>Nimble:</strong> A new open-source file format designed for use with Arrow.</li>
+        <li><strong>Lance DB:</strong> A new storage project optimized for AI and vector search applications.</li>
+      </ul>
+
+      <hr>
+
+      <span class="eyebrow">Deep Dive</span>
+      <h2>Data Technologies for Data Science</h2>
+      <p>Here's a breakdown of the data technologies mentioned in the talk along with some additional insights:</p>
+
+      <h3>Data Interchange and Processing</h3>
+      <ul>
+        <li><strong>Pandas:</strong> An open-source Python library providing data structures and data analysis tools.</li>
+        <li><strong>Apache Arrow:</strong> An open-source project for in-memory data interchange. Arrow is a language-agnostic standard that facilitates communication between different data systems.</li>
+        <li><strong>Parquet:</strong> An open-source columnar data file format for efficient storage and retrieval of data.</li>
+        <li><strong>Iceberg:</strong> An open-source table format for big data, designed for reliability and scalability in data lakes.</li>
+        <li><strong>Nimble:</strong> A new open-source file format designed for efficient use with Apache Arrow.</li>
+      </ul>
+
+      <h3>SQL and Data Warehouses</h3>
+      <ul>
+        <li><strong>SQL:</strong> A structured query language for interacting with relational databases.</li>
+        <li><strong>Ibis:</strong> An open-source project that allows you to write SQL queries that can be run on a variety of data sources, bridging the gap between relational databases and data science tools.</li>
+        <li><strong>DBT (Data Build Tool):</strong> A transformation tool that uses SQL to define and execute data transformations in a data warehouse.</li>
+        <li><strong>Snowflake:</strong> A cloud-based data warehouse platform.</li>
+      </ul>
+
+      <h3>Large-Scale Data Processing</h3>
+      <ul>
+        <li><strong>Spark:</strong> An open-source unified analytics engine for large-scale data processing.</li>
+        <li><strong>Modin:</strong> A library for scaling pandas workloads on Apache Spark or Ray, enabling distributed computing for pandas dataframes.</li>
+      </ul>
+
+      <h3>Other Technologies</h3>
+      <ul>
+        <li><strong>Posit:</strong> A data science platform company offering a variety of data science tools and services. (Not mentioned in the video, but included in the speaker's list.)</li>
+        <li><strong>Lance DB:</strong> A new storage project specifically optimized for AI and vector search applications. (Not mentioned in the video, but included in the speaker's list.)</li>
+      </ul>
+
+      <h2>Challenges and Future of Data Systems</h2>
+      <p>The video highlights the challenges of composable data systems, including the lack of a single unified data frame interface and handling unstructured data. While there are ongoing efforts to standardize data frames, approaches for integrating unstructured data are still being explored.</p>
+      <p>The speaker emphasizes the importance of open standards for data lakes, such as Iceberg, to ensure interoperability and flexibility within the data ecosystem.</p>
+
+      <hr>
+
+      <span class="eyebrow">2026 Update</span>
+      <h2>Where Things Stand Now</h2>
+      <p>The talk's predictions have largely played out — the ecosystem has converged on shared, open building blocks. A quick lay of the land as of 2026:</p>
+      <ul>
+        <li><strong>Arrow is the substrate.</strong> Apache Arrow is now the default in-memory standard. <strong>pandas 2.x</strong> ships optional PyArrow-backed dtypes, so the "language-agnostic interchange" idea is built into the most popular library itself.</li>
+        <li><strong>Polars went mainstream.</strong> The Rust-based, multi-threaded, lazy-evaluating dataframe is the go-to high-performance alternative to pandas for medium-to-large local workloads.</li>
+        <li><strong>DuckDB is everywhere.</strong> The in-process analytical engine — "SQLite for analytics" — pairs naturally with Arrow and Parquet and has become a default for local OLAP and quick data exploration.</li>
+        <li><strong>Iceberg won the table-format race.</strong> Open table formats consolidated around Apache Iceberg: Databricks acquired Tabular (2024) and Snowflake shipped its Polaris catalog, both pushing Iceberg interoperability across the lakehouse.</li>
+        <li><strong>Narwhals solved the "which dataframe?" problem.</strong> A lightweight compatibility layer now lets libraries support pandas, Polars, and others without hard-depending on any single one — directly addressing the "no unified dataframe interface" challenge raised in the talk.</li>
+        <li><strong>Ibis matured</strong> as a portable dataframe API that compiles a single expression to many SQL and dataframe backends.</li>
+        <li><strong>Unstructured + AI data</strong> drove growth in vector-native storage like <strong>LanceDB</strong>, alongside engines built on the composable stack (Arrow + DataFusion / Velox + Substrait).</li>
+      </ul>
+      <div class="callout">📌 The throughline: <strong>open standards beat monoliths.</strong> Arrow for memory, Parquet for files, Iceberg for tables — a composable stack you can mix and match, exactly as the talk anticipated.</div>
+    </article>
+  </main>
+  <script src="assets/base.js" defer></script>
+</body>
+</html>

@@ -13,7 +13,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
   - **js**: Contains Java Scripts used in the Web pages
   - **other data**: Contains random Data
 - **A**: Amplenote Data
-- **D**: Dump Data
+- **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
 - **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://krishnakanthb13.github.io/L/README.md))
@@ -48,9 +48,14 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Charm School & Flirt Engine:**
 	- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
 	- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.
-- **Additional Info:**
-	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html)
-	- [Journaling](https://krishnakanthb13.github.io/D/1.html)
+- **Dump (D):** ([overview](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools, unified light/dark/system theme)
+	- [Journaling](https://krishnakanthb13.github.io/D/journaling.html): The transformative power of journaling — methods and benefits.
+	- [Future of DataFrames](https://krishnakanthb13.github.io/D/dataframes.html): Wes McKinney's talk on the composable data stack, with a 2026 update.
+	- [Is Amplenote Worth It?](https://krishnakanthb13.github.io/D/amplenote.html): Amplenote weighed against a Google Docs / Tasks / Calendar setup.
+	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html): Conventions for organising passwords, keys, and secure notes.
+	- [Bitwarden (2026)](https://krishnakanthb13.github.io/D/bitwarden.html): The open-source, zero-knowledge password manager — plans, security & what's new.
+	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.
+- **Horoscope:**
 	- [Horoscope v1](https://krishnakanthb13.github.io/H/v1/index.html)
 	- [Horoscope v2](https://krishnakanthb13.github.io/H/v2/index.html)
 	- [Horoscope v3](https://krishnakanthb13.github.io/H/BioSite.html)
@@ -60,9 +65,5 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Python](https://krishnakanthb13.github.io/1/Python.html): Unfinished Testing Codebase.
 	- [Snowflake](https://krishnakanthb13.github.io/1/Snowflake.html): Unfinished Testing Codebase.
 	- [SQL](https://krishnakanthb13.github.io/1/SQL.html): Unfinished Testing Codebase.
-- **Other Info:**
-	- [Amplenote Publicity](https://krishnakanthb13.github.io/D/2.html)
-	- [Clock](https://krishnakanthb13.github.io/D/clock.html)
-	- [Dataframes](https://krishnakanthb13.github.io/D/I1.html)
 
 ---

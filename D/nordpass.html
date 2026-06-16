@@ -1,189 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README: Secure Documentation and Password Management [Nord Pass]</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2 {
-            color: #00ffff;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .instructions {
-            margin-left: 20px;
-        }
-        .folder {
-            margin-left: 40px;
-        }
-        .collapsible {
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-            padding: 10px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-        .active, .collapsible:hover {
-            background-color: #555;
-        }
-        .content {
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-            background-color: #262626;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A guide to securely organising passwords, keys, banking info, and secure notes with NordPass.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Secure Documentation & Password Management — NordPass">
+  <meta property="og:description" content="How to organise passwords, keys, banking info, and secure notes with NordPass.">
+  <meta property="og:type" content="article">
+  <title>NordPass — Secure Password Management · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
 </head>
-<body>
+<body data-section="Dump" data-crumb="NordPass" data-updated="June 16, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">Security · README</span>
+      <h1>Secure Documentation &amp; Password Management</h1>
+      <p class="lede">A guide to securely managing and storing your passwords, keys, banking information, personal details, and important notes with NordPass.</p>
+      <div class="callout">Follow these conventions to keep your digital information protected, organised, and easy to retrieve. Tap any section below to expand it.</div>
 
-<h1>README: Secure Documentation and Password Management [Nord Pass]</h1>
-<p>This guide is designed to help you securely manage and store your passwords, keys, banking information, personal information, and important notes using NordPass. 
-Follow these instructions to ensure your digital information remains protected.</p>
-
-<button class="collapsible">1. 3rd Party Logins</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Logins for external services such as social media, email accounts, and other online platforms.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Store these logins in NordPass under a specific category for easy access.</li>
-                <li><strong>NordPass:</strong> These are present in the Folder "3rd Party + DP".</li>
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">1</span>3rd Party Logins<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Logins for external services such as social media, email accounts, and other online platforms.</li>
+              <li><strong>Instructions:</strong> Store these logins in NordPass under a specific category for easy access.</li>
             </ul>
-        </li>
-    </ul>
-</div>
+            <div class="callout">📁 <strong>NordPass:</strong> These are present in the folder <em>"3rd Party + DP"</em>.</div>
+          </div></div>
+        </div>
 
-<button class="collapsible">2. Dynamic Passwords</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Passwords that are sent in Email, with a given set of Instructions, Banking or any Secure Password for a PDF.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Ensure the new passwords are stored immediately in NordPass after updating them.</li>
-                <li><strong>NordPass:</strong> These are present in the Folder "3rd Party + DP" and File "DP - Dynamic Password".</li>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">2</span>Dynamic Passwords<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Passwords sent via email with a given set of instructions — banking, or any secure password for a PDF.</li>
+              <li><strong>Instructions:</strong> Ensure the new passwords are stored immediately in NordPass after updating them.</li>
             </ul>
-        </li>
-    </ul>
-</div>
+            <div class="callout">📁 <strong>NordPass:</strong> Present in the folder <em>"3rd Party + DP"</em>, file <em>"DP - Dynamic Password"</em>.</div>
+          </div></div>
+        </div>
 
-<button class="collapsible">3. Secure Passwords + Keys</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Highly sensitive passwords and encryption keys used for financial accounts, system admin accounts, etc.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Store these securely in NordPass with appropriate labels.</li>
-                <li><strong>Current Folders / Labels:</strong> 'Based on Level Of Importance'
-                    <ul class="folder">
-                        <li>1. Banking, Drive, Email, Productivity, Quests, References, Shopping, Social, Utilities, Work</li>
-                        <li>2. Education, Government, Job, Transportation</li>
-                        <li>3. Entertainment</li>
-                        <li>4. Z Deserted</li>
-                        <li>1. Tara Srinivasulu B</li>
-                        <li>0. This prioritization is mostly based on vague, every password should be secure and protected!</li>
-                    </ul>
-                </li>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">3</span>Secure Passwords + Keys<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Highly sensitive passwords and encryption keys used for financial accounts, system admin accounts, etc.</li>
+              <li><strong>Instructions:</strong> Store these securely in NordPass with appropriate labels.</li>
             </ul>
-        </li>
-    </ul>
-</div>
-
-<button class="collapsible">4. Regular Site Passwords</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Passwords for everyday websites and services such as shopping, forums, and subscriptions.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Use unique passwords for each site to prevent security breaches.</li>
-                <li>Periodically review and update these passwords to ensure they remain secure.</li>
-                <li><strong>Use Tagging system, something like:</strong> 
-                    <ul class="folder">
-                        <li>I am using a prefix "C" in the Folder "Job" to denote they all fall under Company Logins for Career Portals.</li>
-                    </ul>
-                </li>
+            <p><strong>Current folders / labels</strong> — based on level of importance:</p>
+            <ul>
+              <li><strong>1.</strong> Banking, Drive, Email, Productivity, Quests, References, Shopping, Social, Utilities, Work</li>
+              <li><strong>2.</strong> Education, Government, Job, Transportation</li>
+              <li><strong>3.</strong> Entertainment</li>
+              <li><strong>4.</strong> Z Deserted</li>
+              <li><strong>1.</strong> Tara Srinivasulu B</li>
+              <li><strong>0.</strong> This prioritization is mostly vague — every password should be secure and protected!</li>
             </ul>
-        </li>
-    </ul>
-</div>
+          </div></div>
+        </div>
 
-<button class="collapsible">5. Secure + Important Notes</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Sensitive information that needs to be kept secure such as personal identification numbers, security questions, and confidential notes.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Store these notes in NordPass under the 'Secure Notes' category.</li>
-                <li>Use clear and specific titles for each note for easy retrieval. As the Search does not support searching the Descriptive section of the Secure Notes.</li>
-                <li>Review and update the information regularly to ensure its accuracy and relevance.</li>
-                <li><strong>Keep the Notes here that will be very useful to navigate different situations.</strong>
-                    <ul class="folder">
-                        <li>Also Add notes that you do not want any eyes to fall on.</li>
-                    </ul>
-                </li>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">4</span>Regular Site Passwords<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Passwords for everyday websites and services such as shopping, forums, and subscriptions.</li>
+              <li>Use unique passwords for each site to prevent security breaches.</li>
+              <li>Periodically review and update these passwords to ensure they remain secure.</li>
             </ul>
-        </li>
-    </ul>
-</div>
+            <div class="callout">🏷 <strong>Tagging system:</strong> a prefix <code>"C"</code> in the <em>"Job"</em> folder denotes Company Logins for career portals.</div>
+          </div></div>
+        </div>
 
-<button class="collapsible">6. Credit Card + Personal Info</button>
-<div class="content">
-    <ul>
-        <li><strong>Definition:</strong> Credit card details, bank account information, and personal identification details such as government card id numbers, driver's license numbers, etc.</li>
-        <li><strong>Instructions:</strong>
-            <ul class="instructions">
-                <li>Store credit card details and personal information in NordPass under the appropriate categories.</li>
-                <li>Regularly review and update the stored information to ensure it is current and accurate.</li>
-                <li>Monitor your financial accounts regularly for any unauthorized transactions or suspicious activities.</li>
-                <li><strong>Keep valid and Important Personal Informations stored here.</strong></li>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">5</span>Secure + Important Notes<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Sensitive information to be kept secure — personal identification numbers, security questions, and confidential notes.</li>
+              <li>Store these notes in NordPass under the <em>'Secure Notes'</em> category.</li>
+              <li>Use clear, specific titles for each note for easy retrieval — search does not cover the descriptive body of Secure Notes.</li>
+              <li>Review and update the information regularly to ensure accuracy and relevance.</li>
             </ul>
-        </li>
-    </ul>
-</div>
+            <div class="callout">Keep notes here that help you navigate different situations — and anything you don't want any eyes to fall on.</div>
+          </div></div>
+        </div>
 
-<button class="collapsible">General Security Tips</button>
-<div class="content">
-    <ul>
-        <li><strong>Backup Regularly:</strong> Ensure NordPass is regularly backed up to prevent data loss.</li>
-        <li><strong>Strong Master Password:</strong> Use a strong and unique master password for NordPass and do not share it with anyone.</li>
-        <li><strong>Enable 2FA:</strong> Enable two-factor authentication for NordPass for an added layer of security.</li>
-        <li><strong>Regular Audits:</strong> Perform regular security audits of your stored information to identify and mitigate any potential vulnerabilities.</li>
-        <li><strong>Stay Updated:</strong> Keep NordPass and all your software up to date to benefit from the latest security features and fixes.</li>
-    </ul>
-</div>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">6</span>Credit Card + Personal Info<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Definition:</strong> Credit card details, bank account information, and personal identification details such as government ID numbers, driver's license numbers, etc.</li>
+              <li>Store these in NordPass under the appropriate categories.</li>
+              <li>Regularly review and update the stored information to keep it current and accurate.</li>
+              <li>Monitor your financial accounts regularly for any unauthorized transactions or suspicious activity.</li>
+            </ul>
+            <div class="callout">Keep valid and important personal information stored here.</div>
+          </div></div>
+        </div>
 
-<p>By following these guidelines, you can ensure that your sensitive information remains secure and easily accessible whenever you need it.</p>
+        <div class="acc-item">
+          <button class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">★</span>General Security Tips<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>Backup Regularly:</strong> Ensure NordPass is regularly backed up to prevent data loss.</li>
+              <li><strong>Strong Master Password:</strong> Use a strong, unique master password and never share it.</li>
+              <li><strong>Enable 2FA:</strong> Turn on two-factor authentication for an added layer of security.</li>
+              <li><strong>Regular Audits:</strong> Periodically audit your stored information to identify and mitigate vulnerabilities.</li>
+              <li><strong>Prefer Passkeys:</strong> Where a site supports them, use <em>passkeys</em> — phishing-resistant and storable in NordPass — instead of a password + OTP.</li>
+              <li><strong>Watch for Breaches:</strong> Use NordPass's Data Breach Scanner / Password Health to catch reused, weak, or leaked credentials early.</li>
+              <li><strong>Stay Updated:</strong> Keep NordPass and all your software up to date for the latest security features.</li>
+            </ul>
+          </div></div>
+        </div>
+      </div>
 
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    for (var i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-</script>
-
+      <p>By following these guidelines, you can ensure that your sensitive information remains secure and easily accessible whenever you need it.</p>
+    </article>
+  </main>
+  <script src="assets/base.js" defer></script>
 </body>
 </html>

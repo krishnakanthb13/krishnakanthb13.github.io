@@ -1,113 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Clock</title>
-   <script defer src="clock.js"></script>
-   <link rel="stylesheet" href="style.css">
-   <style>
-      * {
-         box-sizing: border-box;
-      }
-
-      html,
-      body {
-         margin: 0;
-         padding: 0;
-         width: 100%;
-         height: 100%;
-         background-color: hsl(0, 0%, 13%);
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         overflow: hidden;
-      }
-
-      svg {
-         width: 100vmin;
-         height: 100vmin;
-      }
-
-      .clock {
-         box-shadow: 0 0 5px hsl(0, 0%, 0%);
-         stroke: hsl(0, 0%, 30%);
-         fill: hsl(0, 0%, 20%);
-      }
-
-      .clock-joint {
-         fill: hsl(0, 0%, 90%);
-      }
-   </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A clean analog + digital clock with light, dark, and system themes.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Clock">
+  <meta property="og:description" content="A clean analog + digital clock with light, dark, and system themes.">
+  <title>Clock · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕐</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
 </head>
+<body data-section="Dump" data-crumb="Clock" data-updated="June 16, 2026">
+  <main class="page">
+    <div class="card">
+      <div class="clock-stage">
+        <div class="clock-wrap">
+          <svg id="clock-svg" viewBox="-50 -50 100 100">
+            <circle cx="0" cy="0" r="49.5" class="clock-face"></circle>
+            <circle cx="0" cy="0" r="2" class="clock-joint"></circle>
+          </svg>
+        </div>
+        <div id="digital">--:--:--<small id="digital-date">&nbsp;</small></div>
+      </div>
+    </div>
+  </main>
 
-<body>
-   <svg viewBox="-50 -50 100 100">
-      <circle cx="0" cy="0" r="49.5" class="clock" id="clock"></circle>
-      <circle cx="0" cy="0" r="2" class="clock-joint" id="clock"></circle>
-   </svg>
-   <script>
-      const clockNode = document.getElementById('clock')
-      const svgNode = document.querySelector('svg')
-      const handsContainer = document.getElementById('hands')
+  <script src="assets/base.js" defer></script>
+  <script>
+  (function () {
+    var svg = document.getElementById('clock-svg');
+    var NUM = 60, step = 360 / NUM;
 
-      const numTimes = 60
-      for (i = 0; i < numTimes; i++) {
-         const handRotationOffset = 360 / numTimes
+    function addHand(o) {
+      o = o || {};
+      var width = o.width != null ? o.width : 10,
+          height = o.height != null ? o.height : 1.5,
+          x = o.x != null ? o.x : 35,
+          rotation = o.rotation || 0,
+          cls = o.cls || 't1';
+      var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      rect.setAttribute('width', width);
+      rect.setAttribute('height', height);
+      rect.setAttribute('x', x);
+      rect.setAttribute('rx', height / 2);
+      rect.setAttribute('class', cls);
+      g.style.transform = 'rotate(' + (rotation - 90) + 'deg)';
+      g.style.transformOrigin = '0px ' + (height / 2) + 'px';
+      g.style.translate = '0px -' + (height / 2) + 'px';
+      g.appendChild(rect);
+      svg.appendChild(g);
+      return g;
+    }
 
-         if ((i % 15 == 0 || i == 0) && numTimes != i + 1) {
-            console.log('15er');
-            addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 80%)', width: 15 })
-         } else if (i % 5 == 0 && numTimes != i + 1) {
-            console.log('5er');
-            addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 40%)', width: 12 })
-         }
-         else {
-            addHand({ rotation: i * handRotationOffset, color: 'hsl(0, 0%, 30%)' })
-         }
-      }
+    for (var i = 0; i < NUM; i++) {
+      if (i % 15 === 0)      addHand({ rotation: i * step, cls: 'tq', width: 15 });
+      else if (i % 5 === 0)  addHand({ rotation: i * step, cls: 't5', width: 12 });
+      else                   addHand({ rotation: i * step, cls: 't1', width: 8 });
+    }
 
-      const secondHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 40, x: 0, height: 1 })
-      const minuteHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 25, x: 0, height: 1.5 })
-      const hourHand = addHand({ color: 'hsl(0, 0%, 90%)', width: 15, x: 0, height: 2 })
+    var secondHand = addHand({ cls: 'hand-s', width: 42, x: -8, height: 1 });
+    var minuteHand = addHand({ cls: 'hand-m', width: 28, x: 0,  height: 1.6 });
+    var hourHand   = addHand({ cls: 'hand-h', width: 18, x: 0,  height: 2.4 });
 
-      render()
-      function render() {
-         const time = new Date()
+    var dig = document.getElementById('digital');
+    var digDate = document.getElementById('digital-date');
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-         const secondsDegrees = (time.getSeconds() * 6) + 90;
-         const minutesDegrees = (time.getMinutes() * 6) - 90;
-         const hoursDegrees = (time.getHours() * 30) - 90;
+    function render() {
+      var t = new Date();
+      var s = t.getSeconds(), m = t.getMinutes(), h = t.getHours();
+      secondHand.style.transform = 'rotate(' + (s * 6 + 90) + 'deg)';
+      minuteHand.style.transform = 'rotate(' + (m * 6 - 90) + 'deg)';
+      hourHand.style.transform   = 'rotate(' + ((h % 12) * 30 + m * 0.5 - 90) + 'deg)';
 
-         secondHand.style.transform = `rotate(${secondsDegrees}deg)`
-         minuteHand.style.transform = `rotate(${minutesDegrees}deg)`
-         hourHand.style.transform = `rotate(${hoursDegrees}deg)`
-
-         requestAnimationFrame(render)
-      }
-
-      function addHand({ width = 10, height = 1.5, x = 35, rotation = 0, color = 'black' } = {}) {
-         const handNode = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-         const handNodeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-
-         handNode.setAttribute('width', width)
-         handNode.setAttribute('height', height)
-         handNode.setAttribute('x', x)
-         handNode.setAttribute('fill', color)
-
-         handNodeGroup.style.transform = `rotate(${rotation - 90}deg)`
-         handNodeGroup.style.transformOrigin = `0px ${height / 2}px`
-         handNodeGroup.style.translate = `0px -${height / 2}px`
-
-         handNodeGroup.appendChild(handNode)
-
-         svgNode.appendChild(handNodeGroup)
-
-         return handNodeGroup
-      }
-
-   </script>
+      dig.firstChild.nodeValue = pad(h) + ':' + pad(m) + ':' + pad(s);
+      digDate.textContent = days[t.getDay()] + ' · ' + t.getDate() + ' ' + months[t.getMonth()] + ' ' + t.getFullYear();
+      requestAnimationFrame(render);
+    }
+    render();
+  })();
+  </script>
 </body>
-
 </html>
