@@ -1,0 +1,54 @@
+name: Validate
+
+# Quality gate for the static site. Runs on every push/PR to master and
+# checks the things that can silently break the live site:
+#   • data files (plugins.yaml / videos.json) are still well-formed
+#   • the two sync scripts still parse (catches a syntax slip before a
+#     scheduled run fails quietly)
+#
+# This file must stay at the repo root (.github/workflows/) — GitHub only
+# runs workflows from the root, never from inside subfolders.
+#
+# NOTE: full-repo HTML validation and link-checking were intentionally left
+# out — the legacy pages (R/.../Old, H, in-progress 0/ and 1/) and even most
+# flagship pages carry hundreds of pre-existing structural warnings, so those
+# scans are pure red noise today. They're worth adding back ONLY scoped to a
+# cleaned set of pages; revisit after a markup cleanup pass.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  data:
+    name: Data integrity (YAML / JSON)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate plugins.yaml
+        run: yq eval '.' A/plugins.yaml > /dev/null
+      - name: Validate videos.json
+        run: jq empty A/aa/videos.json
+
+  scripts:
+    name: Script syntax (node --check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check fetch-videos.mjs
+        run: node --check A/aa/scripts/fetch-videos.mjs
+      - name: Check fetch-plugins.mjs
+        run: node --check A/scripts/fetch-plugins.mjs
