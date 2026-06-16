@@ -237,6 +237,20 @@
     box-shadow: 0 8px 24px rgba(242,94,156,0.38);
   }
 
+  .prefill-row { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.1rem; }
+  .prefill-btn {
+    font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 13px;
+    padding: 9px 16px; border-radius: 14px; cursor: pointer;
+    border: 2px solid #f6cfe2; background: rgba(255,255,255,0.85); color: var(--pink-deep);
+    transition: transform 0.16s cubic-bezier(0.34,1.56,0.64,1), background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .prefill-btn:hover { background: var(--pink-deep); color: #fff; border-color: var(--pink-deep); transform: translateY(-2px); }
+  .prefill-btn:disabled { opacity: 0.6; cursor: progress; transform: none; }
+  .prefill-btn.ai { background: linear-gradient(135deg, #fff0f6, #f3ecff); border-color: #e9c9f0; color: #a86fe0; }
+  .prefill-btn.ai:hover { background: linear-gradient(135deg, #c79bf0, #a86fe0); color: #fff; border-color: #fff; }
+  .prefill-btn.reset { background: rgba(255,255,255,0.7); border-color: #e9d3dd; color: var(--muted); }
+  .prefill-btn.reset:hover { background: var(--muted); color: #fff; border-color: var(--muted); }
+
   .go-btn:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 12px 30px rgba(242,94,156,0.5); }
   .go-btn:active { transform: scale(0.98); }
   .go-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -480,6 +494,12 @@
     </div>
   </div>
 
+  <div class="prefill-row">
+    <button type="button" class="prefill-btn" onclick="randomFill()">🎲 Random fill</button>
+    <button type="button" class="prefill-btn ai" id="aiFillBtn" onclick="aiFill()">✨ AI fill</button>
+    <button type="button" class="prefill-btn reset" onclick="resetForm()">♻️ Reset</button>
+  </div>
+
   <div class="card">
     <div class="section-label">📍 The Setting</div>
     <div class="row" style="margin-bottom:12px;">
@@ -592,6 +612,87 @@ function copyLine(btn) {
       btn.style.borderColor = '';
     }, 1600);
   });
+}
+
+// Preloaded option pools for 🎲 Random fill
+const FILL = {
+  location: ["a cozy coffee shop", "the gym", "an indie bookstore", "an art gallery opening", "a live music gig", "the dog park", "a cooking class", "the office kitchen", "a friend's wedding", "a hiking trail", "a beach bar", "the farmers' market", "a late-night diner", "a board-game café", "a pottery class", "a rooftop party", "the library", "a wine tasting", "a coworking space", "a music festival", "a yoga studio", "a record store", "a train platform", "a charity 5K"],
+  situation: ["we bumped into each other", "we matched on a dating app yesterday", "we were waiting in the same long line", "we met at a mutual friend's party", "we got seated at the same table", "we reached for the same book", "we were the only two who laughed at a joke", "we split an umbrella in the rain", "we got paired up as partners", "we kept catching each other's eye", "we ended up next to each other all night", "we were both early and started chatting", "our pets introduced us", "we argued playfully over the last seat"],
+  personality: ["bubbly and warm", "quietly witty", "sporty and competitive", "artsy and a little dreamy", "nerdy and curious", "confident and bold", "shy but funny", "calm and thoughtful", "sarcastic and sharp", "kind and a great listener", "adventurous and spontaneous", "effortlessly cool", "goofy and lighthearted", "ambitious and driven"],
+  interest: ["loves indie music", "reads sci-fi novels", "is into rock climbing", "paints watercolors", "is obsessed with good coffee", "plays board games", "runs marathons", "bakes sourdough", "collects vinyl records", "is learning the guitar", "loves true-crime podcasts", "does pottery", "is a film buff", "travels constantly", "is into photography", "plays in a local league"],
+  detail: ["has a contagious laugh", "wore a vintage band tee", "was sketching in a notebook", "has really kind eyes", "had great taste in shoes", "was humming a song I love", "was reading my favorite author", "doodled while waiting", "had the warmest smile", "wore mismatched fun socks", "had paint on their hands", "carried a worn paperback", "laughed at their own joke", "had an unusual accent"],
+  myvibe: ["sarcastic and goofy", "shy but warm", "confident and playful", "nerdy and earnest", "calm and witty", "bold and direct", "easygoing and funny", "a bit awkward but charming", "dry-humored and clever", "warm and a little flirty"],
+  shared: ["we laughed at the same dumb joke", "we were stuck in the same long queue", "we both reached for the last pastry", "we complained about the wifi together", "we got caught in a sudden downpour", "we bonded over a song playing", "we both got the answer wrong at trivia", "we shared a table and ended up talking for an hour", "we rescued a runaway dog together", "we both showed up in the same outfit"],
+  extra: ["", "", "", "keep it light and playful", "this is a first message on an app", "we've talked a couple of times already", "they use a lot of emojis", "they love a good pun", "we have a mutual friend", "they're a little shy, so go gentle", "we've been texting for a week"],
+};
+
+function randomFill() {
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+  ['location', 'situation', 'personality', 'interest', 'detail', 'myvibe', 'shared', 'extra']
+    .forEach((id) => { document.getElementById(id).value = pick(FILL[id]); });
+  const vibes = [...document.querySelectorAll('.vibe-btn')];
+  const rv = pick(vibes);
+  vibes.forEach((b) => b.classList.remove('selected'));
+  rv.classList.add('selected');
+  selectedVibe = rv.dataset.vibe;
+}
+
+function resetForm() {
+  ['location', 'situation', 'personality', 'interest', 'detail', 'myvibe', 'shared', 'extra']
+    .forEach((id) => { document.getElementById(id).value = ''; });
+  const vibes = [...document.querySelectorAll('.vibe-btn')];
+  vibes.forEach((b) => b.classList.remove('selected'));
+  const def = vibes.find((b) => b.dataset.vibe === 'charming & smooth') || vibes[0];
+  if (def) { def.classList.add('selected'); selectedVibe = def.dataset.vibe; }
+  document.getElementById('result-area').classList.remove('visible');
+  document.getElementById('regen-btn').classList.remove('visible');
+  document.getElementById('lines-container').innerHTML = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function aiFill() {
+  const btn = document.getElementById('aiFillBtn');
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '✨ Filling…';
+  try {
+    const prompt = `Invent a plausible, specific "how we met" scenario for a flirting-line generator.
+Return ONLY valid JSON (no markdown, no extra text) with these exact keys, each a short natural phrase:
+{
+  "location": "where/context",
+  "situation": "how you met / the moment",
+  "personality": "their vibe",
+  "interest": "their hobby/interest",
+  "detail": "something you noticed about them",
+  "myvibe": "your own personality/style",
+  "shared": "a small shared moment between you",
+  "extra": "any extra context (can be empty)",
+  "tone": "one of exactly: charming & smooth | funny & playful | witty & clever | warm & heartfelt | nerdy & geeky | bold & confident"
+}
+Make the details specific and varied — not generic.`;
+    const text = await callAI(prompt);
+    let clean = text.trim();
+    const i = clean.indexOf('{'), j = clean.lastIndexOf('}');
+    if (i !== -1 && j !== -1) clean = clean.slice(i, j + 1);
+    const o = JSON.parse(clean);
+    const set = (id, v) => { if (v != null) document.getElementById(id).value = String(v); };
+    set('location', o.location); set('situation', o.situation); set('personality', o.personality);
+    set('interest', o.interest); set('detail', o.detail); set('myvibe', o.myvibe);
+    set('shared', o.shared); set('extra', o.extra);
+    if (o.tone) {
+      const match = [...document.querySelectorAll('.vibe-btn')].find((b) => b.dataset.vibe === o.tone);
+      if (match) {
+        document.querySelectorAll('.vibe-btn').forEach((b) => b.classList.remove('selected'));
+        match.classList.add('selected');
+        selectedVibe = match.dataset.vibe;
+      }
+    }
+  } catch (e) {
+    alert('✨ AI fill failed: ' + ((e && e.message) ? e.message : 'please try again.'));
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = label;
+  }
 }
 
 async function generateFlirt() {

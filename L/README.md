@@ -72,9 +72,11 @@ A quick, playful practice tool for everyday social moments.
 
 * **Vibe Selection:** Pick between 6 conversational vibes — `Funny` 😄, `Flirty` 😏,
   `Cheesy` 🧀, `Caring` 🤍, `Loving` 💕, and `Witty` 🧠. Each is a bubbly colour-coded pill.
-* **Scenarios:** Practice with randomly generated scenarios (e.g. meeting someone reading
-  a book at a coffee shop, being stuck in a slow line) via the `🎲 New scenario` button,
-  or type your own custom moment.
+* **Scenarios:** Practice with scenarios via the `🎲 New scenario` button (cycles a
+  built-in, preloaded set, e.g. meeting someone reading a book at a coffee shop), the
+  `✨ AI scenario` button (asks your configured AI to invent a fresh one), or type your own
+  custom moment. `📋 Copy to input` drops the current scenario into the input box so you can
+  tweak it before generating.
 * **Coaching Output:** Generates 2–3 numbered response suggestions plus a practical
   delivery tip (`💡 Why it works`).
 * **Result Actions:** `Copy all`, `Regenerate`, and `New input` buttons (with Tabler
@@ -83,6 +85,10 @@ A quick, playful practice tool for everyday social moments.
 ### The Flirt Engine (`flirt_engine.html`)
 A more detailed line-builder that tailors output to a specific situation and person.
 
+* **Quick fill:** `🎲 Random fill` populates every field (and picks a tone) from built-in,
+  preloaded option pools; `✨ AI fill` asks your configured AI to invent a complete,
+  specific scenario and fills it all in — then just hit generate. `♻️ Reset` clears every
+  field, restores the default tone, and hides the results.
 * **The Setting:** Input fields for location/context and how you met.
 * **About Them:** Define their vibe/personality, interests/hobby, and a detail you noticed.
 * **About You (optional):** Your own personality/style and any shared moment.
@@ -411,6 +417,7 @@ hosted publicly on GitHub Pages with no risk of leaking credentials or incurring
 | `v0.0.14` | Redesigned the AI Config popup to match the bubbly theme |
 | `v0.0.32` | New `index.html` landing page + 🏠 Home links; `ai-helper.js` v2 — added **Cerebras**, live model auto-fetch (↻ Models), show/hide key, ⚡ test connection, 🗑 forget key, 60s request timeout, auto-persisting settings; default models refreshed to the June 2026 lineup (Gemini → `gemini-3.1-flash-lite`, OpenAI → `gpt-4.1-nano`, Puter → `gpt-5-nano`, Cerebras → `gpt-oss-120b`, Cohere → `command-a-03-2025`, OpenRouter → `meta-llama/llama-3.3-70b-instruct:free`); `file://` guard; full mobile passes; OG/Twitter meta & a11y across all pages |
 | `v0.0.33` | 🕘 Local **History** — shared, browser-only log across both tools (combined but tagged per tool with the parameters that produced each result), filter chips, copy/delete/clear; themed AI-provider dropdown option list; root-README readme links point to the rendered GitHub view |
+| `v0.0.34` | Charm School: `✨ AI scenario` button (AI invents a fresh scenario) + a bigger preloaded scenario set. Flirt Engine: `🎲 Random fill` & `✨ AI fill` buttons that populate every field + tone (from preloaded pools or AI) so you can generate in one tap; expanded option pools |
 
 ---
 

@@ -57,12 +57,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 - **VTT Files** ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/R/VTT/README.md)):
 	- [VTT Text Extractor Pro](https://krishnakanthb13.github.io/R/VTT/): Flagship tool — fetch YouTube captions, auto-detect VTT or plain transcripts, extract clean text, export TXT/SRT, and run Google Gemini AI over the result (API key saved in your browser).
-	- [WEBVTT v2](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v2.html): AI-assisted VTT extractor with live stats and TXT/SRT export (no YouTube fetch).
-	- [WEBVTT v1](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v1.html): Minimal VTT-to-text extractor — paste, extract, copy. Zero setup.
+		- [WEBVTT v2](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v2.html): AI-assisted VTT extractor with live stats and TXT/SRT export (no YouTube fetch).
+		- [WEBVTT v1](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v1.html): Minimal VTT-to-text extractor — paste, extract, copy. Zero setup.
 
 ---
 
-- **Charm School & Flirt Engine** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md) — free, private, AI-powered conversation coaching that runs entirely in your browser):
+- **Charm School & Flirt Engine** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md) — free, private, AI-powered conversation coaching):
 	- [Home / Landing](https://krishnakanthb13.github.io/L/): Mobile-friendly front door linking both tools.
 		- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
 		- [The Flirt Engine](https://krishnakanthb13.github.io/L/flirt_engine.html): Generate tailored flirting lines for a specific moment.

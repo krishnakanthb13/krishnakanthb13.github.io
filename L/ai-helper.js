@@ -310,9 +310,9 @@
       z-index: 100000; opacity: 0; transition: opacity 0.3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
 
-    /* ── History pill (bottom-right) + panel ── */
+    /* ── History pill (top-right, stacked below the AI Config pill) + panel ── */
     .history-trigger {
-      position: fixed; bottom: 1rem; right: 1rem; cursor: pointer;
+      position: fixed; top: 3.5rem; right: 1rem; cursor: pointer;
       font-family: 'Fredoka', 'Quicksand', sans-serif; font-size: 0.82rem; font-weight: 500;
       color: var(--settings-accent, #f25e9c);
       background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
@@ -383,11 +383,18 @@
     }
     .hist-actions { display: flex; gap: 0.4rem; margin-top: 0.6rem; }
 
+    /* History panel is wider than the settings modal so it matches/exceeds the
+       page widgets (Charm ~580px, Flirt ~640px). Mobile stays full-width. */
+    #aiHistoryModal .settings-content { max-width: 680px; }
+
     @media (prefers-reduced-motion: reduce) {
       .history-trigger, .hist-chip { transition-duration: 0.01ms; }
     }
     @media (max-width: 600px) {
-      .history-trigger { bottom: 0.6rem; right: 0.6rem; font-size: 0.74rem; padding: 0.4rem 0.75rem; }
+      .history-trigger { top: 2.7rem; right: 0.6rem; font-size: 0.74rem; padding: 0.4rem 0.75rem; }
+      /* On phones the modal already fills the viewport (width:100% minus the
+         1rem modal padding) — matching the page widgets' edge padding. */
+      #aiHistoryModal.settings-modal { padding: 0.6rem; }
     }
 
     @media (max-width: 600px) {
