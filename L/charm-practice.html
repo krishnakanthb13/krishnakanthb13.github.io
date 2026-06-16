@@ -580,6 +580,18 @@ TIP: [tip]`;
     card.innerHTML = html;
     window._lastLines = lineMatches.join('\n');
 
+    // Save to shared local history (browser-only)
+    if (window.saveToHistory) {
+      const histBody = (lineMatches.length ? lineMatches.map((l, i) => (i + 1) + '. ' + l).join('\n') : text)
+        + (tip ? ('\n\n💡 ' + tip) : '');
+      saveToHistory({
+        tool: 'charm',
+        vibe: style,
+        params: { [userText ? 'Your input' : 'Scenario']: context },
+        text: histBody
+      });
+    }
+
   } catch(e) {
     const msg = (e && e.message) ? e.message : 'Something went wrong. Try again ✨';
     const safe = msg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');

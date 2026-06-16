@@ -186,6 +186,7 @@ except directly to the chosen provider:
 | `ai_api_key` | API key for the chosen provider (not needed for Puter.js) |
 | `ai_model` | Optional model override; blank = provider default |
 | `ai_web_search` | Boolean toggle for internet search grounding |
+| `ai_history` | Your recent generations (shared by both tools; capped at 50) |
 
 **Everything auto-persists.** Each field is written to `localStorage` the moment you
 change it — so your provider, key, model, and web-search choice survive reloads even if
@@ -218,6 +219,23 @@ theme:
 - Fully responsive, and respects `prefers-reduced-motion`.
 
 Settings auto-persist via `localStorage` and survive reloads (see above).
+
+### Local History (🕘)
+
+A **🕘 History** pill (bottom-right) opens a shared, browser-only log of everything you've
+generated across **both** tools — stored in `localStorage` under `ai_history`, capped at
+the 50 most recent entries.
+
+- **Combined but clearly separated.** Each entry is tagged by tool (✨ Charm School /
+  💌 The Flirt Engine) with a colour-coded accent, and shows the **parameters** that
+  produced it (the style/tone and the inputs) above the generated text.
+- **Filter chips** — *All · ✨ Charm · 💌 Flirt* — split the combined list on demand.
+- **Per-entry Copy & Delete**, plus **🗑 Clear all**.
+- Like your key, history **never leaves the browser** — it's saved only on your device and
+  is wiped by "Clear all" or clearing site data.
+
+Because it lives in shared `localStorage`, the same history shows up on both pages — open
+either tool and you'll see the full combined log.
 
 ---
 
@@ -373,6 +391,8 @@ hosted publicly on GitHub Pages with no risk of leaking credentials or incurring
 - **No password-manager capture.** The key field carries `autocomplete="off"` plus
   `data-lpignore` / `data-1p-ignore`, so browsers and password managers don't try to vault
   your key.
+- **History is local too.** Generated lines saved to the 🕘 History panel live only in the
+  browser's `localStorage` (`ai_history`) — never uploaded. Wipe them with "Clear all".
 - **Default is keyless.** Out of the box the apps use Puter.js, so a visitor can use them
   without ever creating an account or pasting a key.
 - **HTML escaping.** Both tools escape AI-returned text (and error messages) before
@@ -390,6 +410,7 @@ hosted publicly on GitHub Pages with no risk of leaking credentials or incurring
 | `v0.0.13` | Favicons, Tabler icons, and entrance/idle animations |
 | `v0.0.14` | Redesigned the AI Config popup to match the bubbly theme |
 | `v0.0.32` | New `index.html` landing page + 🏠 Home links; `ai-helper.js` v2 — added **Cerebras**, live model auto-fetch (↻ Models), show/hide key, ⚡ test connection, 🗑 forget key, 60s request timeout, auto-persisting settings; default models refreshed to the June 2026 lineup (Gemini → `gemini-3.1-flash-lite`, OpenAI → `gpt-4.1-nano`, Puter → `gpt-5-nano`, Cerebras → `gpt-oss-120b`, Cohere → `command-a-03-2025`, OpenRouter → `meta-llama/llama-3.3-70b-instruct:free`); `file://` guard; full mobile passes; OG/Twitter meta & a11y across all pages |
+| `v0.0.33` | 🕘 Local **History** — shared, browser-only log across both tools (combined but tagged per tool with the parameters that produced each result), filter chips, copy/delete/clear; themed AI-provider dropdown option list; root-README readme links point to the rendered GitHub view |
 
 ---
 

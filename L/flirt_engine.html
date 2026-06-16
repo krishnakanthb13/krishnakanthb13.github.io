@@ -720,6 +720,21 @@ Rules:
       linesContainer.appendChild(card);
     });
 
+    // Save to shared local history (browser-only)
+    if (window.saveToHistory) {
+      const params = {};
+      if (location) params['Location'] = location;
+      if (situation) params['Situation'] = situation;
+      if (personality) params['Their vibe'] = personality;
+      if (interest) params['Interest'] = interest;
+      if (detail) params['Noticed'] = detail;
+      if (myvibe) params['Your style'] = myvibe;
+      if (shared) params['Shared'] = shared;
+      if (extra) params['Extra'] = extra;
+      const txt = parsed.lines.map(it => `[${it.tag}] "${it.line}"\n💡 ${it.tip}`).join('\n\n');
+      saveToHistory({ tool: 'flirt', vibe: selectedVibe, params, text: txt });
+    }
+
     resultArea.classList.add('visible');
     regenBtn.classList.add('visible');
     resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });

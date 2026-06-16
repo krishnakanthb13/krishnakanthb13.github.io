@@ -310,6 +310,86 @@
       z-index: 100000; opacity: 0; transition: opacity 0.3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
 
+    /* ── History pill (bottom-right) + panel ── */
+    .history-trigger {
+      position: fixed; bottom: 1rem; right: 1rem; cursor: pointer;
+      font-family: 'Fredoka', 'Quicksand', sans-serif; font-size: 0.82rem; font-weight: 500;
+      color: var(--settings-accent, #f25e9c);
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
+      padding: 0.5rem 1rem; border-radius: 999px;
+      border: 2px solid var(--settings-border, #f6cfe2);
+      display: flex; align-items: center; gap: 0.4rem; z-index: 9000;
+      box-shadow: 0 4px 14px rgba(242,94,156,0.18);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, background 0.2s, color 0.2s;
+    }
+    .history-trigger:hover {
+      background: linear-gradient(135deg, #ff9ec7, var(--settings-accent, #f25e9c));
+      color: #fff; border-color: #fff; transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 7px 20px rgba(242,94,156,0.35);
+    }
+    .history-trigger:active { transform: scale(0.97); }
+    .history-trigger:focus-visible { outline: 3px solid var(--settings-accent, #f25e9c); outline-offset: 2px; }
+    .history-badge {
+      background: var(--settings-accent, #f25e9c); color: #fff;
+      font-size: 0.68rem; font-weight: 700; border-radius: 999px; padding: 0.04rem 0.42rem; line-height: 1.5;
+    }
+
+    .hist-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+    .hist-chip {
+      cursor: pointer; font-family: 'Fredoka', sans-serif; font-size: 0.76rem; font-weight: 600;
+      padding: 0.34rem 0.8rem; border-radius: 999px; border: 2px solid var(--settings-border, #f6cfe2);
+      background: #fff; color: var(--settings-accent, #f25e9c);
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), background 0.18s, color 0.18s, border-color 0.18s;
+    }
+    .hist-chip:hover { transform: translateY(-1px); }
+    .hist-chip.active {
+      background: linear-gradient(135deg, #ff9ec7, var(--settings-accent, #f25e9c));
+      color: #fff; border-color: #fff;
+    }
+
+    .hist-empty {
+      text-align: center; color: var(--settings-text, #b07f9b);
+      font-family: 'Quicksand', sans-serif; font-weight: 600; line-height: 1.6; padding: 1.6rem 0.5rem;
+    }
+    .hist-item {
+      background: var(--settings-bg, #fffafc);
+      border: 2px solid var(--settings-border, #f6cfe2);
+      border-left-width: 6px; border-radius: 16px; padding: 0.85rem 0.95rem;
+    }
+    .hist-item[data-tool="charm"] { border-left-color: #f25e9c; }
+    .hist-item[data-tool="flirt"] { border-left-color: #a86fe0; }
+    .hist-meta {
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+      font-family: 'Fredoka', sans-serif; font-size: 0.78rem; font-weight: 600;
+    }
+    .hist-tool { display: inline-flex; align-items: center; gap: 0.3rem; }
+    .hist-item[data-tool="charm"] .hist-tool { color: #f25e9c; }
+    .hist-item[data-tool="flirt"] .hist-tool { color: #a86fe0; }
+    .hist-vibe {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em;
+      background: var(--settings-sec-bg, #ffeaf4); color: var(--settings-text, #6b2d4f);
+      padding: 0.1rem 0.5rem; border-radius: 999px;
+    }
+    .hist-time { margin-left: auto; color: var(--settings-text, #b07f9b); font-weight: 500; font-size: 0.72rem; }
+    .hist-params {
+      margin-top: 0.5rem; padding: 0.5rem 0.6rem; border-radius: 11px;
+      background: var(--settings-sec-bg, #ffeaf4);
+      font-family: 'Quicksand', sans-serif; font-size: 0.76rem; line-height: 1.5; color: var(--settings-text, #6b2d4f);
+    }
+    .hist-params b { color: var(--settings-accent, #f25e9c); font-weight: 700; }
+    .hist-text {
+      margin-top: 0.55rem; font-family: 'Quicksand', sans-serif; font-size: 0.9rem;
+      font-weight: 500; line-height: 1.6; color: var(--settings-text, #6b2d4f); white-space: pre-wrap;
+    }
+    .hist-actions { display: flex; gap: 0.4rem; margin-top: 0.6rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .history-trigger, .hist-chip { transition-duration: 0.01ms; }
+    }
+    @media (max-width: 600px) {
+      .history-trigger { bottom: 0.6rem; right: 0.6rem; font-size: 0.74rem; padding: 0.4rem 0.75rem; }
+    }
+
     @media (max-width: 600px) {
       .settings-trigger { top: 0.6rem; right: 0.6rem; font-size: 0.74rem; padding: 0.4rem 0.75rem; }
       .settings-content { border-radius: 24px; }
@@ -416,9 +496,41 @@
     $('aiSearchCheckbox').addEventListener('change', persistForm);
 
     modal.addEventListener('click', (e) => { if (e.target === modal) toggleSettingsModal(); });
+
+    // ── History pill + panel (shared store, both pages) ──
+    const histTrigger = document.createElement('button');
+    histTrigger.type = 'button';
+    histTrigger.className = 'history-trigger';
+    histTrigger.innerHTML = '🕘 History <span class="history-badge" id="aiHistBadge" style="display:none">0</span>';
+    histTrigger.setAttribute('aria-label', 'View your saved generation history');
+    histTrigger.onclick = toggleHistoryModal;
+    document.body.appendChild(histTrigger);
+
+    const histModal = document.createElement('div');
+    histModal.className = 'settings-modal';
+    histModal.id = 'aiHistoryModal';
+    histModal.setAttribute('role', 'dialog');
+    histModal.setAttribute('aria-modal', 'true');
+    histModal.setAttribute('aria-label', 'Generation history');
+    histModal.innerHTML = `
+      <div class="settings-content">
+        <div class="settings-header">
+          <h3>History</h3>
+          <button type="button" class="settings-close-btn" aria-label="Close" onclick="toggleHistoryModal()">&times;</button>
+        </div>
+        <div class="settings-body" id="aiHistoryBody"></div>
+      </div>
+    `;
+    document.body.appendChild(histModal);
+    histModal.addEventListener('click', (e) => { if (e.target === histModal) toggleHistoryModal(); });
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('show')) toggleSettingsModal();
+      if (e.key !== 'Escape') return;
+      if (modal.classList.contains('show')) toggleSettingsModal();
+      if (histModal.classList.contains('show')) toggleHistoryModal();
     });
+
+    updateHistoryBadge();
   }
 
   // ── Modal open/close ────────────────────────────────────────────────
@@ -611,6 +723,136 @@
     setTimeout(() => (el.style.opacity = '1'), 50);
     setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 2000);
   }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 3b. Local history — one shared store for both tools, kept only in this
+  //     browser (localStorage 'ai_history'). Each entry is tagged by tool and
+  //     keeps the parameters that produced it.
+  // ──────────────────────────────────────────────────────────────────────
+  const HISTORY_KEY = 'ai_history';
+  const HISTORY_MAX = 50;
+  let historyFilter = 'all';
+
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+
+  function loadHistory() {
+    try { const a = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); return Array.isArray(a) ? a : []; }
+    catch { return []; }
+  }
+  function storeHistory(arr) {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(arr.slice(0, HISTORY_MAX)));
+    updateHistoryBadge();
+  }
+  function relTime(ts) {
+    const s = Math.floor((Date.now() - ts) / 1000);
+    if (s < 60) return 'just now';
+    const m = Math.floor(s / 60); if (m < 60) return m + 'm ago';
+    const h = Math.floor(m / 60); if (h < 24) return h + 'h ago';
+    const d = Math.floor(h / 24); if (d < 7) return d + 'd ago';
+    try { return new Date(ts).toLocaleDateString(); } catch { return ''; }
+  }
+  function updateHistoryBadge() {
+    const b = $('aiHistBadge'); if (!b) return;
+    const n = loadHistory().length;
+    b.textContent = n; b.style.display = n ? 'inline-block' : 'none';
+  }
+  const TOOL_META = {
+    charm: { icon: '✨', name: 'Charm School' },
+    flirt: { icon: '💌', name: 'The Flirt Engine' },
+  };
+
+  // Pages call this after a successful generation.
+  // entry = { tool:'charm'|'flirt', vibe:'…', params:{Label:value,…}, text:'…' }
+  window.saveToHistory = function (entry) {
+    if (!entry || !entry.text) return;
+    const arr = loadHistory();
+    arr.unshift({
+      id: 'h' + Date.now() + '_' + Math.floor(Math.random() * 1e6),
+      ts: Date.now(),
+      tool: entry.tool || 'charm',
+      vibe: entry.vibe || '',
+      params: (entry.params && typeof entry.params === 'object') ? entry.params : {},
+      text: String(entry.text),
+    });
+    storeHistory(arr);
+    const m = $('aiHistoryModal');
+    if (m && m.classList.contains('show')) renderHistory();
+  };
+
+  window.toggleHistoryModal = function () {
+    const m = $('aiHistoryModal');
+    if (!m) return;
+    m.classList.toggle('show');
+    if (m.classList.contains('show')) renderHistory();
+  };
+
+  function renderHistory() {
+    const body = $('aiHistoryBody');
+    if (!body) return;
+    const all = loadHistory();
+    const items = historyFilter === 'all' ? all : all.filter((x) => x.tool === historyFilter);
+
+    const chip = (key, label) =>
+      `<button type="button" class="hist-chip ${historyFilter === key ? 'active' : ''}" onclick="aiHistoryFilter('${key}')">${label}</button>`;
+    const controls =
+      `<div class="settings-inline" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div class="hist-filters">
+          ${chip('all', 'All')}${chip('charm', '✨ Charm')}${chip('flirt', '💌 Flirt')}
+        </div>
+        ${all.length ? '<button type="button" class="mini-btn" onclick="aiClearHistory()">🗑 Clear all</button>' : ''}
+      </div>`;
+
+    if (!items.length) {
+      body.innerHTML = controls +
+        `<div class="hist-empty">No history yet ✨<br>Lines you generate are saved here — on this device only.</div>`;
+      return;
+    }
+
+    const list = items.map((it) => {
+      const meta = TOOL_META[it.tool] || TOOL_META.charm;
+      const params = Object.entries(it.params || {})
+        .map(([k, v]) => `<div><b>${esc(k)}:</b> ${esc(v)}</div>`).join('');
+      return `<div class="hist-item" data-tool="${esc(it.tool)}">
+        <div class="hist-meta">
+          <span class="hist-tool">${meta.icon} ${meta.name}</span>
+          ${it.vibe ? `<span class="hist-vibe">${esc(it.vibe)}</span>` : ''}
+          <span class="hist-time">${relTime(it.ts)}</span>
+        </div>
+        ${params ? `<div class="hist-params">${params}</div>` : ''}
+        <div class="hist-text">${esc(it.text)}</div>
+        <div class="hist-actions">
+          <button type="button" class="mini-btn" onclick="aiCopyHistory('${it.id}', this)">📋 Copy</button>
+          <button type="button" class="mini-btn" onclick="aiDeleteHistory('${it.id}')">✕ Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    body.innerHTML = controls + list;
+  }
+
+  window.aiHistoryFilter = function (key) { historyFilter = key; renderHistory(); };
+
+  window.aiCopyHistory = function (id, btn) {
+    const it = loadHistory().find((x) => x.id === id);
+    if (!it) return;
+    navigator.clipboard.writeText(it.text).then(() => {
+      if (btn) { const t = btn.innerHTML; btn.innerHTML = '✓ Copied'; setTimeout(() => (btn.innerHTML = t), 1400); }
+    });
+  };
+
+  window.aiDeleteHistory = function (id) {
+    storeHistory(loadHistory().filter((x) => x.id !== id));
+    renderHistory();
+  };
+
+  window.aiClearHistory = function () {
+    localStorage.removeItem(HISTORY_KEY);
+    updateHistoryBadge();
+    renderHistory();
+    showToast('History cleared 🗑');
+  };
 
   // ──────────────────────────────────────────────────────────────────────
   // 4. The one function the pages call
