@@ -3,7 +3,8 @@
 A small suite of **single-file, client-side** web tools for turning timestamped captions
 and transcripts into clean, readable text — and (in the flagship) analysing that text with
 AI. Everything runs **entirely in the browser**: no build step, no backend, no server-side
-keys. Open an `.html` file and it just works.
+keys. Open an `.html` file and it just works. All three share one polished, responsive
+design with a **light/dark theme**.
 
 - **Lives in:** `R/VTT/` inside the `krishnakanthb13.github.io` repo.
 - **Flagship goes live at:** `https://krishnakanthb13.github.io/R/VTT/` (serves `index.html`).
@@ -17,15 +18,18 @@ keys. Open an `.html` file and it just works.
   - [VTT Text Extractor Pro (`index.html`) — flagship](#vtt-text-extractor-pro-indexhtml--flagship)
   - [WEBVTT v2 (`WEBVTT v2.html`)](#webvtt-v2-webvtt-v2html)
   - [WEBVTT v1 (`WEBVTT v1.html`)](#webvtt-v1-webvtt-v1html)
-- [3. How extraction works (auto-detect)](#3-how-extraction-works-auto-detect)
-- [4. The YouTube fetcher (best-effort)](#4-the-youtube-fetcher-best-effort)
-- [5. The AI assistant (Google Gemini)](#5-the-ai-assistant-google-gemini)
+  - [Feature matrix](#feature-matrix)
+- [3. Shared design & dark mode](#3-shared-design--dark-mode)
+- [4. How extraction works (auto-detect)](#4-how-extraction-works-auto-detect)
+- [5. The YouTube fetcher (best-effort)](#5-the-youtube-fetcher-best-effort)
+- [6. The AI assistant (Google Gemini)](#6-the-ai-assistant-google-gemini)
   - [Models](#models)
+  - [Translate to any language](#translate-to-any-language)
   - [Your API key is saved in your browser](#your-api-key-is-saved-in-your-browser)
-- [6. Privacy & security](#6-privacy--security)
-- [7. Run locally](#7-run-locally)
-- [8. File map](#8-file-map)
-- [9. Version lineage](#9-version-lineage)
+- [7. Privacy & security](#7-privacy--security)
+- [8. Run locally](#8-run-locally)
+- [9. File map](#9-file-map)
+- [10. Version lineage](#10-version-lineage)
 
 ---
 
@@ -37,7 +41,7 @@ extractor up to an AI-assisted tool that also pulls captions straight from YouTu
 
 ```
 R/VTT/
-├── index.html        # ⭐ VTT Text Extractor Pro (flagship — VTT + transcripts + AI)
+├── index.html        # ⭐ VTT Text Extractor Pro (flagship — VTT + transcripts + YouTube + AI)
 ├── WEBVTT v2.html    # AI-assisted extractor (no YouTube fetch)
 ├── WEBVTT v1.html    # Minimal VTT → text extractor
 └── README.md         # This file
@@ -57,33 +61,73 @@ The full-featured tool, served at the folder root.
 * **Input — two formats, auto-detected:** paste a **`.vtt` caption file** *or* a **plain
   timestamped transcript** (e.g. a YouTube "Show transcript" copy, or notes with `[1:23]` /
   `(2:00:05)` stamps). The tool detects which and handles both — see
-  [§3](#3-how-extraction-works-auto-detect).
-* **Get input fast:** **load a sample**, **clear**, or **fetch from a YouTube URL**
-  (see [§4](#4-the-youtube-fetcher-best-effort)).
+  [§4](#4-how-extraction-works-auto-detect).
+* **Load a file:** **upload** or **drag-and-drop** a `.vtt` / `.srt` / `.txt` file straight
+  onto the input box (it auto-extracts on drop).
+* **Get input fast:** also **load a sample**, **clear**, or **fetch from a YouTube URL**
+  (see [§5](#5-the-youtube-fetcher-best-effort)).
 * **Extract:** strips the `WEBVTT` header, `-->` cue timings, `align:`/`position:` metadata,
   inline `<00:00:00.000>` timestamps and all `<c …>` styling tags, then de-duplicates
   repeated lines.
-* **Output:** clean joined text plus live **word / character / line** stats.
-* **Export:** **Copy**, **Download TXT**, or **Download SRT** (re-pairs each line with its
-  cue timing; for transcript input it synthesises sensible cue ranges).
-* **AI assistant (optional):** bring a free Google Gemini key and run Summarize, Translate,
-  Keywords, Sentiment, Bullet points, Questions, or a **custom command** over the extracted
-  text. See [§5](#5-the-ai-assistant-google-gemini). The key is **remembered in your
-  browser** across refreshes.
+* **Output:** clean joined text plus live **word / character / line** stats. A **"keep
+  timestamps"** toggle switches the output (and TXT download) to `[m:ss] line` form.
+* **Export:** **Copy**, **Download TXT** (honours the timestamp toggle), or **Download SRT**
+  (re-pairs each line with its cue timing; for transcript input it synthesises sensible cue
+  ranges).
+* **AI assistant (optional):** bring a free Google Gemini key and run Summarize, **Translate
+  (to any of 12 languages)**, Keywords, Sentiment, Bullet points, Questions, or a **custom
+  command** over the extracted text. See [§6](#6-the-ai-assistant-google-gemini). The key,
+  model, and translate language are **remembered in your browser** across refreshes.
 
 ### WEBVTT v2 (`WEBVTT v2.html`)
-Everything above **except** the YouTube fetcher and the transcript-format auto-detect (it
-expects real `.vtt` input). Same robust extraction, stats, TXT/SRT export, and the same
-up-to-date Gemini AI assistant with browser-saved key. Pick this for a slightly lighter page.
+A lighter AI-assisted extractor. Same robust VTT extraction, live stats, TXT/SRT export, and
+the same up-to-date Gemini AI assistant with browser-saved key. It does **not** include the
+YouTube fetcher, transcript auto-detect, file upload, the keep-timestamps toggle, or the
+translate language picker (its **Translate** command targets Spanish). Expects real `.vtt`
+input. Pick this for a focused, slightly lighter page.
 
 ### WEBVTT v1 (`WEBVTT v1.html`)
 A minimal, no-AI extractor: paste VTT → get clean text → copy. Good for a quick strip with
 zero setup. (Its tag-cleaning was hardened so coloured caption tags like `<c.colorE5E5E5>`
 no longer leak into the output.)
 
+### Feature matrix
+
+| Capability | `index.html` (flagship) | `WEBVTT v2` | `WEBVTT v1` |
+| :--- | :---: | :---: | :---: |
+| VTT extraction + de-dupe | ✅ | ✅ | ✅ |
+| Transcript auto-detect (non-`.vtt`) | ✅ | — | — |
+| YouTube URL fetch | ✅ | — | — |
+| File upload + drag-and-drop | ✅ | — | — |
+| Word / char / line stats | ✅ | ✅ | — |
+| Copy / Download TXT | ✅ | ✅ | Copy only |
+| Download SRT | ✅ | ✅ | — |
+| Keep-timestamps toggle | ✅ | — | — |
+| Gemini AI commands | ✅ | ✅ | — |
+| Translate language picker | ✅ (12) | Spanish | — |
+| Saved API key + model | ✅ | ✅ | — |
+| Light / dark theme | ✅ | ✅ | ✅ |
+| Non-blocking toasts | ✅ | ✅ | ✅ |
+
 ---
 
-## 3. How extraction works (auto-detect)
+## 3. Shared design & dark mode
+
+All three pages share one design system: a gradient backdrop, frosted cards, gradient
+buttons, and a consistent spacing/typography scale. Colours are driven by **CSS custom
+properties**, so each page ships a **light and a dark theme**.
+
+- A floating **🌙 / ☀️ toggle** (top-right) switches themes; the choice is saved in
+  `localStorage` (`vtt_theme`) and shared across all three tools.
+- On first visit the theme follows your OS (`prefers-color-scheme`); a tiny pre-paint script
+  in `<head>` applies it **before first paint**, so there's no flash of the wrong theme.
+- Confirmations use **non-blocking toasts** instead of intrusive `alert()` popups.
+- Layouts are **responsive** — the two-column grid collapses to one column, and button rows
+  reflow, on narrow screens.
+
+---
+
+## 4. How extraction works (auto-detect)
 
 The flagship inspects the input and picks one of two paths:
 
@@ -100,12 +144,13 @@ and synthesises `start --> end` ranges (each line ends where the next begins) so
 still works**. This is what a YouTube transcript-panel copy produces — the kind of input the
 VTT-only tools return empty on.
 
-Both paths keep each surviving line paired with a timing so the tool can rebuild an **SRT**
-file on export. (`WEBVTT v1`/`v2` implement VTT mode only.)
+Both paths keep each surviving line paired with a timing, so the tool can rebuild an **SRT**
+file on export and offer the **keep-timestamps** view. (`WEBVTT v1`/`v2` implement VTT mode
+only.)
 
 ---
 
-## 4. The YouTube fetcher (best-effort)
+## 5. The YouTube fetcher (best-effort)
 
 The flagship's **▶️ Fetch VTT** accepts a full YouTube URL (`watch?v=`, `youtu.be/`,
 `/embed/`, `/shorts/`, `/live/`) or a bare 11-character video ID, then tries to pull the
@@ -116,17 +161,17 @@ video's captions and auto-extract them.
 > fetcher routes through public CORS proxies (`allorigins`, `corsproxy.io`) and clearly
 > reports when it can't retrieve anything — in which case open the video, copy its captions
 > (or its transcript panel), and paste them into the input box. The manual paste path always
-> works, and now accepts transcript-panel text too.
+> works, and accepts transcript-panel text too.
 
 It first asks YouTube which caption tracks exist, prefers an English track, requests it as
 WebVTT, and falls back to plain English auto-captions if needed.
 
 ---
 
-## 5. The AI assistant (Google Gemini)
+## 6. The AI assistant (Google Gemini)
 
-The Pro and v2 tools include an optional assistant that calls the **Google Gemini API**
-directly from your browser. You provide your own key (a free one works) — get it from
+The flagship and `WEBVTT v2` include an optional assistant that calls the **Google Gemini
+API** directly from your browser. You provide your own key (a free one works) — get it from
 [Google AI Studio](https://aistudio.google.com/app/api-keys).
 
 One-click commands: **Summarize · Translate · Keywords · Sentiment · Bullet points ·
@@ -150,17 +195,25 @@ first (verified June 2026):
 > working without code edits as new models ship. **Pro models are intentionally excluded** —
 > they left the free tier in April 2026.
 
+### Translate to any language
+
+In the **flagship**, a **🌐 Translate to:** picker offers 12 target languages (Spanish,
+French, German, Italian, Portuguese, Hindi, Arabic, Mandarin Chinese, Japanese, Korean,
+Russian, English); the **Translate** command uses your choice, which is remembered across
+refreshes. In `WEBVTT v2`, Translate targets **Spanish**.
+
 ### Your API key is saved in your browser
 
-Both tools **remember your API key (and chosen model) in `localStorage`** — enter it once and
-it's restored automatically on every refresh, on that device only. It is **never uploaded**:
-the key is read from the page and sent only to Google's API when you run a command. A
-**🗑️ Forget key** link next to the field clears it instantly. Because both tools use the same
-storage key, a key entered in one is available in the other on the same browser.
+The flagship and `v2` **remember your API key and chosen model in `localStorage`** (the
+flagship also remembers the translate language) — enter it once and it's restored
+automatically on every refresh, on that device only. It is **never uploaded**: the key is
+read from the page and sent only to Google's API when you run a command. A **🗑️ Forget key**
+link next to the field clears it instantly. Because both tools use the same storage key, a
+key entered in one is available in the other on the same browser.
 
 ---
 
-## 6. Privacy & security
+## 7. Privacy & security
 
 - **No backend.** Nothing is uploaded or logged; all processing happens in your browser.
 - **Your key stays in your browser.** The Gemini key lives only in this browser's
@@ -172,7 +225,7 @@ storage key, a key entered in one is available in the other on the same browser.
 
 ---
 
-## 7. Run locally
+## 8. Run locally
 
 No install — they're static files. **Double-click any `.html`** and it opens straight from
 disk. For a served preview that mirrors GitHub Pages:
@@ -189,19 +242,22 @@ Then open `http://localhost:8000/R/VTT/` (flagship) or one of the versioned file
 
 ---
 
-## 8. File map
+## 9. File map
 
 - `index.html` — the flagship **VTT Text Extractor Pro** (promoted from the old
-  `WEBVTT v3 - IP.html`). Format auto-detect (VTT + transcripts), YouTube fetch, stats,
-  TXT/SRT export, and the Gemini AI assistant with a browser-saved key. Named `index.html`
-  so `…github.io/R/VTT/` serves it automatically.
-- `WEBVTT v2.html` — AI-assisted VTT extractor without the YouTube fetcher.
-- `WEBVTT v1.html` — minimal VTT → text extractor (no AI).
+  `WEBVTT v3 - IP.html`). Format auto-detect (VTT + transcripts), YouTube fetch, file
+  upload/drag-drop, stats, TXT/SRT export, keep-timestamps toggle, light/dark theme, and the
+  Gemini AI assistant (with a 12-language Translate picker and a browser-saved key). Named
+  `index.html` so `…github.io/R/VTT/` serves it automatically.
+- `WEBVTT v2.html` — AI-assisted VTT extractor (stats, TXT/SRT, Gemini, light/dark theme)
+  without the YouTube fetcher, transcript auto-detect, file upload, keep-timestamps toggle, or
+  translate picker.
+- `WEBVTT v1.html` — minimal VTT → text extractor (no AI), with the light/dark theme.
 - `README.md` — this file.
 
 ---
 
-## 9. Version lineage
+## 10. Version lineage
 
 | Stage | File | What it added |
 | :--- | :--- | :--- |
@@ -209,7 +265,9 @@ Then open `http://localhost:8000/R/VTT/` (flagship) or one of the versioned file
 | v2 | `WEBVTT v2.html` | "Pro" UI, stats, TXT/SRT export, Gemini AI assistant. |
 | v3 → flagship | `index.html` | YouTube fetcher; **transcript auto-detect** (absorbing the old standalone Transcript Converter); browser-saved API key. Promoted to the folder default. |
 
-### Recent hardening (2026-06)
+### Recent work (2026-06)
+
+**`v0.0.21` — overhaul & hardening**
 - Implemented the previously-missing `fetchYouTubeVTT()` (the button used to throw) with a
   robust video-ID parser and graceful CORS-proxy fallbacks.
 - Updated all Gemini model lists to current **free-tier, non-Pro** IDs and added the
@@ -217,11 +275,25 @@ Then open `http://localhost:8000/R/VTT/` (flagship) or one of the versioned file
 - **Folded the standalone "Transcript Converter" into the flagship** via format auto-detect,
   then removed the redundant file.
 - **Persist the Gemini API key + model in `localStorage`** (with a *Forget key* control) in
-  both AI tools, so they survive a refresh.
-- Replaced blocking `alert()` popups with non-blocking toasts in the flagship (UX).
-- Hardened `WEBVTT v1`'s tag-stripping so coloured caption tags no longer leak.
-- Restored the author/footer credit and the Google AI Studio key link on the flagship.
-- Promoted v3 to `index.html` as the canonical tool.
+  both AI tools.
+- Replaced blocking `alert()` popups with non-blocking toasts in the flagship.
+- Hardened `WEBVTT v1`'s tag-stripping; fixed SRT export leaking `align:`/`position:` cue
+  settings into the time line.
+- Restored the author/footer credit and the Google AI Studio key link; promoted v3 to
+  `index.html`.
+
+**`v0.0.22` — flagship features**
+- **File upload + drag-and-drop** of `.vtt`/`.srt`/`.txt` onto the input.
+- **Translate language picker** (12 languages, persisted) — replaces the hardcoded Spanish.
+- **Keep-timestamps toggle** — render output & TXT export as `[m:ss]` lines; stats follow the
+  view.
+- **Light/dark theme toggle** (system-aware, persisted, no-flash) and a move to CSS custom
+  properties.
+
+**`v0.0.23` — world-class polish**
+- Brought **all three pages onto one cohesive design system**: themed cards, buttons,
+  spacing, and the light/dark theme + toasts now ship in `v1` and `v2` too.
+- Refined button placement, padding, alignment, and responsive breakpoints across the trio.
 
 ---
 

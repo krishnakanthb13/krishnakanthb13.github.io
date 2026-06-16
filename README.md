@@ -41,7 +41,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Amplenote Hub:**
 	- [YouTube Video Hub](https://krishnakanthb13.github.io/A/aa/): Gallery of my YouTube channels.
 	- [Amplenote Plugins Hub](https://krishnakanthb13.github.io/A/): Gallery of my Amplenote plugins.
-- **VTT Files** ([details](https://krishnakanthb13.github.io/R/VTT/README.md)):
+- **VTT Files** ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/R/VTT/README.md)):
 	- [VTT Text Extractor Pro](https://krishnakanthb13.github.io/R/VTT/): Flagship tool — fetch YouTube captions, auto-detect VTT or plain transcripts, extract clean text, export TXT/SRT, and run Google Gemini AI over the result (API key saved in your browser).
 	- [WEBVTT v2](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v2.html): AI-assisted VTT extractor with live stats and TXT/SRT export (no YouTube fetch).
 	- [WEBVTT v1](https://krishnakanthb13.github.io/R/VTT/WEBVTT%20v1.html): Minimal VTT-to-text extractor — paste, extract, copy. Zero setup.
