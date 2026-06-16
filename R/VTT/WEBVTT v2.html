@@ -33,6 +33,7 @@
             --ai-out-bg: #f0f9ff;
             --ai-out-border: #bae6fd;
             --on-grad: #ffffff;
+            color-scheme: light;
         }
 
         html[data-theme="dark"] {
@@ -51,6 +52,7 @@
             --ai-out-bg: #0c2438;
             --ai-out-border: #1e3a5f;
             --on-grad: #f1f5f9;
+            color-scheme: dark;
         }
 
         * {
@@ -149,7 +151,13 @@
             margin-bottom: 1rem;
             resize: vertical;
             transition: all 0.25s ease;
+            scrollbar-width: thin;
+            scrollbar-color: var(--heading) transparent;
         }
+
+        textarea::-webkit-scrollbar { width: 8px; }
+        textarea::-webkit-scrollbar-track { background: transparent; }
+        textarea::-webkit-scrollbar-thumb { background: var(--heading); border-radius: 10px; }
 
         textarea:focus {
             outline: none;
@@ -164,9 +172,16 @@
         }
 
         .button-group {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.75rem;
+        }
+
+        /* Equal-width buttons that grow to fill the row, never clip their label,
+           and wrap as whole units when the row runs out of space. */
+        .button-group > button {
+            flex: 1 1 150px;
+            white-space: nowrap;
         }
 
         button {
@@ -359,6 +374,7 @@
             font-size: 0.85rem;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+            white-space: nowrap;
         }
 
         #geminiOutput {
@@ -417,7 +433,6 @@
         @media (max-width: 768px) {
             .main-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 2rem; }
-            .button-group { grid-template-columns: 1fr 1fr; }
             .command-grid { grid-template-columns: 1fr; }
             .ai-action-group { grid-template-columns: 1fr; }
         }

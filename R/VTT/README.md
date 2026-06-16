@@ -122,6 +122,10 @@ properties**, so each page ships a **light and a dark theme**.
 - On first visit the theme follows your OS (`prefers-color-scheme`); a tiny pre-paint script
   in `<head>` applies it **before first paint**, so there's no flash of the wrong theme.
 - Confirmations use **non-blocking toasts** instead of intrusive `alert()` popups.
+- **Scrollbars and native controls follow the theme** (via `color-scheme` plus themed
+  textarea/output scrollbars), so nothing stays stark-white in dark mode.
+- **Action buttons** use an equal-width flex layout (`flex: 1 1 150px`) with `nowrap`, so a
+  row of buttons stays uniform and never clips its label — it wraps as whole units instead.
 - Layouts are **responsive** — the two-column grid collapses to one column, and button rows
   reflow, on narrow screens.
 
