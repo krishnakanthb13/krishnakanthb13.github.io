@@ -146,8 +146,8 @@
                 // Clean the line of timestamps and tags
                 let cleanLine = line
                     .replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '')
-                    .replace(/<\/c>/g, '')
-                    .replace(/<c>/g, '')
+                    .replace(/<\/?c[^>]*>/g, '')
+                    .replace(/<[^>]+>/g, '')
                     .trim();
                 
                 if (cleanLine) {

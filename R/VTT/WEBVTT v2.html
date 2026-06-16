@@ -419,18 +419,25 @@ This is a subtitle example"></textarea>
 
             <div class="card gemini-section">
                 <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys" target="_blank">Google AI Studio</a></h2>
-                <input 
-                    type="password" 
-                    id="apiKey" 
-                    class="api-input" 
+                <input
+                    type="password"
+                    id="apiKey"
+                    class="api-input"
+                    style="margin-bottom: 0.4rem;"
                     placeholder="Enter your Google Gemini API Key (get it from https://aistudio.google.com/app/api-keys)"
                 >
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-size: 0.8rem; color: #64748b;">
+                    <span>🔒 Saved only in <strong>this browser</strong> (localStorage) — never uploaded. Restored on refresh.</span>
+                    <a href="#" onclick="forgetApiKey(); return false;" style="color: #ef4444; white-space: nowrap; font-weight: 600;">🗑️ Forget key</a>
+                </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #475569;">Select Model:</label>
                     <select id="modelSelect" class="api-input" style="cursor: pointer;">
-                        <option value="gemini-2.5-flash">Gemini 2.5 Flash (Faster responses)</option>
-                        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (Faster responses, optimized)</option>
-                        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Latest, most capable)</option>
+                        <option value="gemini-flash-latest">Gemini Flash (Latest · auto-updates — recommended)</option>
+                        <option value="gemini-flash-lite-latest">Gemini Flash-Lite (Latest · auto-updates, fastest)</option>
+                        <option value="gemini-3.5-flash">Gemini 3.5 Flash (newest GA, most capable free)</option>
+                        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite (highest free-tier limits)</option>
+                        <option value="gemini-2.5-flash">Gemini 2.5 Flash (legacy fallback)</option>
                     </select>
                 </div>
                 <div class="command-grid">
@@ -469,6 +476,38 @@ This is a subtitle example"></textarea>
     <script>
         let extractedText = '';
         let vttData = [];
+
+        // --- Persist the Gemini API key & model in THIS browser only (localStorage) -
+        // Nothing is uploaded: the key is read from here and sent only to Google's API
+        // when you run a command. It is restored on refresh and stays on this device.
+        const STORE_KEY = 'vtt_gemini_api_key';
+        const STORE_MODEL = 'vtt_gemini_model';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const keyEl = document.getElementById('apiKey');
+            const modelEl = document.getElementById('modelSelect');
+
+            const savedKey = localStorage.getItem(STORE_KEY);
+            if (savedKey) keyEl.value = savedKey;
+
+            const savedModel = localStorage.getItem(STORE_MODEL);
+            if (savedModel && [...modelEl.options].some(o => o.value === savedModel)) {
+                modelEl.value = savedModel;
+            }
+
+            keyEl.addEventListener('input', () => {
+                const v = keyEl.value.trim();
+                if (v) localStorage.setItem(STORE_KEY, v);
+                else localStorage.removeItem(STORE_KEY);
+            });
+            modelEl.addEventListener('change', () => localStorage.setItem(STORE_MODEL, modelEl.value));
+        });
+
+        function forgetApiKey() {
+            localStorage.removeItem(STORE_KEY);
+            document.getElementById('apiKey').value = '';
+            alert('🔑 Saved key removed from this browser.');
+        }
 
         function copyAIText() {
             const output = document.getElementById('geminiOutput');
@@ -526,10 +565,13 @@ This is a subtitle example"></textarea>
                 }
                 
                 if (line.includes('-->')) {
-                    currentTime = line.trim();
+                    // Keep only the "start --> end" range, dropping cue settings
+                    // (align:, position:, …) so SRT export stays spec-correct.
+                    const m = line.match(/(\d{1,2}:\d{2}(?::\d{2})?\.\d{3}\s*-->\s*\d{1,2}:\d{2}(?::\d{2})?\.\d{3})/);
+                    currentTime = m ? m[1] : line.trim();
                     continue;
                 }
-                
+
                 if (line.includes('align:') || line.includes('position:')) {
                     continue;
                 }

@@ -369,7 +369,7 @@
     <div class="container">
         <div class="header">
             <h1>📝 VTT Text Extractor Pro</h1>
-            <p>Advanced VTT subtitle processing with AI-powered features</p>
+            <p>Advanced VTT &amp; transcript processing with AI-powered features</p>
         </div>
 
         <div class="main-grid">
@@ -390,17 +390,18 @@
             </div>
 
             <div class="card">
-                <h2>📥 Input VTT</h2>
-                <textarea id="input" placeholder="Paste your VTT content here...
+                <h2>📥 Input VTT or Transcript</h2>
+                <textarea id="input" placeholder="Paste a VTT caption file OR a plain timestamped transcript (e.g. a YouTube 'Show transcript' copy). The format is detected automatically.
 
-Example:
+Example (VTT):
 WEBVTT
 
 00:00:00.000 --> 00:00:02.000
 Hello, welcome to the video
 
-00:00:02.000 --> 00:00:04.000
-This is a subtitle example"></textarea>
+Example (transcript):
+0:00 Hello, welcome to the video
+0:05 This is the second line"></textarea>
                 <div class="button-group">
                     <button onclick="extract()">🔄 Extract Text</button>
                     <button onclick="clearInput()" class="danger-btn">🗑️ Clear</button>
@@ -433,19 +434,26 @@ This is a subtitle example"></textarea>
             </div>
 
             <div class="card gemini-section">
-                <h2>🤖 AI Assistant (Google Gemini)</h2>
-                <input 
-                    type="password" 
-                    id="apiKey" 
-                    class="api-input" 
-                    placeholder="Enter your Google Gemini API Key (get it from https://makersuite.google.com/app/apikey)"
+                <h2>🤖 AI Assistant (Google Gemini) <a href="https://aistudio.google.com/app/api-keys" target="_blank" style="font-size: 0.85rem; color: #6366f1;">Google AI Studio</a></h2>
+                <input
+                    type="password"
+                    id="apiKey"
+                    class="api-input"
+                    style="margin-bottom: 0.4rem;"
+                    placeholder="Enter your Google Gemini API Key (get it from https://aistudio.google.com/app/api-keys)"
                 >
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-size: 0.8rem; color: #64748b;">
+                    <span>🔒 Saved only in <strong>this browser</strong> (localStorage) — never uploaded. Restored on refresh.</span>
+                    <a href="#" onclick="forgetApiKey(); return false;" style="color: #ef4444; white-space: nowrap; font-weight: 600;">🗑️ Forget key</a>
+                </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #475569;">Select Model:</label>
                     <select id="modelSelect" class="api-input" style="cursor: pointer;">
-                        <option value="gemini-pro">Gemini Pro (Best for text)</option>
-                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Latest, most capable)</option>
-                        <option value="gemini-1.5-flash">Gemini 1.5 Flash (Faster responses)</option>
+                        <option value="gemini-flash-latest">Gemini Flash (Latest · auto-updates — recommended)</option>
+                        <option value="gemini-flash-lite-latest">Gemini Flash-Lite (Latest · auto-updates, fastest)</option>
+                        <option value="gemini-3.5-flash">Gemini 3.5 Flash (newest GA, most capable free)</option>
+                        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite (highest free-tier limits)</option>
+                        <option value="gemini-2.5-flash">Gemini 2.5 Flash (legacy fallback)</option>
                     </select>
                 </div>
                 <div class="command-grid">
@@ -477,7 +485,7 @@ This is a subtitle example"></textarea>
         </div>
 
         <div class="footer">
-            Last Modified: October 19, 2025 | Made with ❤️ for subtitle enthusiasts
+            Last Modified: 2025-10-19 | Made with ❤️ for subtitle enthusiasts | Made By Krishna Kanth B <a href="https://krishnakanthb13.github.io/" target="_blank" style="color: white; text-decoration: underline;">BKK©</a>
         </div>
     </div>
 
@@ -485,18 +493,71 @@ This is a subtitle example"></textarea>
         let extractedText = '';
         let vttData = [];
 
+        // --- Lightweight non-blocking toast (replaces intrusive alert popups) -------
+        function toast(msg) {
+            let t = document.getElementById('toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast';
+                t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:0.75rem 1.25rem;border-radius:12px;font-size:0.9rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.25);opacity:0;transition:all 0.3s ease;z-index:1000;pointer-events:none;max-width:90vw;text-align:center;';
+                document.body.appendChild(t);
+            }
+            t.textContent = msg;
+            requestAnimationFrame(() => {
+                t.style.opacity = '1';
+                t.style.transform = 'translateX(-50%) translateY(0)';
+            });
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translateX(-50%) translateY(20px)';
+            }, 2200);
+        }
+
+        // --- Persist the Gemini API key & model in THIS browser only (localStorage) -
+        // Nothing is uploaded: the key is read from here and sent only to Google's API
+        // when you run a command. It is restored on refresh and stays on this device.
+        const STORE_KEY = 'vtt_gemini_api_key';
+        const STORE_MODEL = 'vtt_gemini_model';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const keyEl = document.getElementById('apiKey');
+            const modelEl = document.getElementById('modelSelect');
+
+            const savedKey = localStorage.getItem(STORE_KEY);
+            if (savedKey) keyEl.value = savedKey;
+
+            const savedModel = localStorage.getItem(STORE_MODEL);
+            if (savedModel && [...modelEl.options].some(o => o.value === savedModel)) {
+                modelEl.value = savedModel;
+            }
+
+            keyEl.addEventListener('input', () => {
+                const v = keyEl.value.trim();
+                if (v) localStorage.setItem(STORE_KEY, v);
+                else localStorage.removeItem(STORE_KEY);
+            });
+            modelEl.addEventListener('change', () => localStorage.setItem(STORE_MODEL, modelEl.value));
+        });
+
+        function forgetApiKey() {
+            localStorage.removeItem(STORE_KEY);
+            document.getElementById('apiKey').value = '';
+            toast('🔑 Saved key removed from this browser.');
+        }
+
         function copyAIText() {
             const output = document.getElementById('geminiOutput');
             const text = output.textContent;
             
             if (!text || text === '') {
-                alert('⚠️ No AI output to copy!');
+                toast('⚠️ No AI output to copy!');
                 return;
             }
             
             navigator.clipboard.writeText(text)
                 .then(() => {
-                    alert('✅ AI output copied to clipboard!');
+                    toast('✅ AI output copied to clipboard!');
                 });
         }
 
@@ -505,7 +566,7 @@ This is a subtitle example"></textarea>
             const text = output.textContent;
             
             if (!text || text === '') {
-                alert('⚠️ No AI output to download!');
+                toast('⚠️ No AI output to download!');
                 return;
             }
             
@@ -524,38 +585,54 @@ This is a subtitle example"></textarea>
 
         function extract() {
             const input = document.getElementById('input').value;
+            // Auto-detect the input format. Real VTT/SRT caption files contain "-->"
+            // cue arrows; anything else (a YouTube "Show transcript" copy, meeting
+            // notes, Otter exports, etc.) is treated as inline-timestamped prose.
+            if (input.includes('-->')) {
+                extractFromVTT(input);
+            } else {
+                extractFromTranscript(input);
+            }
+            document.getElementById('output').textContent = extractedText || 'Your extracted text will appear here...';
+            updateStats();
+        }
+
+        function extractFromVTT(input) {
             const lines = input.split('\n');
             let result = [];
             vttData = [];
             let isHeader = true;
             let currentTime = '';
-            
+
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
-                
+
                 if (isHeader) {
                     if (line.trim() === '') {
                         isHeader = false;
                     }
                     continue;
                 }
-                
+
                 if (line.includes('-->')) {
-                    currentTime = line.trim();
+                    // Keep only the "start --> end" range, dropping cue settings
+                    // (align:, position:, …) so SRT export stays spec-correct.
+                    const m = line.match(/(\d{1,2}:\d{2}(?::\d{2})?\.\d{3}\s*-->\s*\d{1,2}:\d{2}(?::\d{2})?\.\d{3})/);
+                    currentTime = m ? m[1] : line.trim();
                     continue;
                 }
-                
+
                 if (line.includes('align:') || line.includes('position:')) {
                     continue;
                 }
-                
+
                 let cleanLine = line
                     .replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '')
                     .replace(/<\/c>/g, '')
                     .replace(/<c[^>]*>/g, '')
                     .replace(/<[^>]+>/g, '')
                     .trim();
-                
+
                 if (cleanLine && cleanLine !== '') {
                     if (!result.includes(cleanLine)) {
                         result.push(cleanLine);
@@ -563,10 +640,63 @@ This is a subtitle example"></textarea>
                     }
                 }
             }
-            
+
             extractedText = result.join(' ');
-            document.getElementById('output').textContent = extractedText;
-            updateStats();
+        }
+
+        // Handles inline-timestamped transcripts that are NOT .vtt files — e.g. a
+        // YouTube "Show transcript" copy ("0:00 Welcome…") or notes with [1:23] /
+        // (2:00:05) stamps. Strips the leading stamp from each line and de-dupes.
+        function extractFromTranscript(input) {
+            const lines = input.split('\n');
+            const tsRe = /^\s*[\[\(]?(\d{1,2}:\d{2}(?::\d{2})?)[\]\)]?\s*/;
+            let result = [];
+            vttData = [];
+
+            for (const line of lines) {
+                if (line.trim() === '') continue;
+                const match = line.match(tsRe);
+                const stamp = match ? match[1] : '';
+                const cleanLine = line.replace(tsRe, '').trim();
+                if (cleanLine && !result.includes(cleanLine)) {
+                    result.push(cleanLine);
+                    vttData.push({ time: '', text: cleanLine, _stamp: stamp });
+                }
+            }
+
+            // Synthesise VTT-style "start --> end" ranges so SRT export still works:
+            // each line ends where the next begins (the last line gets +2s).
+            for (let i = 0; i < vttData.length; i++) {
+                const start = stampToClock(vttData[i]._stamp);
+                if (start) {
+                    const next = (i + 1 < vttData.length) ? stampToClock(vttData[i + 1]._stamp) : null;
+                    const end = next || addSecondsToClock(start, 2);
+                    vttData[i].time = `${start} --> ${end}`;
+                }
+                delete vttData[i]._stamp;
+            }
+
+            extractedText = result.join(' ');
+        }
+
+        // "0:00" / "1:23" / "1:02:03" -> "HH:MM:SS.000" (null if unparseable).
+        function stampToClock(stamp) {
+            if (!stamp) return null;
+            const parts = stamp.split(':').map(n => parseInt(n, 10));
+            if (parts.some(isNaN)) return null;
+            let h = 0, m = 0, s = 0;
+            if (parts.length === 3) { [h, m, s] = parts; }
+            else if (parts.length === 2) { [m, s] = parts; }
+            else return null;
+            const z = n => String(n).padStart(2, '0');
+            return `${z(h)}:${z(m)}:${z(s)}.000`;
+        }
+
+        function addSecondsToClock(clock, secs) {
+            let [h, m, s] = clock.split('.')[0].split(':').map(n => parseInt(n, 10));
+            s += secs; m += Math.floor(s / 60); s %= 60; h += Math.floor(m / 60); m %= 60;
+            const z = n => String(n).padStart(2, '0');
+            return `${z(h)}:${z(m)}:${z(s)}.000`;
         }
 
         function updateStats() {
@@ -583,13 +713,13 @@ This is a subtitle example"></textarea>
             const output = document.getElementById('output');
             navigator.clipboard.writeText(output.textContent)
                 .then(() => {
-                    alert('✅ Text copied to clipboard!');
+                    toast('✅ Text copied to clipboard!');
                 });
         }
 
         function downloadTxt() {
             if (!extractedText) {
-                alert('⚠️ Please extract text first!');
+                toast('⚠️ Please extract text first!');
                 return;
             }
             const blob = new Blob([extractedText], { type: 'text/plain' });
@@ -603,7 +733,7 @@ This is a subtitle example"></textarea>
 
         function downloadSRT() {
             if (vttData.length === 0) {
-                alert('⚠️ Please extract text first!');
+                toast('⚠️ Please extract text first!');
                 return;
             }
             
@@ -649,17 +779,111 @@ It's used for subtitles and captions`;
             extract();
         }
 
+        // ---- YouTube caption fetcher -------------------------------------------------
+        // A purely client-side page cannot call youtube.com directly (CORS), and YouTube
+        // increasingly blocks anonymous caption requests. This is therefore best-effort:
+        // it tries a couple of public CORS proxies and clearly reports when it can't.
+
+        function extractVideoId(url) {
+            if (!url) return null;
+            url = url.trim();
+            // Already a bare 11-char video id
+            if (/^[A-Za-z0-9_-]{11}$/.test(url)) return url;
+            const patterns = [
+                /[?&]v=([A-Za-z0-9_-]{11})/,
+                /youtu\.be\/([A-Za-z0-9_-]{11})/,
+                /\/embed\/([A-Za-z0-9_-]{11})/,
+                /\/shorts\/([A-Za-z0-9_-]{11})/,
+                /\/live\/([A-Za-z0-9_-]{11})/
+            ];
+            for (const p of patterns) {
+                const m = url.match(p);
+                if (m) return m[1];
+            }
+            return null;
+        }
+
+        // Try each CORS proxy in turn; return the first non-empty body, else null.
+        async function tryProxies(targetUrl) {
+            const proxies = [
+                t => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(t),
+                t => 'https://corsproxy.io/?url=' + encodeURIComponent(t)
+            ];
+            for (const wrap of proxies) {
+                try {
+                    const res = await fetch(wrap(targetUrl));
+                    if (!res.ok) continue;
+                    const text = await res.text();
+                    if (text && text.trim()) return text;
+                } catch (e) {
+                    // proxy unreachable — try the next one
+                }
+            }
+            return null;
+        }
+
+        async function fetchYouTubeVTT() {
+            const status = document.getElementById('fetchStatus');
+            const rawUrl = document.getElementById('youtubeUrl').value;
+            const videoId = extractVideoId(rawUrl);
+
+            if (!videoId) {
+                status.textContent = '❌ Could not find a valid YouTube video ID in that URL.';
+                return;
+            }
+
+            status.textContent = '⏳ Fetching captions… (best-effort; YouTube may block anonymous requests)';
+
+            try {
+                // 1) Discover which caption tracks the video exposes.
+                let lang = 'en', kind = '';
+                const listXml = await tryProxies(`https://www.youtube.com/api/timedtext?type=list&v=${videoId}`);
+                if (listXml) {
+                    const doc = new DOMParser().parseFromString(listXml, 'text/xml');
+                    const tracks = [...doc.querySelectorAll('track')];
+                    if (tracks.length) {
+                        // Prefer an English track, otherwise the first available one.
+                        const pick = tracks.find(t => (t.getAttribute('lang_code') || '').startsWith('en')) || tracks[0];
+                        lang = pick.getAttribute('lang_code') || 'en';
+                        kind = pick.getAttribute('kind') || '';
+                    }
+                }
+
+                // 2) Request that track as WebVTT.
+                let trackUrl = `https://www.youtube.com/api/timedtext?lang=${encodeURIComponent(lang)}&v=${videoId}&fmt=vtt`;
+                if (kind) trackUrl += `&kind=${encodeURIComponent(kind)}`;
+                let vtt = await tryProxies(trackUrl);
+
+                // 3) Fallback: plain English auto-captions, no track listing.
+                if (!vtt || !vtt.includes('-->')) {
+                    vtt = await tryProxies(`https://www.youtube.com/api/timedtext?lang=en&v=${videoId}&fmt=vtt`);
+                }
+
+                if (vtt && vtt.includes('-->')) {
+                    document.getElementById('input').value = vtt;
+                    extract();
+                    status.textContent = `✅ Loaded ${lang} captions for ${videoId} and extracted the text below.`;
+                    return;
+                }
+
+                status.textContent = '⚠️ No captions retrieved — the video may have none, or YouTube blocked the request. Open the video, copy its VTT, and paste it below.';
+            } catch (err) {
+                status.textContent = `❌ Fetch failed: ${err.message}. Paste the VTT manually below.`;
+            }
+        }
+        // ------------------------------------------------------------------------------
+
         async function geminiCommand(type) {
             const apiKey = document.getElementById('apiKey').value.trim();
             const selectedModel = document.getElementById('modelSelect').value;
             
             if (!apiKey) {
-                alert('⚠️ Please enter your Google Gemini API Key first!');
+                toast('⚠️ Please enter your Google Gemini API Key first!');
                 return;
             }
             
             if (!extractedText) {
-                alert('⚠️ Please extract text first before using AI features!');
+                toast('⚠️ Please extract text first before using AI features!');
                 return;
             }
             
@@ -687,7 +911,7 @@ It's used for subtitles and captions`;
                 case 'custom':
                     const customCmd = document.getElementById('customCommand').value.trim();
                     if (!customCmd) {
-                        alert('⚠️ Please enter a custom command!');
+                        toast('⚠️ Please enter a custom command!');
                         return;
                     }
                     prompt = `${customCmd}\n\nText:\n${extractedText}`;
