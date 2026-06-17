@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Krishna Kanth B — Résumé Gallery</title>
+    <meta name="description"
+        content="An interactive résumé gallery for Krishna Kanth B, Data & Insights Analyst. Explore five distinct experiences: an editorial timeline, a terminal, a knowledge graph, a bento dashboard, and an iOS-style app.">
+    <meta name="theme-color" content="#65a30d">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- Favicon (do not change) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2365a30d'/><text x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-size='40' font-weight='bold' text-anchor='middle' fill='%23ffffff'>K</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Krishna Kanth B — Résumé Gallery">
+    <meta property="og:description"
+        content="Five ways to experience one career — pick the résumé that speaks your language.">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #F4F6F2;
+            --bg-panel: #FFFFFF;
+            --bg-subtle: #F2F5EC;
+            --text-main: #14180F;
+            --text-muted: #5C6552;
+            --border-color: #E4E8DC;
+            --accent: #65A30D;
+            --accent-hover: #4D7C0F;
+            --accent-soft: #ECF5DA;
+            --accent-text: #3F6212;
+            --shadow-sm: 0 1px 2px 0 rgba(20, 24, 15, 0.05);
+            --shadow-md: 0 4px 10px -2px rgba(20, 24, 15, 0.10), 0 2px 4px -2px rgba(20, 24, 15, 0.06);
+            --shadow-lg: 0 18px 40px -12px rgba(20, 24, 15, 0.22), 0 8px 16px -8px rgba(20, 24, 15, 0.10);
+            --radius: 18px;
+            --radius-sm: 12px;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0C0F08;
+            --bg-panel: #14180F;
+            --bg-subtle: #1B2113;
+            --text-main: #F3F6EC;
+            --text-muted: #9CA88B;
+            --border-color: #2A3320;
+            --accent: #84CC16;
+            --accent-hover: #A3E635;
+            --accent-soft: #1E2A10;
+            --accent-text: #BEF264;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 44px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a { -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-body);
+            background-image:
+                radial-gradient(circle at 10% 12%, rgba(101, 163, 13, 0.12) 0%, transparent 42%),
+                radial-gradient(circle at 92% 6%, rgba(132, 204, 22, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 82% 96%, rgba(77, 124, 15, 0.10) 0%, transparent 46%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.25s, color 0.25s;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: clamp(1.1rem, 3.5vw, 2rem) 1.1rem 1rem;
+            flex: 1;
+        }
+
+        /* ── Top bar ── */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(1.4rem, 5vw, 2.6rem);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .brand .mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 900;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand .sub {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .theme-switch {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            color: var(--text-muted);
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: color 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .theme-switch:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .theme-switch:active { transform: scale(0.92); }
+        .theme-switch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        .theme-switch svg { width: 19px; height: 19px; }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            margin-bottom: clamp(1.6rem, 5vw, 2.6rem);
+            animation: enterPop 0.55s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent-text);
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.95rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 0 rgba(101, 163, 13, 0.5);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(101, 163, 13, 0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(101, 163, 13, 0); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.1rem, 7.5vw, 3.7rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        h1 .grad {
+            background: linear-gradient(120deg, var(--accent) 0%, #84CC16 45%, #16A34A 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 220% auto;
+            animation: shimmer 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes shimmer {
+            from { background-position: 0% center; }
+            to { background-position: 100% center; }
+        }
+
+        .role {
+            margin-top: 0.7rem;
+            font-weight: 700;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .lede {
+            margin: 0.7rem auto 0;
+            max-width: 560px;
+            font-size: clamp(0.95rem, 2.4vw, 1.08rem);
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            margin-top: clamp(1.2rem, 3.5vw, 1.6rem);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.85rem 1.7rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            box-shadow: 0 10px 24px -6px rgba(101, 163, 13, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s, gap 0.2s;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px -6px rgba(101, 163, 13, 0.6);
+            gap: 0.85rem;
+        }
+
+        .hero-cta:active { transform: translateY(0); }
+        .hero-cta:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        /* ── Section heading ── */
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: clamp(1.4rem, 4vw, 2rem) 0 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .section-head h2 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-head p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Gallery ── */
+        .gallery {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 560px) {
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 860px) {
+            .gallery { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: clamp(1.2rem, 3vw, 1.5rem);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.24s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.24s, border-color 0.24s;
+            animation: enterPop 0.55s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.04s; }
+        .card:nth-child(2) { animation-delay: 0.10s; }
+        .card:nth-child(3) { animation-delay: 0.16s; }
+        .card:nth-child(4) { animation-delay: 0.22s; }
+        .card:nth-child(5) { animation-delay: 0.28s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #84CC16, transparent);
+            opacity: 0;
+            transition: opacity 0.24s;
+            z-index: 2;
+        }
+
+        .card:hover,
+        .card:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .card:hover::before,
+        .card:focus-visible::before { opacity: 1; }
+
+        .card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.9rem;
+        }
+
+        .card-ico {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-text);
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card:hover .card-ico { transform: scale(1.08) rotate(-5deg); }
+        .card-ico svg { width: 26px; height: 26px; }
+
+        .card-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            opacity: 0.55;
+        }
+
+        .card h3 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(1.15rem, 3.2vw, 1.32rem);
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            line-height: 1.2;
+        }
+
+        .card p {
+            margin-top: 0.45rem;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .card-cta {
+            margin-top: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            align-self: flex-start;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent-text);
+            transition: gap 0.2s, color 0.2s;
+        }
+
+        .card-cta svg { width: 16px; height: 16px; }
+        .card:hover .card-cta { gap: 0.75rem; }
+
+        /* ── Stat strip ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.7rem;
+            margin: clamp(1.4rem, 4vw, 2rem) 0 0;
+        }
+
+        @media (min-width: 560px) {
+            .stats { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .stat {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.95rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat b {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
+            font-weight: 700;
+            color: var(--accent-text);
+            letter-spacing: -0.02em;
+        }
+
+        .stat span {
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: clamp(1.8rem, 5vw, 2.8rem);
+            border-top: 1px solid var(--border-color);
+            padding: clamp(1.6rem, 4vw, 2.2rem) 1.1rem 1.8rem;
+            text-align: center;
+        }
+
+        .foot-wrap {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .foot-lead {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .foot-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .socials {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .social {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            padding: 0.5rem 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: color 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .social svg { width: 16px; height: 16px; }
+
+        .social:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .social:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @keyframes enterPop {
+            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="topbar">
+            <a href="https://krishnakanthb13.github.io/" class="brand" aria-label="Krishna Kanth B home">
+                <span class="mark" aria-hidden="true">K</span>
+                <span>Krishna&nbsp;Kanth&nbsp;B <span class="sub">| Résumé Gallery</span></span>
+            </a>
+            <button type="button" class="theme-switch" id="themeToggle" title="Toggle light/dark theme"
+                aria-label="Toggle light/dark theme">
+                <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+            </button>
+        </header>
+
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Five ways to read one career</span>
+                <h1 id="hero-title">Krishna&nbsp;Kanth&nbsp;<span class="grad">B</span></h1>
+                <p class="role">Data &amp; Insights Analyst</p>
+                <p class="lede">
+                    8+ years turning complex data into decisions · Ex-Amazon · Ex-Optum · Ex-Dell · Ex-J&amp;J.
+                    Pick the format that speaks your language — every door opens the same career.
+                </p>
+                <a class="hero-cta" href="../BKK.html">
+                    Read the full résumé
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                </a>
+            </section>
+
+            <div class="section-head">
+                <h2>The Gallery</h2>
+                <p>Tap a card to enter that experience</p>
+            </div>
+
+            <section class="gallery" aria-label="Résumé experiences">
+                <!-- 1. Editorial Timeline -->
+                <a class="card" href="1/">
+                    <div class="card-top">
+                        <span class="card-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 5h16M4 12h10M4 19h13" />
+                                <circle cx="19" cy="12" r="1.6" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="card-num">01</span>
+                    </div>
+                    <h3>Editorial Timeline</h3>
+                    <p>A luxury, magazine-style scrollytelling journey through the career — with light and dark themes.</p>
+                    <span class="card-cta">Open experience
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                    </span>
+                </a>
+
+                <!-- 2. Terminal -->
+                <a class="card" href="2/">
+                    <div class="card-top">
+                        <span class="card-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2.5" y="4" width="19" height="16" rx="2" />
+                                <path d="M6 9l3 3-3 3M12.5 15h4" />
+                            </svg>
+                        </span>
+                        <span class="card-num">02</span>
+                    </div>
+                    <h3>Terminal</h3>
+                    <p>An interactive phosphor command line — type commands, explore the work, and cycle colour themes.</p>
+                    <span class="card-cta">Open experience
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                    </span>
+                </a>
+
+                <!-- 3. Knowledge Graph -->
+                <a class="card" href="3/1/">
+                    <div class="card-top">
+                        <span class="card-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="5" r="2.4" />
+                                <circle cx="5" cy="17" r="2.4" />
+                                <circle cx="19" cy="17" r="2.4" />
+                                <path d="M10.6 6.9 6.4 15M13.4 6.9 17.6 15M7.4 17h9.2" />
+                            </svg>
+                        </span>
+                        <span class="card-num">03</span>
+                    </div>
+                    <h3>Knowledge Graph</h3>
+                    <p>A D3 force-directed network of the whole career — drag the nodes and find the hidden easter egg.</p>
+                    <span class="card-cta">Open experience
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                    </span>
+                </a>
+
+                <!-- 4. Bento Dashboard -->
+                <a class="card" href="3/2/">
+                    <div class="card-top">
+                        <span class="card-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="8" height="11" rx="1.5" />
+                                <rect x="13" y="3" width="8" height="6" rx="1.5" />
+                                <rect x="13" y="11" width="8" height="10" rx="1.5" />
+                                <rect x="3" y="16" width="8" height="5" rx="1.5" />
+                            </svg>
+                        </span>
+                        <span class="card-num">04</span>
+                    </div>
+                    <h3>Bento Dashboard</h3>
+                    <p>A product-style bento grid with animated KPIs and skill meters — the career as a live dashboard.</p>
+                    <span class="card-cta">Open experience
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                    </span>
+                </a>
+
+                <!-- 5. Mobile App -->
+                <a class="card" href="3/3/">
+                    <div class="card-top">
+                        <span class="card-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+                                <path d="M10.5 18.5h3" />
+                            </svg>
+                        </span>
+                        <span class="card-num">05</span>
+                    </div>
+                    <h3>Mobile App</h3>
+                    <p>An iOS-style phone app — a home screen, tappable apps, and pull-down notifications.</p>
+                    <span class="card-cta">Open experience
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                    </span>
+                </a>
+            </section>
+
+            <section class="stats" aria-label="Career at a glance">
+                <div class="stat"><b>8+</b><span>Years</span></div>
+                <div class="stat"><b>4</b><span>Global firms</span></div>
+                <div class="stat"><b>5</b><span>Résumé formats</span></div>
+                <div class="stat"><b>1</b><span>Career story</span></div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="foot-wrap">
+            <p class="foot-lead">Let's connect</p>
+            <p class="foot-sub">Prefer the classic? Read the <a href="../BKK.html"
+                    style="color:var(--accent-text);font-weight:700;text-decoration:none;">full detailed résumé</a>.</p>
+
+            <nav class="socials" aria-label="Social and contact links">
+                <a class="social" href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg>
+                    LinkedIn
+                </a>
+                <a class="social" href="https://github.com/krishnakanthb13/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.13-.31-.54-1.53.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.18.77.84 1.23 1.92 1.23 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z" /></svg>
+                    GitHub
+                </a>
+                <a class="social" href="https://krishnakanthb13.vercel.app/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z" /><circle cx="12" cy="9" r="2.5" /></svg>
+                    Digital Garden
+                </a>
+                <a class="social" href="https://public.tableau.com/app/profile/krishnakanthb13/vizzes" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18M7 7v10M17 7v10" /></svg>
+                    Tableau
+                </a>
+                <a class="social" href="mailto:krishnakanthb13@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" /><path d="m3 6 9 7 9-7" /></svg>
+                    Email
+                </a>
+                <a class="social" href="https://wa.me/917667360114" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.05 24l1.69-6.16a11.87 11.87 0 0 1-1.6-5.96C.14 5.32 5.46 0 12 0a11.82 11.82 0 0 1 8.41 3.49A11.82 11.82 0 0 1 23.9 11.9c0 6.54-5.32 11.86-11.86 11.86a11.9 11.9 0 0 1-5.68-1.45L.05 24zM6.6 20.13c1.68.99 3.28 1.59 5.4 1.59 5.44 0 9.87-4.42 9.87-9.86 0-5.45-4.4-9.86-9.86-9.86-5.45 0-9.86 4.41-9.86 9.86 0 2.23.65 3.9 1.74 5.66l-1 3.65 3.71-1.04zm11.39-5.55c-.07-.12-.27-.2-.57-.35-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41z" /></svg>
+                    WhatsApp
+                </a>
+            </nav>
+
+            <p class="copyright">© 2026 Krishna Kanth B (BKK)</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const SUN = '<circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.4M12 20v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.6 12H4M20 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>';
+            const MOON = '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>';
+            const root = document.documentElement;
+            const btn = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
+
+            const saved = localStorage.getItem('theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDark = saved === 'dark' || (!saved && systemDark);
+
+            function apply() {
+                root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                icon.innerHTML = isDark ? SUN : MOON;
+                btn.setAttribute('aria-pressed', String(isDark));
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            }
+            apply();
+
+            btn.addEventListener('click', function () {
+                isDark = !isDark;
+                apply();
+            });
+        })();
+    </script>
+</body>
+
+</html>

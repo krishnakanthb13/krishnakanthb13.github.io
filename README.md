@@ -17,7 +17,8 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
 - **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
-- **R**: Online Resume Variations & Try Outs
+- **O**: [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro & YouTube caption tools
+- **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 5 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
 
 ---
@@ -27,26 +28,27 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Main Files**:
-	- [Online Resume](https://krishnakanthb13.github.io/): Main File for Online Resume.
-	- [Gap Analysis](https://krishnakanthb13.github.io/0/gap.htm): Gap Analysis for Online Resume.
+	- [Online Résumé](https://krishnakanthb13.github.io/): Main File for Online Résumé.
+	- [Gap Analysis](https://krishnakanthb13.github.io/0/gap.htm): Gap Analysis for Online Résumé.
 	- [Anki Flashcards](https://krishnakanthb13.github.io/F/): My Anki Flashcards Page.
 
 ---
 
 - **Payment Gateway** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/S/README.md) — PayLink secure checkout):
 	- [Launcher / Home](https://krishnakanthb13.github.io/S/): Responsive front door — recommends the right checkout for your device.
-		- [Latest Payment Gateway (Desktop)](https://krishnakanthb13.github.io/S/PLP.html)
-		- [Latest Payment Gateway (Mobile)](https://krishnakanthb13.github.io/S/PLPm.html)
-	- [Old Payment Gateway (relic)](https://krishnakanthb13.github.io/S/legacy/PLP-old.html)
+		- [Latest Payment Gateway (Desktop)](https://krishnakanthb13.github.io/S/PLP.html): Desktop checkout (UPI / PayPal / BMC).
+		- [Latest Payment Gateway (Mobile)](https://krishnakanthb13.github.io/S/PLPm.html): Mobile checkout (UPI / PayPal / BMC).
+	- [Old Payment Gateway (relic)](https://krishnakanthb13.github.io/S/legacy/PLP-old.html): Original checkout, kept for reference.
 
 ---
 
-- **Resume**:
-	- [Resume v1](https://krishnakanthb13.github.io/R/1/)
-	- [Resume v2](https://krishnakanthb13.github.io/R/2/)
-	- [Resume v3.1](https://krishnakanthb13.github.io/R/3/1/)
-	- [Resume v3.2](https://krishnakanthb13.github.io/R/3/2/)
-	- [Resume v3.3](https://krishnakanthb13.github.io/R/3/3/)
+- **Résumé** — five résumé experiences, one genre each:
+	- [Résumé Gallery](https://krishnakanthb13.github.io/R/): Mobile-first launcher linking all five.
+		- [Résumé v1 · Editorial Timeline](https://krishnakanthb13.github.io/R/1/): Scrollytelling timeline, light/dark.
+		- [Résumé v2 · Terminal](https://krishnakanthb13.github.io/R/2/): Typeable CLI with theme cycling.
+		- [Résumé v3.1 · Knowledge Graph](https://krishnakanthb13.github.io/R/3/1/): Interactive D3 career graph.
+		- [Résumé v3.2 · Bento Dashboard](https://krishnakanthb13.github.io/R/3/2/): Bento grid with animated KPIs.
+		- [Résumé v3.3 · Mobile App](https://krishnakanthb13.github.io/R/3/3/): iOS-style phone app.
 
 ---
 
@@ -57,7 +59,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **VTT Files** ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/VTT/README.md)):
-	- [VTT Text Extractor Pro](https://krishnakanthb13.github.io/O/VTT/): Flagship tool — fetch YouTube captions, auto-detect VTT or plain transcripts, extract clean text, export TXT/SRT, and run Google Gemini AI over the result (API key saved in your browser).
+	- [VTT Text Extractor Pro](https://krishnakanthb13.github.io/O/VTT/): Fetch YouTube captions → clean text, export TXT/SRT, optional Gemini AI.
 		- [WEBVTT v2](https://krishnakanthb13.github.io/O/VTT/WEBVTT%20v2.html): AI-assisted VTT extractor with live stats and TXT/SRT export (no YouTube fetch).
 		- [WEBVTT v1](https://krishnakanthb13.github.io/O/VTT/WEBVTT%20v1.html): Minimal VTT-to-text extractor — paste, extract, copy. Zero setup.
 
@@ -87,7 +89,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 - **In Progress:**
 	- [Main](https://krishnakanthb13.github.io/0/Main.html): Unfinished Testing Codebase.
-	- [Old Version](https://krishnakanthb13.github.io/0/pexp.html): Older Version of Online Resume.
+	- [Old Version](https://krishnakanthb13.github.io/0/pexp.html): Older Version of Online Résumé.
 	- [Python](https://krishnakanthb13.github.io/1/Python.html): Unfinished Testing Codebase.
 	- [Snowflake](https://krishnakanthb13.github.io/1/Snowflake.html): Unfinished Testing Codebase.
 	- [SQL](https://krishnakanthb13.github.io/1/SQL.html): Unfinished Testing Codebase.

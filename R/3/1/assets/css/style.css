@@ -21,6 +21,8 @@
     --c-contact:#2dd4bf;
     --shadow:0 24px 60px -20px rgba(0,0,0,.8);
     --radius:18px;
+    /* height reserved for the docked "How to explore" footer bar (set by JS) */
+    --howto-h:0px;
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -51,7 +53,8 @@
     -webkit-mask-image:radial-gradient(circle at 50% 45%, #000 0%, transparent 75%);
   }
 
-  #app{position:fixed;inset:0;z-index:1}
+  /* graph canvas: reserve space at the bottom for the docked how-to footer so it is never covered */
+  #app{position:fixed;top:0;left:0;right:0;bottom:var(--howto-h,0px);z-index:1}
   svg.graph{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
   svg.graph:active{cursor:grabbing}
 
@@ -101,7 +104,7 @@
 
   /* ---------- Legend ---------- */
   .legend{
-    position:fixed;z-index:5;left:clamp(12px,3vw,24px);bottom:clamp(12px,3vw,22px);
+    position:fixed;z-index:5;left:clamp(12px,3vw,24px);bottom:calc(var(--howto-h,0px) + clamp(12px,3vw,22px));
     background:rgba(10,14,20,.72);border:1px solid var(--line);border-radius:16px;
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     padding:13px 15px;box-shadow:var(--shadow);max-width:min(46vw,260px);
@@ -115,11 +118,81 @@
 
   /* hint */
   .hint{
-    position:fixed;z-index:5;right:clamp(12px,3vw,24px);bottom:clamp(12px,3vw,22px);
+    position:fixed;z-index:5;right:clamp(12px,3vw,24px);bottom:calc(var(--howto-h,0px) + clamp(12px,3vw,22px));
     font-size:11px;color:var(--txt-faint);text-align:right;line-height:1.7;pointer-events:none;
     text-shadow:0 1px 4px #000;
   }
   .hint b{color:var(--txt-dim);font-weight:600}
+
+  /* ---------- Instructions: docked full-width FOOTER bar (dismissible) ---------- */
+  /* Docked as page chrome at the very bottom; the graph (#app) reserves --howto-h so this never covers it. */
+  .howto{
+    position:fixed;z-index:8;left:0;right:0;bottom:0;
+    background:rgba(8,11,16,.88);border-top:1px solid var(--line-2);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 -16px 44px -24px rgba(0,0,0,.9);
+    padding:9px clamp(12px,3vw,24px);
+    animation:howtoIn .5s ease both;
+  }
+  @keyframes howtoIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .howto.dismissed{display:none}
+  .howto-bar{display:flex;align-items:center;gap:12px;min-width:0;max-width:1400px;margin:0 auto}
+  .howto-spark{
+    width:8px;height:8px;border-radius:50%;flex:0 0 auto;
+    background:var(--accent-bright);box-shadow:0 0 10px var(--accent-glow);
+  }
+  .howto-lead{
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+    color:var(--accent-bright);white-space:nowrap;flex:0 0 auto;
+  }
+  .howto-tips{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:3px 0;margin:0;padding:0;min-width:0;flex:1 1 auto}
+  .howto-tips li{
+    font-size:11.5px;color:var(--txt-dim);line-height:1.45;
+    padding:0 11px;border-left:1px solid var(--line-2);white-space:nowrap;
+  }
+  .howto-tips li:first-child{border-left:0}
+  .howto-tips b{color:var(--txt);font-weight:600}
+  .howto-egg b{color:var(--accent-bright)}
+  .howto-x{
+    flex:0 0 auto;width:26px;height:26px;border-radius:8px;margin-left:auto;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--txt-dim);
+    cursor:pointer;display:grid;place-items:center;transition:border-color .18s,background .18s,color .18s;
+  }
+  .howto-x:hover{color:#fff;border-color:var(--accent);background:rgba(101,163,13,.12)}
+  .howto-x svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+
+  /* ---------- Layout controls (re-arrange the graph) ---------- */
+  .layoutctl{
+    position:fixed;z-index:6;top:clamp(70px,9vh,86px);left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;
+    background:rgba(10,14,20,.74);border:1px solid var(--line);border-radius:13px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:var(--shadow);padding:7px 10px;max-width:94vw;
+  }
+  .lc-label{
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+    color:var(--accent-bright);white-space:nowrap;flex:0 0 auto;
+  }
+  .lc-btns{display:flex;flex-wrap:wrap;gap:5px;min-width:0}
+  .lc-btn{
+    appearance:none;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--txt-dim);
+    border-radius:9px;padding:6px 11px;line-height:1;transition:border-color .16s,background .16s,color .16s,transform .12s;
+  }
+  .lc-btn:hover{color:#fff;border-color:var(--accent);background:rgba(101,163,13,.12)}
+  .lc-btn:active{transform:translateY(1px)}
+  .lc-btn.is-active{color:#06270a;background:linear-gradient(135deg,var(--accent-bright),var(--accent));border-color:transparent}
+  .lc-shuffle{color:var(--accent-bright);border-color:rgba(132,204,22,.4)}
+  .lc-shuffle:hover{color:#06270a;background:linear-gradient(135deg,var(--accent-bright),var(--accent));border-color:transparent}
+
+  /* ---------- Copyright ---------- */
+  .copyright{
+    position:fixed;z-index:5;left:50%;transform:translateX(-50%);
+    bottom:calc(var(--howto-h,0px) + clamp(10px,2.2vw,15px));
+    font-size:10.5px;letter-spacing:.05em;color:var(--txt-faint);
+    pointer-events:none;text-shadow:0 1px 5px #000;white-space:nowrap;
+  }
+  .copyright b{color:var(--txt-dim);font-weight:600}
 
   /* ---------- Tooltip ---------- */
   .tooltip{
@@ -163,6 +236,33 @@
   .drawer-body p+p{margin-top:12px}
   .drawer-body .lead{color:var(--txt-dim);font-size:13.5px}
 
+  .drawer-body .company-desc{
+    font-style:italic;color:var(--txt-dim);font-size:12.5px;line-height:1.55;
+    border-left:2px solid var(--line-2);padding-left:11px;margin-top:12px;
+  }
+  /* structured bullet lists */
+  .drawer-body .d-list{list-style:none;margin:10px 0 2px;padding:0}
+  .drawer-body .d-list li{
+    position:relative;font-size:13.5px;line-height:1.55;color:var(--txt);
+    padding-left:16px;margin-bottom:7px;
+  }
+  .drawer-body .d-list li::before{
+    content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;
+    background:var(--accent-bright);opacity:.85;
+  }
+  .drawer-body .d-list .d-list{margin:6px 0 2px}
+  .drawer-body .d-list .d-list li{font-size:12.8px;color:var(--txt-dim);margin-bottom:5px}
+  .drawer-body .d-list .d-list li::before{background:var(--txt-faint);width:4px;height:4px;top:8px}
+
+  /* accolade */
+  .accolade{
+    display:flex;gap:11px;align-items:flex-start;margin-top:16px;
+    background:rgba(250,204,21,.07);border:1px solid rgba(250,204,21,.25);border-radius:13px;padding:12px 14px;
+  }
+  .accolade .acc-icon{font-size:17px;line-height:1.2;flex:0 0 auto}
+  .accolade .acc-title{font-weight:700;font-size:12.5px;color:var(--c-proj);line-height:1.3}
+  .accolade .acc-text{font-size:12.5px;color:var(--txt-dim);margin-top:3px;line-height:1.45}
+
   .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0 4px}
   .stat{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:13px 14px}
   .stat .n{font-size:22px;font-weight:800;color:var(--accent-bright);font-family:'JetBrains Mono',monospace;line-height:1}
@@ -174,11 +274,23 @@
   .chip.accent{border-color:rgba(132,204,22,.4);color:var(--accent-bright);background:rgba(101,163,13,.08)}
 
   .link-list{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+  .link-row{display:flex;align-items:stretch;gap:8px}
+  .link-row a{flex:1 1 auto;min-width:0}
   .link-list a{
     display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;
     background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
     color:var(--txt);font-size:13.5px;font-weight:500;transition:all .18s;
   }
+  .copy-btn{
+    flex:0 0 auto;width:44px;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;
+    color:var(--txt-dim);cursor:pointer;display:grid;place-items:center;transition:all .18s;
+  }
+  .copy-btn:hover{color:#fff;border-color:var(--accent);background:rgba(101,163,13,.12)}
+  .copy-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .copy-btn .ic-ok{display:none}
+  .copy-btn.copied{color:var(--accent-bright);border-color:var(--accent);background:rgba(101,163,13,.14)}
+  .copy-btn.copied .ic-copy{display:none}
+  .copy-btn.copied .ic-ok{display:block}
   .link-list a:hover{border-color:var(--accent);background:rgba(101,163,13,.1);transform:translateX(2px)}
   .link-list a .meta{color:var(--txt-faint);font-size:11px;font-weight:400;margin-top:2px;word-break:break-all}
   .link-list a .arrow{flex:0 0 auto;color:var(--txt-faint);transition:color .18s,transform .18s}
@@ -218,6 +330,42 @@
   .link.dimmed{stroke-opacity:.05}
   .node.searchhit circle.body{stroke:#fff;stroke-width:2.6px}
   .expand-badge{font-size:10px;font-weight:800;fill:#fff;pointer-events:none;font-family:'JetBrains Mono',monospace}
+  /* pinned nodes: persistent halo + dashed body ring */
+  .node.pinned circle.halo{opacity:.5}
+  .node.pinned circle.body{stroke-dasharray:3 3;stroke:var(--c-proj)}
+  /* secret easter-egg node */
+  .node-secret circle.halo{opacity:.6}
+  .node-secret circle.body{stroke:#fff}
+  @keyframes secretPulse{0%,100%{opacity:.4}50%{opacity:.85}}
+  .node-secret circle.halo{animation:secretPulse 1.8s ease-in-out infinite}
+
+  /* live-stats + controls in legend */
+  .legend-foot{margin-top:11px;padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
+  .legend-btn{
+    appearance:none;font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--txt-dim);
+    border-radius:9px;padding:6px 10px;transition:all .18s;align-self:flex-start;
+  }
+  .legend-btn:hover{color:#fff;border-color:var(--accent);background:rgba(101,163,13,.12)}
+  .legend-stat{font-size:10.5px;color:var(--txt-faint);font-family:'JetBrains Mono',monospace}
+  .egg-hint{font-size:9.5px;color:var(--txt-faint);opacity:.55;letter-spacing:.02em}
+
+  /* toast */
+  .toast{
+    position:fixed;z-index:40;left:50%;bottom:26px;transform:translate(-50%,14px);
+    background:rgba(13,18,27,.96);border:1px solid var(--line-2);border-radius:11px;
+    padding:9px 15px;font-size:12.5px;color:var(--txt);box-shadow:var(--shadow);
+    opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s;pointer-events:none;max-width:88vw;
+  }
+  .toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+  /* supernova flash overlay */
+  .nova{
+    position:fixed;inset:0;z-index:18;pointer-events:none;opacity:0;
+    background:radial-gradient(circle at 50% 50%, rgba(132,204,22,.55), rgba(56,189,248,.18) 35%, transparent 62%);
+  }
+  .nova.fire{animation:novaFlash .9s ease-out}
+  @keyframes novaFlash{0%{opacity:0;transform:scale(.6)}18%{opacity:.9}100%{opacity:0;transform:scale(1.25)}}
 
   /* visually-hidden but present for a11y / no-JS */
   .sr-only{
@@ -239,9 +387,23 @@
     .btn{padding:9px}
     .searchwrap{display:none}
     .brand .who p{display:none}
-    .legend{left:10px;right:10px;bottom:10px;max-width:none}
+    .legend{left:10px;right:10px;bottom:calc(var(--howto-h,0px) + 10px);max-width:none}
     .legend ul{grid-template-columns:1fr 1fr 1fr}
     .hint{display:none}
+    /* docked footer stays full-width; tips wrap compactly */
+    .howto{padding:8px 10px}
+    .howto-bar{gap:8px 10px;flex-wrap:wrap;padding-right:30px}
+    .howto-lead{font-size:9.5px}
+    .howto-tips{gap:2px 0}
+    .howto-tips li{padding:0 8px;font-size:10.5px;white-space:normal}
+    .howto-tips li:first-child{padding-left:0}
+    .howto-x{position:absolute;top:7px;right:9px;margin-left:0}
+    /* copyright sits just under the header (legend occupies the bottom on mobile) */
+    .copyright{bottom:auto;top:78px;font-size:10px}
+    /* layout controls drop below the copyright line, full-width and centered */
+    .layoutctl{top:102px;left:10px;right:10px;transform:none;max-width:none;justify-content:center;padding:6px 8px}
+    .lc-btns{justify-content:center}
+    .lc-btn{font-size:11px;padding:5px 9px}
     /* drawer becomes bottom sheet */
     .drawer{
       top:auto;bottom:0;left:0;right:0;width:100%;height:auto;max-height:82vh;

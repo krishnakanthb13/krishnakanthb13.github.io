@@ -44,6 +44,36 @@
   </div>
 </header>
 
+<!-- Instructions hint (top, dismissible) -->
+<aside class="howto js-only" id="howto" aria-label="How to explore this knowledge graph">
+  <div class="howto-bar">
+    <span class="howto-spark" aria-hidden="true"></span>
+    <span class="howto-lead">How to explore</span>
+    <ul class="howto-tips">
+      <li><b>Click</b> a node to open its details</li>
+      <li><b>Drag</b> a node to move it · <b>double-click</b> to pin / unpin</li>
+      <li><b>Scroll</b> or <b>pinch</b> to zoom · drag the canvas to pan</li>
+      <li>Use <b>Search</b> to filter · <b>Expand / Collapse all</b> from the legend</li>
+      <li class="howto-egg">Tip: type <b>&ldquo;krishna&rdquo;</b> for a hidden surprise ✨</li>
+    </ul>
+    <button class="howto-x" id="howto-dismiss" type="button" aria-label="Dismiss instructions" title="Dismiss instructions">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- Layout controls — re-arrange / randomize the graph -->
+<div class="layoutctl js-only" id="layoutctl" role="group" aria-label="Graph layout">
+  <span class="lc-label" aria-hidden="true">Layout</span>
+  <div class="lc-btns">
+    <button type="button" class="lc-btn is-active" data-layout="force" aria-pressed="true" title="Organic force-directed layout">Force</button>
+    <button type="button" class="lc-btn" data-layout="radial" aria-pressed="false" title="Branches arranged radially around the centre">Radial</button>
+    <button type="button" class="lc-btn" data-layout="grid" aria-pressed="false" title="Tidy rows &amp; columns">Grid</button>
+    <button type="button" class="lc-btn" data-layout="circle" aria-pressed="false" title="Nodes on a ring">Ring</button>
+    <button type="button" class="lc-btn lc-shuffle" data-layout="shuffle" aria-pressed="false" title="Randomize node positions and re-run the simulation">Shuffle</button>
+  </div>
+</div>
+
 <main id="app" aria-label="Interactive career knowledge graph"></main>
 
 <aside class="legend" aria-label="Graph legend — click a category to highlight">
@@ -52,8 +82,11 @@
 </aside>
 
 <p class="hint js-only" aria-hidden="true">
-  <b>Click</b> a node to expand &amp; view details · <b>Drag</b> to move · <b>Scroll</b> to zoom
+  <b>Click</b> a node to expand &amp; view details · <b>Drag</b> to move · <b>Double-click</b> to pin · <b>Scroll</b> to zoom
 </p>
+
+<!-- Copyright -->
+<p class="copyright js-only">&copy; 2026 <b>Krishna Kanth B</b> (BKK)</p>
 
 <!-- Tooltip -->
 <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
@@ -79,7 +112,7 @@
   <h1>Krishna Kanth B — Data &amp; Insights Analyst</h1>
   <p>8+ years turning complex data into decisions. Ex-Amazon, Ex-Optum, Ex-Dell, Ex-J&amp;J. SQL, Python, Tableau, Snowflake. M.Sc, VIT Vellore.</p>
   <p>Analyst with 8+ years across data management, analysis, visualization and storytelling. Expert at extracting, transforming, analysing and reporting complex datasets into actionable insight using Excel, SQL, Python and Tableau — delivering major FTE savings and productivity gains.</p>
-  <p>Key stats: 8+ Years · 95% KPI Automation (Amazon) · 90% Latency Reduction (Optum) · ~118 Hours/Month Saved · 8 Roles.</p>
+  <p>Key stats: 8+ Years · 95% KPI Automation (Amazon) · 90% Latency Reduction (Optum) · ~118 Hours/Month Saved · 9 Roles.</p>
   <p>Contact: krishnakanthb13@gmail.com · +91 7667360114.
     <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" rel="noopener">LinkedIn</a>,
     <a href="https://github.com/krishnakanthb13/" target="_blank" rel="noopener">GitHub</a>,
@@ -92,6 +125,7 @@
   </p>
   <h2>Experience</h2>
   <ul>
+    <li>Project Lead Developer — Amplenote (Freelancing), Jan 2024–Present. 20+ open-source plugins (500+ active users); personal online résumé/portfolio; Digital Garden knowledge base (Obsidian → GitHub → Vercel).</li>
     <li>Technical Support Engineer Specialist — PowerSchool (via GlowTouch), Sep 2022–Oct 2023. Ticketing/KB usage +40% (Salesforce/JIRA/Confluence); DB mgmt via Aqua Data/SSMS/Snowflake; monitored Unified Insights builds.</li>
     <li>Management Information Systems — Amazon (3D India), Jul 2020–Aug 2021. Automated 95% of KPI calcs; latency −99%; ~118 hrs/month ROI; 30 stored procs + 20 events.</li>
     <li>Strategic Analyst — Optum, May 2017–Jan 2019. Automated GL Validation &amp; Org Hierarchy via SQL → latency −90%, reliability +50%; data mapping for Health Quest &amp; Atrium Health.</li>

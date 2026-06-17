@@ -40,42 +40,147 @@
   var dockApps=['about','experience','skills','contact'];
 
   var experience=[
+    {role:'Project Lead Developer',co:'Amplenote',client:'Freelance · Plugins',date:'Jan 2024 – Present',badge:'AN',
+     link:{label:'amplenote.com',href:'https://www.amplenote.com/'},
+     desc:'Working on my own portfolio — open-source plugins, an online résumé and a public digital garden I can refer to over a lifetime.',
+     points:[
+       'Plugin Web Development — built &amp; published 20+ open-source plugins for a note-taking app using the inbuilt API, JavaScript, HTML, CSS and AI. Currently used by 500+ active users.',
+       'Personal Branding — designed a professional online résumé hosted on GitHub &amp; Google Sites, mimicking LinkedIn-style features.',
+       'Digital Garden — built and maintain a public, evolving knowledge base in Obsidian, versioned in GitHub and hosted on Vercel.'
+     ],
+     tags:['API','JavaScript','HTML','CSS','Unit Testing','AI Tools','Project Planning','Code Documentation','SQL','Snowflake','Data Analytics','Data Visualization']},
     {role:'Technical Support Engineer Specialist',co:'PowerSchool',client:'via GlowTouch',date:'Sep 2022 – Oct 2023',badge:'PS',
-     detail:'Lifted ticketing &amp; KB usage by +40% across Salesforce, JIRA and Confluence; handled database management via Aqua Data Studio, SSMS and Snowflake.'},
+     link:{label:'powerschool.com',href:'https://www.powerschool.com/'},
+     desc:'Cloud-based K-12 education software — supporting Unified Insights builds and database operations.',
+     points:[
+       'Lifted ticketing &amp; knowledge-base usage by +40% across Salesforce, JIRA and Confluence by streamlining processes and collaboration.',
+       'Managed databases with Aqua Data Studio, SSMS and Snowflake; secured remote admin via MobaXterm, SSH Putty and Jump-box.',
+       'Monitored Unified Insights build processes and resolved data-structure issues, partnering with product, Cloud Ops and Hosting teams.'
+     ],
+     tags:['SQL','SSMS','Aqua Data Studio','Snowflake','Data Analytics','Microsoft Excel','Atlassian Suite','Salesforce','Quality Assurance']},
     {role:'Management Information Systems',co:'Amazon',client:'3D India',date:'Jul 2020 – Aug 2021',badge:'AZ',
-     detail:'Automated 95% of KPI calculations and cut report latency by 99%, delivering ~118 hrs/month in ROI.'},
+     link:{label:'amazon.in',href:'https://www.amazon.in/'},
+     accolade:'Bravo for Ownership (Mar 2021) — automating the 3D Operations stack &amp; weekly KPI reports.',
+     desc:'3D Support Coordinator (MIS) — re-engineered KPI reporting for the Operations &amp; Support teams.',
+     points:[
+       'Automated 95% of manual KPI calculations, revolutionising how Stack Reports are published.',
+       'Reduced latency by 99% and added flexibility via a single-data-source approach — ~118 hrs/month ROI.',
+       'Built 30 stored procedures and 20 events plus an event/step log table to simplify troubleshooting.'
+     ],
+     tags:['SQL','SSMS','Snowflake','Informatica','SSIS','Tableau','Data Warehousing','Advanced Excel','Project Management','Agile']},
     {role:'Strategic Analyst',co:'Optum',client:'',date:'May 2017 – Jan 2019',badge:'OP',
-     detail:'Automated GL Validation &amp; Org Hierarchy with SQL — latency down 90% and reliability up 50%.'},
+     link:{label:'optum.com',href:'https://www.optum.com/en/'},
+     accolade:'Best Hackathon Project (Mar 2018) — General Ledger Validation automation.',
+     desc:'Data integration &amp; automation for healthcare systems (Health Quest, Atrium Health).',
+     points:[
+       'Streamlined insurance proficiency by 20% through deep knowledge of U.S. insurance patterns.',
+       'Automated GL Validation &amp; built an Organization Hierarchy with SQL stored procedures — latency −90%, reliability +50%.',
+       'Built a multi-level Type/Group/Category classification and quality checks; cut manual validation time by 60%.'
+     ],
+     tags:['SQL','SSMS','Tableau','Elasticsearch','Data Warehousing','Financial Analysis','Risk Management','Life Sciences','Quality Assurance']},
     {role:'Analyst I / II / III',co:'Johnson &amp; Johnson',client:'via GVW Technologies',date:'Mar 2015 – Feb 2017',badge:'JJ',
-     detail:'Built an Excel macro that sped review by +70% and lifted accuracy +20%; worked extensively in LabWare LIMS V6.'},
+     link:{label:'jnj.com',href:'https://www.jnj.com/'},
+     accolade:'Best Beginner Award (Apr 2015) — Visual Basic / Excel macro for report processing.',
+     desc:'LabWare LIMS V6 master-data configuration for McNeil Consumer Healthcare &amp; Janssen Pharmaceutical.',
+     points:[
+       'Boosted review efficiency by +70% and accuracy by +20% with a custom MS Excel macro.',
+       'Curated a 75+ reference library of data-visualization charts &amp; analytics tools for Health Informatics.',
+       'Configured, tested and reviewed LIMS master-data objects for sites in Canada and Italy; ensured GDP compliance and ran CAPA / root-cause analysis.'
+     ],
+     tags:['LabWare LIMS','Quality Assurance','Microsoft Excel','Hadoop','SQL','Tableau','Spotfire','Minitab','Informatica','SSIS','Life Sciences']},
     {role:'Content Analyst',co:'Premier Inc.',client:'via Medusind',date:'Dec 2013 – Feb 2015',badge:'PR',
-     detail:'Healthcare master-data management across UNSPSC taxonomy with HIPAA compliance.'},
+     link:{label:'premierinc.com',href:'https://premierinc.com/'},
+     desc:'Healthcare master-data management — data mapping &amp; validation across manufacturers, vendors, sites and catalogs.',
+     points:[
+       'Streamlined search &amp; validation with Excel (VLOOKUP, Query) and a custom tool linking Excel columns to client software.',
+       'Enriched product data across 46 &amp; 210 fields and classified items by UNSPSC codes for better searchability.',
+       'Validated packaging strings and UOMs to ANSI standards while ensuring HIPAA compliance.'
+     ],
+     tags:['Data Mapping','Data Enrichment','Data Classification','Microsoft Excel','UNSPSC','HIPAA','Life Sciences','Data Warehousing']},
     {role:'Customer Care Voice Sr. Rep',co:'Dell',client:'',date:'Jul 2013 – Dec 2013',badge:'DL',
-     detail:'Processed healthcare claims &amp; eligibility (Conifer) across Medicare and Medicaid.'},
+     link:{label:'dell.com',href:'https://www.dell.com/en-in'},
+     accolade:'Best Employee of the Month (Sep 2013) — best performance rating.',
+     desc:'Healthcare claims processing &amp; eligibility verification (Conifer Health Solutions).',
+     points:[
+       'Implemented a classification system to prioritise inquiries by urgency in single mail/call interactions.',
+       'Verified eligibility with Aetna, AARP, BCBS, Cigna etc. and interpreted AAPC medical codes.',
+       'Processed Medicare &amp; Medicaid claims; calculated deductibles, co-insurance and co-pays in real time under full HIPAA compliance.'
+     ],
+     tags:['Technical Support','Quality Assurance','Customer Service','Problem-Solving','CRM Software','Process Adherence','Communication']},
     {role:'Product Support Analyst',co:'Symantec',client:'',date:'Apr 2011 – Jul 2011',badge:'SY',
-     detail:'Norton support — malware removal and knowledge-base contributions.'},
+     link:{label:'broadcom.com',href:'https://www.broadcom.com/products/cybersecurity'},
+     desc:'Technical support for Norton security products on Windows platforms.',
+     points:[
+       'Resolved antivirus issues and performed advanced threat mitigation — virus, spyware and malware removal via safe-mode techniques.',
+       'Provided remote assistance via phone and remote-access tools; resolved installation, configuration and update errors.',
+       'Contributed to knowledge-base documentation and resolved software-compatibility issues.'
+     ],
+     tags:['Troubleshooting','Technical Knowledge','Customer Service','Documentation','Remote Desktop','Ticketing Systems','Visual Studio 2003']},
     {role:'Customer Service Professional',co:'Sitel India',client:'',date:'Sep 2010 – Mar 2011',badge:'SI',
-     detail:'Dell-On-Call support; named “Resolution Expert of the Month”, Jan 2011.'}
+     link:{label:'foundever.com',href:'https://foundever.com/'},
+     accolade:'Resolution Expert of the Month (Jan 2011) — most first-attempt resolutions.',
+     desc:'Technical &amp; customer support for Dell and non-Dell customers (Dell-On-Call Services).',
+     points:[
+       'Troubleshot hardware &amp; software across laptops, desktops, routers, LANs, printers and gaming consoles with a high first-call resolution rate.',
+       'Managed escalations and irate clients while ensuring customer satisfaction.',
+       'Increased customer lifetime value by recommending warranty extensions, upgrades and add-ons.'
+     ],
+     tags:['Communication','Customer Service','Problem-Solving','Empathy','Conflict Resolution','Technical Knowledge','CRM Software','Phone System']}
   ];
-  var skillBars=[['SQL',95],['Tableau',90],['Advanced Excel',95],['Snowflake',85],['Python',75]];
-  var skillChips=['SSMS','MySQL','Aqua Data','Snowflake','Spotfire','Looker','Power BI','Excel Macros','Python','LabWare LIMS'];
-  var domains=['MIS / Org Hierarchy','SIS / EdTech','LIMS / Pharma','SCM / Healthcare'];
+  var skillBars=[['SQL · SSMS / MySQL / Aqua Data / Snowflake',95],['Microsoft Excel · Macros &amp; Automation',95],['Snowflake Cloud',85],['Data Visualization · Tableau / Spotfire',80],['Python',75],['LabWare LIMS',55]];
+  var skillChips=['SSMS','MySQL','Aqua Data','Snowflake','Tableau','Spotfire','Looker','Power BI','Excel Macros','Python','Informatica','SSIS','LabWare LIMS','Elasticsearch'];
+  var domains=[['MIS','Organization Hierarchy'],['SIS','Education Technology'],['LIMS','Pharmaceuticals'],['SCM','Hospitals / Health Care']];
+  var softSkills=['Leadership','Critical Thinking','Problem-solving','Presentation','Facilitation','Negotiation','Adaptability','Decision Making','Prioritization','Creativity','Conflict Resolution','Team Building'];
+  var skillLinks=[
+    {t:'Snowflake Certificates Archive',s:'achieve.snowflake.com/profile/krishnakanthb',href:'https://achieve.snowflake.com/profile/krishnakanthb/wallet',cls:'b-cert',ic:'cert',ext:true},
+    {t:'Tableau Public Visualizations',s:'public.tableau.com/krishnakanthb13',href:'https://public.tableau.com/app/profile/krishnakanthb13/vizzes',cls:'b-tab',ic:'tab',ext:true}
+  ];
   var education=[
-    {deg:'M.Sc Biotechnology',co:'VIT Vellore',date:'2011 – 2013 · 8.62 CGPA',
-     detail:'Dissertation: CD36 Gene in Type-1 Diabetic Rat Kidneys · 3 international SET papers.'},
-    {deg:'B.Sc Biotechnology',co:'D. G. Vaishnav College, Univ. of Madras',date:'2007 – 2010 · 62.80%',detail:''},
-    {deg:'Schooling',co:"St. Mary's A.I.H.S.S.",date:'2007',detail:''}
+    {deg:'M.Sc Biotechnology',co:'Vellore Institute of Technology',date:'2011 – 2013 · 8.62 CGPA',
+     detail:'<b>Dissertation (Mar 2013):</b> Expression of CD36 Gene in Type-1 Diabetic Rat Kidneys.',
+     extra:[
+       'Research paper — 5th Intl. Conference on Science, Engineering &amp; Technology (SET): phytocompounds from Indian Pomegranate.',
+       'Research paper — 4th Intl. SET Conference: Role of flavonoids on cancer.',
+       'Research paper — 3rd Intl. SET Conference: Siderophore produced by rhizosphere bacteria of Opuntia sp.'
+     ],
+     pub:{label:'Publication · Asian Journal of Microbiology, Biotechnology &amp; Environmental Sciences',href:'http://www.envirobiotechjournals.com/article_abstract.php?aid=4477&iid=157&jid=1'}},
+    {deg:'B.Sc Biotechnology',co:'D. G. Vaishnav College · University of Madras',date:'2007 – 2010 · 62.80%',detail:''},
+    {deg:'Schooling (PCMB)',co:"St. Mary's Anglo Indian Hr. Sec. School",date:'2007',detail:''}
   ];
   var certs=[
-    {t:'Snowflake Certifications',s:'achieve.snowflake.com',href:'https://achieve.snowflake.com/profile/krishnakanthb/wallet',cls:'b-cert',ic:'cert',ext:true},
+    {t:'Snowflake Certificates Archive',s:'Data wallet · 6 Hands-On Essentials',href:'https://achieve.snowflake.com/profile/krishnakanthb/wallet',cls:'b-cert',ic:'cert',ext:true},
     {t:'LinkedIn Licenses &amp; Certs',s:'linkedin.com/in/bkrishnakanth',href:'https://www.linkedin.com/in/bkrishnakanth/details/certifications/',cls:'b-in',ic:'in',ext:true},
-    {t:'Full certification list',s:'BKK.html#certifications',href:RESUME+'#certifications',cls:'b-doc',ic:'resume'}
+    {t:'Data Analytics Certificate',s:'Pro5.AI · 2024',href:'https://drive.google.com/file/d/1ekt9RT_Z5h1sw2Tu5ZzeHrKV9q6D-cwR/view?usp=drive_link',cls:'b-doc',ic:'cert',ext:true},
+    {t:'Docker &amp; Kubernetes Fundamentals',s:'Scaler Masterclass · 2025',href:'https://moonshot.scaler.com/s/sl/bEjI_azO_N',cls:'b-doc',ic:'cert',ext:true},
+    {t:'SQL using AI Workshop',s:'be10x.in · 2025',href:'https://certx.in/certificate/a3ae0c0d-1f62-4e3f-bede-17ff37c364a7688515',cls:'b-doc',ic:'cert',ext:true},
+    {t:'All 52 credentials',s:'BKK.html · full certifications list',href:RESUME+'#certifications',cls:'b-doc',ic:'resume'}
   ];
-  var projects=[
-    {t:'H-1B Analysis 2025',s:'Visa trend deep-dive',href:'https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-2025/'},
-    {t:'H-1B Analysis Historical',s:'Longitudinal study',href:'https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-historical/'},
-    {t:'Arattai Trend Analytics',s:'Social trend analytics',href:'https://krishnakanthb13.vercel.app/data-projects/arattai-trend-analytics/'},
-    {t:'101 Data Projects',s:'Portfolio collection',href:'https://krishnakanthb13.vercel.app/data-projects/101-data-projects/'}
+  var projectGroups=[
+    {h:'Data Quests · Digital Garden',items:[
+      {t:'H-1B Analysis 2025',s:'Data project · Oct 2025',href:'https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-2025/'},
+      {t:'H-1B Analysis Historical',s:'Data project · Oct 2025',href:'https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-historical/'},
+      {t:'Arattai Trend Analytics',s:'Data project · Oct 2025',href:'https://krishnakanthb13.vercel.app/data-projects/arattai-trend-analytics/'},
+      {t:'101 Data Projects',s:'Digital Garden hub',href:'https://krishnakanthb13.vercel.app/data-projects/101-data-projects/'},
+      {t:'Digital Garden home',s:'krishnakanthb13.vercel.app',href:'https://krishnakanthb13.vercel.app/'}
+    ]},
+    {h:'Amplenote Plugins · 20+ published',items:[
+      {t:'Krishna Plugins (Public List)',s:'public.amplenote.com',href:'https://public.amplenote.com/Y3dy91/krishna-plugins'},
+      {t:'Amplenote Plugins · GitHub Repo',s:'github.com/krishnakanthb13',href:'https://github.com/krishnakanthb13/amplenote-plugins'},
+      {t:'Amplenote Public Profile',s:'amplenote.com/user_profiles',href:'https://www.amplenote.com/user_profiles/2030-krishna-kanth-b'}
+    ]},
+    {h:'Anki Flashcards &amp; Web Tools',items:[
+      {t:'Krishna’s Anki Flashcards',s:'krishnakanthb13.github.io/F',href:'https://krishnakanthb13.github.io/F/'},
+      {t:'VTT Text Extractor',s:'Simple VTT extractor',href:'https://krishnakanthb13.github.io/O/VTT/WEBVTT%20v1.html'},
+      {t:'VTT Text Extractor Pro',s:'VTT + Gemini AI',href:'https://krishnakanthb13.github.io/O/VTT/WEBVTT%20v2.html'}
+    ]}
+  ];
+  var notifications=[
+    {ic:'AN',cls:'b-proj',app:'Amplenote',time:'now',msg:'500+ users are now using your plugins ✦'},
+    {ic:'in',cls:'b-in',app:'LinkedIn',time:'2m',msg:'You have a new endorsement for SQL.'},
+    {ic:'cert',cls:'b-cert',app:'Snowflake',time:'9m',msg:'Certificate earned — Data Engineering Workshop ✓'},
+    {ic:'proj',cls:'b-proj',app:'Digital Garden',time:'1h',msg:'New data project published: H-1B Analysis 2025.'},
+    {ic:'mail',cls:'b-mail',app:'Recruiter',time:'3h',msg:'Are you open to full-time Data Analyst roles?'},
+    {ic:'gh',cls:'b-gh',app:'GitHub',time:'5h',msg:'krishnakanthb13 pushed v0.0.40 to master.'}
   ];
   var contacts=[
     {t:'Email',s:'krishnakanthb13@gmail.com',href:'mailto:krishnakanthb13@gmail.com',cls:'b-mail',ic:'mail'},
@@ -106,23 +211,40 @@
 
   /* ---------- PAGE BUILDERS ---------- */
   function buildAbout(){
-    var stats=[['8+','Years experience'],['95%','KPI automation'],['90%','Latency reduction'],['~118','Hrs/month saved'],['8','Career roles'],['M.Sc','VIT Vellore']];
+    var stats=[['8+','Years experience'],['95%','KPI automation'],['90%','Latency reduction'],['~118','Hrs/month saved'],['9','Career roles'],['M.Sc','VIT Vellore']];
+    var langs=[['English','Native / bilingual'],['Telugu','Native / bilingual'],['Tamil','Elementary'],['Hindi','Elementary'],['French','Elementary']];
+    var hobbies=['Basketball','Carrom','Online Games','Painting','Cooking','Movies'];
     var s='<div class="page-head"><h2 tabindex="-1">About</h2><p>Data &amp; Insights Analyst</p></div>';
-    s+='<div class="card"><p>Analyst with 8+ years across data management, analysis, visualization and storytelling — turning complex datasets into actionable insight with Excel, SQL, Python and Tableau, delivering major FTE savings and productivity gains.</p></div>';
+    s+='<div class="card"><p>Data Analyst with excellent proficiency in Excel, SQL, Python, Tableau, Looker and PowerBI, bringing broad knowledge across IT, Healthcare (Life Science) and Education Technology. I excel at applying data-driven solutions to critical problems — making complex data understandable and actionable.</p></div>';
     s+='<div class="stats">';
     stats.forEach(function(x){s+='<div class="stat"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';});
     s+='</div>';
     s+='<p class="tagline">Ex-Amazon · Ex-Optum · Ex-Dell · Ex-J&amp;J</p>';
+    s+='<div class="sub-h">Volunteering</div><div class="card"><p><b>Content Coordinator (Volunteer)</b> · Bhumi NGO · Jun 2016 – Jul 2018 · 2 yrs 2 mos. Helping classes 9 &amp; 10 build their own robots through weekend workshops, organising content and assigning volunteers.</p><a class="xp-link" style="margin-top:8px" href="https://bhumi.ngo/" target="_blank" rel="noopener">'+I.bio+'bhumi.ngo</a></div>';
+    s+='<div class="sub-h">Languages</div><div class="card"><div class="langgrid">';
+    langs.forEach(function(l){s+='<div class="lang"><b>'+l[0]+'</b><span>'+l[1]+'</span></div>';});
+    s+='</div></div>';
+    s+='<div class="sub-h">Hobbies</div><div class="chips">';
+    hobbies.forEach(function(h){s+='<span class="chip">'+h+'</span>';});
+    s+='</div>';
+    s+='<p class="about-foot">© 2026 Krishna Kanth B (BKK)</p>';
     return s;
   }
   function buildExperience(){
-    var s='<div class="page-head"><h2 tabindex="-1">Experience</h2><p>Tap a role to expand details</p></div>';
+    var s='<div class="page-head"><h2 tabindex="-1">Experience</h2><p>9 roles · tap to expand details</p></div>';
     experience.forEach(function(x,i){
+      var body='<div class="inner">';
+      if(x.link)body+='<a class="xp-link" href="'+x.link.href+'" target="_blank" rel="noopener">'+I.bio+x.link.label+'</a>';
+      if(x.accolade)body+='<div class="xp-accolade">★ '+x.accolade+'</div>';
+      if(x.desc)body+='<p class="desc">'+x.desc+'</p>';
+      if(x.points){body+='<ul>';x.points.forEach(function(p){body+='<li>'+p+'</li>';});body+='</ul>';}
+      if(x.tags){body+='<div class="xp-tags">';x.tags.forEach(function(t){body+='<span>'+t+'</span>';});body+='</div>';}
+      body+='</div>';
       s+='<div class="xp" data-xp="'+i+'"><button class="xp-btn" type="button" aria-expanded="false" aria-controls="xpb'+i+'">'+
         '<span class="xp-logo" aria-hidden="true">'+x.badge+'</span>'+
         '<span class="xp-meta"><h3>'+x.role+'</h3><span class="co">'+x.co+(x.client?' · '+x.client:'')+'</span><span class="date">'+x.date+'</span></span>'+
         '<span class="chev" aria-hidden="true">'+I.chev+'</span></button>'+
-        '<div class="xp-body" id="xpb'+i+'"><p>'+x.detail+'</p></div></div>';
+        '<div class="xp-body" id="xpb'+i+'">'+body+'</div></div>';
     });
     return s;
   }
@@ -131,9 +253,16 @@
     education.forEach(function(x){
       s+='<div class="edu"><span class="dot" aria-hidden="true"><i></i><span class="ln"></span></span>'+
         '<span class="body"><h3>'+x.deg+'</h3><span class="co">'+x.co+'</span><div class="date">'+x.date+'</div>'+
-        (x.detail?'<p>'+x.detail+'</p>':'')+'</span></div>';
+        (x.detail?'<p>'+x.detail+'</p>':'');
+      if(x.extra){s+='<ul style="list-style:none;margin:8px 0 0;padding:0">';
+        x.extra.forEach(function(e){s+='<li style="position:relative;padding-left:14px;font-size:12px;line-height:1.45;color:var(--ink-soft);margin-bottom:5px"><span style="position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)"></span>'+e+'</li>';});
+        s+='</ul>';}
+      if(x.pub)s+='<a class="xp-link" style="margin-top:8px" href="'+x.pub.href+'" target="_blank" rel="noopener">'+I.bio+x.pub.label+'</a>';
+      s+='</span></div>';
     });
     s+='</div>';
+    s+='<a class="lrow" href="https://vit.ac.in/" target="_blank" rel="noopener" aria-label="Vellore Institute of Technology"><span class="li b-doc" aria-hidden="true">'+I.edu+'</span><span class="t"><b>Vellore Institute of Technology</b><span>vit.ac.in</span></span><span class="go" aria-hidden="true">'+I.go+'</span></a>';
+    s+='<a class="lrow" href="https://www.linkedin.com/in/bkrishnakanth/details/projects/" target="_blank" rel="noopener" aria-label="Academic projects on LinkedIn"><span class="li b-in" aria-hidden="true">'+I.in+'</span><span class="t"><b>Academic Projects</b><span>LinkedIn · details/projects</span></span><span class="go" aria-hidden="true">'+I.go+'</span></a>';
     return s;
   }
   function buildSkills(){
@@ -145,19 +274,27 @@
     s+='</div>';
     s+='<div class="sub-h">Toolbox</div><div class="chips">';
     skillChips.forEach(function(c){s+='<span class="chip">'+c+'</span>';});
-    s+='</div><div class="sub-h">Domains</div><div class="chips">';
-    domains.forEach(function(c){s+='<span class="chip">'+c+'</span>';});
-    s+='</div>';
+    s+='</div><div class="sub-h">Domains of expertise</div><div class="chips">';
+    domains.forEach(function(c){s+='<span class="chip">'+c[0]+' · '+c[1]+'</span>';});
+    s+='</div><div class="sub-h">Soft skills</div><div class="chips">';
+    softSkills.forEach(function(c){s+='<span class="chip">'+c+'</span>';});
+    s+='</div><div class="sub-h">Profiles</div>';
+    skillLinks.forEach(function(c){s+=linkRow(c);});
     return s;
   }
   function buildCerts(){
-    var s='<div class="page-head"><h2 tabindex="-1">Certifications</h2><p>Verified credentials</p></div>';
+    var s='<div class="page-head"><h2 tabindex="-1">Certifications</h2><p>52 credentials · verified</p></div>';
+    s+='<div class="stats"><div class="stat"><b>52</b><span>Credentials</span></div><div class="stat"><b>6</b><span>Snowflake workshops</span></div></div>';
     certs.forEach(function(c){s+=linkRow(c);});
     return s;
   }
   function buildProjects(){
-    var s='<div class="page-head"><h2 tabindex="-1">Projects</h2><p>Selected data work</p></div>';
-    projects.forEach(function(p){s+=linkRow({t:p.t,s:p.s,href:p.href,cls:'b-proj',ic:'proj',ext:true});});
+    var s='<div class="page-head"><h2 tabindex="-1">Projects</h2><p>Spare-time &amp; data work</p></div>';
+    s+='<p class="tagline">Data → Analysis → Visualization → Storytelling</p>';
+    projectGroups.forEach(function(g){
+      s+='<div class="group-h">'+g.h+'</div>';
+      g.items.forEach(function(p){s+=linkRow({t:p.t,s:p.s,href:p.href,cls:'b-proj',ic:'proj',ext:true});});
+    });
     return s;
   }
   function buildContact(){
@@ -184,6 +321,7 @@
   var home=document.getElementById('home');
   var current='home';
   var built={};
+  var screenEl=document.querySelector('.screen');
   var statusbar=document.getElementById('statusbar');
   var homeInd=document.querySelector('.home-ind');
   var animating=false;
@@ -217,6 +355,9 @@
   function setChrome(onHome){
     statusbar.classList.toggle('dark',onHome);
     homeInd.classList.toggle('light',onHome);
+    /* Tab bar is hidden on home (CSS .is-home .tabbar{display:none}) so it can
+       never overlap the app-icon grid / dock. */
+    screenEl.classList.toggle('is-home',onHome);
   }
 
   function focusView(el){
@@ -295,11 +436,105 @@
   window.addEventListener('hashchange',fromHash);
 
   /* ---------- CLOCK ---------- */
+  var notiTimeEl=document.getElementById('notiTime');
+  var notiDateEl=document.getElementById('notiDate');
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function tick(){
     var d=new Date(),h=d.getHours(),m=d.getMinutes();
-    document.getElementById('clock').textContent=((h%12)||12)+':'+(m<10?'0'+m:m);
+    var t=((h%12)||12)+':'+(m<10?'0'+m:m);
+    document.getElementById('clock').textContent=t;
+    if(notiTimeEl)notiTimeEl.textContent=t;
+    if(notiDateEl)notiDateEl.textContent=DAYS[d.getDay()]+', '+MON[d.getMonth()]+' '+d.getDate();
   }
   tick();setInterval(tick,15000);
+
+  /* ---------- NOTIFICATION CENTER ---------- */
+  var noti=document.getElementById('noti');
+  var notiList=document.getElementById('notiList');
+  var notiOpen=false, lastFocus=null;
+
+  notiList.innerHTML=notifications.map(function(n){
+    var icon=I[n.ic]?I[n.ic]:n.ic;
+    return '<div class="noti-card"><span class="nic '+n.cls+'" aria-hidden="true">'+icon+'</span>'+
+      '<span class="nbody"><span class="nt"><span>'+n.app+'</span><time>'+n.time+'</time></span>'+
+      '<span class="nm">'+n.msg+'</span></span></div>';
+  }).join('');
+
+  function openNoti(){
+    if(notiOpen)return;
+    notiOpen=true;lastFocus=document.activeElement;
+    noti.classList.remove('dragging');noti.style.transform='';
+    noti.classList.add('open');noti.setAttribute('aria-hidden','false');
+    statusbar.setAttribute('aria-expanded','true');
+    try{noti.focus({preventScroll:true});}catch(e){}
+  }
+  function closeNoti(){
+    if(!notiOpen)return;
+    notiOpen=false;
+    noti.classList.remove('dragging');noti.style.transform='';
+    noti.classList.remove('open');noti.setAttribute('aria-hidden','true');
+    statusbar.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
+  }
+  statusbar.setAttribute('aria-expanded','false');
+  statusbar.addEventListener('click',function(){notiOpen?closeNoti():openNoti();});
+  statusbar.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();notiOpen?closeNoti():openNoti();}
+  });
+  noti.addEventListener('click',function(e){ if(!e.target.closest('.noti-card'))closeNoti(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&notiOpen)closeNoti(); });
+
+  /* swipe: down from top edge to open, up on panel to close */
+  var dStart=null, dragging=false, fromTop=false, scrH=0;
+  function onDown(e){
+    if(animating)return;
+    var rect=screenEl.getBoundingClientRect();
+    scrH=rect.height;
+    if(notiOpen){
+      var list=e.target.closest('.noti-list');
+      if(list&&list.scrollTop>0){dStart=null;return;}
+      fromTop=false;dStart=e.clientY;dragging=false;
+    }else{
+      if(e.clientY-rect.top>70){dStart=null;return;}
+      fromTop=true;dStart=e.clientY;dragging=false;
+    }
+  }
+  function onMove(e){
+    if(dStart===null)return;
+    var dy=e.clientY-dStart;
+    if(!dragging){
+      if(Math.abs(dy)<6)return;
+      if(fromTop&&dy<=0){dStart=null;return;}
+      if(!fromTop&&dy>=0){dStart=null;return;}
+      dragging=true;
+      if(!reduce){
+        noti.classList.add('dragging');
+        if(fromTop){noti.classList.add('open');noti.setAttribute('aria-hidden','false');}
+      }
+    }
+    if(reduce)return;
+    if(fromTop)noti.style.transform='translateY('+Math.min(0,-scrH+Math.max(0,dy))+'px)';
+    else noti.style.transform='translateY('+Math.max(-scrH,dy)+'px)';
+  }
+  function onUp(e){
+    if(dStart===null)return;
+    var dy=e.clientY-dStart;dStart=null;
+    if(!dragging)return;
+    dragging=false;noti.classList.remove('dragging');noti.style.transform='';
+    if(fromTop){ if(dy>90){notiOpen=false;openNoti();} else {notiOpen=true;closeNoti();} }
+    else { if(dy<-70){notiOpen=true;closeNoti();} else {noti.classList.add('open');} }
+  }
+  if(window.PointerEvent){
+    screenEl.addEventListener('pointerdown',onDown);
+    document.addEventListener('pointermove',onMove);
+    document.addEventListener('pointerup',onUp);
+    document.addEventListener('pointercancel',onUp);
+  }else{
+    screenEl.addEventListener('touchstart',function(e){onDown(e.touches[0]);},{passive:true});
+    document.addEventListener('touchmove',function(e){onMove(e.touches[0]);},{passive:true});
+    document.addEventListener('touchend',function(e){onUp(e.changedTouches[0]);});
+  }
 
   /* ---------- SPLASH ---------- */
   var splash=document.getElementById('splash');

@@ -8,10 +8,13 @@
     --line:rgba(10,15,5,.08);
     --card:#ffffff;
     --screen:#f4f6f2;
-    --bar:rgba(244,246,242,.72);
+    --bar:rgba(244,246,242,.94);
     --safe-top:env(safe-area-inset-top,0px);
     --safe-bottom:env(safe-area-inset-bottom,0px);
     --spring:cubic-bezier(.22,1.05,.36,1);
+    /* iOS "squircle" (superellipse) silhouette used to mask the app icons so
+       they read as authentic Apple/iOS home-screen icons on any size. */
+    --squircle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,50 C0,16 16,0 50,0 C84,0 100,16 100,50 C100,84 84,100 50,100 C16,100 0,84 0,50Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
     --statusH:46px;
     --navH:52px;
     --tabH:64px;
@@ -71,18 +74,36 @@
   /* ===== Status bar ===== */
   .statusbar{
     height:calc(var(--statusH) + var(--safe-top));
-    padding:max(var(--safe-top),14px) 26px 0;
-    display:flex;align-items:center;justify-content:space-between;
-    font-size:14px;font-weight:600;color:var(--ink);
-    flex:none;z-index:40;position:relative;
+    padding:max(var(--safe-top),14px) 16px 0;
+    display:flex;align-items:center;
+    font-size:14px;font-weight:700;color:var(--ink);
+    flex:none;z-index:40;position:relative;cursor:pointer;
+    background:var(--bar);
+    backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
   }
-  .statusbar.dark{color:#fff}
-  .sb-right{display:flex;align-items:center;gap:6px}
+  /* 3-zone status bar: time (left) | reserved island space (centre) | indicators
+     (right). The centre zone reserves the full width of the dynamic-island pill
+     so the time and the signal/wifi/battery cluster can never sit beneath it. */
+  .sb-left{flex:1;display:flex;align-items:center;justify-content:flex-start;min-width:0;white-space:nowrap}
+  .sb-mid{flex:none;width:120px;height:1px}
+  /* Home: status bar sits over the wallpaper. A soft dark scrim (instead of a
+     solid band) keeps white text/icons legible while letting the wallpaper
+     show through at the very top. */
+  .statusbar.dark{
+    color:#fff;
+    background:linear-gradient(180deg,rgba(4,8,3,.46) 0%,rgba(4,8,3,.12) 70%,rgba(4,8,3,0) 100%);
+    text-shadow:0 1px 3px rgba(0,0,0,.55);
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+  }
+  .statusbar.dark .batt-fill,.statusbar.dark .batt-shell{opacity:1}
+  .statusbar.dark .sb-right svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.55))}
+  .sb-right{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:6px;white-space:nowrap}
   .sb-right svg{display:block}
   .battery{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600}
   .batt-shell{width:24px;height:12px;border:1px solid currentColor;border-radius:3px;position:relative;opacity:.9;padding:1.5px}
   .batt-shell::after{content:"";position:absolute;right:-3px;top:3.5px;width:2px;height:4px;border-radius:0 2px 2px 0;background:currentColor;opacity:.7}
-  .batt-fill{height:100%;width:78%;background:currentColor;border-radius:1px}
+  .batt-fill{height:100%;width:100%;background:currentColor;border-radius:1px}
+  .batt-pct{font-size:12px;font-weight:600;letter-spacing:.2px;font-variant-numeric:tabular-nums}
 
   /* ===== View stack ===== */
   .stage{position:relative;flex:1;min-height:0;overflow:hidden}
@@ -93,10 +114,21 @@
   .view[hidden]{display:none}
 
   /* ===== HOME SCREEN ===== */
-  #home{
+  /* iOS 16/17-style wallpaper: soft, premium abstract gradient blobs. Painted
+     on the screen itself so it also sits behind the translucent status bar.
+     The home view is transparent so the wallpaper reads continuously. */
+  .screen.is-home{
     background:
-      radial-gradient(130% 90% at 50% -10%, rgba(132,204,22,.55), transparent 60%),
-      linear-gradient(160deg,#1f3310 0%,#33500f 55%,#65a30d 130%);
+      radial-gradient(46% 38% at 18% 16%, rgba(190,242,100,.85), transparent 62%),
+      radial-gradient(44% 40% at 84% 20%, rgba(56,189,248,.70), transparent 62%),
+      radial-gradient(52% 48% at 80% 82%, rgba(167,139,250,.72), transparent 64%),
+      radial-gradient(46% 44% at 14% 86%, rgba(251,113,133,.55), transparent 62%),
+      radial-gradient(58% 50% at 50% 52%, rgba(45,212,191,.45), transparent 68%),
+      linear-gradient(165deg,#0c1d12 0%,#11212a 48%,#171026 100%);
+    background-attachment:scroll;
+  }
+  #home{
+    background:transparent;
     padding-top:6px;
   }
   .home-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 0 14px}
@@ -124,34 +156,52 @@
     font-family:inherit;text-decoration:none;
   }
   .app .ic{
-    width:60px;height:60px;border-radius:16px;display:grid;place-items:center;
-    box-shadow:0 8px 18px -6px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.25) inset;
-    transition:transform .25s var(--spring);
+    width:60px;height:60px;border-radius:14px;display:grid;place-items:center;
+    /* Real iOS squircle silhouette. The mask clips the gradient + gloss to the
+       superellipse; the drop-shadow filter reads the masked alpha so the cast
+       shadow follows the squircle too (box-shadow would stay a rounded-rect). */
+    -webkit-mask:var(--squircle);mask:var(--squircle);
+    box-shadow:
+      0 1px 1px rgba(255,255,255,.5) inset,
+      0 -2px 4px rgba(0,0,0,.16) inset,
+      0 0 0 .5px rgba(0,0,0,.16) inset;
+    filter:drop-shadow(0 7px 12px rgba(0,0,0,.42));
+    transition:transform .22s var(--spring),filter .22s var(--spring);
     position:relative;overflow:hidden;
   }
-  .app .ic svg{width:30px;height:30px;display:block;color:#fff;position:relative;z-index:1}
-  .app:active .ic{transform:scale(.88)}
-  .app .lbl{font-size:11px;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,.4);letter-spacing:.1px}
+  /* iOS-style top gloss highlight (sits under the glyph) */
+  .app .ic::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.06) 46%,rgba(255,255,255,0) 60%);
+  }
+  .app .ic svg{width:30px;height:30px;display:block;color:#fff;position:relative;z-index:1;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.22))}
+  .app:active .ic{transform:scale(.86)}
+  .app .lbl{font-size:11px;font-weight:500;color:#fff;
+    text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 10px rgba(0,0,0,.3);letter-spacing:.1px}
   .app:focus-visible{outline:none}
   .app:focus-visible .ic{outline:3px solid #fff;outline-offset:3px}
 
-  .ic.g-about{background:linear-gradient(150deg,#84cc16,#3f6212)}
-  .ic.g-exp{background:linear-gradient(150deg,#38bdf8,#1d4ed8)}
-  .ic.g-edu{background:linear-gradient(150deg,#f59e0b,#b45309)}
-  .ic.g-skill{background:linear-gradient(150deg,#a78bfa,#6d28d9)}
-  .ic.g-cert{background:linear-gradient(150deg,#fb7185,#be123c)}
-  .ic.g-proj{background:linear-gradient(150deg,#2dd4bf,#0f766e)}
-  .ic.g-contact{background:linear-gradient(150deg,#34d399,#047857)}
-  .ic.g-resume{background:linear-gradient(150deg,#64748b,#1e293b)}
+  /* Authentic iOS-style icon gradients: bright at the top, deepening to the
+     bottom (vertical), like Messages / Photos / Reminders app icons. */
+  .ic.g-about{background:linear-gradient(180deg,#a3e635,#4d7c0f)}
+  .ic.g-exp{background:linear-gradient(180deg,#38bdf8,#2563eb)}
+  .ic.g-edu{background:linear-gradient(180deg,#fcd34d,#d97706)}
+  .ic.g-skill{background:linear-gradient(180deg,#c4b5fd,#7c3aed)}
+  .ic.g-cert{background:linear-gradient(180deg,#fb7185,#e11d48)}
+  .ic.g-proj{background:linear-gradient(180deg,#5eead4,#0d9488)}
+  .ic.g-contact{background:linear-gradient(180deg,#34d399,#059669)}
+  .ic.g-resume{background:linear-gradient(180deg,#94a3b8,#334155)}
 
   /* ===== DOCK ===== */
   .dock{
     margin:auto 14px 0;
-    background:rgba(255,255,255,.18);
-    backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
-    border:1px solid rgba(255,255,255,.22);
-    border-radius:30px;padding:12px;
+    background:rgba(255,255,255,.16);
+    backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:32px;padding:12px;
     display:flex;justify-content:space-around;gap:8px;flex:none;
+    box-shadow:0 8px 30px -10px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.3) inset;
   }
   .dock .app .lbl{display:none}
   .dock .app .ic{width:56px;height:56px}
@@ -208,7 +258,7 @@
   .chev{width:20px;height:20px;flex:none;color:var(--muted);transition:transform .3s var(--spring);margin-top:2px}
   .xp.open .chev{transform:rotate(90deg)}
   .xp-body{max-height:0;overflow:hidden;transition:max-height .35s var(--spring)}
-  .xp-body p{font-size:13px;line-height:1.6;color:var(--ink-soft);padding:0 15px 15px 67px}
+  .xp-body .inner p{font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
 
   /* Skills */
   .skill-row{margin-bottom:14px}
@@ -277,11 +327,15 @@
     display:flex;
     background:var(--bar);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);
     border-top:1px solid var(--line);
+    box-shadow:0 -1px 8px rgba(10,15,5,.06);
   }
+  /* Tab bar is only meaningful inside an app page; hide it on the home screen
+     so it never overlaps the app-icon grid or dock. */
+  .screen.is-home .tabbar{display:none}
   .tab{
     flex:1;background:none;border:none;cursor:pointer;font-family:inherit;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-    color:var(--muted);font-size:10.5px;font-weight:600;padding-top:6px;
+    color:#52596a;font-size:10.5px;font-weight:600;padding-top:6px;
   }
   .tab svg{width:24px;height:24px}
   .tab[aria-selected="true"]{color:var(--accent-deep)}
@@ -290,6 +344,71 @@
   /* Home indicator */
   .home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:128px;height:5px;border-radius:5px;background:rgba(0,0,0,.32);z-index:55;pointer-events:none}
   .home-ind.light{background:rgba(255,255,255,.55)}
+
+  /* ===== Notification Center (pull-down shade) ===== */
+  .noti{
+    position:absolute;inset:0;z-index:58;
+    display:flex;flex-direction:column;
+    padding:calc(var(--safe-top) + 50px) 14px 16px;
+    color:#fff;
+    background:linear-gradient(180deg,rgba(8,14,4,.82),rgba(8,14,4,.72));
+    backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);
+    transform:translateY(-100%);
+    transition:transform .42s var(--spring);
+    will-change:transform;
+    visibility:hidden;
+  }
+  .noti:focus{outline:none}
+  .noti.open{transform:translateY(0);visibility:visible}
+  .noti.dragging{transition:none}
+  .noti-clock{text-align:center;margin:6px 0 18px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .noti-clock .t{font-size:54px;font-weight:700;letter-spacing:-1.5px;line-height:1}
+  .noti-clock .d{font-size:14px;font-weight:600;opacity:.92;margin-top:6px}
+  .noti-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px}
+  .noti-card{
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:18px;padding:13px 14px;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    animation:notiIn .5s var(--spring) both;
+  }
+  .noti-card .nic{width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;background:linear-gradient(150deg,#84cc16,#3f6212)}
+  .noti-card .nic svg{width:18px;height:18px}
+  .noti-card .nic.b-proj{background:linear-gradient(150deg,#2dd4bf,#0f766e)}
+  .noti-card .nic.b-in{background:linear-gradient(150deg,#0a66c2,#08436b)}
+  .noti-card .nic.b-cert{background:linear-gradient(150deg,#fb7185,#be123c)}
+  .noti-card .nic.b-mail{background:linear-gradient(150deg,#34d399,#047857)}
+  .noti-card .nic.b-gh{background:linear-gradient(150deg,#4b5563,#111827)}
+  .noti-card .nbody{flex:1;min-width:0}
+  .noti-card .nbody .nt{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;opacity:.95}
+  .noti-card .nbody .nt time{font-weight:600;opacity:.75;flex:none}
+  .noti-card .nbody .nm{font-size:13px;line-height:1.4;margin-top:2px;opacity:.95}
+  @keyframes notiIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .noti-grabber{flex:none;margin:14px auto 2px;width:120px;height:5px;border-radius:5px;background:rgba(255,255,255,.55)}
+  .noti-hint{text-align:center;font-size:11px;opacity:.7;margin-top:6px}
+
+  /* ===== Rich experience body ===== */
+  .xp-body .inner{padding:0 15px 16px 15px}
+  .xp-body .desc{font-size:12.5px;line-height:1.55;color:var(--ink-soft);margin-bottom:10px}
+  .xp-body ul{list-style:none;margin:0 0 10px;padding:0}
+  .xp-body ul li{position:relative;font-size:12.5px;line-height:1.5;color:var(--ink-soft);padding-left:15px;margin-bottom:6px}
+  .xp-body ul li::before{content:"";position:absolute;left:2px;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  .xp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .xp-tags span{font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#ecfccb;color:var(--accent-deep)}
+  .xp-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--accent-deep);text-decoration:none;margin-bottom:10px}
+  .xp-link svg{width:14px;height:14px}
+  .xp-accolade{font-size:11.5px;font-weight:700;color:#b45309;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:8px 10px;margin-bottom:10px;line-height:1.4}
+
+  /* ===== Grouped lists (projects / interests) ===== */
+  .group-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:18px 0 10px}
+  .group-h:first-child{margin-top:2px}
+  .pubrow{font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
+  .pubrow b{color:var(--ink)}
+  .langgrid{display:grid;grid-template-columns:1fr;gap:9px}
+  .lang{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+  .lang b{font-weight:600}
+  .lang span{font-size:11.5px;color:var(--muted)}
 
   /* ===== Transitions (push) ===== */
   .view.enter{animation:pushIn .42s var(--spring)}
@@ -303,16 +422,33 @@
 
   /* ===== Splash ===== */
   #splash{
-    position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
-    background:linear-gradient(160deg,#1f3310,#65a30d);color:#fff;
-    transition:opacity .6s ease,visibility .6s;
+    position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    background:
+      radial-gradient(50% 42% at 24% 22%, rgba(190,242,100,.7), transparent 62%),
+      radial-gradient(48% 44% at 82% 26%, rgba(56,189,248,.6), transparent 62%),
+      radial-gradient(54% 50% at 78% 80%, rgba(167,139,250,.6), transparent 64%),
+      linear-gradient(165deg,#0c1d12 0%,#11212a 50%,#171026 100%);
+    color:#fff;
+    transition:opacity .6s ease,visibility .6s,transform .6s var(--spring);
   }
-  #splash.hide{opacity:0;visibility:hidden}
-  #splash .badge{width:96px;height:96px;border-radius:30px;background:linear-gradient(150deg,#a3e635,#3f6212);
-    display:grid;place-items:center;font-size:46px;font-weight:800;color:#0b1404;box-shadow:0 16px 40px -10px rgba(0,0,0,.5);animation:pop .6s var(--spring)}
-  #splash h1{font-size:20px;font-weight:800;letter-spacing:-.3px}
-  #splash p{font-size:12.5px;opacity:.9}
+  #splash.hide{opacity:0;visibility:hidden;transform:scale(1.04)}
+  #splash .badge{width:96px;height:96px;border-radius:28px;background:linear-gradient(150deg,#a3e635,#3f6212);
+    display:grid;place-items:center;font-size:46px;font-weight:800;color:#0b1404;
+    box-shadow:0 18px 44px -10px rgba(0,0,0,.6),0 1px 1px rgba(255,255,255,.5) inset,0 0 0 1px rgba(255,255,255,.1);
+    animation:pop .6s var(--spring)}
+  #splash h1{font-size:22px;font-weight:800;letter-spacing:-.3px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+  #splash p{font-size:12.5px;opacity:.92;text-shadow:0 1px 6px rgba(0,0,0,.3)}
   @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+  /* ===== Copyright caption (desktop, below the phone frame) ===== */
+  .copyright{
+    position:fixed;left:0;right:0;bottom:14px;z-index:1;
+    text-align:center;pointer-events:none;
+    color:rgba(255,255,255,.5);font-size:11px;font-weight:500;letter-spacing:.3px;
+    text-shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  /* About app footer */
+  .about-foot{text-align:center;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.2px;margin:20px 0 2px}
 
   /* ===== Mobile full-bleed ===== */
   @media (max-width:480px){
@@ -321,11 +457,17 @@
     .device::before,.device::after{display:none}
     .screen{border-radius:0}
     .island{display:none}
+    /* No island/notch here, so the centre reserve collapses and the time +
+       indicators use the full width. */
+    .sb-mid{width:0}
     .statusbar{height:calc(28px + var(--safe-top))}
     .home-ind{display:none}
+    .copyright{display:none}
   }
   @media (prefers-reduced-motion:reduce){
     .view.enter,.view.leave,.view.enter-back,.view.leave-back{animation:none!important}
     .xp-body,.bar i,.app .ic,#splash .badge{transition:none!important;animation:none!important}
+    .noti{transition:none!important}
+    .noti-card{animation:none!important}
     #splash{transition:opacity .2s!important}
   }
