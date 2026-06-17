@@ -328,18 +328,26 @@
 
   function pageEl(id){return document.getElementById('page-'+id);}
 
+  // Static dispatch: the markup builder is chosen by an explicit switch on
+  // the page id, never by indexing builders[] with a DOM-derived value, so
+  // there is no dynamic method call that a crafted id could mis-target.
+  function buildContent(id){
+    switch(id){
+      case 'about':          return buildAbout();
+      case 'experience':     return buildExperience();
+      case 'education':      return buildEducation();
+      case 'skills':         return buildSkills();
+      case 'certifications': return buildCerts();
+      case 'projects':       return buildProjects();
+      case 'contact':        return buildContact();
+      default:               return '';
+    }
+  }
   function ensureBuilt(id){
     if(built[id])return;
-    // Only dispatch to a known builder so a crafted id can never reach an
-    // unexpected target (e.g. an inherited Object method).
-    if(!Object.prototype.hasOwnProperty.call(builders,id))return;
-    var build=builders[id];
-    if(typeof build!=='function')return;
     var el=pageEl(id);
     if(!el)return;
-    // Call via a plain function reference (not builders[id]()) so this is a
-    // normal call, never a dynamic method dispatch on the builders object.
-    el.innerHTML=navbar(id)+'<div class="page-scroll">'+build()+'</div>';
+    el.innerHTML=navbar(id)+'<div class="page-scroll">'+buildContent(id)+'</div>';
     el.querySelector('.back').addEventListener('click',goHome);
     if(id==='experience'){
       el.querySelectorAll('.xp-btn').forEach(function(b){
