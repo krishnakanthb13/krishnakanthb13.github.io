@@ -17,7 +17,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
 - **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
-- **O**: [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro & YouTube caption tools
+- **O**: [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro + [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) (browser extension & CLI)
 - **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 5 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
 
@@ -65,6 +65,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 ---
 
+- **Transcript Studio for YouTube** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) — free browser extension + CLI):
+	- [Extension](https://github.com/krishnakanthb13/krishnakanthb13.github.io/tree/master/O/YT/extension): MV3 side panel — pick language, translate, search, click-to-seek, export TXT/SRT/VTT/MD/JSON.
+	- [CLI](https://github.com/krishnakanthb13/krishnakanthb13.github.io/tree/master/O/YT/cli): Cross-platform `ytt` command (Python/.bat/.sh) — fetch a transcript by URL or ID.
+
+---
+
 - **Charm School & Flirt Engine** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md) — free, private, AI-powered conversation coaching):
 	- [Home / Landing](https://krishnakanthb13.github.io/L/): Mobile-friendly front door linking both tools.
 		- [Charm School](https://krishnakanthb13.github.io/L/charm-practice.html): Practice charming, flirty, and witty conversation lines.
@@ -88,10 +94,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **In Progress:**
-	- [Main](https://krishnakanthb13.github.io/0/Main.html): Unfinished Testing Codebase.
-	- [Old Version](https://krishnakanthb13.github.io/0/pexp.html): Older Version of Online Résumé.
-	- [Python](https://krishnakanthb13.github.io/1/Python.html): Unfinished Testing Codebase.
-	- [Snowflake](https://krishnakanthb13.github.io/1/Snowflake.html): Unfinished Testing Codebase.
-	- [SQL](https://krishnakanthb13.github.io/1/SQL.html): Unfinished Testing Codebase.
+	- **Folder 0** (`0/`):
+		- [Main](https://krishnakanthb13.github.io/0/Main.html): Unfinished Testing Codebase.
+		- [Old Version](https://krishnakanthb13.github.io/0/pexp.html): Older Version of Online Résumé.
+	- **Folder 1** (`1/`):
+		- [Python](https://krishnakanthb13.github.io/1/Python.html): Unfinished Testing Codebase.
+		- [Snowflake](https://krishnakanthb13.github.io/1/Snowflake.html): Unfinished Testing Codebase.
+		- [SQL](https://krishnakanthb13.github.io/1/SQL.html): Unfinished Testing Codebase.
 
 ---

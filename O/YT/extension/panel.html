@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transcript Studio for YouTube</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header class="hdr">
+    <div class="logo">📝</div>
+    <h1>Transcript Studio<small>for YouTube</small></h1>
+    <button class="icon-btn" id="themeBtn" title="Toggle theme (light / dark / system)">🌗</button>
+    <button class="icon-btn" id="supportBtn" title="Support this free tool 💛">💛</button>
+  </header>
+
+  <section class="controls">
+    <div class="video-meta" id="videoMeta"></div>
+    <div class="row">
+      <label for="langSelect">Caption</label>
+      <select id="langSelect"><option>Open a YouTube video…</option></select>
+    </div>
+    <div class="row">
+      <label for="translateSelect">Translate</label>
+      <select id="translateSelect"><option value="">Off — original language</option></select>
+    </div>
+    <button class="btn-primary" id="fetchBtn" disabled>
+      <span>⬇️</span><span id="fetchLabel">Get transcript</span>
+    </button>
+  </section>
+
+  <section class="toolbar" id="toolbar">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search transcript…" autocomplete="off" />
+      <span class="search-count" id="searchCount"></span>
+    </div>
+    <div class="toggles">
+      <button class="toggle on" id="tgTimestamps">🕒 Timestamps</button>
+      <button class="toggle" id="tgFollow">🎯 Follow video</button>
+      <button class="toggle" id="tgSmaller">A−</button>
+      <button class="toggle" id="tgBigger">A+</button>
+    </div>
+  </section>
+
+  <section class="export" id="exportBar">
+    <select id="formatSelect" title="Export format"></select>
+    <button class="btn-ghost" id="copyBtn">📋 Copy</button>
+    <button class="btn-ghost" id="downloadBtn">💾 Save</button>
+  </section>
+
+  <main class="scroll" id="scroll">
+    <div class="state" id="state">
+      <div class="big">🎬</div>
+      <h2>Open a YouTube video</h2>
+      <p>Play any video or Short, then come back here and hit <b>Get transcript</b>.
+         Pick the language, translate, search, and export.</p>
+    </div>
+  </main>
+
+  <footer class="foot" id="foot">
+    <div class="stats" id="stats"></div>
+    <a class="support" id="footSupport" href="#" target="_blank" rel="noopener">💛 Support</a>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="lib/captions.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
