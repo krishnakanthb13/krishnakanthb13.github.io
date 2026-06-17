@@ -382,11 +382,13 @@
                 }
 
                 // Clean the line of timestamps and tags
-                let cleanLine = line
-                    .replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '')
-                    .replace(/<\/?c[^>]*>/g, '')
-                    .replace(/<[^>]+>/g, '')
-                    .trim();
+                let cleanLine = line.replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '');
+                // Strip any remaining VTT cue tags (<c>, </c>, <c.color>, …),
+                // looping until stable so leftovers can't recombine into a tag.
+                let prevLine;
+                do { prevLine = cleanLine; cleanLine = cleanLine.replace(/<[^>]*>/g, ''); }
+                while (cleanLine !== prevLine);
+                cleanLine = cleanLine.trim();
 
                 if (cleanLine) {
                     // Only add if we haven't seen this exact text before

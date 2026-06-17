@@ -30,11 +30,20 @@
   var home        = body.getAttribute('data-home')         || '../BKK.html';
   var sectionHref = body.getAttribute('data-section-href') || 'index.html';
 
+  /* These values come from page-authored data-* attributes, but we escape
+     them before building markup so a stray quote or angle bracket can never
+     break out of the attributes/elements below. */
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  }); }
+  var sectionE = esc(section), crumbE = esc(crumb),
+      homeE = esc(home), sectionHrefE = esc(sectionHref);
+
   /* breadcrumb: Home / Section / Crumb — Section becomes the
      current page when no crumb is set (used by the hub itself). */
-  var crumbsHTML = "<a href='" + home + "'>Home</a><span class='sep'>/</span>" + (crumb
-    ? "<a href='" + sectionHref + "'>" + section + "</a><span class='sep'>/</span><span class='here'>" + crumb + "</span>"
-    : "<span class='here'>" + section + "</span>");
+  var crumbsHTML = "<a href='" + homeE + "'>Home</a><span class='sep'>/</span>" + (crumb
+    ? "<a href='" + sectionHrefE + "'>" + sectionE + "</a><span class='sep'>/</span><span class='here'>" + crumbE + "</span>"
+    : "<span class='here'>" + sectionE + "</span>");
 
   var SUN  = "<svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19'/></svg>";
   var SYS  = "<svg viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='13' rx='2'/><path d='M8 21h8M12 17v4'/></svg>";
@@ -47,7 +56,7 @@
   var header = document.createElement('header');
   header.className = 'topbar';
   header.innerHTML =
-    "<a class='brand' href='" + home + "' title='Home'><span class='brand-mark'>KKB</span></a>" +
+    "<a class='brand' href='" + homeE + "' title='Home'><span class='brand-mark'>KKB</span></a>" +
     "<nav class='crumbs' aria-label='Breadcrumb'>" + crumbsHTML + "</nav>" +
     "<span class='grow'></span>" +
     "<div class='theme-switch' role='group' aria-label='Theme'>" +
@@ -55,7 +64,7 @@
       "<button data-set-theme='system' title='System' aria-label='System theme'>" + SYS + "</button>" +
       "<button data-set-theme='dark' title='Dark' aria-label='Dark theme'>" + MOON + "</button>" +
     "</div>" +
-    "<a class='home-link' href='" + home + "'>↗ Portfolio</a>";
+    "<a class='home-link' href='" + homeE + "'>↗ Portfolio</a>";
 
   body.insertBefore(header, body.firstChild);
   body.insertBefore(prog, body.firstChild);
@@ -69,8 +78,8 @@
   var updated = body.getAttribute('data-updated');
   var foot = document.createElement('footer');
   foot.className = 'page-footer';
-  foot.innerHTML = "<p>krishnakanthb13 &middot; " + section + " &mdash; <a href='" + home + "'>back to portfolio</a></p>" +
-    (updated ? "<p class='updated'>Last updated " + updated + "</p>" : "");
+  foot.innerHTML = "<p>krishnakanthb13 &middot; " + sectionE + " &mdash; <a href='" + homeE + "'>back to portfolio</a></p>" +
+    (updated ? "<p class='updated'>Last updated " + esc(updated) + "</p>" : "");
   page.appendChild(foot);
 
   /* ---- wire it up ---- */

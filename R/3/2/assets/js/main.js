@@ -31,9 +31,18 @@
   function countUp(el){
     var to=parseFloat(el.getAttribute('data-to'))||0;
     var suf=el.getAttribute('data-suffix')||'';
+    // Build the suffix as a text node so the data-suffix value is never
+    // interpreted as HTML.
+    function appendSuffix(){
+      if(!suf)return;
+      var s=document.createElement('span');
+      s.className='suf';
+      s.textContent=suf;
+      el.appendChild(s);
+    }
     if(reduce){
       el.textContent=to+'';
-      if(suf){el.insertAdjacentHTML('beforeend','<span class="suf">'+suf+'</span>');}
+      appendSuffix();
       return;
     }
     var dur=1200,start=null;
@@ -43,7 +52,7 @@
       var eased=1-Math.pow(1-p,3);
       el.textContent=Math.round(to*eased);
       if(p<1){requestAnimationFrame(step);}
-      else if(suf){el.insertAdjacentHTML('beforeend','<span class="suf">'+suf+'</span>');}
+      else appendSuffix();
     }
     requestAnimationFrame(step);
   }

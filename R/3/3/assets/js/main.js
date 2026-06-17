@@ -330,7 +330,11 @@
 
   function ensureBuilt(id){
     if(built[id])return;
+    // Only dispatch to a known builder so a crafted id can never reach an
+    // unexpected target (e.g. an inherited Object method).
+    if(!Object.prototype.hasOwnProperty.call(builders,id))return;
     var el=pageEl(id);
+    if(!el)return;
     el.innerHTML=navbar(id)+'<div class="page-scroll">'+builders[id]()+'</div>';
     el.querySelector('.back').addEventListener('click',goHome);
     if(id==='experience'){
