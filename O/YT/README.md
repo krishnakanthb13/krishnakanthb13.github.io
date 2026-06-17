@@ -1,5 +1,12 @@
 # Transcript Studio for YouTube
 
+> 🎉 **Now maintained as two dedicated, open-source repositories.** This folder is
+> a frozen snapshot; **all future updates and the latest versions live here:**
+> - 🧩 Extension → **[github.com/krishnakanthb13/yt-transcript-studio](https://github.com/krishnakanthb13/yt-transcript-studio)**
+> - 💻 CLI → **[github.com/krishnakanthb13/yt-transcript-cli](https://github.com/krishnakanthb13/yt-transcript-cli)**
+>
+> The standalone repos are **GPL-3.0** licensed and carry releases (`v1.0.0+`).
+
 Get the **transcript / subtitles** of any YouTube video or Short in seconds —
 pick the language, translate it, search it, click a line to jump the video,
 **summarize it with AI**, and save it as **TXT, timestamped TXT, SRT, VTT,
@@ -10,9 +17,9 @@ It comes in two flavours so **anyone** can use it:
 - 🧩 **Browser extension** — point-and-click, in a side panel next to the video. *(Start here if you're not technical.)*
 - 💻 **Command-line tool** (`ytt`) — for power users, batch jobs and automation.
 
-Free, **open source ([MIT](LICENSE))**, and private (everything runs locally —
-no servers, no sign-up, no tracking). If it saves you time, please
-[support it 💛](https://krishnakanthb13.github.io/S/).
+Free, **open source**, and private (everything runs locally — no servers, no
+sign-up, no tracking). The maintained repos above are **GPL-3.0**. If it saves
+you time, please [support it 💛](https://krishnakanthb13.github.io/S/).
 
 📦 Want to put it on the Chrome Web Store? See **[PUBLISH.md](PUBLISH.md)**.
 
@@ -220,5 +227,11 @@ makes it actually work.
 These tools are free. If they help you, support the work:
 **[krishnakanthb13.github.io/S](https://krishnakanthb13.github.io/S/)** —
 GitHub Sponsors · Buy Me a Coffee · PayPal · UPI.
+
+---
+
+> **Latest versions live in their own repos** (this folder is a frozen snapshot):
+> **[yt-transcript-studio](https://github.com/krishnakanthb13/yt-transcript-studio)** (extension) ·
+> **[yt-transcript-cli](https://github.com/krishnakanthb13/yt-transcript-cli)** (CLI) — both GPL-3.0.
 
 © 2026 Krishna Kanth B
