@@ -18,8 +18,9 @@ const app = new Vue({
       .attr('cy', 100)
       .attr('r', 50)
       .style('fill', '#65a30d')
-      .on('click', d => {
+      .on('click', (event, d) => {
         // Handle click event (expand node or show details)
+        // D3 v6+ passes the event as the first arg and the datum as the second.
         console.log('Clicked on node:', d);
       });
 

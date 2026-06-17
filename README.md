@@ -42,11 +42,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Resume**:
-	- [Resume v1](https://krishnakanthb13.github.io/R/1/1.html)
-	- [Resume v2](https://krishnakanthb13.github.io/R/2/2.html)
-	- [Resume v3.1](https://krishnakanthb13.github.io/R/3/1/index.html)
-	- [Resume v3.2](https://krishnakanthb13.github.io/R/3/2/3.html)
-	- [Resume v3.3](https://krishnakanthb13.github.io/R/3/3/3.html)
+	- [Resume v1](https://krishnakanthb13.github.io/R/1/)
+	- [Resume v2](https://krishnakanthb13.github.io/R/2/)
+	- [Resume v3.1](https://krishnakanthb13.github.io/R/3/1/)
+	- [Resume v3.2](https://krishnakanthb13.github.io/R/3/2/)
+	- [Resume v3.3](https://krishnakanthb13.github.io/R/3/3/)
 
 ---
 
