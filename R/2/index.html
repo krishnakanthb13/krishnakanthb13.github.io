@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BKK - CMD Resume</title>
-    <link rel="stylesheet" href="assets/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krishna Kanth B — Terminal Résumé</title>
+<meta name="description" content="Interactive terminal résumé of Krishna Kanth B — Data & Insights Analyst with 8+ years across Amazon, Optum, Dell and J&J. Type 'help' to explore.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2365a30d'/><text x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-size='40' font-weight='bold' text-anchor='middle' fill='%23ffffff'>K</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
-    <div class="command-prompt">
-        <div class="content" id="content"></div>
-        <div class="instructions">
-            <h2>Use ArrowUp, ArrowDown to navigate, Enter or ArrowRight to select, ArrowLeft to go back<br>Press f11 to
-                Experience Full-Screen Mode</h2>
-        </div>
-        <div class="buttons">
-            <button id="upButton">↑</button>
-            <button id="downButton">↓</button>
-            <button id="enterButton">Enter</button>
-        </div>
+  <main class="terminal" id="terminal" aria-label="Interactive terminal résumé">
+    <div class="titlebar">
+      <span class="lights" aria-hidden="true">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+      </span>
+      <span class="title">— <b>krishna@resume</b>: ~/career — zsh —</span>
+      <button class="theme-toggle" id="themeBtn" type="button" aria-pressed="false" title="Toggle phosphor color">amber ◐</button>
     </div>
-    <audio id="keySound1" src="assets/c.wav"></audio>
-    <audio id="keySound2" src="assets/d.wav"></audio>
-    <script src="assets/script.js"></script>
-</body>
 
+    <div class="screen" id="screen" tabindex="0">
+      <div id="output" aria-live="polite" aria-label="Terminal output"></div>
+    </div>
+
+    <form class="inputline" id="form" autocomplete="off">
+      <label for="cmd" class="vh">Type a command and press Enter</label>
+      <span class="ps1" aria-hidden="true">
+        <span class="u">krishna</span><span class="sep">@</span><span class="h">resume</span><span class="sep">:</span><span class="muted">~</span><span class="arrow">❯</span>
+      </span>
+      <span class="input-wrap">
+        <input id="cmd" name="cmd" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="hinttext" />
+        <span class="fakecaret" id="caret" aria-hidden="true"></span>
+      </span>
+    </form>
+
+    <div class="chips" id="chips" aria-label="Suggested commands"></div>
+    <p class="hint" id="hinttext">Type <span class="accent">help</span> · use ↑↓ for history · Tab to autocomplete · tap a chip to run · <a href="../../BKK.html">full résumé ↗</a></p>
+  </main>
+
+<script src="assets/js/main.js"></script>
+</body>
 </html>

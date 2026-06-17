@@ -1,71 +1,54 @@
 (function(){
-  // Vertical Timeline - by CodyHouse.co
-	function VerticalTimeline( element ) {
-		this.element = element;
-		this.blocks = this.element.getElementsByClassName("cd-timeline__block");
-		this.images = this.element.getElementsByClassName("cd-timeline__img");
-		this.contents = this.element.getElementsByClassName("cd-timeline__content");
-		this.offset = 0.8;
-		this.hideBlocks();
-	};
+  "use strict";
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-	VerticalTimeline.prototype.hideBlocks = function() {
-		if ( !"classList" in document.documentElement ) {
-			return; // no animation on older browsers
-		}
-		//hide timeline blocks which are outside the viewport
-		var self = this;
-		for( var i = 0; i < this.blocks.length; i++) {
-			(function(i){
-				if( self.blocks[i].getBoundingClientRect().top > window.innerHeight*self.offset ) {
-					self.images[i].classList.add("cd-timeline__img--hidden"); 
-					self.contents[i].classList.add("cd-timeline__content--hidden"); 
-				}
-			})(i);
-		}
-	};
+  var yr = document.getElementById("yr");
+  if (yr) yr.textContent = new Date().getFullYear();
 
-	VerticalTimeline.prototype.showBlocks = function() {
-		if ( ! "classList" in document.documentElement ) {
-			return;
-		}
-		var self = this;
-		for( var i = 0; i < this.blocks.length; i++) {
-			(function(i){
-				if( self.contents[i].classList.contains("cd-timeline__content--hidden") && self.blocks[i].getBoundingClientRect().top <= window.innerHeight*self.offset ) {
-					// add bounce-in animation
-					self.images[i].classList.add("cd-timeline__img--bounce-in");
-					self.contents[i].classList.add("cd-timeline__content--bounce-in");
-					self.images[i].classList.remove("cd-timeline__img--hidden");
-					self.contents[i].classList.remove("cd-timeline__content--hidden");
-				}
-			})(i);
-		}
-	};
+  var bar = document.getElementById("bar");
+  var ticking = false;
+  function updateProgress(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var top = h.scrollTop || document.body.scrollTop;
+    var pct = max > 0 ? (top / max) * 100 : 0;
+    if (bar) bar.style.width = pct.toFixed(2) + "%";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if (!ticking){ window.requestAnimationFrame(updateProgress); ticking = true; }
+  }, {passive:true});
+  window.addEventListener("resize", updateProgress, {passive:true});
+  updateProgress();
 
-	var verticalTimelines = document.getElementsByClassName("js-cd-timeline"),
-		verticalTimelinesArray = [],
-		scrolling = false;
-	if( verticalTimelines.length > 0 ) {
-		for( var i = 0; i < verticalTimelines.length; i++) {
-			(function(i){
-				verticalTimelinesArray.push(new VerticalTimeline(verticalTimelines[i]));
-			})(i);
-		}
+  var revealEls = document.querySelectorAll(".reveal");
+  if (prefersReduced || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.14, rootMargin:"0px 0px -8% 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
 
-		//show timeline blocks on scrolling
-		window.addEventListener("scroll", function(event) {
-			if( !scrolling ) {
-				scrolling = true;
-				(!window.requestAnimationFrame) ? setTimeout(checkTimelineScroll, 250) : window.requestAnimationFrame(checkTimelineScroll);
-			}
-		});
-	}
-
-	function checkTimelineScroll() {
-		verticalTimelinesArray.forEach(function(timeline){
-			timeline.showBlocks();
-		});
-		scrolling = false;
-	};
+  /* Graceful logo fallback — if an image fails, show the company initial */
+  Array.prototype.forEach.call(document.querySelectorAll(".logo-chip img"), function(img){
+    img.addEventListener("error", function(){
+      var chip = img.parentNode;
+      if (chip && chip.className === "logo-chip"){
+        chip.style.background = "var(--accent)";
+        chip.style.padding = "0";
+        var t = document.createElement("span");
+        t.textContent = (img.alt || "?").trim().charAt(0).toUpperCase();
+        t.style.cssText = "font-family:var(--serif);color:#fff;font-size:1.6rem;font-weight:600;";
+        chip.innerHTML = "";
+        chip.appendChild(t);
+      }
+    });
+  });
 })();

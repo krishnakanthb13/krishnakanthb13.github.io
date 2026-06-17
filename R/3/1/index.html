@@ -1,18 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Resume Mind Map</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Optional: Include your custom CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7.0.0"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Krishna Kanth B — Career Knowledge Graph</title>
+<meta name="description" content="An interactive force-directed knowledge graph of Krishna Kanth B's career — a Data &amp; Insights Analyst with 8+ years across Amazon, Optum, Dell and J&amp;J. Explore experience, skills, education, certifications and projects.">
+<meta name="author" content="Krishna Kanth B">
+<meta name="theme-color" content="#05070a">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2365a30d'/><text x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-size='40' font-weight='bold' text-anchor='middle' fill='%23ffffff'>K</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div id="app">
-    <!-- Mind map will be rendered here -->
-  </div>
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+<noscript><link rel="stylesheet" href="assets/css/nojs.css"></noscript>
 
-  <script src="app.js"></script> <!-- Vue and D3 setup -->
+<div class="stage-bg" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="mark" aria-hidden="true">K</div>
+    <div class="who">
+      <h1>Krishna Kanth B</h1>
+      <p>Data &amp; Insights Analyst — Career Knowledge Graph</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="searchwrap">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="search" type="search" placeholder="Search the graph…" aria-label="Search nodes in the knowledge graph" autocomplete="off">
+    </div>
+    <button class="btn" id="recenter" type="button" title="Reset &amp; recenter the graph">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>
+      <span class="label">Reset</span>
+    </button>
+    <a class="btn primary" href="../../../BKK.html" target="_blank" rel="noopener" title="Open the full résumé">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v5h5"/><path d="M19 21V8l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2Z"/></svg>
+      <span class="label">Full résumé</span>
+    </a>
+  </div>
+</header>
+
+<main id="app" aria-label="Interactive career knowledge graph"></main>
+
+<aside class="legend" aria-label="Graph legend — click a category to highlight">
+  <h2>Categories</h2>
+  <ul id="legend-list"></ul>
+</aside>
+
+<p class="hint js-only" aria-hidden="true">
+  <b>Click</b> a node to expand &amp; view details · <b>Drag</b> to move · <b>Scroll</b> to zoom
+</p>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+
+<!-- Scrim + Detail Drawer -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="false" aria-labelledby="drawer-title" aria-hidden="true">
+  <div class="drawer-accent" id="drawer-accent"></div>
+  <div class="drawer-head">
+    <span class="drawer-cat" id="drawer-cat"><span class="dot"></span><span class="catname"></span></span>
+    <h2 id="drawer-title">—</h2>
+    <div class="drawer-meta" id="drawer-meta"></div>
+    <button class="drawer-close" id="drawer-close" type="button" aria-label="Close detail panel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<!-- ===================== ACCESSIBLE / NO-JS TEXT RESUME ===================== -->
+<section class="sr-only" aria-label="Text résumé of Krishna Kanth B">
+  <p class="nojs-note"><strong>Interactive graph requires JavaScript.</strong> Below is the full text résumé.</p>
+  <h1>Krishna Kanth B — Data &amp; Insights Analyst</h1>
+  <p>8+ years turning complex data into decisions. Ex-Amazon, Ex-Optum, Ex-Dell, Ex-J&amp;J. SQL, Python, Tableau, Snowflake. M.Sc, VIT Vellore.</p>
+  <p>Analyst with 8+ years across data management, analysis, visualization and storytelling. Expert at extracting, transforming, analysing and reporting complex datasets into actionable insight using Excel, SQL, Python and Tableau — delivering major FTE savings and productivity gains.</p>
+  <p>Key stats: 8+ Years · 95% KPI Automation (Amazon) · 90% Latency Reduction (Optum) · ~118 Hours/Month Saved · 8 Roles.</p>
+  <p>Contact: krishnakanthb13@gmail.com · +91 7667360114.
+    <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" rel="noopener">LinkedIn</a>,
+    <a href="https://github.com/krishnakanthb13/" target="_blank" rel="noopener">GitHub</a>,
+    <a href="https://sites.google.com/view/krishnakanthb/home" target="_blank" rel="noopener">Projects</a>,
+    <a href="https://bio.site/krishnakanthb13" target="_blank" rel="noopener">BioLink</a>,
+    <a href="https://krishnakanthb13.vercel.app/" target="_blank" rel="noopener">Digital Garden</a>,
+    <a href="https://public.tableau.com/app/profile/krishnakanthb13/vizzes" target="_blank" rel="noopener">Tableau Public</a>,
+    <a href="https://wa.me/917667360114" target="_blank" rel="noopener">WhatsApp</a>,
+    <a href="../../../BKK.html" target="_blank" rel="noopener">Full résumé</a>.
+  </p>
+  <h2>Experience</h2>
+  <ul>
+    <li>Technical Support Engineer Specialist — PowerSchool (via GlowTouch), Sep 2022–Oct 2023. Ticketing/KB usage +40% (Salesforce/JIRA/Confluence); DB mgmt via Aqua Data/SSMS/Snowflake; monitored Unified Insights builds.</li>
+    <li>Management Information Systems — Amazon (3D India), Jul 2020–Aug 2021. Automated 95% of KPI calcs; latency −99%; ~118 hrs/month ROI; 30 stored procs + 20 events.</li>
+    <li>Strategic Analyst — Optum, May 2017–Jan 2019. Automated GL Validation &amp; Org Hierarchy via SQL → latency −90%, reliability +50%; data mapping for Health Quest &amp; Atrium Health.</li>
+    <li>Analyst I/II/III — Johnson &amp; Johnson (via GVW Technologies), Mar 2015–Feb 2017. Excel macro → review +70%, accuracy +20%; LabWare LIMS V6 for McNeil &amp; Janssen; GDP &amp; CAPAs.</li>
+    <li>Content Analyst — Premier Inc. (via Medusind), Dec 2013–Feb 2015. Healthcare master-data mgmt; UNSPSC taxonomy; ANSI UOM; HIPAA; custom Excel interface tool.</li>
+    <li>Customer Care Voice Sr. Rep — Dell, Jul 2013–Dec 2013. Healthcare claims &amp; eligibility (Conifer); Aetna/AARP/BCBS/Cigna; AAPC; Medicare/Medicaid.</li>
+    <li>Product Support Analyst — Symantec, Apr 2011–Jul 2011. Norton install/config/troubleshoot; malware removal via safe-mode; KB contributions.</li>
+    <li>Customer Service Professional — Sitel India, Sep 2010–Mar 2011. Dell-On-Call tech support; "Resolution Expert of the Month" Jan 2011.</li>
+  </ul>
+  <h2>Skills</h2>
+  <ul>
+    <li>Databases: SQL, SSMS, MySQL, Aqua Data Studio, Snowflake, Stored Procedures.</li>
+    <li>Visualization: Tableau, Spotfire, Looker, Power BI, Excel Dashboards.</li>
+    <li>Productivity/Automation: Advanced Excel, Macros, Python, VLOOKUP/Query.</li>
+    <li>Domains: MIS / Org Hierarchy, SIS / EdTech, LIMS / Pharma, SCM / Healthcare.</li>
+    <li>Quality/Compliance: LabWare LIMS, GDP, CAPAs, HIPAA, UNSPSC.</li>
+  </ul>
+  <h2>Education</h2>
+  <ul>
+    <li>M.Sc Biotechnology — VIT Vellore, 2011–2013, 8.62 CGPA (Dissertation: CD36 Gene in Type-1 Diabetic Rat Kidneys; 3 international SET papers).</li>
+    <li>B.Sc Biotechnology — D. G. Vaishnav College, Univ. of Madras, 2007–2010, 62.80%.</li>
+    <li>Schooling (PCB+Math) — St. Mary's A.I.H.S.S., 2007.</li>
+  </ul>
+  <h2>Certifications</h2>
+  <ul>
+    <li><a href="https://achieve.snowflake.com/profile/krishnakanthb/wallet" target="_blank" rel="noopener">Snowflake (multiple)</a></li>
+    <li><a href="https://www.linkedin.com/in/bkrishnakanth/details/certifications/" target="_blank" rel="noopener">LinkedIn Licenses &amp; Certifications</a></li>
+    <li><a href="../../../BKK.html#certifications" target="_blank" rel="noopener">Full certifications list</a></li>
+  </ul>
+  <h2>Projects</h2>
+  <ul>
+    <li><a href="https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-2025/" target="_blank" rel="noopener">H-1B Analysis 2025</a></li>
+    <li><a href="https://krishnakanthb13.vercel.app/data-projects/h-1-b-analysis-historical/" target="_blank" rel="noopener">H-1B Analysis Historical</a></li>
+    <li><a href="https://krishnakanthb13.vercel.app/data-projects/arattai-trend-analytics/" target="_blank" rel="noopener">Arattai Trend Analytics</a></li>
+    <li><a href="https://krishnakanthb13.vercel.app/data-projects/101-data-projects/" target="_blank" rel="noopener">101 Data Projects</a></li>
+  </ul>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
