@@ -6,8 +6,8 @@ AI. Everything runs **entirely in the browser**: no build step, no backend, no s
 keys. Open an `.html` file and it just works. All three share one polished, responsive
 design with a **light/dark theme**.
 
-- **Lives in:** `R/VTT/` inside the `krishnakanthb13.github.io` repo.
-- **Flagship goes live at:** `https://krishnakanthb13.github.io/R/VTT/` (serves `index.html`).
+- **Lives in:** `O/VTT/` inside the `krishnakanthb13.github.io` repo.
+- **Flagship goes live at:** `https://krishnakanthb13.github.io/O/VTT/` (serves `index.html`).
 
 ---
 
@@ -40,7 +40,7 @@ evolution of one idea — *strip timestamps out of captions, keep the words* —
 extractor up to an AI-assisted tool that also pulls captions straight from YouTube.
 
 ```
-R/VTT/
+O/VTT/
 ├── index.html        # ⭐ VTT Text Extractor Pro (flagship — VTT + transcripts + YouTube + AI)
 ├── WEBVTT v2.html    # AI-assisted extractor (no YouTube fetch)
 ├── WEBVTT v1.html    # Minimal VTT → text extractor
@@ -238,7 +238,7 @@ disk. For a served preview that mirrors GitHub Pages:
 python -m http.server 8000   # or:  npx http-server
 ```
 
-Then open `http://localhost:8000/R/VTT/` (flagship) or one of the versioned files by name.
+Then open `http://localhost:8000/O/VTT/` (flagship) or one of the versioned files by name.
 
 > One caveat for the YouTube fetcher: the public CORS proxies it uses generally work the same
 > from `file://` and from a served origin, but if a proxy is rate-limited or down the fetch
@@ -252,7 +252,7 @@ Then open `http://localhost:8000/R/VTT/` (flagship) or one of the versioned file
   `WEBVTT v3 - IP.html`). Format auto-detect (VTT + transcripts), YouTube fetch, file
   upload/drag-drop, stats, TXT/SRT export, keep-timestamps toggle, light/dark theme, and the
   Gemini AI assistant (with a 12-language Translate picker and a browser-saved key). Named
-  `index.html` so `…github.io/R/VTT/` serves it automatically.
+  `index.html` so `…github.io/O/VTT/` serves it automatically.
 - `WEBVTT v2.html` — AI-assisted VTT extractor (stats, TXT/SRT, Gemini, light/dark theme)
   without the YouTube fetcher, transcript auto-detect, file upload, keep-timestamps toggle, or
   translate picker.
