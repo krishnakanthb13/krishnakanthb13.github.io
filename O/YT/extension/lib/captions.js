@@ -168,12 +168,20 @@
     return (head.length ? head.join('\n') + '\n\n' : '') + body + '\n';
   }
 
+  function toCSV(segs) {
+    const esc = (v) => '"' + String(v).replace(/"/g, '""') + '"';
+    const rows = ['start_seconds,timecode,text'];
+    for (const s of segs) rows.push(`${s.start.toFixed(2)},${clock(s.start)},${esc(s.text)}`);
+    return rows.join('\n') + '\n';
+  }
+
   const FORMATS = {
     txt:   { ext: 'txt', label: 'Plain text',       mime: 'text/plain',       fn: toParagraph },
     time:  { ext: 'txt', label: 'Timestamped text', mime: 'text/plain',       fn: toTimestamped },
     srt:   { ext: 'srt', label: 'SubRip (.srt)',    mime: 'text/plain',       fn: toSRT },
     vtt:   { ext: 'vtt', label: 'WebVTT (.vtt)',    mime: 'text/vtt',         fn: toVTT },
     md:    { ext: 'md',  label: 'Markdown (.md)',   mime: 'text/markdown',    fn: toMarkdown },
+    csv:   { ext: 'csv', label: 'CSV (.csv)',       mime: 'text/csv',         fn: toCSV },
     json:  { ext: 'json',label: 'JSON (.json)',     mime: 'application/json', fn: toJSON }
   };
 
@@ -211,12 +219,45 @@
     return collapse(String(name)).replace(/[\\/:*?"<>|]+/g, '').slice(0, 120) || 'transcript';
   }
 
+  // ---- view transforms -----------------------------------------------------
+
+  // Drop standalone non-speech cues ([Music], (Applause), ♪♪) and scrub inline ones.
+  function stripSoundCues(segs) {
+    return segs
+      .map((s) => ({ ...s, text: collapse(s.text.replace(/\[[^\]]*\]/g, ' ').replace(/[♪🎵]+/g, ' ')) }))
+      .filter((s) => s.text.length > 0);
+  }
+
+  // Merge choppy cues (esp. auto-captions) into readable paragraphs: join while
+  // the gap is small, the running length is under maxChars, and we haven't hit
+  // sentence-ending punctuation.
+  function paragraphs(segs, maxGap = 2.5, maxChars = 300) {
+    const out = [];
+    let cur = null;
+    for (const s of segs) {
+      if (!cur) { cur = { start: s.start, dur: s.dur, text: s.text }; continue; }
+      const gap = s.start - (cur.start + cur.dur);
+      const fits = (cur.text.length + s.text.length + 1) <= maxChars;
+      const sentenceEnd = /[.!?]["')\]]?$/.test(cur.text);
+      if (gap <= maxGap && fits && !sentenceEnd) {
+        cur.text = collapse(cur.text + ' ' + s.text);
+        cur.dur = (s.start + s.dur) - cur.start;
+      } else {
+        out.push(cur);
+        cur = { start: s.start, dur: s.dur, text: s.text };
+      }
+    }
+    if (cur) out.push(cur);
+    return out;
+  }
+
   return {
     decodeEntities, collapse,
     parseJson3, parseXml,
     clock, stamp, endOf,
-    toParagraph, toTimestamped, toSRT, toVTT, toJSON, toMarkdown,
+    toParagraph, toTimestamped, toSRT, toVTT, toJSON, toMarkdown, toCSV,
     FORMATS, format,
-    stats, search, sanitizeFilename
+    stats, search, sanitizeFilename,
+    stripSoundCues, paragraphs
   };
 });

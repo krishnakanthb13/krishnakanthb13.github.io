@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Transcript Studio for YouTube",
-  "version": "1.0.0",
-  "description": "Grab any YouTube transcript or subtitles — pick the language, translate, search, click-to-seek, and export as TXT, SRT, VTT, Markdown or JSON.",
+  "version": "1.1.0",
+  "description": "Grab any YouTube transcript or subtitles — pick the language, translate, search, click-to-seek, AI-summarize, and export TXT, SRT, VTT, MD, CSV or JSON.",
   "minimum_chrome_version": "114",
   "permissions": [
     "activeTab",
@@ -16,6 +16,9 @@
     "https://youtube.com/*",
     "https://m.youtube.com/*",
     "https://youtu.be/*"
+  ],
+  "optional_host_permissions": [
+    "https://generativelanguage.googleapis.com/*"
   ],
   "action": {
     "default_title": "Open Transcript Studio",
@@ -35,6 +38,15 @@
   },
   "side_panel": {
     "default_path": "panel.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Open Transcript Studio"
+    }
   },
   "content_scripts": [
     {

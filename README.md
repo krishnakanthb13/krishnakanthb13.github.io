@@ -94,6 +94,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **In Progress:**
+	- [BKK.html](https://krishnakanthb13.github.io/BKK.html): Main Online Résumé.
+	- [index.html](https://krishnakanthb13.github.io/index.html): Redirect to BKK.html.
+	- [assets/](https://github.com/krishnakanthb13/krishnakanthb13.github.io/tree/master/assets): Directory containing website assets (audio, images, css, js, other data).
 	- **Folder 0** (`0/`):
 		- [Main](https://krishnakanthb13.github.io/0/Main.html): Unfinished Testing Codebase.
 		- [Old Version](https://krishnakanthb13.github.io/0/pexp.html): Older Version of Online Résumé.

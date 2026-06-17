@@ -135,6 +135,44 @@ t('search returns matching indices, case-insensitive', () => {
   assert.strictEqual(C.search(segs, '').length, 3);
 });
 
+t('toCSV emits header + quoted text rows', () => {
+  const csv = C.toCSV(C.parseJson3(json3));
+  assert.ok(csv.startsWith('start_seconds,timecode,text\n'));
+  assert.ok(csv.includes('"Hello world"'));
+});
+
+t('stripSoundCues removes [Music] and ♪, drops empties', () => {
+  const segs = [
+    { start: 0, dur: 1, text: '[Music]' },
+    { start: 1, dur: 1, text: 'hello [Applause] there' },
+    { start: 2, dur: 1, text: '♪♪' }
+  ];
+  const out = C.stripSoundCues(segs);
+  assert.strictEqual(out.length, 1);
+  assert.strictEqual(out[0].text, 'hello there');
+});
+
+t('paragraphs merges small-gap fragments up to a limit', () => {
+  const segs = [
+    { start: 0, dur: 1, text: 'this is' },
+    { start: 1, dur: 1, text: 'one sentence' },
+    { start: 30, dur: 1, text: 'much later line' }   // big gap -> new paragraph
+  ];
+  const out = C.paragraphs(segs, 2.5, 300);
+  assert.strictEqual(out.length, 2);
+  assert.strictEqual(out[0].text, 'this is one sentence');
+  assert.strictEqual(out[1].text, 'much later line');
+});
+
+t('paragraphs breaks at sentence-ending punctuation', () => {
+  const segs = [
+    { start: 0, dur: 1, text: 'Done.' },
+    { start: 1, dur: 1, text: 'New start' }
+  ];
+  const out = C.paragraphs(segs, 5, 300);
+  assert.strictEqual(out.length, 2);
+});
+
 t('sanitizeFilename strips illegal characters', () => {
   assert.strictEqual(C.sanitizeFilename('a/b:c*?"<>|.txt'), 'abc.txt');
   assert.strictEqual(C.sanitizeFilename('   '), 'transcript');

@@ -50,12 +50,28 @@ and click the **↻ reload** icon on the Transcript Studio card.
 | **Any video or Short** | Works wherever captions exist, including auto-generated tracks. |
 | **Language picker** | Choose any caption track the video offers. |
 | **Auto-translate** | Translate to any of YouTube's supported target languages. |
-| **Click-to-seek** | Click a line and the video jumps to that moment. |
-| **Follow video** | Auto-scrolls and highlights the line currently playing. |
-| **Search** | Live match highlighting + hit counter (`Ctrl/⌘+F` to focus, `Esc` to clear). |
-| **Export** | Plain text, timestamped text, `.srt`, `.vtt`, Markdown, JSON — copy or download. |
+| **Click-to-seek** | Click a line (or its timestamp) and the video jumps to that moment. |
+| **Follow video** | Auto-scrolls + highlights the playing line, with a playback progress bar. |
+| **Search + navigation** | Live highlighting, hit counter, next/prev (`/` focus, `Enter` / `Shift+Enter`). |
+| **Paragraph mode** | Merge choppy auto-caption fragments into readable paragraphs. |
+| **Hide SFX** | Strip `[Music]` / `[Applause]` / ♪ noise. |
+| **Saved lines** | Star important lines (⭐), persisted per video; show only your highlights. |
+| **Per-line actions** | Copy a single line, or copy a `?t=` deep link to that moment. |
+| **AI summary** | Summary, outline, auto-chapters or action items via your own Gemini key. |
+| **Export** | Plain text, timestamped text, `.srt`, `.vtt`, Markdown, **CSV**, JSON — copy or download. |
+| **AI downloads** | Save the summary alone, or **summary + full transcript** together. |
 | **Reading stats** | Word count, line count, duration, estimated reading time. |
 | **Themes & sizing** | Light / dark / system theme and adjustable font size, all remembered. |
+| **Keyboard** | `Ctrl/⌘+Shift+Y` open · `/` search · `Enter` next match · `j`/`k` move lines. |
+
+### AI summaries (optional, bring-your-own key)
+
+The ✨ panel can summarize, outline, generate timestamped **auto-chapters**, or
+pull out **action items** from the loaded transcript. It uses **your own Google
+Gemini API key** ([free key here](https://aistudio.google.com/apikey)), stored
+locally in your browser. Models: **Gemini 3.5 Flash** (default) or **3.1
+Flash-Lite**. Nothing is sent anywhere except the direct call from your browser
+to Google's Gemini API — and only when you press Generate.
 
 ---
 
@@ -66,35 +82,42 @@ and click the **↻ reload** icon on the Transcript Studio card.
 | `sidePanel` | The whole UI lives in the side panel. |
 | `scripting` | Reads the player data and fetches captions from inside the YouTube tab. |
 | `activeTab` | Acts only on the YouTube tab you're viewing. |
-| `storage` | Remembers your theme, font size and format choices (`storage.sync`). |
-| `downloads` | Saves the exported transcript file. |
+| `storage` | Remembers your preferences and (locally) your optional AI key. |
+| `downloads` | Saves the exported transcript / summary file. |
 | host: `youtube.com`, `youtu.be` | Limits all of the above to YouTube only. |
+| **optional** host: `generativelanguage.googleapis.com` | Requested at runtime **only if** you enable AI summaries. |
 
-No analytics, no remote code, no network calls beyond YouTube's own caption
-endpoint.
+No analytics, no remote code, no tracking. The only network calls are to
+YouTube (for captions) and — if you opt in — directly to Google's Gemini API.
 
 ---
 
 ## 🛠 How it works (and why it's reliable)
 
-Earlier do-it-yourself versions failed because they read YouTube's
-`ytInitialPlayerResponse` from a content script's **isolated world**, where that
-page variable doesn't exist — so they reported "no captions" on videos that
-clearly had them.
+Two problems sink most DIY YouTube-transcript code:
 
-Transcript Studio instead injects into the page's **MAIN world** via
-`chrome.scripting.executeScript`, so it reads the real player object, and it
-fetches the `timedtext` endpoint **same-origin from the youtube.com tab**. That
-avoids the CSP/cross-origin errors that break fetches made from the extension's
-own origin. It requests `json3` first (richest, with timing + formatting), then
-falls back to `srv3` and legacy XML.
+1. **Wrong JS world.** Reading `ytInitialPlayerResponse` from a content script's
+   *isolated world* fails — that page variable doesn't live there. We inject into
+   the page's **MAIN world** via `chrome.scripting.executeScript` and read the real
+   player object (with an HTML-fetch fallback) to list the caption tracks.
+2. **PoToken (since ~June 2025).** The WEB player's caption `baseUrl` now carries
+   `&exp=xpe` and returns an **empty body** without a runtime proof-of-origin
+   token. So we don't use it. Instead we call YouTube's **InnerTube `player`
+   endpoint with a non-web client (ANDROID → IOS → MWEB → WEB)**, whose caption
+   URLs are *not* PoToken-gated, and fetch `json3` from there. The format is
+   auto-detected (`json3` or XML — `srv1`/`srv3`) and parsed accordingly.
+
+Because `host_permissions` cover YouTube, these run fine from the tab without CORS
+issues.
 
 ```
 panel.js ──executeScript(MAIN world)──▶ youtube.com tab
-            read player → caption tracks
-            fetch timedtext (json3 → srv3 → xml), same-origin
-         ◀── raw caption text ──
-lib/captions.js  parse → segments → format (TXT/SRT/VTT/MD/JSON) + stats
+   1. read player response  → caption track list (UI)
+   2. POST youtubei/v1/player {client: ANDROID…}  → un-gated caption baseUrl
+   3. GET baseUrl&fmt=json3                        → caption data
+         ◀── raw json3 / xml ──
+lib/captions.js  parse → segments → clean/paragraph → format (TXT/SRT/VTT/MD/CSV/JSON) + stats
+panel.js (optional) ──▶ Gemini API (your key)       → AI summary / chapters
 ```
 
 ---
@@ -103,14 +126,15 @@ lib/captions.js  parse → segments → format (TXT/SRT/VTT/MD/JSON) + stats
 
 ```text
 extension/
-├── manifest.json          # MV3 manifest
-├── service-worker.js      # opens the side panel on icon click
+├── manifest.json          # MV3 manifest (action opens the side panel)
+├── service-worker.js      # sets the side-panel-on-click behavior
 ├── content.js             # detects in-app navigation → auto-refresh
-├── panel.html             # side-panel markup
+├── panel.html             # side-panel markup + AI / settings overlays
 ├── panel.css              # light / dark / system theming
-├── panel.js               # the app: fetch, render, search, seek, export
-├── lib/captions.js        # pure parse/convert/format/stats core (no DOM/chrome)
+├── panel.js               # the app: fetch, render, search, seek, AI, export
+├── lib/captions.js        # pure parse/convert/clean/format/stats core (no DOM/chrome)
 ├── test/captions.test.js  # Node unit tests for the core
+├── README.md              # this file
 └── icons/                 # 16 / 48 / 128 px
 ```
 
@@ -121,11 +145,13 @@ extension/
 The caption core is pure (no DOM, no `chrome.*`) so it runs under Node:
 
 ```bash
-node test/captions.test.js     # 16 tests
+node test/captions.test.js     # 21 tests
 ```
 
 After editing any file, reload the extension at `chrome://extensions`
 (the ↻ icon on the card) and reopen the side panel.
+
+To publish to the Chrome Web Store, see **[../PUBLISH.md](../PUBLISH.md)**.
 
 ---
 
@@ -138,9 +164,9 @@ After editing any file, reload the extension at `chrome://extensions`
 
 ---
 
-## 🤝 Support
+## 🤝 Support & license
 
-Free to use. If it saves you time:
+Free and **open source** under the [MIT License](../LICENSE). If it saves you time:
 **[krishnakanthb13.github.io/S](https://krishnakanthb13.github.io/S/)** —
 GitHub Sponsors · Buy Me a Coffee · PayPal · UPI.
 

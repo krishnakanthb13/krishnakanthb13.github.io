@@ -1,16 +1,20 @@
 # Transcript Studio for YouTube
 
 Get the **transcript / subtitles** of any YouTube video or Short in seconds —
-pick the language, translate it, search it, click a line to jump the video, and
-save it as **TXT, timestamped TXT, SRT, VTT, Markdown or JSON**.
+pick the language, translate it, search it, click a line to jump the video,
+**summarize it with AI**, and save it as **TXT, timestamped TXT, SRT, VTT,
+Markdown, CSV or JSON**.
 
 It comes in two flavours so **anyone** can use it:
 
 - 🧩 **Browser extension** — point-and-click, in a side panel next to the video. *(Start here if you're not technical.)*
 - 💻 **Command-line tool** (`ytt`) — for power users, batch jobs and automation.
 
-Free, private (everything runs locally — no servers, no sign-up, no tracking).
-If it saves you time, please [support it 💛](https://krishnakanthb13.github.io/S/).
+Free, **open source ([MIT](LICENSE))**, and private (everything runs locally —
+no servers, no sign-up, no tracking). If it saves you time, please
+[support it 💛](https://krishnakanthb13.github.io/S/).
+
+📦 Want to put it on the Chrome Web Store? See **[PUBLISH.md](PUBLISH.md)**.
 
 ---
 
@@ -69,13 +73,16 @@ If you want to process many videos or automate it → **CLI**.
 | I want to… | Do this |
 |---|---|
 | **Jump the video to a line** | Click any line in the transcript |
-| **Follow along while it plays** | Click **🎯 Follow video** — it auto-scrolls & highlights |
-| **Find a word/phrase** | Type in the **Search** box (or press `Ctrl/⌘ + F`) |
-| **Hide/show the timestamps** | Click **🕒 Timestamps** |
-| **Make text bigger/smaller** | Click **A+** / **A−** |
-| **Copy it** | Pick a format (bottom-left) → click **📋 Copy** |
-| **Save it as a file** | Pick a format → click **💾 Save** (goes to your Downloads) |
-| **Switch light/dark theme** | Click the **🌗** icon (top-right) |
+| **Follow along while it plays** | Click **🎯 Follow video** — it auto-scrolls & highlights, with a progress bar |
+| **Find a word/phrase** | Type in **Search** (`/`); jump matches with the ▲ ▼ arrows or `Enter` / `Shift+Enter` |
+| **Read it like an article** | Click **¶ Paragraphs** to merge choppy auto-caption lines |
+| **Remove `[Music]` / `[Applause]`** | Click **🎵 Hide SFX** |
+| **Save important lines** | Hover a line → click ⭐ ; click **⭐ Saved** to show only those |
+| **Copy one line / its link** | Hover a line → 📋 copies the line, 🔗 copies a `?t=` deep link |
+| **Summarize with AI** | Click **✨** → pick Summary / Outline / Chapters / Takeaways (needs a free Gemini key in ⚙️) |
+| **Hide/show timestamps · text size** | **🕒 Timestamps** · **A+ / A−** |
+| **Copy / save the transcript** | Pick a format → **📋 Copy** or **💾 Save** |
+| **Switch theme** | Click **🌗** (light / dark / system) |
 
 **Which format should I pick?**
 
@@ -86,7 +93,10 @@ If you want to process many videos or automate it → **CLI**.
 | **SubRip (.srt)** | Subtitles for most video editors / players |
 | **WebVTT (.vtt)** | Subtitles for the web / HTML5 video |
 | **Markdown (.md)** | Blog posts / notes — timestamps become clickable links |
+| **CSV (.csv)** | Spreadsheets / data analysis (start, timecode, text columns) |
 | **JSON (.json)** | Feeding the data into another program |
+
+> ✨ The AI panel can also **download** just the summary, or the **summary + full transcript together** as one Markdown file.
 
 > 📖 More detail (permissions, internals, troubleshooting): [`extension/README.md`](extension/README.md)
 
@@ -128,12 +138,19 @@ ytt.bat https://youtu.be/VIDEOID --format srt --out "C:\My Transcripts"
 ### Common commands
 
 ```bash
+python ytt.py                                   # interactive wizard (asks every option)
 python ytt.py "<link or 11-char id>"            # plain text, saved + copied
 python ytt.py "<link>" --format srt             # make a .srt subtitle file
-python ytt.py "<link>" --lang en                # force English captions
+python ytt.py "<link>" --translate es --format md   # translate + Markdown
+python ytt.py "<link>" --clean --paragraphs     # tidy, readable text
+python ytt.py URL1 URL2 --out ./out             # batch several at once
+python ytt.py "<link>" --ai summary             # AI summary (needs a Gemini key)
 python ytt.py "<link>" --list                   # list available languages
-python ytt.py "<link>" --no-save --no-copy      # just print to screen
 ```
+
+Running it with **no arguments** (or double-clicking `ytt.bat`) starts an
+**interactive wizard** that asks for the URL, format, language, translation,
+clean-up, output folder and AI summary — one step at a time, each with a default.
 
 > 📖 Full option list & examples: [`cli/README.md`](cli/README.md)
 
@@ -153,15 +170,20 @@ honest, current state of what each one does.
 | Export **SRT** (`00:00:01,234`) | ✅ | ✅ | Identical, sequential numbering |
 | Export **VTT** (`00:00:01.234`) | ✅ | ✅ | Identical `WEBVTT` output |
 | Export **JSON** (`start`/`dur`/`text`) | ✅ | ✅ | Identical schema |
-| Export **Markdown** | ✅ | ➖ | Extension only (clickable timestamp links) |
+| Export **Markdown** | ✅ | ✅ `--format md` | Clickable timestamp links |
+| Export **CSV** | ✅ | ✅ `--format csv` | Identical columns |
 | Pick caption **language** | ✅ dropdown | ✅ `--lang` | — |
 | List available languages | ➖ (shown in dropdown) | ✅ `--list` | — |
-| **Auto-translate** | ✅ | ➖ | Extension only |
-| **Search** within transcript | ✅ | ➖ | Use your editor / `grep` for CLI output |
-| **Click-to-seek** / follow video | ✅ | ➖ | Browser-only by nature |
+| **Auto-translate** | ✅ | ✅ `--translate` | — |
+| **Paragraph mode** / hide SFX | ✅ | ✅ `--paragraphs` / `--clean` | Same merge & strip rules |
+| **AI summary / chapters** | ✅ (BYO Gemini key) | ✅ `--ai` (BYO key) | summary · bullets · chapters · takeaways |
+| Reading stats | ✅ footer | ✅ printed | — |
 | Copy to clipboard | ✅ | ✅ (if `pyperclip`) | — |
 | Save to file | ✅ Downloads | ✅ `--out` folder | — |
-| Batch / automation | ➖ | ✅ | CLI takes args, runs headless |
+| **Search** + next/prev nav | ✅ | ➖ | GUI-only (use `grep` on CLI output) |
+| **Click-to-seek** / follow video | ✅ | ➖ | Browser-only by nature |
+| **Saved lines (highlights)** | ✅ | ➖ | GUI-only, persisted per video |
+| **Batch** (many videos at once) | ➖ | ✅ args / `--batch-file` | CLI runs headless |
 | Remembers your settings | ✅ `storage.sync` | ➖ | Pass flags each run for the CLI |
 
 The shared rules both implement the same way: same video-ID patterns, same
