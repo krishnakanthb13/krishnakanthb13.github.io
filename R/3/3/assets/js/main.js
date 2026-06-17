@@ -333,9 +333,13 @@
     // Only dispatch to a known builder so a crafted id can never reach an
     // unexpected target (e.g. an inherited Object method).
     if(!Object.prototype.hasOwnProperty.call(builders,id))return;
+    var build=builders[id];
+    if(typeof build!=='function')return;
     var el=pageEl(id);
     if(!el)return;
-    el.innerHTML=navbar(id)+'<div class="page-scroll">'+builders[id]()+'</div>';
+    // Call via a plain function reference (not builders[id]()) so this is a
+    // normal call, never a dynamic method dispatch on the builders object.
+    el.innerHTML=navbar(id)+'<div class="page-scroll">'+build()+'</div>';
     el.querySelector('.back').addEventListener('click',goHome);
     if(id==='experience'){
       el.querySelectorAll('.xp-btn').forEach(function(b){
