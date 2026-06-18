@@ -79,6 +79,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Dump (D):** ([overview](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools, unified light/dark/system theme)
+	- [LongCat-2.0-Preview](https://krishnakanthb13.github.io/D/longcat.html): Agentic reasoning model — lightweight, tool-native, open.
 	- [Journaling](https://krishnakanthb13.github.io/D/journaling.html): The transformative power of journaling — methods and benefits.
 	- [Future of DataFrames](https://krishnakanthb13.github.io/D/dataframes.html): Wes McKinney's talk on the composable data stack, with a 2026 update.
 	- [Is Amplenote Worth It?](https://krishnakanthb13.github.io/D/amplenote.html): Amplenote weighed against a Google Docs / Tasks / Calendar setup.

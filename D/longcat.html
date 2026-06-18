@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LongCat API Platform — AI model proxy service with OpenAI and Anthropic-compatible APIs. High-performance agentic models, coding tool integrations, and more.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="LongCat API Platform">
+  <meta property="og:description" content="AI model proxy service with OpenAI and Anthropic-compatible APIs. High-performance agentic models, coding tool integrations, and more.">
+  <meta property="og:type" content="website">
+  <title>LongCat API Platform · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐈</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script src="pwa.js" data-accent="#b06a36"></script>
+</head>
+<body data-section="Dump" data-crumb="LongCat API Platform" data-updated="June 18, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">AI · API Platform</span>
+      <h1>LongCat API Platform</h1>
+      <p class="lede">AI model proxy service for the LongCat series — compatible with OpenAI and Anthropic API formats. Build agents, coding assistants, and enterprise workflows on a fast, open, agentic-first platform.</p>
+
+      <div class="meta-row">
+        <span class="chip">🧠 <b>Model:</b> LongCat-2.0-Preview</span>
+        <span class="chip">🔓 <b>Access:</b> Open &amp; available now</span>
+        <span class="chip">📦 <b>Formats:</b> OpenAI · Anthropic</span>
+        <span class="chip">⚡ <b>Quota:</b> 5M tokens/day free</span>
+      </div>
+
+      <div class="callout">LongCat-2.0-Preview is a high-performance agentic model supporting both OpenAI and Anthropic API formats — tool-calling, multi-step planning, and real-world task completion baked into the weights.</div>
+
+      <h2>What's New</h2>
+      <div class="accordion">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">★</span>LongCat-2.0-Preview<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>The latest release in the LongCat family — a high-performance agentic model supporting both OpenAI and Anthropic API formats. Tool-calling, multi-step planning, and real-world task completion baked into the weights.</p>
+            <ul>
+              <li><strong>2026-05-29:</strong> Six legacy models retired (incl. Flash Thinking). LongCat-2.0-Preview is now the primary model.</li>
+              <li><strong>2026-03-12:</strong> LongCat-Flash-Thinking upgraded for top-tier inference; auto-routed with no code changes.</li>
+              <li><strong>2026-01-14:</strong> LongCat-Flash-Thinking-2601 released — 560B MoE architecture, upgraded reasoning.</li>
+              <li><strong>2025-09-22:</strong> LongCat Flash Thinking officially open-sourced.</li>
+            </ul>
+            <p><a href="https://longcat.chat/platform/docs/ChangeLog.html" target="_blank" rel="noopener">Full ChangeLog →</a></p>
+          </div></div>
+        </div>
+      </div>
+
+      <h2>API Endpoints</h2>
+      <ul>
+        <li><strong>Base URL:</strong> <code>https://api.longcat.chat</code></li>
+        <li><strong>Auth:</strong> <code>Authorization: Bearer YOUR_API_KEY</code></li>
+      </ul>
+
+      <table>
+        <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip">POST</span></td><td><code>/openai/v1/chat/completions</code></td><td>Chat completions (OpenAI format)</td></tr>
+          <tr><td><span class="chip">POST</span></td><td><code>/anthropic/v1/messages</code></td><td>Messages (Anthropic format)</td></tr>
+          <tr><td><span class="chip">GET</span></td><td><code>/openai/v1/models</code></td><td>List available models</td></tr>
+          <tr><td><span class="chip">GET</span></td><td><code>/openai/v1/models/{model}</code></td><td>Model details</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Key Parameters</h3>
+      <table>
+        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>model</code></td><td>string</td><td>Yes</td><td>e.g. <code>LongCat-2.0-Preview</code></td></tr>
+          <tr><td><code>messages</code></td><td>array</td><td>Yes</td><td>Chat messages array</td></tr>
+          <tr><td><code>max_tokens</code></td><td>integer</td><td>No</td><td>Max output (up to 128K)</td></tr>
+          <tr><td><code>stream</code></td><td>boolean</td><td>No</td><td>Enable SSE streaming</td></tr>
+          <tr><td><code>temperature</code></td><td>number</td><td>No</td><td>Sampling temperature</td></tr>
+        </tbody>
+      </table>
+
+      <p><a href="https://longcat.chat/platform/docs/APIDocs.html" target="_blank" rel="noopener">Full API Docs →</a></p>
+
+      <h2>Coding Tools</h2>
+      <p>Use LongCat with your favorite coding assistant. All tools support LongCat-2.0-Preview via OpenAI-compatible API format.</p>
+
+      <div class="accordion">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">1</span>Claude Code<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>Configure <code>~/.claude/settings.json</code>:</p>
+            <ul>
+              <li><code>ANTHROPIC_BASE_URL</code> = <code>https://api.longcat.chat/anthropic</code></li>
+              <li><code>ANTHROPIC_AUTH_TOKEN</code> = your API key</li>
+              <li><code>ANTHROPIC_MODEL</code> = <code>LongCat-2.0-Preview</code></li>
+            </ul>
+            <p><a href="https://longcat.chat/platform/docs/ClaudeCode.html" target="_blank" rel="noopener">Claude Code Docs →</a></p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">2</span>Kilo Code<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>VS Code extension. Set API Provider to "OpenAI Compatible":</p>
+            <ul>
+              <li>Base URL: <code>https://api.longcat.chat/openai</code></li>
+              <li>Model: <code>LongCat-2.0-Preview</code></li>
+            </ul>
+            <p><a href="https://longcat.chat/platform/docs/KiloCode.html" target="_blank" rel="noopener">Kilo Code Docs →</a></p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">3</span>OpenCode<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>CLI tool. Configure <code>~/.config/opencode/opencode.json</code>:</p>
+            <ul>
+              <li>Provider: <code>LongCat</code> (OpenAI-compatible)</li>
+              <li>Base URL: <code>https://api.longcat.chat/openai</code></li>
+              <li>Model: <code>LongCat-2.0-Preview</code></li>
+            </ul>
+            <p><a href="https://longcat.chat/platform/docs/OpenCode.html" target="_blank" rel="noopener">OpenCode Docs →</a></p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">4</span>OpenClaw<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>Gateway-based agent platform. Install via npm, then configure:</p>
+            <ul>
+              <li>Base URL: <code>https://api.longcat.chat/openai</code></li>
+              <li>Model: <code>LongCat-2.0-Preview</code> (200K context)</li>
+            </ul>
+            <p>Run <code>openclaw tui</code> or <code>openclaw dashboard</code>.</p>
+            <p><a href="https://longcat.chat/platform/docs/OpenClaw.html" target="_blank" rel="noopener">OpenClaw Docs →</a></p>
+          </div></div>
+        </div>
+
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">5</span>Codex<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <p>OpenAI Codex CLI. Configure <code>~/.codex/config.toml</code> and <code>~/.codex/auth.json</code>:</p>
+            <ul>
+              <li>Model: <code>LongCat-2.0-Preview</code></li>
+              <li>Base URL: <code>https://api.longcat.chat/openai/v1</code></li>
+              <li>Wire API: <code>responses</code></li>
+            </ul>
+            <p><a href="https://longcat.chat/platform/docs/Codex.html" target="_blank" rel="noopener">Codex Docs →</a></p>
+          </div></div>
+        </div>
+      </div>
+
+      <h2>FAQ</h2>
+      <div class="accordion">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>How do I get an API Key?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p>Log in at <a href="https://longcat.chat/platform/api_keys" target="_blank" rel="noopener">longcat.chat/platform/api_keys</a> and click "Create API Key." Keys are shown only once — store securely. Up to 100 active keys per account.</p></div></div>
+        </div>
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>What's the difference between OpenAI and Anthropic endpoints?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p><code>/openai/native/chat/completions</code> uses OpenAI format (system/user/assistant roles). <code>/anthropic/v1/messages</code> uses Claude format (separate system parameter). Same API key works for both.</p></div></div>
+        </div>
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>What's the token limit?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p>LongCat-2.0-Preview outputs up to 128K tokens. 1M context window. Free tier: 5M tokens/day (up to 120M via feedback submissions).</p></div></div>
+        </div>
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>Can I use the official Python SDKs?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p>Yes. For OpenAI: set <code>openai.api_base = "https://api.longcat.chat/openai/"</code>. For Anthropic: configure <code>client = anthropic.Anthropic(base_url="https://api.longcat.chat/anthropic")</code>. Minimal code changes needed.</p></div></div>
+        </div>
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>How do I enable streaming?<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p>Set <code>"stream": true</code> in the request body. Responses return as Server-Sent Events (SSE).</p></div></div>
+        </div>
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">Q</span>I'm getting a 429 Rate Limit error<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner"><p>Too many requests too quickly. Implement exponential backoff or reduce request rate. Limits are enforced per API Key.</p></div></div>
+        </div>
+      </div>
+      <p><a href="https://longcat.chat/platform/docs/FAQ.html" target="_blank" rel="noopener">Full FAQ →</a></p>
+
+      <h2>Getting Started</h2>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://longcat.chat/" target="_blank" rel="noopener">Get an API Key →</a>
+        <a class="btn btn-ghost" href="https://longcat.chat/platform/docs/" target="_blank" rel="noopener">Documentation</a>
+        <a class="btn btn-ghost" href="https://www.longcatai.org/benchmarks/" target="_blank" rel="noopener">Benchmarks</a>
+      </div>
+
+      <p>Browse the rest of the <a href="index.html">Dump collection</a>.</p>
+    </article>
+  </main>
+  <script src="assets/base.js" defer></script>
+</body>
+</html>
