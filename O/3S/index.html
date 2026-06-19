@@ -107,6 +107,72 @@
 
         footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
 
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 220px;
+            gap: 1.5rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider-time { background-color: var(--time-color); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+        input:checked + .toggle-slider-money { background-color: var(--money-color); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        input:checked + .toggle-slider-health { background-color: var(--health-color); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+
         @media (max-width: 800px) {
             .dashboard { display: flex; flex-direction: column; gap: 1rem; }
             .panel-visual { order: -1; padding: 1rem; }
@@ -167,7 +233,10 @@
                     <button class="btn" onclick="applyScenario('burnout')"><span>🔥</span> Burnout<br><small style="font-size:0.7rem;opacity:0.7">-⏳ -❤️</small></button>
                 </nav>
 
-                <button class="action-plan-btn" onclick="generateActionPlan()">📝 Generate My Action Plan</button>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3S()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Season</button>
+                </div>
                 <div id="action-plan-output"></div>
             </div>
         </section>
@@ -254,6 +323,35 @@
                 </ol>
             </div>
         </details>
+
+        <h2>The Switch Paradox</h2>
+        <p>Experience the metaphor directly: try to turn all three switches ON. If you activate the third switch, one of the other active switches will randomly toggle off, proving only two can be on.</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--time-color)">⏳ Time</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-time" checked>
+                        <span class="toggle-slider toggle-slider-time"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--money-color)">💰 Money</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-money">
+                        <span class="toggle-slider toggle-slider-money"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--health-color)">❤️ Health</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-health" checked>
+                        <span class="toggle-slider toggle-slider-health"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
 
         <h2>Closing principle</h2>
         <p>You may not control every switch, and the switches are not equally reversible. The goal is not permanent perfection. It is to see the exchange rate, choose consciously where choice exists, protect a minimum floor for health and dignity, and rotate priorities before a neglected resource becomes a crisis.</p>
@@ -359,8 +457,104 @@
             out.style.display = 'block';
         }
 
+        function triggerRandomEvent3S() {
+            const events = [
+                { text: "Unexpected Medical Bill", m: -30, t: -10, h: -10, solution: "Negotiate a payment plan. Don't sacrifice essential sleep to work extra hours; protect your health floor." },
+                { text: "Inheritance / Windfall", m: 40, t: 10, h: 0, solution: "Use money to buy back time (e.g., hire help) rather than inflating your lifestyle." },
+                { text: "Job Loss", m: -40, t: 40, h: -10, solution: "Treat the job search as your new job, but use the newly freed time to establish a solid physical health routine." },
+                { text: "Burnout Collapse", h: -40, t: -20, m: 0, solution: "Total pause on non-essentials. Stabilization is the only goal. Sleep and recovery are non-negotiable." },
+                { text: "New Baby", t: -40, m: -20, h: -10, solution: "Accept all offered help. Lower your standards for a pristine house. Establish a strict minimum sleep floor." },
+                { text: "Promotion (More Money, Less Time)", m: 30, t: -30, h: -10, solution: "Immediately outsource low-value tasks with your new income to prevent a total time collapse." },
+                { text: "Chronic Illness Diagnosis", h: -50, m: -20, t: -20, solution: "Redefine your baseline. Spend money on accessibility and time on treatment. Cancel ambiguous commitments." },
+                { text: "Relocation (Costly but Saves Commute)", m: -20, t: 30, h: 10, solution: "You bought back time! Reinvest that newly gained time into cooking healthy meals or exercising." },
+                { text: "Remote-Work Shift", t: 20, m: 0, h: 10, solution: "Commute time reclaimed! Create rigid start/stop boundaries so work doesn't bleed into your evening." },
+                { text: "Economic Inflation", m: -30, t: -10, h: -10, solution: "Review monthly recurring costs. Avoid the temptation to work dangerous amounts of overtime." },
+                { text: "Elder Care Duty Begins", t: -30, m: -20, h: -20, solution: "Seek community or state support immediately. You cannot do this alone without destroying your health." },
+                { text: "Four-Day Work Week", m: -15, t: 30, h: 20, solution: "Protect your new 5th day. Do not fill it with errands; use it for deep rest or meaningful connection." }
+            ];
+            let ev = events[Math.floor(Math.random() * events.length)];
+            
+            sliders.time.value = Math.max(0, Math.min(100, parseInt(sliders.time.value) + ev.t));
+            sliders.money.value = Math.max(0, Math.min(100, parseInt(sliders.money.value) + ev.m));
+            sliders.health.value = Math.max(0, Math.min(100, parseInt(sliders.health.value) + ev.h));
+            
+            updateUI();
+            
+            let out = document.getElementById('action-plan-output');
+            out.innerHTML = `<strong>🎲 Random Shock: ${ev.text}</strong><br><br>💡 <strong>Strategy:</strong> ${ev.solution}`;
+            out.style.borderColor = '#94a3b8';
+            out.style.display = 'block';
+        }
+
         Object.keys(sliders).forEach(key => sliders[key].addEventListener('input', () => updateUI(sliders[key])));
         
+        // Paradox Switcher Logic
+        const paraTime = document.getElementById('para-time');
+        const paraMoney = document.getElementById('para-money');
+        const paraHealth = document.getElementById('para-health');
+        const paraSwitches = [paraTime, paraMoney, paraHealth];
+
+        function updateParadoxInsight() {
+            const t = paraTime.checked;
+            const m = paraMoney.checked;
+            const h = paraHealth.checked;
+            const insightEl = document.getElementById('para-insight');
+            
+            let title = "";
+            let desc = "";
+            let color = "var(--text-muted)";
+
+            if (t && h && !m) {
+                title = "The Explorer (Time + Health)";
+                color = "var(--time-color)";
+                desc = "Vitality and schedule freedom are high, but your financial reservoir is low. A classic student or sabbatical setup. Focus on compounding skills, learning, and building relationships before life becomes more structured.";
+            } else if (m && h && !t) {
+                title = "The Machine (Money + Health)";
+                color = "var(--money-color)";
+                desc = "High earning power and high physical capability, but zero calendar control. You are converting life-force into capital. Beware: if this becomes an identity rather than a temporary season, you will burn out.";
+            } else if (t && m && !h) {
+                title = "The Golden Cage (Time + Money)";
+                color = "var(--health-color)";
+                desc = "You have the resources and the calendar control, but your body or mind is depleted. Often seen in late retirement or post-burnout recovery. Your only priority right now should be spending money and time to restore health.";
+            } else if (t && !m && !h) {
+                title = "Forced Stagnation (Time Only)";
+                color = "#94a3b8";
+                desc = "An empty calendar, but lacking both health and resources. Time here can feel heavy. Focus on free, small actions to rebuild simple structure and physical capacity first. Do not pressure yourself to build wealth yet.";
+            } else if (m && !t && !h) {
+                title = "Survival Grind (Money Only)";
+                color = "#94a3b8";
+                desc = "Accumulating capital, but at the absolute cost of physical wellbeing and time. Highly unsustainable. You are borrowing heavily from the future to pay for the present. Seek immediate leverage to lower workload.";
+            } else if (h && !t && !m) {
+                title = "Constrained Vitality (Health Only)";
+                color = "#94a3b8";
+                desc = "You have the physical energy and health, but no free time and no financial cushion (e.g., working double-shifts in labor-intensive roles). Reinvest any micro-moment of recovery to plan a pathway out of the grind.";
+            } else if (!t && !m && !h) {
+                title = "Total Depletion (All Off)";
+                color = "#f43f5e";
+                desc = "Every reservoir is empty. You are in active crisis. Stop looking for optimizations or productivity tips. This configuration requires total rest, lowering of standards, and asking for support to stabilize your basic baseline.";
+            }
+
+            insightEl.style.borderLeftColor = color;
+            insightEl.innerHTML = `<strong style="color: ${color}; display: block; margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        paraSwitches.forEach(sw => {
+            sw.addEventListener('change', function() {
+                if (this.checked) {
+                    const checkedOnes = paraSwitches.filter(s => s.checked);
+                    if (checkedOnes.length > 2) {
+                        const others = paraSwitches.filter(s => s !== this);
+                        const randomOther = others[Math.floor(Math.random() * others.length)];
+                        randomOther.checked = false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+
+        // Initialize paradox insight
+        updateParadoxInsight();
+
         loadFromURL();
         if(!window.location.search) { sliders.time.value=33; sliders.money.value=33; sliders.health.value=34; }
         updateUI();

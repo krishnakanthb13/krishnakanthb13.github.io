@@ -17,7 +17,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **F**: Anki Flashcards Repo
 - **H**: Personal Horoscope Data
 - **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
-- **O**: [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro + [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) (browser extension & CLI)
+- **O**: Other Random Things
+	- [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro 
+	- [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) — browser extension & CLI
+	- [Life Mechanics Hub](https://krishnakanthb13.github.io/O/) — Interactive Frameworks to Map Finite Resources, Visualize Trade-Offs
+
 - **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 5 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
 
@@ -55,6 +59,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Amplenote Hub:**
 	- [YouTube Video Hub](https://krishnakanthb13.github.io/A/aa/): Gallery of my YouTube channels.
 	- [Amplenote Plugins Hub](https://krishnakanthb13.github.io/A/): Gallery of my Amplenote plugins.
+
+---
+
+- **Life Mechanics** ([Hub](https://krishnakanthb13.github.io/O/)): Interactive trade-off & resource-allocation dashboards:
+	- [The Three Switches](https://krishnakanthb13.github.io/O/3S/): Balance Time, Money, and Health.
+	- [The Four Burners](https://krishnakanthb13.github.io/O/4B/): Manage 25 energy points across Career, Family, Friends, and Health.
 
 ---
 

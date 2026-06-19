@@ -107,6 +107,191 @@
         details[open] summary::after { transform: rotate(45deg); }
         .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
 
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .mini-stove {
+            background: linear-gradient(135deg, #27272a 0%, #111113 100%);
+            border: 2px solid rgba(255,255,255,0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1);
+            border-radius: 28px;
+            padding: 1.5rem;
+            max-width: 350px;
+            margin: 1.5rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .mini-cooktop {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            background: linear-gradient(145deg, #141416, #070708);
+            padding: 1.2rem;
+            border-radius: 20px;
+            box-shadow: inset 0 8px 20px rgba(0,0,0,0.95);
+            border: 1px solid rgba(255,255,255,0.03);
+            position: relative;
+        }
+        
+        .mini-burner {
+            aspect-ratio: 1.15;
+            border-radius: 50%;
+            background: radial-gradient(circle, #101012 0%, #040405 100%);
+            border: 2px solid rgba(255,255,255,0.02);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: inset 0 3px 10px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        
+        .mini-burner:hover {
+            border-color: rgba(255,255,255,0.08);
+            transform: translateY(-1px);
+        }
+
+        .mini-burner::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 65%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
+
+        .mini-burner.active::before {
+            opacity: 0.18;
+            animation: pulseHeat 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseHeat {
+            0% { opacity: 0.12; transform: scale(0.95); }
+            100% { opacity: 0.25; transform: scale(1.05); }
+        }
+        
+        .mini-label {
+            position: absolute;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.5px;
+            transition: color 0.3s, text-shadow 0.3s;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .flame-ring {
+            width: 72%;
+            height: 72%;
+            border-radius: 50%;
+            border: 2px dashed rgba(255,255,255,0.03);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .flame-ring::after {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            border: 1.5px dotted rgba(255,255,255,0.03);
+            transition: all 0.4s ease;
+        }
+        
+        /* ACTIVE STATE GLOWS & FLAMES */
+        .mini-burner.active {
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 25px var(--glow-color);
+            border-color: var(--glow-color);
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        
+        .mini-burner.active .mini-label {
+            color: #fff;
+            text-shadow: 0 0 8px var(--glow-color), 0 0 15px var(--glow-color);
+        }
+        
+        .mini-burner.active .flame-ring {
+            border: 2px dashed var(--glow-color);
+            animation: spinRing 15s linear infinite;
+            filter: drop-shadow(0 0 5px var(--glow-color));
+        }
+
+        .mini-burner.active .flame-ring::after {
+            border: 1.5px dotted var(--glow-color);
+            animation: spinRingRev 7s linear infinite;
+            filter: drop-shadow(0 0 3px var(--glow-color));
+        }
+        
+        /* KNOBS */
+        .knobs-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(180deg, #18181b 0%, #101012 100%);
+            padding: 1rem 0.6rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .knob-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .knob {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #52525b 0%, #27272a 40%, #111113 100%);
+            border: 2.5px solid #3f3f46;
+            box-shadow: 0 5px 8px rgba(0,0,0,0.6), inset 0 1.5px 2px rgba(255,255,255,0.15), inset 0 -2px 3px rgba(0,0,0,0.7);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
+            transform: rotate(90deg); /* Starts at 90deg (ON) */
+        }
+        
+        .knob:hover {
+            border-color: #71717a;
+            transform: scale(1.05) rotate(var(--current-rot, 90deg));
+        }
+        
+        .knob-indicator {
+            position: absolute;
+            width: 3.5px;
+            height: 12px;
+            background: #f4f4f5;
+            top: 4px;
+            left: calc(50% - 1.75px);
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .knob-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
         footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
 
         @media (max-width: 900px) {
@@ -198,7 +383,10 @@
                     <button class="preset-btn" onclick="applyAction('sick')"><span>🤒</span> Chronic Illness<br><span style="font-size:0.7rem;opacity:0.7">-❤️ -💼</span></button>
                 </nav>
 
-                <button class="life-event-btn" onclick="generateActionPlan()">📝 Lock in Season & Generate Plan</button>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="life-event-btn" onclick="triggerRandomEvent()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #a1a1aa; box-shadow: none;">🎲 Shock</button>
+                    <button class="life-event-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Season</button>
+                </div>
                 <div id="action-plan-output"></div>
             </div>
         </section>
@@ -278,6 +466,63 @@
                 </ul>
             </div>
         </details>
+
+        <h2>The Burner Paradox</h2>
+        <p>Experience the theory directly: try to keep all four burners turned ON. If you activate the fourth burner, one of the active burners will randomly toggle off, proving you must turn off at least one.</p>
+        <div class="paradox-widget">
+            <!-- Mini Cooktop Stove representing the Paradox -->
+            <div class="mini-stove">
+                <div class="mini-cooktop">
+                    <!-- 2x2 Burner Grid -->
+                    <div class="mini-burner" id="para-burn-career" onclick="toggleParadoxBurner('career')" style="--glow-color: var(--career-color);">
+                        <span class="mini-label">💼 CAREER</span>
+                        <div class="flame-ring"></div>
+                    </div>
+                    <div class="mini-burner" id="para-burn-friends" onclick="toggleParadoxBurner('friends')" style="--glow-color: var(--friends-color);">
+                        <span class="mini-label">👥 FRIENDS</span>
+                        <div class="flame-ring"></div>
+                    </div>
+                    <div class="mini-burner" id="para-burn-health" onclick="toggleParadoxBurner('health')" style="--glow-color: var(--health-color);">
+                        <span class="mini-label">❤️ HEALTH</span>
+                        <div class="flame-ring"></div>
+                    </div>
+                    <div class="mini-burner" id="para-burn-family" onclick="toggleParadoxBurner('family')" style="--glow-color: var(--family-color);">
+                        <span class="mini-label">🏠 FAMILY</span>
+                        <div class="flame-ring"></div>
+                    </div>
+                </div>
+                
+                <!-- Knobs Row -->
+                <div class="knobs-row">
+                    <div class="knob-container">
+                        <div class="knob" id="knob-career" onclick="toggleParadoxBurner('career')">
+                            <div class="knob-indicator"></div>
+                        </div>
+                        <span class="knob-label">Career</span>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" id="knob-friends" onclick="toggleParadoxBurner('friends')">
+                            <div class="knob-indicator"></div>
+                        </div>
+                        <span class="knob-label">Friends</span>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" id="knob-health" onclick="toggleParadoxBurner('health')">
+                            <div class="knob-indicator"></div>
+                        </div>
+                        <span class="knob-label">Health</span>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" id="knob-family" onclick="toggleParadoxBurner('family')">
+                            <div class="knob-indicator"></div>
+                        </div>
+                        <span class="knob-label">Family</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
 
         <h2>Closing principle</h2>
         <p>You can do many things across a lifetime, but rarely everything at maximum intensity at once. The objective is not to extinguish what matters. It is to choose a season, protect minimum viable flames, see who bears the cost, and rotate before neglect becomes damage.</p>
@@ -436,8 +681,175 @@
             out.style.display = 'block';
         }
 
+        function triggerRandomEvent() {
+            const events = [
+                { text: "Promotion! Demands rise.", c: 4, h: -2, fa: -2, fr: 0, solution: "Set a firm 'stop working' hour. Do not let Career bleed into Family dinners." },
+                { text: "Financial Emergency!", c: 4, fr: -3, fa: -2, h: 0, solution: "It's okay to put Friends on simmer, but communicate clearly. Protect your sleep." },
+                { text: "Burnout! Forced recovery.", h: 6, c: -4, fa: -1, fr: 0, solution: "Career must enter maintenance mode. Focus entirely on sleep, nutrition, and minimum viable work." },
+                { text: "Adopted a puppy!", fa: 4, h: -1, fr: -1, c: 0, solution: "Your Family burner grew. Combine dog walks with a friend to create a Synergy (Family + Friends + Health)." },
+                { text: "Spouse gets a new job.", fa: -2, c: 2, fr: 0, h: 0, solution: "Make the invisible household labor visible. Renegotiate who handles chores." },
+                { text: "New Baby! (Sleep vanishes)", fa: 6, h: -4, fr: -3, c: -2, solution: "Divide invisible labor. Lower Career to absolute maintenance mode. Accept outside help." },
+                { text: "Aging parent needs care.", fa: 4, c: -2, fr: -2, h: -1, solution: "This is a marathon. You must protect a tiny Health habit (like a 10-min walk) or you will collapse." },
+                { text: "Layoff! Time opens up.", c: -8, fa: 2, fr: 2, h: 1, solution: "Your Career burner is forced off. Do not isolate. Lean heavily into Friends and Family for support." },
+                { text: "Major illness.", h: -6, fa: 2, fr: -2, c: -4, solution: "Restoring capacity is your only job right now. Do not feel guilty about dropping Career and Friends." },
+                { text: "Messy Breakup.", fa: -5, fr: 3, h: -2, c: -1, solution: "Your Family/Partner burner dropped. Redirect that energy into Friends to rebuild your village." },
+                { text: "Startup Funding! Crunch time.", c: 6, fa: -3, fr: -4, h: -2, solution: "Set a fixed end date for the crunch. Protect exactly one relationship ritual per week." },
+                { text: "Economic Downturn.", c: 3, h: -2, fa: -1, fr: -1, solution: "Address structural support and debt. Do not romanticize sacrifice by skipping meals or sleep." },
+                { text: "Return to Office Mandate.", c: 2, h: -2, fa: -2, fr: 0, solution: "Commute drains Health/Family. Try to establish a 'Walking Meeting' to merge Career and Health." },
+                { text: "Retirement!", c: -8, h: 3, fa: 3, fr: 4, solution: "Career is off. Transform that extra energy into mentoring, volunteering, or deep Family connection." },
+                { text: "Friendship Conflict.", fr: -5, fa: 1, c: 0, h: -1, solution: "Don't let the stress ruin your sleep. Give it time, and lean on Family while the dust settles." }
+            ];
+            let ev = events[Math.floor(Math.random() * events.length)];
+            
+            burners.career.slide.value = Math.max(0, Math.min(10, parseInt(burners.career.slide.value) + ev.c));
+            burners.friends.slide.value = Math.max(0, Math.min(10, parseInt(burners.friends.slide.value) + ev.fr));
+            burners.family.slide.value = Math.max(0, Math.min(10, parseInt(burners.family.slide.value) + ev.fa));
+            burners.health.slide.value = Math.max(0, Math.min(10, parseInt(burners.health.slide.value) + ev.h));
+            
+            updateStove();
+            
+            let out = document.getElementById('action-plan-output');
+            out.innerHTML = `<strong>🎲 Random Shock: ${ev.text}</strong><br><br>💡 <strong>Strategy:</strong> ${ev.solution}`;
+            out.style.borderColor = 'var(--text-muted)';
+            out.style.display = 'block';
+        }
+
         Object.keys(burners).forEach(key => { burners[key].slide.addEventListener('input', () => updateStove(key)); });
         
+        // Paradox Switcher Logic
+        let activeStates = {
+            career: true,
+            family: true,
+            friends: false,
+            health: true
+        };
+
+        function toggleParadoxBurner(key) {
+            const keys = ['career', 'family', 'friends', 'health'];
+            if (!activeStates[key]) {
+                // Turning it ON
+                activeStates[key] = true;
+                const activeKeys = keys.filter(k => activeStates[k]);
+                if (activeKeys.length > 3) {
+                    const others = keys.filter(k => k !== key && activeStates[k]);
+                    const randomOther = others[Math.floor(Math.random() * others.length)];
+                    activeStates[randomOther] = false;
+                }
+            } else {
+                // Turning it OFF
+                activeStates[key] = false;
+            }
+            updateParadoxUI();
+        }
+
+        function updateParadoxUI() {
+            const keys = ['career', 'family', 'friends', 'health'];
+            keys.forEach(key => {
+                const isActive = activeStates[key];
+                const burnerEl = document.getElementById(`para-burn-${key}`);
+                const knobEl = document.getElementById(`knob-${key}`);
+                const rot = isActive ? '90deg' : '0deg';
+                
+                if (isActive) {
+                    burnerEl.classList.add('active');
+                } else {
+                    burnerEl.classList.remove('active');
+                }
+                knobEl.style.transform = `rotate(${rot})`;
+                knobEl.style.setProperty('--current-rot', rot);
+            });
+            updateParadoxInsight();
+        }
+
+        function updateParadoxInsight() {
+            const c = activeStates.career;
+            const fa = activeStates.family;
+            const fr = activeStates.friends;
+            const h = activeStates.health;
+            const insightEl = document.getElementById('para-insight');
+            
+            let title = "";
+            let desc = "";
+            let color = "var(--text-muted)";
+
+            // Count active burners
+            const activeCount = [c, fa, fr, h].filter(Boolean).length;
+
+            if (activeCount === 3) {
+                if (!fr) {
+                    title = "The Isolated Hustler (Career + Family + Health)";
+                    color = "var(--friends-color)";
+                    desc = "You are successfully balancing professional ambition, household duty, and personal health. The cost? Your friendships and community have gone completely cold. You have an anchor and an engine, but no village.";
+                } else if (!c) {
+                    title = "The Non-Professional Life (Family + Friends + Health)";
+                    color = "var(--career-color)";
+                    desc = "Your physical vitality is high, and your personal connections are rich and deep. However, your professional aspirations or financial engine are inactive. Ideal for a recovery phase, but unsustainable if financial pressure mounts.";
+                } else if (!fa) {
+                    title = "The Independent Nomad (Career + Friends + Health)";
+                    color = "var(--family-color)";
+                    desc = "You are building your career, nurturing a vibrant social circle, and keeping fit. But you have no family anchors or domestic responsibilities. Highly autonomous and flexible, but lacking deep household anchors.";
+                } else if (!h) {
+                    title = "The Burnout Path (Career + Family + Friends)";
+                    color = "var(--health-color)";
+                    desc = "You are trying to be everything to everyone: a dedicated family member, a supportive friend, and a productive professional. By cutting off your Health burner, you are running on empty. A crash is inevitable.";
+                }
+            } else if (activeCount === 2) {
+                if (c && fa) {
+                    title = "The Double Shift (Career + Family)";
+                    color = "var(--accent)";
+                    desc = "The working parent or primary caregiver setup. Earning a living and managing a home consumes you completely. You have zero margin for self-care (Health) or external connections (Friends). Extremely exhausting.";
+                } else if (c && fr) {
+                    title = "The Corporate Networker (Career + Friends)";
+                    color = "var(--accent)";
+                    desc = "Focusing entirely on work success and external social status/networking. Your physical battery (Health) is running low, and you have no domestic/family anchor to ground you. High risk of empty achievement.";
+                } else if (c && h) {
+                    title = "The Solitary Builder (Career + Health)";
+                    color = "var(--accent)";
+                    desc = "A highly disciplined, independent lifestyle. You work hard and train hard, but your social life (Friends) and deep relationships (Family) are completely off. Satisfying for short sprints, but socially isolating.";
+                } else if (fa && fr) {
+                    title = "The Community Anchor (Family + Friends)";
+                    color = "var(--accent)";
+                    desc = "A life centered completely around relationships, community volunteering, and home. Earning potential/career is cold, and you may be neglecting sleep or nutrition to keep up with social commitments.";
+                } else if (fa && h) {
+                    title = "The Domestic Sanctuary (Family + Health)";
+                    color = "var(--accent)";
+                    desc = "A peaceful, healthy life focused on family and wellness. You are sleeping well and caring for loved ones, but your professional growth and external community relationships are inactive.";
+                } else if (fr && h) {
+                    title = "The Healthy Nomad (Friends + Health)";
+                    color = "var(--accent)";
+                    desc = "A socially vibrant, fit lifestyle without the anchors of career focus or family duties. Offers high flexibility but lacks long-term security and structural foundation.";
+                }
+            } else if (activeCount === 1) {
+                if (c) {
+                    title = "The Monomaniacal Worker (Career Only)";
+                    color = "var(--career-color)";
+                    desc = "Your job is your entire identity. You have sacrificed health, friends, and family for work. While professional success might spike, your underlying human foundation is deeply unstable.";
+                } else if (fa) {
+                    title = "The Bound Caregiver (Family Only)";
+                    color = "var(--family-color)";
+                    desc = "Every ounce of your life-force is directed toward caring for family, completely abandoning your own health, career, and external social support. Highly prone to severe caregiver burnout.";
+                } else if (fr) {
+                    title = "The Social Butterfly (Friends Only)";
+                    color = "var(--friends-color)";
+                    desc = "Living purely for social circles and outings. Without work purpose, family connection, or health habits, this state eventually leads to existential drift.";
+                } else if (h) {
+                    title = "Self-Preservation Mode (Health Only)";
+                    color = "var(--health-color)";
+                    desc = "Total retreat to heal or sleep. Every relationship and career obligation is cut off. Necessary during severe physical or mental illness, but isolation should be temporary.";
+                }
+            } else if (activeCount === 0) {
+                title = "The Cold Stove (All Off)";
+                color = "#ef4444";
+                desc = "Every single burner is off. Complete shutdown. The focus must be entirely on survival, recovery, and obtaining external support to relight the health burner first.";
+            }
+
+            insightEl.style.borderLeftColor = color;
+            insightEl.innerHTML = `<strong style="color: ${color}; display: block; margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        // Initialize paradox cooker UI
+        updateParadoxUI();
+
         loadFromURL();
         if(!window.location.search) { burners.career.slide.value=6; burners.friends.slide.value=6; burners.family.slide.value=6; burners.health.slide.value=6; }
         updateStove();
