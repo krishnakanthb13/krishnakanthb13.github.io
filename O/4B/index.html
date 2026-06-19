@@ -31,332 +31,260 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
-        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% -20%, #27272a 0%, #09090b 80%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: clamp(1rem, 3vw, 2rem); overflow-x: hidden; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% -20%, #27272a 0%, #09090b 80%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
         *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 4px; }
 
-        header { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); animation: fadeIn 1s ease-out; width: 100%; }
-        h1 { font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 800; background: linear-gradient(to right, #f97316, #ef4444); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; letter-spacing: -1px; line-height: 1.1; }
-        p.subtitle { font-size: clamp(1rem, 3vw, 1.1rem); color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; padding: 0 1rem; }
+        header { text-align: center; margin-bottom: 1rem; animation: fadeIn 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, #f97316, #ef4444); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; letter-spacing: -1px; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
 
-        .dashboard-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 2rem); max-width: 1400px; width: 100%; margin-bottom: 3rem; align-items: start; }
-        .panel { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
+        /* LAYOUT */
+        .dashboard-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1200px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .panel { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
 
-        /* CONTROLS GRID (Left Panel) */
-        .controls-grid { display: flex; flex-direction: column; gap: clamp(1rem, 3vw, 1.5rem); }
-        .control-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: clamp(1rem, 3vw, 1.5rem); display: flex; flex-direction: column; gap: 1rem; transition: transform 0.2s; }
-        .control-card:hover { transform: translateX(5px); background: rgba(0,0,0,0.4); }
-        .control-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: clamp(1rem, 2.5vw, 1.2rem); }
-        .burner-value-pill { background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 800; font-size: 1rem; min-width: 40px; text-align: center; }
+        .panel-visual { order: 1; }
+        .panel-controls { order: 2; justify-content: space-between; }
 
-        .dial-slider { width: 100%; -webkit-appearance: none; appearance: none; background: transparent; touch-action: none; height: 24px; }
-        .dial-slider::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
-        .dial-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #fff; margin-top: -8px; cursor: pointer; box-shadow: 0 0 15px currentColor; transition: transform 0.2s; }
-        .dial-slider:active::-webkit-slider-thumb { transform: scale(1.3); }
-
-        /* ENERGY BAR */
-        .energy-status { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); }
-        .energy-bar-bg { width: 100%; height: 16px; background: #18181b; border-radius: 8px; overflow: hidden; margin: 1.5rem 0 0.5rem; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
-        .energy-fill { height: 100%; background: linear-gradient(90deg, #f97316, #ef4444); width: 0%; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s; box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
-        .energy-text { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
-        .energy-text span { color: var(--text-muted); font-size: clamp(0.9rem, 2vw, 1.1rem); font-weight: 400; }
-        .toast-warning { color: #ef4444; font-size: 0.95rem; opacity: 0; transition: opacity 0.3s; font-weight: 600; min-height: 1.5em; }
-
-        /* SIDEBAR / STOVE VISUALIZATION (Right Panel) */
-        .sidebar-panel { display: flex; flex-direction: column; gap: 2rem; width: 100%; }
-        
-        .stove-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            padding: 2rem;
-            background: #18181b;
-            border-radius: 24px;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            border: 2px solid rgba(255,255,255,0.05);
-        }
-
-        .stove-grid::after {
-            content: ''; position: absolute; inset: 0; border-radius: 24px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-            pointer-events: none;
-        }
-
-        .burner-slot {
-            aspect-ratio: 1;
-            border-radius: 50%;
-            background: #09090b;
-            box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05);
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: filter 0.3s ease;
-        }
-
-        .node-label {
-            position: absolute;
-            font-size: clamp(0.6rem, 1.5vw, 0.8rem);
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-            opacity: 0.8;
-            text-shadow: 0 0 8px currentColor;
-            z-index: 10;
-        }
-
-        .induction-svg {
-            width: 100%; height: 100%;
-            padding: 10%;
-            overflow: visible;
-        }
-
-        .induction-ring {
-            fill: none;
-            stroke: currentColor;
-            transform-origin: 50% 50%;
-            transition: opacity 0.3s ease;
-            opacity: 0.05;
-        }
-
+        /* STOVE VISUALIZATION */
+        .stove-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem; background: #18181b; border-radius: 16px; box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 5px 15px rgba(0,0,0,0.5); position: relative; border: 2px solid rgba(255,255,255,0.05); margin-bottom: 1rem; }
+        .stove-grid::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%); pointer-events: none; }
+        .burner-slot { aspect-ratio: 1; border-radius: 50%; background: #09090b; box-shadow: inset 0 0 15px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05); position: relative; display: flex; justify-content: center; align-items: center; transition: filter 0.3s ease; max-width: 160px; margin: 0 auto; width: 100%; }
+        .node-label { position: absolute; font-size: clamp(0.5rem, 1.2vw, 0.7rem); font-weight: 800; letter-spacing: 1px; color: #fff; opacity: 0.8; text-shadow: 0 0 8px currentColor; z-index: 10; }
+        .induction-svg { width: 100%; height: 100%; padding: 12%; overflow: visible; }
+        .induction-ring { fill: none; stroke: currentColor; transform-origin: 50% 50%; transition: opacity 0.3s ease; opacity: 0.05; }
         @keyframes spinRing { 100% { transform: rotate(360deg); } }
         @keyframes spinRingRev { 100% { transform: rotate(-360deg); } }
 
-        .narrative-box { padding: clamp(1.5rem, 4vw, 2rem); background: rgba(0,0,0,0.4); border-radius: 20px; border-left: 6px solid var(--accent); font-size: clamp(1rem, 2.5vw, 1.1rem); line-height: 1.6; color: #e4e4e7; transition: border-color 0.4s; min-height: 130px; display: flex; flex-direction: column; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-        .narrative-title { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
+        .narrative-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.4); border-radius: 12px; border-left: 5px solid var(--accent); color: #e4e4e7; transition: border-color 0.4s; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); margin-top: auto; }
+        .narrative-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.3rem; color: #fff; }
+        #n-desc { font-size: 0.9rem; line-height: 1.4; }
 
-        .preset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .preset-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem; border-radius: 16px; text-align: left; cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: clamp(0.85rem, 2vw, 1rem); display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; align-items: flex-start; }
-        .preset-btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
-        .preset-btn.active { border-color: var(--accent); background: rgba(249, 115, 22, 0.1); }
+        /* CONTROLS */
+        .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .control-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem; transition: transform 0.2s; }
+        .control-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; }
+        .burner-value-pill { background: rgba(255,255,255,0.1); padding: 0.1rem 0.5rem; border-radius: 20px; font-weight: 800; font-size: 0.9rem; min-width: 35px; text-align: center; }
+        .dial-slider { width: 100%; -webkit-appearance: none; appearance: none; background: transparent; touch-action: none; height: 16px; margin: 0; }
+        .dial-slider::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+        .dial-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: #fff; margin-top: -7px; cursor: pointer; box-shadow: 0 0 10px currentColor; transition: transform 0.2s; }
+        .dial-slider:active::-webkit-slider-thumb { transform: scale(1.2); }
 
-        .life-event-btn { background: linear-gradient(135deg, #f97316, #ef4444); color: white; border: none; padding: clamp(1rem, 3vw, 1.5rem); border-radius: 16px; width: 100%; font-weight: 800; cursor: pointer; font-size: clamp(1rem, 3vw, 1.2rem); transition: transform 0.2s, box-shadow 0.2s; display: flex; justify-content: center; align-items: center; gap: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 1.5rem; }
-        .life-event-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4); }
+        .energy-status { text-align: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); }
+        .energy-bar-bg { width: 100%; height: 12px; background: #18181b; border-radius: 6px; overflow: hidden; margin: 0.8rem 0 0.4rem; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+        .energy-fill { height: 100%; background: linear-gradient(90deg, #f97316, #ef4444); width: 0%; transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s; box-shadow: 0 0 15px rgba(249, 115, 22, 0.6); }
+        .energy-text { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.2rem; }
+        .energy-text span { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; }
+        .toast-warning { color: #ef4444; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; font-weight: 600; min-height: 1.2em; }
 
-        /* COZY DARK ARTICLE SECTION */
-        .article-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 2rem auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: clamp(2rem, 6vw, 5rem);
-            font-family: 'Lora', serif;
-            color: #d4d4d8; /* Soft light gray for comfortable dark reading */
-            line-height: 1.9;
-            letter-spacing: 0.02em;
-            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); color: #fafafa; margin: 3.5rem 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.5px; }
-        .article-container h2:first-child { margin-top: 0; }
-        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.3rem, 4vw, 1.6rem); color: #f4f4f5; margin: 2.5rem 0 1rem; font-weight: 700; letter-spacing: 0; }
-        .article-container p { margin-bottom: 1.8rem; }
-        .article-container ul, .article-container ol { margin: 0 0 1.8rem 1.5rem; padding: 0; }
-        .article-container li { margin-bottom: 0.8rem; }
-        .article-container strong { color: #fafafa; font-weight: 600; }
+        /* SCENARIOS & ACTION PLAN */
+        .preset-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+        .preset-btn { flex: 1 1 calc(50% - 0.5rem); background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem; border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.2rem; }
+        .preset-btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
         
-        .accent-health { color: var(--health-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
-        .accent-family { color: var(--family-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
-        .accent-friends { color: var(--friends-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
-        .accent-career { color: var(--career-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .life-event-btn { background: linear-gradient(135deg, #f97316, #ef4444); color: white; border: none; padding: 0.8rem; border-radius: 10px; width: 100%; font-weight: 800; cursor: pointer; font-size: 0.95rem; transition: transform 0.2s; display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 1rem; }
+        .life-event-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4); }
 
-        footer { margin-top: 4rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; opacity: 0.7; width: 100%; padding-bottom: 2rem; }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--accent); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
 
-        @media (max-width: 1000px) { .dashboard-container { grid-template-columns: 1fr; } }
+        /* COMPACT ARTICLE SECTION */
+        .article-container { max-width: 800px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-health { color: var(--health-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-family { color: var(--family-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-friends { color: var(--friends-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-career { color: var(--career-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+
+        /* ACCORDIONS */
+        details { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+
+        @media (max-width: 900px) {
+            .dashboard-container { display: flex; flex-direction: column; gap: 1rem; }
+            .panel-visual { order: -1; padding: 1rem; }
+            .panel-controls { padding: 1rem; }
+            .stove-grid { padding: 0.8rem; gap: 0.8rem; max-width: 320px; margin: 0 auto 1rem; }
+            .burner-slot { max-width: 120px; }
+            .narrative-box { padding: 0.8rem 1rem; min-height: auto; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Four Burners</h1>
-        <p class="subtitle">Time, attention, energy, and recovery are finite. Manage 25 energy points to construct your life. When you turn one up, you must turn another down.</p>
+        <p class="subtitle">Manage 25 energy points. Share your URL to show your season constraints.</p>
     </header>
 
     <div class="dashboard-container">
-        <!-- Left Panel: Controls -->
-        <section class="panel" aria-label="Burner Controls">
-            <div class="controls-grid">
-                <article class="control-card" style="border-left: 3px solid var(--career-color)">
-                    <div class="control-header"><span style="color: var(--career-color)">Career</span><span class="burner-value-pill" id="val-career" style="color: var(--career-color)">0</span></div>
-                    <input type="range" class="dial-slider" id="slide-career" min="0" max="10" value="6" style="color: var(--career-color)">
-                </article>
-                <article class="control-card" style="border-left: 3px solid var(--friends-color)">
-                    <div class="control-header"><span style="color: var(--friends-color)">Friends</span><span class="burner-value-pill" id="val-friends" style="color: var(--friends-color)">0</span></div>
-                    <input type="range" class="dial-slider" id="slide-friends" min="0" max="10" value="6" style="color: var(--friends-color)">
-                </article>
-                <article class="control-card" style="border-left: 3px solid var(--health-color)">
-                    <div class="control-header"><span style="color: var(--health-color)">Health</span><span class="burner-value-pill" id="val-health" style="color: var(--health-color)">0</span></div>
-                    <input type="range" class="dial-slider" id="slide-health" min="0" max="10" value="6" style="color: var(--health-color)">
-                </article>
-                <article class="control-card" style="border-left: 3px solid var(--family-color)">
-                    <div class="control-header"><span style="color: var(--family-color)">Family</span><span class="burner-value-pill" id="val-family" style="color: var(--family-color)">0</span></div>
-                    <input type="range" class="dial-slider" id="slide-family" min="0" max="10" value="6" style="color: var(--family-color)">
-                </article>
-            </div>
-
-            <div class="energy-status">
-                <div class="energy-text"><span id="energy-number">24</span> <span>/ 25 TOTAL ENERGY</span></div>
-                <div class="energy-bar-bg" role="progressbar">
-                    <div class="energy-fill" id="energy-fill"></div>
-                </div>
-                <div class="toast-warning" id="warning">System Overload! Auto-draining other burners.</div>
-            </div>
-
-            <button class="life-event-btn" onclick="triggerRandomEvent()">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                Random Life Shock
-            </button>
-        </section>
-
-        <!-- Right Panel: Stove & Insights -->
-        <aside class="sidebar-panel" aria-label="Visualizations">
-            
+        
+        <aside class="panel panel-visual" aria-label="Visualizations">
             <figure class="stove-grid">
                 <!-- Career -->
                 <div class="burner-slot" id="vis-career" style="color: var(--career-color);">
                     <span class="node-label">CAREER</span>
-                    <svg class="induction-svg" viewBox="0 0 100 100">
-                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
-                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
-                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
-                    </svg>
+                    <svg class="induction-svg" viewBox="0 0 100 100"><circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" /><circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" /><circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" /></svg>
                 </div>
                 <!-- Friends -->
                 <div class="burner-slot" id="vis-friends" style="color: var(--friends-color);">
                     <span class="node-label">FRIENDS</span>
-                    <svg class="induction-svg" viewBox="0 0 100 100">
-                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
-                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
-                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
-                    </svg>
+                    <svg class="induction-svg" viewBox="0 0 100 100"><circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" /><circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" /><circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" /></svg>
                 </div>
                 <!-- Health -->
                 <div class="burner-slot" id="vis-health" style="color: var(--health-color);">
                     <span class="node-label">HEALTH</span>
-                    <svg class="induction-svg" viewBox="0 0 100 100">
-                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
-                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
-                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
-                    </svg>
+                    <svg class="induction-svg" viewBox="0 0 100 100"><circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" /><circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" /><circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" /></svg>
                 </div>
                 <!-- Family -->
                 <div class="burner-slot" id="vis-family" style="color: var(--family-color);">
                     <span class="node-label">FAMILY</span>
-                    <svg class="induction-svg" viewBox="0 0 100 100">
-                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
-                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
-                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
-                    </svg>
+                    <svg class="induction-svg" viewBox="0 0 100 100"><circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" /><circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" /><circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" /></svg>
                 </div>
             </figure>
 
             <article class="narrative-box" id="narrative" aria-live="polite">
                 <div class="narrative-title" id="n-title" style="font-family: Outfit, sans-serif;">Stable Breadth</div>
-                <div id="n-desc" style="font-family: Outfit, sans-serif;">You are avoiding extreme specialization. This "lukewarm" state is peaceful and a desired life for many, but risks frustration if you harbor ambitions requiring concentrated practice.</div>
+                <div id="n-desc" style="font-family: Outfit, sans-serif;">You are avoiding extreme specialization. This "lukewarm" state is peaceful but risks frustration if you harbor ambitions requiring concentrated practice.</div>
             </article>
-
-            <nav class="preset-grid" aria-label="Archetype Presets">
-                <button class="preset-btn" onclick="setPreset('founder', this)"><span style="font-size:1.2rem;">🚀</span> The Sprint</button>
-                <button class="preset-btn" onclick="setPreset('parent', this)"><span style="font-size:1.2rem;">🍼</span> New Parent</button>
-                <button class="preset-btn active" onclick="setPreset('balance', this)"><span style="font-size:1.2rem;">⚖️</span> Maintenance</button>
-                <button class="preset-btn" onclick="setPreset('sabbatical', this)"><span style="font-size:1.2rem;">🌍</span> Sabbatical</button>
-            </nav>
-
         </aside>
+
+        <section class="panel panel-controls" aria-label="Burner Controls">
+            <div>
+                <div class="controls-grid">
+                    <article class="control-card" style="border-left: 3px solid var(--career-color)">
+                        <div class="control-header"><span style="color: var(--career-color)">Career</span><span class="burner-value-pill" id="val-career" style="color: var(--career-color)">0</span></div>
+                        <input type="range" class="dial-slider" id="slide-career" min="0" max="10" value="6" style="color: var(--career-color)">
+                    </article>
+                    <article class="control-card" style="border-left: 3px solid var(--friends-color)">
+                        <div class="control-header"><span style="color: var(--friends-color)">Friends</span><span class="burner-value-pill" id="val-friends" style="color: var(--friends-color)">0</span></div>
+                        <input type="range" class="dial-slider" id="slide-friends" min="0" max="10" value="6" style="color: var(--friends-color)">
+                    </article>
+                    <article class="control-card" style="border-left: 3px solid var(--health-color)">
+                        <div class="control-header"><span style="color: var(--health-color)">Health</span><span class="burner-value-pill" id="val-health" style="color: var(--health-color)">0</span></div>
+                        <input type="range" class="dial-slider" id="slide-health" min="0" max="10" value="6" style="color: var(--health-color)">
+                    </article>
+                    <article class="control-card" style="border-left: 3px solid var(--family-color)">
+                        <div class="control-header"><span style="color: var(--family-color)">Family</span><span class="burner-value-pill" id="val-family" style="color: var(--family-color)">0</span></div>
+                        <input type="range" class="dial-slider" id="slide-family" min="0" max="10" value="6" style="color: var(--family-color)">
+                    </article>
+                </div>
+
+                <div class="energy-status">
+                    <div class="energy-text"><span id="energy-number">24</span> <span>/ 25 ENERGY</span></div>
+                    <div class="energy-bar-bg" role="progressbar">
+                        <div class="energy-fill" id="energy-fill"></div>
+                    </div>
+                    <div class="toast-warning" id="warning">Overload! Auto-draining others.</div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 0.5rem 0; color: var(--text-muted);">Action Cards (Synergies & Events)</h3>
+                <nav class="preset-grid" aria-label="Action Cards">
+                    <button class="preset-btn" onclick="applyAction('workout')"><span>🏃‍♀️</span> Workout with Friend<br><span style="font-size:0.7rem;opacity:0.7">+❤️ +🤝</span></button>
+                    <button class="preset-btn" onclick="applyAction('crunch')"><span>💻</span> Deadline Crunch<br><span style="font-size:0.7rem;opacity:0.7">+💼 -❤️ -👨‍👩‍👧</span></button>
+                    <button class="preset-btn" onclick="applyAction('familybiz')"><span>🏠</span> Family Business<br><span style="font-size:0.7rem;opacity:0.7">+💼 +👨‍👩‍👧 -🤝</span></button>
+                    <button class="preset-btn" onclick="applyAction('sick')"><span>🤒</span> Chronic Illness<br><span style="font-size:0.7rem;opacity:0.7">-❤️ -💼</span></button>
+                </nav>
+
+                <button class="life-event-btn" onclick="generateActionPlan()">📝 Lock in Season & Generate Plan</button>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
     </div>
 
     <!-- FULL DOCUMENTATION SECTION -->
     <main class="article-container">
         <h2>Origin and status</h2>
         <p>The Four Burners Theory imagines life as a stove with four burners: Family, Friends, Health, and Work/Career. Its popular claim is that success requires turning one burner off, and exceptional success requires turning off two.</p>
-        <p>James Clear’s widely read essay traces the idea through various authors and concludes that the original source is uncertain. It should therefore be presented as a memorable metaphor, not an evidence-based law. The model’s value is diagnostic: time, attention, energy, and recovery are finite. Its danger is fatalism: it can make neglect look inevitable, glorify overwork, or ignore structural inequalities.</p>
+        <p>The model’s value is diagnostic: time, attention, energy, and recovery are finite. Its danger is fatalism: it can make neglect look inevitable, glorify overwork, or ignore structural inequalities.</p>
 
         <h2>The four burners</h2>
-        
         <h3><span class="accent-health">HEALTH</span> — the engine</h3>
         <p>Includes sleep, movement, nutrition, mental health, medical care, recovery, mobility, and sustainable energy. Health supports every other burner; when it collapses, the entire stove loses capacity.</p>
-        <p><strong>High flame:</strong> regular sleep, preventive care, manageable stress, movement, recovery.<br>
-        <strong>Low flame:</strong> chronic sleep debt, ignored symptoms, sedentary days, unmanaged stress.</p>
 
         <h3><span class="accent-family">FAMILY</span> — the anchor</h3>
-        <p>Includes partner or spouse, children, parents, siblings, chosen family, household responsibilities, and caregiving. It is not simply time spent nearby; it includes reliability, emotional presence, and shared responsibility.</p>
-        <p><strong>High flame:</strong> protected attention, trust, care, communication, availability.<br>
-        <strong>Low flame:</strong> repeated absence, emotional unavailability, unresolved conflict.</p>
+        <p>Includes partner or spouse, children, parents, siblings, chosen family, household responsibilities, and caregiving. It includes reliability, emotional presence, and shared responsibility.</p>
 
         <h3><span class="accent-friends">FRIENDS</span> — the village</h3>
         <p>Includes close friendships, community, peer support, neighbors, professional relationships, recreation, and belonging outside the household.</p>
-        <p><strong>High flame:</strong> regular contact, mutual support, shared experiences, vulnerability.<br>
-        <strong>Low flame:</strong> passive online contact, repeated cancellations, reaching out only in crisis.</p>
 
         <h3><span class="accent-career">CAREER / WORK</span> — the rocket</h3>
         <p>Includes paid work, business, study, craft, ambition, contribution, reputation, and financial security. For unpaid caregivers, “career” can be renamed “purpose/work.”</p>
-        <p><strong>High flame:</strong> concentrated effort, deliberate practice, responsibility, learning, visibility.<br>
-        <strong>Low flame:</strong> maintenance work only, stalled learning, disengagement.</p>
 
-        <h2>What “off,” “simmer,” and “high” mean</h2>
-        <ul>
-            <li><strong>Off (0–1):</strong> almost no proactive investment; usually sustainable only briefly.</li>
-            <li><strong>Simmer (2–4):</strong> minimum viable maintenance; preserve essential habits.</li>
-            <li><strong>Steady (5–7):</strong> consistent, sustainable investment.</li>
-            <li><strong>High (8–9):</strong> priority season requiring significant resources.</li>
-            <li><strong>Maximum (10):</strong> crisis or sprint level; use an end date and recovery plan.</li>
-        </ul>
+        <details>
+            <summary>Conflicts between burners</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>Career vs Family:</strong> travel, inflexible hours, late meetings, relocation, emotional spillover.</li>
+                    <li><strong>Career vs Health:</strong> long hours, sitting, shift work, stress, skipped sleep and care.</li>
+                    <li><strong>Family vs Health:</strong> caregiving displaces sleep, exercise, treatment, and solitude.</li>
+                    <li><strong>Family vs Friends:</strong> household duty can isolate caregivers; friends may not fit new routines.</li>
+                </ul>
+                <p><em>Work–family conflict can be time-based, strain-based, or behavior-based.</em></p>
+            </div>
+        </details>
 
-        <h2>Common seasons and scenarios</h2>
-        <h3>Startup founder / obsessive build season</h3>
-        <p><em>Career 10, Health 5, Family 5, Friends 1.</em><br>
-        Potential gain: rapid learning, product progress, ownership. Risks: isolation, relationship damage, chronic stress. Guardrail: fixed end date, sleep floor.</p>
+        <details>
+            <summary>Synergies and spillovers</summary>
+            <div class="details-content">
+                <p>Positive combinations:</p>
+                <ul>
+                    <li>Exercise with a friend: Health + Friends.</li>
+                    <li>Family walk or shared meal: Family + Health.</li>
+                    <li>Volunteer using professional skills: Friends/community + Career/purpose.</li>
+                </ul>
+                <p>Negative spillovers:</p>
+                <ul>
+                    <li>Work stress creates irritability at home.</li>
+                    <li>Poor sleep weakens performance and patience everywhere.</li>
+                </ul>
+                <p>A synergy shares an activity, not necessarily the emotional need. A family workout does not replace private conversation.</p>
+            </div>
+        </details>
 
-        <h3>New parent / intensive caregiver</h3>
-        <p><em>Family 10, Health 4, Career 5, Friends 2.</em><br>
-        Reality: fragmented sleep and unpredictable demands; career may enter maintenance. Risks: caregiver burnout, loss of self.</p>
+        <details>
+            <summary>Three classic responses</summary>
+            <div class="details-content">
+                <ol>
+                    <li><strong>Outsource:</strong> Pay or delegate routine work. Releases time but requires money. Management still takes effort.</li>
+                    <li><strong>Embrace constraints:</strong> Optimize within a clear boundary (e.g., work ends at 5). Efficiency cannot remove every trade-off.</li>
+                    <li><strong>Work in seasons:</strong> Choose deliberate periods of unequal emphasis, then rotate. Limits: “temporary” neglect often becomes permanent without a review ritual.</li>
+                </ol>
+            </div>
+        </details>
 
-        <h3>Sabbatical / recovery season</h3>
-        <p><em>Health 9, Friends 8, Family 5, Career 1.</em><br>
-        Potential gain: recovery, exploration, relationships. Risks: financial pressure, loss of professional momentum.</p>
-
-        <h2>Synergies and spillovers</h2>
-        <p><strong>Positive combinations:</strong></p>
-        <ul>
-            <li>Exercise with a friend: Health + Friends.</li>
-            <li>Family walk or shared meal: Family + Health.</li>
-            <li>Work with a trusted friend: Career + Friends, with boundary risks.</li>
-            <li>Volunteer using professional skills: Friends/community + Career/purpose.</li>
-        </ul>
-        <p><strong>Negative spillovers:</strong></p>
-        <ul>
-            <li>Work stress creates irritability at home.</li>
-            <li>Poor sleep weakens performance and patience everywhere.</li>
-            <li>Social isolation reduces resilience during career or health setbacks.</li>
-        </ul>
-
-        <h2>Three classic responses</h2>
-        <ol>
-            <li><strong>Outsource:</strong> Pay or delegate routine work. Releases time but requires money.</li>
-            <li><strong>Embrace constraints:</strong> Optimize within a clear boundary (e.g., work ends at 5). Forces prioritization.</li>
-            <li><strong>Work in seasons:</strong> Choose deliberate periods of unequal emphasis, then rotate. Limits: “temporary” neglect often becomes permanent without a review ritual.</li>
-        </ol>
-
-        <h2>Decay and recovery</h2>
-        <p>Neglect has different recovery curves:</p>
-        <ul>
-            <li><strong>Health:</strong> some damage is reversible; some becomes chronic.</li>
-            <li><strong>Family:</strong> trust may recover through consistent repair, but missed developmental moments cannot be replayed.</li>
-            <li><strong>Friends:</strong> many connections tolerate quiet periods if expectations are communicated; others fade.</li>
-            <li><strong>Career:</strong> skills and networks can be rebuilt, but re-entry costs and discrimination are real.</li>
-        </ul>
+        <details>
+            <summary>Decay and recovery</summary>
+            <div class="details-content">
+                <p>Neglect has different recovery curves:</p>
+                <ul>
+                    <li><strong>Health:</strong> some damage is reversible; some becomes chronic.</li>
+                    <li><strong>Family:</strong> trust may recover through consistent repair, but missed developmental moments cannot be replayed.</li>
+                    <li><strong>Friends:</strong> many connections tolerate quiet periods if communicated; others fade.</li>
+                    <li><strong>Career:</strong> skills and networks can be rebuilt, but re-entry costs are real.</li>
+                </ul>
+            </div>
+        </details>
 
         <h2>Closing principle</h2>
         <p>You can do many things across a lifetime, but rarely everything at maximum intensity at once. The objective is not to extinguish what matters. It is to choose a season, protect minimum viable flames, see who bears the cost, and rotate before neglect becomes damage.</p>
     </main>
 
     <footer>
-        <p>Interactive visualization & Documentation based on "The Four Burners Theory".</p>
+        <p>Interactive visualization based on "The Four Burners Theory". Save your URL to preserve your state.</p>
     </footer>
 
     <script>
@@ -375,6 +303,23 @@
             style.innerHTML = `#slide-${key}::-webkit-slider-thumb { box-shadow: 0 0 15px ${burners[key].color}; background: #fff; } #slide-${key}::-moz-range-thumb { box-shadow: 0 0 15px ${burners[key].color}; background: #fff; }`;
             document.head.appendChild(style);
         });
+
+        function updateURLParams() {
+            const url = new URL(window.location);
+            url.searchParams.set('c', burners.career.slide.value);
+            url.searchParams.set('fr', burners.friends.slide.value);
+            url.searchParams.set('fa', burners.family.slide.value);
+            url.searchParams.set('h', burners.health.slide.value);
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if(params.has('c')) burners.career.slide.value = params.get('c');
+            if(params.has('fr')) burners.friends.slide.value = params.get('fr');
+            if(params.has('fa')) burners.family.slide.value = params.get('fa');
+            if(params.has('h')) burners.health.slide.value = params.get('h');
+        }
 
         function updateStove(sourceId = null) {
             let c = parseInt(burners.career.slide.value), fr = parseInt(burners.friends.slide.value), fa = parseInt(burners.family.slide.value), h = parseInt(burners.health.slide.value);
@@ -400,33 +345,23 @@
                 let v = parseInt(burners[key].slide.value);
                 burners[key].val.innerText = v;
                 
-                // Update SVG Induction Burners
                 let vis = document.getElementById(`vis-${key}`);
-                let rOuter = vis.querySelector('.r-outer');
-                let rMid = vis.querySelector('.r-mid');
-                let rInner = vis.querySelector('.r-inner');
+                let rOuter = vis.querySelector('.r-outer'), rMid = vis.querySelector('.r-mid'), rInner = vis.querySelector('.r-inner');
                 
-                // Opacity logic
                 rOuter.style.opacity = v > 7 ? (0.3 + (v/20)) : 0.05;
                 rMid.style.opacity = v > 3 ? (0.4 + (v/20)) : 0.05;
                 rInner.style.opacity = v > 0 ? (0.5 + (v/20)) : 0.1;
                 
-                // Glow & Box Shadow
                 let glow = v === 0 ? 0 : v * 2;
                 vis.style.filter = `drop-shadow(0 0 ${glow}px ${burners[key].color})`;
-                vis.style.boxShadow = v > 0 ? `inset 0 0 20px rgba(0,0,0,1), 0 0 ${glow*2}px ${burners[key].color.replace(')', ', 0.2)').replace('rgb', 'rgba')}` : `inset 0 0 20px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05)`;
+                vis.style.boxShadow = v > 0 ? `inset 0 0 15px rgba(0,0,0,1), 0 0 ${glow*2}px ${burners[key].color.replace(')', ', 0.2)').replace('rgb', 'rgba')}` : `inset 0 0 15px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05)`;
                 
-                // Animation speed (higher value = faster spin)
-                let speedInner = v === 0 ? 0 : 12 - v;
-                let speedMid = v === 0 ? 0 : 15 - v;
-                let speedOuter = v === 0 ? 0 : 18 - v;
-                
+                let speedInner = v === 0 ? 0 : 12 - v, speedMid = v === 0 ? 0 : 15 - v, speedOuter = v === 0 ? 0 : 18 - v;
                 rInner.style.animation = v === 0 ? 'none' : `spinRing ${speedInner}s linear infinite`;
                 rMid.style.animation = v === 0 ? 'none' : `spinRingRev ${speedMid}s linear infinite`;
                 rOuter.style.animation = v === 0 ? 'none' : `spinRing ${speedOuter}s linear infinite`;
             });
 
-            // Narrative update
             let maxVal = Math.max(c, fr, fa, h);
             let dominantColor = 'var(--accent)';
             if (h === 0) dominantColor = '#ef4444';
@@ -436,6 +371,8 @@
             else if (maxVal === h) dominantColor = burners.health.color;
 
             updateNarrative(h, fa, fr, c, dominantColor);
+            updateURLParams();
+            document.getElementById('action-plan-output').style.display = 'none';
         }
 
         function updateNarrative(h, fa, fr, c, color) {
@@ -448,47 +385,61 @@
             else if (c >= 8 && h <= 3) { title = "Burning Out"; desc = "You are converting health directly into career progress. This is a strain-based conflict. Re-evaluate."; color = "#ef4444"; }
             else { title = "Custom Geometry"; desc = "Balance means aligning with values, not equal flames. Ensure no burner hits zero, and make invisible work visible."; }
             
-            nTitle.innerText = title;
-            nDesc.innerText = desc;
-            narrative.style.borderLeftColor = color;
-            nTitle.style.color = color;
+            nTitle.innerText = title; nDesc.innerText = desc;
+            narrative.style.borderLeftColor = color; nTitle.style.color = color;
         }
 
-        function setPreset(type, btn) {
-            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            if (type === 'founder') { burners.career.slide.value = 10; burners.health.slide.value = 5; burners.family.slide.value = 5; burners.friends.slide.value = 1; }
-            if (type === 'parent') { burners.family.slide.value = 10; burners.health.slide.value = 4; burners.career.slide.value = 5; burners.friends.slide.value = 2; }
-            if (type === 'balance') { burners.family.slide.value = 6; burners.health.slide.value = 6; burners.career.slide.value = 6; burners.friends.slide.value = 6; }
-            if (type === 'sabbatical') { burners.health.slide.value = 9; burners.friends.slide.value = 8; burners.family.slide.value = 5; burners.career.slide.value = 1; }
-            updateStove('health'); 
+        function applyAction(type) {
+            if (type === 'workout') {
+                burners.health.slide.value = Math.min(10, parseInt(burners.health.slide.value) + 2);
+                burners.friends.slide.value = Math.min(10, parseInt(burners.friends.slide.value) + 2);
+                updateStove('health');
+            } else if (type === 'crunch') {
+                burners.career.slide.value = Math.min(10, parseInt(burners.career.slide.value) + 4);
+                burners.health.slide.value = Math.max(1, parseInt(burners.health.slide.value) - 2);
+                burners.family.slide.value = Math.max(1, parseInt(burners.family.slide.value) - 2);
+                updateStove('career');
+            } else if (type === 'familybiz') {
+                burners.career.slide.value = Math.min(10, parseInt(burners.career.slide.value) + 3);
+                burners.family.slide.value = Math.min(10, parseInt(burners.family.slide.value) + 3);
+                burners.friends.slide.value = Math.max(0, parseInt(burners.friends.slide.value) - 4);
+                updateStove('career');
+            } else if (type === 'sick') {
+                burners.health.slide.value = Math.max(0, parseInt(burners.health.slide.value) - 6);
+                burners.career.slide.value = Math.max(0, parseInt(burners.career.slide.value) - 4);
+                updateStove('health');
+            }
         }
 
-        const events = [
-            { text: "Promotion! Demands rise.", c: 9, h: -2, fa: -2 },
-            { text: "Financial Emergency!", c: 9, fr: -3, fa: -2 },
-            { text: "Burnout! Forced recovery.", h: 10, c: 2, fa: -1 },
-            { text: "Adopted a puppy!", fa: 8, h: -1, fr: -1 }
-        ];
-
-        function triggerRandomEvent() {
-            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-            let ev = events[Math.floor(Math.random() * events.length)];
-            if(ev.c) burners.career.slide.value = Math.min(10, parseInt(burners.career.slide.value) + ev.c > 5 ? ev.c : parseInt(burners.career.slide.value));
-            if(ev.h) burners.health.slide.value = Math.max(1, parseInt(burners.health.slide.value) + ev.h);
-            if(ev.fa) burners.family.slide.value = Math.max(1, parseInt(burners.family.slide.value) + ev.fa);
-            if(ev.fr) burners.friends.slide.value = Math.max(1, parseInt(burners.friends.slide.value) + ev.fr);
-            updateStove('career');
+        function generateActionPlan() {
+            let c = parseInt(burners.career.slide.value), fr = parseInt(burners.friends.slide.value), fa = parseInt(burners.family.slide.value), h = parseInt(burners.health.slide.value);
             
-            nTitle.innerText = "LIFE SHOCK: " + ev.text;
-            nDesc.innerText = "Your resources have been violently shifted by external circumstances. Adjust your remaining energy to cope.";
-            nTitle.style.color = "#ef4444";
-            narrative.style.borderLeftColor = "#ef4444";
+            let arr = [
+                {name: 'Career', val: c, col: 'var(--career-color)'},
+                {name: 'Family', val: fa, col: 'var(--family-color)'},
+                {name: 'Friends', val: fr, col: 'var(--friends-color)'},
+                {name: 'Health', val: h, col: 'var(--health-color)'}
+            ];
+            arr.sort((a,b) => b.val - a.val);
+            
+            let top = arr[0];
+            let bottom = arr[3];
+            
+            let text = `<strong style="color:${top.col}; font-size:1.1rem; display:block; margin-bottom:0.5rem;">My Season Commitment</strong>
+            For this season, my highest priority burner is <strong>${top.name}</strong>. I accept that making progress here will require trade-offs.
+            <br><br>I acknowledge that my <strong>${bottom.name}</strong> burner is currently on a low flame (${bottom.val}/10). I will define a minimum viable maintenance habit so it does not extinguish completely.
+            <br><br><em>(Bookmark or copy this URL to save your state. Review in 3 months.)</em>`;
+            
+            let out = document.getElementById('action-plan-output');
+            out.innerHTML = text;
+            out.style.borderColor = top.col;
+            out.style.display = 'block';
         }
 
-        Object.keys(burners).forEach(key => {
-            burners[key].slide.addEventListener('input', () => updateStove(key));
-        });
+        Object.keys(burners).forEach(key => { burners[key].slide.addEventListener('input', () => updateStove(key)); });
+        
+        loadFromURL();
+        if(!window.location.search) { burners.career.slide.value=6; burners.friends.slide.value=6; burners.family.slide.value=6; burners.health.slide.value=6; }
         updateStove();
     </script>
 </body>
