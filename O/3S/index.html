@@ -1,124 +1,327 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="An interactive field guide to the Three Switches of life: time, money, and health.">
-  <title>The Three Switches — Time, Money, Health</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-    :root{--ink:#151511;--paper:#f4f0e7;--card:#fffdf7;--time:#ef6b45;--money:#24896e;--health:#7266d8;--muted:#6e6b62;--line:rgba(21,21,17,.14)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}
-    a{color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.mono{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
-    nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800;font-size:1.05rem}.navlinks{display:flex;gap:22px}.navlinks a{text-decoration:none;color:var(--muted);font-size:.88rem}
-    .hero{min-height:82vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:70px;padding:80px 0}.eyebrow{display:inline-flex;gap:10px;align-items:center;padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.4)}.dot{width:7px;height:7px;border-radius:50%;background:var(--time);box-shadow:12px 0 var(--money),24px 0 var(--health);margin-right:24px}
-    h1{font-size:clamp(3.5rem,8vw,7.5rem);line-height:.88;letter-spacing:-.065em;margin:28px 0}.hero h1 span{display:block}.hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}.lede{max-width:650px;font-size:1.15rem;color:var(--muted)}.hero-note{display:flex;gap:14px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
-    .orbital{aspect-ratio:1;position:relative;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}.orbital:before,.orbital:after{content:"";position:absolute;border:1px dashed var(--line);border-radius:50%;inset:14%}.orbital:after{inset:29%}.switch-orb{position:absolute;width:118px;height:118px;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:700;box-shadow:0 14px 40px rgba(0,0,0,.12)}.switch-orb small{display:block;font-weight:500}.o-time{background:var(--time);color:#fff;top:-3%;left:36%}.o-money{background:var(--money);color:#fff;bottom:8%;left:-1%}.o-health{background:var(--health);color:#fff;bottom:8%;right:-1%}.center-copy{font:500 .72rem "DM Mono";text-align:center;width:110px}
-    section{padding:100px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.5fr 1.5fr;gap:40px;margin-bottom:54px}.section-head h2{font-size:clamp(2.3rem,5vw,4.4rem);line-height:1;letter-spacing:-.05em;margin:0}.section-head p{max-width:670px;color:var(--muted);margin:8px 0 0}
-    .lab{background:var(--ink);color:var(--paper);border-radius:28px;padding:clamp(24px,5vw,58px);box-shadow:0 30px 90px rgba(0,0,0,.16)}.lab-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:40px}.lab h3{font-size:2rem;margin:0}.budget{font:500 .8rem "DM Mono";padding:9px 12px;border:1px solid rgba(255,255,255,.25);border-radius:99px}.budget.warn{background:#ef6b45;border-color:#ef6b45}
-    .sliders{display:grid;gap:30px}.slider-row{display:grid;grid-template-columns:130px 1fr 60px;align-items:center;gap:20px}.slider-label{font-weight:700}.slider-label i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px}input[type=range]{width:100%;accent-color:currentColor}.range-time{color:var(--time)}.range-money{color:var(--money)}.range-health{color:var(--health)}.value{font:500 1rem "DM Mono";text-align:right}
-    .readout{display:grid;grid-template-columns:1fr auto;gap:20px;margin-top:38px;padding-top:30px;border-top:1px solid rgba(255,255,255,.18)}.readout strong{font-size:1.45rem}.readout p{color:#b8b5ad;margin:7px 0 0}.triangle{width:150px;height:130px}.presets,.scenario-buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}button{font:600 .82rem Manrope;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;padding:10px 14px;border-radius:99px;cursor:pointer}button:hover,button.active{background:var(--paper);color:var(--ink)}
-    .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.resource{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;position:relative;overflow:hidden}.resource:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--accent)}.resource h3{font-size:1.55rem;margin:12px 0 7px}.resource p,.resource li{color:var(--muted);font-size:.91rem}.resource ul{padding-left:18px}.resource .tag{color:var(--accent)}
-    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.stage{padding:30px;border-left:1px solid var(--line)}.stage:first-child{border-left:0}.age{font:500 .75rem "DM Mono";color:var(--muted)}.stage h3{font-size:1.45rem;margin:10px 0}.switches{display:flex;gap:6px;margin:18px 0}.pill{font:500 .68rem "DM Mono";border:1px solid var(--line);border-radius:99px;padding:5px 8px}.pill.low{opacity:.38}.stage p{color:var(--muted);font-size:.9rem}.caveat{margin-top:28px;background:#e9e1d2;padding:20px 24px;border-radius:14px;font-size:.88rem}
-    .scenario-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.scenario{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:20px;cursor:pointer;transition:.2s}.scenario:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.07)}.scenario h3{margin:0 0 5px;font-size:1rem}.scenario p{margin:0;color:var(--muted);font-size:.84rem}.delta{font:500 .72rem "DM Mono";text-align:right;white-space:nowrap}
-    .combo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.combo{padding:22px;border:1px solid var(--line);border-radius:16px}.combo b{display:block;margin-bottom:6px}.combo span{color:var(--muted);font-size:.86rem}
-    details{border-top:1px solid var(--line);padding:20px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}summary:after{content:"+"}details[open] summary:after{content:"−"}details p,details li{color:var(--muted);font-size:.92rem}
-    .evidence{background:var(--money);color:white}.evidence .section-head p{color:rgba(255,255,255,.75)}.evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.25)}.evidence-card{background:var(--money);padding:30px}.evidence-card strong{font-size:2.6rem;display:block;letter-spacing:-.05em}.evidence-card p{font-size:.87rem;color:rgba(255,255,255,.78)}
-    .final{padding:130px 0;text-align:center}.final blockquote{font-size:clamp(2rem,5vw,4.7rem);line-height:1.08;letter-spacing:-.05em;max-width:1000px;margin:0 auto 35px}.final p{color:var(--muted)}footer{padding:35px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
-    @media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding:60px 0}.orbital{width:min(390px,90vw);margin:auto}.section-head{grid-template-columns:1fr}.cards3,.timeline,.combo-grid,.evidence-grid{grid-template-columns:1fr}.stage{border-left:0;border-top:1px solid var(--line)}.scenario-grid{grid-template-columns:1fr}.slider-row{grid-template-columns:90px 1fr 45px}.readout{grid-template-columns:1fr}.triangle{display:none}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of the Three Switches of Life: Time, Money, and Health. Simulate your life stages and discover the trade-offs of resource allocation.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#0f172a">
+    
+    <title>The 3 Switches: Time, Money, Health</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏳</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --time-color: #38bdf8;
+            --money-color: #fbbf24;
+            --health-color: #4ade80;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: clamp(1rem, 4vw, 2rem);
+            overflow-x: hidden;
+        }
+
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        /* HEADER */
+        header { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; background: linear-gradient(to right, var(--time-color), var(--money-color), var(--health-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; padding: 0 1rem; }
+
+        /* INTERACTIVE UI SECTION */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(1.5rem, 4vw, 2rem); max-width: 1200px; width: 100%; margin-bottom: 3rem; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .glass-panel h2 { font-size: clamp(1.3rem, 3vw, 1.5rem); margin-bottom: 0.5rem; }
+
+        .triangle-container { display: flex; justify-content: center; align-items: center; height: clamp(250px, 50vw, 350px); position: relative; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(1rem, 2vw, 1.2rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+
+        .sliders-wrapper { display: flex; flex-direction: column; gap: clamp(1.2rem, 3vw, 2rem); margin-top: 1rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.8rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.1rem; }
+
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 12px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]:active::-webkit-slider-thumb { transform: scale(1.2); }
+        input[type=range]:active::-moz-range-thumb { transform: scale(1.2); }
+
+        #time-slider::-webkit-slider-thumb { background: var(--time-color); box-shadow: 0 0 15px var(--time-color); }
+        #money-slider::-webkit-slider-thumb { background: var(--money-color); box-shadow: 0 0 15px var(--money-color); }
+        #health-slider::-webkit-slider-thumb { background: var(--health-color); box-shadow: 0 0 15px var(--health-color); }
+        #time-slider::-moz-range-thumb { background: var(--time-color); box-shadow: 0 0 15px var(--time-color); }
+        #money-slider::-moz-range-thumb { background: var(--money-color); box-shadow: 0 0 15px var(--money-color); }
+        #health-slider::-moz-range-thumb { background: var(--health-color); box-shadow: 0 0 15px var(--health-color); }
+
+        .total-capacity { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 12px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--time-color), var(--money-color), #f43f5e); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.95rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.5rem; font-weight: 600; }
+
+        .archetypes { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; }
+        .btn { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem 0.5rem; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; font-size: clamp(0.85rem, 2vw, 1rem); }
+        .btn:hover, .btn:focus-visible { background: rgba(255,255,255,0.1); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .btn.active { border-color: var(--money-color); background: rgba(251, 191, 36, 0.1); }
+
+        .insight-box { margin-top: clamp(1.5rem, 4vw, 2.5rem); padding: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 12px; border-left: 4px solid var(--money-color); min-height: 140px; transition: border-color 0.3s ease; }
+
+        /* COZY DARK ARTICLE SECTION */
+        .article-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: clamp(2rem, 6vw, 5rem);
+            font-family: 'Lora', serif;
+            color: #d4d4d8; /* Soft light gray for comfortable dark reading */
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); color: #fafafa; margin: 3.5rem 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.3rem, 4vw, 1.6rem); color: #f4f4f5; margin: 2.5rem 0 1rem; font-weight: 700; letter-spacing: 0; }
+        .article-container p { margin-bottom: 1.8rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1.8rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.8rem; }
+        .article-container strong { color: #fafafa; font-weight: 600; }
+        
+        .accent-time { color: var(--time-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .accent-money { color: var(--money-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .accent-health { color: var(--health-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+
+        footer { margin-top: 4rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; opacity: 0.7; padding-bottom: 2rem; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
-  <nav class="wrap"><div class="brand">3S / LIFE ALLOCATION</div><div class="navlinks"><a href="#lab">Simulator</a><a href="#stages">Life stages</a><a href="#scenarios">Scenarios</a><a href="#evidence">Evidence</a><a href="../4B/">Explore 4 Burners →</a></div></nav>
-  <main>
-    <header class="hero wrap">
-      <div><div class="eyebrow mono"><i class="dot"></i>A field guide to finite resources</div><h1><span>TIME.</span><span class="outline">MONEY.</span><span>HEALTH.</span></h1><p class="lede">Life gives us three essential resources—but rarely lets us maximize all three at once. See the exchange rate. Choose the season. Protect the floor.</p><div class="hero-note"><span>01</span><span>This is a reflection model, not a scientific law. The constraints below make trade-offs visible; they do not define what your life must be.</span></div></div>
-      <div class="orbital" aria-hidden="true"><div class="switch-orb o-time">TIME<small>non-renewable</small></div><div class="switch-orb o-money">MONEY<small>flexible</small></div><div class="switch-orb o-health">HEALTH<small>capacity</small></div><div class="center-copy">MAXIMIZE TWO?<br>OR DESIGN<br>THE MIX.</div></div>
+
+    <header>
+        <h1>The Three Switches</h1>
+        <p class="subtitle">Time, Money, and Health. The golden rule: you can only maximize two. Adjust the sliders to simulate your life season and discover the trade-offs.</p>
     </header>
 
-    <section id="lab"><div class="wrap"><div class="section-head"><span class="mono">Interactive / 01</span><div><h2>Allocate your life.</h2><p>Set your current state. This simulator uses a 200-point design budget. Try to push one resource higher and the largest competing resource yields.</p></div></div>
-      <div class="lab"><div class="lab-top"><div><div class="mono">Current-state allocator</div><h3>Where is your energy going?</h3></div><div class="budget" id="budget">TOTAL 200 / 200</div></div>
-        <div class="sliders">
-          <label class="slider-row"><span class="slider-label"><i style="background:var(--time)"></i>Time</span><input class="range-time" id="time" type="range" min="0" max="100" value="70"><output class="value" id="timeV">70</output></label>
-          <label class="slider-row"><span class="slider-label"><i style="background:var(--money)"></i>Money</span><input class="range-money" id="money" type="range" min="0" max="100" value="55"><output class="value" id="moneyV">55</output></label>
-          <label class="slider-row"><span class="slider-label"><i style="background:var(--health)"></i>Health</span><input class="range-health" id="health" type="range" min="0" max="100" value="75"><output class="value" id="healthV">75</output></label>
-        </div>
-        <div class="readout"><div><div class="mono">Your reading</div><strong id="readingTitle">Time-rich, health-supported</strong><p id="readingText">Money is your growth edge. Protect the freedom you already have while building financial resilience.</p></div><svg class="triangle" viewBox="0 0 160 140"><polygon points="80,8 8,130 152,130" fill="none" stroke="#ffffff44"/><polygon id="shape" points="80,35 35,111 130,110" fill="#ef6b4588" stroke="white" stroke-width="2"/></svg></div>
-        <div class="presets"><button data-preset="youth">Early adulthood</button><button data-preset="grind">Builder / caregiver</button><button data-preset="later">Later life</button><button data-preset="recovery">Recovery</button><button data-preset="secure">All supported</button></div>
-      </div>
-    </div></section>
+    <div class="dashboard">
+        <!-- Interactive Sliders -->
+        <section class="glass-panel" aria-labelledby="allocate-heading">
+            <h2 id="allocate-heading">Allocate Resources</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.5;">Max System Capacity: 200%. Increasing one beyond limits will drain another.</p>
+            
+            <div class="sliders-wrapper">
+                <div class="slider-group">
+                    <div class="slider-header"><label for="time-slider" style="color:var(--time-color)">⏳ TIME</label><span id="time-val" aria-live="polite">33%</span></div>
+                    <input type="range" id="time-slider" min="0" max="100" value="33" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header"><label for="money-slider" style="color:var(--money-color)">💰 MONEY</label><span id="money-val" aria-live="polite">33%</span></div>
+                    <input type="range" id="money-slider" min="0" max="100" value="33" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header"><label for="health-slider" style="color:var(--health-color)">❤️ HEALTH</label><span id="health-val" aria-live="polite">34%</span></div>
+                    <input type="range" id="health-slider" min="0" max="100" value="34" aria-valuemin="0" aria-valuemax="100" aria-valuenow="34">
+                </div>
+            </div>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Anatomy / 02</span><div><h2>Three resources.<br>Three different clocks.</h2><p>They are not interchangeable. Time disappears, money can often be rebuilt, and health determines how well everything else can be used.</p></div></div>
-      <div class="cards3">
-        <article class="resource" style="--accent:var(--time)"><span class="mono tag">Time / non-renewable</span><h3>Hours are not enough.</h3><p>Real time includes autonomy, attention, recovery, and unfragmented space—not just blank calendar cells.</p><ul><li>High: control, presence, room for surprise</li><li>Low: urgency, fragmentation, borrowed sleep</li><li>Can be reclaimed with boundaries, proximity, systems, and money</li></ul></article>
-        <article class="resource" style="--accent:var(--money)"><span class="mono tag">Money / flexible</span><h3>Options made visible.</h3><p>Income, savings, assets, insurance, and resilience absorb shocks and create bargaining power.</p><ul><li>High: needs covered, choices protected</li><li>Low: short-term costs dominate decisions</li><li>Can buy access and convenience—not meaning, presence, or guaranteed health</li></ul></article>
-        <article class="resource" style="--accent:var(--health)"><span class="mono tag">Health / capacity</span><h3>The multiplier.</h3><p>Physical and mental health, sleep, mobility, cognition, and energy shape how time and money can be used.</p><ul><li>High: challenge is recoverable</li><li>Low: ordinary tasks cost more</li><li>Never a moral score; access, genetics, disability, environment, and luck matter</li></ul></article>
-      </div>
-    </div></section>
+            <div class="total-capacity">
+                <span id="load-label">Load</span>
+                <div class="capacity-bar" role="progressbar" aria-labelledby="load-label" aria-valuemin="0" aria-valuemax="200" aria-valuenow="100" id="cap-progressbar">
+                    <div class="capacity-fill" id="cap-fill"></div>
+                </div>
+                <span id="cap-val" aria-live="polite">100 / 200</span>
+            </div>
+            <div class="warning-text" id="warning-msg" role="alert" aria-live="assertive">System Overload! Auto-balancing...</div>
 
-    <section id="stages"><div class="wrap"><div class="section-head"><span class="mono">Default script / 03</span><div><h2>The life-stage story.</h2><p>A familiar pattern—not an age rule. Your responsibilities, access, health, and starting position may create a completely different path.</p></div></div>
-      <div class="timeline">
-        <article class="stage"><span class="age">EARLY ADULTHOOD</span><h3>Capable, curious, cash-light.</h3><div class="switches"><span class="pill">TIME ↑</span><span class="pill">HEALTH ↑</span><span class="pill low">MONEY ↓</span></div><p>Learn, experiment, travel cheaply, build skills. The trap is treating health as infinite or selling every hour without building anything that compounds.</p></article>
-        <article class="stage"><span class="age">THE BUILDER YEARS</span><h3>Assets rising, calendar shrinking.</h3><div class="switches"><span class="pill">MONEY ↑</span><span class="pill">HEALTH ↔</span><span class="pill low">TIME ↓</span></div><p>Career, children, elder care, commuting, and administration converge. Buy back low-value time—but remember that presence, intimacy, sleep, and exercise resist outsourcing.</p></article>
-        <article class="stage"><span class="age">LATER LIFE</span><h3>Freedom meets capacity.</h3><div class="switches"><span class="pill">TIME ↑</span><span class="pill">MONEY ↑</span><span class="pill low">HEALTH ↓</span></div><p>Use money and time for access, support, adaptation, service, and meaning. Retirement does not guarantee wealth, freedom, health, social connection, or purpose.</p></article>
-      </div><div class="caveat"><b>Reality check:</b> a young caregiver may have no time; a wealthy young person may have all three; a healthy retiree may have exceptional capacity. Disability, unemployment, inherited wealth, inequality, geography, and luck rewrite the script.</div>
-    </div></section>
+            <nav class="archetypes" aria-label="Life Archetype Presets">
+                <button class="btn" onclick="setArchetype('youth', this)" aria-pressed="false"><span style="font-size: 1.8rem" aria-hidden="true">🎒</span>The Youth</button>
+                <button class="btn" onclick="setArchetype('grind', this)" aria-pressed="false"><span style="font-size: 1.8rem" aria-hidden="true">💼</span>The Grind</button>
+                <button class="btn" onclick="setArchetype('golden', this)" aria-pressed="false"><span style="font-size: 1.8rem" aria-hidden="true">🌅</span>Golden Years</button>
+            </nav>
+        </section>
 
-    <section id="scenarios"><div class="wrap"><div class="section-head"><span class="mono">What if? / 04</span><div><h2>Every choice has an exchange rate.</h2><p>Tap a scenario to apply it to the simulator. Effects are illustrative and context-dependent.</p></div></div>
-      <div class="scenario-grid">
-        <article class="scenario" data-delta="-25,30,-15"><div><h3>Take the high-pressure promotion</h3><p>Income and status rise; schedule control and recovery may contract.</p></div><span class="delta">T−25 M+30 H−15</span></article>
-        <article class="scenario" data-delta="25,-20,15"><div><h3>Move to a four-day week</h3><p>Trade some pay for time, recovery, relationships, and autonomy.</p></div><span class="delta">T+25 M−20 H+15</span></article>
-        <article class="scenario" data-delta="-15,-15,-10"><div><h3>Become a caregiver</h3><p>Time, money, and sleep come under pressure; meaning and connection may rise outside this model.</p></div><span class="delta">T−15 M−15 H−10</span></article>
-        <article class="scenario" data-delta="18,-12,12"><div><h3>Hire practical help</h3><p>Convert money into time and lower friction—if reclaimed hours are protected.</p></div><span class="delta">T+18 M−12 H+12</span></article>
-        <article class="scenario" data-delta="14,-8,10"><div><h3>Shorten the commute</h3><p>Housing may cost more, but daily time and stress improve.</p></div><span class="delta">T+14 M−8 H+10</span></article>
-        <article class="scenario" data-delta="-8,-8,20"><div><h3>Start preventive care</h3><p>Spend resources now to protect future capacity and time.</p></div><span class="delta">T−8 M−8 H+20</span></article>
-        <article class="scenario" data-delta="20,-30,-8"><div><h3>Lose a job</h3><p>Calendar opens, but insecurity and job-search stress can consume attention and health.</p></div><span class="delta">T+20 M−30 H−8</span></article>
-        <article class="scenario" data-delta="-35,25,-30"><div><h3>Work 80-hour weeks</h3><p>Apparent progress can become an involuntary recovery season when health collapses.</p></div><span class="delta">T−35 M+25 H−30</span></article>
-      </div>
-    </div></section>
+        <!-- Visualization & Insights -->
+        <section class="glass-panel" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Equilibrium</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(251, 191, 36, 0.2)" stroke="var(--money-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.4s;"/>
+                    <text x="200" y="35" class="node-label" fill="var(--time-color)">TIME</text>
+                    <text x="370" y="340" class="node-label" fill="var(--health-color)">HEALTH</text>
+                    <text x="30" y="340" class="node-label" fill="var(--money-color)">MONEY</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="margin-bottom: 0.5rem; color: var(--money-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced State</h3>
+                <p id="insight-desc" style="color: var(--text-muted); line-height: 1.6; font-family: Outfit, sans-serif; font-size: 0.95rem;">You are currently maintaining a delicate balance. While peaceful, extraordinary achievement in any single category requires turning the dials.</p>
+            </article>
+        </section>
+    </div>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Patterns / 05</span><div><h2>The combinations.</h2><p>Two bright switches can produce very different lives. One bright switch may still feel like confinement. All three low is crisis, not an optimization challenge.</p></div></div>
-      <div class="combo-grid"><div class="combo"><b>Time + Health</b><span>Student, sabbatical, unemployment, or low-cost traveler. Freedom can coexist with financial insecurity.</span></div><div class="combo"><b>Time + Money</b><span>Retirement, disability, or recovery after burnout. Access improves; capacity may remain constrained.</span></div><div class="combo"><b>Money + Health</b><span>Executive, clinician, founder, dual-income parent. Capability is high, but life can become permanently deferred.</span></div><div class="combo"><b>Time only</b><span>Transition, isolation, forced unemployment, or recovery. Time without capacity or resources is not automatically freedom.</span></div><div class="combo"><b>Money only</b><span>High earnings under extreme demand. Wealth exists but is difficult to use or enjoy.</span></div><div class="combo"><b>Health only</b><span>Physical potential without financial security or schedule control.</span></div></div>
-    </div></section>
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>Editorial status</h2>
+        <p>The “Three Switches” is a planning metaphor, not a scientific law. It is commonly shared as a life-stage triangle: when young, people may have time and health but little money; in midlife, money and health but little discretionary time; in later life, time and money but less health. Real lives vary enormously. Disability, caregiving, unemployment, inherited wealth, geography, inequality, and luck can produce completely different combinations.</p>
+        <p>For the interactive experience, “only two switches can be fully on” is a useful constraint—not a factual limit. Users may keep all three partly active, create synergies, or temporarily run all three high, but doing so often requires privilege, support, careful systems, or a narrow definition of each resource.</p>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Field manual / 06</span><div><h2>Convert. Combine. Protect.</h2><p>Before accepting pure sacrifice, look for a conversion or synergy. Then install a floor so a temporary trade does not become permanent damage.</p></div></div>
-      <details open><summary>Conversions</summary><p>Work more (Money up, Time down); take a pay cut (Time up, Money down); hire help (Money into Time); exercise and preventive care (Time and Money now for future Health); build skills (Time now for future Money and autonomy); sleep less (fake Time now, lower future capacity).</p></details>
-      <details><summary>Synergies</summary><p>Walk or cycle for transport; exercise with friends or family; batch-cook healthy food; live near work or support; learn a paid skill you enjoy; choose active travel. Synergy is not free—setup, coordination, and context determine whether it works.</p></details>
-      <details><summary>Shocks</summary><p>A new child, elder care, promotion, layoff, illness, inheritance, relocation, remote work, inflation, or burnout can change all three switches at once. Distinguish chosen ambition from imposed scarcity.</p></details>
-      <details><summary>Ten-step review</summary><ol><li>Define each switch personally.</li><li>Audit hours, debt, savings, sleep, symptoms, and control.</li><li>Name the season and its end date.</li><li>Choose one resource to grow.</li><li>Protect a non-negotiable floor.</li><li>Name the cost in advance.</li><li>Seek synergy first.</li><li>Add guardrails.</li><li>Review monthly or quarterly.</li><li>Never let a temporary trade become an identity.</li></ol></details>
-    </div></section>
+        <h2>The three resources</h2>
+        
+        <h3><span class="accent-time">TIME</span> — the non-renewable resource</h3>
+        <p>Time means more than hours that technically exist. It includes discretionary time, schedule control, attention, recovery, and the ability to be present. Time can be fragmented by interruptions, commuting, care work, administrative work, or constant availability. A person can have free hours but little usable energy, or a full schedule with high autonomy.</p>
+        <p><strong>Signals that Time is high:</strong></p>
+        <ul>
+            <li>You control much of your calendar.</li>
+            <li>You can rest, think, learn, maintain relationships, and respond to surprises.</li>
+            <li>You have unfragmented blocks rather than only leftover minutes.</li>
+        </ul>
 
-    <section class="evidence" id="evidence"><div class="wrap"><div class="section-head"><span class="mono">Evidence / 07</span><div><h2>Metaphor, meet reality.</h2><p>The 200-point limit is not science. These narrower research findings explain why the metaphor resonates.</p></div></div>
-      <div class="evidence-grid"><article class="evidence-card"><strong>55+ hrs</strong><p>WHO/ILO found working at least 55 hours weekly associated with higher stroke and ischemic-heart-disease risk than 35–40 hours.</p></article><article class="evidence-card"><strong>Time-rich</strong><p>Time-affluence research links feeling that one has enough time with well-being, autonomy, relationships, and healthy activity.</p></article><article class="evidence-card"><strong>Choice ≠ access</strong><p>Fair pay, healthcare, childcare, accessibility, safe work, and social support shape whether “optimization” is possible at all.</p></article></div>
-      <p style="margin-top:30px;font-size:.82rem"><b>Sources:</b> <a href="https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo">WHO/ILO</a> · <a href="https://doi.org/10.1007/s10551-008-9696-1">Kasser & Sheldon</a> · <a href="https://doi.org/10.1177/1948550615623842">Whillans et al.</a> · <a href="https://doi.org/10.1038/s41562-020-0920-z">Giurge et al.</a></p>
-    </div></section>
-    <section class="final"><div class="wrap"><span class="mono">The principle</span><blockquote>See the exchange rate. Choose consciously. Protect the floor. Rotate before neglect becomes crisis.</blockquote><p>You may not control every switch—and the switches are not equally reversible.</p></div></section>
-  </main>
-  <footer class="wrap"><span>THE THREE SWITCHES / 2026</span><span><a href="../4B/">Continue to The Four Burners →</a></span></footer>
-  <script>
-    const ids=["time","money","health"], els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
-    const presets={youth:[85,35,80],grind:[35,85,75],later:[80,75,35],recovery:[70,30,30],secure:[66,67,67]};
-    let last="health";
-    function clampBudget(changed){
-      let vals=ids.map(id=>+els[id].value), total=vals.reduce((a,b)=>a+b,0);
-      if(total>200){let overflow=total-200, others=ids.filter(id=>id!==changed).sort((a,b)=>els[b].value-els[a].value);for(const id of others){const take=Math.min(overflow,+els[id].value);els[id].value-=take;overflow-=take;if(!overflow)break}}
-      render();
-    }
-    function render(){
-      const v=Object.fromEntries(ids.map(id=>[id,+els[id].value]));ids.forEach(id=>document.getElementById(id+"V").textContent=v[id]);
-      const total=v.time+v.money+v.health,b=document.getElementById("budget");b.textContent=`TOTAL ${total} / 200`;b.classList.toggle("warn",total>200);
-      const sorted=ids.slice().sort((a,b)=>v[b]-v[a]), low=sorted[2], high=sorted[0], labels={time:"Time",money:"Money",health:"Health"};
-      document.getElementById("readingTitle").textContent=`${labels[high]} leads; ${labels[low]} needs a floor`;
-      const advice={time:"Your calendar is the constraint. Look for boundaries, proximity, delegation, or a deliberately smaller commitment.",money:"Financial resilience is the growth edge. Build it without spending the health and freedom you mean to protect.",health:"Capacity is the constraint. Recovery, care, sleep, and adaptation outrank further optimization."};
-      document.getElementById("readingText").textContent=advice[low];
-      const topY=130-v.time*1.12, leftX=80-v.money*.7, leftY=130-v.money*.2, rightX=80+v.health*.7, rightY=130-v.health*.2;
-      document.getElementById("shape").setAttribute("points",`${80},${topY} ${leftX},${leftY} ${rightX},${rightY}`);
-    }
-    ids.forEach(id=>els[id].addEventListener("input",()=>{last=id;clampBudget(id)}));
-    document.querySelectorAll("[data-preset]").forEach(btn=>btn.addEventListener("click",()=>{const p=presets[btn.dataset.preset];ids.forEach((id,i)=>els[id].value=p[i]);document.querySelectorAll("[data-preset]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render()}));
-    document.querySelectorAll("[data-delta]").forEach(card=>card.addEventListener("click",()=>{const d=card.dataset.delta.split(",").map(Number);ids.forEach((id,i)=>els[id].value=Math.max(0,Math.min(100,+els[id].value+d[i])));clampBudget("time");document.getElementById("lab").scrollIntoView({behavior:"smooth"})}));
-    render();
-  </script>
+        <h3><span class="accent-money">MONEY</span> — the flexible and partly renewable resource</h3>
+        <p>Money includes income, savings, assets, insurance, access to credit, and financial resilience. Its value is not only consumption; it buys options, absorbs shocks, reduces some forms of stress, and can convert into time or health.</p>
+        <p><strong>Signals that Money is high:</strong></p>
+        <ul>
+            <li>Basic needs and emergencies are covered.</li>
+            <li>You have bargaining power and can decline harmful conditions.</li>
+            <li>Savings or assets create future choices.</li>
+        </ul>
+
+        <h3><span class="accent-health">HEALTH</span> — the capacity resource</h3>
+        <p>Health includes physical function, mental health, sleep, energy, mobility, cognition, and access to care. Health is both an outcome and a multiplier: it changes how effectively time and money can be used.</p>
+        <p><strong>Signals that Health is high:</strong></p>
+        <ul>
+            <li>Energy, sleep, mobility, and mood support daily life.</li>
+            <li>Stress is recoverable rather than chronic.</li>
+            <li>Preventive care and healthy routines are feasible.</li>
+        </ul>
+
+        <h2>The classic life-stage story</h2>
+        <h3>Early adulthood — Time + Health, less Money</h3>
+        <p>Common scenario: fewer assets and lower earning power, but relatively greater schedule flexibility and physical resilience. Examples include students, early-career workers, travelers, apprentices.</p>
+        <p><strong>Opportunities:</strong> Learn, experiment, travel cheaply, build skills, form relationships. Invest time in future earning power.</p>
+
+        <h3>Midlife or the “grinding” years — Money + Health, less Time</h3>
+        <p>Common scenario: higher earning power and responsibility coincide with career demands, parenting, elder care, home administration, and commuting.</p>
+        <p><strong>Opportunities:</strong> Use money to reduce low-value work, improve access to care, and build security. Negotiate autonomy.</p>
+
+        <h3>Later life — Time + Money, less Health</h3>
+        <p>Common scenario: retirement creates schedule freedom and accumulated assets, while mobility, stamina, or chronic conditions may limit use.</p>
+        <p><strong>Opportunities:</strong> Adapt travel, learning, service to current capacity. Spend money on accessibility, treatment, and support.</p>
+
+        <h2>Six two-switch combinations</h2>
+        <ol>
+            <li><strong>Time + Health, low Money:</strong> Student, sabbatical, unemployment, low-cost traveler.</li>
+            <li><strong>Time + Money, low Health:</strong> Retirement with illness, recovery after burnout, financially secure disability.</li>
+            <li><strong>Money + Health, low Time:</strong> Executive, clinician, founder, dual-income parent. Capability is high, life is deferred.</li>
+            <li><strong>Time only:</strong> Recovery, forced unemployment, isolation. Time without health or resources feels like confinement.</li>
+            <li><strong>Money only:</strong> High earnings under extreme stress, poor health, no autonomy. Wealth exists but is difficult to enjoy.</li>
+            <li><strong>Health only:</strong> Physically capable but financially and temporally constrained. Potential exists without room to deploy it.</li>
+        </ol>
+
+        <h2>Practical decision framework</h2>
+        <ol>
+            <li>Define each switch personally. “More” is meaningless without a threshold.</li>
+            <li>Audit reality using hours, obligations, sleep, debt, savings, symptoms, and schedule control.</li>
+            <li>Name the current season and its expected end date.</li>
+            <li>Choose one primary switch to grow and one floor that must not be violated.</li>
+            <li>State the cost in advance: what will receive less attention?</li>
+        </ol>
+
+        <h2>Closing principle</h2>
+        <p>You may not control every switch, and the switches are not equally reversible. The goal is not permanent perfection. It is to see the exchange rate, choose consciously where choice exists, protect a minimum floor for health and dignity, and rotate priorities before a neglected resource becomes a crisis.</p>
+    </main>
+
+    <footer>
+        <p>Interactive visualization & Documentation based on the "3 Switches of Life" concept.</p>
+    </footer>
+
+    <script>
+        const sliders = { time: document.getElementById('time-slider'), money: document.getElementById('money-slider'), health: document.getElementById('health-slider') };
+        const vals = { time: document.getElementById('time-val'), money: document.getElementById('money-val'), health: document.getElementById('health-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), capProgressbar = document.getElementById('cap-progressbar'), warningMsg = document.getElementById('warning-msg'), poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const MAX_CAPACITY = 200;
+
+        function updateUI(sourceSlider = null) {
+            let t = parseInt(sliders.time.value), m = parseInt(sliders.money.value), h = parseInt(sliders.health.value), total = t + m + h;
+            if (total > MAX_CAPACITY && sourceSlider) {
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity = '1'; setTimeout(() => warningMsg.style.opacity = '0', 2000);
+                let others = Object.keys(sliders).filter(k => sliders[k] !== sourceSlider).sort((a, b) => sliders[b].value - sliders[a].value);
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(sliders[key].value), toDrain = Math.min(val, excess);
+                    sliders[key].value = val - toDrain; excess -= toDrain;
+                }
+                t = parseInt(sliders.time.value); m = parseInt(sliders.money.value); h = parseInt(sliders.health.value); total = t + m + h;
+            }
+            for(let key of ['time', 'money', 'health']) {
+                let val = eval(key.charAt(0)); vals[key].innerText = val + '%'; sliders[key].setAttribute('aria-valuenow', val);
+            }
+            let percent = (total / MAX_CAPACITY) * 100;
+            capFill.style.width = percent + '%'; capVal.innerText = `${total} / 200`; capProgressbar.setAttribute('aria-valuenow', total);
+            capFill.style.background = percent > 90 ? 'linear-gradient(90deg, #fbbf24, #f43f5e)' : 'linear-gradient(90deg, var(--time-color), var(--health-color))';
+            
+            const tX = 200, tY = 185 - (135 * (t / 100)), hX = 200 + (150 * (h / 100)), hY = 185 + (135 * (h / 100)), mX = 200 - (150 * (m / 100)), mY = 185 + (135 * (m / 100));
+            poly.setAttribute('points', `${tX},${tY} ${hX},${hY} ${mX},${mY}`);
+            
+            let dominantColor = 'var(--text-main)';
+            if(t >= m && t >= h) dominantColor = 'var(--time-color)'; else if(m >= t && m >= h) dominantColor = 'var(--money-color)'; else dominantColor = 'var(--health-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor = dominantColor;
+            generateInsight(t, m, h);
+        }
+
+        function generateInsight(t, m, h) {
+            if (t > 80 && h > 80 && m < 30) { insightTitle.innerText = "The Explorer"; insightTitle.style.color = "var(--time-color)"; insightDesc.innerText = "You have the freedom and vitality to conquer the world, but financial scarcity forces creativity. Warning: Don't assume health is infinite. Invest some time into building future earning power."; }
+            else if (m > 80 && h > 80 && t < 30) { insightTitle.innerText = "The Machine"; insightTitle.style.color = "var(--money-color)"; insightDesc.innerText = "High performance, high reward. You are stacking assets and have the stamina to do it. But you are time-bankrupt. Consider using some money to buy back time before burnout hits."; }
+            else if (m > 80 && t > 80 && h < 30) { insightTitle.innerText = "The Golden Cage"; insightTitle.style.color = "var(--health-color)"; insightDesc.innerText = "You have total schedule freedom and wealth, but lack the physical capacity to fully enjoy it. Pivot immediately to using Time and Money to protect your Health."; }
+            else if (t < 20 && m < 20 && h < 20) { insightTitle.innerText = "Crisis Mode"; insightTitle.style.color = "#f43f5e"; insightDesc.innerText = "System failure. You are structurally constrained, likely surviving day-to-day. The goal here is stabilization and support, not optimization."; }
+            else if (m > 90 && t < 10) { insightTitle.innerText = "The Sacrifice"; insightTitle.style.color = "#fbbf24"; insightDesc.innerText = "Converting every free hour into work. You must set a firm boundary or your Health will soon drop to match your Time."; }
+            else { insightTitle.innerText = "The Juggle"; insightTitle.style.color = "var(--text-main)"; insightDesc.innerText = "A transitional phase. You are balancing trade-offs. Remember: 'Balance' isn't having everything at 100%. It's choosing which switch you are willing to lower to fuel the others."; }
+        }
+
+        function setArchetype(type, btn) {
+            document.querySelectorAll('.btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+            if(btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); }
+            if (type === 'youth') { sliders.time.value = 90; sliders.health.value = 90; sliders.money.value = 10; }
+            else if (type === 'grind') { sliders.time.value = 15; sliders.health.value = 85; sliders.money.value = 95; }
+            else if (type === 'golden') { sliders.time.value = 95; sliders.health.value = 30; sliders.money.value = 75; }
+            updateUI(sliders.time);
+        }
+
+        sliders.time.addEventListener('input', () => updateUI(sliders.time));
+        sliders.money.addEventListener('input', () => updateUI(sliders.money));
+        sliders.health.addEventListener('input', () => updateUI(sliders.health));
+        setArchetype('youth', document.querySelector('.btn'));
+    </script>
 </body>
 </html>

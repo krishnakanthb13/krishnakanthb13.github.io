@@ -1,140 +1,495 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="An interactive exploration of the Four Burners Theory: health, family, friends, and career.">
-  <title>The Four Burners — What Gets Your Fire?</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-    :root{--bg:#11100e;--panel:#1a1916;--cream:#eee7d8;--muted:#9d988e;--health:#ef5947;--family:#f2a93b;--friends:#35a984;--career:#5e7ee6;--line:rgba(255,255,255,.13)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
-    a{color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.mono{font:500 .76rem "DM Mono",monospace;text-transform:uppercase;letter-spacing:.1em}
-    nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800}.navlinks{display:flex;gap:22px}.navlinks a{text-decoration:none;color:var(--muted);font-size:.86rem}
-    .hero{min-height:88vh;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:70px 0}.hero h1{font-size:clamp(4.2rem,10vw,9rem);line-height:.8;letter-spacing:-.075em;margin:28px 0}.hero h1 span{display:block}.hero h1 em{font-style:normal;color:var(--health)}.lede{font-size:1.15rem;color:var(--muted);max-width:610px}.origin{font-size:.82rem;border-left:2px solid var(--family);padding-left:15px;color:var(--muted);margin-top:30px}
-    .stove{aspect-ratio:1;background:#23211d;border:1px solid #3a3731;border-radius:34px;padding:9%;display:grid;grid-template-columns:1fr 1fr;gap:9%;box-shadow:inset 0 0 60px #000,0 30px 100px #0008;transform:rotate(2deg)}.burner{position:relative;border-radius:50%;border:12px solid #0b0b0a;display:grid;place-items:center;box-shadow:inset 0 0 0 2px #413e37}.flame{width:72%;height:72%;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#fff7c5 0 8%,var(--c) 9% 35%,transparent 68%);filter:drop-shadow(0 0 18px var(--c));animation:pulse 2.3s ease-in-out infinite alternate}.flame b{font-size:.82rem}.flame small{display:block;font:500 .65rem "DM Mono"}@keyframes pulse{to{transform:scale(.93);filter:drop-shadow(0 0 8px var(--c))}}
-    section{padding:100px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.45fr 1.55fr;gap:40px;margin-bottom:50px}.section-head h2{font-size:clamp(2.5rem,5vw,4.7rem);line-height:1;letter-spacing:-.055em;margin:0}.section-head p{color:var(--muted);max-width:700px}
-    .sim{background:var(--cream);color:#171612;border-radius:28px;padding:clamp(24px,5vw,55px)}.sim-top{display:flex;justify-content:space-between;gap:20px;align-items:start}.sim h3{font-size:2rem;margin:4px 0}.tank{text-align:right}.tank strong{font:500 2rem "DM Mono"}.tank span{display:block;font-size:.72rem;color:#6d695f}.tank.over strong{color:var(--health)}
-    .dials{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:38px 0}.dial{border:1px solid #d0c8b8;border-radius:18px;padding:21px}.dial label{font-weight:800;display:flex;justify-content:space-between}.dial output{font-family:"DM Mono"}.dial input{width:100%;margin:20px 0 5px;accent-color:var(--c)}.dial small{color:#777168}
-    .diagnosis{background:#171612;color:var(--cream);border-radius:16px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:20px}.diagnosis strong{font-size:1.3rem}.diagnosis p{color:#aaa59b;margin:6px 0 0;font-size:.9rem}.risk{font:500 .7rem "DM Mono";border:1px solid #ffffff33;border-radius:99px;padding:8px 11px;align-self:start}
-    .presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}button{border:1px solid #c9c1b1;background:transparent;color:inherit;border-radius:99px;padding:9px 13px;font:600 .8rem Manrope;cursor:pointer}button:hover,button.active{background:#171612;color:var(--cream);border-color:#171612}
-    .burner-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.bcard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:25px}.icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:white;font-size:1.2rem}.bcard h3{margin:22px 0 6px}.bcard p,.bcard li{color:var(--muted);font-size:.86rem}.bcard ul{padding-left:17px}
-    .scale{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden}.level{padding:25px;border-right:1px solid var(--line)}.level:last-child{border:0}.level strong{font:500 1.8rem "DM Mono";display:block}.level b{display:block;margin:8px 0}.level span{font-size:.81rem;color:var(--muted)}
-    .season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.season{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}.season h3{margin:6px 0 12px}.meters{display:grid;gap:6px;margin:18px 0}.meter{display:grid;grid-template-columns:55px 1fr 20px;gap:7px;align-items:center;font:500 .64rem "DM Mono"}.bar{height:5px;background:#ffffff12;border-radius:9px}.fill{height:100%;background:var(--c);border-radius:9px}.season p{font-size:.84rem;color:var(--muted)}
-    .strategies{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.strategy{padding:28px;border:1px solid var(--line);border-radius:18px}.strategy .num{font:500 .75rem "DM Mono";color:var(--family)}.strategy h3{font-size:1.4rem}.strategy p{color:var(--muted);font-size:.88rem}
-    .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.matrix article{background:var(--bg);padding:25px}.matrix b{display:block}.matrix span{font-size:.86rem;color:var(--muted)}
-    .eventbox{background:linear-gradient(135deg,#2a211c,#181715);border:1px solid #4a3629;border-radius:24px;padding:40px;text-align:center}.eventbox h3{font-size:2.2rem;margin:10px}.eventbox p{color:var(--muted);max-width:650px;margin:10px auto 25px}.eventbox button{border-color:#73604d}.event-result{margin-top:25px;min-height:24px;color:var(--family);font-weight:700}
-    details{border-top:1px solid var(--line);padding:20px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}summary:after{content:"+"}details[open] summary:after{content:"−"}details p,details li{color:var(--muted);font-size:.9rem}
-    .evidence{background:var(--cream);color:#181713}.evidence .section-head p{color:#6b675f}.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#c9c1b1}.ecard{background:var(--cream);padding:30px}.ecard strong{font-size:2.5rem;letter-spacing:-.05em;display:block}.ecard p{font-size:.86rem;color:#676258}
-    .final{text-align:center;padding:140px 0}.final blockquote{max-width:1000px;margin:20px auto;font-size:clamp(2.2rem,5vw,4.8rem);line-height:1.08;letter-spacing:-.05em}.final em{color:var(--family);font-style:normal}footer{padding:35px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
-    @media(max-width:850px){.navlinks{display:none}.hero{grid-template-columns:1fr}.stove{max-width:520px}.section-head{grid-template-columns:1fr}.dials,.burner-cards{grid-template-columns:1fr 1fr}.season-grid,.strategies,.egrid{grid-template-columns:1fr}.scale{grid-template-columns:1fr}.level{border-right:0;border-bottom:1px solid var(--line)}.matrix{grid-template-columns:1fr}}@media(max-width:520px){.dials,.burner-cards{grid-template-columns:1fr}.diagnosis{grid-template-columns:1fr}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Manage your finite energy across four burners: Family, Friends, Health, and Career. A highly interactive tool and comprehensive guide for making intentional life trade-offs.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#09090b">
+    
+    <title>The Four Burners Theory</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #09090b;
+            --glass-bg: rgba(24, 24, 27, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent: #f97316;
+            --text-main: #fafafa;
+            --text-muted: #a1a1aa;
+            
+            --health-color: #10b981;
+            --family-color: #ec4899;
+            --friends-color: #3b82f6;
+            --career-color: #eab308;
+            --focus-ring: rgba(249, 115, 22, 0.6);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% -20%, #27272a 0%, #09090b 80%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: clamp(1rem, 3vw, 2rem); overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 4px; }
+
+        header { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); animation: fadeIn 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 800; background: linear-gradient(to right, #f97316, #ef4444); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; letter-spacing: -1px; line-height: 1.1; }
+        p.subtitle { font-size: clamp(1rem, 3vw, 1.1rem); color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; padding: 0 1rem; }
+
+        .dashboard-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 2rem); max-width: 1400px; width: 100%; margin-bottom: 3rem; align-items: start; }
+        .panel { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
+
+        /* CONTROLS GRID (Left Panel) */
+        .controls-grid { display: flex; flex-direction: column; gap: clamp(1rem, 3vw, 1.5rem); }
+        .control-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: clamp(1rem, 3vw, 1.5rem); display: flex; flex-direction: column; gap: 1rem; transition: transform 0.2s; }
+        .control-card:hover { transform: translateX(5px); background: rgba(0,0,0,0.4); }
+        .control-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: clamp(1rem, 2.5vw, 1.2rem); }
+        .burner-value-pill { background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 800; font-size: 1rem; min-width: 40px; text-align: center; }
+
+        .dial-slider { width: 100%; -webkit-appearance: none; appearance: none; background: transparent; touch-action: none; height: 24px; }
+        .dial-slider::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+        .dial-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #fff; margin-top: -8px; cursor: pointer; box-shadow: 0 0 15px currentColor; transition: transform 0.2s; }
+        .dial-slider:active::-webkit-slider-thumb { transform: scale(1.3); }
+
+        /* ENERGY BAR */
+        .energy-status { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); }
+        .energy-bar-bg { width: 100%; height: 16px; background: #18181b; border-radius: 8px; overflow: hidden; margin: 1.5rem 0 0.5rem; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+        .energy-fill { height: 100%; background: linear-gradient(90deg, #f97316, #ef4444); width: 0%; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s; box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
+        .energy-text { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
+        .energy-text span { color: var(--text-muted); font-size: clamp(0.9rem, 2vw, 1.1rem); font-weight: 400; }
+        .toast-warning { color: #ef4444; font-size: 0.95rem; opacity: 0; transition: opacity 0.3s; font-weight: 600; min-height: 1.5em; }
+
+        /* SIDEBAR / STOVE VISUALIZATION (Right Panel) */
+        .sidebar-panel { display: flex; flex-direction: column; gap: 2rem; width: 100%; }
+        
+        .stove-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: #18181b;
+            border-radius: 24px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.05);
+        }
+
+        .stove-grid::after {
+            content: ''; position: absolute; inset: 0; border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .burner-slot {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #09090b;
+            box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: filter 0.3s ease;
+        }
+
+        .node-label {
+            position: absolute;
+            font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            opacity: 0.8;
+            text-shadow: 0 0 8px currentColor;
+            z-index: 10;
+        }
+
+        .induction-svg {
+            width: 100%; height: 100%;
+            padding: 10%;
+            overflow: visible;
+        }
+
+        .induction-ring {
+            fill: none;
+            stroke: currentColor;
+            transform-origin: 50% 50%;
+            transition: opacity 0.3s ease;
+            opacity: 0.05;
+        }
+
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
+        @keyframes spinRingRev { 100% { transform: rotate(-360deg); } }
+
+        .narrative-box { padding: clamp(1.5rem, 4vw, 2rem); background: rgba(0,0,0,0.4); border-radius: 20px; border-left: 6px solid var(--accent); font-size: clamp(1rem, 2.5vw, 1.1rem); line-height: 1.6; color: #e4e4e7; transition: border-color 0.4s; min-height: 130px; display: flex; flex-direction: column; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+        .narrative-title { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
+
+        .preset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .preset-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem; border-radius: 16px; text-align: left; cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: clamp(0.85rem, 2vw, 1rem); display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; align-items: flex-start; }
+        .preset-btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+        .preset-btn.active { border-color: var(--accent); background: rgba(249, 115, 22, 0.1); }
+
+        .life-event-btn { background: linear-gradient(135deg, #f97316, #ef4444); color: white; border: none; padding: clamp(1rem, 3vw, 1.5rem); border-radius: 16px; width: 100%; font-weight: 800; cursor: pointer; font-size: clamp(1rem, 3vw, 1.2rem); transition: transform 0.2s, box-shadow 0.2s; display: flex; justify-content: center; align-items: center; gap: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 1.5rem; }
+        .life-event-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4); }
+
+        /* COZY DARK ARTICLE SECTION */
+        .article-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: clamp(2rem, 6vw, 5rem);
+            font-family: 'Lora', serif;
+            color: #d4d4d8; /* Soft light gray for comfortable dark reading */
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); color: #fafafa; margin: 3.5rem 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.3rem, 4vw, 1.6rem); color: #f4f4f5; margin: 2.5rem 0 1rem; font-weight: 700; letter-spacing: 0; }
+        .article-container p { margin-bottom: 1.8rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1.8rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.8rem; }
+        .article-container strong { color: #fafafa; font-weight: 600; }
+        
+        .accent-health { color: var(--health-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .accent-family { color: var(--family-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .accent-friends { color: var(--friends-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .accent-career { color: var(--career-color); font-weight: 700; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+
+        footer { margin-top: 4rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; opacity: 0.7; width: 100%; padding-bottom: 2rem; }
+
+        @media (max-width: 1000px) { .dashboard-container { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
-  <nav class="wrap"><div class="brand">4B / FINITE FIRE</div><div class="navlinks"><a href="#sim">Allocator</a><a href="#seasons">Seasons</a><a href="#strategies">Strategies</a><a href="#evidence">Evidence</a><a href="../3S/">Explore 3 Switches →</a></div></nav>
-  <main>
-    <header class="hero wrap">
-      <div><span class="mono">The Four Burners Theory</span><h1>WHAT<br>GETS<br>YOUR <em>FIRE?</em></h1><p class="lede">Health. Family. Friends. Career. You can keep every flame alive—but rarely run all four at maximum intensity at the same time.</p><p class="origin">The theory’s original author is uncertain. Treat it as a diagnostic metaphor for finite attention and energy, not a law that excuses neglect or glorifies overwork.</p></div>
-      <div class="stove" aria-label="Four burner stove illustration"><div class="burner"><div class="flame" style="--c:var(--health)"><span><b>HEALTH</b><small>THE ENGINE</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--family)"><span><b>FAMILY</b><small>THE ANCHOR</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--friends)"><span><b>FRIENDS</b><small>THE VILLAGE</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--career)"><span><b>CAREER</b><small>THE ROCKET</small></span></div></div></div>
+
+    <header>
+        <h1>Four Burners</h1>
+        <p class="subtitle">Time, attention, energy, and recovery are finite. Manage 25 energy points to construct your life. When you turn one up, you must turn another down.</p>
     </header>
 
-    <section id="sim"><div class="wrap"><div class="section-head"><span class="mono">Interactive / 01</span><div><h2>Spend your 25 points.</h2><p>The budget is a game mechanic, not a biological measurement. Use it to reveal what your current season rewards—and what it quietly asks you to neglect.</p></div></div>
-      <div class="sim"><div class="sim-top"><div><span class="mono">Daily allocation</span><h3>Set the flame levels.</h3></div><div class="tank" id="tank"><strong id="total">25 / 25</strong><span>ENERGY USED</span></div></div>
-        <div class="dials">
-          <div class="dial" style="--c:var(--health)"><label>Health <output id="healthV">7</output></label><input id="health" type="range" min="0" max="10" value="7"><small>sleep · movement · recovery</small></div>
-          <div class="dial" style="--c:var(--family)"><label>Family <output id="familyV">7</output></label><input id="family" type="range" min="0" max="10" value="7"><small>presence · care · repair</small></div>
-          <div class="dial" style="--c:var(--friends)"><label>Friends <output id="friendsV">5</output></label><input id="friends" type="range" min="0" max="10" value="5"><small>belonging · mutual support</small></div>
-          <div class="dial" style="--c:var(--career)"><label>Career <output id="careerV">6</output></label><input id="career" type="range" min="0" max="10" value="6"><small>work · skill · contribution</small></div>
-        </div>
-        <div class="diagnosis"><div><strong id="diagTitle">A sustainable, broad flame</strong><p id="diagText">No burner is abandoned. You are prioritizing health and family while keeping work and friendship alive.</p></div><span class="risk" id="risk">LOW DECAY RISK</span></div>
-        <div class="presets"><button data-preset="founder">Founder</button><button data-preset="parent">New parent</button><button data-preset="balanced">Even balance</button><button data-preset="sabbatical">Sabbatical</button><button data-preset="recovery">Recovery</button><button data-preset="community">Community</button><button data-preset="retired">Second act</button></div>
-      </div>
-    </div></section>
+    <div class="dashboard-container">
+        <!-- Left Panel: Controls -->
+        <section class="panel" aria-label="Burner Controls">
+            <div class="controls-grid">
+                <article class="control-card" style="border-left: 3px solid var(--career-color)">
+                    <div class="control-header"><span style="color: var(--career-color)">Career</span><span class="burner-value-pill" id="val-career" style="color: var(--career-color)">0</span></div>
+                    <input type="range" class="dial-slider" id="slide-career" min="0" max="10" value="6" style="color: var(--career-color)">
+                </article>
+                <article class="control-card" style="border-left: 3px solid var(--friends-color)">
+                    <div class="control-header"><span style="color: var(--friends-color)">Friends</span><span class="burner-value-pill" id="val-friends" style="color: var(--friends-color)">0</span></div>
+                    <input type="range" class="dial-slider" id="slide-friends" min="0" max="10" value="6" style="color: var(--friends-color)">
+                </article>
+                <article class="control-card" style="border-left: 3px solid var(--health-color)">
+                    <div class="control-header"><span style="color: var(--health-color)">Health</span><span class="burner-value-pill" id="val-health" style="color: var(--health-color)">0</span></div>
+                    <input type="range" class="dial-slider" id="slide-health" min="0" max="10" value="6" style="color: var(--health-color)">
+                </article>
+                <article class="control-card" style="border-left: 3px solid var(--family-color)">
+                    <div class="control-header"><span style="color: var(--family-color)">Family</span><span class="burner-value-pill" id="val-family" style="color: var(--family-color)">0</span></div>
+                    <input type="range" class="dial-slider" id="slide-family" min="0" max="10" value="6" style="color: var(--family-color)">
+                </article>
+            </div>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Anatomy / 02</span><div><h2>Four flames, four kinds of need.</h2><p>A burner is not merely time. It is attention, emotional presence, maintenance, recovery, and the quality of investment.</p></div></div>
-      <div class="burner-cards">
-        <article class="bcard" style="--c:var(--health)"><div class="icon">♥</div><h3>Health</h3><p>The capacity underneath every other role.</p><ul><li>Sleep and recovery</li><li>Physical and mental care</li><li>Mobility and sustainable energy</li></ul></article>
-        <article class="bcard" style="--c:var(--family)"><div class="icon">⌂</div><h3>Family</h3><p>Partner, children, parents, chosen family, and care.</p><ul><li>Reliability and presence</li><li>Shared practical labor</li><li>Communication and repair</li></ul></article>
-        <article class="bcard" style="--c:var(--friends)"><div class="icon">∞</div><h3>Friends</h3><p>Belonging and support beyond the household.</p><ul><li>Mutual connection</li><li>Shared experience</li><li>Community and vulnerability</li></ul></article>
-        <article class="bcard" style="--c:var(--career)"><div class="icon">↗</div><h3>Career</h3><p>Livelihood, craft, study, ambition, and contribution.</p><ul><li>Skill and meaningful output</li><li>Security and structure</li><li>Purpose—not personal worth</li></ul></article>
-      </div>
-    </div></section>
+            <div class="energy-status">
+                <div class="energy-text"><span id="energy-number">24</span> <span>/ 25 TOTAL ENERGY</span></div>
+                <div class="energy-bar-bg" role="progressbar">
+                    <div class="energy-fill" id="energy-fill"></div>
+                </div>
+                <div class="toast-warning" id="warning">System Overload! Auto-draining other burners.</div>
+            </div>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Intensity / 03</span><div><h2>What does a number mean?</h2><p>Maximum is not automatically best. A “10” is usually a sprint or crisis. A deliberate simmer can preserve a burner until its season returns.</p></div></div>
-      <div class="scale"><div class="level"><strong>0–1</strong><b>Off</b><span>Almost no proactive investment. Sustainable only briefly.</span></div><div class="level"><strong>2–4</strong><b>Simmer</b><span>Minimum viable maintenance and essential contact.</span></div><div class="level"><strong>5–7</strong><b>Steady</b><span>Consistent, sustainable investment.</span></div><div class="level"><strong>8–9</strong><b>High</b><span>A priority season consuming significant resources.</span></div><div class="level"><strong>10</strong><b>Maximum</b><span>Crisis or sprint. Add an end date and recovery plan.</span></div></div>
-    </div></section>
+            <button class="life-event-btn" onclick="triggerRandomEvent()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Random Life Shock
+            </button>
+        </section>
 
-    <section id="seasons"><div class="wrap"><div class="section-head"><span class="mono">Seasons / 04</span><div><h2>Imbalance with an end date.</h2><p>Rotate intensity across a lifetime. Every season needs minimum viable flames and an honest account of who else bears the cost.</p></div></div>
-      <div class="season-grid" id="seasonGrid"></div>
-    </div></section>
+        <!-- Right Panel: Stove & Insights -->
+        <aside class="sidebar-panel" aria-label="Visualizations">
+            
+            <figure class="stove-grid">
+                <!-- Career -->
+                <div class="burner-slot" id="vis-career" style="color: var(--career-color);">
+                    <span class="node-label">CAREER</span>
+                    <svg class="induction-svg" viewBox="0 0 100 100">
+                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
+                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
+                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+                <!-- Friends -->
+                <div class="burner-slot" id="vis-friends" style="color: var(--friends-color);">
+                    <span class="node-label">FRIENDS</span>
+                    <svg class="induction-svg" viewBox="0 0 100 100">
+                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
+                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
+                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+                <!-- Health -->
+                <div class="burner-slot" id="vis-health" style="color: var(--health-color);">
+                    <span class="node-label">HEALTH</span>
+                    <svg class="induction-svg" viewBox="0 0 100 100">
+                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
+                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
+                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+                <!-- Family -->
+                <div class="burner-slot" id="vis-family" style="color: var(--family-color);">
+                    <span class="node-label">FAMILY</span>
+                    <svg class="induction-svg" viewBox="0 0 100 100">
+                        <circle class="induction-ring r-outer" cx="50" cy="50" r="42" stroke-width="2" stroke-dasharray="8 6" />
+                        <circle class="induction-ring r-mid" cx="50" cy="50" r="28" stroke-width="3" stroke-dasharray="6 4" />
+                        <circle class="induction-ring r-inner" cx="50" cy="50" r="14" stroke-width="4" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+            </figure>
 
-    <section id="strategies"><div class="wrap"><div class="section-head"><span class="mono">Response / 05</span><div><h2>Three classic moves.</h2><p>James Clear’s popular treatment proposes outsourcing, embracing constraints, and working in seasons. Each helps; none removes the need for judgment.</p></div></div>
-      <div class="strategies"><article class="strategy"><span class="num">OPTION 01</span><h3>Outsource</h3><p>Delegate cooking, cleaning, administration, childcare, repair, or routine work. It releases time but requires money and management. Presence and meaning cannot be fully delegated.</p></article><article class="strategy"><span class="num">OPTION 02</span><h3>Embrace constraints</h3><p>Work ends at five. Exercise gets three hours. One evening stays protected. Boundaries force prioritization—but efficiency cannot erase every trade-off.</p></article><article class="strategy"><span class="num">OPTION 03</span><h3>Work in seasons</h3><p>Concentrate for a defined period, then rotate. “Temporary” neglect needs a date, minimum floors, and a review ritual or it quietly becomes permanent.</p></article></div>
-    </div></section>
+            <article class="narrative-box" id="narrative" aria-live="polite">
+                <div class="narrative-title" id="n-title" style="font-family: Outfit, sans-serif;">Stable Breadth</div>
+                <div id="n-desc" style="font-family: Outfit, sans-serif;">You are avoiding extreme specialization. This "lukewarm" state is peaceful and a desired life for many, but risks frustration if you harbor ambitions requiring concentrated practice.</div>
+            </article>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Interactions / 06</span><div><h2>Conflict and synergy.</h2><p>Burners compete, spill into one another, and sometimes share the same hour. A shared activity does not always meet the full emotional need.</p></div></div>
-      <div class="matrix"><article><b>Career ↔ Family</b><span>Travel, inflexible hours, relocation, and stress collide with presence and care. Positive spillover can include money, skills, confidence, and flexibility.</span></article><article><b>Career ↔ Health</b><span>Long hours, sitting, shift work, and skipped recovery create measurable costs. Walking meetings and good boundaries can combine them.</span></article><article><b>Family ↔ Health</b><span>Caregiving can displace sleep and treatment. Shared walks, meals, and fair division of invisible labor can support both.</span></article><article><b>Friends ↔ Everything</b><span>Friends fade quietly because they lack formal obligations. Exercise together, cowork, volunteer, or maintain one reliable ritual.</span></article></div>
-    </div></section>
+            <nav class="preset-grid" aria-label="Archetype Presets">
+                <button class="preset-btn" onclick="setPreset('founder', this)"><span style="font-size:1.2rem;">🚀</span> The Sprint</button>
+                <button class="preset-btn" onclick="setPreset('parent', this)"><span style="font-size:1.2rem;">🍼</span> New Parent</button>
+                <button class="preset-btn active" onclick="setPreset('balance', this)"><span style="font-size:1.2rem;">⚖️</span> Maintenance</button>
+                <button class="preset-btn" onclick="setPreset('sabbatical', this)"><span style="font-size:1.2rem;">🌍</span> Sabbatical</button>
+            </nav>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Life event / 07</span><div><h2>The stove never stays still.</h2><p>Draw an event. Notice the immediate allocation—and then the second-order cost.</p></div></div>
-      <div class="eventbox"><span class="mono">Random event simulator</span><h3 id="eventTitle">Your current season is stable.</h3><p id="eventText">Then life changes the available fuel.</p><button id="draw">Draw a life event</button><div class="event-result" id="eventResult"></div></div>
-    </div></section>
+        </aside>
+    </div>
 
-    <section><div class="wrap"><div class="section-head"><span class="mono">Field manual / 08</span><div><h2>Keep the stove honest.</h2><p>The practical model is not “sacrifice more.” It is to remove leakage, preserve minimums, negotiate shared labor, and distinguish crisis from ambition.</p></div></div>
-      <details open><summary>Minimum viable burners</summary><p>Health: sleep floor, medication, movement, care. Family: device-free check-in, reliable contribution, weekly ritual. Friends: one meaningful contact. Career: one high-value output or learning block.</p></details>
-      <details><summary>Pulse instead of abandon</summary><p>Alternate intensity within the week or month. Buy capacity with tools, support, automation, and proximity. Cut low-value meetings, scrolling, avoidable commuting, and perfectionism before cutting a valued relationship.</p></details>
-      <details><summary>Decay and recovery</summary><p>Health damage may become chronic. Family trust can recover, but missed moments cannot be replayed. Friendships vary in tolerance for quiet periods. Career re-entry is possible but has real costs. No fixed decay timer applies universally.</p></details>
-      <details><summary>Regret optimizer</summary><p>Which burner would hurt most to neglect for a week, a year, or ten years? Which sacrifice is reversible? Who else pays for your allocation? Which low flame is chosen—and which is imposed?</p></details>
-      <details><summary>Ethical guardrails</summary><p>Never shame low scores. Do not treat disability, caregiving, poverty, or unsafe work as planning failures. Recognize unpaid labor. Income is not worth; career intensity is not success; this tool does not diagnose health.</p></details>
-    </div></section>
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>Origin and status</h2>
+        <p>The Four Burners Theory imagines life as a stove with four burners: Family, Friends, Health, and Work/Career. Its popular claim is that success requires turning one burner off, and exceptional success requires turning off two.</p>
+        <p>James Clear’s widely read essay traces the idea through various authors and concludes that the original source is uncertain. It should therefore be presented as a memorable metaphor, not an evidence-based law. The model’s value is diagnostic: time, attention, energy, and recovery are finite. Its danger is fatalism: it can make neglect look inevitable, glorify overwork, or ignore structural inequalities.</p>
 
-    <section class="evidence" id="evidence"><div class="wrap"><div class="section-head"><span class="mono">Evidence / 09</span><div><h2>What research can—and cannot—say.</h2><p>The theory itself is not validated. Research supports specific relationships behind it.</p></div></div>
-      <div class="egrid"><article class="ecard"><strong>+50%</strong><p>A 2010 meta-analysis of 148 studies found stronger social relationships associated with a 50% increased likelihood of survival.</p></article><article class="ecard"><strong>55+ hrs</strong><p>WHO/ILO associated long working weeks with higher stroke and ischemic-heart-disease risk compared with 35–40 hours.</p></article><article class="ecard"><strong>3 conflicts</strong><p>Work–family research identifies time-based, strain-based, and behavior-based conflict—and also positive enrichment between roles.</p></article></div>
-      <p style="margin-top:28px;font-size:.8rem"><b>Sources:</b> <a href="https://jamesclear.com/four-burners-theory">James Clear</a> · <a href="https://www.newyorker.com/magazine/2009/08/24/laugh-kookaburra">David Sedaris</a> · <a href="https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo">WHO/ILO</a> · <a href="https://doi.org/10.1371/journal.pmed.1000316">Holt-Lunstad et al.</a> · <a href="https://doi.org/10.5465/amr.1985.4277352">Greenhaus & Beutell</a></p>
-    </div></section>
-    <section class="final"><div class="wrap"><span class="mono">The principle</span><blockquote>You can do many things in a lifetime—just not <em>everything at maximum</em> at once.</blockquote><p>Choose a season. Protect the minimum flames. Rotate before neglect becomes damage.</p></div></section>
-  </main>
-  <footer class="wrap"><span>THE FOUR BURNERS / 2026</span><span><a href="../3S/">← Explore The Three Switches</a></span></footer>
-  <script>
-    const ids=["health","family","friends","career"], els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
-    const presets={founder:[5,5,1,10],parent:[4,10,2,5],balanced:[6,6,6,6],sabbatical:[9,5,8,1],recovery:[10,7,4,2],community:[6,7,9,3],retired:[8,8,7,2]};
-    const seasons=[
-      ["Founder / build",[5,5,1,10],"Rapid learning and output; isolation, identity fusion, and chronic stress are the cost. Add an end date and sleep floor."],
-      ["New parent / caregiver",[4,10,2,5],"Family blazes while sleep fragments. Divide invisible labor, accept help, and preserve tiny health and friendship habits."],
-      ["Even balance",[6,6,6,6],"Stable breadth is not “lukewarm” unless it conflicts with your values. It may be the desired life."],
-      ["Sabbatical / travel",[9,5,8,1],"Recovery and exploration rise; career momentum and financial runway need a re-entry plan."],
-      ["Exam / launch sprint",[6,4,2,10],"Appropriate for days or weeks. Put recovery on the calendar before the sprint begins."],
-      ["Illness / rehabilitation",[10,7,4,2],"Restoring or adapting capacity is the work. This is not selfish or unproductive."],
-      ["Relationship repair",[6,9,5,5],"Concentrated communication, counseling, presence, and reliability."],
-      ["Community season",[6,7,9,3],"Mutual aid, activism, reunion, volunteering, or rebuilding a support network."],
-      ["Retirement / second act",[8,8,7,2],"Career can become mentoring, craft, service, or part-time purpose rather than disappear."]
-    ];
-    const colors=["var(--health)","var(--family)","var(--friends)","var(--career)"];
-    document.getElementById("seasonGrid").innerHTML=seasons.map(s=>`<article class="season"><span class="mono">${s[1].reduce((a,b)=>a+b,0)} points</span><h3>${s[0]}</h3><div class="meters">${ids.map((id,i)=>`<div class="meter"><span>${id}</span><div class="bar"><div class="fill" style="--c:${colors[i]};width:${s[1][i]*10}%"></div></div><b>${s[1][i]}</b></div>`).join("")}</div><p>${s[2]}</p></article>`).join("");
-    function render(changed){
-      let vals=ids.map(id=>+els[id].value), total=vals.reduce((a,b)=>a+b,0);
-      if(total>25&&changed){let over=total-25, others=ids.filter(id=>id!==changed).sort((a,b)=>els[b].value-els[a].value);for(const id of others){let take=Math.min(over,+els[id].value);els[id].value-=take;over-=take;if(!over)break}vals=ids.map(id=>+els[id].value);total=vals.reduce((a,b)=>a+b,0)}
-      ids.forEach(id=>document.getElementById(id+"V").textContent=els[id].value);document.getElementById("total").textContent=`${total} / 25`;document.getElementById("tank").classList.toggle("over",total>25);
-      const min=Math.min(...vals),max=Math.max(...vals),low=ids[vals.indexOf(min)],high=ids[vals.indexOf(max)],risk=document.getElementById("risk");
-      let title="A sustainable, broad flame",text=`${high[0].toUpperCase()+high.slice(1)} leads while every area remains alive. Define “enough” instead of assuming maximum is best.`;
-      if(max>=9){title=`A ${high} priority season`;text=`Concentration can produce progress. Keep ${low} above a deliberate minimum and set a date to review the imbalance.`}
-      if(min<=1){title=`The ${low} burner is nearly off`;text=`Short sprints may justify this. Over longer periods, expect decay and make the recovery plan explicit.`}
-      document.getElementById("diagTitle").textContent=title;document.getElementById("diagText").textContent=text;risk.textContent=min<=1?"HIGH DECAY RISK":min<=3?"WATCH THE LOW FLAME":"LOW DECAY RISK";
-    }
-    ids.forEach(id=>els[id].addEventListener("input",()=>render(id)));
-    document.querySelectorAll("[data-preset]").forEach(btn=>btn.addEventListener("click",()=>{ids.forEach((id,i)=>els[id].value=presets[btn.dataset.preset][i]);document.querySelectorAll("[data-preset]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render()}));
-    const events=[
-      ["A new child arrives.","Family demand surges while sleep and schedule control fall.",[4,10,2,5],"Family becomes non-negotiable; protect a health floor and ask for concrete help."],
-      ["You receive a major promotion.","Career opportunity rises with workload and visibility.",[5,5,2,10],"Name the hours, travel, and emotional cost before accepting the title."],
-      ["A health crisis changes the plan.","Capacity—not ambition—sets the agenda.",[10,7,4,2],"Treatment, adaptation, and recovery are now productive work."],
-      ["You are laid off.","Career structure falls away; money stress affects every burner.",[6,7,6,6],"Use relationships and routines as infrastructure while rebuilding work."],
-      ["An aging parent needs care.","Family labor expands, often invisibly and unpredictably.",[4,10,3,5],"Negotiate shared care and preserve sleep, treatment, and one outside connection."],
-      ["You begin a sabbatical.","Work steps back and unstructured possibility opens.",[9,5,8,1],"Give recovery a purpose, a budget, and a return path."],
-      ["A close friendship fractures.","The village needs deliberate repair.",[6,5,9,5],"Attention, accountability, and time may restore trust—but not every bond must continue."],
-      ["You enter a financial emergency.","Livelihood becomes urgent, whether chosen or not.",[5,6,2,9],"Do not romanticize the grind. Seek benefits, support, debt advice, and safe limits."]
-    ];
-    document.getElementById("draw").addEventListener("click",()=>{const e=events[Math.floor(Math.random()*events.length)];document.getElementById("eventTitle").textContent=e[0];document.getElementById("eventText").textContent=e[1];ids.forEach((id,i)=>els[id].value=e[2][i]);document.getElementById("eventResult").textContent=e[3];render()});
-    render();
-  </script>
+        <h2>The four burners</h2>
+        
+        <h3><span class="accent-health">HEALTH</span> — the engine</h3>
+        <p>Includes sleep, movement, nutrition, mental health, medical care, recovery, mobility, and sustainable energy. Health supports every other burner; when it collapses, the entire stove loses capacity.</p>
+        <p><strong>High flame:</strong> regular sleep, preventive care, manageable stress, movement, recovery.<br>
+        <strong>Low flame:</strong> chronic sleep debt, ignored symptoms, sedentary days, unmanaged stress.</p>
+
+        <h3><span class="accent-family">FAMILY</span> — the anchor</h3>
+        <p>Includes partner or spouse, children, parents, siblings, chosen family, household responsibilities, and caregiving. It is not simply time spent nearby; it includes reliability, emotional presence, and shared responsibility.</p>
+        <p><strong>High flame:</strong> protected attention, trust, care, communication, availability.<br>
+        <strong>Low flame:</strong> repeated absence, emotional unavailability, unresolved conflict.</p>
+
+        <h3><span class="accent-friends">FRIENDS</span> — the village</h3>
+        <p>Includes close friendships, community, peer support, neighbors, professional relationships, recreation, and belonging outside the household.</p>
+        <p><strong>High flame:</strong> regular contact, mutual support, shared experiences, vulnerability.<br>
+        <strong>Low flame:</strong> passive online contact, repeated cancellations, reaching out only in crisis.</p>
+
+        <h3><span class="accent-career">CAREER / WORK</span> — the rocket</h3>
+        <p>Includes paid work, business, study, craft, ambition, contribution, reputation, and financial security. For unpaid caregivers, “career” can be renamed “purpose/work.”</p>
+        <p><strong>High flame:</strong> concentrated effort, deliberate practice, responsibility, learning, visibility.<br>
+        <strong>Low flame:</strong> maintenance work only, stalled learning, disengagement.</p>
+
+        <h2>What “off,” “simmer,” and “high” mean</h2>
+        <ul>
+            <li><strong>Off (0–1):</strong> almost no proactive investment; usually sustainable only briefly.</li>
+            <li><strong>Simmer (2–4):</strong> minimum viable maintenance; preserve essential habits.</li>
+            <li><strong>Steady (5–7):</strong> consistent, sustainable investment.</li>
+            <li><strong>High (8–9):</strong> priority season requiring significant resources.</li>
+            <li><strong>Maximum (10):</strong> crisis or sprint level; use an end date and recovery plan.</li>
+        </ul>
+
+        <h2>Common seasons and scenarios</h2>
+        <h3>Startup founder / obsessive build season</h3>
+        <p><em>Career 10, Health 5, Family 5, Friends 1.</em><br>
+        Potential gain: rapid learning, product progress, ownership. Risks: isolation, relationship damage, chronic stress. Guardrail: fixed end date, sleep floor.</p>
+
+        <h3>New parent / intensive caregiver</h3>
+        <p><em>Family 10, Health 4, Career 5, Friends 2.</em><br>
+        Reality: fragmented sleep and unpredictable demands; career may enter maintenance. Risks: caregiver burnout, loss of self.</p>
+
+        <h3>Sabbatical / recovery season</h3>
+        <p><em>Health 9, Friends 8, Family 5, Career 1.</em><br>
+        Potential gain: recovery, exploration, relationships. Risks: financial pressure, loss of professional momentum.</p>
+
+        <h2>Synergies and spillovers</h2>
+        <p><strong>Positive combinations:</strong></p>
+        <ul>
+            <li>Exercise with a friend: Health + Friends.</li>
+            <li>Family walk or shared meal: Family + Health.</li>
+            <li>Work with a trusted friend: Career + Friends, with boundary risks.</li>
+            <li>Volunteer using professional skills: Friends/community + Career/purpose.</li>
+        </ul>
+        <p><strong>Negative spillovers:</strong></p>
+        <ul>
+            <li>Work stress creates irritability at home.</li>
+            <li>Poor sleep weakens performance and patience everywhere.</li>
+            <li>Social isolation reduces resilience during career or health setbacks.</li>
+        </ul>
+
+        <h2>Three classic responses</h2>
+        <ol>
+            <li><strong>Outsource:</strong> Pay or delegate routine work. Releases time but requires money.</li>
+            <li><strong>Embrace constraints:</strong> Optimize within a clear boundary (e.g., work ends at 5). Forces prioritization.</li>
+            <li><strong>Work in seasons:</strong> Choose deliberate periods of unequal emphasis, then rotate. Limits: “temporary” neglect often becomes permanent without a review ritual.</li>
+        </ol>
+
+        <h2>Decay and recovery</h2>
+        <p>Neglect has different recovery curves:</p>
+        <ul>
+            <li><strong>Health:</strong> some damage is reversible; some becomes chronic.</li>
+            <li><strong>Family:</strong> trust may recover through consistent repair, but missed developmental moments cannot be replayed.</li>
+            <li><strong>Friends:</strong> many connections tolerate quiet periods if expectations are communicated; others fade.</li>
+            <li><strong>Career:</strong> skills and networks can be rebuilt, but re-entry costs and discrimination are real.</li>
+        </ul>
+
+        <h2>Closing principle</h2>
+        <p>You can do many things across a lifetime, but rarely everything at maximum intensity at once. The objective is not to extinguish what matters. It is to choose a season, protect minimum viable flames, see who bears the cost, and rotate before neglect becomes damage.</p>
+    </main>
+
+    <footer>
+        <p>Interactive visualization & Documentation based on "The Four Burners Theory".</p>
+    </footer>
+
+    <script>
+        const maxEnergy = 25;
+        const burners = {
+            career: { slide: document.getElementById('slide-career'), val: document.getElementById('val-career'), color: 'var(--career-color)' },
+            friends: { slide: document.getElementById('slide-friends'), val: document.getElementById('val-friends'), color: 'var(--friends-color)' },
+            family: { slide: document.getElementById('slide-family'), val: document.getElementById('val-family'), color: 'var(--family-color)' },
+            health: { slide: document.getElementById('slide-health'), val: document.getElementById('val-health'), color: 'var(--health-color)' }
+        };
+        const eNum = document.getElementById('energy-number'), eFill = document.getElementById('energy-fill'), warning = document.getElementById('warning');
+        const nTitle = document.getElementById('n-title'), nDesc = document.getElementById('n-desc'), narrative = document.getElementById('narrative');
+
+        Object.keys(burners).forEach(key => {
+            const style = document.createElement('style');
+            style.innerHTML = `#slide-${key}::-webkit-slider-thumb { box-shadow: 0 0 15px ${burners[key].color}; background: #fff; } #slide-${key}::-moz-range-thumb { box-shadow: 0 0 15px ${burners[key].color}; background: #fff; }`;
+            document.head.appendChild(style);
+        });
+
+        function updateStove(sourceId = null) {
+            let c = parseInt(burners.career.slide.value), fr = parseInt(burners.friends.slide.value), fa = parseInt(burners.family.slide.value), h = parseInt(burners.health.slide.value);
+            let total = c + fr + fa + h;
+
+            if (total > maxEnergy && sourceId) {
+                let excess = total - maxEnergy;
+                warning.style.opacity = '1'; setTimeout(() => warning.style.opacity = '0', 2500);
+                let others = Object.keys(burners).filter(k => k !== sourceId).sort((a, b) => parseInt(burners[b].slide.value) - parseInt(burners[a].slide.value));
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(burners[key].slide.value), toDrain = Math.min(val, excess);
+                    burners[key].slide.value = val - toDrain; excess -= toDrain;
+                }
+                c = parseInt(burners.career.slide.value); fr = parseInt(burners.friends.slide.value); fa = parseInt(burners.family.slide.value); h = parseInt(burners.health.slide.value); total = c + fr + fa + h;
+            }
+
+            eNum.innerText = total; 
+            eFill.style.width = (total / maxEnergy) * 100 + '%';
+            eFill.style.background = total > 22 ? 'linear-gradient(90deg, #ef4444, #b91c1c)' : 'linear-gradient(90deg, #f97316, #ef4444)';
+
+            Object.keys(burners).forEach(key => {
+                let v = parseInt(burners[key].slide.value);
+                burners[key].val.innerText = v;
+                
+                // Update SVG Induction Burners
+                let vis = document.getElementById(`vis-${key}`);
+                let rOuter = vis.querySelector('.r-outer');
+                let rMid = vis.querySelector('.r-mid');
+                let rInner = vis.querySelector('.r-inner');
+                
+                // Opacity logic
+                rOuter.style.opacity = v > 7 ? (0.3 + (v/20)) : 0.05;
+                rMid.style.opacity = v > 3 ? (0.4 + (v/20)) : 0.05;
+                rInner.style.opacity = v > 0 ? (0.5 + (v/20)) : 0.1;
+                
+                // Glow & Box Shadow
+                let glow = v === 0 ? 0 : v * 2;
+                vis.style.filter = `drop-shadow(0 0 ${glow}px ${burners[key].color})`;
+                vis.style.boxShadow = v > 0 ? `inset 0 0 20px rgba(0,0,0,1), 0 0 ${glow*2}px ${burners[key].color.replace(')', ', 0.2)').replace('rgb', 'rgba')}` : `inset 0 0 20px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.05)`;
+                
+                // Animation speed (higher value = faster spin)
+                let speedInner = v === 0 ? 0 : 12 - v;
+                let speedMid = v === 0 ? 0 : 15 - v;
+                let speedOuter = v === 0 ? 0 : 18 - v;
+                
+                rInner.style.animation = v === 0 ? 'none' : `spinRing ${speedInner}s linear infinite`;
+                rMid.style.animation = v === 0 ? 'none' : `spinRingRev ${speedMid}s linear infinite`;
+                rOuter.style.animation = v === 0 ? 'none' : `spinRing ${speedOuter}s linear infinite`;
+            });
+
+            // Narrative update
+            let maxVal = Math.max(c, fr, fa, h);
+            let dominantColor = 'var(--accent)';
+            if (h === 0) dominantColor = '#ef4444';
+            else if (maxVal === c) dominantColor = burners.career.color;
+            else if (maxVal === fa) dominantColor = burners.family.color;
+            else if (maxVal === fr) dominantColor = burners.friends.color;
+            else if (maxVal === h) dominantColor = burners.health.color;
+
+            updateNarrative(h, fa, fr, c, dominantColor);
+        }
+
+        function updateNarrative(h, fa, fr, c, color) {
+            let title = "", desc = "";
+            if (h === 0) { title = "CRITICAL DANGER"; desc = "The Engine is off. When health fails, every other burner goes out involuntarily. Fix this immediately."; color = "#ef4444"; }
+            else if (c >= 9 && fa <= 2 && fr <= 2) { title = "The Obsessive Sprint"; desc = "Potential gain: rapid learning, product progress. Risks: isolation, relationship damage, chronic stress. Set a fixed end date and a sleep floor."; }
+            else if (fa >= 9 && c <= 4 && fr <= 3) { title = "Intensive Caregiver"; desc = "Family takes precedence. Career enters maintenance mode. Risks: caregiver burnout, loss of self. Accept help."; }
+            else if (h >= 8 && fr >= 7 && c <= 2) { title = "The Sabbatical"; desc = "Potential gain: recovery, exploration. Risks: financial pressure, loss of professional momentum. Define a re-entry date."; }
+            else if (fa >= 5 && fr >= 5 && h >= 5 && c >= 5) { title = "Stable Breadth"; desc = "You are avoiding extreme specialization. This state is peaceful but risks frustration if you harbor ambitions requiring concentrated practice."; }
+            else if (c >= 8 && h <= 3) { title = "Burning Out"; desc = "You are converting health directly into career progress. This is a strain-based conflict. Re-evaluate."; color = "#ef4444"; }
+            else { title = "Custom Geometry"; desc = "Balance means aligning with values, not equal flames. Ensure no burner hits zero, and make invisible work visible."; }
+            
+            nTitle.innerText = title;
+            nDesc.innerText = desc;
+            narrative.style.borderLeftColor = color;
+            nTitle.style.color = color;
+        }
+
+        function setPreset(type, btn) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            if (type === 'founder') { burners.career.slide.value = 10; burners.health.slide.value = 5; burners.family.slide.value = 5; burners.friends.slide.value = 1; }
+            if (type === 'parent') { burners.family.slide.value = 10; burners.health.slide.value = 4; burners.career.slide.value = 5; burners.friends.slide.value = 2; }
+            if (type === 'balance') { burners.family.slide.value = 6; burners.health.slide.value = 6; burners.career.slide.value = 6; burners.friends.slide.value = 6; }
+            if (type === 'sabbatical') { burners.health.slide.value = 9; burners.friends.slide.value = 8; burners.family.slide.value = 5; burners.career.slide.value = 1; }
+            updateStove('health'); 
+        }
+
+        const events = [
+            { text: "Promotion! Demands rise.", c: 9, h: -2, fa: -2 },
+            { text: "Financial Emergency!", c: 9, fr: -3, fa: -2 },
+            { text: "Burnout! Forced recovery.", h: 10, c: 2, fa: -1 },
+            { text: "Adopted a puppy!", fa: 8, h: -1, fr: -1 }
+        ];
+
+        function triggerRandomEvent() {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            let ev = events[Math.floor(Math.random() * events.length)];
+            if(ev.c) burners.career.slide.value = Math.min(10, parseInt(burners.career.slide.value) + ev.c > 5 ? ev.c : parseInt(burners.career.slide.value));
+            if(ev.h) burners.health.slide.value = Math.max(1, parseInt(burners.health.slide.value) + ev.h);
+            if(ev.fa) burners.family.slide.value = Math.max(1, parseInt(burners.family.slide.value) + ev.fa);
+            if(ev.fr) burners.friends.slide.value = Math.max(1, parseInt(burners.friends.slide.value) + ev.fr);
+            updateStove('career');
+            
+            nTitle.innerText = "LIFE SHOCK: " + ev.text;
+            nDesc.innerText = "Your resources have been violently shifted by external circumstances. Adjust your remaining energy to cope.";
+            nTitle.style.color = "#ef4444";
+            narrative.style.borderLeftColor = "#ef4444";
+        }
+
+        Object.keys(burners).forEach(key => {
+            burners[key].slide.addEventListener('input', () => updateStove(key));
+        });
+        updateStove();
+    </script>
 </body>
 </html>
