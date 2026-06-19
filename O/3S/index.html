@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An interactive field guide to the Three Switches of life: time, money, and health.">
+  <title>The Three Switches — Time, Money, Health</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root{--ink:#151511;--paper:#f4f0e7;--card:#fffdf7;--time:#ef6b45;--money:#24896e;--health:#7266d8;--muted:#6e6b62;--line:rgba(21,21,17,.14)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}
+    a{color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.mono{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800;font-size:1.05rem}.navlinks{display:flex;gap:22px}.navlinks a{text-decoration:none;color:var(--muted);font-size:.88rem}
+    .hero{min-height:82vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:70px;padding:80px 0}.eyebrow{display:inline-flex;gap:10px;align-items:center;padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.4)}.dot{width:7px;height:7px;border-radius:50%;background:var(--time);box-shadow:12px 0 var(--money),24px 0 var(--health);margin-right:24px}
+    h1{font-size:clamp(3.5rem,8vw,7.5rem);line-height:.88;letter-spacing:-.065em;margin:28px 0}.hero h1 span{display:block}.hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}.lede{max-width:650px;font-size:1.15rem;color:var(--muted)}.hero-note{display:flex;gap:14px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+    .orbital{aspect-ratio:1;position:relative;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}.orbital:before,.orbital:after{content:"";position:absolute;border:1px dashed var(--line);border-radius:50%;inset:14%}.orbital:after{inset:29%}.switch-orb{position:absolute;width:118px;height:118px;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:700;box-shadow:0 14px 40px rgba(0,0,0,.12)}.switch-orb small{display:block;font-weight:500}.o-time{background:var(--time);color:#fff;top:-3%;left:36%}.o-money{background:var(--money);color:#fff;bottom:8%;left:-1%}.o-health{background:var(--health);color:#fff;bottom:8%;right:-1%}.center-copy{font:500 .72rem "DM Mono";text-align:center;width:110px}
+    section{padding:100px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.5fr 1.5fr;gap:40px;margin-bottom:54px}.section-head h2{font-size:clamp(2.3rem,5vw,4.4rem);line-height:1;letter-spacing:-.05em;margin:0}.section-head p{max-width:670px;color:var(--muted);margin:8px 0 0}
+    .lab{background:var(--ink);color:var(--paper);border-radius:28px;padding:clamp(24px,5vw,58px);box-shadow:0 30px 90px rgba(0,0,0,.16)}.lab-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:40px}.lab h3{font-size:2rem;margin:0}.budget{font:500 .8rem "DM Mono";padding:9px 12px;border:1px solid rgba(255,255,255,.25);border-radius:99px}.budget.warn{background:#ef6b45;border-color:#ef6b45}
+    .sliders{display:grid;gap:30px}.slider-row{display:grid;grid-template-columns:130px 1fr 60px;align-items:center;gap:20px}.slider-label{font-weight:700}.slider-label i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px}input[type=range]{width:100%;accent-color:currentColor}.range-time{color:var(--time)}.range-money{color:var(--money)}.range-health{color:var(--health)}.value{font:500 1rem "DM Mono";text-align:right}
+    .readout{display:grid;grid-template-columns:1fr auto;gap:20px;margin-top:38px;padding-top:30px;border-top:1px solid rgba(255,255,255,.18)}.readout strong{font-size:1.45rem}.readout p{color:#b8b5ad;margin:7px 0 0}.triangle{width:150px;height:130px}.presets,.scenario-buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}button{font:600 .82rem Manrope;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;padding:10px 14px;border-radius:99px;cursor:pointer}button:hover,button.active{background:var(--paper);color:var(--ink)}
+    .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.resource{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;position:relative;overflow:hidden}.resource:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--accent)}.resource h3{font-size:1.55rem;margin:12px 0 7px}.resource p,.resource li{color:var(--muted);font-size:.91rem}.resource ul{padding-left:18px}.resource .tag{color:var(--accent)}
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.stage{padding:30px;border-left:1px solid var(--line)}.stage:first-child{border-left:0}.age{font:500 .75rem "DM Mono";color:var(--muted)}.stage h3{font-size:1.45rem;margin:10px 0}.switches{display:flex;gap:6px;margin:18px 0}.pill{font:500 .68rem "DM Mono";border:1px solid var(--line);border-radius:99px;padding:5px 8px}.pill.low{opacity:.38}.stage p{color:var(--muted);font-size:.9rem}.caveat{margin-top:28px;background:#e9e1d2;padding:20px 24px;border-radius:14px;font-size:.88rem}
+    .scenario-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.scenario{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:20px;cursor:pointer;transition:.2s}.scenario:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.07)}.scenario h3{margin:0 0 5px;font-size:1rem}.scenario p{margin:0;color:var(--muted);font-size:.84rem}.delta{font:500 .72rem "DM Mono";text-align:right;white-space:nowrap}
+    .combo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.combo{padding:22px;border:1px solid var(--line);border-radius:16px}.combo b{display:block;margin-bottom:6px}.combo span{color:var(--muted);font-size:.86rem}
+    details{border-top:1px solid var(--line);padding:20px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}summary:after{content:"+"}details[open] summary:after{content:"−"}details p,details li{color:var(--muted);font-size:.92rem}
+    .evidence{background:var(--money);color:white}.evidence .section-head p{color:rgba(255,255,255,.75)}.evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.25)}.evidence-card{background:var(--money);padding:30px}.evidence-card strong{font-size:2.6rem;display:block;letter-spacing:-.05em}.evidence-card p{font-size:.87rem;color:rgba(255,255,255,.78)}
+    .final{padding:130px 0;text-align:center}.final blockquote{font-size:clamp(2rem,5vw,4.7rem);line-height:1.08;letter-spacing:-.05em;max-width:1000px;margin:0 auto 35px}.final p{color:var(--muted)}footer{padding:35px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
+    @media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding:60px 0}.orbital{width:min(390px,90vw);margin:auto}.section-head{grid-template-columns:1fr}.cards3,.timeline,.combo-grid,.evidence-grid{grid-template-columns:1fr}.stage{border-left:0;border-top:1px solid var(--line)}.scenario-grid{grid-template-columns:1fr}.slider-row{grid-template-columns:90px 1fr 45px}.readout{grid-template-columns:1fr}.triangle{display:none}}
+  </style>
+</head>
+<body>
+  <nav class="wrap"><div class="brand">3S / LIFE ALLOCATION</div><div class="navlinks"><a href="#lab">Simulator</a><a href="#stages">Life stages</a><a href="#scenarios">Scenarios</a><a href="#evidence">Evidence</a><a href="../4B/">Explore 4 Burners →</a></div></nav>
+  <main>
+    <header class="hero wrap">
+      <div><div class="eyebrow mono"><i class="dot"></i>A field guide to finite resources</div><h1><span>TIME.</span><span class="outline">MONEY.</span><span>HEALTH.</span></h1><p class="lede">Life gives us three essential resources—but rarely lets us maximize all three at once. See the exchange rate. Choose the season. Protect the floor.</p><div class="hero-note"><span>01</span><span>This is a reflection model, not a scientific law. The constraints below make trade-offs visible; they do not define what your life must be.</span></div></div>
+      <div class="orbital" aria-hidden="true"><div class="switch-orb o-time">TIME<small>non-renewable</small></div><div class="switch-orb o-money">MONEY<small>flexible</small></div><div class="switch-orb o-health">HEALTH<small>capacity</small></div><div class="center-copy">MAXIMIZE TWO?<br>OR DESIGN<br>THE MIX.</div></div>
+    </header>
+
+    <section id="lab"><div class="wrap"><div class="section-head"><span class="mono">Interactive / 01</span><div><h2>Allocate your life.</h2><p>Set your current state. This simulator uses a 200-point design budget. Try to push one resource higher and the largest competing resource yields.</p></div></div>
+      <div class="lab"><div class="lab-top"><div><div class="mono">Current-state allocator</div><h3>Where is your energy going?</h3></div><div class="budget" id="budget">TOTAL 200 / 200</div></div>
+        <div class="sliders">
+          <label class="slider-row"><span class="slider-label"><i style="background:var(--time)"></i>Time</span><input class="range-time" id="time" type="range" min="0" max="100" value="70"><output class="value" id="timeV">70</output></label>
+          <label class="slider-row"><span class="slider-label"><i style="background:var(--money)"></i>Money</span><input class="range-money" id="money" type="range" min="0" max="100" value="55"><output class="value" id="moneyV">55</output></label>
+          <label class="slider-row"><span class="slider-label"><i style="background:var(--health)"></i>Health</span><input class="range-health" id="health" type="range" min="0" max="100" value="75"><output class="value" id="healthV">75</output></label>
+        </div>
+        <div class="readout"><div><div class="mono">Your reading</div><strong id="readingTitle">Time-rich, health-supported</strong><p id="readingText">Money is your growth edge. Protect the freedom you already have while building financial resilience.</p></div><svg class="triangle" viewBox="0 0 160 140"><polygon points="80,8 8,130 152,130" fill="none" stroke="#ffffff44"/><polygon id="shape" points="80,35 35,111 130,110" fill="#ef6b4588" stroke="white" stroke-width="2"/></svg></div>
+        <div class="presets"><button data-preset="youth">Early adulthood</button><button data-preset="grind">Builder / caregiver</button><button data-preset="later">Later life</button><button data-preset="recovery">Recovery</button><button data-preset="secure">All supported</button></div>
+      </div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Anatomy / 02</span><div><h2>Three resources.<br>Three different clocks.</h2><p>They are not interchangeable. Time disappears, money can often be rebuilt, and health determines how well everything else can be used.</p></div></div>
+      <div class="cards3">
+        <article class="resource" style="--accent:var(--time)"><span class="mono tag">Time / non-renewable</span><h3>Hours are not enough.</h3><p>Real time includes autonomy, attention, recovery, and unfragmented space—not just blank calendar cells.</p><ul><li>High: control, presence, room for surprise</li><li>Low: urgency, fragmentation, borrowed sleep</li><li>Can be reclaimed with boundaries, proximity, systems, and money</li></ul></article>
+        <article class="resource" style="--accent:var(--money)"><span class="mono tag">Money / flexible</span><h3>Options made visible.</h3><p>Income, savings, assets, insurance, and resilience absorb shocks and create bargaining power.</p><ul><li>High: needs covered, choices protected</li><li>Low: short-term costs dominate decisions</li><li>Can buy access and convenience—not meaning, presence, or guaranteed health</li></ul></article>
+        <article class="resource" style="--accent:var(--health)"><span class="mono tag">Health / capacity</span><h3>The multiplier.</h3><p>Physical and mental health, sleep, mobility, cognition, and energy shape how time and money can be used.</p><ul><li>High: challenge is recoverable</li><li>Low: ordinary tasks cost more</li><li>Never a moral score; access, genetics, disability, environment, and luck matter</li></ul></article>
+      </div>
+    </div></section>
+
+    <section id="stages"><div class="wrap"><div class="section-head"><span class="mono">Default script / 03</span><div><h2>The life-stage story.</h2><p>A familiar pattern—not an age rule. Your responsibilities, access, health, and starting position may create a completely different path.</p></div></div>
+      <div class="timeline">
+        <article class="stage"><span class="age">EARLY ADULTHOOD</span><h3>Capable, curious, cash-light.</h3><div class="switches"><span class="pill">TIME ↑</span><span class="pill">HEALTH ↑</span><span class="pill low">MONEY ↓</span></div><p>Learn, experiment, travel cheaply, build skills. The trap is treating health as infinite or selling every hour without building anything that compounds.</p></article>
+        <article class="stage"><span class="age">THE BUILDER YEARS</span><h3>Assets rising, calendar shrinking.</h3><div class="switches"><span class="pill">MONEY ↑</span><span class="pill">HEALTH ↔</span><span class="pill low">TIME ↓</span></div><p>Career, children, elder care, commuting, and administration converge. Buy back low-value time—but remember that presence, intimacy, sleep, and exercise resist outsourcing.</p></article>
+        <article class="stage"><span class="age">LATER LIFE</span><h3>Freedom meets capacity.</h3><div class="switches"><span class="pill">TIME ↑</span><span class="pill">MONEY ↑</span><span class="pill low">HEALTH ↓</span></div><p>Use money and time for access, support, adaptation, service, and meaning. Retirement does not guarantee wealth, freedom, health, social connection, or purpose.</p></article>
+      </div><div class="caveat"><b>Reality check:</b> a young caregiver may have no time; a wealthy young person may have all three; a healthy retiree may have exceptional capacity. Disability, unemployment, inherited wealth, inequality, geography, and luck rewrite the script.</div>
+    </div></section>
+
+    <section id="scenarios"><div class="wrap"><div class="section-head"><span class="mono">What if? / 04</span><div><h2>Every choice has an exchange rate.</h2><p>Tap a scenario to apply it to the simulator. Effects are illustrative and context-dependent.</p></div></div>
+      <div class="scenario-grid">
+        <article class="scenario" data-delta="-25,30,-15"><div><h3>Take the high-pressure promotion</h3><p>Income and status rise; schedule control and recovery may contract.</p></div><span class="delta">T−25 M+30 H−15</span></article>
+        <article class="scenario" data-delta="25,-20,15"><div><h3>Move to a four-day week</h3><p>Trade some pay for time, recovery, relationships, and autonomy.</p></div><span class="delta">T+25 M−20 H+15</span></article>
+        <article class="scenario" data-delta="-15,-15,-10"><div><h3>Become a caregiver</h3><p>Time, money, and sleep come under pressure; meaning and connection may rise outside this model.</p></div><span class="delta">T−15 M−15 H−10</span></article>
+        <article class="scenario" data-delta="18,-12,12"><div><h3>Hire practical help</h3><p>Convert money into time and lower friction—if reclaimed hours are protected.</p></div><span class="delta">T+18 M−12 H+12</span></article>
+        <article class="scenario" data-delta="14,-8,10"><div><h3>Shorten the commute</h3><p>Housing may cost more, but daily time and stress improve.</p></div><span class="delta">T+14 M−8 H+10</span></article>
+        <article class="scenario" data-delta="-8,-8,20"><div><h3>Start preventive care</h3><p>Spend resources now to protect future capacity and time.</p></div><span class="delta">T−8 M−8 H+20</span></article>
+        <article class="scenario" data-delta="20,-30,-8"><div><h3>Lose a job</h3><p>Calendar opens, but insecurity and job-search stress can consume attention and health.</p></div><span class="delta">T+20 M−30 H−8</span></article>
+        <article class="scenario" data-delta="-35,25,-30"><div><h3>Work 80-hour weeks</h3><p>Apparent progress can become an involuntary recovery season when health collapses.</p></div><span class="delta">T−35 M+25 H−30</span></article>
+      </div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Patterns / 05</span><div><h2>The combinations.</h2><p>Two bright switches can produce very different lives. One bright switch may still feel like confinement. All three low is crisis, not an optimization challenge.</p></div></div>
+      <div class="combo-grid"><div class="combo"><b>Time + Health</b><span>Student, sabbatical, unemployment, or low-cost traveler. Freedom can coexist with financial insecurity.</span></div><div class="combo"><b>Time + Money</b><span>Retirement, disability, or recovery after burnout. Access improves; capacity may remain constrained.</span></div><div class="combo"><b>Money + Health</b><span>Executive, clinician, founder, dual-income parent. Capability is high, but life can become permanently deferred.</span></div><div class="combo"><b>Time only</b><span>Transition, isolation, forced unemployment, or recovery. Time without capacity or resources is not automatically freedom.</span></div><div class="combo"><b>Money only</b><span>High earnings under extreme demand. Wealth exists but is difficult to use or enjoy.</span></div><div class="combo"><b>Health only</b><span>Physical potential without financial security or schedule control.</span></div></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Field manual / 06</span><div><h2>Convert. Combine. Protect.</h2><p>Before accepting pure sacrifice, look for a conversion or synergy. Then install a floor so a temporary trade does not become permanent damage.</p></div></div>
+      <details open><summary>Conversions</summary><p>Work more (Money up, Time down); take a pay cut (Time up, Money down); hire help (Money into Time); exercise and preventive care (Time and Money now for future Health); build skills (Time now for future Money and autonomy); sleep less (fake Time now, lower future capacity).</p></details>
+      <details><summary>Synergies</summary><p>Walk or cycle for transport; exercise with friends or family; batch-cook healthy food; live near work or support; learn a paid skill you enjoy; choose active travel. Synergy is not free—setup, coordination, and context determine whether it works.</p></details>
+      <details><summary>Shocks</summary><p>A new child, elder care, promotion, layoff, illness, inheritance, relocation, remote work, inflation, or burnout can change all three switches at once. Distinguish chosen ambition from imposed scarcity.</p></details>
+      <details><summary>Ten-step review</summary><ol><li>Define each switch personally.</li><li>Audit hours, debt, savings, sleep, symptoms, and control.</li><li>Name the season and its end date.</li><li>Choose one resource to grow.</li><li>Protect a non-negotiable floor.</li><li>Name the cost in advance.</li><li>Seek synergy first.</li><li>Add guardrails.</li><li>Review monthly or quarterly.</li><li>Never let a temporary trade become an identity.</li></ol></details>
+    </div></section>
+
+    <section class="evidence" id="evidence"><div class="wrap"><div class="section-head"><span class="mono">Evidence / 07</span><div><h2>Metaphor, meet reality.</h2><p>The 200-point limit is not science. These narrower research findings explain why the metaphor resonates.</p></div></div>
+      <div class="evidence-grid"><article class="evidence-card"><strong>55+ hrs</strong><p>WHO/ILO found working at least 55 hours weekly associated with higher stroke and ischemic-heart-disease risk than 35–40 hours.</p></article><article class="evidence-card"><strong>Time-rich</strong><p>Time-affluence research links feeling that one has enough time with well-being, autonomy, relationships, and healthy activity.</p></article><article class="evidence-card"><strong>Choice ≠ access</strong><p>Fair pay, healthcare, childcare, accessibility, safe work, and social support shape whether “optimization” is possible at all.</p></article></div>
+      <p style="margin-top:30px;font-size:.82rem"><b>Sources:</b> <a href="https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo">WHO/ILO</a> · <a href="https://doi.org/10.1007/s10551-008-9696-1">Kasser & Sheldon</a> · <a href="https://doi.org/10.1177/1948550615623842">Whillans et al.</a> · <a href="https://doi.org/10.1038/s41562-020-0920-z">Giurge et al.</a></p>
+    </div></section>
+    <section class="final"><div class="wrap"><span class="mono">The principle</span><blockquote>See the exchange rate. Choose consciously. Protect the floor. Rotate before neglect becomes crisis.</blockquote><p>You may not control every switch—and the switches are not equally reversible.</p></div></section>
+  </main>
+  <footer class="wrap"><span>THE THREE SWITCHES / 2026</span><span><a href="../4B/">Continue to The Four Burners →</a></span></footer>
+  <script>
+    const ids=["time","money","health"], els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+    const presets={youth:[85,35,80],grind:[35,85,75],later:[80,75,35],recovery:[70,30,30],secure:[66,67,67]};
+    let last="health";
+    function clampBudget(changed){
+      let vals=ids.map(id=>+els[id].value), total=vals.reduce((a,b)=>a+b,0);
+      if(total>200){let overflow=total-200, others=ids.filter(id=>id!==changed).sort((a,b)=>els[b].value-els[a].value);for(const id of others){const take=Math.min(overflow,+els[id].value);els[id].value-=take;overflow-=take;if(!overflow)break}}
+      render();
+    }
+    function render(){
+      const v=Object.fromEntries(ids.map(id=>[id,+els[id].value]));ids.forEach(id=>document.getElementById(id+"V").textContent=v[id]);
+      const total=v.time+v.money+v.health,b=document.getElementById("budget");b.textContent=`TOTAL ${total} / 200`;b.classList.toggle("warn",total>200);
+      const sorted=ids.slice().sort((a,b)=>v[b]-v[a]), low=sorted[2], high=sorted[0], labels={time:"Time",money:"Money",health:"Health"};
+      document.getElementById("readingTitle").textContent=`${labels[high]} leads; ${labels[low]} needs a floor`;
+      const advice={time:"Your calendar is the constraint. Look for boundaries, proximity, delegation, or a deliberately smaller commitment.",money:"Financial resilience is the growth edge. Build it without spending the health and freedom you mean to protect.",health:"Capacity is the constraint. Recovery, care, sleep, and adaptation outrank further optimization."};
+      document.getElementById("readingText").textContent=advice[low];
+      const topY=130-v.time*1.12, leftX=80-v.money*.7, leftY=130-v.money*.2, rightX=80+v.health*.7, rightY=130-v.health*.2;
+      document.getElementById("shape").setAttribute("points",`${80},${topY} ${leftX},${leftY} ${rightX},${rightY}`);
+    }
+    ids.forEach(id=>els[id].addEventListener("input",()=>{last=id;clampBudget(id)}));
+    document.querySelectorAll("[data-preset]").forEach(btn=>btn.addEventListener("click",()=>{const p=presets[btn.dataset.preset];ids.forEach((id,i)=>els[id].value=p[i]);document.querySelectorAll("[data-preset]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render()}));
+    document.querySelectorAll("[data-delta]").forEach(card=>card.addEventListener("click",()=>{const d=card.dataset.delta.split(",").map(Number);ids.forEach((id,i)=>els[id].value=Math.max(0,Math.min(100,+els[id].value+d[i])));clampBudget("time");document.getElementById("lab").scrollIntoView({behavior:"smooth"})}));
+    render();
+  </script>
+</body>
+</html>

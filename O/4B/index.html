@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An interactive exploration of the Four Burners Theory: health, family, friends, and career.">
+  <title>The Four Burners — What Gets Your Fire?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root{--bg:#11100e;--panel:#1a1916;--cream:#eee7d8;--muted:#9d988e;--health:#ef5947;--family:#f2a93b;--friends:#35a984;--career:#5e7ee6;--line:rgba(255,255,255,.13)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
+    a{color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.mono{font:500 .76rem "DM Mono",monospace;text-transform:uppercase;letter-spacing:.1em}
+    nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800}.navlinks{display:flex;gap:22px}.navlinks a{text-decoration:none;color:var(--muted);font-size:.86rem}
+    .hero{min-height:88vh;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:70px 0}.hero h1{font-size:clamp(4.2rem,10vw,9rem);line-height:.8;letter-spacing:-.075em;margin:28px 0}.hero h1 span{display:block}.hero h1 em{font-style:normal;color:var(--health)}.lede{font-size:1.15rem;color:var(--muted);max-width:610px}.origin{font-size:.82rem;border-left:2px solid var(--family);padding-left:15px;color:var(--muted);margin-top:30px}
+    .stove{aspect-ratio:1;background:#23211d;border:1px solid #3a3731;border-radius:34px;padding:9%;display:grid;grid-template-columns:1fr 1fr;gap:9%;box-shadow:inset 0 0 60px #000,0 30px 100px #0008;transform:rotate(2deg)}.burner{position:relative;border-radius:50%;border:12px solid #0b0b0a;display:grid;place-items:center;box-shadow:inset 0 0 0 2px #413e37}.flame{width:72%;height:72%;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#fff7c5 0 8%,var(--c) 9% 35%,transparent 68%);filter:drop-shadow(0 0 18px var(--c));animation:pulse 2.3s ease-in-out infinite alternate}.flame b{font-size:.82rem}.flame small{display:block;font:500 .65rem "DM Mono"}@keyframes pulse{to{transform:scale(.93);filter:drop-shadow(0 0 8px var(--c))}}
+    section{padding:100px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.45fr 1.55fr;gap:40px;margin-bottom:50px}.section-head h2{font-size:clamp(2.5rem,5vw,4.7rem);line-height:1;letter-spacing:-.055em;margin:0}.section-head p{color:var(--muted);max-width:700px}
+    .sim{background:var(--cream);color:#171612;border-radius:28px;padding:clamp(24px,5vw,55px)}.sim-top{display:flex;justify-content:space-between;gap:20px;align-items:start}.sim h3{font-size:2rem;margin:4px 0}.tank{text-align:right}.tank strong{font:500 2rem "DM Mono"}.tank span{display:block;font-size:.72rem;color:#6d695f}.tank.over strong{color:var(--health)}
+    .dials{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:38px 0}.dial{border:1px solid #d0c8b8;border-radius:18px;padding:21px}.dial label{font-weight:800;display:flex;justify-content:space-between}.dial output{font-family:"DM Mono"}.dial input{width:100%;margin:20px 0 5px;accent-color:var(--c)}.dial small{color:#777168}
+    .diagnosis{background:#171612;color:var(--cream);border-radius:16px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:20px}.diagnosis strong{font-size:1.3rem}.diagnosis p{color:#aaa59b;margin:6px 0 0;font-size:.9rem}.risk{font:500 .7rem "DM Mono";border:1px solid #ffffff33;border-radius:99px;padding:8px 11px;align-self:start}
+    .presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}button{border:1px solid #c9c1b1;background:transparent;color:inherit;border-radius:99px;padding:9px 13px;font:600 .8rem Manrope;cursor:pointer}button:hover,button.active{background:#171612;color:var(--cream);border-color:#171612}
+    .burner-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.bcard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:25px}.icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:white;font-size:1.2rem}.bcard h3{margin:22px 0 6px}.bcard p,.bcard li{color:var(--muted);font-size:.86rem}.bcard ul{padding-left:17px}
+    .scale{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden}.level{padding:25px;border-right:1px solid var(--line)}.level:last-child{border:0}.level strong{font:500 1.8rem "DM Mono";display:block}.level b{display:block;margin:8px 0}.level span{font-size:.81rem;color:var(--muted)}
+    .season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.season{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}.season h3{margin:6px 0 12px}.meters{display:grid;gap:6px;margin:18px 0}.meter{display:grid;grid-template-columns:55px 1fr 20px;gap:7px;align-items:center;font:500 .64rem "DM Mono"}.bar{height:5px;background:#ffffff12;border-radius:9px}.fill{height:100%;background:var(--c);border-radius:9px}.season p{font-size:.84rem;color:var(--muted)}
+    .strategies{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.strategy{padding:28px;border:1px solid var(--line);border-radius:18px}.strategy .num{font:500 .75rem "DM Mono";color:var(--family)}.strategy h3{font-size:1.4rem}.strategy p{color:var(--muted);font-size:.88rem}
+    .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.matrix article{background:var(--bg);padding:25px}.matrix b{display:block}.matrix span{font-size:.86rem;color:var(--muted)}
+    .eventbox{background:linear-gradient(135deg,#2a211c,#181715);border:1px solid #4a3629;border-radius:24px;padding:40px;text-align:center}.eventbox h3{font-size:2.2rem;margin:10px}.eventbox p{color:var(--muted);max-width:650px;margin:10px auto 25px}.eventbox button{border-color:#73604d}.event-result{margin-top:25px;min-height:24px;color:var(--family);font-weight:700}
+    details{border-top:1px solid var(--line);padding:20px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}summary:after{content:"+"}details[open] summary:after{content:"−"}details p,details li{color:var(--muted);font-size:.9rem}
+    .evidence{background:var(--cream);color:#181713}.evidence .section-head p{color:#6b675f}.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#c9c1b1}.ecard{background:var(--cream);padding:30px}.ecard strong{font-size:2.5rem;letter-spacing:-.05em;display:block}.ecard p{font-size:.86rem;color:#676258}
+    .final{text-align:center;padding:140px 0}.final blockquote{max-width:1000px;margin:20px auto;font-size:clamp(2.2rem,5vw,4.8rem);line-height:1.08;letter-spacing:-.05em}.final em{color:var(--family);font-style:normal}footer{padding:35px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
+    @media(max-width:850px){.navlinks{display:none}.hero{grid-template-columns:1fr}.stove{max-width:520px}.section-head{grid-template-columns:1fr}.dials,.burner-cards{grid-template-columns:1fr 1fr}.season-grid,.strategies,.egrid{grid-template-columns:1fr}.scale{grid-template-columns:1fr}.level{border-right:0;border-bottom:1px solid var(--line)}.matrix{grid-template-columns:1fr}}@media(max-width:520px){.dials,.burner-cards{grid-template-columns:1fr}.diagnosis{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav class="wrap"><div class="brand">4B / FINITE FIRE</div><div class="navlinks"><a href="#sim">Allocator</a><a href="#seasons">Seasons</a><a href="#strategies">Strategies</a><a href="#evidence">Evidence</a><a href="../3S/">Explore 3 Switches →</a></div></nav>
+  <main>
+    <header class="hero wrap">
+      <div><span class="mono">The Four Burners Theory</span><h1>WHAT<br>GETS<br>YOUR <em>FIRE?</em></h1><p class="lede">Health. Family. Friends. Career. You can keep every flame alive—but rarely run all four at maximum intensity at the same time.</p><p class="origin">The theory’s original author is uncertain. Treat it as a diagnostic metaphor for finite attention and energy, not a law that excuses neglect or glorifies overwork.</p></div>
+      <div class="stove" aria-label="Four burner stove illustration"><div class="burner"><div class="flame" style="--c:var(--health)"><span><b>HEALTH</b><small>THE ENGINE</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--family)"><span><b>FAMILY</b><small>THE ANCHOR</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--friends)"><span><b>FRIENDS</b><small>THE VILLAGE</small></span></div></div><div class="burner"><div class="flame" style="--c:var(--career)"><span><b>CAREER</b><small>THE ROCKET</small></span></div></div></div>
+    </header>
+
+    <section id="sim"><div class="wrap"><div class="section-head"><span class="mono">Interactive / 01</span><div><h2>Spend your 25 points.</h2><p>The budget is a game mechanic, not a biological measurement. Use it to reveal what your current season rewards—and what it quietly asks you to neglect.</p></div></div>
+      <div class="sim"><div class="sim-top"><div><span class="mono">Daily allocation</span><h3>Set the flame levels.</h3></div><div class="tank" id="tank"><strong id="total">25 / 25</strong><span>ENERGY USED</span></div></div>
+        <div class="dials">
+          <div class="dial" style="--c:var(--health)"><label>Health <output id="healthV">7</output></label><input id="health" type="range" min="0" max="10" value="7"><small>sleep · movement · recovery</small></div>
+          <div class="dial" style="--c:var(--family)"><label>Family <output id="familyV">7</output></label><input id="family" type="range" min="0" max="10" value="7"><small>presence · care · repair</small></div>
+          <div class="dial" style="--c:var(--friends)"><label>Friends <output id="friendsV">5</output></label><input id="friends" type="range" min="0" max="10" value="5"><small>belonging · mutual support</small></div>
+          <div class="dial" style="--c:var(--career)"><label>Career <output id="careerV">6</output></label><input id="career" type="range" min="0" max="10" value="6"><small>work · skill · contribution</small></div>
+        </div>
+        <div class="diagnosis"><div><strong id="diagTitle">A sustainable, broad flame</strong><p id="diagText">No burner is abandoned. You are prioritizing health and family while keeping work and friendship alive.</p></div><span class="risk" id="risk">LOW DECAY RISK</span></div>
+        <div class="presets"><button data-preset="founder">Founder</button><button data-preset="parent">New parent</button><button data-preset="balanced">Even balance</button><button data-preset="sabbatical">Sabbatical</button><button data-preset="recovery">Recovery</button><button data-preset="community">Community</button><button data-preset="retired">Second act</button></div>
+      </div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Anatomy / 02</span><div><h2>Four flames, four kinds of need.</h2><p>A burner is not merely time. It is attention, emotional presence, maintenance, recovery, and the quality of investment.</p></div></div>
+      <div class="burner-cards">
+        <article class="bcard" style="--c:var(--health)"><div class="icon">♥</div><h3>Health</h3><p>The capacity underneath every other role.</p><ul><li>Sleep and recovery</li><li>Physical and mental care</li><li>Mobility and sustainable energy</li></ul></article>
+        <article class="bcard" style="--c:var(--family)"><div class="icon">⌂</div><h3>Family</h3><p>Partner, children, parents, chosen family, and care.</p><ul><li>Reliability and presence</li><li>Shared practical labor</li><li>Communication and repair</li></ul></article>
+        <article class="bcard" style="--c:var(--friends)"><div class="icon">∞</div><h3>Friends</h3><p>Belonging and support beyond the household.</p><ul><li>Mutual connection</li><li>Shared experience</li><li>Community and vulnerability</li></ul></article>
+        <article class="bcard" style="--c:var(--career)"><div class="icon">↗</div><h3>Career</h3><p>Livelihood, craft, study, ambition, and contribution.</p><ul><li>Skill and meaningful output</li><li>Security and structure</li><li>Purpose—not personal worth</li></ul></article>
+      </div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Intensity / 03</span><div><h2>What does a number mean?</h2><p>Maximum is not automatically best. A “10” is usually a sprint or crisis. A deliberate simmer can preserve a burner until its season returns.</p></div></div>
+      <div class="scale"><div class="level"><strong>0–1</strong><b>Off</b><span>Almost no proactive investment. Sustainable only briefly.</span></div><div class="level"><strong>2–4</strong><b>Simmer</b><span>Minimum viable maintenance and essential contact.</span></div><div class="level"><strong>5–7</strong><b>Steady</b><span>Consistent, sustainable investment.</span></div><div class="level"><strong>8–9</strong><b>High</b><span>A priority season consuming significant resources.</span></div><div class="level"><strong>10</strong><b>Maximum</b><span>Crisis or sprint. Add an end date and recovery plan.</span></div></div>
+    </div></section>
+
+    <section id="seasons"><div class="wrap"><div class="section-head"><span class="mono">Seasons / 04</span><div><h2>Imbalance with an end date.</h2><p>Rotate intensity across a lifetime. Every season needs minimum viable flames and an honest account of who else bears the cost.</p></div></div>
+      <div class="season-grid" id="seasonGrid"></div>
+    </div></section>
+
+    <section id="strategies"><div class="wrap"><div class="section-head"><span class="mono">Response / 05</span><div><h2>Three classic moves.</h2><p>James Clear’s popular treatment proposes outsourcing, embracing constraints, and working in seasons. Each helps; none removes the need for judgment.</p></div></div>
+      <div class="strategies"><article class="strategy"><span class="num">OPTION 01</span><h3>Outsource</h3><p>Delegate cooking, cleaning, administration, childcare, repair, or routine work. It releases time but requires money and management. Presence and meaning cannot be fully delegated.</p></article><article class="strategy"><span class="num">OPTION 02</span><h3>Embrace constraints</h3><p>Work ends at five. Exercise gets three hours. One evening stays protected. Boundaries force prioritization—but efficiency cannot erase every trade-off.</p></article><article class="strategy"><span class="num">OPTION 03</span><h3>Work in seasons</h3><p>Concentrate for a defined period, then rotate. “Temporary” neglect needs a date, minimum floors, and a review ritual or it quietly becomes permanent.</p></article></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Interactions / 06</span><div><h2>Conflict and synergy.</h2><p>Burners compete, spill into one another, and sometimes share the same hour. A shared activity does not always meet the full emotional need.</p></div></div>
+      <div class="matrix"><article><b>Career ↔ Family</b><span>Travel, inflexible hours, relocation, and stress collide with presence and care. Positive spillover can include money, skills, confidence, and flexibility.</span></article><article><b>Career ↔ Health</b><span>Long hours, sitting, shift work, and skipped recovery create measurable costs. Walking meetings and good boundaries can combine them.</span></article><article><b>Family ↔ Health</b><span>Caregiving can displace sleep and treatment. Shared walks, meals, and fair division of invisible labor can support both.</span></article><article><b>Friends ↔ Everything</b><span>Friends fade quietly because they lack formal obligations. Exercise together, cowork, volunteer, or maintain one reliable ritual.</span></article></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Life event / 07</span><div><h2>The stove never stays still.</h2><p>Draw an event. Notice the immediate allocation—and then the second-order cost.</p></div></div>
+      <div class="eventbox"><span class="mono">Random event simulator</span><h3 id="eventTitle">Your current season is stable.</h3><p id="eventText">Then life changes the available fuel.</p><button id="draw">Draw a life event</button><div class="event-result" id="eventResult"></div></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><span class="mono">Field manual / 08</span><div><h2>Keep the stove honest.</h2><p>The practical model is not “sacrifice more.” It is to remove leakage, preserve minimums, negotiate shared labor, and distinguish crisis from ambition.</p></div></div>
+      <details open><summary>Minimum viable burners</summary><p>Health: sleep floor, medication, movement, care. Family: device-free check-in, reliable contribution, weekly ritual. Friends: one meaningful contact. Career: one high-value output or learning block.</p></details>
+      <details><summary>Pulse instead of abandon</summary><p>Alternate intensity within the week or month. Buy capacity with tools, support, automation, and proximity. Cut low-value meetings, scrolling, avoidable commuting, and perfectionism before cutting a valued relationship.</p></details>
+      <details><summary>Decay and recovery</summary><p>Health damage may become chronic. Family trust can recover, but missed moments cannot be replayed. Friendships vary in tolerance for quiet periods. Career re-entry is possible but has real costs. No fixed decay timer applies universally.</p></details>
+      <details><summary>Regret optimizer</summary><p>Which burner would hurt most to neglect for a week, a year, or ten years? Which sacrifice is reversible? Who else pays for your allocation? Which low flame is chosen—and which is imposed?</p></details>
+      <details><summary>Ethical guardrails</summary><p>Never shame low scores. Do not treat disability, caregiving, poverty, or unsafe work as planning failures. Recognize unpaid labor. Income is not worth; career intensity is not success; this tool does not diagnose health.</p></details>
+    </div></section>
+
+    <section class="evidence" id="evidence"><div class="wrap"><div class="section-head"><span class="mono">Evidence / 09</span><div><h2>What research can—and cannot—say.</h2><p>The theory itself is not validated. Research supports specific relationships behind it.</p></div></div>
+      <div class="egrid"><article class="ecard"><strong>+50%</strong><p>A 2010 meta-analysis of 148 studies found stronger social relationships associated with a 50% increased likelihood of survival.</p></article><article class="ecard"><strong>55+ hrs</strong><p>WHO/ILO associated long working weeks with higher stroke and ischemic-heart-disease risk compared with 35–40 hours.</p></article><article class="ecard"><strong>3 conflicts</strong><p>Work–family research identifies time-based, strain-based, and behavior-based conflict—and also positive enrichment between roles.</p></article></div>
+      <p style="margin-top:28px;font-size:.8rem"><b>Sources:</b> <a href="https://jamesclear.com/four-burners-theory">James Clear</a> · <a href="https://www.newyorker.com/magazine/2009/08/24/laugh-kookaburra">David Sedaris</a> · <a href="https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo">WHO/ILO</a> · <a href="https://doi.org/10.1371/journal.pmed.1000316">Holt-Lunstad et al.</a> · <a href="https://doi.org/10.5465/amr.1985.4277352">Greenhaus & Beutell</a></p>
+    </div></section>
+    <section class="final"><div class="wrap"><span class="mono">The principle</span><blockquote>You can do many things in a lifetime—just not <em>everything at maximum</em> at once.</blockquote><p>Choose a season. Protect the minimum flames. Rotate before neglect becomes damage.</p></div></section>
+  </main>
+  <footer class="wrap"><span>THE FOUR BURNERS / 2026</span><span><a href="../3S/">← Explore The Three Switches</a></span></footer>
+  <script>
+    const ids=["health","family","friends","career"], els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+    const presets={founder:[5,5,1,10],parent:[4,10,2,5],balanced:[6,6,6,6],sabbatical:[9,5,8,1],recovery:[10,7,4,2],community:[6,7,9,3],retired:[8,8,7,2]};
+    const seasons=[
+      ["Founder / build",[5,5,1,10],"Rapid learning and output; isolation, identity fusion, and chronic stress are the cost. Add an end date and sleep floor."],
+      ["New parent / caregiver",[4,10,2,5],"Family blazes while sleep fragments. Divide invisible labor, accept help, and preserve tiny health and friendship habits."],
+      ["Even balance",[6,6,6,6],"Stable breadth is not “lukewarm” unless it conflicts with your values. It may be the desired life."],
+      ["Sabbatical / travel",[9,5,8,1],"Recovery and exploration rise; career momentum and financial runway need a re-entry plan."],
+      ["Exam / launch sprint",[6,4,2,10],"Appropriate for days or weeks. Put recovery on the calendar before the sprint begins."],
+      ["Illness / rehabilitation",[10,7,4,2],"Restoring or adapting capacity is the work. This is not selfish or unproductive."],
+      ["Relationship repair",[6,9,5,5],"Concentrated communication, counseling, presence, and reliability."],
+      ["Community season",[6,7,9,3],"Mutual aid, activism, reunion, volunteering, or rebuilding a support network."],
+      ["Retirement / second act",[8,8,7,2],"Career can become mentoring, craft, service, or part-time purpose rather than disappear."]
+    ];
+    const colors=["var(--health)","var(--family)","var(--friends)","var(--career)"];
+    document.getElementById("seasonGrid").innerHTML=seasons.map(s=>`<article class="season"><span class="mono">${s[1].reduce((a,b)=>a+b,0)} points</span><h3>${s[0]}</h3><div class="meters">${ids.map((id,i)=>`<div class="meter"><span>${id}</span><div class="bar"><div class="fill" style="--c:${colors[i]};width:${s[1][i]*10}%"></div></div><b>${s[1][i]}</b></div>`).join("")}</div><p>${s[2]}</p></article>`).join("");
+    function render(changed){
+      let vals=ids.map(id=>+els[id].value), total=vals.reduce((a,b)=>a+b,0);
+      if(total>25&&changed){let over=total-25, others=ids.filter(id=>id!==changed).sort((a,b)=>els[b].value-els[a].value);for(const id of others){let take=Math.min(over,+els[id].value);els[id].value-=take;over-=take;if(!over)break}vals=ids.map(id=>+els[id].value);total=vals.reduce((a,b)=>a+b,0)}
+      ids.forEach(id=>document.getElementById(id+"V").textContent=els[id].value);document.getElementById("total").textContent=`${total} / 25`;document.getElementById("tank").classList.toggle("over",total>25);
+      const min=Math.min(...vals),max=Math.max(...vals),low=ids[vals.indexOf(min)],high=ids[vals.indexOf(max)],risk=document.getElementById("risk");
+      let title="A sustainable, broad flame",text=`${high[0].toUpperCase()+high.slice(1)} leads while every area remains alive. Define “enough” instead of assuming maximum is best.`;
+      if(max>=9){title=`A ${high} priority season`;text=`Concentration can produce progress. Keep ${low} above a deliberate minimum and set a date to review the imbalance.`}
+      if(min<=1){title=`The ${low} burner is nearly off`;text=`Short sprints may justify this. Over longer periods, expect decay and make the recovery plan explicit.`}
+      document.getElementById("diagTitle").textContent=title;document.getElementById("diagText").textContent=text;risk.textContent=min<=1?"HIGH DECAY RISK":min<=3?"WATCH THE LOW FLAME":"LOW DECAY RISK";
+    }
+    ids.forEach(id=>els[id].addEventListener("input",()=>render(id)));
+    document.querySelectorAll("[data-preset]").forEach(btn=>btn.addEventListener("click",()=>{ids.forEach((id,i)=>els[id].value=presets[btn.dataset.preset][i]);document.querySelectorAll("[data-preset]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render()}));
+    const events=[
+      ["A new child arrives.","Family demand surges while sleep and schedule control fall.",[4,10,2,5],"Family becomes non-negotiable; protect a health floor and ask for concrete help."],
+      ["You receive a major promotion.","Career opportunity rises with workload and visibility.",[5,5,2,10],"Name the hours, travel, and emotional cost before accepting the title."],
+      ["A health crisis changes the plan.","Capacity—not ambition—sets the agenda.",[10,7,4,2],"Treatment, adaptation, and recovery are now productive work."],
+      ["You are laid off.","Career structure falls away; money stress affects every burner.",[6,7,6,6],"Use relationships and routines as infrastructure while rebuilding work."],
+      ["An aging parent needs care.","Family labor expands, often invisibly and unpredictably.",[4,10,3,5],"Negotiate shared care and preserve sleep, treatment, and one outside connection."],
+      ["You begin a sabbatical.","Work steps back and unstructured possibility opens.",[9,5,8,1],"Give recovery a purpose, a budget, and a return path."],
+      ["A close friendship fractures.","The village needs deliberate repair.",[6,5,9,5],"Attention, accountability, and time may restore trust—but not every bond must continue."],
+      ["You enter a financial emergency.","Livelihood becomes urgent, whether chosen or not.",[5,6,2,9],"Do not romanticize the grind. Seek benefits, support, debt advice, and safe limits."]
+    ];
+    document.getElementById("draw").addEventListener("click",()=>{const e=events[Math.floor(Math.random()*events.length)];document.getElementById("eventTitle").textContent=e[0];document.getElementById("eventText").textContent=e[1];ids.forEach((id,i)=>els[id].value=e[2][i]);document.getElementById("eventResult").textContent=e[3];render()});
+    render();
+  </script>
+</body>
+</html>
