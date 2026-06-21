@@ -38,3 +38,21 @@ Since the project is built using strictly Vanilla Web Technologies (HTML, CSS, J
 - `assets/styles.css`: The styling, grid layouts, and theme definitions.
 - `assets/app.js`: The central GameArena engine, game state logic, and AI handlers.
 - `assets/favicon.svg`: A neon SVG icon.
+
+## 🛠️ Recent Bug Fixes & Enhancements
+
+As part of a comprehensive quality sweep, the following issues were resolved and features added:
+
+### Bug Fixes
+- **Chaos Mode Win Conditions**: Prevented blocked/destroyed cells (`🔥`) from triggering false win detections.
+- **Turn State Guarding**: Standardized state validation across Gravity, Infinite Canvas, and Ultimate modes to prevent moves after a match ends.
+- **Infinite Canvas Pan/Zoom Reset**: Fixed canvas offset persistence so starting a new match correctly resets the viewport.
+- **Memory Trainer Statistics**: Fixed an issue where completing Memory Trainer levels incorrectly counted as a standard game win.
+- **Size-Capture (Gobblet) Pickup Exploits**: Fixed an exploit where picked-up pieces could be placed back onto the cell they were picked up from, wasting a turn or duplicating logic.
+- **CSS Animation Issues**: Resolved a missing `@keyframes fade-in` definition which was causing menu transitions to fail.
+
+### Enhancements
+- **Mobile Touch Pan & Zoom**: Integrated `touchstart`, `touchmove`, and `touchend` support for seamless mobile/tablet navigation on the Infinite Canvas.
+- **Firefox Scrollbar Support**: Customized scrollbars for Firefox using modern standard scrollbar properties (`scrollbar-width` and `scrollbar-color`) to match the neon styling.
+- **Layout Animations**: Applied micro-animations to game transitions for a more dynamic and premium user experience.
+

@@ -216,6 +216,7 @@ class GameArena {
 
     // UI Binding elements
     this.boardWrapper = document.getElementById("board-wrapper");
+    this.boardContainer = document.getElementById("board-container");
     this.statusText = document.getElementById("game-status-text");
     this.specialInfoCard = document.getElementById("mode-special-info");
   }
@@ -330,55 +331,135 @@ class GameArena {
         this.resetGame();
       });
 
-    // Infinite Canvas Handlers
-    this.boardWrapper.addEventListener("mousedown", (e) => {
-      if (this.mode !== "infinite-canvas") return;
-      this.isDragging = true;
-      this.hasDragged = false;
-      this.dragStartX = e.clientX - this.infinitePanX;
-      this.dragStartY = e.clientY - this.infinitePanY;
-      this.dragStartPanX = this.infinitePanX;
-      this.dragStartPanY = this.infinitePanY;
-    });
+    // General Board Container / Canvas Handlers (Mouse Drag & Touch Scroll Support)
+    if (this.boardContainer) {
+      this.boardContainer.addEventListener("mousedown", (e) => {
+        this.isDragging = true;
+        this.hasDragged = false;
+        
+        if (this.mode === "infinite-canvas") {
+          this.dragStartX = e.clientX - this.infinitePanX;
+          this.dragStartY = e.clientY - this.infinitePanY;
+          this.dragStartPanX = this.infinitePanX;
+          this.dragStartPanY = this.infinitePanY;
+        } else {
+          this.dragStartX = e.clientX;
+          this.dragStartY = e.clientY;
+          this.scrollStartLeft = this.boardContainer.scrollLeft;
+          this.scrollStartTop = this.boardContainer.scrollTop;
+        }
+      });
 
-    window.addEventListener("mousemove", (e) => {
-      if (!this.isDragging || this.mode !== "infinite-canvas") return;
-      
-      const newPanX = e.clientX - this.dragStartX;
-      const newPanY = e.clientY - this.dragStartY;
+      window.addEventListener("mousemove", (e) => {
+        if (!this.isDragging) return;
+        
+        if (this.mode === "infinite-canvas") {
+          const newPanX = e.clientX - this.dragStartX;
+          const newPanY = e.clientY - this.dragStartY;
 
-      if (
-        Math.abs(newPanX - this.dragStartPanX) > 5 ||
-        Math.abs(newPanY - this.dragStartPanY) > 5
-      ) {
-        this.hasDragged = true;
-      }
+          if (
+            Math.abs(newPanX - this.dragStartPanX) > 5 ||
+            Math.abs(newPanY - this.dragStartPanY) > 5
+          ) {
+            this.hasDragged = true;
+          }
 
-      this.infinitePanX = newPanX;
-      this.infinitePanY = newPanY;
-      
-      const canvasBoard = document.querySelector(".infinite-canvas-board");
-      if (canvasBoard)
-        canvasBoard.style.transform = `translate(${this.infinitePanX}px, ${this.infinitePanY}px) scale(${this.infiniteZoom})`;
-    });
+          this.infinitePanX = newPanX;
+          this.infinitePanY = newPanY;
+          
+          const canvasBoard = document.querySelector(".infinite-canvas-board");
+          if (canvasBoard)
+            canvasBoard.style.transform = `translate(${this.infinitePanX}px, ${this.infinitePanY}px) scale(${this.infiniteZoom})`;
+        } else {
+          const dx = e.clientX - this.dragStartX;
+          const dy = e.clientY - this.dragStartY;
 
-    window.addEventListener("mouseup", () => {
-      this.isDragging = false;
-    });
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            this.hasDragged = true;
+          }
 
-    this.boardWrapper.addEventListener("wheel", (e) => {
-      if (this.mode !== "infinite-canvas") return;
-      e.preventDefault();
-      const zoomAmount = 0.05;
-      if (e.deltaY < 0) {
-        this.infiniteZoom = Math.min(1.8, this.infiniteZoom + zoomAmount);
-      } else {
-        this.infiniteZoom = Math.max(0.5, this.infiniteZoom - zoomAmount);
-      }
-      const canvasBoard = document.querySelector(".infinite-canvas-board");
-      if (canvasBoard)
-        canvasBoard.style.transform = `translate(${this.infinitePanX}px, ${this.infinitePanY}px) scale(${this.infiniteZoom})`;
-    });
+          this.boardContainer.scrollLeft = this.scrollStartLeft - dx;
+          this.boardContainer.scrollTop = this.scrollStartTop - dy;
+        }
+      });
+
+      window.addEventListener("mouseup", () => {
+        this.isDragging = false;
+      });
+
+      // Touch support for Mobile Dragging/Panning
+      this.boardContainer.addEventListener("touchstart", (e) => {
+        const touch = e.touches[0];
+        this.isDragging = true;
+        this.hasDragged = false;
+
+        if (this.mode === "infinite-canvas") {
+          this.dragStartX = touch.clientX - this.infinitePanX;
+          this.dragStartY = touch.clientY - this.infinitePanY;
+          this.dragStartPanX = this.infinitePanX;
+          this.dragStartPanY = this.infinitePanY;
+        } else {
+          this.dragStartX = touch.clientX;
+          this.dragStartY = touch.clientY;
+          this.scrollStartLeft = this.boardContainer.scrollLeft;
+          this.scrollStartTop = this.boardContainer.scrollTop;
+        }
+      }, { passive: true });
+
+      this.boardContainer.addEventListener("touchmove", (e) => {
+        if (!this.isDragging) return;
+        const touch = e.touches[0];
+
+        if (this.mode === "infinite-canvas") {
+          e.preventDefault();
+          const newPanX = touch.clientX - this.dragStartX;
+          const newPanY = touch.clientY - this.dragStartY;
+
+          if (
+            Math.abs(newPanX - this.dragStartPanX) > 5 ||
+            Math.abs(newPanY - this.dragStartPanY) > 5
+          ) {
+            this.hasDragged = true;
+          }
+
+          this.infinitePanX = newPanX;
+          this.infinitePanY = newPanY;
+
+          const canvasBoard = document.querySelector(".infinite-canvas-board");
+          if (canvasBoard)
+            canvasBoard.style.transform = `translate(${this.infinitePanX}px, ${this.infinitePanY}px) scale(${this.infiniteZoom})`;
+        } else {
+          const dx = touch.clientX - this.dragStartX;
+          const dy = touch.clientY - this.dragStartY;
+
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            this.hasDragged = true;
+            if (e.cancelable) e.preventDefault();
+          }
+
+          this.boardContainer.scrollLeft = this.scrollStartLeft - dx;
+          this.boardContainer.scrollTop = this.scrollStartTop - dy;
+        }
+      }, { passive: false });
+
+      this.boardContainer.addEventListener("touchend", () => {
+        this.isDragging = false;
+      });
+
+      this.boardContainer.addEventListener("wheel", (e) => {
+        if (this.mode !== "infinite-canvas") return;
+        e.preventDefault();
+        const zoomAmount = 0.05;
+        if (e.deltaY < 0) {
+          this.infiniteZoom = Math.min(1.8, this.infiniteZoom + zoomAmount);
+        } else {
+          this.infiniteZoom = Math.max(0.5, this.infiniteZoom - zoomAmount);
+        }
+        const canvasBoard = document.querySelector(".infinite-canvas-board");
+        if (canvasBoard)
+          canvasBoard.style.transform = `translate(${this.infinitePanX}px, ${this.infinitePanY}px) scale(${this.infiniteZoom})`;
+      });
+    }
   }
 
   applyTheme(theme) {
@@ -418,6 +499,14 @@ class GameArena {
       this.getModeFriendlyName(mode);
     document.getElementById("menu-view").classList.add("hidden");
     document.getElementById("game-view").classList.remove("hidden");
+
+    if (this.boardContainer) {
+      if (this.mode === "infinite-canvas") {
+        this.boardContainer.style.overflow = "hidden";
+      } else {
+        this.boardContainer.style.overflow = "auto";
+      }
+    }
 
     // Toggle special info container based on mode
     this.specialInfoCard.classList.add("hidden");
@@ -584,6 +673,9 @@ class GameArena {
     this.ultimateSubWins = Array(9).fill("");
 
     this.infiniteCanvasCells.clear();
+    this.infinitePanX = 0;
+    this.infinitePanY = 0;
+    this.infiniteZoom = 1.0;
 
     // Reset Gobblet metrics
     this.gobbletReserve = {
@@ -708,6 +800,7 @@ class GameArena {
   }
 
   handleCellClick(index) {
+    if (this.hasDragged) return;
     if (!this.gameActive) return;
     
     if (this.mode === "memory-trainer") {
@@ -788,10 +881,11 @@ class GameArena {
       [2, 4, 6], // diagonals
     ];
 
+    const validSymbols = ["X", "O"];
     for (const pattern of winPatterns) {
       const [a, b, c] = pattern;
       if (
-        this.board[a] &&
+        validSymbols.includes(this.board[a]) &&
         this.board[a] === this.board[b] &&
         this.board[a] === this.board[c]
       ) {
@@ -800,6 +894,7 @@ class GameArena {
       }
     }
 
+    // Check draw: no empty cells AND no blocked-only cells remaining
     if (!this.board.includes("")) {
       this.endGame("draw");
     }
@@ -866,6 +961,7 @@ class GameArena {
   }
 
   handleGravityClick(col) {
+    if (this.hasDragged) return;
     if (!this.gameActive) return;
     if (this.opponentType === "ai" && this.currentPlayer === "O") return;
 
@@ -881,7 +977,9 @@ class GameArena {
         this.gravityBoard[idx] = this.currentPlayer;
         this.renderGravityGrid();
         this.checkGravityWin(idx);
-        this.switchTurn();
+        if (this.gameActive) {
+          this.switchTurn();
+        }
         return;
       }
     }
@@ -997,6 +1095,7 @@ class GameArena {
   }
 
   handleUltimateClick(boardIdx, cellIdx) {
+    if (this.hasDragged) return;
     if (!this.gameActive) return;
     if (this.opponentType === "ai" && this.currentPlayer === "O") return;
 
@@ -1028,7 +1127,9 @@ class GameArena {
 
     this.renderUltimateGrid();
     this.checkUltimateOverallWin();
-    this.switchTurn();
+    if (this.gameActive) {
+      this.switchTurn();
+    }
   }
 
   checkUltimateSubWin(bIdx) {
@@ -1150,7 +1251,9 @@ class GameArena {
     this.renderInfiniteCanvas();
 
     this.checkInfiniteWin(x, y);
-    this.switchTurn();
+    if (this.gameActive) {
+      this.switchTurn();
+    }
   }
 
   checkInfiniteWin(x, y) {
@@ -1834,6 +1937,7 @@ class GameArena {
   }
 
   handleGobbletCellClick(index) {
+    if (this.hasDragged) return;
     if (!this.gameActive) return;
     if (this.opponentType === "ai" && this.currentPlayer === "O") return;
 
@@ -1857,6 +1961,17 @@ class GameArena {
         "Select a piece size from your reserve or board first!",
         true,
       );
+      return;
+    }
+
+    // Prevent placing piece back on the same cell it was picked from
+    if (this.gobbletSourceIndex === index) {
+      // Put piece back
+      this.gobbletBoard[index].push({ player: this.currentPlayer, size: this.gobbletSelectedSize });
+      this.gobbletSelectedSize = null;
+      this.gobbletSourceIndex = null;
+      this.renderGobbletGrid();
+      this.showToast("Piece returned to original position.");
       return;
     }
 
@@ -2133,7 +2248,6 @@ class GameArena {
         this.memoryShowing = true;
         this.statusText.innerText = "Correct! Next Level...";
         synth.play('win');
-        this.incrementScore('X');
         this.memoryLevel++;
         setTimeout(() => this.startMemorySequence(), 1500);
       }

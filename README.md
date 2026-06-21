@@ -21,6 +21,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro 
 	- [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) — browser extension & CLI
 	- [Life Mechanics Hub](https://krishnakanthb13.github.io/O/) — Interactive Frameworks to Map Finite Resources, Visualize Trade-Offs
+	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 
 - **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 5 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
@@ -65,6 +66,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Life Mechanics** ([Hub](https://krishnakanthb13.github.io/O/)): Interactive trade-off & resource-allocation dashboards:
 	- [The Three Switches](https://krishnakanthb13.github.io/O/3S/): Balance Time, Money, and Health.
 	- [The Four Burners](https://krishnakanthb13.github.io/O/4B/): Manage 25 energy points across Career, Family, Friends, and Health.
+
+---
+
+- **Tic-Tac-Toe Arena** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md) — Tic-Tac-Toe Arena):
+	- [Tic-Tac-Toe](https://krishnakanthb13.github.io/O/TTT/): Modern, neon-themed Tic-Tac-Toe Arena featuring 9 unique game modes and custom AI.
 
 ---
 
