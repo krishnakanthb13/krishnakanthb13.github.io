@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic-Tac-Toe Arena | Infinite & Creative Variants</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Press+Start+2P&family=Space+Grotesk:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="theme-dark">
+    <!-- Background Overlay / Grid Effects -->
+    <div class="grid-overlay"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="app-container">
+      <!-- HEADER -->
+      <header class="main-header">
+        <div class="logo">
+          <span class="neon-text-primary">TIC</span>
+          <span class="neon-text-secondary">TAC</span>
+          <span class="neon-text-accent">TOE</span>
+          <span class="logo-badge">ARENA</span>
+        </div>
+        <div class="header-controls">
+          <button
+            id="btn-stats"
+            class="btn-icon"
+            aria-label="Statistics"
+            title="Stats & Achievements"
+          >
+            <i class="fa-solid fa-chart-simple"></i>
+          </button>
+          <button
+            id="btn-settings"
+            class="btn-icon"
+            aria-label="Settings"
+            title="Game Settings"
+          >
+            <i class="fa-solid fa-sliders"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- HERO & MODE SELECTOR -->
+        <section id="menu-view" class="menu-section fade-in">
+          <div class="hero-section">
+            <h1>Unleash Ultimate Tactics</h1>
+            <p>
+              Experience the next generation of Tic-Tac-Toe. Play classic
+              variants, dynamic infinity modes, gravity challenges, ultimate
+              strategic warfare, and chaos events.
+            </p>
+          </div>
+
+          <div class="mode-grid">
+            <!-- CLASSIC -->
+            <div class="mode-card" data-mode="classic">
+              <div class="card-glow"></div>
+              <div class="card-icon"><i class="fa-solid fa-hashtag"></i></div>
+              <h3>Classic 3×3</h3>
+              <p>
+                Standard rules. Play against a friend locally or challenge our
+                Minimax-powered AI at various difficulty levels.
+              </p>
+              <button class="btn-play-mode">Battle Now</button>
+            </div>
+
+            <!-- FADE AWAY (INFINITE Move Limit) -->
+            <div class="mode-card" data-mode="fade-away">
+              <div class="card-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </div>
+              <h3>Fade-Away (3-Move Limit)</h3>
+              <p>
+                Pieces fade out after 3 moves. Keep planning ahead as old moves
+                disappear. An intense, fast-paced mental loop!
+              </p>
+              <button class="btn-play-mode">Play Fade-Away</button>
+            </div>
+
+            <!-- INFINITE CANVAS -->
+            <div class="mode-card" data-mode="infinite-canvas">
+              <div class="card-glow"></div>
+              <div class="card-icon"><i class="fa-solid fa-maximize"></i></div>
+              <h3>Infinite Canvas</h3>
+              <p>
+                An expanding, boundless board. Pan and zoom across infinite
+                space. Connect 5 to claim ultimate victory.
+              </p>
+              <button class="btn-play-mode">Explore Space</button>
+            </div>
+
+            <!-- ULTIMATE -->
+            <div class="mode-card" data-mode="ultimate">
+              <div class="card-glow"></div>
+              <div class="card-icon"><i class="fa-solid fa-grip"></i></div>
+              <h3>Ultimate TTT</h3>
+              <p>
+                A grid of 9 mini-boards. Your move determines where the opponent
+                must play. Deep tactical depth.
+              </p>
+              <button class="btn-play-mode">Master Strategy</button>
+            </div>
+
+            <!-- GRAVITY -->
+            <div class="mode-card" data-mode="gravity">
+              <div class="card-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-arrow-down-long"></i>
+              </div>
+              <h3>Gravity TTT</h3>
+              <p>
+                Grid with physics. Symbols drop to the lowest empty spot.
+                Connect-4 mechanics meet Tic-Tac-Toe.
+              </p>
+              <button class="btn-play-mode">Defy Gravity</button>
+            </div>
+
+            <!-- CHAOS -->
+            <div class="mode-card" data-mode="chaos">
+              <div class="card-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <h3>Chaos Mode</h3>
+              <p>
+                Random events strike every few turns! Boards rotate, cells
+                block, symbols swap, and bonus turns disrupt plans.
+              </p>
+              <button class="btn-play-mode">Embrace Chaos</button>
+            </div>
+
+            <!-- PUZZLE -->
+            <div class="mode-card" data-mode="puzzle">
+              <div class="card-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-puzzle-piece"></i>
+              </div>
+              <h3>Tactical Puzzles</h3>
+              <p>
+                Find the single winning move or defend against lethal threats in
+                preset game boards. Test your calculation skills.
+              </p>
+              <button class="btn-play-mode">Solve Puzzles</button>
+            </div>
+
+            <!-- SIZE-CAPTURE (GOBBLET) -->
+            <div class="mode-card" data-mode="gobblet">
+              <div class="card-glow"></div>
+              <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+              <h3>Size-Capture (No Draws)</h3>
+              <p>Draws are impossible. Players have 3 sizes of pieces (Small, Medium, Large). Larger pieces can cover smaller ones to capture cells.</p>
+              <button class="btn-play-mode">Gobble & Win</button>
+            </div>
+
+            <!-- MEMORY TRAINER -->
+            <div class="mode-card" data-mode="memory-trainer">
+              <div class="card-glow"></div>
+              <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+              <h3>Memory Trainer</h3>
+              <p>Sequences of lights flash on the grid. Repeat the pattern correctly to progress through increasing difficulty levels!</p>
+              <button class="btn-play-mode">Train Memory</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- GAME VIEW -->
+        <section id="game-view" class="game-section hidden">
+          <div class="game-header">
+            <button id="btn-back-menu" class="btn-secondary">
+              <i class="fa-solid fa-chevron-left"></i> Main Menu
+            </button>
+            <div class="active-mode-badge" id="current-mode-display">
+              Classic Mode
+            </div>
+          </div>
+
+          <div class="game-layout">
+            <!-- GAMEPLAY CONTROLS & HUD -->
+            <div class="game-hud">
+              <!-- Scoreboard Card -->
+              <div class="hud-card scoreboard-card">
+                <h4>SCOREBOARD</h4>
+                <div class="score-display">
+                  <div class="player-score player-x active" id="hud-player-x">
+                    <div class="avatar"><i class="fa-solid fa-xmark"></i></div>
+                    <div class="player-info">
+                      <span class="player-name">Player X</span>
+                      <span class="score-num" id="score-val-x">0</span>
+                    </div>
+                  </div>
+                  <div class="score-divider">:</div>
+                  <div class="player-score player-o" id="hud-player-o">
+                    <div class="avatar"><i class="fa-solid fa-circle"></i></div>
+                    <div class="player-info">
+                      <span class="player-name" id="player-o-title"
+                        >Player O</span
+                      >
+                      <span class="score-num" id="score-val-o">0</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="draw-score">
+                  <span>Draws: <strong id="score-val-draws">0</strong></span>
+                </div>
+              </div>
+
+              <!-- Turn/Status Banner -->
+              <div class="hud-card status-card">
+                <div id="turn-timer-container" class="timer-container hidden">
+                  <div class="timer-bar" id="timer-bar-fill"></div>
+                </div>
+                <div class="status-text" id="game-status-text">
+                  Player X's Turn
+                </div>
+              </div>
+
+              <!-- Creative Mode Extra Infos (like fade lists, chaos logs, puzzle description) -->
+              <div
+                id="mode-special-info"
+                class="hud-card special-info-card hidden"
+              >
+                <!-- Injected dynamically based on active game mode -->
+              </div>
+
+              <!-- Instructions/Context -->
+              <div class="hud-card instructions-card">
+                <p
+                  id="game-instructions-text"
+                  style="
+                    font-size: 0.85rem;
+                    color: var(--color-text-muted);
+                    margin: 0;
+                    text-align: center;
+                    line-height: 1.4;
+                  "
+                ></p>
+              </div>
+
+              <!-- Control Buttons -->
+              <div class="game-controls">
+                <button id="btn-action-primary" class="btn-primary">
+                  Restart Match
+                </button>
+                <button id="btn-reset-scores" class="btn-secondary-flat">
+                  Reset Score
+                </button>
+              </div>
+            </div>
+
+            <!-- BOARD AREA -->
+            <div class="game-board-container" id="board-container">
+              <!-- Canvas / Grid gets dynamically rendered here -->
+              <div class="board-wrapper" id="board-wrapper">
+                <!-- Main interactive grid -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="main-footer">
+        <p>Tic-Tac-Toe Arena &copy; 2026. Made with Vanilla HTML, CSS & JS.</p>
+      </footer>
+    </div>
+
+    <!-- STATS MODAL -->
+    <div id="modal-stats" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-chart-simple"></i> Arena Statistics</h2>
+          <button class="btn-close-modal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="stats-overview">
+            <div class="stat-box">
+              <span class="stat-val" id="stat-games-played">0</span>
+              <span class="stat-lbl">Games Played</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-win-rate">0%</span>
+              <span class="stat-lbl">Win Rate</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-streak-current">0</span>
+              <span class="stat-lbl">Current Streak</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-streak-best">0</span>
+              <span class="stat-lbl">Best Streak</span>
+            </div>
+          </div>
+
+          <h3>Stats by Mode</h3>
+          <div class="stats-table-container">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Mode</th>
+                  <th>Wins</th>
+                  <th>Losses</th>
+                  <th>Draws</th>
+                </tr>
+              </thead>
+              <tbody id="stats-table-body">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 1.5rem; text-align: right">
+            <button id="btn-clear-stats" class="btn-danger">
+              Clear All Stats
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="modal-settings" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-sliders"></i> System Settings</h2>
+          <button class="btn-close-modal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="settings-form">
+            <!-- GAMEPLAY VS -->
+            <div class="settings-group">
+              <label>Opponent Type</label>
+              <div class="toggle-switch-container">
+                <label class="toggle-option">
+                  <input type="radio" name="opponent" value="ai" checked />
+                  <span>Vs AI</span>
+                </label>
+                <label class="toggle-option">
+                  <input type="radio" name="opponent" value="human" />
+                  <span>Local PvP</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- AI DIFFICULTY -->
+            <div class="settings-group" id="difficulty-group">
+              <label for="ai-difficulty">AI Skill Level</label>
+              <select id="ai-difficulty" class="form-control">
+                <option value="easy">Easy (Random)</option>
+                <option value="medium">Medium (Tactical)</option>
+                <option value="hard">Hard (Minimax)</option>
+                <option value="expert">Expert (Pruned Alpha-Beta)</option>
+              </select>
+            </div>
+
+            <!-- THEME -->
+            <div class="settings-group">
+              <label for="theme-select">Visual Theme</label>
+              <select id="theme-select" class="form-control">
+                <option value="theme-dark">Deep Space (Dark)</option>
+                <option value="theme-light">Clean Slate (Light)</option>
+                <option value="theme-neon">Cyber Synthwave (Neon)</option>
+                <option value="theme-retro">Arcade Cabinet (Retro)</option>
+              </select>
+            </div>
+
+            <!-- GAMEPLAY OPTIONS -->
+            <div class="settings-group">
+              <label>Audio & Sound Effects</label>
+              <label class="checkbox-container">
+                <input type="checkbox" id="settings-sound" checked />
+                <span class="checkmark"></span> Enable Retro Synthesized Sound
+              </label>
+            </div>
+
+            <div class="settings-group">
+              <label>Timed Blitz Mode (seconds per move)</label>
+              <div class="range-container">
+                <input
+                  type="range"
+                  id="settings-timer-val"
+                  min="3"
+                  max="30"
+                  value="10"
+                />
+                <span id="timer-val-display">10s</span>
+              </div>
+              <label class="checkbox-container">
+                <input type="checkbox" id="settings-timer-enabled" />
+                <span class="checkmark"></span> Enable Timer
+              </label>
+            </div>
+
+            <div class="settings-group" id="infinite-config-group">
+              <label for="infinite-win-len"
+                >Infinite Canvas Win Condition</label
+              >
+              <select id="infinite-win-len" class="form-control">
+                <option value="4">4-in-a-row</option>
+                <option value="5" selected>5-in-a-row (Standard)</option>
+                <option value="6">6-in-a-row</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification for Events / Moves -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
