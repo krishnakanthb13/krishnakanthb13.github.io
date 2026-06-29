@@ -13,9 +13,9 @@ name: Update plugins
 #  literal, so the schedule is checked daily and these decide if it acts.)
 # ──────────────────────────────────────────────────────────────────────
 env:
-  SYNC_ENABLED: "false"    # "true" = sync runs · "false" = paused (nothing runs at all)
-  SYNC_FREQUENCY: "daily"  # "daily" = every day · "weekly" = once a week
-  SYNC_WEEKLY_DAY: "1"     # weekly mode only — 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+  SYNC_ENABLED: "true"    # "true" = sync runs · "false" = paused (nothing runs at all)
+  SYNC_FREQUENCY: "weekly"  # "daily" = every day · "weekly" = once a week
+  SYNC_WEEKLY_DAY: "0"     # weekly mode only — 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
 
 on:
   schedule:
