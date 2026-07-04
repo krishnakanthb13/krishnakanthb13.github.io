@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humanize — Manuscript Desk</title>
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper: #EEEDE6;
+    --paper-raised: #F7F6F1;
+    --ink: #1D1E1B;
+    --ink-soft: #55564E;
+    --rule: #C9C7BA;
+    --red: #A3392C;
+    --red-soft: #C97A6C;
+    --sage: #5C6B58;
+    --sage-soft: #DCE2D6;
+
+    /* AI Helper Theme Variables */
+    --settings-accent: var(--red);
+    --settings-bg: var(--paper-raised);
+    --settings-text: var(--ink);
+    --settings-sec-bg: var(--paper);
+    --settings-border: var(--rule);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+  }
+
+  .desk{
+    max-width:980px;
+    margin:0 auto;
+    padding:56px 28px 80px;
+  }
+
+  /* Header */
+  .masthead{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:18px;
+    margin-bottom:6px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin:0 0 8px;
+  }
+  .title{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:52px;
+    line-height:1;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .dateline{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:right;
+    line-height:1.6;
+  }
+  .subhead{
+    font-family:'Newsreader', serif;
+    font-size:16px;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:14px 0 40px;
+    max-width:560px;
+  }
+
+  /* Tone rail */
+  .rail{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .rail-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    margin-right:4px;
+  }
+  .pill{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13px;
+    padding:6px 14px;
+    border:1px solid var(--rule);
+    background:var(--paper-raised);
+    color:var(--ink-soft);
+    border-radius: 0;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .pill:hover{ border-color:var(--ink-soft); color:var(--ink); }
+  .pill.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--paper-raised);
+  }
+
+  /* Desk surface */
+  .surface{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1px solid var(--rule);
+    background:var(--paper-raised);
+    box-shadow:0 1px 0 var(--rule);
+  }
+  @media (max-width:760px){
+    .surface{ grid-template-columns:1fr; }
+    .pane.left{ border-right:none; border-bottom:1px solid var(--rule); }
+  }
+
+  .pane{
+    padding:26px 26px 20px;
+    position:relative;
+  }
+  .pane.left{ border-right:1px solid var(--rule); }
+
+  .pane-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+
+  textarea{
+    width:100%;
+    min-height:340px;
+    border:none;
+    background:transparent;
+    resize:vertical;
+    font-family:'Newsreader', serif;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+    outline:none;
+  }
+  textarea::placeholder{ color:#A8A79A; font-style:italic; }
+
+  .output{
+    font-family:'Newsreader', serif;
+    font-size:14px;
+    line-height:1.65;
+    min-height:340px;
+    white-space:pre-wrap;
+  }
+  .output.empty{
+    color:#A8A79A;
+    font-style:italic;
+  }
+
+  .output .mark{
+    background:linear-gradient(to bottom, transparent 60%, var(--sage-soft) 60%);
+    animation:reveal .5s ease forwards;
+  }
+
+  /* Action bar */
+  .actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:20px;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .count{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .btn-group{
+    display:flex;
+    gap:10px;
+  }
+  button.primary{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:12px 26px;
+    background:var(--red);
+    color:#FBF9F4;
+    border:none;
+    border-radius:0;
+    cursor:pointer;
+    letter-spacing:0.01em;
+    transition:background .15s ease;
+  }
+  button.primary:hover{ background:#8A2E23; }
+  button.primary:disabled{ background:#C9A79E; cursor:not-allowed; }
+
+  button.ghost{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13px;
+    padding:12px 18px;
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--rule);
+    border-radius:0;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button.ghost:hover{ border-color:var(--ink); color:var(--ink); }
+
+  /* signature: red pen scratch loading */
+  .scratch{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--red);
+  }
+  .scratch svg{ width:16px; height:16px; }
+  .scratch-path{
+    stroke-dasharray:40;
+    stroke-dashoffset:40;
+    animation:scratch 1s ease-in-out infinite;
+  }
+  @keyframes scratch{
+    0%{ stroke-dashoffset:40; }
+    50%{ stroke-dashoffset:0; }
+    100%{ stroke-dashoffset:-40; }
+  }
+  @keyframes reveal{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+
+  .note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:28px;
+    border-top:1px dashed var(--rule);
+    padding-top:16px;
+    line-height:1.7;
+  }
+
+  .error{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13px;
+    color:var(--red);
+    margin-top:10px;
+  }
+
+  ::selection{ background:var(--sage-soft); }
+
+  button:focus-visible, .pill:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--red);
+    outline-offset:2px;
+  }
+
+  /* Custom Tone Input */
+  .custom-tone-input {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    background: var(--paper-raised);
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s;
+  }
+  .custom-tone-input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 2px rgba(163,57,44,0.1);
+  }
+
+  /* Diff styles */
+  .diff-view {
+    font-family: 'Newsreader', serif;
+    font-size: 14px;
+    line-height: 1.65;
+    min-height: 340px;
+    white-space: pre-wrap;
+    background: var(--paper-raised);
+    padding: 10px;
+    border: 1px dashed var(--rule);
+  }
+  .diff-added { background-color: #d4edda; color: #155724; text-decoration: none; }
+  .diff-removed { background-color: #f8d7da; color: #721c24; text-decoration: line-through; }
+  .diff-empty { color: #A8A79A; font-style: italic; }
+</style>
+<link rel="manifest" href="assets/site.webmanifest" />
+<script src="pwa.js" data-accent="#A3392C"></script>
+<script src="ai-helper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/diff@5.2.0/dist/diff.min.js"></script>
+</head>
+<body>
+
+<div class="desk">
+  <div class="masthead">
+    <div>
+      <p class="eyebrow">Manuscript Desk · No. 1</p>
+      <h1 class="title">Humanize</h1>
+    </div>
+    <div class="dateline">
+      SAME MEANING<br>
+      DIFFERENT HAND
+    </div>
+  </div>
+  <p class="subhead">Paste anything stiff, robotic, or over-polished. It comes back sounding like a person wrote it — same facts, same point, same order of ideas.</p>
+
+  <div class="rail" id="voiceRail">
+    <span class="rail-label">Voice</span>
+    <button class="pill voice-pill active" data-tone="natural">Natural</button>
+    <button class="pill voice-pill" data-tone="casual">Casual</button>
+    <button class="pill voice-pill" data-tone="professional">Professional</button>
+    <button class="pill voice-pill" data-tone="plainspoken">Plainspoken</button>
+    <button class="pill voice-pill" data-tone="custom">Custom…</button>
+  </div>
+  <div id="customToneContainer" style="display:none; margin-bottom:22px;">
+    <input type="text" id="customToneInput" class="custom-tone-input" placeholder="e.g. Write like a 19th-century pirate..." />
+  </div>
+
+  <div class="rail" style="margin-bottom:22px;">
+    <span class="rail-label">Length</span>
+    <button class="pill length-pill active" data-length="same">Same Length</button>
+    <button class="pill length-pill" data-length="shorter">Shorter</button>
+    <button class="pill length-pill" data-length="longer">Longer</button>
+  </div>
+
+  <div class="surface">
+    <div class="pane left">
+      <div class="pane-label"><span>Original</span><span id="inCount">0 words | 0 chars</span></div>
+      <textarea id="input" placeholder="Drop your draft here — an email, an essay paragraph, a product blurb, anything that reads a little too much like a machine wrote it."></textarea>
+    </div>
+    <div class="pane">
+      <div class="pane-label">
+        <span>Rewritten</span>
+        <span id="outStats"></span>
+      </div>
+      <div class="output empty" id="output">Your humanized version will appear here.</div>
+      <div class="diff-view" id="diffView" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <span class="count" id="status"></span>
+    <div class="btn-group">
+      <button class="ghost" id="historyBtn" onclick="toggleHistoryModal()">History</button>
+      <button class="ghost" id="diffBtn" style="display:none;">Show Diff</button>
+      <button class="ghost" id="downloadTxtBtn" style="display:none;">.txt</button>
+      <button class="ghost" id="downloadMdBtn" style="display:none;">.md</button>
+      <button class="ghost" id="copyBtn" style="display:none;">Copy result</button>
+      <button class="primary" id="runBtn">Humanize this</button>
+    </div>
+  </div>
+  <div class="error" id="errorBox" style="display:none;"></div>
+
+  <p class="note">This rewrites tone and rhythm only — it does not add, remove, or verify facts. Check anything load-bearing before you send it.</p>
+</div>
+
+<script>
+  const input = document.getElementById('input');
+  const output = document.getElementById('output');
+  const diffView = document.getElementById('diffView');
+  const runBtn = document.getElementById('runBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const diffBtn = document.getElementById('diffBtn');
+  const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+  const downloadMdBtn = document.getElementById('downloadMdBtn');
+  const inCount = document.getElementById('inCount');
+  const outStats = document.getElementById('outStats');
+  const status = document.getElementById('status');
+  const errorBox = document.getElementById('errorBox');
+  
+  const voicePills = document.querySelectorAll('.voice-pill');
+  const customToneContainer = document.getElementById('customToneContainer');
+  const customToneInput = document.getElementById('customToneInput');
+  const lengthPills = document.querySelectorAll('.length-pill');
+
+  let tone = 'natural';
+  let targetLength = 'same';
+  let originalTextStr = '';
+  let rewrittenTextStr = '';
+  let showingDiff = false;
+
+  const toneInstructions = {
+    natural: "Write in a natural, everyday human register — varied sentence lengths, occasional small imperfections, no corporate polish.",
+    casual: "Write casually, like a smart friend explaining it over text or Slack — relaxed, contractions, conversational.",
+    professional: "Write like a sharp, experienced professional emailing a colleague — clear and warm, but not stiff or full of jargon or hedging.",
+    plainspoken: "Write in plain, direct, unadorned language — short sentences, no filler, no throat-clearing, say the thing directly."
+  };
+
+  const lengthInstructions = {
+    same: "Keep the same length roughly — do not pad or drastically shorten.",
+    shorter: "Make it significantly shorter and more concise than the original.",
+    longer: "Expand slightly where natural, making it a bit longer and more detailed than the original."
+  };
+
+  voicePills.forEach(p => {
+    p.addEventListener('click', () => {
+      voicePills.forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      tone = p.dataset.tone;
+      if (tone === 'custom') {
+        customToneContainer.style.display = 'block';
+        customToneInput.focus();
+      } else {
+        customToneContainer.style.display = 'none';
+      }
+    });
+  });
+
+  lengthPills.forEach(p => {
+    p.addEventListener('click', () => {
+      lengthPills.forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      targetLength = p.dataset.length;
+    });
+  });
+
+  function calcStats(t){
+    const words = t.trim().split(/\s+/).filter(Boolean).length;
+    const chars = t.length;
+    const readTimeMin = Math.max(1, Math.ceil(words / 200));
+    return { words, chars, readTime: `${readTimeMin} min read` };
+  }
+
+  input.addEventListener('input', () => {
+    const stats = calcStats(input.value);
+    inCount.textContent = `${stats.words} words | ${stats.chars} chars | ${stats.readTime}`;
+  });
+
+  function setLoading(isLoading){
+    runBtn.disabled = isLoading;
+    if(isLoading){
+      runBtn.innerHTML = `<span class="scratch">
+        <svg viewBox="0 0 20 20" fill="none"><path class="scratch-path" d="M2 14 L8 6 L12 12 L18 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Rewriting…
+      </span>`;
+    } else {
+      runBtn.textContent = 'Humanize this';
+    }
+  }
+
+  function renderDiff() {
+    if (!window.Diff) {
+      diffView.innerHTML = '<span class="diff-empty">Diff library failed to load.</span>';
+      return;
+    }
+    const diff = Diff.diffWords(originalTextStr, rewrittenTextStr);
+    const fragment = document.createDocumentFragment();
+    diff.forEach(part => {
+      const span = document.createElement('span');
+      if (part.added) span.className = 'diff-added';
+      else if (part.removed) span.className = 'diff-removed';
+      span.appendChild(document.createTextNode(part.value));
+      fragment.appendChild(span);
+    });
+    diffView.innerHTML = '';
+    diffView.appendChild(fragment);
+  }
+
+  diffBtn.addEventListener('click', () => {
+    showingDiff = !showingDiff;
+    if (showingDiff) {
+      output.style.display = 'none';
+      diffView.style.display = 'block';
+      diffBtn.textContent = 'Hide Diff';
+      renderDiff();
+    } else {
+      output.style.display = 'block';
+      diffView.style.display = 'none';
+      diffBtn.textContent = 'Show Diff';
+    }
+  });
+
+  function downloadFile(content, filename) {
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  downloadTxtBtn.addEventListener('click', () => downloadFile(rewrittenTextStr, 'humanize-output.txt'));
+  downloadMdBtn.addEventListener('click', () => downloadFile(rewrittenTextStr, 'humanize-output.md'));
+
+  async function humanize(){
+    const text = input.value.trim();
+    originalTextStr = text;
+    errorBox.style.display = 'none';
+    if(!text){
+      errorBox.textContent = 'Paste something first — there\'s nothing on the desk yet.';
+      errorBox.style.display = 'block';
+      return;
+    }
+    
+    // Validate custom tone
+    let appliedTone = toneInstructions[tone] || "";
+    let customVal = "";
+    if (tone === 'custom') {
+      customVal = customToneInput.value.trim();
+      if (!customVal) {
+        errorBox.textContent = 'Please enter a custom voice instruction.';
+        errorBox.style.display = 'block';
+        return;
+      }
+      appliedTone = customVal;
+    }
+
+    setLoading(true);
+    output.classList.remove('empty');
+    output.textContent = '';
+    diffView.innerHTML = '';
+    showingDiff = false;
+    output.style.display = 'block';
+    diffView.style.display = 'none';
+    
+    copyBtn.style.display = 'none';
+    diffBtn.style.display = 'none';
+    downloadTxtBtn.style.display = 'none';
+    downloadMdBtn.style.display = 'none';
+    status.textContent = 'Reading for meaning, rhythm, and tone…';
+
+    const systemPrompt = `You rewrite text so it sounds naturally human-written, without ever changing its meaning, facts, claims, structure of argument, or intent.
+
+Rules:
+- Preserve every fact, number, name, claim, and instruction exactly. Do not add information. Do not remove information. Do not soften or strengthen any claim.
+- Do not change the point of view, audience, or overall structure/order of ideas.
+- Remove robotic tells: uniform sentence rhythm, overused connective phrases, excessive hedging, listy over-structuring where a sentence would do, corporate throat-clearing, and generic filler openers/closers.
+- Vary sentence length naturally. Let some sentences be short. Allow small, tasteful imperfections in phrasing that a thoughtful human would actually write.
+- Match this voice instruction: ${appliedTone}
+- ${lengthInstructions[targetLength]}
+- Output ONLY the rewritten text. No preamble, no explanation, no quotation marks around it, no commentary.`;
+
+    try{
+      // Fallback if ai-helper isn't fully loaded, but it should be via script tag
+      if (typeof callAI !== 'function') throw new Error('AI Engine is not loaded. Try reloading.');
+      
+      const responseText = await callAI(text, systemPrompt);
+      const result = responseText.trim();
+      rewrittenTextStr = result;
+
+      if(!result){
+        throw new Error('No rewrite came back — try again.');
+      }
+
+      output.textContent = result;
+      output.classList.add('mark');
+      
+      const stats = calcStats(result);
+      outStats.textContent = `${stats.words} words | ${stats.chars} chars | ${stats.readTime}`;
+      
+      status.textContent = 'Done.';
+      copyBtn.style.display = 'inline-block';
+      diffBtn.style.display = 'inline-block';
+      downloadTxtBtn.style.display = 'inline-block';
+      downloadMdBtn.style.display = 'inline-block';
+      
+      if (window.saveToHistory) {
+        saveToHistory({ 
+            tool: 'humanize', 
+            vibe: (tone === 'custom' ? 'Custom: ' + customVal : tone) + ' / ' + targetLength, 
+            params: { Tone: tone, Length: targetLength }, 
+            text: result 
+        });
+      }
+
+    } catch(err){
+      output.classList.add('empty');
+      output.textContent = 'Your humanized version will appear here.';
+      status.textContent = '';
+      errorBox.textContent = err.message || 'Something went wrong. Try again.';
+      errorBox.style.display = 'block';
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(output.textContent).then(() => {
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'Copied';
+      setTimeout(() => { copyBtn.textContent = original; }, 1400);
+    });
+  });
+
+  runBtn.addEventListener('click', humanize);
+</script>
+
+</body>
+</html>
+

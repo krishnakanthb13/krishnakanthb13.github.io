@@ -1,0 +1,14 @@
+{
+  "name": "Humanize — Manuscript Desk",
+  "short_name": "Humanize",
+  "description": "Paste anything stiff, robotic, or over-polished. It comes back sounding like a person wrote it.",
+  "start_url": "../",
+  "scope": "../",
+  "display": "standalone",
+  "background_color": "#EEEDE6",
+  "theme_color": "#A3392C",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
