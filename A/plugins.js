@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-06-03T07:45:02.884Z",
+  "updated": "2026-07-05T08:52:03.850Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
@@ -25,8 +25,7 @@ window.__PLUGINS__ = {
         {
           "name": "Calendar Pro",
           "link": "https://public.amplenote.com/36dwpz/calendar2-0",
-          "install": "https://www.amplenote.com/plugins/36dwpzEP5QoAcJ6GDeHor1SS",
-          "badge": "🔴 Updated"
+          "install": "https://www.amplenote.com/plugins/36dwpzEP5QoAcJ6GDeHor1SS"
         },
         {
           "name": "Daily Jots Generator",
@@ -54,7 +53,8 @@ window.__PLUGINS__ = {
         {
           "name": "Graph Utility",
           "link": "https://public.amplenote.com/sDBcbB/graph-utility",
-          "install": "https://www.amplenote.com/plugins/sDBcbBrdEhAuerZ5HzLyaTn5"
+          "install": "https://www.amplenote.com/plugins/sDBcbBrdEhAuerZ5HzLyaTn5",
+          "badge": "🟡 Trending"
         },
         {
           "name": "Kanban Board",
@@ -125,7 +125,8 @@ window.__PLUGINS__ = {
         {
           "name": "Timestamp",
           "link": "https://public.amplenote.com/qMzEXt/timestamp",
-          "install": "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR"
+          "install": "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR",
+          "badge": "🔴 Updated"
         },
         {
           "name": "Time - Progress Bar",
@@ -146,12 +147,11 @@ window.__PLUGINS__ = {
       "name": "Timestamp",
       "category": "Time Stamps",
       "published": "July 8th, 2024",
-      "last_updated": "",
+      "last_updated": "July 1st, 2026",
       "custom_url": "https://public.amplenote.com/qMzEXt/timestamp",
       "install": "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR",
       "plans": [
-        "Instead of single selection options, move it to a prompt.",
-        "Add more than one standard format. + Customized Formatting."
+        "Multiple Digital Formatting Option. Select from prebuild ones or build your own using day.js configuration."
       ]
     },
     {
@@ -374,11 +374,11 @@ window.__PLUGINS__ = {
       "name": "Dice",
       "category": "Randomizer",
       "published": "December 21st, 2024",
-      "last_updated": "December 29th, 2024",
+      "last_updated": "June 29th, 2026",
       "custom_url": "https://public.amplenote.com/2zJ5cA/dice",
       "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
       "plans": [
-        "More Dice or Randomizer or Decision Matrix Options are on its way."
+        "More Dice or Randomizer or Decision Matrix Options are on its way. (Pick the ones on Git > ds.md file)."
       ]
     },
     {
@@ -424,6 +424,10 @@ window.__PLUGINS__ = {
     {
       "date": "January 1st, 2025",
       "event": "Completed 20 unique Plugins. Nice way to end and start a new year!"
+    },
+    {
+      "date": "June 29th, 2026",
+      "event": "Reignited with streamlining Dice and Time Stamp."
     }
   ],
   "support": {
