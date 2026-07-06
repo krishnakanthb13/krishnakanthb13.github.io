@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of Krishna's Law of Impossible Triads: Self-Awareness, Peace, and Love after heartbreak. Only two can coexist at once.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#0f172a">
+
+    <title>The Heartbreak Triad: Awareness, Peace, Love</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💔</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --aware-color: #a78bfa;
+            --peace-color: #2dd4bf;
+            --love-color: #fb7185;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(167, 139, 250, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 60%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--aware-color), var(--peace-color), var(--love-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
+
+        /* DASHBOARD GRID */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+
+        /* VISUALIZATION */
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(0.7rem, 1.6vw, 0.9rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.3); border-radius: 12px; border-left: 4px solid var(--peace-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.1rem; }
+        #insight-desc { font-size: 0.9rem; line-height: 1.4; }
+
+        /* CONTROLS */
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #aware-slider::-webkit-slider-thumb { background: var(--aware-color); box-shadow: 0 0 12px var(--aware-color); }
+        #peace-slider::-webkit-slider-thumb { background: var(--peace-color); box-shadow: 0 0 12px var(--peace-color); }
+        #love-slider::-webkit-slider-thumb { background: var(--love-color); box-shadow: 0 0 12px var(--love-color); }
+        #aware-slider::-moz-range-thumb { background: var(--aware-color); box-shadow: 0 0 12px var(--aware-color); }
+        #peace-slider::-moz-range-thumb { background: var(--peace-color); box-shadow: 0 0 12px var(--peace-color); }
+        #love-slider::-moz-range-thumb { background: var(--love-color); box-shadow: 0 0 12px var(--love-color); }
+
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--aware-color), var(--peace-color), var(--love-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 600; }
+
+        /* BUTTONS & ACTIONS */
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.9rem); }
+        .btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .btn.active { border-color: var(--peace-color); background: rgba(45, 212, 191, 0.1); }
+
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--aware-color), var(--love-color)); color: #0f172a; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3); }
+
+        #action-plan-output { display: none; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--aware-color); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+
+        /* COMPACT ARTICLE SECTION */
+        .article-container {
+            max-width: 800px; width: 100%; margin: 1rem auto 2rem;
+            background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-aware { color: var(--aware-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-peace { color: var(--peace-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-love { color: var(--love-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+
+        /* ACCORDIONS */
+        details { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 240px;
+            gap: 1.5rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider-aware { background-color: var(--aware-color); box-shadow: 0 0 10px rgba(167, 139, 250, 0.4); }
+        input:checked + .toggle-slider-peace { background-color: var(--peace-color); box-shadow: 0 0 10px rgba(45, 212, 191, 0.4); }
+        input:checked + .toggle-slider-love { background-color: var(--love-color); box-shadow: 0 0 10px rgba(251, 113, 133, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+        /* QUOTE BLOCK */
+        .quote-block {
+            background: rgba(167, 139, 250, 0.05);
+            border-left: 4px solid var(--aware-color);
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+
+        /* TABLE */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+
+        @media (max-width: 800px) {
+            .dashboard { display: flex; flex-direction: column; gap: 1rem; }
+            .panel-visual { order: -1; padding: 1rem; }
+            .panel-controls { padding: 1rem; }
+            .triangle-container { height: 200px; min-height: auto; }
+            .insight-box { padding: 0.8rem 1rem; }
+            #insight-desc { font-size: 0.85rem; }
+            .btn { padding: 0.5rem; }
+            .comparison-table { font-size: 0.75rem; }
+            .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Heartbreak Triad</h1>
+        <p class="subtitle">Self-Awareness, Peace, Love. After heartbreak, you can only hold two. Toggle to feel the trade.</p>
+    </header>
+
+    <div class="dashboard">
+
+        <!-- Controls Panel -->
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Inner State</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.4;">Max Capacity: 200%. Healing is not linear — raising one state drains another.</p>
+
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="aware-slider" style="color:var(--aware-color)">🧠 SELF-AWARENESS</label><span id="aware-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="aware-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="peace-slider" style="color:var(--peace-color)">☮️ PEACE</label><span id="peace-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="peace-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="love-slider" style="color:var(--love-color)">❤️ LOVE</label><span id="love-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="love-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Emotional Overload! Auto-balancing...</div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Recovery Scenarios</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('therapy')"><span>🛋️</span> Therapy<br><small style="font-size:0.7rem;opacity:0.7">+🧠 -☮️</small></button>
+                    <button class="btn" onclick="applyScenario('rebound')"><span>💘</span> Rebound<br><small style="font-size:0.7rem;opacity:0.7">+❤️ -🧠</small></button>
+                    <button class="btn" onclick="applyScenario('numb')"><span>🧊</span> Numbness<br><small style="font-size:0.7rem;opacity:0.7">+☮️ -❤️</small></button>
+                </nav>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3L()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Trigger</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in State</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <!-- Visualization Panel -->
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Triad State</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(45, 212, 191, 0.2)" stroke="var(--peace-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="35" class="node-label" fill="var(--aware-color)">SELF-AWARENESS</text>
+                    <text x="370" y="345" class="node-label" fill="var(--love-color)">LOVE</text>
+                    <text x="10" y="345" class="node-label" fill="var(--peace-color)">PEACE</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--peace-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced State</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">You are holding all three lightly. Extraordinary healing requires turning the dials — but not all at once.</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>The Law</h2>
+        <div class="quote-block">
+            After a heartbreak, you can't have all three together. If you have self-awareness and you fall in love, you won't have peace. You notice every red flag and ignore it anyway. Now you have permanent appointment to a therapist. If you have peace and you fall in love, you won't have self-awareness. You will say like, "I can fix him." Bestie, there were six women before you who said exactly same thing. If you have peace and you are self-aware, you will not fall in love. You heal so hard you become unavailable for rest of your life.
+        </div>
+
+        <h2>Krishna's analysis</h2>
+        <p>The setup is elegant because each pair genuinely blocks the third — but notice what's doing the work in all three: it's not love, peace, or self-awareness that are incompatible. It's <em>timing</em>. Self-awareness right after heartbreak is hypervigilance wearing insight's clothes — you're not seeing patterns, you're pattern-matching against one wound. Peace right after heartbreak is usually just fatigue that hasn't been named yet. Neither is the stable-state version of the thing.</p>
+        <p>The triad holds for the first six months to two years. It's not a law of nature, it's a description of insufficient time having passed.</p>
+        <p>The actual move isn't finding the exception to the trilemma — it's refusing to fall in love, get peace, or claim self-awareness on any kind of deadline, and letting all three arrive on their own uncoordinated schedules instead of demanding they show up as a set.</p>
+
+        <h2>What the research says</h2>
+
+        <h3><span class="accent-aware">Self-awareness without peace</span> — the hypervigilance trap</h3>
+        <p>One heartbreak-recovery piece frames the depression stage as one where sadness settles in as reality fully registers, with a recommended "observer mindset" technique to create distance from painful looping thoughts — which is basically a coping mechanism built to manage the exact hypervigilance you're describing. If you need a technique to stop yourself from spiraling on your own thoughts, that's evidence the spiraling is the default, not the exception.</p>
+
+        <h3><span class="accent-peace">Peace without self-awareness</span> — the "I can fix him" pattern</h3>
+        <p>Nothing in search names this directly, but it's a documented shape in relationship psychology under different labels — sunk cost fallacy applied to people, and what's sometimes called the "fixer" or "savior" pattern in codependency literature. The mechanism: peace requires narrative closure, and "he just needs the right person" is a faster route to narrative closure than "I have a pattern." It resolves the discomfort without resolving the diagnosis.</p>
+
+        <h3><span class="accent-love">Self-awareness + peace = no love</span> — the healed-unavailable paradox</h3>
+        <p>This is the one closest to something real in the results. One clinical-psychology piece describes how modern romantic love has absorbed the function once held by religion — the primary way people self-soothe and manage existential anxiety — and warns that when partners are unconsciously deified, it produces devastating disappointment when they fail to live up to that projection. Read backward: if you've done the work to stop needing a partner to self-soothe or supply meaning, you've removed the exact hunger that made falling in love feel involuntary. Peace plus insight doesn't make you unable to love — it makes love optional instead of structural, and optional love recruits far less hard than structural love does.</p>
+
+        <h3>The genuine counter-evidence: <span class="accent-love">Three Loves Theory</span></h3>
+        <p>The "Three Loves Theory" piece describes a third, later love that arrives after someone has recovered from a previous heartbreak and cultivated self-love — one without games, where both people feel completely themselves and safe. That's your triad's fourth quadrant, showing up in the wild as a named stage rather than an edge case. It doesn't happen on schedule and it doesn't happen for everyone, but the existence of a documented "unexpected, no-games" love stage after healing is the strongest thing search gave against treating your trilemma as a law rather than a phase.</p>
+
+        <h2>The Trilemma Interactive</h2>
+        <p>Experience the triad directly: try to turn all three states ON. If you activate the third, one of the other active states will randomly toggle off — proving only two can coexist after heartbreak.</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--aware-color)">🧠 Awareness</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-aware" checked>
+                        <span class="toggle-slider toggle-slider-aware"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--peace-color)">☮️ Peace</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-peace">
+                        <span class="toggle-slider toggle-slider-peace"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--love-color)">❤️ Love</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-love" checked>
+                        <span class="toggle-slider toggle-slider-love"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>False Peace and the Savior Complex</h2>
+        <p>The second branch of the trilemma suggests that an individual can experience peace and fall in love, but only by forfeiting self-awareness. This dynamic is colloquially summarized by the recurring pattern in which an individual insists, "I can fix him," willfully ignoring the reality that multiple previous partners attempted and failed the exact same endeavor. From a clinical perspective, this phenomenon is driven by the psychological need for narrative closure, the reduction of cognitive dissonance, and the enactment of a savior complex rooted in early childhood parentification.</p>
+
+        <details>
+            <summary>Cognitive Dissonance and the Illusion of Peace</summary>
+            <div class="details-content">
+                <p>Cognitive dissonance, a foundational communication and psychological theory formulated by Leon Festinger in 1957, describes the profound psychological discomfort experienced when an individual holds two or more contradictory beliefs, ideas, or values simultaneously. In the context of a new, potentially toxic romantic relationship following a heartbreak, the individual faces a profound dissonance. On one hand, there is the biological and psychological desire for romantic connection and the neurochemical rewards of dopamine and oxytocin. On the other hand, there is the cognitive recognition of the new partner's harmful traits, avoidance, or fundamental incompatibility.</p>
+                <p>To resolve this intense discomfort and achieve a state of psychological peace, the individual must alter one of the conflicting cognitions. Because the drive for attachment is biologically paramount, the individual typically alters their perception of the partner's dysfunction. Through cognitive distortions such as minimization, denial, and the attribution of savior beliefs, the individual rationalizes the partner's behavior. The narrative shifts from recognizing a dangerous pattern to believing that the partner is simply misunderstood, damaged, and in need of the right person's love to act as a catalyst for healing.</p>
+                <p>This psychological maneuver provides immediate narrative closure. It resolves the acute discomfort of the dissonance without requiring the individual to resolve the underlying diagnosis of their own maladaptive relational patterns. The peace achieved here is highly precarious and fundamentally false; it is not a baseline state of nervous system regulation, but rather the temporary relief of having successfully repressed contradictory information and applying the sunk cost fallacy to a human being.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Parentification and the Savior Complex</summary>
+            <div class="details-content">
+                <p>The behavioral manifestation of this cognitive distortion is the Savior Complex, also referred to in codependency literature as White Knight Syndrome. The Savior Complex is characterized by a compulsive need to rescue others, prioritizing the perceived needs of a dysfunctional partner over one's own well-being and boundaries.</p>
+                <p>The developmental origins of the Savior Complex frequently trace back to childhood parentification. Parentification is a role-reversal dynamic wherein a child is coerced into assuming the emotional or logistical responsibilities of the adult caregivers. Psychologist Gregory Jurkovic identified two forms: <strong>instrumental parentification</strong> (managing household logistics) and <strong>emotional parentification</strong> (regulating the volatile feelings of the parent).</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Behavioral Dimension</th><th>Healthy Altruistic Support</th><th>Savior Complex (White Knight Syndrome)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Motivation</td><td>Genuine care without the need for reciprocal validation or control.</td><td>Internal drive for validation; self-worth is contingent upon being needed.</td></tr>
+                        <tr><td>Boundary Management</td><td>Respects the autonomy and boundaries of the individual receiving help.</td><td>Intrusive and controlling; imposes help and violates boundaries to force change.</td></tr>
+                        <tr><td>Relational Selection</td><td>Attracted to functional, peer-level partnerships.</td><td>Compulsively drawn to individuals in crisis, addicts, or those exhibiting extreme vulnerability.</td></tr>
+                        <tr><td>Response to Failure</td><td>Acceptance of the other person's agency and natural consequences.</td><td>Intense resentment, emotional exhaustion, and an escalation of protective behaviors.</td></tr>
+                    </tbody>
+                </table>
+                <p>When parentified individuals reach adulthood and face a romantic rupture, the resulting sense of powerlessness is intolerable. To regain a sense of agency and manufactured peace, they subconsciously seek out partners who require fixing. By focusing entirely on managing the new partner's dysfunction, the individual successfully avoids confronting their own internal devastation. The lack of self-awareness in this branch of the trilemma is thus a highly evolved defense mechanism.</p>
+            </div>
+        </details>
+
+        <h2>The Existential Burden of Romance</h2>
+        <p>The third and perhaps most complex branch of the trilemma asserts that if an individual successfully attains both profound self-awareness and genuine peace, they will not fall in love. The subjective experience is often described as having healed so extensively that one becomes permanently unavailable for romantic attachment.</p>
+
+        <details>
+            <summary>The Romantic Solution and the Denial of Death</summary>
+            <div class="details-content">
+                <p>In his Pulitzer Prize-winning psychological and philosophical treatise <em>The Denial of Death</em> (1974), cultural anthropologist Ernest Becker posits that the primary driver of human behavior is the terror of mortality. Humanity is burdened with the knowledge of its own inevitable decay, leading to a desperate need to secure existential significance, which Becker terms the urge for "cosmic heroism".</p>
+                <p>Historically, organized religion provided the primary framework through which humans achieved this sense of transcendent meaning, absolution, and the promise of eternal significance. However, as secularization dismantled traditional religious structures, modern individuals were left with a profound existential void.</p>
+                <p>To fill this void, Becker argues, humanity turned to the "Romantic Solution". The innate urge for cosmic heroism and redemption was transferred from a divine deity onto a human romantic partner. The love partner became the divine ideal through which one's life was validated, justified, and given meaning. This concept is further expanded by sociologists Ulrich Beck and Elisabeth Beck-Gernsheim in <em>The Normal Chaos of Love</em> (1995), wherein they define modern romantic love as a "secular religion"—the ultimate fundamentalist belief system adopted after the collapse of traditional faith.</p>
+                <p>When a romantic partner is unconsciously deified in this manner, the relationship is burdened with an impossible, structural task: the partner is expected to provide absolute security, continuous validation, and the complete eradication of existential loneliness. As Becker notes, no human being can sustain the burden of godhood. The eventual and inevitable revelation of the partner's mortal flaws leads to devastating disappointment and intense bitterness.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>From Structural to Optional Attachment</summary>
+            <div class="details-content">
+                <p>When an individual undergoes rigorous post-heartbreak healing — achieving genuine nervous system regulation (peace) and a deep understanding of their internal working models (self-awareness) — they systematically dismantle their reliance on the Romantic Solution. Through therapeutic interventions, somatic grounding practices, and the cultivation of an internal locus of worth, they cease to require an external romantic figure to soothe their existential anxiety.</p>
+                <p>By removing the existential hunger that previously drove their romantic pursuits, the fundamental nature of love transforms. In an unhealed state, falling in love feels involuntary, overwhelming, and structurally necessary for survival. It is often fueled by intermittent reinforcement, where the abuser provides moments of relief that the brain misinterprets as profound love, creating a powerful trauma bond.</p>
+                <p>In a healed state, however, love becomes structurally optional. Because it is no longer tasked with mitigating the terror of death, replacing a lost religious framework, or providing cosmic validation, optional love recruits the nervous system with far less intensity. This absence of frantic, dysregulated urgency is frequently mischaracterized as an inability to love. The healed individual is not broken — their threshold for attachment has been elevated to a healthy baseline.</p>
+            </div>
+        </details>
+
+        <h2>Cross-Cultural Manifestations</h2>
+        <p>While the neurobiological and existential mechanisms of heartbreak are universally human, the psychosocial expression of the trilemma is heavily influenced by cultural frameworks. In individualistic Western societies, romantic heartbreak is primarily treated as a private, individual loss. However, in collectivist societies, such as the cultural landscape of Chennai and the broader Tamil Nadu region in India, romantic rejection is deeply intertwined with family dynamics, societal expectations, and communal honor.</p>
+
+        <details>
+            <summary>Collectivist Trauma and the Tamil Heartbreak Cycle</summary>
+            <div class="details-content">
+                <p>In the contemporary Indian context, young adults navigate a volatile intersection between rapid modernization and deeply entrenched traditional values. The influx of digital dating applications like Tinder and Bumble promotes individualistic romantic pursuits, yet these exist alongside rigid cultural systems that rely on arranged marriages, caste considerations, and familial approval.</p>
+                <p>When a romantic relationship dissolves in this environment, the pain is not isolated to the severing of an attachment bond; it frequently results in acute family shame and societal stigma. This cultural pressure acts as a massive accelerant to the trilemma. The fear of being single, coupled with the intense pressure to marry by a certain age (often categorized as a "marriage race" after age 25), creates a profound "Fear of Emptiness" that drives individuals into a serial pursuit loop.</p>
+                <p>The phenomenon of <em>"log kya kahenge"</em> (what will people say) serves as a constant environmental trigger, keeping the nervous system in a state of high alert.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The 4R Tamil Recovery Framework</summary>
+            <div class="details-content">
+                <p>To address the specific nuances of collectivist heartbreak, culturally grounded therapeutic models have emerged. One such model is the <strong>4R Tamil Recovery Framework</strong>, designed to guide individuals out of the serial rejection cycle and restore the balance of awareness and peace by utilizing the collectivist structure as a healing mechanism rather than a source of stigma.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Phase</th><th>Conceptual Description</th><th>Psychological Mechanism</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Reflect</strong></td><td>Seeking the "mirror truth" of the situation rather than internalizing rejection as a personal defect.</td><td>Cognitive restructuring; shifting from an internal locus of blame to an objective assessment of partner capacity.</td></tr>
+                        <tr><td><strong>Relabel</strong></td><td>Rebranding the pain of heartbreak as a teacher or a lesson, rather than an enemy or a permanent scar.</td><td>Reducing cognitive dissonance without resorting to savior complexes; accepting reality and naming the pain accurately.</td></tr>
+                        <tr><td><strong>Reconnect</strong></td><td>Leveraging the collectivist family and friend network for emotional support rather than suffering in isolation.</td><td>Stimulating the ventral vagal system through safe social engagement, countering the HPA axis threat response with community care.</td></tr>
+                        <tr><td><strong>Rise</strong></td><td>Prioritizing self-respect, self-love, and personal growth before engaging in any new romantic pursuits.</td><td>Establishing an internal secure base; transitioning from trauma-bonded urgency to optional, secure attachment.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <h2>The Resolution: Earned Secure Attachment</h2>
+        <p>The fundamental flaw in treating the trilemma as an absolute law of nature is the assumption that the acute post-heartbreak state is permanent. The triad accurately maps the initial recovery window, during which the nervous system remains highly sensitized to threat. However, when sufficient time elapses and deliberate psychological work is undertaken, the trilemma collapses. The synthesis of self-awareness, peace, and love is fully realizable, manifesting clinically as <strong>Earned Secure Attachment</strong>.</p>
+
+        <details>
+            <summary>The Neuroplasticity of Earned Secure Attachment</summary>
+            <div class="details-content">
+                <p>Attachment theory, pioneered by psychologists John Bowlby and Mary Ainsworth in the mid-20th century, traditionally held that an individual's attachment style was crystallized in early childhood based on caregiver responsiveness. This early bonding created an "internal working model" that dictated how the individual would navigate relationships throughout their lifespan.</p>
+                <p>However, contemporary neurobiological research demonstrates that the adult brain retains profound neuroplasticity. Clinical professor of psychiatry Dan Siegel popularized the term "Earned Secure Attachment" to describe the phenomenon wherein individuals who experienced insecure early attachments or severe relational trauma in adulthood develop a secure attachment style.</p>
+                <p>Crucially, attachment styles do not reside in declarative memory — the part of the brain responsible for intellectual knowledge and facts. Instead, attachment patterns reside in <strong>procedural memory</strong> — the automatic, reflexive neural pathways that dictate immediate emotional responses. Therefore, intellectual self-awareness alone cannot generate peace. To physically rewire procedural memory, the individual must engage in somatic and relational practices that bridge the gap between cognitive understanding and physiological reaction.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Clinical Methodologies for Rewiring the Nervous System</summary>
+            <div class="details-content">
+                <p>Transitioning from an insecure, hypervigilant state to Earned Secure Attachment requires specialized therapeutic interventions that leverage neuroplasticity. Modalities such as <strong>Accelerated Experiential Dynamic Psychotherapy (AEDP)</strong> and <strong>Eye Movement Desensitization and Reprocessing (EMDR)</strong> are specifically designed to address these procedural memories.</p>
+                <p>In these therapeutic frameworks, the therapist provides a "secure base" and a safe relational container. When the client is triggered by intimacy or conflict, instead of facing the expected shame, rejection, or abandonment that characterized their past trauma, they experience calm, consistent attunement from the therapist. By repeatedly surviving these triggers in a safe environment, the procedural memory updates its expectation of danger, eventually learning that closeness does not equate to harm.</p>
+                <p>Furthermore, individuals must practice somatic regulation techniques in their daily lives to widen the window of tolerance. A primary technique is the <strong>"two-second pause"</strong>. When triggered, the individual is trained to notice the physical urge to react and pause for at least two seconds. During this pause, the individual executes a slow, elongated exhale. This deliberate breathing pattern directly stimulates the vagus nerve, signaling to the parasympathetic nervous system that the body is safe, which in turn allows the prefrontal cortex to come back online. Over a period of six to twelve months of consistent practice, these corrective relational experiences forge new neural pathways, completely resolving the conflict between awareness and peace.</p>
+            </div>
+        </details>
+
+        <h2>The Fourth Quadrant: Three Loves Theory</h2>
+        <p>When Earned Secure Attachment is achieved, the individual enters a state of psychological readiness that shatters the law of the impossible triad. This fourth quadrant — where peace, awareness, and love coexist — aligns perfectly with the "Three Loves Theory" conceptualized by anthropologists and developmental psychologists, and built upon the neurobiological mapping of Dr. Helen Fisher.</p>
+
+        <details>
+            <summary>The Three Paradigms of Romantic Love</summary>
+            <div class="details-content">
+                <p><strong>Idealistic Love (First Love):</strong> Driven by lust, societal expectations, and the "Romantic Solution" fantasy. It feels akin to a fairytale and is deeply intense, but it is built on preconceived notions rather than genuine compatibility. It lacks the structural depth required to survive significant adversity or personal growth.</p>
+                <p><strong>Hard Love (Second Love):</strong> This is the intense, chaotic, trauma-bonded relationship where the trilemma resides. It acts as a mirror to the individual's deepest insecurities, attachment wounds, and shadow self. This is the phase that generates acute heartbreak and necessitates the painful development of self-awareness. It is often characterized by extreme highs and lows, teaching the individual their core boundaries and values through severe emotional friction.</p>
+                <p><strong>Grounded Love (Third Love):</strong> The resolution of the triad. This love arrives unexpectedly, often when the individual has ceased actively searching, has cultivated profound self-love, and has achieved nervous system regulation. It is founded on shared values, mutual respect, and intentional commitment rather than frantic trauma-bonding or existential desperation.</p>
+                <p>The Third Love demonstrates that peace, self-awareness, and romance can coexist seamlessly. In this stage, there are no psychological games, and the hypervigilant scanning for threats is deactivated because the connection is built on a foundation of Earned Secure Attachment. The individual feels entirely themselves, experiencing a profound sense of coming home. Love is no longer a desperate mechanism for survival — it is a conscious, deliberate partnership.</p>
+            </div>
+        </details>
+
+        <h2>Synthesis</h2>
+        <p>The proposition that an individual recovering from a broken heart cannot simultaneously hold self-awareness, peace, and new romantic love is a highly perceptive observation of acute trauma physiology. In the immediate 6-to-24-month aftermath of relational rupture, the nervous system's demand for survival overrides integrated cognitive functioning.</p>
+        <p>What masquerades as self-awareness is often the exhausting, threat-scanning loop of emotional hypervigilance. What appears as peace is frequently the narrative delusion of the savior complex, utilized to stave off the cognitive dissonance of acknowledging a partner's toxicity. And the seeming inability to love once healed is merely the shedding of the "Romantic Solution" — the existential dependency that previously made toxic, trauma-bonded love feel like a biological imperative.</p>
+        <p>However, treating this triad as a permanent psychological law ignores the transformative power of neuroplasticity and temporal healing. The triad is an expiration-dated phenomenon, describing a phase of recovery rather than a permanent condition of the human psyche. Through deliberate engagement in corrective relational experiences, somatic regulation, and culturally responsive frameworks like the 4R model, individuals can rewire their procedural memory to achieve Earned Secure Attachment.</p>
+        <p>The ultimate realization of this journey is the emergence of the Third Love — a dynamic that requires neither the sacrifice of peace nor the blinding of awareness, rooted not in the desperate denial of loneliness, but in the quiet, unshakeable integration of the self.</p>
+    </main>
+
+    <footer>
+        <p>Interactive visualization of Krishna's Law of Impossible Triads, heartbreak edition. Save your URL to preserve your state.</p>
+    </footer>
+
+    <script>
+        const sliders = { aware: document.getElementById('aware-slider'), peace: document.getElementById('peace-slider'), love: document.getElementById('love-slider') };
+        const vals = { aware: document.getElementById('aware-val'), peace: document.getElementById('peace-val'), love: document.getElementById('love-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams() {
+            const url = new URL(window.location);
+            url.searchParams.set('a', sliders.aware.value);
+            url.searchParams.set('p', sliders.peace.value);
+            url.searchParams.set('l', sliders.love.value);
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if(params.has('a')) sliders.aware.value = params.get('a');
+            if(params.has('p')) sliders.peace.value = params.get('p');
+            if(params.has('l')) sliders.love.value = params.get('l');
+        }
+
+        function updateUI(sourceSlider = null) {
+            let a = parseInt(sliders.aware.value), p = parseInt(sliders.peace.value), l = parseInt(sliders.love.value), total = a + p + l;
+            if (total > MAX_CAPACITY) {
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity = '1'; setTimeout(() => warningMsg.style.opacity = '0', 2000);
+                
+                let others = Object.keys(sliders);
+                if (sourceSlider) {
+                    others = others.filter(k => sliders[k] !== sourceSlider);
+                }
+                others.sort((x, y) => sliders[y].value - sliders[x].value);
+                
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(sliders[key].value), toDrain = Math.min(val, excess);
+                    sliders[key].value = val - toDrain; excess -= toDrain;
+                }
+                a = parseInt(sliders.aware.value); p = parseInt(sliders.peace.value); l = parseInt(sliders.love.value); total = a + p + l;
+            }
+
+            vals.aware.innerText = a + '%'; vals.peace.innerText = p + '%'; vals.love.innerText = l + '%';
+            let percent = (total / MAX_CAPACITY) * 100;
+            capFill.style.width = percent + '%'; capVal.innerText = `${total} / 200`;
+            capFill.style.background = percent > 90 ? 'linear-gradient(90deg, #a78bfa, #f43f5e)' : 'linear-gradient(90deg, var(--aware-color), var(--love-color))';
+
+            const aX = 200, aY = 185 - (135 * (a / 100)), lX = 200 + (150 * (l / 100)), lY = 185 + (135 * (l / 100)), pX = 200 - (150 * (p / 100)), pY = 185 + (135 * (p / 100));
+            poly.setAttribute('points', `${aX},${aY} ${lX},${lY} ${pX},${pY}`);
+
+            let dominantColor = 'var(--text-main)';
+            if(a >= p && a >= l) dominantColor = 'var(--aware-color)'; else if(p >= a && p >= l) dominantColor = 'var(--peace-color)'; else dominantColor = 'var(--love-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor = dominantColor;
+
+            generateInsight(a, p, l);
+            updateURLParams();
+            document.getElementById('action-plan-output').style.display = 'none';
+        }
+
+        function generateInsight(a, p, l) {
+            if (a > 80 && l > 80 && p < 30) { insightTitle.innerText = "The Hypervigilant Lover"; insightTitle.style.color = "var(--aware-color)"; insightDesc.innerText = "You see every red flag and ignore it anyway. Self-awareness without peace is just threat-scanning wearing insight's clothes. You have a permanent appointment to a therapist."; }
+            else if (p > 80 && l > 80 && a < 30) { insightTitle.innerText = "The Fixer"; insightTitle.style.color = "var(--peace-color)"; insightDesc.innerText = "'I can fix him.' Bestie, there were six women before you who said the exact same thing. Peace without awareness is just narrative closure purchased with denial."; }
+            else if (a > 80 && p > 80 && l < 30) { insightTitle.innerText = "The Healed Unavailable"; insightTitle.style.color = "var(--love-color)"; insightDesc.innerText = "You healed so hard you became unavailable. Peace plus insight doesn't erase love — it makes it optional instead of structural. Optional love recruits far less hard."; }
+            else if (a < 20 && p < 20 && l < 20) { insightTitle.innerText = "Total Depletion"; insightTitle.style.color = "#f43f5e"; insightDesc.innerText = "Every reservoir is empty. You are in active crisis. Stop looking for optimizations. This configuration requires total rest and support."; }
+            else if (l > 80 && a < 30 && p < 30) { insightTitle.innerText = "The Rebound"; insightTitle.style.color = "#fb7185"; insightDesc.innerText = "Falling fast without ground. The neurochemical rush feels like love but is often just your nervous system seeking regulation through another person."; }
+            else if (a > 80 && p < 30 && l < 30) { insightTitle.innerText = "The Spiral"; insightTitle.style.color = "#a78bfa"; insightDesc.innerText = "Pattern-matching against one wound. You're not seeing patterns — you're confirming a story your trauma wrote. The observer mindset is a band-aid, not a cure."; }
+            else if (p > 80 && a < 30 && l < 30) { insightTitle.innerText = "The Numb"; insightTitle.style.color = "#2dd4bf"; insightDesc.innerText = "Peace without awareness or love is often just fatigue that hasn't been named yet. It's not the calm of resolution — it's the quiet of exhaustion."; }
+            else { insightTitle.innerText = "The Juggle"; insightTitle.style.color = "var(--text-main)"; insightDesc.innerText = "A transitional phase. Balance isn't 100% everywhere; it's choosing which state you are willing to lower to fuel the others. The triad is a phase, not a life sentence."; }
+        }
+
+        function applyScenario(type) {
+            if (type === 'therapy') {
+                sliders.aware.value = Math.min(100, parseInt(sliders.aware.value) + 30);
+                sliders.peace.value = Math.max(0, parseInt(sliders.peace.value) - 20);
+                updateUI(sliders.aware);
+            } else if (type === 'rebound') {
+                sliders.love.value = Math.min(100, parseInt(sliders.love.value) + 35);
+                sliders.aware.value = Math.max(0, parseInt(sliders.aware.value) - 25);
+                updateUI(sliders.love);
+            } else if (type === 'numb') {
+                sliders.peace.value = Math.min(100, parseInt(sliders.peace.value) + 30);
+                sliders.love.value = Math.max(0, parseInt(sliders.love.value) - 25);
+                updateUI(sliders.peace);
+            }
+        }
+
+        function generateActionPlan() {
+            let a = parseInt(sliders.aware.value), p = parseInt(sliders.peace.value), l = parseInt(sliders.love.value);
+            let states = [
+                { name: 'Self-Awareness', val: a, color: 'var(--aware-color)' },
+                { name: 'Peace', val: p, color: 'var(--peace-color)' },
+                { name: 'Love', val: l, color: 'var(--love-color)' }
+            ];
+            states.sort((x, y) => y.val - x.val);
+            let maxName = states[0].name;
+            let minName = states[2].name;
+            let color = states[0].color;
+
+            let text = `<strong style="color:${color}; font-size:1.1rem; display:block; margin-bottom:0.5rem;">My Recovery Commitment</strong>
+            For the foreseeable future, I am actively prioritizing <strong>${maxName}</strong> at the expense of other states.
+            <br><br>I accept that my <strong>${minName}</strong> will remain constrained. To ensure this doesn't become a crisis, I will establish a strict, non-negotiable floor for my ${minName}.
+            <br><br><em>(Bookmark or copy this URL to save your state. Review in 3 months.)</em>`;
+
+            let out = document.getElementById('action-plan-output');
+            out.innerHTML = text;
+            out.style.borderColor = color;
+            out.style.display = 'block';
+        }
+
+        function triggerRandomEvent3L() {
+            const events = [
+                { text: "Saw your ex's new partner on Instagram", a: 15, p: -25, l: -15, solution: "Block the account for 48 hours. The urge to compare is procedural memory firing — it will pass if you don't feed it." },
+                { text: "A new person shows genuine interest in you", l: 25, a: -15, p: -10, solution: "Before pursuing, ask: am I drawn to them, or to the relief of not being alone? There's no wrong answer, but name it honestly." },
+                { text: "Therapy breakthrough — you see your pattern clearly", a: 30, p: 10, l: -10, solution: "This is the self-awareness spike. Don't rush to apply it to a new person yet. Let the insight settle for weeks before acting." },
+                { text: "A full week of sleeping through the night", p: 25, a: -10, l: 5, solution: "Peace is arriving on its own schedule. Don't sabotage it by forcing a romantic narrative onto this calm." },
+                { text: "A friend says 'you seem so much better now'", p: 15, a: 10, l: -5, solution: "External validation of healing is seductive. Check: is this peace, or is it the performance of peace for an audience?" },
+                { text: "You catch yourself idealizing a new connection", l: 20, a: -20, p: 10, solution: "Classic peace-without-awareness move. Write down three things that are objectively wrong with this person. Read it when the fantasy spikes." },
+                { text: "A memory ambush — a song, a smell, a place", a: 10, p: -30, l: -10, solution: "Don't fight it. Set a timer for 10 minutes and let the wave pass. The two-second pause applies to grief too." },
+                { text: "You realize you haven't thought about your ex in days", p: 20, a: 5, l: 0, solution: "This is the real thing. Not numbness — actual release. Don't test it by checking their socials. Let it be." },
+                { text: "Someone calls you 'guarded' or 'unavailable'", a: 15, p: 15, l: -20, solution: "They're not wrong, but they're not right either. You're not unavailable — you're no longer desperate. There's a difference." },
+                { text: "A full month of no dating apps", p: 20, a: 15, l: -15, solution: "This is the self-awareness + peace quadrant. Love feels absent because it's no longer structural. That's not a bug — it's the design." },
+                { text: "You laugh genuinely at something unrelated to them", p: 25, a: 0, l: 0, solution: "The nervous system regulating. Joy without an object. This is what peace actually feels like — not the absence of pain, but the presence of something else." },
+                { text: "You feel ready but don't know what you're ready for", a: 20, p: 20, l: 10, solution: "This is the fourth quadrant emerging. All three states rising together. Don't force it into a romantic frame — just notice it's possible now." }
+            ];
+            let ev = events[Math.floor(Math.random() * events.length)];
+
+            sliders.aware.value = Math.max(0, Math.min(100, parseInt(sliders.aware.value) + ev.a));
+            sliders.peace.value = Math.max(0, Math.min(100, parseInt(sliders.peace.value) + ev.p));
+            sliders.love.value = Math.max(0, Math.min(100, parseInt(sliders.love.value) + ev.l));
+
+            updateUI();
+
+            let out = document.getElementById('action-plan-output');
+            out.innerHTML = `<strong>🎲 Trigger: ${ev.text}</strong><br><br>💡 <strong>Strategy:</strong> ${ev.solution}`;
+            out.style.borderColor = '#94a3b8';
+            out.style.display = 'block';
+        }
+
+        Object.keys(sliders).forEach(key => sliders[key].addEventListener('input', () => updateUI(sliders[key])));
+
+        // Paradox Switcher Logic
+        const paraAware = document.getElementById('para-aware');
+        const paraPeace = document.getElementById('para-peace');
+        const paraLove = document.getElementById('para-love');
+        const paraSwitches = [paraAware, paraPeace, paraLove];
+
+        function updateParadoxInsight() {
+            const a = paraAware.checked;
+            const p = paraPeace.checked;
+            const l = paraLove.checked;
+            const insightEl = document.getElementById('para-insight');
+
+            let title = "";
+            let desc = "";
+            let color = "var(--text-muted)";
+
+            if (a && l && !p) {
+                title = "The Hypervigilant Lover (Awareness + Love)";
+                color = "var(--aware-color)";
+                desc = "You see every red flag and ignore it anyway. Self-awareness without peace is threat-scanning wearing insight's clothes. You notice the dysfunction but the hunger for connection overrides the signal. Permanent therapist appointment secured.";
+            } else if (p && l && !a) {
+                title = "The Fixer (Peace + Love)";
+                color = "var(--peace-color)";
+                desc = "'I can fix him.' Peace without awareness is narrative closure purchased with denial. The six women before you said the same thing. The peace here is false — it's the relief of having a story that resolves the discomfort without resolving the diagnosis.";
+            } else if (a && p && !l) {
+                title = "The Healed Unavailable (Awareness + Peace)";
+                color = "var(--love-color)";
+                desc = "You healed so hard you became unavailable. But peace plus insight doesn't erase love — it makes it optional instead of structural. You're not broken. Your threshold for attachment has been elevated to a healthy baseline. Optional love recruits far less hard.";
+            } else if (a && !p && !l) {
+                title = "The Spiral (Awareness Only)";
+                color = "#94a3b8";
+                desc = "Pattern-matching against one wound. You're not seeing patterns — you're confirming a story your trauma wrote. The observer mindset is a band-aid, not a cure. Peace will arrive when you stop auditing your own thoughts.";
+            } else if (p && !a && !l) {
+                title = "The Numb (Peace Only)";
+                color = "#94a3b8";
+                desc = "Peace without awareness or love is often just fatigue that hasn't been named yet. It's not the calm of resolution — it's the quiet of exhaustion. Don't mistake the absence of pain for the presence of healing.";
+            } else if (l && !a && !p) {
+                title = "The Rebound (Love Only)";
+                color = "#94a3b8";
+                desc = "Falling fast without ground. The neurochemical rush feels like love but is often just your nervous system seeking regulation through another person. This is structural hunger, not structural love.";
+            } else if (!a && !p && !l) {
+                title = "Total Depletion (All Off)";
+                color = "#f43f5e";
+                desc = "Every reservoir is empty. You are in active crisis. Stop looking for optimizations or productivity tips. This configuration requires total rest, lowering of standards, and asking for support to stabilize your basic baseline.";
+            }
+
+            insightEl.style.borderLeftColor = color;
+            insightEl.innerHTML = `<strong style="color: ${color}; display: block; margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        paraSwitches.forEach(sw => {
+            sw.addEventListener('change', function() {
+                if (this.checked) {
+                    const checkedOnes = paraSwitches.filter(s => s.checked);
+                    if (checkedOnes.length > 2) {
+                        const others = paraSwitches.filter(s => s !== this);
+                        const randomOther = others[Math.floor(Math.random() * others.length)];
+                        randomOther.checked = false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+
+        // Initialize paradox insight
+        updateParadoxInsight();
+
+        loadFromURL();
+        if(!window.location.search) { sliders.aware.value=33; sliders.peace.value=33; sliders.love.value=34; }
+        updateUI();
+    </script>
+</body>
+</html>

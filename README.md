@@ -21,6 +21,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro 
 	- [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) — browser extension & CLI
 	- [Life Mechanics Hub](https://krishnakanthb13.github.io/O/) — Interactive Frameworks to Map Finite Resources, Visualize Trade-Offs
+	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/) — Self-Awareness, Peace, and Love. Toggle to experience the trade-off.
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 
@@ -67,6 +68,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **Life Mechanics** ([Hub](https://krishnakanthb13.github.io/O/)): Interactive trade-off & resource-allocation dashboards:
 	- [The Three Switches](https://krishnakanthb13.github.io/O/3S/): Balance Time, Money, and Health.
 	- [The Four Burners](https://krishnakanthb13.github.io/O/4B/): Manage 25 energy points across Career, Family, Friends, and Health.
+	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/): Balance Self-Awareness, Peace, and Love after heartbreak (only two can coexist).
 
 ---
 

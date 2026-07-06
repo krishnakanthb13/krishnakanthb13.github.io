@@ -385,10 +385,16 @@
 
         function updateUI(sourceSlider = null) {
             let t = parseInt(sliders.time.value), m = parseInt(sliders.money.value), h = parseInt(sliders.health.value), total = t + m + h;
-            if (total > MAX_CAPACITY && sourceSlider) {
+            if (total > MAX_CAPACITY) {
                 let excess = total - MAX_CAPACITY;
                 warningMsg.style.opacity = '1'; setTimeout(() => warningMsg.style.opacity = '0', 2000);
-                let others = Object.keys(sliders).filter(k => sliders[k] !== sourceSlider).sort((a, b) => sliders[b].value - sliders[a].value);
+                
+                let others = Object.keys(sliders);
+                if (sourceSlider) {
+                    others = others.filter(k => sliders[k] !== sourceSlider);
+                }
+                others.sort((a, b) => sliders[b].value - sliders[a].value);
+                
                 for (let key of others) {
                     if (excess <= 0) break;
                     let val = parseInt(sliders[key].value), toDrain = Math.min(val, excess);
@@ -419,7 +425,9 @@
             else if (m > 80 && h > 80 && t < 30) { insightTitle.innerText = "The Machine"; insightTitle.style.color = "var(--money-color)"; insightDesc.innerText = "High performance, high reward. You are stacking assets but are time-bankrupt. Buy back time before burnout."; }
             else if (m > 80 && t > 80 && h < 30) { insightTitle.innerText = "The Golden Cage"; insightTitle.style.color = "var(--health-color)"; insightDesc.innerText = "Schedule freedom and wealth, but lacking physical capacity. Pivot immediately to using Time and Money to protect Health."; }
             else if (t < 20 && m < 20 && h < 20) { insightTitle.innerText = "Crisis Mode"; insightTitle.style.color = "#f43f5e"; insightDesc.innerText = "System failure. Structurally constrained. The goal here is stabilization and support, not optimization."; }
-            else if (m > 90 && t < 10) { insightTitle.innerText = "The Sacrifice"; insightTitle.style.color = "#fbbf24"; insightDesc.innerText = "Converting every free hour into work. Set a firm boundary or your Health will soon drop to match your Time."; }
+            else if (m > 80 && t < 30 && h < 30) { insightTitle.innerText = "The Sacrifice"; insightTitle.style.color = "#fbbf24"; insightDesc.innerText = "Converting every free hour into work. Set a firm boundary or your Health will soon drop to match your Time."; }
+            else if (t > 80 && m < 30 && h < 30) { insightTitle.innerText = "Forced Stagnation"; insightTitle.style.color = "#38bdf8"; insightDesc.innerText = "An empty calendar, but lacking both health and resources. Time here can feel heavy. Focus on free, small actions to rebuild simple structure."; }
+            else if (h > 80 && t < 30 && m < 30) { insightTitle.innerText = "Constrained Vitality"; insightTitle.style.color = "#4ade80"; insightDesc.innerText = "You have physical energy and health, but no free time and no financial cushion. Reinvest micro-moments of recovery to plan."; }
             else { insightTitle.innerText = "The Juggle"; insightTitle.style.color = "var(--text-main)"; insightDesc.innerText = "A transitional phase. Balance isn't 100% everywhere; it's choosing which switch you are willing to lower to fuel the others."; }
         }
 
@@ -441,10 +449,15 @@
 
         function generateActionPlan() {
             let t = parseInt(sliders.time.value), m = parseInt(sliders.money.value), h = parseInt(sliders.health.value);
-            let max = Math.max(t, m, h), min = Math.min(t, m, h);
-            let maxName = t === max ? 'Time' : (m === max ? 'Money' : 'Health');
-            let minName = t === min ? 'Time' : (m === min ? 'Money' : 'Health');
-            let color = maxName === 'Time' ? 'var(--time-color)' : (maxName === 'Money' ? 'var(--money-color)' : 'var(--health-color)');
+            let states = [
+                { name: 'Time', val: t, color: 'var(--time-color)' },
+                { name: 'Money', val: m, color: 'var(--money-color)' },
+                { name: 'Health', val: h, color: 'var(--health-color)' }
+            ];
+            states.sort((x, y) => y.val - x.val);
+            let maxName = states[0].name;
+            let minName = states[2].name;
+            let color = states[0].color;
             
             let text = `<strong style="color:${color}; font-size:1.1rem; display:block; margin-bottom:0.5rem;">My Season Commitment</strong>
             For the foreseeable future, I am actively prioritizing <strong>${maxName}</strong> at the expense of other areas. 

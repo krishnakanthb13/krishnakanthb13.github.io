@@ -570,10 +570,16 @@
             let c = parseInt(burners.career.slide.value), fr = parseInt(burners.friends.slide.value), fa = parseInt(burners.family.slide.value), h = parseInt(burners.health.slide.value);
             let total = c + fr + fa + h;
 
-            if (total > maxEnergy && sourceId) {
+            if (total > maxEnergy) {
                 let excess = total - maxEnergy;
                 warning.style.opacity = '1'; setTimeout(() => warning.style.opacity = '0', 2500);
-                let others = Object.keys(burners).filter(k => k !== sourceId).sort((a, b) => parseInt(burners[b].slide.value) - parseInt(burners[a].slide.value));
+                
+                let others = Object.keys(burners);
+                if (sourceId) {
+                    others = others.filter(k => k !== sourceId);
+                }
+                others.sort((a, b) => parseInt(burners[b].slide.value) - parseInt(burners[a].slide.value));
+                
                 for (let key of others) {
                     if (excess <= 0) break;
                     let val = parseInt(burners[key].slide.value), toDrain = Math.min(val, excess);
