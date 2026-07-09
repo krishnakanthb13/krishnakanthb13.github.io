@@ -21,6 +21,9 @@
         content="AI consulting and development for growing businesses. Automate workflows, reduce costs, and unlock efficiency with practical AI solutions.">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2310b981'/><text x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-size='38' font-weight='bold' text-anchor='middle' fill='%23ffffff'>KK</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -309,33 +312,94 @@
                 <div class="tech-card glass reveal">
                     <div class="tech-icon">🧠</div>
                     <div class="tech-content">
-                        <h3>Large Language Models</h3>
-                        <p>The AI engines behind intelligent automation — GPT, Claude, Gemini, and open-source models
-                            that understand and generate human language.</p>
+                        <h3>Large Language Models (LLMs)</h3>
+                        <p>Big, general-purpose AI models trained on massive amounts of text, code, and images. Think
+                            of them as super advanced autocomplete — they predict what should come next based on
+                            patterns learned from huge datasets. GPT, Claude, Gemini, and open-source models are the
+                            engines behind modern AI.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">✍️</div>
+                    <div class="tech-content">
+                        <h3>Prompt Engineering</h3>
+                        <p>The skill of telling a model exactly what you want to get the result you're looking for.
+                            Defining format, audience, length, and goal in your instructions almost always produces
+                            better, more consistent outputs — whether you're chatting with AI or building a product.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">🧩</div>
+                    <div class="tech-content">
+                        <h3>Context Engineering</h3>
+                        <p>More than just a prompt — it's all the surrounding information that helps the model do its
+                            job: memory, instructions, documents, chat history, and user data. Better context means
+                            fewer hallucinations, more accurate answers, and less random behavior.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
                     <div class="tech-icon">🔍</div>
                     <div class="tech-content">
-                        <h3>RAG</h3>
-                        <p>Retrieval-Augmented Generation lets AI search your company documents, knowledge bases, and
-                            internal data to provide accurate, context-aware answers.</p>
+                        <h3>RAG (Retrieval-Augmented Generation)</h3>
+                        <p> Lets AI look up your private data first, then answer based on that — not just its training
+                            data. Instead of guessing, it retrieves the right information and grounds its answer in
+                            your actual company documents, knowledge bases, and internal data.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
-                    <div class="tech-icon">🔌</div>
+                    <div class="tech-icon">🗺️</div>
                     <div class="tech-content">
-                        <h3>MCP</h3>
-                        <p>Model Context Protocol connects AI directly to your business tools — databases, CRMs,
-                            calendars, APIs, and internal software — for seamless integration.</p>
+                        <h3>Embeddings & Vector Search</h3>
+                        <p>A way of turning text into numbers that actually mean something. Words with similar meanings
+                            end up near each other on a map. Vector databases store these embeddings and instantly find
+                            the closest matches — so searches work by meaning, not just exact keywords.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">📏</div>
+                    <div class="tech-content">
+                        <h3>Tokens & Context Windows</h3>
+                        <p>Tokens are how LLMs see text — they break words into smaller pieces. Context windows are
+                            like a whiteboard: the model can only see a certain amount at once. Newer models have
+                            huge context windows (even millions of tokens), but bigger windows cost more and can be
+                            slower.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
                     <div class="tech-icon">🤖</div>
                     <div class="tech-content">
                         <h3>AI Agents</h3>
-                        <p>Autonomous AI systems that can reason through multi-step tasks, make decisions, and execute
-                            complex business workflows with minimal oversight.</p>
+                        <p>Autonomous AI systems that don't just reply — they take action. An agent sets a goal,
+                            figures out the steps, calls tools and APIs, checks results, and loops until the job is
+                            done. This planning-and-looping capability is what makes them fundamentally different from
+                            simple chatbots.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">🎛️</div>
+                    <div class="tech-content">
+                        <h3>Fine-Tuning</h3>
+                        <p>Taking a base model and customizing it to do a specific job better. Rather than forcing
+                            behavior through prompts, you teach the model your style, domain, or output format. Useful
+                            when prompting alone feels unstable, too expensive, or inconsistent.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">🔌</div>
+                    <div class="tech-content">
+                        <h3>MCP (Model Context Protocol)</h3>
+                        <p>Like a USB port for your AI — a standard protocol that lets you plug in tools, APIs,
+                            databases, CRMs, calendars, and internal software. Before MCP, every integration was
+                            custom. Now, any model can connect to any service through a common interface.</p>
+                    </div>
+                </div>
+                <div class="tech-card glass reveal">
+                    <div class="tech-icon">🖼️</div>
+                    <div class="tech-content">
+                        <h3>Multimodal AI</h3>
+                        <p>Models that can process images, text, video, and audio as inputs — and sometimes generate
+                            them as outputs. Look at a whiteboard photo and get an explanation, transcribe a voice
+                        memo, generate images from descriptions, or understand video. The real world isn't just text.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
@@ -343,7 +407,7 @@
                     <div class="tech-content">
                         <h3>AI Workflows</h3>
                         <p>Multi-stage automations with triggers, approvals, notifications, and integrations that chain
-                            together to handle entire business processes.</p>
+                            together to handle entire business processes end-to-end.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
@@ -351,23 +415,15 @@
                     <div class="tech-content">
                         <h3>Knowledge Bases</h3>
                         <p>Searchable company knowledge from documentation, SOPs, training manuals, and internal
-                            resources — accessible to AI and your team.</p>
-                    </div>
-                </div>
-                <div class="tech-card glass reveal">
-                    <div class="tech-icon">✍️</div>
-                    <div class="tech-content">
-                        <h3>Prompt Engineering</h3>
-                        <p>Crafting precise instructions that make AI outputs consistent, accurate, and aligned with
-                            your business requirements every time.</p>
+                            resources — accessible to AI and your team for instant, accurate answers.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
                     <div class="tech-icon">🔗</div>
                     <div class="tech-content">
                         <h3>API Integrations</h3>
-                        <p>Connect to OpenAI, Anthropic, Google Gemini, Groq, Cohere, Mistral, Hugging Face, and more
-                            for maximum flexibility.</p>
+                        <p>Connect to OpenAI, Anthropic, Google Gemini, Groq, OpenRouter, Cohere, Mistral, Hugging
+                            Face, and more for maximum flexibility across AI providers.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
@@ -375,15 +431,7 @@
                     <div class="tech-content">
                         <h3>Local AI</h3>
                         <p>Deploy AI models on your own infrastructure using Ollama for complete data privacy, offline
-                            capability, and secure operations.</p>
-                    </div>
-                </div>
-                <div class="tech-card glass reveal">
-                    <div class="tech-icon">🗄️</div>
-                    <div class="tech-content">
-                        <h3>Vector Databases</h3>
-                        <p>Enable semantic search and embeddings for enterprise knowledge — find information by meaning,
-                            not just keywords.</p>
+                            capability, and secure operations — your data never leaves your control.</p>
                     </div>
                 </div>
                 <div class="tech-card glass reveal">
@@ -391,7 +439,7 @@
                     <div class="tech-content">
                         <h3>AI Security</h3>
                         <p>Privacy-first governance, secure deployments, access controls, and compliance-ready AI
-                            implementations.</p>
+                            implementations to protect your business data.</p>
                     </div>
                 </div>
             </div>
@@ -455,65 +503,95 @@
                 <p class="section-subtitle">These are the most common bottlenecks holding businesses back.</p>
             </div>
             <div class="problems-grid">
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-hand-paper"></i>
                     </div>
-                    <span>Too much manual work</span>
+                    <div class="problem-text">
+                        <span>Too much manual work</span>
+                        <p>Teams spend hours on tasks that could be automated in minutes.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-file-excel"></i>
                     </div>
-                    <span>Excel dependency</span>
+                    <div class="problem-text">
+                        <span>Excel dependency</span>
+                        <p>Critical business processes trapped in fragile spreadsheets.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-hourglass-half"></i>
                     </div>
-                    <span>Slow reporting</span>
+                    <div class="problem-text">
+                        <span>Slow reporting</span>
+                        <p>Data takes days to compile instead of being available instantly.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-envelope-open-text"></i>
                     </div>
-                    <span>Repetitive emails</span>
+                    <div class="problem-text">
+                        <span>Repetitive emails</span>
+                        <p>Same questions answered the same way, every single day.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
-                    <span>Poor documentation</span>
+                    <div class="problem-text">
+                        <span>Poor documentation</span>
+                        <p>Knowledge lives in people's heads, not in systems.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-user-graduate"></i>
                     </div>
-                    <span>Knowledge gaps</span>
+                    <div class="problem-text">
+                        <span>Knowledge gaps</span>
+                        <p>New hires struggle because expertise isn't captured or shared.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-link-slash"></i>
                     </div>
-                    <span>Disconnected tools</span>
+                    <div class="problem-text">
+                        <span>Disconnected tools</span>
+                        <p>Data scattered across apps with no single source of truth.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-stamp"></i>
                     </div>
-                    <span>Inefficient approvals</span>
+                    <div class="problem-text">
+                        <span>Inefficient approvals</span>
+                        <p>Simple decisions bottlenecked by manual sign-off processes.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <span>Lost productivity</span>
+                    <div class="problem-text">
+                        <span>Lost productivity</span>
+                        <p>Valuable time wasted on low-value, repetitive activities.</p>
+                    </div>
                 </div>
-                <div class="problem-card reveal">
+                <div class="problem-card glass reveal">
                     <div class="problem-icon">
                         <i class="fas fa-coins"></i>
                     </div>
-                    <span>High operational costs</span>
+                    <div class="problem-text">
+                        <span>High operational costs</span>
+                        <p>Overhead keeps growing while margins keep shrinking.</p>
+                    </div>
                 </div>
             </div>
         </div>
