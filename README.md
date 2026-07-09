@@ -25,7 +25,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 
-- **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 5 résumé experiences
+- **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 6 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
 
 ---
@@ -49,13 +49,14 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 ---
 
-- **Résumé** — five résumé experiences, one genre each:
-	- [Résumé Gallery](https://krishnakanthb13.github.io/R/): Mobile-first launcher linking all five.
+- **Résumé** — six résumé experiences, one genre each:
+	- [Résumé Gallery](https://krishnakanthb13.github.io/R/): Mobile-first launcher linking all six.
 		- [Résumé v1 · Editorial Timeline](https://krishnakanthb13.github.io/R/1/): Scrollytelling timeline, light/dark.
 		- [Résumé v2 · Terminal](https://krishnakanthb13.github.io/R/2/): Typeable CLI with theme cycling.
 		- [Résumé v3.1 · Knowledge Graph](https://krishnakanthb13.github.io/R/3/1/): Interactive D3 career graph.
 		- [Résumé v3.2 · Bento Dashboard](https://krishnakanthb13.github.io/R/3/2/): Bento grid with animated KPIs.
 		- [Résumé v3.3 · Mobile App](https://krishnakanthb13.github.io/R/3/3/): iOS-style phone app.
+		- [Résumé v4 · AI Consulting](https://krishnakanthb13.github.io/R/4/): For AI Automation, Agents, and Workflows.
 
 ---
 
