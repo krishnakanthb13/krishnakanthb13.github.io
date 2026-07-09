@@ -1,0 +1,562 @@
+**Role:** You are an award-winning UX designer, brand strategist, copywriter, and senior full-stack web developer specializing in modern AI consulting websites. Your task is to create a complete, production-ready, single-page website (HTML, CSS, and JavaScript) that can be hosted as-is without any external backend.
+
+---
+
+# Project Overview
+
+Create a premium, modern, professional landing page for an AI consulting and AI development freelancer.
+
+The purpose of this page is to serve as the official follow-up email destination after prospective clients receive this message:
+
+> Hope you're having a great week.
+>
+> I work with growing businesses and companies to upgrade and standardize their operations using AI-driven development tools. From automating manual tasks to optimizing existing software workflows, I help SMBs save time and reduce overhead.
+>
+> Do you have any current bottlenecks or processes you’re looking to optimize with AI? I’d welcome the opportunity to discuss how we can drive some efficiency for your needs.
+
+The website should reinforce credibility, explain the services in detail, educate potential clients about modern AI capabilities, and encourage them to schedule a consultation.
+
+---
+
+# Target Audience
+
+* Small and Medium Businesses (SMBs)
+* Startup founders
+* Company owners
+* Operations managers
+* Technical managers
+* Teams wanting AI automation
+* Companies interested in improving workflows
+
+---
+
+# Design Requirements
+
+Design should feel comparable to:
+
+* OpenAI
+* Anthropic
+* Vercel
+* Stripe
+* Linear
+* Notion
+
+Characteristics:
+
+* Modern
+* Elegant
+* Professional
+* Minimal
+* Animated
+* Responsive
+* Fast
+* Dark/Light mode
+* Mobile-first
+* Premium typography
+* Smooth scrolling
+* Glassmorphism where appropriate
+* Soft gradients
+* Subtle animations
+* No clutter
+
+---
+
+# Technical Requirements
+
+Generate:
+
+* index.html
+* style.css
+* script.js
+
+No frameworks.
+
+Only use:
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+
+Everything must be production ready.
+
+---
+
+# Hero Section
+
+Headline similar to:
+
+> Transform Your Business with Practical AI Solutions
+
+Subheadline:
+
+Explain that businesses don't need more software—they need smarter workflows powered by AI.
+
+Include CTA buttons:
+
+* Schedule a Free Consultation
+* Explore Services
+
+Background:
+
+Modern animated gradient.
+
+---
+
+# About Section
+
+Introduce the consultant professionally.
+
+Explain experience helping businesses by:
+
+* automating repetitive work
+* reducing operational costs
+* improving productivity
+* integrating AI into existing workflows
+* building internal AI tools
+* improving decision making
+
+Focus on business value rather than hype.
+
+---
+
+# Services Section
+
+Create visually appealing cards.
+
+Include services such as:
+
+### AI Automation
+
+* repetitive tasks
+* reports
+* emails
+* data processing
+* document workflows
+
+---
+
+### AI Workflow Optimization
+
+* existing software improvements
+* internal tools
+* process redesign
+* AI integration
+
+---
+
+### AI Assistants
+
+* internal company assistants
+* customer support bots
+* employee knowledge assistants
+* sales assistants
+
+---
+
+### Custom AI Applications
+
+* dashboards
+* portals
+* workflow software
+* productivity systems
+
+---
+
+### Business Process Automation
+
+* CRM automation
+* HR workflows
+* finance workflows
+* operations
+* scheduling
+* reporting
+
+---
+
+### AI Consulting
+
+* identify bottlenecks
+* roadmap
+* implementation strategy
+* AI adoption planning
+
+---
+
+# AI Technologies Section
+
+Create an attractive section explaining modern AI concepts in business-friendly language.
+
+Include cards for:
+
+## Large Language Models (LLMs)
+
+Explain:
+
+* GPT
+* Claude
+* Gemini
+* Open-source models
+
+---
+
+## Retrieval-Augmented Generation (RAG)
+
+Explain:
+
+* company documents
+* private knowledge
+* internal search
+* accurate answers
+
+---
+
+## MCP (Model Context Protocol)
+
+Explain:
+
+* connecting AI to business tools
+* databases
+* APIs
+* CRMs
+* calendars
+* documents
+* internal software
+
+---
+
+## AI Agents
+
+Explain:
+
+* autonomous workflows
+* multi-step reasoning
+* business automation
+* approvals
+* research
+
+---
+
+## AI Workflows
+
+Explain:
+
+* multi-stage automations
+* trigger-based systems
+* approvals
+* notifications
+* integrations
+
+---
+
+## Knowledge Bases
+
+Explain:
+
+* internal documentation
+* SOPs
+* training manuals
+* searchable company knowledge
+
+---
+
+## Prompt Engineering
+
+Explain:
+
+* better AI outputs
+* consistency
+* business templates
+* reusable prompts
+
+---
+
+## API Integrations
+
+Explain integration with:
+
+* OpenAI
+* Anthropic
+* Google Gemini
+* Groq
+* OpenRouter
+* Cohere
+* Mistral
+* Hugging Face
+
+---
+
+## Local AI
+
+Explain:
+
+* Ollama
+* private AI
+* offline AI
+* secure deployment
+
+---
+
+## Vector Databases
+
+Explain:
+
+* semantic search
+* embeddings
+* enterprise knowledge
+
+---
+
+## AI Security
+
+Explain:
+
+* privacy
+* governance
+* secure deployments
+* access controls
+
+---
+
+# Industries Section
+
+Show industries served:
+
+* Healthcare
+* Manufacturing
+* Retail
+* Finance
+* Logistics
+* Education
+* SaaS
+* Consulting
+* Real Estate
+* E-commerce
+* Small Businesses
+
+---
+
+# Business Problems Section
+
+Create a grid of common pain points.
+
+Examples:
+
+* Too much manual work
+* Excel dependency
+* Slow reporting
+* Repetitive emails
+* Poor documentation
+* Employee knowledge gaps
+* Too many disconnected tools
+* Inefficient approvals
+* Lost productivity
+* High operational costs
+
+---
+
+# Benefits Section
+
+Use animated counters.
+
+Examples:
+
+* Time Saved
+* Cost Reduction
+* Productivity Gains
+* Faster Decision Making
+* Better Customer Experience
+* Reduced Errors
+
+---
+
+# Why Work With Me
+
+Highlight:
+
+* Tailored solutions
+* Practical AI
+* Business-first approach
+* Rapid implementation
+* Long-term support
+* Modern AI expertise
+* Clear communication
+* ROI focused
+
+---
+
+# Process Timeline
+
+1. Discovery Call
+2. Workflow Analysis
+3. AI Opportunity Assessment
+4. Solution Design
+5. Prototype
+6. Implementation
+7. Training
+8. Continuous Improvement
+
+---
+
+# FAQ
+
+Include questions like:
+
+* Is AI suitable for small businesses?
+* How long does implementation take?
+* Can AI integrate with our existing software?
+* Will our data remain private?
+* Do we need technical expertise?
+* Can AI work with our internal documents?
+* What is RAG?
+* What is MCP?
+* What are AI Agents?
+* Which AI model is best?
+
+---
+
+# Testimonials
+
+Create realistic placeholder testimonials clearly labeled as sample/demo content (do not fabricate real clients).
+
+---
+
+# Call to Action
+
+Encourage visitors to book a free consultation.
+
+Buttons:
+
+* Schedule a Call
+* Email Me
+
+---
+
+# Contact Section
+
+Include placeholders for:
+
+* Name
+* Email
+* Company
+* Phone
+* Message
+
+Include icons.
+
+---
+
+# Footer
+
+Include:
+
+* Copyright
+* LinkedIn
+* GitHub
+* Email
+* Privacy Policy
+* Terms
+* Back to Top
+
+Use placeholders where personal information is unavailable.
+
+---
+
+# UX Enhancements
+
+Include:
+
+* Scroll animations
+* Reveal on scroll
+* Sticky navigation
+* Animated cards
+* Hover effects
+* Smooth scrolling
+* Animated counters
+* Loading animation
+* Scroll progress indicator
+* Back-to-top button
+* Mobile navigation
+* Accessible keyboard navigation
+* Semantic HTML
+* WCAG-conscious color contrast
+
+---
+
+# SEO
+
+Include:
+
+* Meta description
+* Open Graph tags
+* Twitter cards
+* Structured data (JSON-LD)
+* Optimized headings
+* Descriptive alt text placeholders
+
+---
+
+# Performance
+
+Optimize for:
+
+* Lighthouse score above 95
+* Lazy loading where appropriate
+* Minimal JavaScript
+* Clean CSS
+* Responsive images (placeholders)
+
+---
+
+# Deliverables
+
+Produce complete, production-ready code for:
+
+1. `index.html`
+2. `style.css`
+3. `script.js`
+
+The code should require no additional explanation and be immediately deployable on any static hosting platform.
+
+---
+
+I've reviewed the info.txt file. It's a comprehensive brief for an AI consulting website. Before building the website, I need some missing details:
+
+## Contact Information
+
+1. **Your name** - Krishna Kanth B
+2. **Email address** - krishnakanthb13@gmail.com
+3. **Phone number** - 7667360114
+4. **LinkedIn URL** - https://www.linkedin.com/in/bkrishnakanth/
+5. **GitHub URL** - https://github.com/krishnakanthb13/
+6. **Location/Region** - Chennai, India
+
+## Branding
+
+7. **Business/Company name** - Krishna Kanth B
+8. **Logo** - C:\Users\ADMIN\OneDrive\Documents\GitHub\krishnakanthb13.github.io\assets\images
+9. **Professional photo/headshot URL** - skip for now
+
+## Business Details
+
+10. **Years of experience** - 11+ years
+11. **Number of clients/projects** - 40+ Projects
+12. **Industries you specialize in** - All industries, including AI, and PKM
+13. **Pricing range** - Discuss on call
+14. **Availability** - Currently accepting clients
+
+## Testimonials
+
+15. **Real client testimonials** - Or stick with placeholders?
+16. **Case studies** - Any specific success stories to highlight?
+
+## Technical
+
+17. **Domain name** - https://krishnakanthb13.github.io/BKK.html
+18. **Brand colors** - Any preference beyond the suggested modern dark/light?
+
+## Content
+
+19. **Tagline** - Keep it short and simple.
+20. **Certifications** - None Yet
+
+Please provide what you can, and I'll build the site with placeholders for anything you'd rather not share publicly.

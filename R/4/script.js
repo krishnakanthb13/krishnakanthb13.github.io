@@ -31,6 +31,23 @@
     function setTheme(theme) {
         html.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
+
+        // Synchronize Cal.com theme
+        document.querySelectorAll('iframe[src*="cal.com"]').forEach(function(iframe) {
+            try {
+                const url = new URL(iframe.src);
+                url.searchParams.set('theme', theme);
+                iframe.src = url.toString();
+            } catch(e) {}
+        });
+        
+        document.querySelectorAll('a[href*="cal.com"]').forEach(function(link) {
+            try {
+                const url = new URL(link.href);
+                url.searchParams.set('theme', theme);
+                link.href = url.toString();
+            } catch(e) {}
+        });
     }
 
     setTheme(getPreferredTheme());
@@ -128,8 +145,8 @@
     function animateCounter(el) {
         var target = parseInt(el.getAttribute('data-count'), 10);
         var current = 0;
-        var increment = Math.max(1, Math.floor(target / 60));
-        var duration = 1500;
+        var increment = Math.max(1, Math.floor(target / 30));
+        var duration = 800;
         var stepTime = duration / (target / increment);
 
         function update() {

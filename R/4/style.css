@@ -13,13 +13,13 @@
     --border: rgba(255,255,255,0.08);
     --border-hover: rgba(255,255,255,0.15);
     --text-primary: #f0f0f5;
-    --text-secondary: #a0a0b8;
-    --text-tertiary: #6a6a80;
-    --accent: #6366f1;
-    --accent-hover: #818cf8;
-    --accent-subtle: rgba(99,102,241,0.1);
-    --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
-    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #6366f1 100%);
+    --text-secondary: #c2c2d6;
+    --text-tertiary: #8f8fa6;
+    --accent: #10b981;
+    --accent-hover: #34d399;
+    --accent-subtle: rgba(16, 185, 129, 0.1);
+    --accent-gradient: linear-gradient(135deg, #10b981, #14b8a6);
+    --gradient-hero: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #10b981 100%);
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
@@ -44,11 +44,11 @@
     --border: rgba(0,0,0,0.08);
     --border-hover: rgba(0,0,0,0.15);
     --text-primary: #0f0f1a;
-    --text-secondary: #4a4a60;
-    --text-tertiary: #8a8a9e;
-    --accent: #6366f1;
-    --accent-hover: #4f46e5;
-    --accent-subtle: rgba(99,102,241,0.08);
+    --text-secondary: #3b3b4f;
+    --text-tertiary: #6a6a80;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --accent-subtle: rgba(16, 185, 129, 0.08);
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
@@ -199,7 +199,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .nav-link {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: color var(--transition);
@@ -340,7 +340,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border-radius: 100px;
     background: var(--accent-subtle);
     border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--accent);
     margin-bottom: 32px;
@@ -418,7 +418,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .hero-stat-label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
     margin-top: 4px;
     text-transform: uppercase;
@@ -435,7 +435,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     gap: 8px;
     padding: 14px 28px;
     border-radius: var(--radius-sm);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     transition: all var(--transition);
     border: 1px solid transparent;
@@ -514,7 +514,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .section-note {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
     margin-top: 12px;
     font-style: italic;
@@ -559,7 +559,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-secondary);
 }
 
@@ -597,7 +597,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .about-card p {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
@@ -610,12 +610,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
 }
 
 .service-card {
-    padding: 32px;
+    padding: 24px;
     transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -644,7 +644,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .service-card p {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 16px;
 }
@@ -657,7 +657,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .service-list li {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
     padding-left: 16px;
     position: relative;
@@ -706,7 +706,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .tech-card p {
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
@@ -720,25 +720,56 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .industries-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
     justify-content: center;
+    gap: 24px;
 }
 
-.industry-item {
-    padding: 12px 24px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: all var(--transition);
-    cursor: default;
+.industry-card {
+    padding: 24px;
+    text-align: center;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
-.industry-item:hover {
+.industry-card:hover {
+    transform: translateY(-4px);
     border-color: var(--accent);
-    color: var(--accent);
+    box-shadow: var(--shadow-md);
+}
+
+.industry-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
     background: var(--accent-subtle);
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
+.industry-card h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.industry-card p {
+    font-size: 1.05rem;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+    
+}
+
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 480px) {
+    
 }
 
 /* ============================================
@@ -748,6 +779,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
 }
 
 .problem-card {
@@ -772,8 +805,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .problem-card span {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 /* ============================================
@@ -816,7 +850,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .benefit-card p {
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
@@ -857,7 +891,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .why-card p {
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     line-height: 1.6;
 }
 
@@ -913,7 +947,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .process-step p {
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     line-height: 1.6;
 }
 
@@ -938,7 +972,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .testimonial-text {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.7;
     color: var(--text-secondary);
     margin-bottom: 24px;
@@ -967,11 +1001,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .testimonial-author strong {
     display: block;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .testimonial-author span {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
 }
 
@@ -1008,7 +1042,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     align-items: center;
     justify-content: space-between;
     padding: 20px 24px;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
     text-align: left;
     color: var(--text-primary);
@@ -1041,7 +1075,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .faq-answer p {
     padding: 0 24px 20px;
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.7;
 }
 
@@ -1101,7 +1135,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .contact-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1fr;
     gap: 48px;
     align-items: start;
 }
@@ -1122,7 +1156,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .form-group label {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-secondary);
 }
@@ -1134,7 +1168,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border: 1px solid var(--border);
     background: var(--bg-primary);
     color: var(--text-primary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-family: var(--font-sans);
     transition: border-color var(--transition), box-shadow var(--transition);
     outline: none;
@@ -1157,9 +1191,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .contact-info {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+}
+@media (max-width: 600px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
 }
 
 .contact-card {
@@ -1185,13 +1224,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .contact-card h3 {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     margin-bottom: 2px;
 }
 
 .contact-card a,
 .contact-card span {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-secondary);
 }
 
@@ -1215,7 +1254,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .footer-brand p {
     color: var(--text-tertiary);
-    font-size: 0.875rem;
+    font-size: 1rem;
     margin-top: 12px;
     max-width: 280px;
 }
@@ -1227,7 +1266,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .footer-links a {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--text-secondary);
 }
 
@@ -1265,7 +1304,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .footer-bottom p {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
 }
 
@@ -1275,7 +1314,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .footer-legal a {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     color: var(--text-tertiary);
 }
 
@@ -1491,4 +1530,88 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 ::selection {
     background: var(--accent);
     color: #fff;
+}
+
+/* ============================================
+   Restored Tile Layouts
+   ============================================ */
+.tech-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+.tech-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+.tech-icon { font-size: 1.5rem; flex-shrink: 0; margin-bottom: 0; line-height: 1; }
+.tech-content { display: flex; flex-direction: column; }
+.tech-card h3 { font-size: 1rem; margin-bottom: 6px; line-height: 1.3; }
+.tech-card p { font-size: 0.95rem; line-height: 1.5; }
+
+.problems-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+.problem-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 16px;
+    gap: 12px;
+}
+.problem-icon { font-size: 1.2rem; margin-bottom: 0; }
+.problem-card:hover { background: var(--accent-subtle); border-color: var(--accent-hover); }
+.problem-card:hover .problem-icon { color: var(--accent); }
+
+/* Restored Side-by-Side for Why & Benefit */
+.why-card, .benefit-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+.why-content, .benefit-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.why-number, .benefit-icon {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+.benefit-icon {
+    display: flex;
+    align-items: baseline;
+}
+
+/* Vertical Stack Layout for Services and Industries */
+.service-card, .industry-card {
+    flex: 0 1 calc(33.333% - 16px);
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+.service-content, .industry-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+}
+.service-icon, .industry-icon {
+    margin-bottom: 20px;
+}
+.service-card ul.service-list {
+    margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+    .service-card, .industry-card {
+        flex: 1 1 100%;
+        min-width: unset;
+        width: 100%;
+    }
 }
