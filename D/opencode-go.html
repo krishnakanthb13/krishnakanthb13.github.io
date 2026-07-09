@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OpenCode Go — low-cost subscription for popular open coding models. $5 first month, then $10/month.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="OpenCode Go · KKB">
+  <meta property="og:description" content="Low-cost subscription for popular open coding models.">
+  <meta property="og:type" content="website">
+  <title>OpenCode Go · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script src="pwa.js" data-accent="#b06a36"></script>
+</head>
+<body data-section="Dump" data-crumb="OpenCode Go" data-updated="July 10, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">AI · Subscription</span>
+      <h1>OpenCode Go</h1>
+      <p class="lede">A low-cost subscription for popular open coding models — $5 for your first month, then $10/month. Reliable access to GLM, Kimi, MiMo, MiniMax, Qwen, and DeepSeek through OpenCode.</p>
+
+      <div class="meta-row">
+        <span class="chip">💰 <b>Price:</b> $5 first month · $10/mo</span>
+        <span class="chip">🌍 <b>Regions:</b> US · EU · Singapore</span>
+        <span class="chip">🔓 <b>Optional:</b> Not required to use OpenCode</span>
+        <span class="chip">🔒 <b>Privacy:</b> Zero-retention, no training</span>
+      </div>
+
+      <div class="callout">OpenCode Go is designed primarily for international users, with models hosted across three regions for stable global access. Providers follow a zero-retention policy and do not use your data for model training.</div>
+
+      <h2>How It Works</h2>
+      <ol>
+        <li>Sign in to <a href="https://opencode.ai/auth" target="_blank" rel="noopener">OpenCode Zen</a>, subscribe to Go, and copy your API key.</li>
+        <li>Run the <code>/connect</code> command in the TUI, select <strong>OpenCode Go</strong>, and paste your API key.</li>
+        <li>Run <code>/models</code> in the TUI to see the list of models available through Go.</li>
+      </ol>
+      <p>Only one member per workspace can subscribe to OpenCode Go.</p>
+
+      <h2>Available Models</h2>
+      <div class="accordion">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">★</span>Model List<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <ul>
+              <li><strong>GLM-5.2</strong> / <strong>GLM-5.1</strong></li>
+              <li><strong>Kimi K2.7 Code</strong> / <strong>Kimi K2.6</strong></li>
+              <li><strong>MiMo-V2.5</strong> / <strong>MiMo-V2.5-Pro</strong></li>
+              <li><strong>MiniMax M3</strong> / <strong>MiniMax M2.7</strong></li>
+              <li><strong>Qwen3.7 Max</strong> / <strong>Qwen3.7 Plus</strong> / <strong>Qwen3.6 Plus</strong></li>
+              <li><strong>DeepSeek V4 Pro</strong> / <strong>DeepSeek V4 Flash</strong></li>
+            </ul>
+            <p>The list may change as new models are tested and added. Use the model ID format <code>opencode-go/&lt;model-id&gt;</code> in your config (e.g. <code>opencode-go/kimi-k2.7-code</code>).</p>
+          </div></div>
+        </div>
+      </div>
+
+      <h2>Usage Limits</h2>
+      <p>Limits are defined in dollar value — your actual request count depends on which model you use.</p>
+      <table>
+        <thead><tr><th>Period</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr><td>5-hour limit</td><td>$12 of usage</td></tr>
+          <tr><td>Weekly limit</td><td>$30 of usage</td></tr>
+          <tr><td>Monthly limit</td><td>$60 of usage</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Estimated Requests per Period</h3>
+      <table>
+        <thead><tr><th>Model</th><th>Per 5 hrs</th><th>Per week</th><th>Per month</th></tr></thead>
+        <tbody>
+          <tr><td>GLM-5.2 / 5.1</td><td>880</td><td>2,150</td><td>4,300</td></tr>
+          <tr><td>Kimi K2.7 Code</td><td>1,350</td><td>4,630</td><td>9,250</td></tr>
+          <tr><td>Kimi K2.6</td><td>1,150</td><td>2,880</td><td>5,750</td></tr>
+          <tr><td>MiMo-V2.5</td><td>30,100</td><td>75,200</td><td>150,400</td></tr>
+          <tr><td>MiMo-V2.5-Pro</td><td>3,250</td><td>8,150</td><td>16,300</td></tr>
+          <tr><td>MiniMax M3</td><td>3,200</td><td>8,000</td><td>16,000</td></tr>
+          <tr><td>MiniMax M2.7</td><td>3,400</td><td>8,500</td><td>17,000</td></tr>
+          <tr><td>Qwen3.7 Max</td><td>950</td><td>2,390</td><td>4,770</td></tr>
+          <tr><td>Qwen3.7 Plus</td><td>4,300</td><td>10,800</td><td>21,600</td></tr>
+          <tr><td>Qwen3.6 Plus</td><td>3,300</td><td>8,200</td><td>16,300</td></tr>
+          <tr><td>DeepSeek V4 Pro</td><td>3,450</td><td>8,550</td><td>17,150</td></tr>
+          <tr><td>DeepSeek V4 Flash</td><td>31,650</td><td>79,050</td><td>158,150</td></tr>
+        </tbody>
+      </table>
+      <p>If you reach the limit, you can continue using the free models. If you have credits on your Zen balance, enable <strong>Use balance</strong> in the console to fall back after limits are hit.</p>
+
+      <h2>Pricing per 1M Tokens</h2>
+      <div class="accordion">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="false"><span class="acc-no">$</span>Token Pricing<svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="acc-body"><div class="acc-inner">
+            <table>
+              <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Cached Read</th><th>Cached Write</th></tr></thead>
+              <tbody>
+                <tr><td>GLM-5.2 / 5.1</td><td>$1.40</td><td>$4.40</td><td>$0.26</td><td>—</td></tr>
+                <tr><td>Kimi K2.7 Code</td><td>$0.95</td><td>$4.00</td><td>$0.19</td><td>—</td></tr>
+                <tr><td>Kimi K2.6</td><td>$0.95</td><td>$4.00</td><td>$0.16</td><td>—</td></tr>
+                <tr><td>MiMo V2.5</td><td>$0.14</td><td>$0.28</td><td>$0.0028</td><td>—</td></tr>
+                <tr><td>MiMo V2.5 Pro</td><td>$1.74</td><td>$3.48</td><td>$0.0145</td><td>—</td></tr>
+                <tr><td>MiniMax M3</td><td>$0.30</td><td>$1.20</td><td>$0.06</td><td>—</td></tr>
+                <tr><td>MiniMax M2.7</td><td>$0.30</td><td>$1.20</td><td>$0.06</td><td>$0.375</td></tr>
+                <tr><td>Qwen3.7 Max</td><td>$2.50</td><td>$7.50</td><td>$0.50</td><td>$3.125</td></tr>
+                <tr><td>Qwen3.7 Plus (≤256K)</td><td>$0.40</td><td>$1.60</td><td>$0.04</td><td>$0.50</td></tr>
+                <tr><td>Qwen3.7 Plus (>256K)</td><td>$1.20</td><td>$4.80</td><td>$0.12</td><td>$1.50</td></tr>
+                <tr><td>Qwen3.6 Plus (≤256K)</td><td>$0.50</td><td>$3.00</td><td>$0.05</td><td>$0.625</td></tr>
+                <tr><td>Qwen3.6 Plus (>256K)</td><td>$2.00</td><td>$6.00</td><td>$0.20</td><td>$2.50</td></tr>
+                <tr><td>DeepSeek V4 Pro</td><td>$1.74</td><td>$3.48</td><td>$0.0145</td><td>—</td></tr>
+                <tr><td>DeepSeek V4 Flash</td><td>$0.14</td><td>$0.28</td><td>$0.0028</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div></div>
+        </div>
+      </div>
+
+      <h2>API Endpoints</h2>
+      <table>
+        <thead><tr><th>Model</th><th>Model ID</th><th>SDK Package</th></tr></thead>
+        <tbody>
+          <tr><td>GLM-5.2</td><td><code>glm-5.2</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>GLM-5.1</td><td><code>glm-5.1</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>Kimi K2.7 Code</td><td><code>kimi-k2.7-code</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>Kimi K2.6</td><td><code>kimi-k2.6</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>MiMo-V2.5</td><td><code>mimo-v2.5</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>MiMo-V2.5-Pro</td><td><code>mimo-v2.5-pro</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>DeepSeek V4 Pro</td><td><code>deepseek-v4-pro</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>DeepSeek V4 Flash</td><td><code>deepseek-v4-flash</code></td><td><code>@ai-sdk/openai-compatible</code></td></tr>
+          <tr><td>MiniMax M3</td><td><code>minimax-m3</code></td><td><code>@ai-sdk/anthropic</code></td></tr>
+          <tr><td>MiniMax M2.7</td><td><code>minimax-m2.7</code></td><td><code>@ai-sdk/anthropic</code></td></tr>
+          <tr><td>Qwen3.7 Max</td><td><code>qwen3.7-max</code></td><td><code>@ai-sdk/anthropic</code></td></tr>
+          <tr><td>Qwen3.7 Plus</td><td><code>qwen3.7-plus</code></td><td><code>@ai-sdk/anthropic</code></td></tr>
+          <tr><td>Qwen3.6 Plus</td><td><code>qwen3.6-plus</code></td><td><code>@ai-sdk/anthropic</code></td></tr>
+        </tbody>
+      </table>
+      <p>All models use the endpoint <code>https://opencode.ai/zen/go/v1/chat/completions</code> (OpenAI-compatible) or <code>https://opencode.ai/zen/go/v1/messages</code> (Anthropic-compatible).</p>
+      <p>Full model list: <code>https://opencode.ai/zen/go/v1/models</code></p>
+
+      <h2>Privacy</h2>
+      <p>Models are hosted in the US, EU, and Singapore. Providers follow a zero-retention policy and do not use your data for model training.</p>
+
+      <h2>Goals</h2>
+      <ul>
+        <li>Make AI coding <strong>accessible</strong> with a low-cost subscription.</li>
+        <li>Provide <strong>reliable</strong> access to the best open coding models.</li>
+        <li>Curate models that are <strong>tested and benchmarked</strong> for coding agent use.</li>
+        <li><strong>No lock-in</strong> — use any other provider with OpenCode as well.</li>
+      </ul>
+
+      <h2>Get Started</h2>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://opencode.ai/auth" target="_blank" rel="noopener">Subscribe to Go →</a>
+        <a class="btn btn-ghost" href="https://opencode.ai/docs/go/" target="_blank" rel="noopener">Official Docs</a>
+        <a class="btn btn-ghost" href="https://github.com/anomalyco/opencode" target="_blank" rel="noopener">GitHub</a>
+      </div>
+
+      <p>Browse the rest of the <a href="index.html">Dump collection</a>.</p>
+    </article>
+  </main>
+  <script src="assets/base.js" defer></script>
+</body>
+</html>
