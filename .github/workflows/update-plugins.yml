@@ -66,7 +66,7 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.gate.outputs.run == 'true'
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Build plugins.yaml
         if: steps.gate.outputs.run == 'true'
@@ -79,4 +79,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add plugins.yaml plugins.js
           git diff --staged --quiet || git commit -m "chore: auto-update plugins.yaml [skip ci]"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
