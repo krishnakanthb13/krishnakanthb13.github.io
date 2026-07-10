@@ -1,0 +1,564 @@
+A note taking web application.
+- WPA
+- should be able to add tile or block, and popup window to add or edit text in the block.
+- Text gets saved automatically upon exit or closing the popup window.
+- All notes, order of the notes, every setting should be stored in the web browser.
+- Ability to export and import notes.
+- Heading of the notes, should be `Heading: Note Content` - starts with header, if colon is present.
+- Add new tile or block using a plus button below the tile or block.
+- Ability to drag and move tile or block up and down, using a three dots or lines on the left.
+- Ability to delete the tile or block, upon left swipe.
+- Ability to make the tile or block active, upone right swipe.
+- Keep the formatting - compact and cozy.
+- Add redo and undo buttons on the top, should be greyed out if non avaliable. and should keep 40 redo and undo in memory.
+- add dark and light theme, and toggle button.
+- add proper footer and header.
+- beside the header, keep the buttons for theme, redo, undo, export, import, add button.
+
+---
+
+```text
+You are a senior PWA architect, UX designer, and frontend engineer.
+
+Design and build a production-quality, fully self-contained note-taking Progressive Web App.
+
+## Core Requirements
+
+The application must consist of a single HTML file containing:
+
+- HTML
+- CSS
+- JavaScript
+
+No external libraries.
+No frameworks.
+No CDN dependencies.
+Everything must work completely offline.
+
+The code should be clean, modular, heavily commented, and easy to extend.
+
+---
+
+# General Requirements
+
+Create a modern, responsive, mobile-first note application.
+
+Store absolutely everything inside the browser.
+
+Nothing should ever require a backend.
+
+Persist using LocalStorage (or IndexedDB if preferred).
+
+The following must persist automatically:
+
+- every note
+- note order
+- active note
+- theme
+- UI settings
+- undo history
+- redo history
+
+The application should restore exactly where the user left off.
+
+Autosave whenever changes occur.
+
+No Save button.
+
+---
+
+# PWA Requirements
+
+Must include:
+
+Manifest
+
+Service Worker
+
+Offline support
+
+Installable
+
+Standalone mode
+
+Responsive
+
+Touch friendly
+
+Desktop friendly
+
+---
+
+# Layout
+
+Use a modern compact card interface.
+
+Layout:
+
+------------------------------------------------
+
+HEADER
+
+App Title
+
+Buttons (right aligned)
+
+Theme Toggle
+
+Undo
+
+Redo
+
+Export
+
+Import
+
+Add
+
+------------------------------------------------
+
+Scrollable Notes
+
+------------------------------------------------
+
+Footer
+
+------------------------------------------------
+
+The footer should display:
+
+Number of Notes
+
+Current Theme
+
+Storage Used (estimated)
+
+Application Version
+
+---
+
+# Note Cards
+
+Each note is a draggable card.
+
+Compact spacing.
+
+Cozy layout.
+
+Each card contains:
+
+Left
+
+Drag Handle
+(three dots or six dots)
+
+Center
+
+Note Preview
+
+Right
+
+Chevron indicating editable
+
+---
+
+# Editing Notes
+
+Clicking a card opens a centered popup dialog.
+
+Popup contains:
+
+Large textarea
+
+No save button.
+
+Changes save automatically when:
+
+popup closes
+
+ESC pressed
+
+click outside
+
+Done button
+
+close icon
+
+Autosave while typing (debounced).
+
+---
+
+# Note Format
+
+If the note contains:
+
+Heading: Note body
+
+Then render:
+
+Heading
+
+large bold text
+
+Body
+
+normal text underneath
+
+Only split using the FIRST colon.
+
+Example
+
+Shopping: Buy milk
+
+renders
+
+Shopping
+
+Buy milk
+
+If no colon exists
+
+Render entire content normally.
+
+---
+
+# Creating Notes
+
+Each card has a Plus button immediately beneath it.
+
+Pressing Plus inserts a new empty note directly below that card.
+
+Header Add button creates a new note at the end.
+
+---
+
+# Drag & Drop
+
+Notes can be reordered.
+
+Desktop:
+
+drag handle
+
+Mobile:
+
+touch drag
+
+Order persists forever.
+
+Smooth animations.
+
+---
+
+# Swipe Actions
+
+Mobile gestures.
+
+Swipe LEFT
+
+Reveal Delete action.
+
+Delete requires confirmation.
+
+Swipe RIGHT
+
+Mark note Active.
+
+Only one note can be Active.
+
+Active note should have:
+
+accent border
+
+slightly highlighted background
+
+icon indicator
+
+---
+
+# Undo / Redo
+
+Top toolbar contains:
+
+Undo
+
+Redo
+
+Maintain
+
+40 Undo states
+
+40 Redo states
+
+History includes
+
+editing
+
+delete
+
+add
+
+move
+
+active state
+
+theme changes
+
+Buttons disabled (greyed out) when unavailable.
+
+Keyboard shortcuts
+
+Ctrl+Z
+
+Ctrl+Shift+Z
+
+Ctrl+Y
+
+---
+
+# Export
+
+Export all application data.
+
+Include
+
+notes
+
+order
+
+settings
+
+theme
+
+active note
+
+timestamp
+
+version
+
+Export as JSON.
+
+Download automatically.
+
+---
+
+# Import
+
+Import previously exported JSON.
+
+Validate format.
+
+Ask before overwriting.
+
+Restore entire application.
+
+---
+
+# Theme
+
+Support
+
+Light
+
+Dark
+
+Toggle button in header.
+
+Remember selection.
+
+Use CSS Variables.
+
+Smooth transition.
+
+---
+
+# Header
+
+Header should contain
+
+App Logo
+
+Application Name
+
+Spacer
+
+Theme
+
+Undo
+
+Redo
+
+Export
+
+Import
+
+Add
+
+Sticky while scrolling.
+
+Modern shadow.
+
+---
+
+# Footer
+
+Sticky footer.
+
+Show
+
+Total Notes
+
+Active Note
+
+Theme
+
+Storage Used
+
+Version
+
+---
+
+# Animations
+
+Smooth
+
+Material-like
+
+Card hover
+
+Button hover
+
+Popup fade
+
+Drag animation
+
+Swipe animation
+
+Theme transition
+
+---
+
+# Accessibility
+
+Keyboard navigation
+
+Visible focus
+
+ARIA labels
+
+Proper button titles
+
+ESC closes popup
+
+Enter confirms where appropriate
+
+---
+
+# Responsiveness
+
+Desktop
+
+Tablet
+
+Phone
+
+Large screens
+
+Landscape
+
+Portrait
+
+---
+
+# Performance
+
+Support at least
+
+5,000 notes
+
+without noticeable slowdown.
+
+Efficient rendering.
+
+Debounced saving.
+
+Avoid unnecessary DOM updates.
+
+---
+
+# Error Handling
+
+Gracefully recover from
+
+corrupted LocalStorage
+
+failed import
+
+empty notes
+
+duplicate imports
+
+storage full
+
+Never lose existing notes.
+
+---
+
+# Nice Visual Style
+
+Rounded cards
+
+Soft shadows
+
+Minimal colors
+
+Compact spacing
+
+Modern typography
+
+Clean icons created using pure CSS or Unicode
+
+No emoji-based UI
+
+---
+
+# Code Organization
+
+Organize JavaScript into logical modules/functions such as
+
+Storage
+
+History
+
+Theme
+
+Notes
+
+Popup
+
+ImportExport
+
+DragDrop
+
+Swipe
+
+UI
+
+Utilities
+
+Avoid duplicated code.
+
+---
+
+# Deliverables
+
+Produce a complete, production-ready project including:
+
+1. index.html
+
+2. manifest.json
+
+3. service-worker.js
+
+All code should be fully functional, immediately hostable, and work entirely offline without modification.
+```

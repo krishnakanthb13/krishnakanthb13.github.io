@@ -24,6 +24,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/) — Self-Awareness, Peace, and Love. Toggle to experience the trade-off.
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
+	- [NoteTile](https://krishnakanthb13.github.io/O/NT/) — A fast, offline-first, Progressive Web App for taking notes.
 
 - **R**: [Online Résumé](https://krishnakanthb13.github.io/R/) — gallery + 6 résumé experiences
 - **S**: [PayLink](https://krishnakanthb13.github.io/S/) — secure checkout (responsive launcher + desktop/mobile pages)
@@ -93,6 +94,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 - **Humanize — Manuscript Desk** ([live](https://krishnakanthb13.github.io/O/HZ/) — AI text humanizer):
 	- [Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/): Paste stiff, robotic, or over-polished text. It comes back sounding like a person wrote it — same facts, same intent, naturally varied sentence rhythm.
+
+---
+
+- **NoteTile** ([readme](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/NT/README.md) — A fast, offline-first, PWA for taking notes):
+	- [NoteTile App](https://krishnakanthb13.github.io/O/NT/): Single HTML file, zero dependencies, full markdown support, draggable ordering, and cyclic themes. Works entirely offline.
 
 ---
 
