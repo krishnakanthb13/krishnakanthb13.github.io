@@ -1,4 +1,6 @@
 {
+    "id": "/O/NT/",
+    "scope": "./",
     "name": "NoteTile",
     "short_name": "NoteTile",
     "description": "A fast, offline-first note-taking Progressive Web App",
@@ -19,6 +21,13 @@
             "sizes": "512x512",
             "type": "image/svg+xml",
             "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "New Note",
+            "url": "./index.html?action=new",
+            "description": "Create a new note"
         }
     ]
 }

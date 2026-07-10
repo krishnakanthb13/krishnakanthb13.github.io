@@ -1,12 +1,24 @@
 // NoteTile Service Worker
 // Caches all app shell assets for full offline support
 
-const CACHE_NAME = 'notetile-v4';
+const CACHE_NAME = 'notetile-v11';
+const RUNTIME_CACHE = 'notetile-runtime-v3';
+const MAX_RUNTIME_ITEMS = 50;
+
+function trimCache(cacheName, maxItems) {
+    caches.open(cacheName).then(cache => {
+        cache.keys().then(keys => {
+            if (keys.length > maxItems) {
+                cache.delete(keys[0]).then(() => trimCache(cacheName, maxItems));
+            }
+        });
+    });
+}
 const ASSETS = [
     './',
     './index.html',
-    './manifest.json',
-    './service-worker.js'
+    './app.js',
+    './manifest.json'
 ];
 
 // Install — pre-cache app shell
@@ -23,13 +35,13 @@ self.addEventListener('activate', e => {
     e.waitUntil(
         caches.keys().then(keys =>
             Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+                keys.filter(k => k !== CACHE_NAME && k !== RUNTIME_CACHE).map(k => caches.delete(k))
             )
         ).then(() => self.clients.claim())
     );
 });
 
-// Fetch — cache-first for app shell, network-first for everything else
+// Fetch — cache-first with runtime caching and offline fallback
 self.addEventListener('fetch', e => {
     const url = new URL(e.request.url);
 
@@ -40,10 +52,16 @@ self.addEventListener('fetch', e => {
         caches.match(e.request).then(cached => {
             if (cached) return cached;
             return fetch(e.request).then(response => {
-                // Cache successful GET responses
+                // Cache successful GET responses, limit to 1MB
                 if (e.request.method === 'GET' && response.status === 200) {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
+                    const contentLength = response.headers.get('content-length');
+                    if (!contentLength || parseInt(contentLength) < 1024 * 1024) {
+                        const clone = response.clone();
+                        caches.open(RUNTIME_CACHE).then(cache => {
+                            cache.put(e.request, clone);
+                            trimCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
+                        });
+                    }
                 }
                 return response;
             });
