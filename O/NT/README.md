@@ -10,18 +10,18 @@ NoteTile is a self-contained note-taking application that requires no backend an
 
 - **Note CRUD**: Create, edit, and delete notes via a fast modal popup editor.
 - **Auto-Formatting**: Use `Heading: Body` syntax to auto-split your notes. If both exist, they flow beautifully inline separated by a bright `→` arrow.
-- **Markdown Support**: Built-in support for `**bold**`, `_italic_`, checklists (`[ ]`), and `#hashtags` without external libraries. Includes a handy formatting toolbar inside the editor.
+- **Markdown Support**: Built-in support for `**bold**`, `_italic_`, checklists (`[ ]`), and `#hashtags` without external libraries. Includes a handy formatting toolbar inside the editor. Checkboxes in notes are fully interactive—tap any checkbox directly on a note card to check/uncheck it without opening the editor.
 - **Instant Search**: Filter notes instantly with the search bar or by simply tapping on any `#hashtag` in your notes.
 - **Focus Mode**: Immersive full-screen editor mode with a single click (⤢ toggle).
 - **Auto-Save**: Saves silently while typing, on popup close, or when pressing ESC. 
 - **Drag & Drop**: Grab the handle (⋮) to reorder notes intuitively. Note ordering is fully persisted.
-- **Swipe Gestures**: Swipe left to delete, swipe right to mark a note as active (★).
-- **Active Note**: Highlight a specific note as active. Only one note can be active at a time.
+- **Swipe Gestures**: Swipe left to delete, swipe right to toggle the note's active state (★).
+- **Active Note**: Swipe right toggles the selected note's active state. At most one note can be active.
 - **Undo / Redo**: 40-state history for safe editing and reordering.
 - **5 Cyclic Themes**: Cycles smoothly through Light, Dark, Sepia, OLED (pure black), and Ocean themes.
 - **Export / Import**: Full JSON backup and restore capabilities to easily move your notes between devices.
 - **PWA Ready**: Installable, standalone, and offline-first via the included service worker.
-- **Responsive**: Mobile-first layout with native-feeling horizontal scrollable toolbars on small screens.
+- **Responsive**: Mobile-first layout with native-feeling horizontal scrollable toolbars on small screens. Now features touch-optimized sizing (coarse pointer support) and clean, responsive SVG iconography throughout.
 
 ## Project Structure
 
@@ -48,7 +48,7 @@ All data persists locally in your browser's `localStorage` under the `notetile_`
 | Gesture | Action |
 |---------|--------|
 | Swipe left on card | Reveals delete action (red), requires confirmation dialog |
-| Swipe right on card | Activates note (green), no confirmation needed |
+| Swipe right on card | Toggles active note state (green/active or gray/inactive), no confirmation needed |
 
 *Note: Swipe works smoothly on both **touch** (mobile) and **mouse drag** (desktop).*
 

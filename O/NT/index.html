@@ -34,29 +34,29 @@
             --delete-red: #ff3b30;
             --active-green: #34c759;
             --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --header-pad: 10px 14px;
-            --header-title-size: 19px;
-            --btn-size: 40px;
-            --btn-font: 20px;
-            --main-pad: 12px 14px 80px;
-            --card-min-h: 44px;
-            --card-handle-w: 30px;
-            --card-content-pad: 8px 12px;
-            --heading-size: 15px;
-            --body-size: 13px;
+            --header-pad: 12px 16px;
+            --header-title-size: 20px;
+            --btn-size: 44px;
+            --btn-icon: 22px;
+            --main-pad: 14px 16px 90px;
+            --card-min-h: 40px;
+            --card-handle-w: 36px;
+            --card-content-pad: 4px 12px;
+            --heading-size: 16px;
+            --body-size: 14px;
             --popup-max-w: 520px;
-            --popup-max-h: 80vh;
-            --popup-pad: 14px 18px 10px;
-            --popup-ta-pad: 4px 18px 18px;
-            --popup-ta-size: 14px;
+            --popup-max-h: 92vh;
+            --popup-pad: 16px 20px 12px;
+            --popup-ta-pad: 6px 20px 20px;
+            --popup-ta-size: 16px;
             --popup-ta-min-h: 200px;
             --popup-ta-max-h: 60vh;
-            --footer-gap: 16px;
-            --footer-pad: 8px 16px;
+            --footer-gap: 14px;
+            --footer-pad: 10px 16px;
             --footer-size: 12px;
             --confirm-max-w: 340px;
             --confirm-pad: 28px 24px 20px;
-            --toast-bottom: 56px;
+            --toast-bottom: 72px;
             --indicator-height: 4px;
             --indicator-margin: 4px;
         }
@@ -194,8 +194,9 @@
             border-radius: 14px;
             background: var(--bg-card);
             color: var(--text);
-            font-size: 14px;
+            font-size: 15px;
             outline: none;
+            height: 36px;
             transition: border-color 0.2s, max-width 0.2s;
         }
 
@@ -213,6 +214,7 @@
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
+
         .header-actions::-webkit-scrollbar {
             display: none;
         }
@@ -229,8 +231,15 @@
             color: var(--text);
             cursor: pointer;
             transition: background var(--transition), opacity var(--transition), color var(--transition);
-            font-size: var(--btn-font);
+            font-size: var(--btn-icon);
             position: relative;
+            flex-shrink: 0;
+        }
+
+        .btn svg {
+            width: var(--btn-icon);
+            height: var(--btn-icon);
+            display: block;
             flex-shrink: 0;
         }
 
@@ -323,12 +332,12 @@
             box-shadow: var(--shadow-md);
         }
 
-        .note-card.active {
-            border-left: 3px solid var(--active-green);
+        .note-card.active .note-inner {
+            box-shadow: inset 3px 0 0 var(--active-green);
             background: rgba(52, 199, 89, 0.06);
         }
 
-        [data-theme="dark"] .note-card.active {
+        [data-theme="dark"] .note-card.active .note-inner {
             background: rgba(48, 209, 88, 0.08);
         }
 
@@ -347,29 +356,12 @@
             border: 2px solid var(--accent);
             border-radius: var(--radius);
             box-shadow: var(--shadow-lg);
-            padding: var(--card-content-pad);
-            min-width: 200px;
-            max-width: 320px;
             opacity: 0.9;
             transition: none;
             font-family: var(--font);
             color: var(--text);
             will-change: transform;
-        }
-
-        .drag-ghost .ghost-heading {
-            font-size: var(--heading-size);
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 2px;
-            word-break: break-word;
-        }
-
-        .drag-ghost .ghost-body {
-            font-size: var(--body-size);
-            color: var(--text-secondary);
-            line-height: 1.35;
-            word-break: break-word;
+            overflow: hidden;
         }
 
         .note-drag-handle {
@@ -390,6 +382,8 @@
             z-index: 2;
             padding: 0 4px;
             touch-action: none;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
         }
 
         .note-drag-handle:hover {
@@ -408,7 +402,7 @@
             position: relative;
             z-index: 1;
             background: var(--bg-card);
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background var(--transition);
             border-radius: inherit;
         }
 
@@ -572,20 +566,24 @@
         }
 
         .md-btn {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border: none;
             border-radius: 50%;
             background: var(--bg);
             color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition), color var(--transition);
-            font-family: var(--font);
+            flex-shrink: 0;
+        }
+
+        .md-btn svg {
+            width: 18px;
+            height: 18px;
+            display: block;
             flex-shrink: 0;
         }
 
@@ -703,18 +701,25 @@
         }
 
         .popup-close {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border: none;
             border-radius: 50%;
             background: var(--accent-light);
             color: var(--accent);
-            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition);
+            flex-shrink: 0;
+        }
+
+        .popup-close svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            flex-shrink: 0;
         }
 
         .popup-close:hover {
@@ -738,6 +743,17 @@
 
         .popup-textarea::placeholder {
             color: var(--text-secondary);
+        }
+
+        .popup-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-popup);
+            flex-shrink: 0;
+            transition: background var(--transition), border-color var(--transition);
         }
 
         .empty-state {
@@ -914,7 +930,8 @@
 
         @media (max-width: 767px) {
             .search-input {
-                width: 100px;
+                max-width: 120px;
+                width: 120px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
@@ -927,14 +944,24 @@
                 box-shadow: var(--shadow-md);
                 margin: 0;
             }
+
+            .note-drag-handle {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .note-chevron {
+                font-size: 22px;
+                width: 32px;
+            }
         }
 
         @media (min-width: 360px) {
             :root {
-                --header-pad: 10px 14px;
-                --btn-size: 40px;
-                --btn-font: 20px;
-                --main-pad: 10px 14px 80px;
+                --header-pad: 12px 14px;
+                --btn-size: 44px;
+                --btn-icon: 22px;
+                --main-pad: 12px 14px 90px;
             }
         }
 
@@ -942,10 +969,11 @@
             :root {
                 --header-pad: 12px 20px;
                 --header-title-size: 20px;
-                --btn-size: 42px;
-                --btn-font: 21px;
-                --main-pad: 14px 20px 80px;
-                --card-content-pad: 10px 14px;
+                --btn-size: 44px;
+                --btn-icon: 22px;
+                --main-pad: 14px 20px 90px;
+                --card-min-h: 42px;
+                --card-content-pad: 5px 12px;
                 --heading-size: 16px;
                 --body-size: 14px;
                 --popup-max-w: 480px;
@@ -966,7 +994,7 @@
             }
 
             .note-add-btn {
-                height: 32px;
+                height: 44px;
             }
         }
 
@@ -974,19 +1002,20 @@
             :root {
                 --header-pad: 14px 28px;
                 --header-title-size: 22px;
-                --btn-size: 42px;
+                --btn-size: 44px;
+                --btn-icon: 22px;
                 --main-pad: 18px 28px 80px;
-                --card-min-h: 48px;
+                --card-min-h: 44px;
                 --card-handle-w: 36px;
-                --card-content-pad: 10px 16px;
+                --card-content-pad: 6px 14px;
                 --heading-size: 17px;
                 --body-size: 14px;
                 --popup-max-w: 540px;
-                --popup-max-h: 75vh;
+                --popup-max-h: 80vh;
                 --popup-ta-min-h: 260px;
                 --popup-ta-max-h: 65vh;
                 --footer-gap: 24px;
-                --footer-size: 12px;
+                --footer-size: 13px;
                 --confirm-max-w: 380px;
                 --toast-bottom: 60px;
             }
@@ -1004,17 +1033,17 @@
             }
 
             .note-add-btn {
-                height: 34px;
-                font-size: 20px;
+                height: 44px;
+                font-size: 22px;
             }
 
             .note-drag-handle {
-                font-size: 18px;
+                font-size: 20px;
             }
 
             .note-chevron {
                 width: 32px;
-                font-size: 20px;
+                font-size: 22px;
             }
 
             .popup-box {
@@ -1026,18 +1055,18 @@
             :root {
                 --header-pad: 14px 32px;
                 --header-title-size: 24px;
-                --btn-size: 42px;
-                --btn-font: 20px;
+                --btn-size: 44px;
+                --btn-icon: 22px;
                 --main-pad: 20px 32px 80px;
-                --card-min-h: 44px;
+                --card-min-h: 52px;
                 --card-handle-w: 40px;
-                --card-content-pad: 8px 16px;
-                --heading-size: 15px;
-                --body-size: 12px;
+                --card-content-pad: 10px 16px;
+                --heading-size: 16px;
+                --body-size: 14px;
                 --popup-max-w: 580px;
                 --popup-ta-min-h: 300px;
                 --footer-gap: 28px;
-                --footer-size: 12px;
+                --footer-size: 13px;
                 --confirm-max-w: 400px;
                 --confirm-pad: 32px 28px 24px;
             }
@@ -1088,28 +1117,28 @@
         @media (max-height: 500px) and (orientation: landscape) {
             :root {
                 --header-pad: 6px 14px;
-                --btn-size: 34px;
-                --btn-font: 16px;
-                --main-pad: 6px 14px 52px;
-                --card-min-h: 40px;
+                --btn-size: 38px;
+                --btn-icon: 18px;
+                --main-pad: 6px 14px 56px;
+                --card-min-h: 42px;
                 --popup-max-h: 92vh;
                 --popup-ta-min-h: 120px;
                 --popup-ta-max-h: 70vh;
-                --footer-pad: 4px 14px;
-                --footer-size: 10px;
+                --footer-pad: 5px 14px;
+                --footer-size: 11px;
             }
 
             .header-title {
-                font-size: 15px;
+                font-size: 16px;
             }
 
             .note-list {
-                gap: 2px;
+                gap: 4px;
             }
 
             .note-add-btn {
-                height: 22px;
-                font-size: 16px;
+                height: 28px;
+                font-size: 18px;
             }
 
             .note-heading {
@@ -1117,7 +1146,7 @@
             }
 
             .note-body {
-                font-size: 12px;
+                font-size: 13px;
                 -webkit-line-clamp: 1;
                 line-clamp: 1;
             }
@@ -1126,23 +1155,23 @@
         @media (max-width: 319px) {
             :root {
                 --header-pad: 8px 10px;
-                --btn-size: 32px;
-                --btn-font: 16px;
-                --main-pad: 8px 10px 70px;
-                --card-handle-w: 26px;
+                --btn-size: 36px;
+                --btn-icon: 18px;
+                --main-pad: 8px 10px 80px;
+                --card-handle-w: 28px;
                 --card-content-pad: 8px 10px;
-                --heading-size: 14px;
-                --body-size: 12px;
+                --heading-size: 15px;
+                --body-size: 13px;
                 --popup-max-w: 100%;
                 --popup-pad: 10px 14px 8px;
                 --popup-ta-pad: 4px 14px 14px;
-                --popup-ta-size: 14px;
+                --popup-ta-size: 15px;
                 --footer-gap: 10px;
-                --footer-size: 10px;
+                --footer-size: 11px;
             }
 
             .header-title {
-                font-size: 15px;
+                font-size: 16px;
             }
 
             .header-actions {
@@ -1150,22 +1179,22 @@
             }
 
             .note-list {
-                gap: 2px;
+                gap: 4px;
             }
 
             .note-add-btn {
-                height: 24px;
-                font-size: 16px;
+                height: 32px;
+                font-size: 18px;
             }
 
             .note-chevron {
-                width: 22px;
-                font-size: 16px;
+                width: 26px;
+                font-size: 18px;
             }
 
             .swipe-action {
                 width: 64px;
-                font-size: 11px;
+                font-size: 12px;
             }
 
             .btn[title]::after {
@@ -1180,25 +1209,46 @@
             }
 
             .note-add-btn {
-                min-height: 44px;
+                min-height: 48px;
+                font-size: 22px;
             }
 
             .note-drag-handle {
-                min-width: 40px;
+                min-width: 44px;
+                font-size: 22px;
+                letter-spacing: 3px;
+            }
+
+            .note-chevron {
+                font-size: 24px;
+                width: 36px;
             }
 
             .btn[title]::after {
                 display: none;
             }
 
-            .popup-close {
+            .popup-close,
+            .md-btn {
                 width: 40px;
                 height: 40px;
             }
 
+            .popup-close svg,
+            .md-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+
             .confirm-btn {
-                min-height: 44px;
+                min-height: 48px;
                 padding: 12px 28px;
+                font-size: 16px;
+            }
+
+            .search-input {
+                height: 40px;
+                font-size: 16px;
             }
         }
 
@@ -1259,7 +1309,8 @@
 
 <body>
     <header class="header">
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style="height: 24px; width: 24px; opacity: 0.85;">
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'
+            style="height: 26px; width: 26px; opacity: 0.85; flex-shrink:0;">
             <rect x='20' y='15' width='60' height='70' rx='10' fill='none' stroke='currentColor' stroke-width='8' />
             <line x1='36' y1='40' x2='64' y2='40' stroke='currentColor' stroke-width='6' stroke-linecap='round' />
             <line x1='36' y1='60' x2='54' y2='60' stroke='currentColor' stroke-width='6' stroke-linecap='round' />
@@ -1268,18 +1319,65 @@
         <div class="header-spacer"></div>
         <input type="search" id="searchInput" class="search-input" placeholder="Search..." aria-label="Search notes">
         <div class="header-actions">
-            <button class="btn" id="themeBtn" title="Theme" aria-label="Toggle theme">◐</button>
-            <button class="btn" id="undoBtn" title="Undo" aria-label="Undo" disabled>↩</button>
-            <button class="btn" id="redoBtn" title="Redo" aria-label="Redo" disabled>↪</button>
-            <button class="btn" id="exportBtn" title="Export" aria-label="Export notes">↓</button>
-            <button class="btn" id="importBtn" title="Import" aria-label="Import notes">↑</button>
-            <button class="btn" id="addBtn" title="Add" aria-label="Add new note">+</button>
+            <button class="btn" id="themeBtn" title="Theme" aria-label="Toggle theme">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+            </button>
+            <button class="btn" id="undoBtn" title="Undo" aria-label="Undo" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 7v6h6" />
+                    <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+                </svg>
+            </button>
+            <button class="btn" id="redoBtn" title="Redo" aria-label="Redo" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 7v6h-6" />
+                    <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13" />
+                </svg>
+            </button>
+            <button class="btn" id="exportBtn" title="Export" aria-label="Export notes">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+            </button>
+            <button class="btn" id="importBtn" title="Import" aria-label="Import notes">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+            </button>
+            <button class="btn" id="addBtn" title="Add note" aria-label="Add new note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+            </button>
         </div>
     </header>
     <main class="main" id="main">
         <div class="note-list" id="noteList"></div>
         <div class="empty-state" id="emptyState" style="display:none;">
-            <div class="empty-state-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='width:64px;height:64px;'><rect x='20' y='15' width='60' height='70' rx='10' fill='none' stroke='currentColor' stroke-width='6'/><line x1='36' y1='40' x2='64' y2='40' stroke='currentColor' stroke-width='4' stroke-linecap='round'/><line x1='36' y1='60' x2='54' y2='60' stroke='currentColor' stroke-width='4' stroke-linecap='round'/></svg></div>
+            <div class="empty-state-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'
+                    style='width:64px;height:64px;'>
+                    <rect x='20' y='15' width='60' height='70' rx='10' fill='none' stroke='currentColor'
+                        stroke-width='6' />
+                    <line x1='36' y1='40' x2='64' y2='40' stroke='currentColor' stroke-width='4'
+                        stroke-linecap='round' />
+                    <line x1='36' y1='60' x2='54' y2='60' stroke='currentColor' stroke-width='4'
+                        stroke-linecap='round' />
+                </svg></div>
             <div class="empty-state-text">No notes yet.<br>Tap + to create your first note.</div>
         </div>
     </main>
@@ -1288,26 +1386,68 @@
         <span class="footer-item" id="footerActive" title="Active note">No active</span>
         <span class="footer-item" id="footerTheme">Light</span>
         <span class="footer-item" id="footerStorage">0 KB</span>
-        <span class="footer-item footer-version">v1.0.0</span>
+        <span class="footer-item footer-version">v1.0.2</span>
     </footer>
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup-box">
             <div class="popup-header">
                 <span class="popup-title">Edit Note</span>
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <div class="popup-toolbar">
-                        <button class="md-btn" data-md="bold" title="Bold">B</button>
-                        <button class="md-btn" data-md="italic" title="Italic">I</button>
-                        <button class="md-btn" data-md="task" title="Checklist">[ ]</button>
-                        <button class="md-btn" data-md="tag" title="Hashtag">#</button>
-                    </div>
-                    <button class="popup-close" id="popupFocus" aria-label="Toggle Focus"
-                        style="font-size: 14px;">⤢</button>
-                    <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
-                </div>
             </div>
             <textarea class="popup-textarea" id="popupTextarea"
                 placeholder="Start typing...&#10;&#10;Use 'Heading: Body' format for headings.&#10;**Bold**, _Italic_, #tags are supported!"></textarea>
+            <div class="popup-bottom">
+                <div class="popup-toolbar">
+                    <button class="md-btn" data-md="bold" title="Bold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+                            <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+                        </svg>
+                    </button>
+                    <button class="md-btn" data-md="italic" title="Italic">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="4" x2="10" y2="4" />
+                            <line x1="14" y1="20" x2="5" y2="20" />
+                            <line x1="15" y1="4" x2="9" y2="20" />
+                        </svg>
+                    </button>
+                    <button class="md-btn" data-md="task" title="Checklist">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </button>
+                    <button class="md-btn" data-md="tag" title="Hashtag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="9" x2="20" y2="9" />
+                            <line x1="4" y1="15" x2="20" y2="15" />
+                            <line x1="10" y1="3" x2="8" y2="21" />
+                            <line x1="16" y1="3" x2="14" y2="21" />
+                        </svg>
+                    </button>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button class="popup-close" id="popupFocus" aria-label="Toggle Focus">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 3 21 3 21 9" />
+                            <polyline points="9 21 3 21 3 15" />
+                            <line x1="21" y1="3" x2="14" y2="10" />
+                            <line x1="3" y1="21" x2="10" y2="14" />
+                        </svg>
+                    </button>
+                    <button class="popup-close" id="popupClose" aria-label="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="confirm-overlay" id="confirmOverlay">
@@ -1327,21 +1467,21 @@
             'use strict';
             const STORAGE_PREFIX = 'notetile_';
             const MAX_UNDO = 40;
-            const APP_VERSION = '1.0.0';
+            const APP_VERSION = '1.0.2';
             const DEBOUNCE_MS = 400;
 
             const Storage = {
                 _key(n) { return STORAGE_PREFIX + n; },
-                _sizeCache: 0, _sizeTimer: 0,
+                _sizeCache: 0, _sizeTimer: -Infinity,
                 get(n, fb) { try { const r = localStorage.getItem(this._key(n)); return r !== null ? JSON.parse(r) : fb; } catch { return fb; } },
                 set(n, v) { try { localStorage.setItem(this._key(n), JSON.stringify(v)); this._invalidateSize(); } catch (e) { Toast.show('Storage full'); console.error('Storage.set:', e); } },
                 remove(n) { localStorage.removeItem(this._key(n)); this._invalidateSize(); },
-                _invalidateSize() { this._sizeTimer = 0; },
+                _invalidateSize() { this._sizeTimer = -Infinity; },
                 estimateSize() {
                     const now = Date.now();
                     if (now - this._sizeTimer < 5000) return this._sizeCache;
                     let t = 0;
-                    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(STORAGE_PREFIX)) t += localStorage.getItem(k).length * 2; }
+                    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(STORAGE_PREFIX)) t += (localStorage.getItem(k) || '').length * 2; }
                     this._sizeCache = t; this._sizeTimer = now; return t;
                 }
             };
@@ -1383,7 +1523,7 @@
                 },
                 update(id, text) { const n = this.getById(id); if (n) { n.text = text; this._save(); } },
                 remove(id) { const i = this._notes.findIndex(n => n.id === id); if (i === -1) return; this._notes.splice(i, 1); if (this._activeId === id) this._activeId = null; this._save(); },
-                setActive(id) { this._activeId = id; this._save(); },
+                setActive(id) { this._activeId = this._activeId === id ? null : id; this._save(); },
                 move(from, to) { if (from === to) return; const [item] = this._notes.splice(from, 1); this._notes.splice(to, 0, item); this._save(); },
                 _save() { Storage.set('notes', this._notes); Storage.set('activeId', this._activeId); },
                 exportAll() { return { version: APP_VERSION, timestamp: new Date().toISOString(), notes: this._notes, order: this._notes.map(n => n.id), activeId: this._activeId, theme: Theme.current(), settings: {} }; },
@@ -1406,7 +1546,6 @@
                     const idx = this._themes.indexOf(this._current);
                     this._current = this._themes[(idx + 1) % this._themes.length];
                     this.apply(this._current);
-                    History.push(History.snapshot());
                     Storage.set('theme', this._current);
                     UI.updateFooter();
                 },
@@ -1496,12 +1635,15 @@
                     // Ghost
                     const g = document.createElement('div');
                     g.className = 'drag-ghost';
-                    const h = card.querySelector('.note-heading');
-                    const b = card.querySelector('.note-body');
-                    if (h) { const d = document.createElement('div'); d.className = 'ghost-heading'; d.textContent = h.textContent; g.appendChild(d); }
-                    if (b) { const d = document.createElement('div'); d.className = 'ghost-body'; d.textContent = b.textContent; g.appendChild(d); }
-                    if (!h && !b) { const d = document.createElement('div'); d.className = 'ghost-body'; d.textContent = 'Empty note'; d.style.fontStyle = 'italic'; g.appendChild(d); }
+                    const inner = card.querySelector('.note-inner');
+                    if (inner) {
+                        const clone = inner.cloneNode(true);
+                        clone.style.width = '100%';
+                        clone.style.height = '100%';
+                        g.appendChild(clone);
+                    }
                     g.style.width = rect.width + 'px';
+                    g.style.height = rect.height + 'px';
                     g.style.left = (e.clientX - this._drag.offX) + 'px';
                     g.style.top = (e.clientY - this._drag.offY) + 'px';
                     document.body.appendChild(g);
@@ -1600,9 +1742,10 @@
                             s.content.style.transform = '';
                             s.content.style.transition = '';
                             History.push(History.snapshot());
+                            const wasActive = (Notes.getActiveId() === id);
                             Notes.setActive(id);
                             UI.render();
-                            Toast.show('Note activated');
+                            Toast.show(wasActive ? 'Note deactivated' : 'Note activated');
                         } else {
                             s.content.style.transform = '';
                         }
@@ -1688,12 +1831,12 @@
                     card.dataset.idx = idx;
                     const { heading, body } = parseNote(note.text);
                     card.innerHTML = `
-                    <div class="swipe-actions"><div class="swipe-action swipe-active">✓ Activate</div><div class="swipe-action swipe-delete">✕ Delete</div></div>
+                    <div class="swipe-actions"><div class="swipe-action swipe-active">${isActive ? '✕ Deactivate' : '✓ Activate'}</div><div class="swipe-action swipe-delete">✕ Delete</div></div>
                     <div class="note-inner">
                         <div class="note-drag-handle" aria-label="Drag to reorder">⋮</div>
                         <div class="note-content">
                             ${isActive ? '<div class="active-icon" style="position:absolute; right:0px; top:50%; transform:translateY(-50%); color:var(--active-green); font-size:14px; z-index:2; pointer-events:none;">★</div>' : ''}
-                            ${heading && body ? `<div class="note-body"><span class="note-heading" style="display:inline; margin-bottom:0;">${parseMarkdown(heading)}</span> <span style="color:var(--accent); margin:0 4px; font-weight:1000; font-size:1.5em;">→</span> ${parseMarkdown(body)}</div>` : ''}
+                            ${heading && body ? `<div class="note-body"><span class="note-heading" style="display:inline; margin-bottom:0;">${parseMarkdown(heading)}</span> <span style="display: inline-block; vertical-align: middle; color: var(--accent); margin: 0 4px; line-height: 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; transform: translateY(-1px);"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span> ${parseMarkdown(body)}</div>` : ''}
                             ${heading && !body ? `<div class="note-heading">${parseMarkdown(heading)}</div>` : ''}
                             ${!heading && body ? `<div class="note-body">${parseMarkdown(body)}</div>` : ''}
                             ${!heading && !body ? '<div class="note-body" style="font-style:italic;">Empty note</div>' : ''}
@@ -1705,6 +1848,18 @@
                     const content = card.querySelector('.note-content');
                     content.addEventListener('click', (e) => {
                         if (Interaction._blocked || Interaction.wasSwipe()) return;
+
+                        const cbEl = e.target.closest('.md-cb');
+                        if (cbEl) {
+                            e.stopPropagation();
+                            const taskEl = cbEl.closest('.md-task-inline');
+                            if (taskEl) {
+                                const tIdx = parseInt(taskEl.dataset.taskIdx, 10);
+                                toggleTaskState(note.id, tIdx);
+                            }
+                            return;
+                        }
+
                         if (e.target.classList.contains('hashtag')) {
                             const search = document.getElementById('searchInput');
                             if (search.value === e.target.textContent) search.value = '';
@@ -1764,10 +1919,34 @@
                 h = h.replace(/\*\*(.*?)\*\*/g, '<span class="md-bold">$1</span>');
                 h = h.replace(/_(.*?)_/g, '<span class="md-italic">$1</span>');
                 h = h.replace(/(^|\s)(#[a-zA-Z0-9_]+)/g, '$1<span class="hashtag">$2</span>');
-                h = h.replace(/\[ \] (.*?)(?=\n|$)/g, '<span class="md-task-inline"><span class="md-cb"></span> <span>$1</span></span>');
-                h = h.replace(/\[x\] (.*?)(?=\n|$)/g, '<span class="md-task-inline"><span class="md-cb checked">✓</span> <span class="md-task-done">$1</span></span>');
+
+                let taskIdx = 0;
+                h = h.replace(/(\[ \]|\[x\]) (.*?)(?=\n|$)/g, (match, cbState, taskText) => {
+                    const isChecked = cbState === '[x]';
+                    const idx = taskIdx++;
+                    return `<span class="md-task-inline" data-task-idx="${idx}"><span class="md-cb${isChecked ? ' checked' : ''}">${isChecked ? '✓' : ''}</span> <span>${taskText}</span></span>`;
+                });
                 return h;
             }
+
+            function toggleTaskState(id, taskIndex) {
+                const note = Notes.getById(id);
+                if (!note) return;
+                let currentIdx = 0;
+                const newText = note.text.replace(/(\[ \]|\[x\]) (.*?)(?=\n|$)/g, (match, cbState, taskText) => {
+                    if (currentIdx === taskIndex) {
+                        const newCb = cbState === '[ ]' ? '[x]' : '[ ]';
+                        currentIdx++;
+                        return `${newCb} ${taskText}`;
+                    }
+                    currentIdx++;
+                    return match;
+                });
+                History.push(History.snapshot());
+                Notes.update(id, newText);
+                UI.render();
+            }
+
             function formatBytes(b) { if (b < 1024) return b + ' B'; if (b < 1048576) return (b / 1024).toFixed(1) + ' KB'; return (b / 1048576).toFixed(1) + ' MB'; }
 
             function applyMarkdown(type) {

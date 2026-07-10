@@ -1,7 +1,7 @@
 // NoteTile Service Worker
 // Caches all app shell assets for full offline support
 
-const CACHE_NAME = 'notetile-v2';
+const CACHE_NAME = 'notetile-v4';
 const ASSETS = [
     './',
     './index.html',
