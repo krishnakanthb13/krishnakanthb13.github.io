@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Freelance Cost Calculator</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2310b981'/><text x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-size='38' font-weight='bold' text-anchor='middle' fill='%23ffffff'>KK</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 0%, #064e3b 0%, #090d16 100%);
+      --panel-bg: rgba(30, 41, 59, 0.7);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --primary: #10b981;
+      --accent: #34d399;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --input-bg: rgba(15, 23, 42, 0.6);
+      --input-border: rgba(255, 255, 255, 0.1);
+      --input-focus: #34d399;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #090d16;
+      background-image: var(--bg-gradient);
+      color: var(--text-main);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 900px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+    }
+
+    @media(max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .wrap {
+        padding: 24px;
+      }
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #a7f3d0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media(max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    @media(max-width: 480px) {
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--input-focus);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2334d399'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    /* Hide default browser spinners */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* Stepper Custom Style */
+    .stepper {
+      display: flex;
+      align-items: center;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .stepper:focus-within {
+      border-color: var(--input-focus);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .stepper input {
+      border: none !important;
+      background: transparent !important;
+      text-align: center;
+      padding: 12px 0;
+      box-shadow: none !important;
+      margin: 0;
+    }
+
+    .step-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      width: 44px;
+      height: 44px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    .step-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .step-btn:active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid var(--panel-border);
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .rate-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    #rate {
+      font-weight: 600;
+      color: #34d399;
+    }
+
+    #status {
+      font-size: 0.75rem;
+      color: var(--primary);
+      background: rgba(16, 185, 129, 0.1);
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .result-row {
+      margin-bottom: 16px;
+    }
+
+    .result-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .big {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    #inr {
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    button {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+
+    button.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+    }
+
+    button.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    button.secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10b981;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Info Tooltip and Modal Styles */
+    .label-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .label-container label {
+      margin-bottom: 0;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+      line-height: 1;
+    }
+
+    .info-btn:hover {
+      color: var(--input-focus);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(9, 13, 22, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 2000;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: rgba(30, 41, 59, 0.98);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 550px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      color: var(--text-main);
+      box-sizing: border-box;
+    }
+
+    /* Custom scrollbar styling */
+    .modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 10px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-content h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #a7f3d0;
+    }
+
+    .modal-plan {
+      margin-bottom: 12px;
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .modal-plan:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .modal-plan.highlight {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+    }
+
+    .modal-plan h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      margin: 0 0 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    .modal-plan h3 span {
+      font-size: 0.85rem;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .modal-plan p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Discovery Session styling */
+    .discovery-box {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .discovery-box:hover {
+      border-color: var(--primary);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .discovery-box.active {
+      background: rgba(16, 185, 129, 0.12);
+      border-style: solid;
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+    }
+
+    .discovery-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .discovery-header input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .discovery-header label {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .discovery-desc {
+      margin: 0 0 0 28px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Freelance Cost Calculator</h1>
+
+    <div class="layout">
+      <!-- Left Column: Settings -->
+      <div>
+        <div class="section-title">Job Details</div>
+        <div class="grid">
+          <div class="form-group full-width">
+            <div class="label-container">
+              <label>Skill</label>
+              <button type="button" class="info-btn" onclick="openModal('skill')">ⓘ</button>
+            </div>
+            <select id="skill"></select>
+          </div>
+
+          <div class="form-group full-width">
+            <div class="label-container">
+              <label>Plan Mode</label>
+              <button type="button" class="info-btn" onclick="openModal('planMode')">ⓘ</button>
+            </div>
+            <select id="planMode">
+              <option value="1.0">Client-Bare (Execution Only - 1.0x)</option>
+              <option value="1.3">Work + Consulting (Full Service - 1.3x)</option>
+              <option value="1.8">Consulting Only (Strategy/Advisory - 1.8x)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="label-container">
+              <label>Hours</label>
+              <button type="button" class="info-btn" onclick="openModal('hours')">ⓘ</button>
+            </div>
+            <div class="stepper">
+              <button type="button" class="step-btn" onclick="stepDown('hours', 0.25)">−</button>
+              <input type="number" id="hours" value="0" min="0" step="0.25">
+              <button type="button" class="step-btn" onclick="stepUp('hours', 0.25)">+</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Additional Expenses (₹)</label>
+              <button type="button" class="info-btn" onclick="openModal('extra')">ⓘ</button>
+            </div>
+            <div class="stepper">
+              <button type="button" class="step-btn" onclick="stepDown('extra', 100)">−</button>
+              <input type="number" id="extra" value="0" min="0">
+              <button type="button" class="step-btn" onclick="stepUp('extra', 100)">+</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Discount (%)</label>
+              <button type="button" class="info-btn" onclick="openModal('discount')">ⓘ</button>
+            </div>
+            <div class="stepper">
+              <button type="button" class="step-btn" onclick="stepDown('discount', 1)">−</button>
+              <input type="number" id="discount" value="0" min="0" max="100">
+              <button type="button" class="step-btn" onclick="stepUp('discount', 1)">+</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Rush Charge (%)</label>
+              <button type="button" class="info-btn" onclick="openModal('rush')">ⓘ</button>
+            </div>
+            <div class="stepper">
+              <button type="button" class="step-btn" onclick="stepDown('rush', 5)">−</button>
+              <input type="number" id="rush" value="0" min="0">
+              <button type="button" class="step-btn" onclick="stepUp('rush', 5)">+</button>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <div class="label-container">
+              <label>GST (%)</label>
+              <button type="button" class="info-btn" onclick="openModal('gst')">ⓘ</button>
+            </div>
+            <select id="gst">
+              <option value="0">No GST</option>
+              <option value="18">18%</option>
+            </select>
+          </div>
+
+          <!-- Discovery Session Box -->
+          <div class="form-group full-width">
+            <div id="discoveryBox" class="discovery-box">
+              <div class="discovery-header">
+                <input type="checkbox" id="discoverySession" onchange="calc()">
+                <label for="discoverySession">Discovery & Requirements Session (+₹2,000)</label>
+              </div>
+              <p class="discovery-desc">Collaborative sessions to analyze current workflows, understand tools, and map
+                out solid requirements. Includes up to <b>2 hours</b> of interactive session time.
+                <br><strong style="display: block; margin-top: 6px; color: var(--accent);">Note: Valid for
+                  first-time clients only. Additional time will fall into standard Consulting Skill Rate.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Info -->
+      <div>
+        <div class="section-title">Summary</div>
+
+        <div class="card">
+          <div class="rate-status">
+            <div>Exchange Rate: <span id="rate">Loading...</span></div>
+            <span id="status"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="result-row">
+            <div class="result-label">Subtotal (INR)</div>
+            <div class="big" id="inr">₹0</div>
+          </div>
+          <div class="result-row" style="margin-top: 12px;">
+            <div class="result-label">Equivalent (USD)</div>
+            <div class="big" id="usd">$0</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="form-group">
+            <label>Client</label>
+            <input id="client" placeholder="e.g. Acme Corp">
+          </div>
+          <div class="form-group">
+            <label>Project</label>
+            <input id="project" placeholder="e.g. Website Redesign">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Notes</label>
+            <textarea id="notes" placeholder="Any extra details..."></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" onclick="copyQuote()">Copy Quote</button>
+          <button class="secondary" onclick="window.print()">Print / Save PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Quote Copied to Clipboard!</div>
+
+  <!-- Modal Dialog -->
+  <div id="infoModal" class="modal-overlay" onclick="closeModalOnOuter(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle">Info</h2>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const rates = {
+      "Workflow Optimization": 1400,
+      "AI Assistants": 1500,
+      "Business Process Automation": 1600,
+      "AI Automation": 1800,
+      "Custom AI Applications": 2000,
+      "AI Consulting": 2000
+    };
+    const guideData = {
+      skill: {
+        title: "Skill Specializations",
+        content: `
+      <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">Workflow Optimization <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹1,400/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Streamline your existing software and processes with intelligent automation.<br><strong>Examples:</strong> <em>Process redesign, internal tool improvements, AI integration into existing apps, bottleneck identification, efficiency auditing.</em></p>
+      </div>
+      <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">AI Assistants <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹1,500/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Deploy intelligent assistants that handle queries, support, and knowledge retrieval.<br><strong>Examples:</strong> <em>Customer support bots, internal knowledge assistants, sales & lead assistants, employee onboarding bots, 24/7 automated support.</em></p>
+      </div>
+      <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">Business Process Automation <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹1,600/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Automate entire business workflows from CRM to HR to finance.<br><strong>Examples:</strong> <em>CRM automation, HR workflows, finance & accounting, operations management, scheduling & reporting.</em></p>
+      </div>
+      <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">AI Automation <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹1,800/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Eliminate repetitive tasks that drain your team's time and energy.<br><strong>Examples:</strong> <em>Report generation, email processing, data entry & processing, document workflows, scheduled tasks.</em></p>
+      </div>
+      <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">Custom AI Applications <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹2,000/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Build bespoke dashboards, portals, and productivity systems powered by AI.<br><strong>Examples:</strong> <em>AI-powered dashboards, client portals, workflow management tools, productivity systems, data visualization.</em></p>
+      </div>
+      <div>
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; color: #fff;">AI Consulting <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">₹2,000/hr</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Get expert guidance on where and how AI can transform your operations.<br><strong>Examples:</strong> <em>Bottleneck identification, AI readiness assessment, implementation roadmap, vendor & tool selection, AI adoption strategy.</em></p>
+      </div>
+    `
+      },
+      planMode: {
+        title: "Plan Modes Explained",
+        content: `
+      <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; display: flex; justify-content: space-between; align-items: center; color: #fff;">Client-Bare (Execution Only) <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">1.0x Rate</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Pure implementation and coding based on your exact specifications. Best when you have fully defined requirements, wireframes, and design documents already prepared.</p>
+      </div>
+      <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; display: flex; justify-content: space-between; align-items: center; color: #fff;">Work + Consulting (Full Service) <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">1.3x Rate</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">A blended offering that covers both strategic design/advisory and hands-on execution. Best for projects where requirements are evolving, and you need technical leadership alongside coding.</p>
+      </div>
+      <div>
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin: 0 0 6px 0; display: flex; justify-content: space-between; align-items: center; color: #fff;">Consulting Only (Strategy & Advisory) <span style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 2px 8px; border-radius: 12px; font-weight: 600;">1.8x Rate</span></h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">High-leverage advisory, systems architecture design, code reviews, and technology planning. Best for consulting teams, mentoring, or technical audit phases without coding execution.</p>
+      </div>
+    `
+      },
+      hours: {
+        title: "Hours",
+        content: "<p style='margin:0; font-size:0.95rem; color:var(--text-muted); line-height:1.5;'>The total estimated billing hours for project execution. Adjusts in steps of 0.25 hours (15 minutes).</p>"
+      },
+      extra: {
+        title: "Additional Expenses",
+        content: "<p style='margin:0; font-size:0.95rem; color:var(--text-muted); line-height:1.5;'>Flat-rate external costs added directly to the invoice (such as third-party assets, API subscriptions, domain registrations, or hosting fees).</p>"
+      },
+      discount: {
+        title: "Discount",
+        content: "<p style='margin:0; font-size:0.95rem; color:var(--text-muted); line-height:1.5;'>Deducts a percentage from the subtotal. Used for long-term contract discounts or promotional offers.</p>"
+      },
+      rush: {
+        title: "Rush Charge",
+        content: "<p style='margin:0; font-size:0.95rem; color:var(--text-muted); line-height:1.5;'>Applies a premium multiplier if the project has tight deadlines requiring weekend work, overtime, or expedited delivery.</p>"
+      },
+      gst: {
+        title: "GST (Tax)",
+        content: "<p style='margin:0; font-size:0.95rem; color:var(--text-muted); line-height:1.5;'>Applies standard government Goods and Services Tax (e.g. 18% GST) to the final calculated amount.</p>"
+      }
+    };
+
+    const skill = document.getElementById("skill");
+    const planMode = document.getElementById("planMode");
+    const hours = document.getElementById("hours");
+    const extra = document.getElementById("extra");
+    const discount = document.getElementById("discount");
+    const rush = document.getElementById("rush");
+    const gst = document.getElementById("gst");
+    const discoverySession = document.getElementById("discoverySession");
+    const discoveryBox = document.getElementById("discoveryBox");
+    const inr = document.getElementById("inr");
+    const usd = document.getElementById("usd");
+    const client = document.getElementById("client");
+    const project = document.getElementById("project");
+    const notes = document.getElementById("notes");
+    const rate = document.getElementById("rate");
+    const status = document.getElementById("status");
+
+    Object.entries(rates).forEach(([k, v]) => {
+      const o = document.createElement("option");
+      o.value = k; o.textContent = `${k} (₹${v}/hr)`; skill.appendChild(o);
+    });
+    let usdInr = 95.3305;
+
+    async function fetchRate() {
+      try {
+        const r = await fetch("https://open.er-api.com/v6/latest/USD");
+        const j = await r.json();
+        if (j.result === "success") {
+          usdInr = j.rates.INR;
+          localStorage.setItem("usdInr", usdInr);
+          status.textContent = "Live exchange rate";
+        } else throw Error();
+      } catch (e) {
+        usdInr = parseFloat(localStorage.getItem("usdInr")) || 95.3305;
+        status.textContent = "Offline/cached exchange rate";
+      }
+      rate.textContent = `1 USD = ₹${usdInr.toFixed(4)}`;
+      calc();
+    }
+    function money(n) { return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(n); }
+    function calc() {
+      const planMultiplier = parseFloat(planMode.value || 1);
+      let total = rates[skill.value] * parseFloat(hours.value || 0) * planMultiplier;
+
+      // Add discovery session cost if checked
+      const discoveryChecked = discoverySession.checked;
+      if (discoveryChecked) {
+        total += 2000;
+        discoveryBox.classList.add("active");
+      } else {
+        discoveryBox.classList.remove("active");
+      }
+
+      total += parseFloat(extra.value || 0);
+      total *= 1 + (parseFloat(rush.value || 0) / 100);
+      total *= 1 - (parseFloat(discount.value || 0) / 100);
+      total *= 1 + (parseFloat(gst.value || 0) / 100);
+      inr.textContent = money(total);
+      usd.textContent = "$" + (total / usdInr).toFixed(2);
+    }
+    function stepUp(id, step = 1) {
+      const input = document.getElementById(id);
+      const min = input.min !== "" ? parseFloat(input.min) : -Infinity;
+      const max = input.max !== "" ? parseFloat(input.max) : Infinity;
+      let val = parseFloat(input.value || 0) + step;
+      if (val > max) val = max;
+      if (val < min) val = min;
+      input.value = val;
+      calc();
+    }
+    function stepDown(id, step = 1) {
+      const input = document.getElementById(id);
+      const min = input.min !== "" ? parseFloat(input.min) : -Infinity;
+      const max = input.max !== "" ? parseFloat(input.max) : Infinity;
+      let val = parseFloat(input.value || 0) - step;
+      if (val > max) val = max;
+      if (val < min) val = min;
+      input.value = val;
+      calc();
+    }
+    function openModal(sectionId) {
+      const data = guideData[sectionId];
+      if (!data) return;
+
+      document.getElementById("modalTitle").innerText = data.title;
+      document.getElementById("modalBody").innerHTML = data.content;
+
+      const modal = document.getElementById("infoModal");
+      modal.classList.add("open");
+    }
+    function closeModal() {
+      document.getElementById("infoModal").classList.remove("open");
+    }
+    function closeModalOnOuter(e) {
+      if (e.target.id === "infoModal") {
+        closeModal();
+      }
+    }
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+    function copyQuote() {
+      const planSelect = document.getElementById("planMode");
+      const planText = planSelect.options[planSelect.selectedIndex].text;
+      const discoveryChecked = document.getElementById("discoverySession").checked;
+      const discoveryText = discoveryChecked ? "Included (+₹2,000)" : "Not Included";
+      const txt = `Freelance Quote
+Client: ${client.value}
+Project: ${project.value}
+Skill: ${skill.value}
+Plan Mode: ${planText}
+Discovery Session: ${discoveryText}
+Hours: ${hours.value}
+Rate: ₹${rates[skill.value]}/hr
+Total: ${inr.textContent}
+USD: ${usd.textContent}
+Exchange: 1 USD = ₹${usdInr.toFixed(4)}
+Notes: ${notes.value}`;
+      navigator.clipboard.writeText(txt);
+      showToast();
+    }
+    ["skill", "hours", "discount", "rush", "extra", "gst", "planMode"].forEach(id => document.getElementById(id).addEventListener("input", calc));
+    document.getElementById("discoverySession").addEventListener("change", calc);
+    skill.selectedIndex = 0;
+    fetchRate();
+    calc();
+  </script>
+</body>
+
+</html>
