@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-07-10T10:00:53.456Z",
+  "updated": "2026-07-12T08:15:58.760Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
@@ -86,8 +86,7 @@ window.__PLUGINS__ = {
         {
           "name": "YTD Wrapped",
           "link": "https://public.amplenote.com/mHrFLd/ytd-wrapped",
-          "install": "https://www.amplenote.com/plugins/mHrFLdGF9JWViWTXfKcYoNLc",
-          "badge": "🟢 Latest"
+          "install": "https://www.amplenote.com/plugins/mHrFLdGF9JWViWTXfKcYoNLc"
         },
         {
           "name": "Tagger Pro",
@@ -120,7 +119,7 @@ window.__PLUGINS__ = {
           "name": "Dice",
           "link": "https://public.amplenote.com/2zJ5cA/dice",
           "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
-          "badge": "🔴 Updated"
+          "badge": "🟢 Latest"
         },
         {
           "name": "Timestamp",
@@ -374,7 +373,7 @@ window.__PLUGINS__ = {
       "name": "Dice",
       "category": "Randomizer",
       "published": "December 21st, 2024",
-      "last_updated": "June 29th, 2026",
+      "last_updated": "July 11th, 2026",
       "custom_url": "https://public.amplenote.com/2zJ5cA/dice",
       "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
       "plans": [
