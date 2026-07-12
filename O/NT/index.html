@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self';">
+        content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self';">
     <meta name="theme-color" content="#f5f5f7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -932,9 +932,39 @@
 
         @media (max-width: 767px) {
             .search-input {
-                max-width: 120px;
-                width: 120px;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                -webkit-appearance: none;
+                appearance: none;
+                max-width: var(--btn-size);
+                width: var(--btn-size);
+                height: var(--btn-size);
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                color: transparent;
+                border: none;
+                border-radius: var(--radius-sm);
+                background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1d1f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat center / var(--btn-icon) !important;
+                transition: background-color var(--transition), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .search-input:hover {
+                background-color: var(--accent-light) !important;
+            }
+
+            [data-theme="dark"] .search-input {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") !important;
+            }
+            [data-theme="sepia"] .search-input {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234c432e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") !important;
+            }
+            [data-theme="oled"] .search-input {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") !important;
+            }
+            [data-theme="ocean"] .search-input {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f8fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") !important;
+            }
+
+            .search-input::placeholder {
+                color: transparent;
             }
 
             .search-input:focus {
@@ -942,9 +972,25 @@
                 left: 16px;
                 width: calc(100vw - 32px);
                 max-width: none;
+                height: 36px;
                 z-index: 10;
                 box-shadow: var(--shadow-md);
                 margin: 0;
+                padding: 6px 12px;
+                background-color: var(--bg-card) !important;
+                background-image: none !important;
+                border: 1px solid var(--accent);
+                border-radius: 14px;
+                color: var(--text);
+                cursor: text;
+            }
+            
+            .search-input:focus:hover {
+                background-color: var(--bg-card) !important;
+            }
+
+            .search-input:focus::placeholder {
+                color: var(--text-secondary);
             }
 
             .note-drag-handle {
@@ -1321,6 +1367,11 @@
         <div class="header-spacer"></div>
         <input type="search" id="searchInput" class="search-input" placeholder="Search..." aria-label="Search notes">
         <div class="header-actions">
+            <a class="btn" href="https://krishnakanthb13.github.io/S/" target="_blank" title="S" aria-label="S">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </a>
             <button class="btn" id="themeBtn" title="Theme" aria-label="Toggle theme">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
@@ -1388,7 +1439,7 @@
         <span class="footer-item" id="footerActive" title="Active note">No active</span>
         <span class="footer-item" id="footerTheme">Light</span>
         <span class="footer-item" id="footerStorage">0 KB</span>
-        <span class="footer-item footer-version">v1.0.3</span>
+        <span class="footer-item footer-version">v1.0.4</span>
     </footer>
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup-box">

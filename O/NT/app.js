@@ -2,7 +2,7 @@
             'use strict';
             const STORAGE_PREFIX = 'notetile_';
             const MAX_UNDO = 40;
-            const APP_VERSION = '1.0.3';
+            const APP_VERSION = '1.0.4';
             const DEBOUNCE_MS = 400;
 
             const bc = window.BroadcastChannel ? new BroadcastChannel('notetile_sync') : null;

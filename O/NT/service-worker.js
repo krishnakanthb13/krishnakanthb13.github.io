@@ -1,8 +1,8 @@
 // NoteTile Service Worker
 // Caches all app shell assets for full offline support
 
-const CACHE_NAME = 'notetile-v11';
-const RUNTIME_CACHE = 'notetile-runtime-v3';
+const CACHE_NAME = 'notetile-v16';
+const RUNTIME_CACHE = 'notetile-runtime-v8';
 const MAX_RUNTIME_ITEMS = 50;
 
 function trimCache(cacheName, maxItems) {

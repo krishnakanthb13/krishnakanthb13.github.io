@@ -11,7 +11,7 @@ NoteTile is a self-contained note-taking application that requires no backend an
 - **Note CRUD**: Create, edit, and delete notes via a fast modal popup editor.
 - **Auto-Formatting**: Use `Heading: Body` syntax to auto-split your notes. If both exist, they flow beautifully inline separated by a bright `→` arrow.
 - **Markdown Support**: Built-in support for `**bold**`, `_italic_`, checklists (`[ ]`), and `#hashtags` without external libraries. Includes a handy formatting toolbar inside the editor. Checkboxes in notes are fully interactive—tap any checkbox directly on a note card to check/uncheck it without opening the editor.
-- **Instant Search**: Filter notes instantly with the search bar or by simply tapping on any `#hashtag` in your notes.
+- **Instant Search**: Filter notes instantly with the search bar or by simply tapping on any `#hashtag` in your notes. On smaller screens (<768px), the search box collapses into a magnifying glass icon to save space, and expands smoothly to full width on focus.
 - **Focus Mode**: Immersive full-screen editor mode with a single click (⤢ toggle).
 - **Auto-Save**: Saves silently while typing, on popup close, or when pressing ESC. 
 - **Drag & Drop**: Grab the handle (⋮) to reorder notes intuitively. Note ordering is fully persisted.
@@ -19,6 +19,7 @@ NoteTile is a self-contained note-taking application that requires no backend an
 - **Active Note**: Swipe right toggles the selected note's active state. At most one note can be active.
 - **Undo / Redo**: 40-state history for safe editing and reordering.
 - **5 Cyclic Themes**: Cycles smoothly through Light, Dark, Sepia, OLED (pure black), and Ocean themes.
+- **Quick Links**: A heart-shaped shortcut button in the header opens your favorite external space (`https://krishnakanthb13.github.io/S/`) in a new tab.
 - **Export / Import**: Full JSON backup and restore capabilities (downloads as `NoteTile-YYYY-MM-DD.json`) to easily move your notes between devices.
 - **PWA Ready**: Installable, standalone, and offline-first via the included service worker.
 - **Responsive**: Mobile-first layout with native-feeling horizontal scrollable toolbars on small screens. Now features touch-optimized sizing (coarse pointer support) and clean, responsive SVG iconography throughout.
@@ -30,7 +31,7 @@ NT/
   index.html        # App shell and styling (HTML + CSS)
   app.js            # Main application logic (IIFE, IndexedDB, routing, events)
   manifest.json     # PWA web app manifest with install shortcuts
-  service-worker.js # Offline caching service worker (v10)
+  service-worker.js # Offline caching service worker (v16)
 ```
 **Total:** 4 production files, ~90 KB combined.
 
