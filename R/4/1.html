@@ -51,22 +51,6 @@
     .nav-logo .accent {
         color: #10b981;
     }
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-    .nav-link {
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #94a3b8;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        position: relative;
-    }
-    .nav-link:hover, .nav-link.active {
-        color: #10b981;
-    }
     .nav-actions {
         display: flex;
         align-items: center;
@@ -87,6 +71,9 @@
       --input-focus: #34d399;
     }
 
+    html {
+      overflow-x: hidden;
+    }
     body {
       font-family: 'Inter', sans-serif;
       background: #090d16;
@@ -94,6 +81,7 @@
       color: var(--text-main);
       margin: 0;
       min-height: 100vh;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -637,7 +625,7 @@
 
     @media (max-width: 480px) {
       body {
-        padding: 95px 16px 24px 16px;
+        padding: 95px 16px 60px 16px;
       }
 
       .wrap {
@@ -653,12 +641,6 @@
 
       .nav-inner {
         padding: 0 16px;
-      }
-      .nav-links {
-        gap: 16px;
-      }
-      .nav-link {
-        font-size: 0.82rem;
       }
       .nav-logo {
         font-size: 1.15rem;
@@ -680,8 +662,50 @@
         font-size: 0.72rem;
       }
       input, select, textarea {
-        font-size: 0.85rem;
+        font-size: 14px;
         padding: 10px 12px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      select {
+        font-size: 13px;
+      }
+
+      /* Custom Dropdown (mobile only) */
+      .custom-select { position: relative; width: 100%; }
+      .custom-select-btn {
+        width: 100%; padding: 8px 10px; border-radius: 6px;
+        border: 1px solid var(--input-border); background: var(--input-bg);
+        color: var(--text-main); font-size: 12px; font-family: inherit;
+        text-align: left; cursor: pointer; box-sizing: border-box;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2334d399'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-repeat: no-repeat; background-position: right 10px center;
+        background-size: 12px; padding-right: 32px;
+        transition: all 0.2s ease;
+      }
+      .custom-select-btn:focus {
+        outline: none; border-color: var(--input-focus);
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      }
+      .custom-select-dropdown {
+        display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+        z-index: 100; background: rgba(15, 23, 42, 0.98);
+        border: 1px solid var(--input-border); border-radius: 6px;
+        max-height: 180px; overflow-y: auto;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+        -webkit-overflow-scrolling: touch;
+      }
+      .custom-select-dropdown.open { display: block; }
+      .custom-select-option {
+        padding: 7px 10px; font-size: 12px; color: var(--text-main);
+        cursor: pointer; transition: background 0.15s;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .custom-select-option:last-child { border-bottom: none; }
+      .custom-select-option:hover { background: rgba(255, 255, 255, 0.06); }
+      .custom-select-option.selected { color: #34d399; background: rgba(16, 185, 129, 0.12); }
+      @media (min-width: 481px) {
+        .custom-select { display: none; }
       }
       button {
         font-size: 0.85rem;
@@ -705,6 +729,69 @@
         font-size: 0.8rem;
       }
     }
+
+    /* Bottom Footer Nav */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(9, 13, 22, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: center;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .bottom-nav-link {
+        flex: 1;
+        max-width: 400px;
+        text-align: center;
+        padding: 14px 20px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.3s ease, background 0.3s ease;
+        white-space: nowrap;
+        position: relative;
+    }
+    .bottom-nav-link:hover {
+        color: #e2e8f0;
+        background: rgba(255, 255, 255, 0.04);
+    }
+    .bottom-nav-link.active {
+        color: #10b981;
+    }
+    .bottom-nav-link.active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 2px;
+        background: #10b981;
+        border-radius: 0 0 2px 2px;
+    }
+    @media (min-width: 1025px) {
+        .bottom-nav {
+            max-width: 500px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 16px 16px 0 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: none;
+        }
+    }
+    @media (max-width: 480px) {
+        .bottom-nav-link {
+            padding: 12px 8px;
+            font-size: 0.78rem;
+        }
+    }
   </style>
 
 </head>
@@ -714,15 +801,14 @@
   <nav class="nav" id="nav" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
     <div class="nav-inner container">
       <a href="index.html" class="nav-logo">KK<span class="accent">.</span></a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="#" class="nav-link active">Quote Calculator</a>
-        <a href="2.html" class="nav-link">Consulting Bot</a>
-      </div>
-      <div class="nav-actions">
-        <!-- Unified strictly dark header -->
-      </div>
     </div>
+  </nav>
+
+  <!-- Bottom Footer Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-link">Home</a>
+    <a href="#" class="bottom-nav-link active">Quote Calculator</a>
+    <a href="2.html" class="bottom-nav-link">Consulting Bot</a>
   </nav>
 
   <div class="wrap">
@@ -794,7 +880,7 @@
             </div>
             <div class="stepper">
               <button type="button" class="step-btn" onclick="stepDown('rush', 5)">−</button>
-              <input type="number" id="rush" value="0" min="0">
+              <input type="number" id="rush" value="0" min="0" max="500">
               <button type="button" class="step-btn" onclick="stepUp('rush', 5)">+</button>
             </div>
           </div>
@@ -1015,7 +1101,7 @@
 
       total += parseFloat(extra.value || 0);
       total *= 1 + (parseFloat(rush.value || 0) / 100);
-      total *= 1 - (parseFloat(discount.value || 0) / 100);
+      total *= 1 - (Math.min(100, Math.max(0, parseFloat(discount.value || 0))) / 100);
       total *= 1 + (parseFloat(gst.value || 0) / 100);
       inr.textContent = money(total);
       usd.textContent = "$" + (total / usdInr).toFixed(2);
@@ -1082,14 +1168,72 @@ Total: ${inr.textContent}
 USD: ${usd.textContent}
 Exchange: 1 USD = ₹${usdInr.toFixed(4)}
 Notes: ${notes.value}`;
-      navigator.clipboard.writeText(txt);
-      showToast();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(showToast).catch(function() { fallbackCopy(txt); });
+      } else {
+        fallbackCopy(txt);
+      }
+    }
+    function fallbackCopy(text) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.cssText = "position:fixed;opacity:0;left:-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); showToast(); } catch(e) { alert("Copy failed. Please copy manually."); }
+      document.body.removeChild(ta);
     }
     ["skill", "hours", "discount", "rush", "extra", "gst", "planMode"].forEach(id => document.getElementById(id).addEventListener("input", calc));
     document.getElementById("discoverySession").addEventListener("change", calc);
     skill.selectedIndex = 0;
     fetchRate();
     calc();
+
+    // Custom dropdowns on mobile
+    if (window.innerWidth <= 480) {
+      document.querySelectorAll('select').forEach(function(sel) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'custom-select';
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'custom-select-btn';
+        btn.textContent = sel.options[sel.selectedIndex].text;
+
+        var dropdown = document.createElement('div');
+        dropdown.className = 'custom-select-dropdown';
+
+        Array.from(sel.options).forEach(function(opt) {
+          var option = document.createElement('div');
+          option.className = 'custom-select-option' + (opt.selected ? ' selected' : '');
+          option.textContent = opt.text;
+          option.addEventListener('click', function() {
+            sel.value = opt.value;
+            btn.textContent = opt.text;
+            dropdown.querySelectorAll('.custom-select-option').forEach(function(o) { o.classList.remove('selected'); });
+            option.classList.add('selected');
+            dropdown.classList.remove('open');
+            sel.dispatchEvent(new Event('input', { bubbles: true }));
+          });
+          dropdown.appendChild(option);
+        });
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          document.querySelectorAll('.custom-select-dropdown.open').forEach(function(d) { if (d !== dropdown) d.classList.remove('open'); });
+          dropdown.classList.toggle('open');
+        });
+
+        wrapper.appendChild(btn);
+        wrapper.appendChild(dropdown);
+        sel.parentNode.insertBefore(wrapper, sel);
+        sel.style.display = 'none';
+      });
+
+      document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+      });
+    }
   </script>
 </body>
 

@@ -64,22 +64,6 @@
         .nav-logo .accent {
             color: #10b981;
         }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-        .nav-link {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #10b981;
-        }
         .nav-actions {
             display: flex;
             align-items: center;
@@ -90,21 +74,19 @@
             .nav-inner {
                 padding: 0 16px;
             }
-            .nav-links {
-                gap: 16px;
-            }
-            .nav-link {
-                font-size: 0.82rem;
-            }
             .nav-logo {
                 font-size: 1.15rem;
             }
         }
 
+        html {
+            overflow-x: hidden;
+        }
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
             background: #090d16;
             background-image: radial-gradient(circle at 50% 0%, #064e3b 0%, #090d16 100%);
             color: #f8fafc;
@@ -130,17 +112,17 @@
             flex: 1;
             padding: 40px 24px;
             display: grid;
-            grid-template-columns: 1fr 380px;
+            grid-template-columns: 1fr 320px;
             gap: 32px;
-            max-width: 1300px;
+            max-width: 1440px;
             width: 100%;
-            margin: 80px auto 20px auto;
+            margin: 80px auto 60px auto;
         }
 
         @media (max-width: 1024px) {
             .main-chat-container {
                 grid-template-columns: 1fr;
-                margin-top: 75px;
+                margin-top: 96px;
                 padding: 16px;
                 gap: 20px;
             }
@@ -168,8 +150,12 @@
         }
 
         @media (max-width: 768px) {
+            .main-chat-container {
+                margin-top: 85px;
+                padding: 12px;
+            }
             .chat-panel {
-                height: 520px;
+                height: calc(100vh - 140px);
             }
         }
 
@@ -200,23 +186,18 @@
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             gap: 16px;
             scroll-behavior: smooth;
         }
 
-        @media (max-width: 480px) {
-            .chat-messages {
-                padding: 14px;
-                gap: 12px;
-            }
-        }
-
         .message-row {
             display: flex;
             gap: 10px;
-            max-width: 85%;
+            max-width: 94%;
+            min-width: 0;
         }
 
         .message-row.user {
@@ -245,11 +226,15 @@
 
         /* Reduced Chat Font Sizes */
         .message-bubble {
+            flex: 1;
             padding: 10px 14px;
             border-radius: var(--radius-md);
             font-size: 0.86rem;
             line-height: 1.45;
             color: #f8fafc;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            min-width: 0;
         }
 
         .user .message-bubble {
@@ -262,6 +247,31 @@
             background: var(--bg-chat-bubble-bot);
             border: 1px solid var(--border-chat-bubble-bot);
             border-top-left-radius: 0;
+        }
+
+        /* Mobile overrides — must come after base rules */
+        @media (max-width: 480px) {
+            .chat-messages {
+                padding: 14px;
+                gap: 12px;
+            }
+            .message-row {
+                max-width: 95%;
+                gap: 0;
+            }
+            .message-avatar {
+                display: none;
+            }
+            .message-bubble {
+                padding: 8px 12px;
+                font-size: 0.82rem;
+            }
+            .user .message-bubble {
+                border-top-right-radius: var(--radius-md);
+            }
+            .bot .message-bubble {
+                border-top-left-radius: var(--radius-md);
+            }
         }
 
         /* Mobile specific font override */
@@ -342,7 +352,6 @@
             background: rgba(16, 185, 129, 0.08);
             border-color: rgba(16, 185, 129, 0.3);
             color: #f8fafc;
-            transform: translateX(2px);
         }
 
         .contact-card.error-state .contact-item-row:hover {
@@ -409,6 +418,8 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: var(--transition);
+            white-space: nowrap;
+            min-width: 0;
         }
 
         .suggestion-chip:hover {
@@ -442,8 +453,11 @@
             font-family: var(--font-sans);
             font-size: 0.88rem;
             resize: none;
-            height: 40px;
-            transition: var(--transition);
+            min-height: 44px;
+            max-height: 120px;
+            line-height: 1.45;
+            overflow-y: auto;
+            transition: border-color var(--transition), box-shadow var(--transition);
         }
 
         .chat-textarea::-webkit-scrollbar {
@@ -719,6 +733,69 @@
             margin-bottom: 16px;
             display: none;
         }
+
+        /* Bottom Footer Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(9, 13, 22, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: center;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        .bottom-nav-link {
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease, background 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+        .bottom-nav-link:hover {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .bottom-nav-link.active {
+            color: #10b981;
+        }
+        .bottom-nav-link.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 2px;
+            background: #10b981;
+            border-radius: 0 0 2px 2px;
+        }
+        @media (min-width: 1025px) {
+            .bottom-nav {
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 16px 16px 0 0;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-bottom: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .bottom-nav-link {
+                padding: 12px 8px;
+                font-size: 0.78rem;
+            }
+        }
     </style>
 </head>
 
@@ -728,11 +805,6 @@
     <nav class="nav" id="nav" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">KK<span class="accent">.</span></a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="1.html" class="nav-link">Quote Calculator</a>
-                <a href="#" class="nav-link active">Consulting Bot</a>
-            </div>
             <div class="nav-actions">
                 <button class="config-btn" id="clearHistoryBtn" title="Clear Chat History">
                     <i class="fas fa-trash-can"></i>
@@ -742,6 +814,13 @@
                 </button>
             </div>
         </div>
+    </nav>
+
+    <!-- Bottom Footer Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-link">Home</a>
+        <a href="1.html" class="bottom-nav-link">Quote Calculator</a>
+        <a href="#" class="bottom-nav-link active">Consulting Bot</a>
     </nav>
 
     <!-- Main Container -->
@@ -979,6 +1058,10 @@
         }
 
         function saveChatHistory() {
+            const MAX_MESSAGES = 50;
+            if (messagesList.length > MAX_MESSAGES) {
+                messagesList = messagesList.slice(-MAX_MESSAGES);
+            }
             localStorage.setItem("chat_history", JSON.stringify(messagesList));
         }
 
@@ -1217,14 +1300,21 @@
             if (!text) return;
 
             chatInput.value = "";
-            addMessage("user", text);
-            messagesList.push({ role: "user", content: text });
-            saveChatHistory();
+            chatInput.style.height = "auto";
+
+            if (text.length > 2000) {
+                addMessage("assistant", "⚠️ Message too long. Please keep messages under 2000 characters.");
+                return;
+            }
 
             // Enforce browser-side rate limiting checks
             if (!checkLocalRateLimit()) {
                 return;
             }
+
+            addMessage("user", text);
+            messagesList.push({ role: "user", content: text });
+            saveChatHistory();
 
             showTypingIndicator();
 
@@ -1250,21 +1340,12 @@
                     }
 
                     if (!response.ok) {
-                        const errorData = await response.json();
+                        let errorData;
+                        try { errorData = await response.json(); } catch(e) { errorData = { error: response.statusText || "Unknown error" }; }
                         responseText = `⚠️ Proxy Server Error: ${errorData.error || response.statusText}`;
                     } else {
                         const data = await response.json();
                         responseText = data.text;
-                        // Display the IP-based dayCount returned from Worker
-                        if (data.dayCount !== undefined) {
-                            limitTracker.textContent = `Requests: ${data.dayCount}/25 today (IP limit)`;
-                            // Sync local counter to prevent immediate reset to 0 on refresh
-                            let dailyRequests = JSON.parse(localStorage.getItem("daily_reqs") || "[]");
-                            while (dailyRequests.length < data.dayCount) {
-                                dailyRequests.push(Date.now());
-                            }
-                            localStorage.setItem("daily_reqs", JSON.stringify(dailyRequests));
-                        }
                     }
                 }
 
@@ -1294,6 +1375,12 @@
                 e.preventDefault();
                 handleSend();
             }
+        });
+
+        // Auto-resize textarea up to 3 lines
+        chatInput.addEventListener("input", function() {
+            this.style.height = "auto";
+            this.style.height = Math.min(this.scrollHeight, 120) + "px";
         });
 
         // Initialize state on page load

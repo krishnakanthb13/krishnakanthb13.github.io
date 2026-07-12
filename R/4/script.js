@@ -58,17 +58,26 @@
     });
 
     // ========================================
-    // Navigation
+    // Navigation & Scroll
     // ========================================
+    document.documentElement.classList.add('smooth-scroll');
     const nav = document.getElementById('nav');
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
     let lastScroll = 0;
 
     window.addEventListener('scroll', function() {
         const scrollY = window.scrollY;
         nav.classList.toggle('scrolled', scrollY > 50);
         lastScroll = scrollY;
+
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+        scrollProgress.style.width = progress + '%';
+
+        backToTop.classList.toggle('visible', scrollY > 500);
     }, { passive: true });
 
     hamburger.addEventListener('click', function() {
@@ -85,27 +94,6 @@
             document.body.style.overflow = '';
         });
     });
-
-    // ========================================
-    // Scroll Progress
-    // ========================================
-    const scrollProgress = document.getElementById('scrollProgress');
-
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        scrollProgress.style.width = progress + '%';
-    }, { passive: true });
-
-    // ========================================
-    // Back to Top
-    // ========================================
-    const backToTop = document.getElementById('backToTop');
-
-    window.addEventListener('scroll', function() {
-        backToTop.classList.toggle('visible', window.scrollY > 500);
-    }, { passive: true });
 
     backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -144,19 +132,19 @@
     // ========================================
     function animateCounter(el) {
         var target = parseInt(el.getAttribute('data-count'), 10);
-        var current = 0;
-        var increment = Math.max(1, Math.floor(target / 30));
         var duration = 800;
-        var stepTime = duration / (target / increment);
+        var start = null;
 
-        function update() {
-            current += increment;
-            if (current >= target) {
+        function update(timestamp) {
+            if (!start) start = timestamp;
+            var progress = Math.min((timestamp - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target);
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
                 el.textContent = target;
-                return;
             }
-            el.textContent = current;
-            requestAnimationFrame(update);
         }
 
         requestAnimationFrame(update);
@@ -217,7 +205,7 @@
     // ========================================
     var contactForm = document.getElementById('contactForm');
 
-    contactForm.addEventListener('submit', function(e) {
+    if (contactForm) contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         var name = document.getElementById('name').value.trim();

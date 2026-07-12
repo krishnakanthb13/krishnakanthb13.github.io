@@ -6,6 +6,17 @@
  */
 
 const memoryCache = new Map();
+let lastCacheCleanup = Date.now();
+
+function cleanupMemoryCache() {
+    const now = Date.now();
+    if (now - lastCacheCleanup < 60000) return;
+    lastCacheCleanup = now;
+    const cutoff = now - 86400000;
+    for (const [key, data] of memoryCache) {
+        if (data.reset < cutoff) memoryCache.delete(key);
+    }
+}
 
 const SYSTEM_INSTRUCTION = `You are Krishna Kanth B's AI Consultation Agent. Help classify tasks & estimate costs.
 Rates: Workflow Optimization (₹1400/hr), AI Assistants (₹1500/hr), Business Process Automation (₹1600/hr), AI Automation (₹1800/hr), Custom AI Applications (₹2000/hr), AI Consulting (₹2000/hr).
@@ -27,11 +38,17 @@ CRITICAL CONSTRAINTS:
 export default {
 
   async fetch(request, env, ctx) {
+    cleanupMemoryCache();
+
+    const ALLOWED_ORIGINS = ["https://krishnakanthb13.github.io", "http://localhost:5500", "http://127.0.0.1:5500"];
+    const reqOrigin = request.headers.get("Origin") || "";
+    const allowOrigin = ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : ALLOWED_ORIGINS[0];
+
     // Handle CORS preflight requests
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": allowOrigin,
           "Access-Control-Allow-Methods": "POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
           "Access-Control-Max-Age": "86400",
@@ -40,7 +57,7 @@ export default {
     }
 
     if (request.method !== "POST") {
-      return new Response("Method not allowed", { status: 405, headers: { "Access-Control-Allow-Origin": "*" } });
+      return new Response("Method not allowed", { status: 405, headers: { "Access-Control-Allow-Origin": allowOrigin } });
     }
 
     try {
@@ -74,14 +91,14 @@ export default {
         if (minCount >= LIMIT_MIN) {
           return new Response(JSON.stringify({ error: "Rate limit: Max 5 requests/minute. Please wait." }), {
             status: 429,
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
           });
         }
 
         if (dayCount >= LIMIT_DAY) {
           return new Response(JSON.stringify({ error: "Daily limit reached: Max 25 requests/day. Reset at midnight UTC." }), {
             status: 429,
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
           });
         }
 
@@ -111,14 +128,14 @@ export default {
         if (minCount >= LIMIT_MIN) {
           return new Response(JSON.stringify({ error: "Rate limit: Max 5 requests/minute. Please wait." }), {
             status: 429,
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
           });
         }
 
         if (dayCount >= LIMIT_DAY) {
           return new Response(JSON.stringify({ error: "Daily limit reached: Max 25 requests/day. Reset in a few hours." }), {
             status: 429,
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
           });
         }
 
@@ -136,7 +153,7 @@ export default {
       if (!messages || !Array.isArray(messages)) {
         return new Response(JSON.stringify({ error: "Invalid request. 'messages' array is required." }), {
           status: 400,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
         });
       }
 
@@ -144,7 +161,7 @@ export default {
       if (!apiKey) {
         return new Response(JSON.stringify({ error: "Server Configuration Error: GROQ_API_KEY is missing in Worker environment." }), {
           status: 500,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
         });
       }
 
@@ -153,7 +170,9 @@ export default {
         model: "llama-3.1-8b-instant",
         messages: [
           { role: "system", content: SYSTEM_INSTRUCTION },
-          ...messages.map(m => ({ role: m.role, content: m.content }))
+          ...messages
+            .filter(m => ["user", "assistant"].includes(m.role) && typeof m.content === "string")
+            .map(m => ({ role: m.role, content: m.content }))
         ],
         temperature: 0.3,
         max_tokens: 1500
@@ -172,22 +191,22 @@ export default {
         const errText = await res.text();
         return new Response(JSON.stringify({ error: "Groq API Error", details: errText }), {
           status: res.status,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
         });
       }
 
       const data = await res.json();
       const text = data.choices[0].message.content;
 
-      return new Response(JSON.stringify({ text, dayCount }), {
+      return new Response(JSON.stringify({ text }), {
         status: 200,
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
       });
 
     } catch (err) {
       return new Response(JSON.stringify({ error: "Internal Server Error", message: err.message }), {
         status: 500,
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": allowOrigin }
       });
     }
   }
