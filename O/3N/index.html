@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of the Sleep Trilemma: Restoration, Autonomy, and Obligations. Explore the economics of sleep debt and revenge bedtime procrastination.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#030712">
+
+    <title>The Sleep Trilemma: Restoration, Autonomy, Obligations</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💤</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #030712;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --restoration-color: #38bdf8;
+            --autonomy-color: #fb7185;
+            --obligations-color: #fb923c;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #030712 60%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--restoration-color), var(--autonomy-color), var(--obligations-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
+
+        /* DASHBOARD GRID */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+
+        /* VISUALIZATION */
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(0.7rem, 1.6vw, 0.9rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.4); border-radius: 12px; border-left: 4px solid var(--autonomy-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.1rem; }
+        #insight-desc { font-size: 0.9rem; line-height: 1.4; }
+
+        /* CONTROLS */
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #restoration-slider::-webkit-slider-thumb { background: var(--restoration-color); box-shadow: 0 0 12px var(--restoration-color); }
+        #autonomy-slider::-webkit-slider-thumb { background: var(--autonomy-color); box-shadow: 0 0 12px var(--autonomy-color); }
+        #obligations-slider::-webkit-slider-thumb { background: var(--obligations-color); box-shadow: 0 0 12px var(--obligations-color); }
+        #restoration-slider::-moz-range-thumb { background: var(--restoration-color); box-shadow: 0 0 12px var(--restoration-color); }
+        #autonomy-slider::-moz-range-thumb { background: var(--autonomy-color); box-shadow: 0 0 12px var(--autonomy-color); }
+        #obligations-slider::-moz-range-thumb { background: var(--obligations-color); box-shadow: 0 0 12px var(--obligations-color); }
+
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--restoration-color), var(--autonomy-color), var(--obligations-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 600; }
+
+        /* BUTTONS & ACTIONS */
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.9rem); }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--autonomy-color); background: rgba(251, 113, 133, 0.1); }
+
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--restoration-color), var(--obligations-color)); color: #030712; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+
+        #action-plan-output { display: none; background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--restoration-color); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+
+        /* COMPACT ARTICLE SECTION */
+        .article-container {
+            max-width: 800px; width: 100%; margin: 1rem auto 2rem;
+            background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-restoration { color: var(--restoration-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-autonomy { color: var(--autonomy-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-obligations { color: var(--obligations-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+
+        /* ACCORDIONS */
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 240px;
+            gap: 1.5rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider-restoration { background-color: var(--restoration-color); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+        input:checked + .toggle-slider-autonomy { background-color: var(--autonomy-color); box-shadow: 0 0 10px rgba(251, 113, 133, 0.4); }
+        input:checked + .toggle-slider-obligations { background-color: var(--obligations-color); box-shadow: 0 0 10px rgba(251, 146, 60, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+        /* QUOTE BLOCK */
+        .quote-block {
+            background: rgba(56, 189, 248, 0.05);
+            border-left: 4px solid var(--restoration-color);
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+
+        /* TABLE */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+
+        @media (max-width: 800px) {
+            .dashboard { display: flex; flex-direction: column; gap: 1rem; }
+            .panel-visual { order: -1; padding: 1rem; }
+            .panel-controls { padding: 1rem; }
+            .triangle-container { height: 200px; min-height: auto; }
+            .insight-box { padding: 0.8rem 1rem; }
+            #insight-desc { font-size: 0.85rem; }
+            .btn { padding: 0.5rem; }
+            .comparison-table { font-size: 0.75rem; }
+            .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Sleep Trilemma</h1>
+        <p class="subtitle">Restoration, Autonomy, Obligations. You cannot maximize all three. Toggle to experience the biological interest rate.</p>
+    </header>
+
+    <div class="dashboard">
+
+        <!-- Controls Panel -->
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Daily Focus</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.4;">Max Capacity: 200%. Your time and energy are finite — raising one state drains the others.</p>
+
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="restoration-slider" style="color:var(--restoration-color)">🔋 RESTORATION (Sleep)</label><span id="restoration-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="restoration-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="autonomy-slider" style="color:var(--autonomy-color)">🎭 AUTONOMY (Leisure)</label><span id="autonomy-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="autonomy-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="obligations-slider" style="color:var(--obligations-color)">💼 OBLIGATIONS (Work)</label><span id="obligations-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="obligations-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+
+                <div class="total-capacity">
+                    <span id="load-label">Capacity</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Circadian Overload! Auto-balancing...</div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Common Lifestyles</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('grind')"><span>⚙️</span> Grind<br><small style="font-size:0.7rem;opacity:0.7">+💼 +🔋 -🎭</small></button>
+                    <button class="btn" onclick="applyScenario('revenge')"><span>📱</span> Revenge RBP<br><small style="font-size:0.7rem;opacity:0.7">+🎭 +💼 -🔋</small></button>
+                    <button class="btn" onclick="applyScenario('offgrid')"><span>🏝️</span> Off-Grid Reset<br><small style="font-size:0.7rem;opacity:0.7">+🔋 +🎭 -💼</small></button>
+                </nav>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Event</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in State</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <!-- Visualization Panel -->
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">Circadian Equilibrium</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(251, 113, 133, 0.15)" stroke="var(--autonomy-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="35" class="node-label" fill="var(--restoration-color)">RESTORATION (SLEEP)</text>
+                    <text x="370" y="345" class="node-label" fill="var(--obligations-color)">OBLIGATIONS (WORK)</text>
+                    <text x="30" y="345" class="node-label" fill="var(--autonomy-color)">AUTONOMY (LEISURE)</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--autonomy-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced State</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">You are juggling all three moderately. In a high-pressure world, holding all three is an unsustainable tightrope walk.</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>The Silent Rule</h2>
+        <div class="quote-block">
+            Silent rule of sleep nobody wants you about. If you sleep early, you miss life. Suddenly, world becomes interesting the moment you go to bed. If you go to sleep late, now you are borrowing energy from tomorrow. And the interest rate is brutal. And the perfect time does not exist. We all have been looking for it. Nobody's renewed the search. Sleep is not measured in hours anymore. It measured in regret.
+        </div>
+
+        <h2>The Economics of Sleep Debt</h2>
+        <p>The modern condition is characterized by a silent but profound biological paradox: the desire to reclaim one’s waking life inherently requires mortgaging one’s cognitive and physiological future. Sleep is no longer merely a biological imperative; it has transformed into a psychological battleground for personal autonomy.</p>
+        <p>The contemporary axiom suggesting that if an individual sleeps early, they miss life, perfectly captures the duality of the modern nocturnal experience. Suddenly, the world becomes infinitely more interesting the moment one is supposed to go to bed. However, the decision to delay sleep is an act of biological borrowing, pulling energy from tomorrow at a physiological interest rate that compounds ruthlessly.</p>
+        <p>The search for the "perfect time" to sleep remains perpetually unresolved because the conflict is not logistical, but existential. Consequently, for a significant portion of the modern workforce, sleep is no longer measured in hours; it is measured in the currency of regret.</p>
+
+        <h2>The Trilemma Interactive</h2>
+        <p>Experience the trilemma directly: try to turn all three states ON. If you activate the third, one of the other active states will automatically toggle off — proving only two can fully coexist at any given time.</p>
+        
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--restoration-color)">🔋 Restoration</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-restoration" checked>
+                        <span class="toggle-slider toggle-slider-restoration"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--autonomy-color)">🎭 Autonomy</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-autonomy">
+                        <span class="toggle-slider toggle-slider-autonomy"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--obligations-color)">💼 Obligations</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-obligations" checked>
+                        <span class="toggle-slider toggle-slider-obligations"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive Analysis</h2>
+
+        <details>
+            <summary>The Psychology of Autonomy Recapture: Revenge Bedtime Procrastination</summary>
+            <div class="details-content">
+                <p>The deliberate decision to delay sleep, despite being acutely aware of the negative consequences and in the absence of external preventive factors, is clinically categorized as bedtime procrastination. In recent years, this behavioral pattern has been conceptualized more precisely as "revenge bedtime procrastination" (RBP), an English translation of the Chinese internet colloquialism *bàofùxìng áoyè* (retaliatory staying up late). Originally coined to describe the psychological plight of corporate and industrial workers trapped in the grueling "996" schedule—working from 9:00 AM to 9:00 PM, six days a week—the term resonated globally as the boundaries between professional obligations and personal life dissolved.</p>
+                
+                <h3>Self-Determination Theory and the Illusion of Leisure</h3>
+                <p>The primary psychological driver of RBP is not a failure of character or basic discipline, but a systemic deficit in waking autonomy. According to Self-Determination Theory (SDT), established by psychological researchers Edward Deci and Richard Ryan, humans possess a fundamental, non-negotiable psychological need for autonomy—the feeling of genuine, uncoerced control over one's time and choices. When daytime hours are heavily monopolized by high-demand, low-control environments, such as rigid corporate jobs, academic pressures, or intensive caregiving, the human brain actively seeks to fulfill this unmet need through alternative avenues.</p>
+                <p>The late-night hours represent the only uncontested personal space available, facilitating a behavioral phenomenon termed "autonomy recapture". Engaging in seemingly mindless activities—such as endless digital scrolling, binge-watching media, or online gaming—provides a low-effort, high-reward illusion of total freedom. The individual is not procrastinating sleep out of forgetfulness; they are deliberately retaliating against a day that did not belong to them, seizing the night to assert their individuality.</p>
+
+                <h3>The Ego-Depletion Model and Executive Dysfunction</h3>
+                <p>The timing of this behavioral urge represents a cruel neurocognitive trap. Resolving to initiate sleep requires active self-regulation, which is the cognitive ability to align immediate actions with abstract, long-term goals. According to the ego-depletion model, self-control is not a fixed personality trait but a finite cognitive resource that drains continuously throughout the day as an individual makes decisions, suppresses emotional urges, and manages stress. By midnight, the prefrontal cortex—the neuroanatomical region responsible for executive function, judgment, and impulse control—is operating at a severely reduced capacity. Relying on willpower to initiate sleep at this hour is highly ineffective because the specific cognitive machinery required to enforce that discipline has been thoroughly exhausted.</p>
+                <p>This dynamic is particularly pronounced in neurodivergent populations, such as individuals with Attention Deficit Hyperactivity Disorder (ADHD) or generalized executive functioning deficits. The ADHD brain inherently seeks dopaminergic stimulation, often finding daytime obligations under-stimulating or overly taxing. By nightfall, the nervous system attempts to regulate itself through intense dopamine-seeking activities, leading to states of hyperfocus on digital media. Combined with "time blindness" and a well-documented neurological difficulty in transitioning between distinct tasks, these neurodevelopmental traits make RBP a uniquely stubborn clinical challenge.</p>
+                
+                <table class="comparison-table">
+                    <thead><tr><th>Clinical Feature</th><th>Standard Insomnia</th><th>Revenge Bedtime Procrastination (RBP)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Primary Mechanism</td><td>Inability to fall or stay asleep despite concentrated effort.</td><td>Voluntary, intentional delay of sleep onset to engage in leisure.</td></tr>
+                        <tr><td>Psychological Driver</td><td>Hyperarousal, physiological distress, or circadian disruption.</td><td>Need for autonomy, self-determination, and psychological rebellion.</td></tr>
+                        <tr><td>Self-Regulation Status</td><td>Individual actively wants to sleep but biologically cannot.</td><td>Individual biology requires sleep, but psychology actively resists it.</td></tr>
+                        <tr><td>Activity During Delay</td><td>Lying in bed, ruminating, expressing frustration over wakefulness.</td><td>Scrolling, streaming, gaming, reading, or active socializing.</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Moderating Factors: Mindfulness and Self-Love Therapy</h3>
+                <p>Recent clinical investigations have sought to understand how psychological frameworks interact with RBP. A study investigating Generation Z individuals in Jakarta, Indonesia, examined the relationship between mindfulness, RBP, and subjective well-being (SWB). The research revealed that while mindfulness practices generally foster self-regulation and enhance SWB, high levels of RBP significantly moderate and diminish these beneficial effects. Individuals may practice mindfulness during the day, but if they succumb to maladaptive sleep behaviors at night, the anticipated improvements in their overall well-being are heavily compromised.</p>
+                <p>Conversely, targeted psychological interventions have shown promise in mitigating RBP. An empirical study utilizing purposive sampling of nursing students—a demographic highly susceptible to RBP due to rigorous academic and clinical demands—demonstrated that structured "self-love therapy" significantly reduced RBP scores. By actively addressing the emotional tension and lack of self-care experienced during the day, students in the experimental group experienced a statistically significant decrease in their Bedtime Procrastination Scale scores compared to the control group. This suggests that emotional processing and self-compassion are critical components in dismantling the psychological need for nocturnal retaliation.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The Brutal Interest Rate: Neurobiology of Sleep Debt and Recovery</summary>
+            <div class="details-content">
+                <p>The metaphorical concept of "borrowing energy from tomorrow" perfectly mirrors the biological reality of accumulated sleep debt. Sleep debt is defined as the cumulative discrepancy between the amount of sleep an individual's biology fundamentally requires—typically seven to nine hours for optimal adult functioning—and the amount of sleep they actually obtain.</p>
+
+                <h3>Process S, Process C, and Cognitive Degradation</h3>
+                <p>Human sleep architecture is governed by two deeply intertwined systems: Process C (the circadian rhythm) and Process S (sleep homeostasis, commonly referred to as sleep pressure). Process S is driven primarily by the accumulation of adenosine, a neurochemical byproduct of cellular metabolism that builds up in the basal forebrain during waking hours and is cleared during sleep. When sleep is restricted, uncleared adenosine creates a lingering physiological debt. Process C can temporarily mask this debt through morning cortisol spikes and circadian alerting signals, leading individuals to falsely believe they are fully functional.</p>
+                <p>The cognitive consequences of this hidden debt are severe and asymmetrical. Brain imaging studies reveal that after just a single night of restricted sleep, metabolic activity in the prefrontal cortex drops by 12% to 15%. Concurrently, the amygdala—the brain's primary emotional threat-detection center—becomes up to 60% more reactive to negative emotional stimuli. Because the prefrontal cortex's ability to exert top-down regulation over the amygdala is compromised, the sleep-deprived brain systematically overreacts to minor stressors while vastly underperforming in complex rational evaluation. At 19 hours of sustained wakefulness, objective cognitive performance degrades to levels equivalent to a blood alcohol concentration of 0.05%, crossing the threshold of legal impairment in many jurisdictions.</p>
+
+                <h3>The Illusion of Catch-Up Sleep and the Recovery Timeline</h3>
+                <p>A pervasive societal myth is that sleep debt can be repaid in a single lump sum over the weekend. However, the biological "interest rate" makes such rapid recovery impossible. Experimental research investigating recovery dynamics demonstrates that the timeline for physiological restoration is exponentially longer than the period over which the debt was incurred. Experts estimate that for every single hour of sleep debt accumulated, it requires approximately four days of high-quality sleep to fully restore optimal cognitive and physiological function.</p>
+                <p>When individuals undergo chronic sleep restriction, the damage extends deeply into metabolic and endocrine systems. A landmark 2016 study restricted participants to five hours of sleep per night for ten days, followed by seven days of unlimited recovery sleep. While subjective feelings of alertness and basic reaction times recovered within the first few days, objective cognitive performance on complex tasks remained significantly impaired through the seventh day of recovery.</p>
+                <p>Furthermore, metabolic damage exhibits severe persistence. A few days of restricted sleep impairs glucose tolerance by up to 30%, decreases insulin sensitivity, raises evening cortisol levels, and lowers testosterone and growth hormone, inducing a chronic catabolic state. Weekend recovery sleep fails to reverse these metabolic disruptions; insulin sensitivity does not normalize even after two days of extended rest. Additionally, the immune system is heavily penalized; individuals sleeping fewer than seven hours are 300% more likely to contract a rhinovirus due to a catastrophic drop in antibody production.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The Glymphatic System and the Long-Term Cost of Borrowing Energy</summary>
+            <div class="details-content">
+                <p>Perhaps the most critical casualty of sleep debt is the glymphatic (glial-lymphatic) system. Discovered relatively recently, this macroscopic waste clearance system utilizes the perivascular spaces formed by the vascular endfeet of astrocytes, which are highly populated with aquaporin-4 (AQP4) water channels. Through these channels, the glymphatic system flushes cerebrospinal fluid (CSF) deep into the brain parenchyma, where it mixes with interstitial fluid. This convective fluid transport systematically removes neurotoxic metabolic waste products, including amyloid-beta, tau, and alpha-synuclein—the exact protein aggregates deeply implicated in the pathogenesis of Alzheimer’s and Parkinson’s diseases.</p>
+
+                <h3>The Mechanics of Nocturnal Brain Washing</h3>
+                <p>Glymphatic clearance is highly state-dependent; it is markedly enhanced during deep, slow-wave sleep (SWS). During SWS, noradrenergic tone decreases, causing the brain's interstitial space to physically expand by up to 60%, allowing for highly efficient CSF-interstitial fluid exchange. Interestingly, research indicates that sleep position plays a role in this hydrodynamic process, with the lateral decubitus (side-sleeping) position proving more efficient for glymphatic clearance than supine or prone positions.</p>
+                <p>Chronic sleep debt and deliberate sleep procrastination directly suppress this essential mass transport system. When individuals stay awake, glymphatic transport is acutely inhibited, leading to the rapid accumulation of toxic proteins. Non-invasive neuroimaging techniques, specifically the assessment of diffusivity along the perivascular space (DTI-ALPS), have confirmed that poor sleep quality is negatively correlated with glymphatic functioning. This disruption impairs the structural connectivity of human brain networks, specifically regions like the middle temporal gyrus, directly mediating cognitive and memory decline in aging populations.</p>
+                <p>In instances of acute total sleep deprivation, functional MRI studies have observed a compensatory mechanism where the global blood oxygenation level-dependent (gBOLD) signal amplitude increases, attempting to force CSF flow during wakefulness. However, this adaptive response is highly age-dependent and diminishes significantly in adults over the age of 40, rendering older populations highly vulnerable to the neurodegenerative costs of sleep debt. Thus, borrowing time from sleep does not merely lead to next-day fatigue; it actively and irrevocably accelerates neurodegenerative pathology.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Social Jetlag and Chronobiological Friction</summary>
+            <div class="details-content">
+                <p>Compounding the biological damage of sleep debt is the phenomenon of social jetlag (SJL)—the chronic, systemic misalignment between an individual's endogenous biological circadian clock (their chronotype) and the external social schedules mandated by work, schooling, or modern industrial life. Approximately 70% of working adults experience some degree of social jetlag, oscillating violently between severe sleep deprivation during the workweek and extensive oversleeping on weekends in a futile attempt to biologically recover.</p>
+
+                <h3>The Genetic Architecture of Chronotypes</h3>
+                <p>An individual's chronotype is not a matter of moral discipline or habit; it is heavily encoded in their DNA. Human sleep timing, sleep pressure accumulation, and circadian rhythms are strictly regulated by a network of core genes: CLOCK (master circadian regulator), PER3 (sleep pressure regulator), BHLHE41 (circadian repressor), and MTNR1B/ADORA2A (melatonin/adenosine receptors).</p>
+                <p>When an individual genetically wired to be a "late chronotype" (a natural night owl) is forced to adhere to an "early bird" industrial or corporate schedule, their neurochemistry remains in a state of perpetual dysregulation. Melatonin is produced far too late in the evening to facilitate early sleep, and adenosine dissipates too slowly in the morning, resulting in chronic physiological friction that permeates every aspect of their metabolic health.</p>
+
+                <h3>Measuring and Manifesting Social Jetlag</h3>
+                <p>Social jetlag is empirically quantified using the Munich ChronoType Questionnaire (MCTQ). The MCTQ utilizes a specialized formula to calculate sleep-corrected mid-sleep on free days to determine a person's underlying chronotype. The epidemiological consequences of SJL are staggering: higher SJL is strongly predictive of metabolic syndrome, cardiovascular disease, obesity, and depressive symptoms. It peaks during adolescence due to biological phase delays during puberty, leading to reduced cognitive focus, lower academic performance, and decreased functional connectivity between cortical networks and the hippocampus.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The Socio-Economic Catalysts: Shift Work and the 24/7 Economy</summary>
+            <div class="details-content">
+                <p>The biological realities of sleep debt and social jetlag do not occur in a vacuum; they are heavily catalyzed, and often demanded, by modern socio-economic structures. The transition to a globalized, 24/7 economy has necessitated mass shift work, effectively institutionalizing circadian disruption on a planetary scale.</p>
+                
+                <h3>Occupational Hazards: The IT Corridor Case Study</h3>
+                <p>An examination of the Information Technology (IT) sector in Chennai, India, provides a stark, empirical illustration of these systemic pressures. As a major global IT hub, tech corridors such as the Old Mahabalipuram Road (OMR), Guindy, and Ambattur demand round-the-clock operations to synchronize with Western client time zones. Research indicates that an astonishing 100% of surveyed night-shift IT professionals score above the clinical threshold for poor sleep quality (PSQI >= 5).</p>
+                <p>The occupational impact is highly gendered. Female IT workers assigned to night shifts face a severe "dual burden," balancing demanding professional night hours with daytime domestic expectations. Consequently, 54.9% suffer from chronic sleep disturbances, and many experience endocrine disruption and menstrual irregularities. Shift work creates an extreme state of circadian desynchrony, leading to headaches, metabolic syndrome, and high reliance on chemical stimulants like caffeine or sleep aids.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The Neuroscience of Nocturnal Rumination and the Currency of Regret</summary>
+            <div class="details-content">
+                <p>Beyond the societal pull of nightlife and the digital lure of entertainment, the internal psychological landscape shifts dramatically after dark. The assertion that "sleep is measured in regret" highlights the intense psychological distress, rumination, and existential auditing that frequently paralyze individuals in the quiet hours of the night.</p>
+
+                <h3>The "Mind After Midnight" Hypothesis</h3>
+                <p>Chronobiologists propose that the human brain undergoes predictable, maladaptive neurophysiological changes after midnight. As the day's cognitive load reaches its peak and the prefrontal cortex fatigues, social guardrails dissolve. Negative emotional processing is amplified by an uninhibited amygdala, and individuals become highly susceptible to severe anxiety, depressive ideation, and impulsive behaviors.</p>
+                <p>Sleep requires the psychological capacity to disengage. It is easily blocked by specific, insidious sub-categories of stress: Going Stress (inability to decelerate the nervous system), Tangle/Thinking Stress (obsessing over uncompleted tasks/future anxieties), Relationship Stress (interpersonal friction), and Control Stress (the paradox of trying to force sleep).</p>
+
+                <h3>The Neural Circuitry of Regret and Guilt</h3>
+                <p>The neuroscience of regret heavily involves the orbitofrontal cortex, which hyper-activates when comparing reality against a counterfactual "what could have been" scenario. At night, when environmental distractions fade, the amygdala retrieves emotionally tagged memories of regret, triggering an autonomic stress response (cortisol/adrenaline, elevated blood pressure, and inflammation markers). Action regret and inaction regret trap the brain in chronic loops, fragmenting sleep architecture and preventing restorative SWS.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>The Quantified Self Paradox: Orthosomnia and Sleep Tracking Anxiety</summary>
+            <div class="details-content">
+                <p>In a desperate attempt to regain control over their sleep architecture and quantify their biological debt, millions of individuals have turned to consumer wearable technology. However, the integration of these devices has birthed an entirely new, paradoxical psychological disorder: Orthosomnia.</p>
+                <p>First formally documented in 2017, orthosomnia describes the obsessive, perfectionistic pursuit of optimal sleep driven entirely by sleep tracker metrics. Individuals develop an unhealthy, rigid fixation on achieving the "correct" sleep score, spending excessive, agonizing time in bed to manipulate the data, which ironically worsens insomnia.</p>
+                <p>The core tragedy lies in the technical limitations of consumer wearables. They rely on surrogate markers like photoplethysmography and accelerometry to infer sleep stages, routinely miscalculating deep sleep compared to clinical polysomnography (PSG). Yet, users place blind faith in these algorithms, dismissing their own subjective feelings of restfulness. If the device reports a minor deficit, the user experiences anxiety, activating the sympathetic nervous system and increasing cortisol levels, which directly prevents deep sleep the next night.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Strategic Interventions: Escaping the Vicious Cycle</summary>
+            <div class="details-content">
+                <p>Clinical solutions must address the structural and psychological roots of RBP and sleep debt:</p>
+                <ul>
+                    <li><strong>Reclaiming Waking Autonomy:</strong> Actively insert "micro-autonomy windows" of 15 to 20 minutes of protected, self-directed leisure time during the day to satisfy the brain's craving for self-determination.</li>
+                    <li><strong>Cognitive and Behavioral Framing:</strong> Utilize Mental Contrasting with Implementation Intentions (MCII) to create strict, automated "if-then" plans for sleep. Schedule "Worry Time" in the early evening to write down and externalize nocturnal anxieties.</li>
+                    <li><strong>Decoupling from the Quantified Self:</strong> Treat orthosomnia by disabling sleep scores, realizing the margin of error in consumer devices, and returning focus to subjective restfulness and basic sleep hygiene (temperature regulation, blocking blue light).</li>
+                </ul>
+            </div>
+        </details>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Life Mechanics Hub. Developed by Krishnakanth.</p>
+    </footer>
+
+    <script>
+        // --- Sliders Logic ---
+        const restorationSlider = document.getElementById('restoration-slider');
+        const autonomySlider = document.getElementById('autonomy-slider');
+        const obligationsSlider = document.getElementById('obligations-slider');
+
+        const restorationVal = document.getElementById('restoration-val');
+        const autonomyVal = document.getElementById('autonomy-val');
+        const obligationsVal = document.getElementById('obligations-val');
+
+        const capFill = document.getElementById('cap-fill');
+        const capVal = document.getElementById('cap-val');
+        const warningMsg = document.getElementById('warning-msg');
+        const dynamicPoly = document.getElementById('dynamic-poly');
+
+        const insightTitle = document.getElementById('insight-title');
+        const insightDesc = document.getElementById('insight-desc');
+        const insightBox = document.getElementById('insight-container');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+
+        const MAX_CAPACITY = 200;
+
+        function updateSliders() {
+            let r = parseInt(restorationSlider.value);
+            let a = parseInt(autonomySlider.value);
+            let o = parseInt(obligationsSlider.value);
+
+            let total = r + a + o;
+
+            if (total > MAX_CAPACITY) {
+                warningMsg.style.opacity = 1;
+                // Distribute reduction to other sliders
+                const excess = total - MAX_CAPACITY;
+                // Simple proportional backing off (relative to current values)
+                const activeSlider = document.activeElement;
+                if (activeSlider === restorationSlider) {
+                    let share = excess / (a + o || 1);
+                    a = Math.max(0, Math.round(a - a * share));
+                    o = Math.max(0, Math.round(o - o * share));
+                    // Re-adjust if rounding leaves a small error
+                    let diff = r + a + o - MAX_CAPACITY;
+                    if (diff !== 0) {
+                        if (a > 0) a -= diff;
+                        else o -= diff;
+                    }
+                } else if (activeSlider === autonomySlider) {
+                    let share = excess / (r + o || 1);
+                    r = Math.max(0, Math.round(r - r * share));
+                    o = Math.max(0, Math.round(o - o * share));
+                    let diff = r + a + o - MAX_CAPACITY;
+                    if (diff !== 0) {
+                        if (r > 0) r -= diff;
+                        else o -= diff;
+                    }
+                } else {
+                    let share = excess / (r + a || 1);
+                    r = Math.max(0, Math.round(r - r * share));
+                    a = Math.max(0, Math.round(a - a * share));
+                    let diff = r + a + o - MAX_CAPACITY;
+                    if (diff !== 0) {
+                        if (r > 0) r -= diff;
+                        else a -= diff;
+                    }
+                }
+                
+                restorationSlider.value = r;
+                autonomySlider.value = a;
+                obligationsSlider.value = o;
+                total = r + a + o;
+            } else {
+                warningMsg.style.opacity = 0;
+            }
+
+            restorationVal.textContent = r + '%';
+            autonomyVal.textContent = a + '%';
+            obligationsVal.textContent = o + '%';
+
+            capVal.textContent = total + ' / ' + MAX_CAPACITY;
+            capFill.style.width = (total / MAX_CAPACITY * 100) + '%';
+
+            updateSVG(r, a, o);
+            updateInsight(r, a, o);
+            
+            // Clear active state of scenario buttons if custom modified
+            document.querySelectorAll('.archetypes .btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function updateSVG(r, a, o) {
+            // Triangle vertices: Top: (200,50), Bottom-Right: (350,320), Bottom-Left: (50,320)
+            // Center of triangle is approx (200, 185)
+            // Let's compute a dynamic polygon inside
+            const cx = 200, cy = 185;
+            
+            // Vector to restoration (Top): dx = 0, dy = -135
+            const rx = cx;
+            const ry = cy - (r / 100) * 135;
+
+            // Vector to obligations (Bottom-Right): dx = 150, dy = 135
+            const ox = cx + (o / 100) * 150;
+            const oy = cy + (o / 100) * 135;
+
+            // Vector to autonomy (Bottom-Left): dx = -150, dy = 135
+            const ax = cx - (a / 100) * 150;
+            const ay = cy + (a / 100) * 135;
+
+            dynamicPoly.setAttribute('points', `${rx},${ry} ${ox},${oy} ${ax},${ay}`);
+        }
+
+        function updateInsight(r, a, o) {
+            if (r > 70 && o > 70 && a < 30) {
+                insightTitle.textContent = "The Corporate Grind";
+                insightTitle.style.color = "var(--restoration-color)";
+                insightDesc.textContent = "You sleep early and work hard. Physically healthy and professionally productive, but your personal life, creative autonomy, and social identity are entirely non-existent. You are a highly functional cog.";
+                insightBox.style.borderColor = "var(--restoration-color)";
+            } else if (a > 70 && o > 70 && r < 30) {
+                insightTitle.textContent = "Revenge Bedtime Procrastination";
+                insightTitle.style.color = "var(--autonomy-color)";
+                insightDesc.textContent = "You work long hours and stay up late to reclaim your personal freedom. You meet your deadlines and watch your shows, but you are biological borrowing from tomorrow. The compounding interest is cognitive decline and chronic fatigue.";
+                insightBox.style.borderColor = "var(--autonomy-color)";
+            } else if (r > 70 && a > 70 && o < 30) {
+                insightTitle.textContent = "The Off-Grid Reset";
+                insightTitle.style.color = "var(--restoration-color)";
+                insightDesc.textContent = "You get 9 hours of sleep and spend your days in absolute leisure. Your nervous system is fully regulated, but you have abandoned all external responsibilities. Highly restorative, but financially and socially unsustainable.";
+                insightBox.style.borderColor = "var(--restoration-color)";
+            } else if (r > 75 && a < 30 && o < 30) {
+                insightTitle.textContent = "Pure Hibernate Mode";
+                insightTitle.style.color = "var(--restoration-color)";
+                insightDesc.textContent = "Focus is entirely on physical restoration. You are sleeping off a massive debt, but neither working nor playing. A temporary safety shelter.";
+                insightBox.style.borderColor = "var(--restoration-color)";
+            } else if (o > 75 && r < 30 && a < 30) {
+                insightTitle.textContent = "Total Burnout Path";
+                insightTitle.style.color = "var(--obligations-color)";
+                insightDesc.textContent = "All energy goes to work, with zero sleep and zero leisure. Severe cognitive degradation is imminent. Stop and sleep immediately.";
+                insightBox.style.borderColor = "var(--obligations-color)";
+            } else if (a > 75 && r < 30 && o < 30) {
+                insightTitle.textContent = "Hedonic Scrolling";
+                insightTitle.style.color = "var(--autonomy-color)";
+                insightDesc.textContent = "Trapped in the digital loop. You have hours of leisure but zero energy and no constructive output. A state of low-dopamine paralysis.";
+                insightBox.style.borderColor = "var(--autonomy-color)";
+            } else {
+                insightTitle.textContent = "Unstable Equilibrium";
+                insightTitle.style.color = "var(--obligations-color)";
+                insightDesc.textContent = "You are trying to balance sleep, leisure, and work. In a high-demand society, trying to maintain all three equally leads to constant compromises and a feeling of perpetual mild exhaustion.";
+                insightBox.style.borderColor = "var(--obligations-color)";
+            }
+        }
+
+        function applyScenario(type) {
+            const btn = event.currentTarget;
+            document.querySelectorAll('.archetypes .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (type === 'grind') {
+                restorationSlider.value = 85;
+                autonomySlider.value = 15;
+                obligationsSlider.value = 100;
+            } else if (type === 'revenge') {
+                restorationSlider.value = 15;
+                autonomySlider.value = 85;
+                obligationsSlider.value = 100;
+            } else if (type === 'offgrid') {
+                restorationSlider.value = 95;
+                autonomySlider.value = 95;
+                obligationsSlider.value = 10;
+            }
+            updateSliders();
+        }
+
+        function triggerRandomEvent() {
+            const events = [
+                { name: "Emergency Project Deadline", r: -30, a: -20, o: 50, msg: "💼 Crisis at work! Obligations surge. Sleep and leisure drop." },
+                { name: "Severe Burnout Crash", r: 60, a: -30, o: -30, msg: "🔋 Your body forces a shutdown. You sleep for 14 hours. Work and leisure collapse." },
+                { name: "Viral Binge-Watch Show Release", r: -40, a: 50, o: -10, msg: "🎭 A new season drops. Autonomy surges as you stay up till 4 AM, destroying restoration." },
+                { name: "Weekend Getaway", r: 30, a: 40, o: -70, msg: "🏝️ You escape the city. Sleep and leisure climb; work is completely ignored." }
+            ];
+            
+            const ev = events[Math.floor(Math.random() * events.length)];
+            
+            let r = Math.min(100, Math.max(0, parseInt(restorationSlider.value) + ev.r));
+            let a = Math.min(100, Math.max(0, parseInt(autonomySlider.value) + ev.a));
+            let o = Math.min(100, Math.max(0, parseInt(obligationsSlider.value) + ev.o));
+
+            // Ensure we don't exceed max capacity
+            if (r + a + o > MAX_CAPACITY) {
+                let excess = (r + a + o) - MAX_CAPACITY;
+                // reduce components proportionally
+                let total = r + a + o;
+                r = Math.max(0, Math.round(r - excess * (r/total)));
+                a = Math.max(0, Math.round(a - excess * (a/total)));
+                o = Math.max(0, Math.round(o - excess * (o/total)));
+            }
+
+            restorationSlider.value = r;
+            autonomySlider.value = a;
+            obligationsSlider.value = o;
+            
+            updateSliders();
+
+            actionPlanOutput.style.display = "block";
+            actionPlanOutput.innerHTML = `<strong>🎲 Event: ${ev.name}</strong><br>${ev.msg}<br><br><em>Current Balance: Rest ${r}%, Autonomy ${a}%, Work ${o}%</em>`;
+            actionPlanOutput.style.borderLeftColor = "var(--obligations-color)";
+        }
+
+        function generateActionPlan() {
+            const r = parseInt(restorationSlider.value);
+            const a = parseInt(autonomySlider.value);
+            const o = parseInt(obligationsSlider.value);
+
+            let plan = "";
+            if (r > o && r > a) {
+                plan = "<strong>Restoration First Strategy:</strong> Focus on clearing sleep debt. Turn off all tracking screens, set a strict bedroom temperature, and use the 'two-second pause' before deciding to stay up late. Limit screen activity after 9:30 PM.";
+            } else if (a > r && a > o) {
+                plan = "<strong>Autonomy First Strategy:</strong> Dedicate structured 'micro-autonomy windows' during the day. Protect 20 minutes at lunch for personal leisure so your brain doesn't feel starved of freedom and seek revenge late at night.";
+            } else if (o > r && o > a) {
+                plan = "<strong>High Obligation Survival:</strong> Establish strict boundaries around your shift hours. If forced to work late nights (e.g., Chennai IT corridor sync), implement lateral side-sleeping to maximize glymphatic clearance, and avoid caffeine in the last 4 hours of your shift.";
+            } else {
+                plan = "<strong>Balanced Maintenance Plan:</strong> Avoid the 'weekend catch-up sleep' trap, which worsens social jetlag. Wake up at the same time every day, and schedule structured 'worry time' in the early evening to prevent nocturnal rumination.";
+            }
+
+            actionPlanOutput.style.display = "block";
+            actionPlanOutput.innerHTML = `<strong>📝 Custom Lifestyle Action Plan</strong><br>${plan}`;
+            actionPlanOutput.style.borderLeftColor = "var(--restoration-color)";
+        }
+
+        restorationSlider.addEventListener('input', updateSliders);
+        autonomySlider.addEventListener('input', updateSliders);
+        obligationsSlider.addEventListener('input', updateSliders);
+
+
+        // --- Three-way Toggle Paradox Widget Logic ---
+        const pRest = document.getElementById('para-restoration');
+        const pAuto = document.getElementById('para-autonomy');
+        const pObl = document.getElementById('para-obligations');
+        const pInsight = document.getElementById('para-insight');
+
+        const toggles = [pRest, pAuto, pObl];
+
+        function handleParadoxToggle(changedInput) {
+            const activeToggles = toggles.filter(t => t.checked);
+
+            if (activeToggles.length > 2) {
+                // Turn off one of the other toggles at random
+                const others = toggles.filter(t => t !== changedInput && t.checked);
+                const randomToTurnOff = others[Math.floor(Math.random() * others.length)];
+                randomToTurnOff.checked = false;
+            }
+
+            updateParadoxInsight();
+        }
+
+        function updateParadoxInsight() {
+            const r = pRest.checked;
+            const a = pAuto.checked;
+            const o = pObl.checked;
+
+            if (r && o && !a) {
+                pInsight.textContent = "🔋 Restoration + 💼 Obligations active. You are fully rested and highly productive, but your personal life is empty. Zero Autonomy. The machine runs smoothly, but where are you?";
+                pInsight.style.borderLeftColor = "var(--restoration-color)";
+            } else if (a && o && !r) {
+                pInsight.textContent = "🎭 Autonomy + 💼 Obligations active. The classic 'Revenge Bedtime Procrastination'. You work hard and play late, but tomorrow's energy is borrowed at a brutal interest rate. Sleep debt is piling up.";
+                pInsight.style.borderLeftColor = "var(--autonomy-color)";
+            } else if (r && a && !o) {
+                pInsight.textContent = "🔋 Restoration + 🎭 Autonomy active. You are completely rested and enjoy endless leisure, but your obligations are neglected. Financially and socially unsustainable in the long run.";
+                pInsight.style.borderLeftColor = "var(--restoration-color)";
+            } else if (r && !a && !o) {
+                pInsight.textContent = "🔋 Restoration only. You are sleeping and recovering, but neither working nor living. Pure hibernation.";
+                pInsight.style.borderLeftColor = "var(--restoration-color)";
+            } else if (a && !r && !o) {
+                pInsight.textContent = "🎭 Autonomy only. Endless hours of free time, but without energy (sleep debt) or purpose (work). Dopaminergic scrolling paralysis.";
+                pInsight.style.borderLeftColor = "var(--autonomy-color)";
+            } else if (o && !r && !a) {
+                pInsight.textContent = "💼 Obligations only. Pure work, zero sleep, zero personal life. Immediate burnout and health collapse imminent.";
+                pInsight.style.borderLeftColor = "var(--obligations-color)";
+            } else {
+                pInsight.textContent = "All toggles are off. Complete void. Select two options to construct a sustainable lifestyle.";
+                pInsight.style.borderLeftColor = "var(--text-muted)";
+            }
+        }
+
+        toggles.forEach(t => {
+            t.addEventListener('change', () => handleParadoxToggle(t));
+        });
+
+        // Initialize
+        updateSliders();
+        updateParadoxInsight();
+    </script>
+</body>
+</html>
