@@ -171,7 +171,7 @@ That's it. Commit the change and the Action rebuilds the site.
 - **Deleting/unlisting a video on YouTube** removes it from the RSS feed, so it
   **disappears on the next run** (the stateless rebuild again).
 - **Fresh data in the browser:** the page requests `videos.json` with a `?ts=`
-  cache-buster (`app.js`), so visitors always get the newest copy right after a run,
+  cache-buster (`assets/app.js`), so visitors always get the newest copy right after a run,
   even past any CDN caching.
 - **Dedupe / ordering:** if the same video shows up in more than one source, the first
   occurrence wins (channels are read before `videos.txt`); a manual description still
@@ -229,7 +229,7 @@ Then open http://localhost:8000
 ---
 
 ## File map
-- `index.html` / `style.css` / `app.js` — the site
+- `index.html` / `assets/style.css` / `assets/app.js` — the site
 - `channels.txt` — **your channels** (you edit this)
 - `videos.txt` — optional manual one-off links (you edit this)
 - `videos.json` — generated automatically (don't edit by hand)

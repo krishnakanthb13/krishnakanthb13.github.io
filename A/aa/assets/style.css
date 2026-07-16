@@ -410,10 +410,11 @@ main {
   white-space: pre-wrap;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.card-desc.expanded { -webkit-line-clamp: unset; overflow: visible; }
+.card-desc.expanded { -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; }
 .more-btn {
   margin-top: 10px;
   align-self: flex-start;
