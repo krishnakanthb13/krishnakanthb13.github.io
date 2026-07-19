@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-07-12T08:15:58.760Z",
+  "updated": "2026-07-19T08:16:42.952Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
