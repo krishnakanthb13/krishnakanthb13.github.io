@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+    <title>OpenCode Go — Models & Usage Dashboard</title>
+    <link rel="icon" href="https://opencode.ai/docs/_astro/logo-dark.DOStV66V.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://corsproxy.io">
+    <link rel="dns-prefetch" href="https://api.allorigins.win">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <style>
+        :root {
+            --bg: #0c0c0e;
+            --surface: #161618;
+            --surface2: #1c1c1f;
+            --border: #38383a;
+            --border-muted: #2c2c2e;
+            --text: #ffffff;
+            --text-secondary: #c7c7cc;
+            --text-muted: #a1a1a6;
+            --text-disabled: #68686f;
+            --accent: #007aff;
+            --accent-hover: #0056b3;
+            --accent2: #30d158;
+            --accent3: #ff9f0a;
+            --green: #30d158;
+            --orange: #ff9f0a;
+            --red: #ff453a;
+            --chart-tooltip-bg: rgba(22,22,24,0.95);
+            --chart-tooltip-border: #38383a;
+            --chart-grid: rgba(56,56,58,0.35);
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f5f7;
+            --surface: #ffffff;
+            --surface2: #f0f0f2;
+            --border: #d2d2d7;
+            --border-muted: #e5e5ea;
+            --text: #1d1d1f;
+            --text-secondary: #424245;
+            --text-muted: #6e6e73;
+            --text-disabled: #86868b;
+            --accent: #007aff;
+            --accent-hover: #0056b3;
+            --accent2: #30d158;
+            --accent3: #ff9f0a;
+            --green: #28a745;
+            --orange: #e68a00;
+            --red: #dc3545;
+            --chart-tooltip-bg: rgba(255,255,255,0.95);
+            --chart-tooltip-border: #d2d2d7;
+            --chart-grid: rgba(0,0,0,0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px 12px 14px;
+            background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .hero .logo svg {
+            height: 24px;
+            width: auto;
+        }
+
+        [data-theme="light"] .hero .logo svg path[fill="#4B4646"] { fill: #1d1d1f; }
+        [data-theme="light"] .hero .logo svg path[fill="#68686f"] { fill: #424245; }
+        [data-theme="light"] .hero .logo svg path[fill="#a1a1a6"] { fill: #6e6e73; }
+
+        .hero h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .hero .price-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 16px;
+            background: var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 12px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+        }
+
+        /* Status bar */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .status-bar .status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.error { background: var(--red); animation: none; }
+        .status-dot.loading { background: var(--orange); }
+        .status-dot.stale { background: var(--orange); animation: pulse 3s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .status-text { font-size: 0.8rem; color: var(--text-muted); }
+        .status-text strong { color: var(--text); }
+
+        .refresh-btn {
+            padding: 5px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: all 0.2s;
+        }
+
+        .refresh-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        .theme-toggle {
+            padding: 5px 10px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /* Models list */
+        .models-list {
+            margin-bottom: 24px;
+        }
+
+        .model-hints {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+        }
+
+        .hint strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .hint code {
+            background: var(--surface2);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent);
+        }
+
+        .hint-icon {
+            font-size: 0.5rem;
+            color: var(--accent3);
+        }
+
+        .hint-icon.endpoint-dot {
+            color: var(--accent2);
+        }
+
+        [data-theme="light"] .hint {
+            background: var(--surface);
+            border-color: var(--border);
+        }
+
+        [data-theme="light"] .chart-card::before { opacity: 0.7; }
+        [data-theme="light"] .model-hints .hint code { background: var(--surface2); }
+
+        .models-list table {
+            width: 100%;
+        }
+
+        .models-list tbody tr {
+            transition: background 0.15s;
+        }
+
+        .models-list tbody tr:hover {
+            background: rgba(0, 122, 255, 0.06);
+        }
+
+        .models-list .model-id-cell {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-provider { background: rgba(0, 122, 255, 0.12); color: var(--accent); }
+        .tag-endpoint { background: rgba(48, 209, 88, 0.12); color: var(--accent2); }
+        .tag-new { background: rgba(255, 159, 10, 0.12); color: var(--accent3); }
+
+        [data-theme="light"] .tag-provider { background: rgba(0, 122, 255, 0.1); }
+        [data-theme="light"] .tag-endpoint { background: rgba(48, 209, 88, 0.1); }
+        [data-theme="light"] .tag-new { background: rgba(255, 159, 10, 0.1); }
+
+        /* Charts section */
+        .charts-section {
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            position: relative;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #007aff, #30d158, #ff9f0a);
+        }
+
+        .chart-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 1px;
+        }
+
+        .chart-card .chart-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .chart-card canvas {
+            max-height: 650px;
+            min-height: 450px;
+        }
+
+        /* Usage limits overview */
+        .limits-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .limit-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .limit-card .limit-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .limit-card .limit-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .limit-card .limit-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Pricing table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        thead th {
+            background: var(--surface2);
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        thead th.sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 24px;
+        }
+
+        thead th.sortable:hover {
+            color: var(--text);
+            background: rgba(0, 122, 255, 0.08);
+        }
+
+        thead th.sortable:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+            color: var(--text);
+        }
+
+        thead th.sortable::after {
+            content: '⇅';
+            position: absolute;
+            right: 8px;
+            font-size: 0.75rem;
+            opacity: 0.3;
+            transition: opacity 0.15s;
+        }
+
+        thead th.sortable:hover::after {
+            opacity: 0.6;
+        }
+
+        thead th.sort-asc::after {
+            content: '↑';
+            opacity: 1;
+            color: var(--accent2);
+        }
+
+        thead th.sort-desc::after {
+            content: '↓';
+            opacity: 1;
+            color: var(--accent2);
+        }
+
+        tbody td {
+            padding: 7px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(0, 122, 255, 0.05); }
+
+        td.model-cell {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        td.num {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            text-align: right;
+        }
+
+        /* Info cards */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .info-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card h3 .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .info-card p, .info-card li {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            list-style: none;
+            margin-top: 6px;
+        }
+
+        .info-card ul li {
+            padding: 3px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .info-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .info-card .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 16px 12px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            height: 140px;
+            border-radius: 12px;
+        }
+
+        /* Responsive — Large (>1200px) */
+        @media (min-width: 1200px) {
+            .container { padding: 20px 24px; }
+            .info-section { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Responsive — Medium (768–1199px) */
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .container { padding: 14px 16px; }
+            .limits-overview { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Responsive — Small (<768px) */
+        @media (max-width: 767px) {
+            .hero { padding: 14px 10px 10px; }
+            .hero h1 { font-size: 1.3rem; }
+            .hero p { font-size: 0.8rem; }
+            .container { padding: 10px 8px; }
+            .section-title { font-size: 0.95rem; }
+            .section-sub { font-size: 0.72rem; margin-bottom: 8px; }
+            .model-hints { flex-direction: column; gap: 6px; }
+            .hint { font-size: 0.68rem; padding: 3px 8px; }
+            .limits-overview { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .limit-card { padding: 10px 6px; }
+            .limit-card .limit-value { font-size: 1.2rem; }
+            .chart-card canvas { max-height: 400px; min-height: 300px; }
+            .info-section { grid-template-columns: 1fr; gap: 8px; }
+            .info-card { padding: 12px; }
+            thead th { padding: 6px 8px; font-size: 0.68rem; }
+            tbody td { padding: 5px 8px; font-size: 0.75rem; }
+            .tag { padding: 2px 7px; font-size: 0.65rem; }
+            .models-list .model-id-cell { font-size: 0.72rem; }
+            .status-bar { padding: 5px 8px; }
+            .status-text { font-size: 0.72rem; }
+            .refresh-btn { padding: 4px 10px; font-size: 0.72rem; }
+            .footer { padding: 12px 8px; font-size: 0.72rem; }
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="logo">
+        <svg width="234" height="42" viewBox="0 0 234 42" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpenCode logo">
+            <path d="M18 30H6V18H18V30Z" fill="#4B4646"/>
+            <path d="M18 12H6V30H18V12ZM24 36H0V6H24V36Z" fill="#68686f"/>
+            <path d="M48 30H36V18H48V30Z" fill="#4B4646"/>
+            <path d="M36 30H48V12H36V30ZM54 36H36V42H30V6H54V36Z" fill="#68686f"/>
+            <path d="M84 24V30H66V24H84Z" fill="#4B4646"/>
+            <path d="M84 24H66V30H84V36H60V6H84V24ZM66 18H78V12H66V18Z" fill="#68686f"/>
+            <path d="M108 36H96V18H108V36Z" fill="#4B4646"/>
+            <path d="M108 12H96V36H90V6H108V12ZM114 36H108V12H114V36Z" fill="#68686f"/>
+            <path d="M144 30H126V18H144V30Z" fill="#4B4646"/>
+            <path d="M144 12H126V30H144V36H120V6H144V12Z" fill="#a1a1a6"/>
+            <path d="M168 30H156V18H168V30Z" fill="#4B4646"/>
+            <path d="M168 12H156V30H168V12ZM174 36H150V6H174V36Z" fill="#a1a1a6"/>
+            <path d="M198 30H186V18H198V30Z" fill="#4B4646"/>
+            <path d="M198 12H186V30H198V12ZM204 36H180V6H198V0H204V36Z" fill="#a1a1a6"/>
+            <path d="M234 24V30H216V24H234Z" fill="#4B4646"/>
+            <path d="M216 12V18H228V12H216ZM234 24H216V30H234V36H210V6H234V24Z" fill="#a1a1a6"/>
+        </svg>
+    </div>
+    <h1><span>Go</span></h1>
+    <p>Low-cost subscription for open coding models. Reliable access to the best open models, tested and benchmarked for coding.</p>
+    <div class="price-badge">$5 first month · $10/mo after</div>
+</div>
+
+<div class="container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <div class="status-dot loading" id="statusDot"></div>
+            <span class="status-text" id="statusText">Syncing from source...</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀</button>
+            <button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+        </div>
+    </div>
+
+    <!-- Usage Limits Overview -->
+    <h2 class="section-title">Usage Limits</h2>
+    <p class="section-sub">Dollar-based limits per subscription period. Actual request count varies by model cost.</p>
+
+    <div class="limits-overview" id="limitsOverview">
+        <div class="limit-card">
+            <div class="limit-label">5 Hour Limit</div>
+            <div class="limit-value" id="limit5h">$12</div>
+            <div class="limit-desc">Rolling 5-hour window</div>
+        </div>
+        <div class="limit-card">
+            <div class="limit-label">Weekly Limit</div>
+            <div class="limit-value" id="limitWeek">$30</div>
+            <div class="limit-desc">7-day rolling window</div>
+        </div>
+        <div class="limit-card">
+            <div class="limit-label">Monthly Limit</div>
+            <div class="limit-value" id="limitMonth">$60</div>
+            <div class="limit-desc">Calendar month</div>
+        </div>
+    </div>
+
+    <!-- Models Section -->
+    <h2 class="section-title">Available Models</h2>
+    <p class="section-sub">Live from <code>opencode.ai/zen/go/v1/models</code> — models may be added or removed as testing continues.</p>
+
+    <div class="model-hints">
+        <span class="hint"><span class="hint-icon">●</span> <strong>API Only</strong> — model available via API but not yet listed in docs pricing</span>
+        <span class="hint"><span class="hint-icon endpoint-dot">●</span> <strong>Endpoint</strong> — which SDK format to use: <code>OpenAI SDK</code> for <code>/v1/chat/completions</code>, <code>Anthropic SDK</code> for <code>/v1/messages</code></span>
+    </div>
+
+    <div class="models-list" id="modelsGrid">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="index" data-table="models" aria-sort="none" tabindex="0">#</th>
+                    <th class="sortable" data-sort="name" data-table="models" aria-sort="none" tabindex="0">Model</th>
+                    <th class="sortable" data-sort="id" data-table="models" aria-sort="none" tabindex="0">Model ID</th>
+                    <th class="sortable" data-sort="provider" data-table="models" aria-sort="none" tabindex="0">Provider</th>
+                    <th class="sortable" data-sort="endpoint" data-table="models" aria-sort="none" tabindex="0">Endpoint</th>
+                </tr>
+            </thead>
+            <tbody id="modelsBody">
+                <tr><td colspan="5" class="skeleton" style="height:40px"></td></tr>
+                <tr><td colspan="5" class="skeleton" style="height:40px"></td></tr>
+                <tr><td colspan="5" class="skeleton" style="height:40px"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <h2 class="section-title">Estimated Requests by Model</h2>
+        <p class="section-sub">Based on observed average request patterns. All three time windows shown side by side.</p>
+
+        <div class="chart-card" style="max-width:100%">
+            <canvas id="chartRequests" aria-label="Bar chart showing estimated requests by model across 5-hour, weekly, and monthly periods" role="img">
+                <p>Bar chart showing estimated requests across 5-hour, weekly, and monthly periods.</p>
+            </canvas>
+        </div>
+    </div>
+
+    <!-- Token Patterns -->
+    <div class="charts-section" id="tokenSection" style="display:none">
+        <h2 class="section-title">Token Patterns per Request</h2>
+        <p class="section-sub">Average input, cached, and output tokens used to calculate the request estimates above.</p>
+        <div id="tokenGrid" class="limits-overview" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));"></div>
+    </div>
+
+    <!-- Detailed Table -->
+    <h2 class="section-title">Full Pricing & Limits Table</h2>
+    <p class="section-sub">Token prices per 1M tokens and monthly usage allocation per model.</p>
+
+    <div class="table-wrapper">
+        <table id="pricingTable">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name" data-table="pricing" aria-sort="none" tabindex="0">Model</th>
+                    <th class="sortable" data-sort="input" data-table="pricing" aria-sort="none" tabindex="0">Input /1M</th>
+                    <th class="sortable" data-sort="output" data-table="pricing" aria-sort="none" tabindex="0">Output /1M</th>
+                    <th class="sortable" data-sort="cached" data-table="pricing" aria-sort="none" tabindex="0">Cached Read /1M</th>
+                    <th class="sortable" data-sort="cachedWrite" data-table="pricing" aria-sort="none" tabindex="0">Cached Write /1M</th>
+                    <th class="sortable" data-sort="usage" data-table="pricing" aria-sort="none" tabindex="0">Monthly Usage</th>
+                    <th class="sortable" data-sort="req5h" data-table="pricing" aria-sort="none" tabindex="0">Req / 5h</th>
+                    <th class="sortable" data-sort="reqWeek" data-table="pricing" aria-sort="none" tabindex="0">Req / Week</th>
+                    <th class="sortable" data-sort="reqMonth" data-table="pricing" aria-sort="none" tabindex="0">Req / Month</th>
+                </tr>
+            </thead>
+            <tbody id="pricingBody"></tbody>
+        </table>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="info-section" id="infoSection">
+        <div class="info-card" id="infoBeyond">
+            <h3><span class="icon" style="background:rgba(0,122,255,0.12);color:var(--accent)">⚡</span> Usage Beyond Limits</h3>
+            <p>If you also have credits on your Zen balance, you can enable the <span class="highlight">Use balance</span> option in the console.</p>
+            <ul>
+                <li>When enabled, Go falls back to your Zen balance after reaching usage limits</li>
+                <li>Instead of blocking requests, it charges against your balance</li>
+                <li>Track current usage in the <a href="https://opencode.ai/auth" target="_blank" style="color:var(--accent)">OpenCode console</a></li>
+                <li>If limits are reached without balance enabled, you can still use free models</li>
+            </ul>
+        </div>
+        <div class="info-card" id="infoWhy">
+            <h3><span class="icon" style="background:rgba(255,159,10,0.12);color:var(--accent3)">📉</span> Why Some Models Have Lower Usage</h3>
+            <p>With Go, you pay $10/month and we aim to give you <span class="highlight">6x that in usage</span>.</p>
+            <ul>
+                <li>Most models: bulk discounts + reserved GPU capacity make the 6x multiplier work</li>
+                <li>Some models haven't had discount opportunities — either new or already priced competitively</li>
+                <li>These models still give you slightly more than paying providers directly</li>
+                <li>That's why their usage multiplier is lower in the table above</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Data sourced from <a href="https://opencode.ai/docs/go/" target="_blank">opencode.ai/docs/go</a> ·
+    Models API: <a href="https://opencode.ai/zen/go/v1/models" target="_blank">/zen/go/v1/models</a> ·
+    Built with live data — refresh for updates
+</div>
+
+<script>
+const MODELS_API = 'https://opencode.ai/zen/go/v1/models';
+const DOCS_URL = 'https://opencode.ai/docs/go/';
+
+// Known model data (parsed from docs — updated dynamically when possible)
+// SOURCE: https://opencode.ai/docs/go/ — keep in sync with source on each build
+let MODEL_DATA = {
+    'grok-4.5':            { name: 'Grok 4.5',          input: 2.00,  output: 6.00,  cached: 0.30,   cachedWrite: null,    usage: 15,  req5h: 120,   reqWeek: 300,   reqMonth: 600,    provider: 'xAI' },
+    'glm-5.2':             { name: 'GLM-5.2',            input: 1.40,  output: 4.40,  cached: 0.26,   cachedWrite: null,    usage: 60,  req5h: 880,   reqWeek: 2150,  reqMonth: 4300,   provider: 'Zhipu' },
+    'glm-5.1':             { name: 'GLM-5.1',            input: 1.40,  output: 4.40,  cached: 0.26,   cachedWrite: null,    usage: 60,  req5h: 880,   reqWeek: 2150,  reqMonth: 4300,   provider: 'Zhipu' },
+    'kimi-k3':             { name: 'Kimi K3',            input: 3.00,  output: 15.00, cached: 0.30,   cachedWrite: null,    usage: 15,  req5h: 110,   reqWeek: 250,   reqMonth: 490,    provider: 'Moonshot' },
+    'kimi-k2.7-code':      { name: 'Kimi K2.7 Code',    input: 0.95,  output: 4.00,  cached: 0.19,   cachedWrite: null,    usage: 60,  req5h: 1350,  reqWeek: 4630,  reqMonth: 9250,   provider: 'Moonshot' },
+    'kimi-k2.6':           { name: 'Kimi K2.6',          input: 0.95,  output: 4.00,  cached: 0.16,   cachedWrite: null,    usage: 60,  req5h: 1150,  reqWeek: 2880,  reqMonth: 5750,   provider: 'Moonshot' },
+    'mimo-v2.5':           { name: 'MiMo-V2.5',          input: 0.14,  output: 0.28,  cached: 0.0028, cachedWrite: null,    usage: 60,  req5h: 30100, reqWeek: 75200, reqMonth: 150400, provider: 'Xiaomi' },
+    'mimo-v2.5-pro':       { name: 'MiMo-V2.5-Pro',      input: 0.435, output: 0.87,  cached: 0.003625, cachedWrite: null,  usage: 15,  req5h: 3250,  reqWeek: 8150,  reqMonth: 16300,  provider: 'Xiaomi' },
+    'minimax-m3':          { name: 'MiniMax M3',          input: 0.30,  output: 1.20,  cached: 0.06,   cachedWrite: null,    usage: 60,  req5h: 3200,  reqWeek: 8000,  reqMonth: 16000,  provider: 'MiniMax' },
+    'minimax-m2.7':        { name: 'MiniMax M2.7',        input: 0.30,  output: 1.20,  cached: 0.06,   cachedWrite: 0.375,  usage: 60,  req5h: 3400,  reqWeek: 8500,  reqMonth: 17000,  provider: 'MiniMax' },
+    'qwen3.7-max':         { name: 'Qwen3.7 Max',        input: 2.50,  output: 7.50,  cached: 0.50,   cachedWrite: 3.125,  usage: 60,  req5h: 950,   reqWeek: 2390,  reqMonth: 4770,   provider: 'Alibaba' },
+    'qwen3.7-plus':        { name: 'Qwen3.7 Plus',       input: 0.40,  output: 1.60,  cached: 0.04,   cachedWrite: 0.50,   usage: 60,  req5h: 4300,  reqWeek: 10800, reqMonth: 21600,  provider: 'Alibaba', note: '≤256K tokens; >256K: $1.20/$4.80/$0.12/$1.50' },
+    'qwen3.6-plus':        { name: 'Qwen3.6 Plus',       input: 0.50,  output: 3.00,  cached: 0.05,   cachedWrite: 0.625,  usage: 60,  req5h: 3300,  reqWeek: 8200,  reqMonth: 16300,  provider: 'Alibaba', note: '≤256K tokens; >256K: $2.00/$6.00/$0.20/$2.50' },
+    'deepseek-v4-pro':     { name: 'DeepSeek V4 Pro',    input: 0.435, output: 0.87,  cached: 0.003625, cachedWrite: null,  usage: 15,  req5h: 3450,  reqWeek: 8550,  reqMonth: 17150,  provider: 'DeepSeek' },
+    'deepseek-v4-flash':   { name: 'DeepSeek V4 Flash',  input: 0.14,  output: 0.28,  cached: 0.0028, cachedWrite: null,    usage: 60,  req5h: 31650, reqWeek: 79050, reqMonth: 158150, provider: 'DeepSeek' },
+};
+
+// Additional models found in API but not in docs pricing
+// SOURCE: https://opencode.ai/zen/go/v1/models — these are API-only
+let EXTRA_MODELS = {
+    'minimax-m2.5':  { name: 'MiniMax M2.5',  input: 0.30, output: 1.20, cached: 0.06, cachedWrite: 0.375, usage: 60, provider: 'MiniMax' },
+    'kimi-k2.5':     { name: 'Kimi K2.5',      input: 0.95, output: 4.00, cached: 0.16, cachedWrite: null, usage: 60, provider: 'Moonshot' },
+    'glm-5':         { name: 'GLM-5',           input: 1.40, output: 4.40, cached: 0.26, cachedWrite: null, usage: 60, provider: 'Zhipu' },
+    'qwen3.5-plus':  { name: 'Qwen3.5 Plus',   input: 0.50, output: 3.00, cached: 0.05, cachedWrite: 0.625, usage: 60, provider: 'Alibaba' },
+    'mimo-v2-pro':   { name: 'MiMo-V2-Pro',    input: 0.435, output: 0.87, cached: 0.003625, cachedWrite: null, usage: 15, provider: 'Xiaomi' },
+    'mimo-v2-omni':  { name: 'MiMo-V2-Omni',   input: 0.14, output: 0.28, cached: 0.0028, cachedWrite: null, usage: 60, provider: 'Xiaomi' },
+    'hy3-preview':   { name: 'HY3 Preview',     input: 1.00, output: 4.00, cached: 0.10, cachedWrite: null, usage: 60, provider: 'Unknown', note: 'Pricing estimated — not confirmed in docs' },
+};
+
+let ALL_KNOWN = { ...MODEL_DATA, ...EXTRA_MODELS };
+
+let requestsChart;
+let rawModels = [];
+let endpointMap = {};
+let isRefreshing = false;
+let refreshRequestId = 0;
+const sortState = { models: { key: null, dir: null }, pricing: { key: null, dir: null } };
+
+// Chart.js barLabels plugin — defined once at module level
+const barLabelsPlugin = {
+    id: 'barLabels',
+    afterDatasetsDraw(chart) {
+        const { ctx: c, chartArea } = chart;
+        const fixedX = chartArea.right + 6;
+        c.save();
+        chart.data.datasets.forEach((ds, dsi) => {
+            const meta = chart.getDatasetMeta(dsi);
+            meta.data.forEach((bar, i) => {
+                const v = ds.data[i];
+                if (!v) return;
+                const barHeight = bar.height || 14;
+                const fontSize = Math.min(Math.max(barHeight * 0.7, 7), 13);
+                const label = v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v.toLocaleString();
+                c.fillStyle = ds.borderColor;
+                c.font = `600 ${fontSize}px 'IBM Plex Mono'`;
+                c.textBaseline = 'middle';
+                c.textAlign = 'left';
+                c.fillText(label, fixedX, bar.y + bar.height / 2);
+            });
+        });
+        c.restore();
+    }
+};
+
+// DOM cache — avoid repeated getElementById calls
+const domCache = {};
+function getCachedEl(id) {
+    if (!domCache[id]) domCache[id] = document.getElementById(id);
+    return domCache[id];
+}
+
+// localStorage guards (throws in Safari private mode)
+function storageGet(key, fallback) {
+    try { return localStorage.getItem(key) ?? fallback; } catch (e) { return fallback; }
+}
+function storageSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* noop */ }
+}
+
+// P0: Sanitize HTML to prevent XSS from external docs
+function sanitizeHTML(html) {
+    const div = document.createElement('div');
+    div.textContent = html;
+    return div.innerHTML;
+}
+
+// P1: Safe number parsers
+function safeParseInt(value) {
+    const num = parseInt(String(value).replace(/,/g, ''), 10);
+    return isNaN(num) ? 0 : num;
+}
+
+function safeParseFloat(value) {
+    const num = parseFloat(String(value).replace(/[$,]/g, ''));
+    return isNaN(num) ? 0 : num;
+}
+
+function formatNum(n) {
+    if (n >= 100000) return (n / 1000).toFixed(0) + 'K';
+    if (n >= 10000) return (n / 1000).toFixed(1) + 'K';
+    return n.toLocaleString();
+}
+
+function getEndpoint(modelId) {
+    return endpointMap[modelId] || 'OpenAI SDK';
+}
+
+function sortModels(models, key, dir) {
+    if (!key || !dir) return models;
+    // P1: Build index map once for O(1) lookup
+    const indexMap = new Map(models.map((m, i) => [m.id, i]));
+    return [...models].sort((a, b) => {
+        const da = ALL_KNOWN[a.id] || {};
+        const db = ALL_KNOWN[b.id] || {};
+        let va, vb;
+        switch (key) {
+            case 'index': va = indexMap.get(a.id); vb = indexMap.get(b.id); break;
+            case 'name': va = (da.name || a.id).toLowerCase(); vb = (db.name || b.id).toLowerCase(); break;
+            case 'id': va = a.id; vb = b.id; break;
+            case 'provider': va = (da.provider || '').toLowerCase(); vb = (db.provider || '').toLowerCase(); break;
+            case 'endpoint': va = getEndpoint(a.id); vb = getEndpoint(b.id); break;
+            default: return 0;
+        }
+        if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        return dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function renderModels(models) {
+    rawModels = models;
+    const tbody = getCachedEl('modelsBody');
+    tbody.innerHTML = '';
+    const s = sortState.models;
+    const sorted = sortModels(models, s.key, s.dir);
+
+    // P2: Use DocumentFragment for batch DOM updates
+    const fragment = document.createDocumentFragment();
+    sorted.forEach((m, i) => {
+        const info = ALL_KNOWN[m.id] || {};
+        const isNew = !MODEL_DATA[m.id];
+        const tr = document.createElement('tr');
+
+        const tdIndex = document.createElement('td');
+        tdIndex.style.cssText = 'color:var(--text-muted);width:40px';
+        tdIndex.textContent = String(i + 1);
+
+        const tdName = document.createElement('td');
+        tdName.className = 'model-cell';
+        tdName.textContent = info.name || m.id;
+        if (isNew) {
+            const tag = document.createElement('span');
+            tag.className = 'tag tag-new';
+            tag.style.marginLeft = '6px';
+            tag.textContent = 'API Only';
+            tdName.appendChild(tag);
+        }
+
+        const tdId = document.createElement('td');
+        tdId.className = 'model-id-cell';
+        tdId.textContent = m.id;
+
+        const tdProvider = document.createElement('td');
+        const provTag = document.createElement('span');
+        provTag.className = 'tag tag-provider';
+        provTag.textContent = info.provider || 'Partner';
+        tdProvider.appendChild(provTag);
+
+        const tdEndpoint = document.createElement('td');
+        const epTag = document.createElement('span');
+        epTag.className = 'tag tag-endpoint';
+        epTag.textContent = getEndpoint(m.id);
+        tdEndpoint.appendChild(epTag);
+
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdName);
+        tr.appendChild(tdId);
+        tr.appendChild(tdProvider);
+        tr.appendChild(tdEndpoint);
+        fragment.appendChild(tr);
+    });
+    tbody.appendChild(fragment);
+}
+
+function sortPricing(entries, key, dir) {
+    if (!key || !dir) return entries;
+    return [...entries].sort((a, b) => {
+        let va, vb;
+        const ma = a[1], mb = b[1];
+        switch (key) {
+            case 'name': va = ma.name.toLowerCase(); vb = mb.name.toLowerCase(); break;
+            case 'input': va = ma.input; vb = mb.input; break;
+            case 'output': va = ma.output; vb = mb.output; break;
+            case 'cached': va = ma.cached; vb = mb.cached; break;
+            case 'cachedWrite': va = ma.cachedWrite || 0; vb = mb.cachedWrite || 0; break;
+            case 'usage': va = ma.usage; vb = mb.usage; break;
+            case 'req5h': va = ma.req5h || 0; vb = mb.req5h || 0; break;
+            case 'reqWeek': va = ma.reqWeek || 0; vb = mb.reqWeek || 0; break;
+            case 'reqMonth': va = ma.reqMonth || 0; vb = mb.reqMonth || 0; break;
+            default: return 0;
+        }
+        if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        return dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function renderPricingTable() {
+    const body = getCachedEl('pricingBody');
+    body.innerHTML = '';
+    const s = sortState.pricing;
+    let entries = Object.entries(MODEL_DATA);
+    entries = sortPricing(entries, s.key, s.dir);
+
+    const fragment = document.createDocumentFragment();
+    entries.forEach(([id, m]) => {
+        const row = document.createElement('tr');
+        const cw = m.cachedWrite;
+
+        const tdName = document.createElement('td');
+        tdName.className = 'model-cell';
+        tdName.textContent = m.name;
+        if (m.note) {
+            const tag = document.createElement('span');
+            tag.className = 'tag tag-new';
+            tag.style.cssText = 'margin-left:4px;font-size:0.6rem';
+            tag.title = m.note;
+            tag.textContent = 'TIERED';
+            tdName.appendChild(tag);
+        }
+
+        const tdInput = document.createElement('td');
+        tdInput.className = 'num';
+        tdInput.textContent = '$' + m.input.toFixed(2);
+
+        const tdOutput = document.createElement('td');
+        tdOutput.className = 'num';
+        tdOutput.textContent = '$' + m.output.toFixed(2);
+
+        const tdCached = document.createElement('td');
+        tdCached.className = 'num';
+        tdCached.textContent = '$' + m.cached.toFixed(4);
+
+        const tdCachedWrite = document.createElement('td');
+        tdCachedWrite.className = 'num';
+        tdCachedWrite.textContent = cw != null ? '$' + cw.toFixed(3) : '—';
+
+        const tdUsage = document.createElement('td');
+        tdUsage.className = 'num';
+        tdUsage.textContent = '$' + m.usage;
+
+        const td5h = document.createElement('td');
+        td5h.className = 'num';
+        td5h.textContent = m.req5h ? m.req5h.toLocaleString() : '—';
+
+        const tdWeek = document.createElement('td');
+        tdWeek.className = 'num';
+        tdWeek.textContent = m.reqWeek ? m.reqWeek.toLocaleString() : '—';
+
+        const tdMonth = document.createElement('td');
+        tdMonth.className = 'num';
+        tdMonth.textContent = m.reqMonth ? m.reqMonth.toLocaleString() : '—';
+
+        row.appendChild(tdName);
+        row.appendChild(tdInput);
+        row.appendChild(tdOutput);
+        row.appendChild(tdCached);
+        row.appendChild(tdCachedWrite);
+        row.appendChild(tdUsage);
+        row.appendChild(td5h);
+        row.appendChild(tdWeek);
+        row.appendChild(tdMonth);
+        fragment.appendChild(row);
+    });
+    body.appendChild(fragment);
+}
+
+function renderTokenPatterns(patterns) {
+    const grid = getCachedEl('tokenGrid');
+    const section = getCachedEl('tokenSection');
+    if (!grid || !Object.keys(patterns).length) return;
+    section.style.display = '';
+    grid.innerHTML = '';
+
+    const nameToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => { nameToId[m.name] = id; });
+
+    const fragment = document.createDocumentFragment();
+    Object.entries(patterns).forEach(([name, tp]) => {
+        const id = nameToId[name];
+        const info = id ? (MODEL_DATA[id] || EXTRA_MODELS[id]) : null;
+        const card = document.createElement('div');
+        card.className = 'limit-card';
+        card.style.textAlign = 'left';
+        card.style.padding = '10px';
+
+        const nameDiv = document.createElement('div');
+        nameDiv.style.cssText = 'font-size:0.72rem;font-weight:600;color:var(--text);margin-bottom:4px';
+        nameDiv.textContent = info?.name || name;
+
+        const statsDiv = document.createElement('div');
+        statsDiv.style.cssText = 'font-size:0.68rem;color:var(--text-muted);line-height:1.5';
+        statsDiv.innerHTML = `<span style="color:var(--accent)">↓</span> ${tp.input.toLocaleString()} in &nbsp;<span style="color:var(--accent2)">⚡</span> ${tp.cached.toLocaleString()} cached &nbsp;<span style="color:var(--accent3)">↑</span> ${tp.output.toLocaleString()} out`;
+
+        card.appendChild(nameDiv);
+        card.appendChild(statsDiv);
+        fragment.appendChild(card);
+    });
+    grid.appendChild(fragment);
+}
+
+function handleSort(e) {
+    const th = e.target.closest('th.sortable');
+    if (!th) return;
+    const table = th.dataset.table;
+    const key = th.dataset.sort;
+    const st = sortState[table];
+
+    // Cycle: null → asc → desc → null
+    if (st.key !== key) {
+        st.key = key;
+        st.dir = 'asc';
+    } else if (st.dir === 'asc') {
+        st.dir = 'desc';
+    } else {
+        st.key = null;
+        st.dir = null;
+    }
+
+    // Update header classes and ARIA attributes
+    const thead = th.closest('thead');
+    thead.querySelectorAll('th.sortable').forEach(h => {
+        h.classList.remove('sort-asc', 'sort-desc');
+        h.setAttribute('aria-sort', 'none');
+    });
+    if (st.dir) {
+        th.classList.add(st.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+        th.setAttribute('aria-sort', st.dir === 'asc' ? 'ascending' : 'descending');
+    }
+
+    if (table === 'models') renderModels(rawModels);
+    else renderPricingTable();
+}
+
+function renderCharts() {
+    // P0: Guard against Chart.js not being loaded yet
+    if (typeof Chart === 'undefined') {
+        console.warn('Chart.js not loaded yet, deferring render');
+        return;
+    }
+
+    const entries = Object.entries(MODEL_DATA)
+        .filter(([, m]) => m.req5h)
+        .sort((a, b) => b[1].reqMonth - a[1].reqMonth);
+
+    const labels = entries.map(([, m]) => m.name);
+    const data5h = entries.map(([, m]) => m.req5h);
+    const dataWeek = entries.map(([, m]) => m.reqWeek);
+    const dataMonth = entries.map(([, m]) => m.reqMonth);
+
+    const cs = getComputedStyle(document.documentElement);
+    const tooltipBg = cs.getPropertyValue('--chart-tooltip-bg').trim();
+    const tooltipBorder = cs.getPropertyValue('--chart-tooltip-border').trim();
+    const gridColor = cs.getPropertyValue('--chart-grid').trim();
+    const textMuted = cs.getPropertyValue('--text-muted').trim();
+    const textSec = cs.getPropertyValue('--text-secondary').trim();
+
+    const canvas = getCachedEl('chartRequests');
+    const ctx = canvas.getContext('2d');
+
+    // P2: Update chart data if it exists, only destroy/recreate if labels changed
+    if (requestsChart && JSON.stringify(requestsChart.data.labels) === JSON.stringify(labels)) {
+        requestsChart.data.datasets[0].data = data5h;
+        requestsChart.data.datasets[1].data = dataWeek;
+        requestsChart.data.datasets[2].data = dataMonth;
+        requestsChart.update('active');
+        return;
+    }
+
+    if (requestsChart) requestsChart.destroy();
+
+    requestsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: '5 Hour ($12)',
+                    data: data5h,
+                    backgroundColor: '#007affcc',
+                    borderColor: '#007aff',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                },
+                {
+                    label: 'Weekly ($30)',
+                    data: dataWeek,
+                    backgroundColor: '#30d158cc',
+                    borderColor: '#30d158',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                },
+                {
+                    label: 'Monthly ($60)',
+                    data: dataMonth,
+                    backgroundColor: '#ff9f0acc',
+                    borderColor: '#ff9f0a',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900, easing: 'easeOutQuart' },
+            layout: { padding: { right: 80 } },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        color: textMuted,
+                        font: { family: "'IBM Plex Sans'", size: 11, weight: '500' },
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded',
+                        padding: 14,
+                    }
+                },
+                tooltip: {
+                    backgroundColor: tooltipBg,
+                    titleColor: cs.getPropertyValue('--text').trim(),
+                    bodyColor: textMuted,
+                    borderColor: tooltipBorder,
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    padding: 12,
+                    titleFont: { family: "'IBM Plex Sans'", weight: '600', size: 13 },
+                    bodyFont: { family: "'IBM Plex Mono'", size: 12 },
+                    callbacks: {
+                        label: ctx => {
+                            const v = ctx.parsed.x;
+                            const label = v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v.toLocaleString();
+                            return ` ${ctx.dataset.label}: ${label} requests`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: textMuted,
+                        font: { family: "'IBM Plex Mono'", size: 10 },
+                        callback: v => formatNum(v),
+                        maxTicksLimit: 8,
+                    },
+                    grid: { color: gridColor, drawBorder: false },
+                    border: { display: false }
+                },
+                y: {
+                    ticks: {
+                        color: textSec,
+                        font: { family: "'IBM Plex Sans'", size: 11, weight: '500' },
+                        padding: 6,
+                    },
+                    grid: { display: false },
+                    border: { display: false }
+                }
+            }
+        },
+        plugins: [barLabelsPlugin]
+    });
+}
+
+async function fetchWithProxy(url) {
+    const attempts = [
+        url,
+        `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    ];
+    for (const attempt of attempts) {
+        try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 8000);
+            const res = await fetch(attempt, { signal: controller.signal });
+            clearTimeout(timer);
+            if (!res.ok) continue;
+            const text = await res.text();
+            try { return JSON.parse(text); } catch (_) { continue; }
+        } catch (_) { /* try next */ }
+    }
+    throw new Error('All fetch attempts failed');
+}
+
+async function fetchRawWithProxy(url) {
+    const attempts = [
+        url,
+        `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    ];
+    for (const attempt of attempts) {
+        try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 12000);
+            const res = await fetch(attempt, { signal: controller.signal });
+            clearTimeout(timer);
+            if (!res.ok) continue;
+            return await res.text();
+        } catch (_) { /* try next */ }
+    }
+    throw new Error('All fetch attempts failed');
+}
+
+// Fetch docs page and parse pricing/estimates tables into MODEL_DATA
+async function fetchDocsData() {
+    const html = await fetchRawWithProxy(DOCS_URL);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Find tables by header content, not index (resilient to docs restructure)
+    function findTable(...keywords) {
+        return [...doc.querySelectorAll('table')].find(t => {
+            const headers = [...t.querySelectorAll('th')].map(th => th.textContent.toLowerCase());
+            return keywords.every(k => headers.some(h => h.includes(k)));
+        });
+    }
+
+    const estTable = findTable('5 hour', 'week', 'month');
+    const priceTable = findTable('input', 'output', 'cached');
+    const epTable = findTable('model id', 'endpoint', 'sdk');
+
+    if (!estTable || !priceTable) throw new Error('Could not find required tables in docs page');
+
+    const estRows = estTable.querySelectorAll('tbody tr');
+    const priceRows = priceTable.querySelectorAll('tbody tr');
+
+    const estMap = {};
+    estRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 4) return;
+        const name = cells[0].textContent.trim();
+        const req5h = safeParseInt(cells[1].textContent);
+        const reqWeek = safeParseInt(cells[2].textContent);
+        const reqMonth = safeParseInt(cells[3].textContent);
+        estMap[name] = { req5h, reqWeek, reqMonth };
+    });
+
+    const priceMap = {};
+    priceRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 6) return;
+        let name = cells[0].textContent.trim();
+        // Strip tier suffixes like "(≤ 256K tokens)"
+        name = name.replace(/\s*\(.*?\)/g, '').trim();
+        const input = safeParseFloat(cells[1].textContent);
+        const output = safeParseFloat(cells[2].textContent);
+        const cached = safeParseFloat(cells[3].textContent);
+        const cachedWriteRaw = cells[4].textContent.trim();
+        const cachedWrite = cachedWriteRaw === '-' || cachedWriteRaw === '' ? null : safeParseFloat(cells[4].textContent) || null;
+        const usage = safeParseInt(cells[5].textContent) || 60;
+        priceMap[name] = { input, output, cached, cachedWrite, usage };
+    });
+
+    // Model name → model ID mapping
+    const nameToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => { nameToId[m.name] = id; });
+    Object.entries(EXTRA_MODELS).forEach(([id, m]) => { nameToId[m.name] = id; });
+
+    // True atomic update: deep clone, apply updates to clone, then reassign
+    const freshData = JSON.parse(JSON.stringify(MODEL_DATA));
+    let updated = 0;
+    Object.entries(priceMap).forEach(([name, price]) => {
+        const id = nameToId[name];
+        if (!id) return;
+        const est = estMap[name] || {};
+        const target = freshData[id];
+        if (!target) return;
+        target.input = price.input;
+        target.output = price.output;
+        target.cached = price.cached;
+        target.cachedWrite = price.cachedWrite;
+        target.usage = price.usage;
+        if (est.req5h) { target.req5h = est.req5h; target.reqWeek = est.reqWeek; target.reqMonth = est.reqMonth; }
+        updated++;
+    });
+    // Atomic replacement
+    MODEL_DATA = freshData;
+    ALL_KNOWN = { ...MODEL_DATA, ...EXTRA_MODELS };
+
+    // --- Parse endpoints table ---
+    if (epTable) {
+        const epRows = epTable.querySelectorAll('tbody tr');
+        const newEndpointMap = {};
+        epRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length < 4) return;
+            const modelId = cells[1].textContent.trim();
+            const sdkPkg = cells[3].textContent.trim();
+            if (modelId && sdkPkg) {
+                newEndpointMap[modelId] = sdkPkg.includes('anthropic') ? 'Anthropic SDK' : 'OpenAI SDK';
+            }
+        });
+        if (Object.keys(newEndpointMap).length) {
+            endpointMap = newEndpointMap;
+        }
+    }
+
+    // --- Parse usage limits ---
+    const fullText = doc.body?.textContent || '';
+    const limitMatch5h = fullText.match(/5\s*hour\s*limit\s*[—–-]\s*\$(\d+)/i);
+    const limitMatchWeek = fullText.match(/[Ww]eekly\s*limit\s*[—–-]\s*\$(\d+)/i);
+    const limitMatchMonth = fullText.match(/[Mm]onthly\s*limit\s*[—–-]\s*\$(\d+)/i);
+    if (limitMatch5h) document.getElementById('limit5h').textContent = '$' + limitMatch5h[1];
+    if (limitMatchWeek) document.getElementById('limitWeek').textContent = '$' + limitMatchWeek[1];
+    if (limitMatchMonth) document.getElementById('limitMonth').textContent = '$' + limitMatchMonth[1];
+
+    // --- Parse token patterns ---
+    // Source format: "Model Name — 1,100 input, 71,500 cached, 220 output tokens per request"
+    // Also handles combined: "GLM-5.2/5.1 — 700 input, 52,000 cached, 150 output"
+    const tokenPatterns = {};
+    const fullLines = fullText.split('\n');
+    for (const line of fullLines) {
+        const match = line.match(/^([A-Za-z0-9\s.+\-\/]+?)\s*[—–-]\s*([\d,]+)\s*input,\s*([\d,]+)\s*cached,\s*([\d,]+)\s*output/);
+        if (match) {
+            const rawName = match[1].trim();
+            const tp = {
+                input: safeParseInt(match[2]),
+                cached: safeParseInt(match[3]),
+                output: safeParseInt(match[4])
+            };
+            // Handle combined entries like "GLM-5.2/5.1" or "Kimi K2.7/K2.6"
+            const names = rawName.split('/').map(n => n.trim());
+            names.forEach(name => { tokenPatterns[name] = tp; });
+        }
+    }
+    // Store for display
+    window._tokenPatterns = tokenPatterns;
+    renderTokenPatterns(tokenPatterns);
+
+    // --- Parse info card sections ---
+    const sections = doc.querySelectorAll('h3, h2');
+    function extractSection(headingText) {
+        for (const h of sections) {
+            if (!h.textContent.toLowerCase().includes(headingText.toLowerCase())) continue;
+            let el = h.nextElementSibling;
+            const paragraphs = [];
+            const items = [];
+            while (el && !['H2', 'H3'].includes(el.tagName)) {
+                if (el.tagName === 'P') paragraphs.push(el.innerHTML.trim());
+                if (el.tagName === 'UL') {
+                    el.querySelectorAll('li').forEach(li => items.push(li.innerHTML.trim()));
+                }
+                el = el.nextElementSibling;
+            }
+            return { paragraphs, items };
+        }
+        return null;
+    }
+
+    const beyondData = extractSection('Usage beyond limits');
+    const whyData = extractSection('Why some models have lower usage');
+
+    // P0: Sanitize external content before injecting
+    if (beyondData) {
+        const card = getCachedEl('infoBeyond');
+        const pEl = card.querySelector('p');
+        const ulEl = card.querySelector('ul');
+        if (pEl && beyondData.paragraphs.length) pEl.innerHTML = sanitizeHTML(beyondData.paragraphs[0]);
+        if (ulEl && beyondData.items.length) {
+            ulEl.innerHTML = beyondData.items.map(t => `<li>${sanitizeHTML(t)}</li>`).join('');
+        }
+    }
+
+    if (whyData) {
+        const card = getCachedEl('infoWhy');
+        const pEl = card.querySelector('p');
+        const ulEl = card.querySelector('ul');
+        if (pEl && whyData.paragraphs.length) pEl.innerHTML = sanitizeHTML(whyData.paragraphs[0]);
+        if (ulEl && whyData.items.length) {
+            ulEl.innerHTML = whyData.items.map(t => `<li>${sanitizeHTML(t)}</li>`).join('');
+        }
+    }
+
+    // Cache the result with TTL and version
+    const CACHE_VERSION = '1.0.0';
+    storageSet('oc-docs-cache', JSON.stringify({ ts: Date.now(), updated, version: CACHE_VERSION }));
+    return updated;
+}
+
+async function fetchModels() {
+    const dot = getCachedEl('statusDot');
+    const text = getCachedEl('statusText');
+
+    dot.className = 'status-dot loading';
+    text.innerHTML = 'Syncing from <strong>opencode.ai</strong>...';
+
+    let modelCount = 0;
+    let docsOk = false;
+
+    // Step 1: Fetch models API (validate response shape)
+    try {
+        const apiData = await fetchWithProxy(MODELS_API);
+        if (apiData?.object === 'list' && Array.isArray(apiData.data)) {
+            const models = apiData.data.filter(m => typeof m.id === 'string' && m.id.trim());
+            if (models.length) {
+                renderModels(models);
+                modelCount = models.length;
+            }
+        }
+    } catch (_) { /* API failed */ }
+
+    // Step 2: Fallback if API didn't produce models
+    if (!modelCount) {
+        const fallback = Object.keys(ALL_KNOWN).map(id => ({ id, object: 'model', created: Date.now(), owned_by: 'opencode' }));
+        renderModels(fallback);
+        modelCount = fallback.length;
+    }
+
+    // Step 3: Fetch and parse docs page
+    try {
+        await fetchDocsData();
+        docsOk = true;
+    } catch (e) {
+        console.warn('Docs sync failed:', e);
+    }
+
+    // Step 4: Re-render pricing + charts with any updates
+    renderPricingTable();
+    renderCharts();
+
+    // Step 5: Status — show sync result with stale-data indicator
+    const cache = JSON.parse(storageGet('oc-docs-cache', '{}'));
+    const ts = cache.ts ? new Date(cache.ts).toLocaleTimeString() : null;
+    const parts = [`<strong>${modelCount}</strong> models`];
+    if (docsOk) {
+        dot.className = 'status-dot';
+        parts.push('pricing synced');
+        text.innerHTML = `Live — ${parts.join(', ')}${ts ? ' · ' + ts : ''}`;
+    } else {
+        dot.className = 'status-dot stale';
+        parts.push('showing cached data');
+        text.innerHTML = `Offline — ${parts.join(', ')}${ts ? ' · last sync ' + ts : ''}`;
+    }
+}
+
+// P0: Debounce refresh to prevent race conditions
+async function refreshAll() {
+    if (isRefreshing) return;
+    isRefreshing = true;
+    refreshRequestId++;
+    const currentRequest = refreshRequestId;
+
+    const btn = document.querySelector('.refresh-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⟳ Syncing...';
+    }
+
+    try {
+        await fetchModels();
+    } finally {
+        if (currentRequest === refreshRequestId) {
+            isRefreshing = false;
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = '↻ Refresh';
+            }
+        }
+    }
+}
+
+// Theme
+function initTheme() {
+    const saved = storageGet('oc-theme', null);
+    const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (preferDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeBtn(theme);
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    storageSet('oc-theme', next);
+    updateThemeBtn(next);
+    // P2: Update chart colors dynamically instead of full recreate
+    if (requestsChart) {
+        const cs = getComputedStyle(document.documentElement);
+        const tooltipBg = cs.getPropertyValue('--chart-tooltip-bg').trim();
+        const tooltipBorder = cs.getPropertyValue('--chart-tooltip-border').trim();
+        const gridColor = cs.getPropertyValue('--chart-grid').trim();
+        const textMuted = cs.getPropertyValue('--text-muted').trim();
+        const textSec = cs.getPropertyValue('--text-secondary').trim();
+
+        requestsChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+        requestsChart.options.plugins.tooltip.titleColor = cs.getPropertyValue('--text').trim();
+        requestsChart.options.plugins.tooltip.bodyColor = textMuted;
+        requestsChart.options.plugins.tooltip.borderColor = tooltipBorder;
+        requestsChart.options.plugins.legend.labels.color = textMuted;
+        requestsChart.options.scales.x.ticks.color = textMuted;
+        requestsChart.options.scales.x.grid.color = gridColor;
+        requestsChart.options.scales.y.ticks.color = textSec;
+        requestsChart.update('none');
+    }
+}
+
+function updateThemeBtn(theme) {
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀' : '☾';
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    document.querySelectorAll('thead th.sortable').forEach(th => {
+        th.addEventListener('click', handleSort);
+        th.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSort(e);
+            }
+        });
+    });
+    // Render with cached/hardcoded data first, then fetch live
+    renderPricingTable();
+    renderCharts();
+    fetchModels();
+});
+</script>
+
+</body>
+</html>

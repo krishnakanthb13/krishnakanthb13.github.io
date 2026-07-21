@@ -118,8 +118,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Future of DataFrames](https://krishnakanthb13.github.io/D/dataframes.html): Wes McKinney's talk on the composable data stack, with a 2026 update.
 	- [Is Amplenote Worth It?](https://krishnakanthb13.github.io/D/amplenote.html): Amplenote weighed against a Google Docs / Tasks / Calendar setup.
 	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html): Conventions for organising passwords, keys, and secure notes.
-	- [Bitwarden (2026)](https://krishnakanthb13.github.io/D/bitwarden.html): The open-source, zero-knowledge password manager — plans, security & what's new.
-	- [OpenCode Go](https://krishnakanthb13.github.io/D/opencode-go.html): Low-cost subscription for popular open coding models — GLM, Kimi, MiMo, Qwen, DeepSeek.
+	- [Bitwarden (2026)](https://krishnakanthb13.github.io/D/bitwarden.html): The open-source, zero-knowledge password manager.
+	- [OpenCode Go Overview](https://krishnakanthb13.github.io/D/opencode-go.html): Low-cost subscription for popular open coding models.
+	- [OpenCode Go Dashboard](https://krishnakanthb13.github.io/D/opencode-go/): Live models & usage dashboard.
 	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.
 
 ---
