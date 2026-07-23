@@ -7,6 +7,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 ## Features
 
 - **Full Live Sync** — on load and refresh, fetches everything from source: model list (API), pricing, estimates, endpoints/SDK mapping, token patterns, usage limits, info cards
+- **Data Source Badges** — green "Live" badge when docs sync succeeds, orange "Hardcoded" when using fallback data. Shown on chart and pricing table section headers
 - **Token Patterns** — shows input/cached/output tokens per request for each model, parsed from source
 - **Dark / Light Mode** — toggle in status bar. Respects system preference on first load. Persisted to localStorage. Charts update colors dynamically without full recreate
 - **Usage Limits** — $12/5hr, $30/week, $60/month dollar-based rolling limits
@@ -66,7 +67,8 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Qwen3.5 Plus | Alibaba | `qwen3.5-plus` |
 | DeepSeek V4 Pro | DeepSeek | `deepseek-v4-pro` |
 | DeepSeek V4 Flash | DeepSeek | `deepseek-v4-flash` |
-| HY3 Preview | Unknown | `hy3-preview` |
+| Hy3 | HY | `hy3` |
+| HY3 Preview | HY | `hy3-preview` |
 
 ## Pricing (per 1M tokens)
 
@@ -88,6 +90,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Qwen3.6 Plus* | $0.50 | $3.00 | $0.0500 | $0.625 | $60 |
 | DeepSeek V4 Pro | $0.435 | $0.87 | $0.003625 | — | $15 |
 | DeepSeek V4 Flash | $0.14 | $0.28 | $0.0028 | — | $60 |
+| Hy3 | $0.14 | $0.58 | $0.0350 | — | $60 |
 
 \* Qwen3.7 Plus and Qwen3.6 Plus have tiered pricing: shown prices are for ≤256K tokens. Above 256K: Qwen3.7 Plus → $1.20/$4.80/$0.12/$1.50; Qwen3.6 Plus → $2.00/$6.00/$0.20/$2.50.
 
@@ -110,6 +113,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Qwen3.6 Plus | 3,300 | 8,200 | 16,300 |
 | DeepSeek V4 Pro | 3,450 | 8,550 | 17,150 |
 | DeepSeek V4 Flash | 31,650 | 79,050 | 158,150 |
+| Hy3 | 4,300 | 10,750 | 21,500 |
 
 ## Usage Limits
 
@@ -132,12 +136,15 @@ Everything syncs automatically on page load and refresh:
 5. **Usage limits** — parsed from docs page text (`$12`, `$30`, `$60`), updates the limit cards
 6. **Info cards** — "Usage Beyond Limits" and "Why Some Models Have Lower Usage" sections extracted from docs page headings/paragraphs/lists, sanitized before injection
 7. **Fallback** — if docs page is unreachable, uses hardcoded values (still accurate as of last manual update)
+8. **Data source badges** — section headers show green "Live" when docs sync succeeds, orange "Hardcoded" when using fallback
 
 The `SOURCE:` comments in `MODEL_DATA` and `EXTRA_MODELS` mark where to manually update if the auto-sync breaks.
 
+**CORS proxy note:** The live docs fetch relies on third-party CORS proxies (`corsproxy.io`, `allorigins.win`). These are unreliable and often down — when they fail, the page falls back to hardcoded data. The hardcoded `MODEL_DATA` is kept in sync with the docs source manually.
+
 ## Tech
 
-Single HTML file. Chart.js (CDN, `defer`). IBM Plex Sans/Mono (Google Fonts, `display=swap`). Live API + docs scraping with CORS proxy fallback. Sortable columns. Dark/light theme toggle. Three responsive breakpoints.
+Single HTML file. Chart.js (CDN, `defer`). IBM Plex Sans/Mono (Google Fonts, `display=swap`). Live API + docs scraping with CORS proxy fallback. Data source badges (Live/Hardcoded). Sortable columns. Dark/light theme toggle. Three responsive breakpoints.
 
 ## Usage
 
