@@ -1,7 +1,15 @@
 {
-  "updated": "2026-07-19T08:26:17.865Z",
-  "count": 3,
+  "updated": "2026-07-26T08:33:11.541Z",
+  "count": 4,
   "videos": [
+    {
+      "id": "I-DrMKXhXUM",
+      "title": "How to Use the Dice Lite Plugin in Amplenote",
+      "channel": "Amplenote Academy",
+      "published": "2026-07-20T18:30:24+00:00",
+      "desc": "...\n🎲 COMPLETE GUIDE TO THE DICE LITE PLUGIN FOR AMPLENOTE\n\nA straightforward, fact-based walkthrough of the Dice Lite plugin for Amplenote. In this video, we cover every single feature this powerful utility provides—from simple quick rolls and fully customizable basic rolls to complex formula evaluation, batch rolling, and simulations of mathematical dice like Sicherman, Intransitive, and Poker hands with probability tracking.\n\nWhether you are playing tabletop RPGs (TTRPGs) directly inside your campaign notes, simulating probability outcomes, or using randomized decisions for brainstorming, this plugin is your ultimate tabletop companion.\n\n🔗 GitHub Repo: https://github.com/krishnakanthb13/anp-21-dice-lite\n\n🔗 Try Amplenote (Sign Up): https://www.amplenote.com/signup?ref=7JGSMI4H0\n🔗 Explore My Amplenote Plugins: https://krishnakanthb13.github.io/A/\n🔗 Alternative Plugins Page: https://public.amplenote.com/Y3dy91/krishna-plugins\n🔗 Browse Official Amplenote Plugins: https://www.amplenote.com/plugins\n🔗 Support My Work & Development: https://krishnakanthb13.github.io/S/\n\n🕒 VIDEO TIMESTAMPS\n\n0:00 - Introduction & Setup\n0:36 - Simple Roll (Quick Count & Faces)\n1:01 - Basic Roll (Advanced Modifiers, Exploding, Sorting)\n1:35 - Advanced Roll (Formula Math Parser & Batch Rolling)\n2:03 - Specialized Roll (Sicherman, Intransitive, Poker Dice & Probabilities)\n\n📋 FEATURE BREAKDOWN\n\nSIMPLE ROLL\n* Quick Roll: Prompt for the number of dice and number of faces.\n* Remember Settings: Remembers your last rolled configuration for fast re-rolling.\n\nBASIC ROLL\n* Roll Modifiers: Apply minimum/maximum boundaries to roll values.\n* Keep & Drop: Automatically keep or drop the highest/lowest dice rolls.\n* Exploding Dice: Automatically trigger an additional roll when maximum values are rolled.\n* Sorting & Uniqueness: Sort rolls in ascending/descending order and filter out duplicate results.\n\nADVANCED ROLL\n* Custom Formula Parser: Evaluates algebraic dice expressions (e.g., `2d6 + 5`, `3d4 - (3d4 * 1d4) - 2^1d7`).\n* Batch Rolling: Roll multiple distinct formulas simultaneously via comma-separated text or line-by-line inputs.\n\nSPECIALIZED ROLL\n* Sicherman Dice: Simulates custom 6-sided dice that yield identical sum probabilities to standard 6-sided dice.\n* Intransitive Dice: Simulates non-transitive dice loops (A beats B, B beats C, C beats A).\n* Poker Dice: Rolls hands from standard, numeric, or crown variants and analyzes the poker hand classification.\n* Probability Engine: Displays exact probability chances for specialized combinations and matchups.\n\n#Amplenote #PKM #ProductivityTools #TabletopRPG #DungeonsAndDragons #DiceSimulator #TTRPG #NoteTaking",
+      "url": "https://www.youtube.com/watch?v=I-DrMKXhXUM"
+    },
     {
       "id": "7_-GQM_ObE8",
       "title": "Developers Guide for Building Modular Amplenote Plugins",
