@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-07-19T08:16:42.952Z",
+  "updated": "2026-07-26T08:24:57.543Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
@@ -119,6 +119,12 @@ window.__PLUGINS__ = {
           "name": "Dice",
           "link": "https://public.amplenote.com/2zJ5cA/dice",
           "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
+          "badge": "🔴 Updated"
+        },
+        {
+          "name": "Dice Lite",
+          "link": "https://public.amplenote.com/NXgEhb/dice-lite",
+          "install": "https://www.amplenote.com/plugins/NXgEhb1RLtiBZydiSsG7xhux",
           "badge": "🟢 Latest"
         },
         {
@@ -392,6 +398,18 @@ window.__PLUGINS__ = {
         "More Visual",
         "Options to Exclude particular words / Include particular words in Trending Words Options",
         "Day / Week wise task / word count"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Dice Lite",
+      "category": "Lite Randomizer",
+      "published": "July 20th, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/NXgEhb/dice-lite",
+      "install": "https://www.amplenote.com/plugins/NXgEhb1RLtiBZydiSsG7xhux",
+      "plans": [
+        "Based on user and Amplenote's requests."
       ]
     }
   ],
