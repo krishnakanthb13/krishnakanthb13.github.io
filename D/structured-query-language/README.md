@@ -23,8 +23,9 @@ An interactive, blueprint-themed visual breakdown demonstrating how a complete S
     - `CREATE PROCEDURE` / `BEGIN ... END` (Stored procedures & encapsulation)
     - `BEGIN TRANSACTION` / `COMMIT` / `ROLLBACK` (ACID guarantees, transaction isolation & `FOR UPDATE` / `NOLOCK` locking hints)
     - `B-Tree Indexing` (`idx_products_id` lookup performance)
-    - `Database Normalization & Views` (1NF, 2NF, 3NF, standard `CREATE VIEW` vs `MATERIALIZED VIEW`)
-    - `Advanced Clause & Expression Coverage` (`QUALIFY` window filtering, `CASE WHEN` conditional aggregates, `COALESCE` / `NULLIF` null-handling, `LATERAL JOIN` / `CROSS APPLY`)
+    - `Database Engine Caching` (Buffer Pool RAM cache `EXPLAIN (ANALYZE, BUFFERS)`, Result Set Caching, `MATERIALIZED VIEW` disk caching, Redis/Memcached application caching)
+    - `Advanced Clause & Expression Coverage` (`QUALIFY` window filtering, `CASE WHEN` conditional aggregates, `COALESCE` / `NULLIF` null-handling, `LATERAL JOIN` / `CROSS APPLY`, `GROUP BY ROLLUP` / `CUBE`, `UNION ALL` / `EXCEPT` set operators, `DATE_TRUNC` date arithmetic, `Partition Pruning`)
+    - `DDL & DML Procedural Workflow` (`CREATE TEMPORARY TABLE` staging setup, `INSERT INTO ... SELECT` bulk population, `TRUNCATE TABLE` cleanup inside transaction block)
 - **Interactive Step-by-Step Execution Walkthrough**: Auto-play or manually step through the query execution sequence with real-time visual line highlighting, interactive closing brackets (`WITH` CTE and `EXISTS` subqueries), and detailed execution phase indicators.
 - **Expanded Responsive Blueprint Design**: Custom embedded SQL SVG favicon and wide viewport container layout (`max-width: 1560px`) preventing query wrapping on wide screens for optimal readability.
 

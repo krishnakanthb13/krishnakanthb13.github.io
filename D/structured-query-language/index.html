@@ -521,17 +521,57 @@
 
   <script>
     const CLAUSES = {
+      create_table: {
+        label: "CREATE TABLE — Data Definition Language (DDL)", written: 0, exec: null, phase: "meta",
+        short: "Defines the physical table schema, column data types, constraints (PRIMARY KEY, FOREIGN KEY, NOT NULL), and default values.",
+        context: "Before any query can run, tables must be created. DDL statements define the structure of the database catalog.",
+        syntax: "CREATE TABLE sales (\n  sale_id INT PRIMARY KEY,\n  region VARCHAR(50),\n  product_id INT,\n  amount DECIMAL(10,2),\n  sale_date DATE\n);",
+        options: [
+          "<b>CREATE TABLE IF NOT EXISTS</b> — prevents runtime errors if table already exists",
+          "<b>CTAS (Create Table As Select)</b> — CREATE TABLE temp_sales AS SELECT ... (creates & populates in one step)",
+          "<b>TEMPORARY TABLE</b> — CREATE TEMPORARY TABLE sales (...) exists only for current session"
+        ],
+        example: "CREATE TABLE IF NOT EXISTS sales (\n  sale_id SERIAL PRIMARY KEY,\n  region VARCHAR(50) NOT NULL,\n  product_id INT REFERENCES products(product_id),\n  amount NUMERIC(10,2) CHECK (amount >= 0),\n  sale_date DATE DEFAULT CURRENT_DATE\n);",
+        gotcha: "<b>Gotcha:</b> CTAS creates table columns and copies data, but typically does NOT copy indexes or foreign key constraints from the source table."
+      },
+      insert_into: {
+        label: "INSERT INTO … VALUES / SELECT — Data Manipulation (DML)", written: 0, exec: null, phase: "meta",
+        short: "Populates the table with new records — either explicitly via VALUES or in bulk from another query via SELECT.",
+        context: "DML operations modify table data. Unlike DDL, DML operations run inside transactions and can be rolled back if an error occurs.",
+        syntax: "INSERT INTO table (col1, col2) VALUES (val1, val2);\n-- or bulk insert:\nINSERT INTO table SELECT ...;",
+        options: [
+          "<b>Multi-row INSERT</b> — VALUES (row1), (row2), (row3) in a single round-trip",
+          "<b>INSERT INTO ... SELECT</b> — bulk copies data from another query/table",
+          "<b>UPSERT / MERGE</b> — ON CONFLICT (id) DO UPDATE (Postgres) / ON DUPLICATE KEY UPDATE (MySQL) / MERGE INTO (SQL Server/Oracle)"
+        ],
+        example: "INSERT INTO sales (region, product_id, amount, sale_date)\nVALUES ('West', 101, 700.00, '2024-03-01'),\n       ('East', 205, 350.00, '2024-03-02');\n\n-- Upsert example (Postgres):\nINSERT INTO sales (sale_id, amount) VALUES (1, 800.00)\nON CONFLICT (sale_id) DO UPDATE SET amount = EXCLUDED.amount;",
+        gotcha: "<b>Gotcha:</b> inserting rows one-by-one in a loop is slow — batch inserting using multi-row VALUES or INSERT INTO ... SELECT is 100x faster."
+      },
+      table_cleanup: {
+        label: "TRUNCATE / DELETE / DROP — Table Maintenance & Cleanup", written: 0, exec: null, phase: "meta",
+        short: "Three distinct methods for removing data or destroying tables, each with different logging, performance, and recovery characteristics.",
+        context: "Interviewers frequently test the key distinctions between TRUNCATE, DELETE, and DROP.",
+        syntax: "DELETE FROM sales WHERE region = 'West'; -- DML (selective, logged)\nTRUNCATE TABLE sales; -- DDL (fast row wipe, resets auto-increment)\nDROP TABLE sales; -- DDL (destroys data + schema completely)",
+        options: [
+          "<b>DELETE FROM table WHERE ...</b> — DML: selective row deletion, fully logged, rollable back in transaction",
+          "<b>TRUNCATE TABLE table</b> — DDL: wipes ALL rows instantly by deallocating storage pages, resets identity sequence counters",
+          "<b>DROP TABLE table [CASCADE]</b> — DDL: removes data AND destroys table schema catalog definition permanently"
+        ],
+        example: "-- Selective deletion (rollable back):\nBEGIN;\n  DELETE FROM sales WHERE sale_date < '2020-01-01';\nCOMMIT;\n\n-- Instant total wipe (cannot filter with WHERE):\nTRUNCATE TABLE sales;",
+        gotcha: "<b>Gotcha:</b> TRUNCATE cannot take a WHERE clause and cannot be run if referenced by active Foreign Key constraints in some engines."
+      },
       exec_plan: {
-        label: "EXPLAIN ANALYZE — Execution Plan", written: 1, exec: null, phase: "meta",
+        label: "EXPLAIN ANALYZE & Query Caching — Execution Plan", written: 1, exec: null, phase: "meta",
         short: "Not part of the query itself — a prefix you run before it to see the actual step-by-step strategy the engine used: which scans, which joins, which indexes, and real timing per step.",
-        context: "Think of it as the receipt for how the database did its job, not just what it returned. Interviewers use this to see if you debug by evidence or by guessing.",
-        syntax: "EXPLAIN ANALYZE\nSELECT ...",
+        context: "Database engines use Buffer Pool Caches (RAM) and Query Caches to skip disk IO when running identical or warm queries.",
+        syntax: "EXPLAIN (ANALYZE, BUFFERS)\nSELECT ...",
         options: [
           "<b>EXPLAIN</b> — shows the planned strategy, without running it",
           "<b>EXPLAIN ANALYZE</b> — actually runs the query and shows real timings per step",
-          "<b>Look for</b> — sequential/full table scans on large tables usually mean a missing or unused index"
+          "<b>Buffer Pool Cache</b> — data pages loaded into RAM; subsequent reads hit memory (Shared Read vs Disk Read)",
+          "<b>Query Result Cache (Snowflake / MySQL)</b> — returns instantly cached results when underlying data and SQL string are unchanged"
         ],
-        example: "EXPLAIN ANALYZE\nSELECT * FROM products WHERE product_id = 42;\n\n→ Seq Scan on products (cost=0.00..18.10 rows=1)\n   (actual time=0.021..0.045 rows=1)\n\n-- with an index on product_id, this line would instead\n-- read: 'Index Scan using idx_products_id'",
+        example: "EXPLAIN (ANALYZE, BUFFERS)\nSELECT * FROM products WHERE product_id = 42;\n\n→ Index Scan using idx_products_id\n   Buffers: shared hit=3 (hit in RAM cache, 0 disk reads)",
         gotcha: "<b>Gotcha:</b> a table having an index doesn't guarantee the planner uses it — always check the plan instead of assuming."
       },
       create_proc: {
@@ -564,30 +604,41 @@
       normalization_comment: {
         label: "-- schema note — Normalization", written: 4, exec: null, phase: "meta",
         short: "sales, products, and promotions live in separate normalized tables (3NF) with no repeated data — which is exactly why this query needs multiple JOINs to reassemble one full picture.",
-        context: "Normalization is a design-time decision about the tables, not something that happens inside this query — but it explains why the query looks the way it does: every JOIN below exists because the data was deliberately split apart.",
+        context: "Normalization is a design-time decision about tables that eliminates data duplication but increases the need for JOINs on read operations.",
         syntax: "-- a comment; never executed",
         options: [
-          "<b>1NF</b> — atomic columns, no repeating groups",
-          "<b>2NF</b> — no partial dependency on part of a composite key",
-          "<b>3NF</b> — no transitive dependencies between non-key columns",
-          "<b>Standard View (Concept #8)</b> — saved logical query shortcut executed dynamically on call",
-          "<b>Materialized View (Concept #8)</b> — query results saved physically to disk; requires REFRESH MATERIALIZED VIEW"
+          "<b>1NF, 2NF, 3NF</b> — atomic columns, no partial or transitive dependencies",
+          "<b>Standard View</b> — saved logical query shortcut executed dynamically on call"
         ],
-        example: "Denormalized (1 wide table):\nregion | product | promo_name | promo_pct\n(promo_name repeated on every matching sale row)\n\nNormalized (this schema):\nsales(region, product_id)\n  → products(product_id, name)\n  → promotions(product_id, pct)\n-- same information, nothing duplicated",
-        gotcha: "<b>Gotcha:</b> normalization reduces update anomalies but costs JOINs at read time — a deliberately denormalized wide table is a common trade-off for read-heavy analytics."
+        example: "sales(region, product_id) → products(product_id, name) → promotions(product_id, pct)",
+        gotcha: "<b>Gotcha:</b> normalization reduces update anomalies but costs JOINs at read time."
+      },
+      mat_view: {
+        label: "CREATE / REFRESH MATERIALIZED VIEW — Query Caching Layer", written: 4, exec: null, phase: "meta",
+        short: "Persists and caches the entire complex query result physically to disk, turning expensive multi-join aggregations into fast single-table table scans.",
+        context: "Materialized Views are a primary caching strategy in relational databases for analytical reporting.",
+        syntax: "CREATE MATERIALIZED VIEW mv_name AS SELECT ...;\nREFRESH MATERIALIZED VIEW mv_name; -- refreshes cached data",
+        options: [
+          "<b>CREATE MATERIALIZED VIEW</b> — computes and caches query results physically on disk",
+          "<b>REFRESH MATERIALIZED VIEW</b> — updates the cached table data asynchronously or on schedule",
+          "<b>CONCURRENTLY</b> — REFRESH MATERIALIZED VIEW CONCURRENTLY (Postgres) updates cache without locking reads",
+          "<b>Buffer Pool Caching</b> — subsequent reads of the materialized view hit RAM buffer cache directly"
+        ],
+        example: "CREATE MATERIALIZED VIEW mv_cached_regional_summary AS\nWITH regional_sales AS (...)\nSELECT * FROM regional_sales;\n\n-- Reading from cache is 100x faster:\nSELECT * FROM mv_cached_regional_summary WHERE region = 'West';",
+        gotcha: "<b>Gotcha:</b> Materialized Views do not auto-update when underlying tables change — you must run REFRESH MATERIALIZED VIEW periodically."
       },
       with: {
-        label: "WITH … AS (  ) — Common Table Expression", written: 5, exec: null, phase: "cte",
+        label: "WITH … AS (  ) — Common Table Expression & Set Operators", written: 5, exec: null, phase: "cte",
         short: "Defines a temporary, named result set that only exists for this one query — a query-scoped view.",
         context: "Reach for a CTE any time a query would otherwise need a nested subquery so deep it becomes hard to read top-to-bottom — it lets you name an intermediate step instead of burying it in parentheses.",
         syntax: "WITH cte_name AS (\n  SELECT ...\n)\nSELECT ... FROM cte_name",
         options: [
           "<b>Multiple CTEs</b> — chain with commas: WITH a AS (...), b AS (...)",
           "<b>Recursive CTE</b> — WITH RECURSIVE, used for hierarchies/org charts/graphs",
-          "<b>Reference it like a table</b> — the outer query FROMs and JOINs it normally"
+          "<b>Set Operators (UNION ALL / UNION / INTERSECT / EXCEPT)</b> — vertically combine/compare query results (UNION ALL streams fast without deduplication; EXCEPT finds differences)"
         ],
-        example: "WITH cte AS (SELECT 1 AS n)\nSELECT n * 10 FROM cte;\n\n→ 10\n-- the CTE's one-row result is just consumed\n-- like a tiny temporary table named 'cte'",
-        gotcha: "<b>Gotcha:</b> a CTE isn't automatically materialized or indexed — many engines just inline it into the main plan. It's mainly a readability win, not guaranteed performance."
+        example: "WITH current_sales AS (SELECT * FROM sales_2024),\nprior_sales AS (SELECT * FROM sales_2023)\nSELECT * FROM current_sales\nUNION ALL\nSELECT * FROM prior_sales;",
+        gotcha: "<b>Gotcha:</b> UNION performs expensive distinct sorting across all columns; use UNION ALL whenever duplicate elimination is not required for massive performance gains."
       },
       cte_select: {
         label: "SELECT (inside the CTE)", written: 6, exec: 5, phase: "cte",
@@ -611,9 +662,10 @@
         options: [
           "<b>Single table</b> — as here",
           "<b>Multiple tables</b> — comma-separated (old-style implicit join, avoid)",
-          "<b>Derived table</b> — FROM (SELECT ...) AS sub — an inline, unnamed CTE"
+          "<b>Derived table</b> — FROM (SELECT ...) AS sub — an inline, unnamed CTE",
+          "<b>Partition Pruning</b> — on partitioned tables (PARTITION BY RANGE/LIST), the engine skips scanning non-matching storage partitions"
         ],
-        example: "sales table (raw rows):\nregion | product_id | amount | sale_date\nWest   | 101        | 700    | 2024-03-01\nWest   | 101        | 900    | 2024-03-04\nEast   | 205        | 300    | 2023-11-02",
+        example: "-- If sales is partitioned by sale_date (YEAR):\nSELECT * FROM sales WHERE sale_date >= '2024-01-01';\n-- Engine prunes partitions for 2020-2023, scanning only 2024 disk files",
         gotcha: "<b>Gotcha:</b> logically, FROM + JOIN always resolve first — everything else operates on the rows FROM produces."
       },
       cte_where: {
@@ -624,11 +676,12 @@
         options: [
           "<b>Comparison</b> — =, !=, >, <, BETWEEN",
           "<b>Set membership</b> — IN (...), NOT IN (...)",
-          "<b>Pattern match</b> — LIKE '%text%'",
+          "<b>Pattern match / Text Search</b> — LIKE, ILIKE, REGEXP_LIKE",
+          "<b>Date Arithmetic & Truncation</b> — DATE_TRUNC('month', sale_date), sale_date >= CURRENT_DATE - INTERVAL '30 days'",
           "<b>Null check</b> — IS NULL / IS NOT NULL"
         ],
-        example: "Before: 500 rows spanning 2022–2024\nAfter WHERE sale_date >= '2024-01-01': 140 rows\n\n-- the East/2023-11-02 row from the FROM example above\n-- gets dropped right here, before any math happens",
-        gotcha: "<b>Gotcha:</b> WHERE can't reference an aggregate like SUM(amount) — that's what HAVING is for."
+        example: "WHERE sale_date >= DATE_TRUNC('year', CURRENT_DATE)\n  AND region IN ('West', 'East')\n  AND product_name ILIKE '%widget%'",
+        gotcha: "<b>Gotcha:</b> wrapping a column in a function in WHERE (e.g. WHERE YEAR(sale_date) = 2024) prevents B-Tree index scans — use range conditions instead (`sale_date >= '2024-01-01'`)."
       },
       cte_groupby: {
         label: "GROUP BY region, product_id", written: 9, exec: 3, phase: "cte",
@@ -637,10 +690,11 @@
         syntax: "GROUP BY col1, col2",
         options: [
           "<b>Multiple columns</b> — groups by the combination, as here",
-          "<b>ROLLUP / CUBE</b> — adds automatic subtotal and grand-total rows",
+          "<b>ROLLUP / CUBE (Subtotals & Hierarchies)</b> — GROUP BY ROLLUP(region, product_id) automatically calculates sub-group and grand totals",
+          "<b>GROUPING SETS</b> — specify exact aggregation combinations in one query pass",
           "<b>Expression</b> — e.g. GROUP BY DATE_TRUNC('month', sale_date)"
         ],
-        example: "6 raw 'West / 101' rows (700, 900, 650, 800, 550, 600)\n  → collapse into 1 grouped row:\n    region=West, product_id=101\n    (their SUM/COUNT get computed next, in SELECT)",
+        example: "GROUP BY ROLLUP(region, product_id)\n-- Output includes:\n-- 1. Total per (region, product_id)\n-- 2. Subtotal per region\n-- 3. Grand total across all regions",
         gotcha: "<b>Gotcha:</b> in strict engines (Postgres, SQL Server) every non-aggregated SELECT column must appear in GROUP BY."
       },
       cte_having: {
@@ -820,28 +874,34 @@
       { key: "create_proc", html: `<span class="kw">CREATE PROCEDURE</span> get_top_regional_products <span class="kw">AS</span>` },
       { key: "create_proc", html: `<span class="kw">BEGIN</span>` },
       { key: "begin_txn", html: `&nbsp;&nbsp;<span class="kw">BEGIN TRANSACTION</span>;` },
-      { key: "normalization_comment", html: `&nbsp;&nbsp;<span class="comment">-- schema note: sales / products / promotions are normalized to 3NF</span>` },
-      { key: "with", html: `&nbsp;&nbsp;<span class="kw">WITH</span> regional_sales <span class="kw">AS</span> (` },
-      { key: "cte_select", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> region, product_id, <span class="tok" data-key="aggregate">SUM(amount)</span> <span class="kw">AS</span> total_sales, <span class="tok" data-key="aggregate">COUNT(*)</span> <span class="kw">AS</span> order_count` },
-      { key: "cte_from", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FROM</span> sales` },
-      { key: "cte_where", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> sale_date &gt;= '2024-01-01'` },
-      { key: "cte_groupby", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">GROUP BY</span> region, product_id` },
-      { key: "cte_having", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">HAVING</span> <span class="tok" data-key="aggregate">SUM(amount)</span> &gt; 1000` },
-      { key: "with", html: `&nbsp;&nbsp;)`, plain: true },
-      { key: "outer_select", html: `&nbsp;&nbsp;<span class="kw">SELECT</span> <span class="tok" data-key="distinct">DISTINCT</span> r.region, p.product_name, r.total_sales,` },
-      { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">RANK()</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region <span class="kw">ORDER BY</span> r.total_sales <span class="kw">DESC</span>) <span class="kw">AS</span> sales_rank,` },
-      { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">AVG(r.total_sales)</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region) <span class="kw">AS</span> region_avg` },
-      { key: "outer_from", html: `&nbsp;&nbsp;<span class="kw">FROM</span> regional_sales r` },
-      { key: "inner_join", html: `&nbsp;&nbsp;<span class="kw">INNER JOIN</span> products p <span class="kw">ON</span> r.product_id = p.product_id` },
-      { key: "index_note", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">-- index note: idx on product_id keeps this join fast</span>` },
-      { key: "left_join", html: `&nbsp;&nbsp;<span class="kw">LEFT JOIN</span> promotions promo <span class="kw">ON</span> p.product_id = promo.product_id` },
-      { key: "outer_where", html: `&nbsp;&nbsp;<span class="kw">WHERE</span> r.order_count &gt;= 3` },
-      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">AND EXISTS</span> (` },
-      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> inventory i` },
-      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> i.product_id = p.product_id <span class="kw">AND</span> i.in_stock = true` },
-      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;)`, plain: true },
-      { key: "order_by", html: `&nbsp;&nbsp;<span class="kw">ORDER BY</span> r.region <span class="kw">ASC</span>, sales_rank <span class="kw">ASC</span>` },
-      { key: "limit", html: `&nbsp;&nbsp;<span class="kw">LIMIT</span> 50;` },
+      { key: "create_table", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">CREATE TEMPORARY TABLE IF NOT EXISTS</span> temp_regional_summary (` },
+      { key: "create_table", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;region <span class="kw2">VARCHAR(50)</span>, product_name <span class="kw2">VARCHAR(100)</span>, total_sales <span class="kw2">NUMERIC</span>, sales_rank <span class="kw2">INT</span>` },
+      { key: "create_table", html: `&nbsp;&nbsp;&nbsp;&nbsp;);` },
+      { key: "insert_into", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">INSERT INTO</span> temp_regional_summary (region, product_name, total_sales, sales_rank)` },
+      { key: "normalization_comment", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">-- schema note: sales / products / promotions are normalized to 3NF</span>` },
+      { key: "mat_view", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">CREATE MATERIALIZED VIEW IF NOT EXISTS</span> mv_cached_regional_summary <span class="kw">AS</span>` },
+      { key: "with", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WITH</span> regional_sales <span class="kw">AS</span> (` },
+      { key: "cte_select", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> region, product_id, <span class="tok" data-key="aggregate">SUM(amount)</span> <span class="kw">AS</span> total_sales, <span class="tok" data-key="aggregate">COUNT(*)</span> <span class="kw">AS</span> order_count` },
+      { key: "cte_from", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FROM</span> sales` },
+      { key: "cte_where", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> sale_date &gt;= '2024-01-01'` },
+      { key: "cte_groupby", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">GROUP BY</span> region, product_id` },
+      { key: "cte_having", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">HAVING</span> <span class="tok" data-key="aggregate">SUM(amount)</span> &gt; 1000` },
+      { key: "with", html: `&nbsp;&nbsp;&nbsp;&nbsp;)` },
+      { key: "outer_select", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> <span class="tok" data-key="distinct">DISTINCT</span> r.region, p.product_name, r.total_sales,` },
+      { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">RANK()</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region <span class="kw">ORDER BY</span> r.total_sales <span class="kw">DESC</span>) <span class="kw">AS</span> sales_rank` },
+      { key: "outer_from", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FROM</span> regional_sales r` },
+      { key: "inner_join", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">INNER JOIN</span> products p <span class="kw">ON</span> r.product_id = p.product_id` },
+      { key: "index_note", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">-- index note: idx on product_id keeps this join fast</span>` },
+      { key: "left_join", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">LEFT JOIN</span> promotions promo <span class="kw">ON</span> p.product_id = promo.product_id` },
+      { key: "outer_where", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> r.order_count &gt;= 3` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">AND EXISTS</span> (` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> inventory i` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> i.product_id = p.product_id <span class="kw">AND</span> i.in_stock = true` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)` },
+      { key: "order_by", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ORDER BY</span> r.region <span class="kw">ASC</span>, sales_rank <span class="kw">ASC</span>` },
+      { key: "limit", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">LIMIT</span> 50;` },
+      { key: "mat_view", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">REFRESH MATERIALIZED VIEW</span> mv_cached_regional_summary;` },
+      { key: "table_cleanup", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">TRUNCATE TABLE</span> temp_regional_summary;` },
       { key: "begin_txn", html: `&nbsp;&nbsp;<span class="kw">COMMIT</span>;` },
       { key: "create_proc", html: `<span class="kw">END</span>;` }
     ];
