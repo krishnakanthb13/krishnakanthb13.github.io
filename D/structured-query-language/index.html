@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Query Anatomy — One Query, Every Clause</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --blueprint: #14345c;
+      --blueprint-deep: #0e2846;
+      --grid-line: rgba(255, 255, 255, 0.055);
+      --paper: #f3efe4;
+      --ink: #eef1f6;
+      --ink-dim: #a9bcd4;
+      --gold: #ffbf5c;
+      --gold-dim: rgba(255, 191, 92, 0.18);
+      --cyan: #7fd9e8;
+      --cyan-dim: rgba(127, 217, 232, 0.16);
+      --violet: #cdb0ff;
+      --violet-dim: rgba(205, 176, 255, 0.16);
+      --coral: #ff8b6a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background:
+        repeating-linear-gradient(0deg, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px),
+        repeating-linear-gradient(90deg, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px),
+        linear-gradient(160deg, var(--blueprint) 0%, var(--blueprint-deep) 100%);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    header {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 44px 20px 24px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 12px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height: 1.05;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+
+    header p.sub {
+      color: var(--ink-dim);
+      font-size: 15.5px;
+      max-width: 700px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .controls {
+      max-width: 1560px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .seg {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 4px;
+    }
+
+    .seg button {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      background: transparent;
+      border: none;
+      color: var(--ink-dim);
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .seg button.active {
+      background: var(--gold);
+      color: #14345c;
+      font-weight: 700;
+    }
+
+    .play-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: var(--cyan-dim);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .play-btn:hover {
+      background: var(--cyan);
+      color: var(--blueprint-deep);
+    }
+
+    .play-btn:disabled {
+      opacity: .5;
+      cursor: default;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--ink-dim);
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.cte {
+      background: var(--gold);
+    }
+
+    .dot.outer {
+      background: var(--cyan);
+    }
+
+    .dot.meta {
+      background: var(--violet);
+    }
+
+    .phase-banner {
+      width: 100%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--gold);
+      min-height: 16px;
+      letter-spacing: .03em;
+    }
+
+    .stage {
+      max-width: 1560px;
+      margin: 26px auto 0;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.62fr) minmax(300px, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media(max-width:960px) {
+      .stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .query-panel {
+      background: rgba(8, 20, 38, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      padding: 20px 16px;
+      backdrop-filter: blur(2px);
+      overflow-x: auto;
+    }
+
+    .query-panel .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin: 0 0 12px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .qline {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 4px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .15s;
+      width: max-content;
+      min-width: 100%;
+    }
+
+    .qline:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .qline.active {
+      background: rgba(255, 191, 92, 0.14);
+      outline: 1px solid rgba(255, 191, 92, 0.5);
+    }
+
+    .qline.plain {
+      cursor: default;
+    }
+
+    .qline.plain:hover {
+      background: transparent;
+    }
+
+    .badge {
+      flex: 0 0 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ink-dim);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .badge.cte {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border-color: rgba(255, 191, 92, 0.5);
+    }
+
+    .badge.outer {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border-color: rgba(127, 217, 232, 0.5);
+    }
+
+    .badge.meta {
+      background: var(--violet-dim);
+      color: var(--violet);
+      border-color: rgba(205, 176, 255, 0.5);
+    }
+
+    code.code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.5;
+      white-space: pre;
+      color: #dce6f2;
+    }
+
+    .comment {
+      color: #7f93ac;
+      font-style: italic;
+    }
+
+    .kw {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .kw2 {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .tok {
+      text-decoration: underline dotted rgba(255, 255, 255, 0.4);
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .tok:hover {
+      color: var(--coral);
+    }
+
+    .detail-panel {
+      background: var(--paper);
+      color: #22201a;
+      border-radius: 14px;
+      padding: 22px 22px;
+      position: sticky;
+      top: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      min-height: 340px;
+    }
+
+    .detail-panel .kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #8a7a52;
+      margin: 0 0 6px;
+    }
+
+    .detail-panel h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      margin: 0 0 12px;
+      color: #1c2a3a;
+      line-height: 1.15;
+    }
+
+    .detail-panel p.desc {
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin: 0 0 16px;
+      color: #3a3629;
+    }
+
+    .detail-panel p.desc.context {
+      font-size: 13.5px;
+      color: #5b5330;
+      padding-left: 12px;
+      border-left: 2px solid #d8cfb4;
+      margin-top: -6px;
+    }
+
+    .detail-panel .block-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #8a7a52;
+      margin: 14px 0 8px;
+    }
+
+    .syntax-box {
+      background: #e9e3d2;
+      border: 1px solid #d8cfb4;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #2a2717;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .example-box {
+      background: #1c2a3a;
+      border: 1px solid #2c3e54;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #c9e8d8;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .opt-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .opt-list li {
+      padding: 7px 0;
+      border-bottom: 1px solid #ddd4bb;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .opt-list li:last-child {
+      border-bottom: none;
+    }
+
+    .opt-list b {
+      color: #1c2a3a;
+    }
+
+    .gotcha {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: #fff3e0;
+      border-left: 3px solid var(--coral);
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a3420;
+    }
+
+    .gotcha b {
+      color: #a1401c;
+    }
+
+    .order-pill-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .order-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #e9e3d2;
+      color: #5b5330;
+      border: 1px solid #d8cfb4;
+    }
+
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      text-align: center;
+      color: #6b6247;
+    }
+
+    .placeholder .big {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      max-width: 1560px;
+      margin: 44px auto 0;
+      padding: 18px 20px 0;
+      border-top: 1px dashed rgba(255, 255, 255, 0.18);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-dim);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <p class="eyebrow">// query anatomy — revision sheet</p>
+    <h1>One query. Every clause. Every side-topic.</h1>
+    <p class="sub">Click any part of the query for its explanation, syntax, and variants — including the parts that
+      don't normally fit in a SELECT (indexing, transactions, stored procedures, correlated subqueries). Flip the toggle
+      to see written order vs. actual execution order.</p>
+  </header>
+
+  <div class="controls">
+    <div class="seg" id="modeSeg">
+      <button class="active" data-mode="written">Written order</button>
+      <button data-mode="exec">Execution order</button>
+    </div>
+    <button class="play-btn" id="playBtn">▶ Walk the execution order</button>
+    <div class="legend">
+      <span><i class="dot cte"></i>CTE phase</span>
+      <span><i class="dot outer"></i>Outer query</span>
+      <span><i class="dot meta"></i>Wrapper / annotation</span>
+    </div>
+    <div class="phase-banner" id="phaseBanner"></div>
+  </div>
+
+  <div class="stage">
+    <div class="query-panel">
+      <p class="tag"><span>mega_query.sql</span><span id="modeTag">WRITTEN ORDER</span></p>
+      <div id="queryLines"></div>
+    </div>
+
+    <div class="detail-panel" id="detailPanel">
+      <div class="placeholder">
+        <div class="big">👆</div>
+        <div>Click any line in the query<br>to see its full breakdown here.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Tip: in a live round, name a clause's written position and its execution position out loud — it signals you
+    understand the engine, not just the syntax.
+  </footer>
+
+  <script>
+    const CLAUSES = {
+      exec_plan: {
+        label: "EXPLAIN ANALYZE — Execution Plan", written: 1, exec: null, phase: "meta",
+        short: "Not part of the query itself — a prefix you run before it to see the actual step-by-step strategy the engine used: which scans, which joins, which indexes, and real timing per step.",
+        context: "Think of it as the receipt for how the database did its job, not just what it returned. Interviewers use this to see if you debug by evidence or by guessing.",
+        syntax: "EXPLAIN ANALYZE\nSELECT ...",
+        options: [
+          "<b>EXPLAIN</b> — shows the planned strategy, without running it",
+          "<b>EXPLAIN ANALYZE</b> — actually runs the query and shows real timings per step",
+          "<b>Look for</b> — sequential/full table scans on large tables usually mean a missing or unused index"
+        ],
+        example: "EXPLAIN ANALYZE\nSELECT * FROM products WHERE product_id = 42;\n\n→ Seq Scan on products (cost=0.00..18.10 rows=1)\n   (actual time=0.021..0.045 rows=1)\n\n-- with an index on product_id, this line would instead\n-- read: 'Index Scan using idx_products_id'",
+        gotcha: "<b>Gotcha:</b> a table having an index doesn't guarantee the planner uses it — always check the plan instead of assuming."
+      },
+      create_proc: {
+        label: "CREATE PROCEDURE … BEGIN / END — Stored Procedure", written: 2, exec: null, phase: "meta",
+        short: "Wraps this whole query in a reusable, named routine stored in the database, callable on demand instead of being retyped or sent from the app every time.",
+        context: "Useful when the same multi-step logic (report generation, monthly rollups, validation) needs to run identically from many places — a dashboard, a cron job, an API — without duplicating the SQL in each one.",
+        syntax: "CREATE PROCEDURE proc_name AS\nBEGIN\n  ...\nEND;",
+        options: [
+          "<b>Parameters</b> — CREATE PROCEDURE proc_name(@region VARCHAR) AS ...",
+          "<b>Multiple statements</b> — a procedure can run several queries/updates in sequence",
+          "<b>Output</b> — return values or output parameters (syntax varies by engine)"
+        ],
+        example: "-- calling it later is just:\nEXEC get_top_regional_products;\n\n-- instead of re-sending this entire 20-line\n-- query from the application every single time",
+        gotcha: "<b>Gotcha:</b> logic inside a stored procedure is fast and centralized, but harder to version-control and unit test than application-layer code — a common trade-off interviewers probe."
+      },
+      begin_txn: {
+        label: "BEGIN TRANSACTION / COMMIT — ACID Transaction", written: 3, exec: null, phase: "meta",
+        short: "Groups every statement between BEGIN and COMMIT into one atomic unit — either all of it takes effect, or none of it does.",
+        context: "The textbook example is a bank transfer: money has to leave one account and arrive in another as a single, indivisible action. Nobody should ever be able to see a state where it left one account but hasn't reached the other.",
+        syntax: "BEGIN TRANSACTION;\n  ...statements...\nCOMMIT;\n-- or ROLLBACK; on failure",
+        options: [
+          "<b>Atomicity</b> — all-or-nothing execution",
+          "<b>Isolation levels</b> — Read Uncommitted → Read Committed → Repeatable Read → Serializable",
+          "<b>ROLLBACK</b> — undoes everything in the transaction if a step fails"
+        ],
+        example: "BEGIN TRANSACTION;\n  UPDATE accounts SET balance = balance - 100 WHERE id = 1;\n  UPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;\n\n-- if the 2nd UPDATE fails, ROLLBACK undoes the 1st too —\n-- the transfer never happens 'halfway'",
+        gotcha: "<b>Gotcha:</b> this particular query is read-only, so a transaction isn't strictly required — but know 'dirty read', 'non-repeatable read', and 'phantom read' for when a procedure also writes data."
+      },
+      normalization_comment: {
+        label: "-- schema note — Normalization", written: 4, exec: null, phase: "meta",
+        short: "sales, products, and promotions live in separate normalized tables (3NF) with no repeated data — which is exactly why this query needs multiple JOINs to reassemble one full picture.",
+        context: "Normalization is a design-time decision about the tables, not something that happens inside this query — but it explains why the query looks the way it does: every JOIN below exists because the data was deliberately split apart.",
+        syntax: "-- a comment; never executed",
+        options: [
+          "<b>1NF</b> — atomic columns, no repeating groups",
+          "<b>2NF</b> — no partial dependency on part of a composite key",
+          "<b>3NF</b> — no transitive dependencies between non-key columns"
+        ],
+        example: "Denormalized (1 wide table):\nregion | product | promo_name | promo_pct\n(promo_name repeated on every matching sale row)\n\nNormalized (this schema):\nsales(region, product_id)\n  → products(product_id, name)\n  → promotions(product_id, pct)\n-- same information, nothing duplicated",
+        gotcha: "<b>Gotcha:</b> normalization reduces update anomalies but costs JOINs at read time — a deliberately denormalized wide table is a common trade-off for read-heavy analytics."
+      },
+      with: {
+        label: "WITH … AS (  ) — Common Table Expression", written: 5, exec: null, phase: "cte",
+        short: "Defines a temporary, named result set that only exists for this one query — a query-scoped view.",
+        context: "Reach for a CTE any time a query would otherwise need a nested subquery so deep it becomes hard to read top-to-bottom — it lets you name an intermediate step instead of burying it in parentheses.",
+        syntax: "WITH cte_name AS (\n  SELECT ...\n)\nSELECT ... FROM cte_name",
+        options: [
+          "<b>Multiple CTEs</b> — chain with commas: WITH a AS (...), b AS (...)",
+          "<b>Recursive CTE</b> — WITH RECURSIVE, used for hierarchies/org charts/graphs",
+          "<b>Reference it like a table</b> — the outer query FROMs and JOINs it normally"
+        ],
+        example: "WITH cte AS (SELECT 1 AS n)\nSELECT n * 10 FROM cte;\n\n→ 10\n-- the CTE's one-row result is just consumed\n-- like a tiny temporary table named 'cte'",
+        gotcha: "<b>Gotcha:</b> a CTE isn't automatically materialized or indexed — many engines just inline it into the main plan. It's mainly a readability win, not guaranteed performance."
+      },
+      cte_select: {
+        label: "SELECT (inside the CTE)", written: 6, exec: 5, phase: "cte",
+        short: "Shapes the CTE's temporary output, including two aggregate values calculated per group.",
+        context: "By the time this line runs, the rows have already been filtered, grouped, and had their groups filtered again — this SELECT is just choosing which resulting columns regional_sales exposes to the outer query.",
+        syntax: "SELECT region, product_id, SUM(amount) AS total_sales, COUNT(*) AS order_count",
+        options: [
+          "<b>Column alias (AS)</b> — renames output columns for the outer query to reference",
+          "<b>Aggregate functions</b> — SUM, COUNT, AVG, MIN, MAX collapse each group to one row",
+          "<b>Expressions</b> — you can compute values here, not just select raw columns"
+        ],
+        example: "Result of the CTE (regional_sales):\nregion | product_id | total_sales | order_count\nWest   | 101        | 4200        | 6\nEast   | 101        | 1500        | 2",
+        gotcha: "<b>Gotcha:</b> this SELECT runs last within the CTE's own pipeline — after FROM, WHERE, GROUP BY, and HAVING have already narrowed things down."
+      },
+      cte_from: {
+        label: "FROM sales (inside the CTE)", written: 7, exec: 1, phase: "cte",
+        short: "Names the base table the CTE reads from — the true starting point of the whole query.",
+        context: "Every row this entire query could possibly touch starts here. Nothing downstream can 'see' a row that wasn't produced by this table (or brought in by a later JOIN).",
+        syntax: "FROM sales",
+        options: [
+          "<b>Single table</b> — as here",
+          "<b>Multiple tables</b> — comma-separated (old-style implicit join, avoid)",
+          "<b>Derived table</b> — FROM (SELECT ...) AS sub — an inline, unnamed CTE"
+        ],
+        example: "sales table (raw rows):\nregion | product_id | amount | sale_date\nWest   | 101        | 700    | 2024-03-01\nWest   | 101        | 900    | 2024-03-04\nEast   | 205        | 300    | 2023-11-02",
+        gotcha: "<b>Gotcha:</b> logically, FROM + JOIN always resolve first — everything else operates on the rows FROM produces."
+      },
+      cte_where: {
+        label: "WHERE sale_date >= '2024-01-01'", written: 8, exec: 2, phase: "cte",
+        short: "Filters individual raw rows before any grouping happens.",
+        context: "This is a row-by-row test — the engine looks at one sales record at a time and keeps or drops it, with no awareness yet of totals or groups.",
+        syntax: "WHERE condition",
+        options: [
+          "<b>Comparison</b> — =, !=, >, <, BETWEEN",
+          "<b>Set membership</b> — IN (...), NOT IN (...)",
+          "<b>Pattern match</b> — LIKE '%text%'",
+          "<b>Null check</b> — IS NULL / IS NOT NULL"
+        ],
+        example: "Before: 500 rows spanning 2022–2024\nAfter WHERE sale_date >= '2024-01-01': 140 rows\n\n-- the East/2023-11-02 row from the FROM example above\n-- gets dropped right here, before any math happens",
+        gotcha: "<b>Gotcha:</b> WHERE can't reference an aggregate like SUM(amount) — that's what HAVING is for."
+      },
+      cte_groupby: {
+        label: "GROUP BY region, product_id", written: 9, exec: 3, phase: "cte",
+        short: "Collapses rows sharing the same region + product_id into one row per combination, so SUM()/COUNT() can summarize each group.",
+        context: "Picture the engine sorting all remaining rows into little labeled buckets — one bucket per unique (region, product_id) pair — before it ever computes a single total.",
+        syntax: "GROUP BY col1, col2",
+        options: [
+          "<b>Multiple columns</b> — groups by the combination, as here",
+          "<b>ROLLUP / CUBE</b> — adds automatic subtotal and grand-total rows",
+          "<b>Expression</b> — e.g. GROUP BY DATE_TRUNC('month', sale_date)"
+        ],
+        example: "6 raw 'West / 101' rows (700, 900, 650, 800, 550, 600)\n  → collapse into 1 grouped row:\n    region=West, product_id=101\n    (their SUM/COUNT get computed next, in SELECT)",
+        gotcha: "<b>Gotcha:</b> in strict engines (Postgres, SQL Server) every non-aggregated SELECT column must appear in GROUP BY."
+      },
+      cte_having: {
+        label: "HAVING SUM(amount) > 1000", written: 10, exec: 4, phase: "cte",
+        short: "Filters entire groups after aggregation — WHERE's counterpart for grouped data.",
+        context: "By this point 'West / 101' is a single summarized row with a total attached to it — HAVING is the first clause in the whole query that's even allowed to look at that total.",
+        syntax: "HAVING aggregate_condition",
+        options: [
+          "<b>Aggregate conditions</b> — SUM(), COUNT(), AVG() etc.",
+          "<b>Combine with AND/OR</b> — just like WHERE",
+          "<b>Only HAVING</b> can test an aggregate result"
+        ],
+        example: "West/101  → total_sales 4200 → kept (4200 > 1000)\nEast/305  → total_sales 400  → dropped\n\n-- notice HAVING filters *groups*, WHERE filtered *rows*",
+        gotcha: "<b>Gotcha:</b> HAVING runs after GROUP BY, so it can reference aggregates — WHERE can't, because it runs before grouping. Classic interview question."
+      },
+      outer_select: {
+        label: "SELECT DISTINCT (outer query)", written: 11, exec: 12, phase: "outer",
+        short: "Chooses the final columns returned, including the window-function columns. DISTINCT then removes fully duplicate rows.",
+        context: "Everything upstream — joins, filters, window functions — has already happened by the time this line runs. It's purely about shaping what the caller finally sees.",
+        syntax: "SELECT DISTINCT col1, col2, ...",
+        options: [
+          "<b>SELECT *</b> — all columns (avoid in production queries)",
+          "<b>DISTINCT</b> — dedupes the whole row, not one column",
+          "<b>DISTINCT ON (col)</b> — Postgres-specific: one row per value of col"
+        ],
+        example: "Before DISTINCT (a join created a duplicate):\nWest | Widget | 4200\nWest | Widget | 4200\n\nAfter DISTINCT:\nWest | Widget | 4200   (just one row remains)",
+        gotcha: "<b>Gotcha:</b> SELECT is written first but executes almost last — that's why you usually can't reuse a SELECT-list alias within the same SELECT list."
+      },
+      distinct: {
+        label: "DISTINCT", written: 11, exec: 12, phase: "outer",
+        short: "Removes duplicate rows from the final result by comparing the entire row, not just one column.",
+        context: "It's a blunt instrument — it doesn't know which column caused the duplication, it just compares whole rows and drops exact repeats.",
+        syntax: "SELECT DISTINCT col1, col2 ...",
+        options: [
+          "<b>DISTINCT</b> — dedupes across all selected columns together",
+          "<b>COUNT(DISTINCT col)</b> — a different use: counts unique values of one column",
+          "<b>DISTINCT ON (col)</b> — Postgres-only, one row per value of col"
+        ],
+        example: "West | Widget | 4200\nWest | Widget | 4200   ← identical row, from a fan-out join\n\nDISTINCT keeps only the first occurrence",
+        gotcha: "<b>Gotcha:</b> needing DISTINCT to clean up a JOIN's duplicate rows often signals a join-key/cardinality problem worth double-checking."
+      },
+      window_fn: {
+        label: "Window functions — RANK() / AVG() OVER (…)", written: 12, exec: 11, phase: "outer",
+        short: "Calculates a value across a 'window' of related rows — ranking each product within its region, and averaging sales within that region — without collapsing rows like GROUP BY does.",
+        context: "The key mental model: GROUP BY merges rows into one; a window function keeps every row separate but lets each one 'peek' at its group's values (rank, average, previous row, etc).",
+        syntax: "FUNCTION() OVER (\n  PARTITION BY col\n  ORDER BY col\n)",
+        options: [
+          "<b>RANK() / DENSE_RANK() / ROW_NUMBER()</b> — ranking, with or without gaps",
+          "<b>LAG() / LEAD()</b> — look at the previous / next row's value",
+          "<b>SUM()/AVG()/COUNT() OVER (...)</b> — running totals or per-group averages, row-by-row"
+        ],
+        example: "region=West, product=Widget, total_sales=4200 → sales_rank=1\nregion=West, product=Gadget, total_sales=3000 → sales_rank=2\n\nregion_avg for West = avg of ALL West rows,\nrepeated on every West row (unlike GROUP BY, no rows merge)",
+        gotcha: "<b>Gotcha:</b> window functions run after WHERE/GROUP BY/HAVING but before ORDER BY — you can't filter on a window function's result in WHERE without wrapping the query again."
+      },
+      outer_from: {
+        label: "FROM regional_sales r (outer query)", written: 13, exec: 6, phase: "outer",
+        short: "The outer query now treats the CTE exactly like a real table — the handoff point from CTE phase to main-query phase.",
+        context: "From this point on, forget that regional_sales was ever a CTE — the outer query has no idea, and doesn't care, whether 'r' came from a CTE, a view, or a physical table.",
+        syntax: "FROM regional_sales r",
+        options: [
+          "<b>Table alias</b> — 'r' lets later clauses write r.region instead of regional_sales.region",
+          "<b>Any CTE, view, or table</b> works identically here"
+        ],
+        example: "regional_sales CTE output (5 rows) is now just 'r' —\nSELECT * FROM regional_sales r\nbehaves exactly like selecting from a real table",
+        gotcha: "<b>Gotcha:</b> this is step 1 of the outer query's own pipeline — but step 6 overall, since the whole CTE has to finish first."
+      },
+      inner_join: {
+        label: "INNER JOIN products p ON …", written: 14, exec: 7, phase: "outer",
+        short: "Keeps only rows where a matching product_id exists in both regional_sales and products.",
+        context: "This is the moment the two normalized tables mentioned in the schema note above actually get stitched back together into one row.",
+        syntax: "INNER JOIN table ON left.col = right.col",
+        options: [
+          "<b>INNER JOIN</b> — only matched rows (both sides)",
+          "<b>LEFT JOIN</b> — all left rows + matched right, NULLs where no match",
+          "<b>RIGHT JOIN</b> — mirror of LEFT",
+          "<b>FULL OUTER JOIN</b> — all rows from both sides",
+          "<b>CROSS JOIN</b> — cartesian product",
+          "<b>SELF JOIN</b> — a table joined to itself via two aliases"
+        ],
+        example: "r.product_id=101 + products.product_id=101 → matched, kept\nr.product_id=999 (no matching product row) → dropped entirely",
+        gotcha: "<b>Gotcha:</b> join order doesn't change an INNER JOIN's logical result, but it can massively change performance depending on which side is smaller or pre-filtered."
+      },
+      index_note: {
+        label: "-- index note — Indexing", written: 15, exec: null, phase: "meta",
+        short: "A B-tree index on products.product_id (and sales.product_id) is what makes this JOIN fast — without it, the engine falls back to a full table scan on one side.",
+        context: "Think of an index like the index at the back of a textbook — instead of reading every page to find 'product_id 101', you jump straight to it.",
+        syntax: "CREATE INDEX idx_products_id ON products(product_id);",
+        options: [
+          "<b>Clustered vs non-clustered</b> — clustered physically orders the table; only one per table",
+          "<b>Composite index</b> — covers multiple columns; only helps if the query uses the leftmost column(s)",
+          "<b>Cost</b> — speeds up reads, slows down INSERT/UPDATE/DELETE since the index must stay in sync"
+        ],
+        example: "Without index: scan all 50,000 rows in products\nto find product_id=101 — O(n)\n\nWith idx_products_id: jump almost directly to it — O(log n)",
+        gotcha: "<b>Gotcha:</b> an index existing doesn't guarantee the planner uses it — confirm with EXPLAIN, not assumption."
+      },
+      left_join: {
+        label: "LEFT JOIN promotions promo ON …", written: 16, exec: 8, phase: "outer",
+        short: "Keeps every row from the left side (products) even if there's no matching promotion — unmatched rows get NULLs for promo columns.",
+        context: "Use this whenever the right-hand table is 'optional' information — not every product has an active promotion, but you still want every product to show up.",
+        syntax: "LEFT JOIN table ON left.col = right.col",
+        options: ["Same join-type family as INNER JOIN — this card exists separately because it has its own classic gotcha."],
+        example: "products.product_id=101, no row in promotions\n  → kept, promo.pct = NULL\nproducts.product_id=205, promotions row exists\n  → kept, promo.pct = 15",
+        gotcha: "<b>Gotcha (the big one):</b> filtering on a right-table column in WHERE (e.g. WHERE promo.active = true) silently drops the unmatched NULL rows, turning your LEFT JOIN into an INNER JOIN. Put that condition in the ON clause instead."
+      },
+      outer_where: {
+        label: "WHERE r.order_count >= 3 (outer query)", written: 17, exec: 9, phase: "outer",
+        short: "Filters the joined rows before window functions and the final SELECT run.",
+        context: "Same mechanics as any WHERE — but notice it's operating on the already-joined result, so it can reference columns from products and promotions too, not just regional_sales.",
+        syntax: "WHERE condition",
+        options: ["Same option set as the CTE's WHERE — comparisons, IN, BETWEEN, LIKE, IS NULL"],
+        example: "order_count=2 → dropped (2 < 3)\norder_count=6 → kept",
+        gotcha: "<b>Gotcha:</b> because this runs before the window functions, you still can't filter on sales_rank or region_avg here."
+      },
+      exists_subquery: {
+        label: "AND EXISTS ( … ) — Correlated Subquery", written: 18, exec: 10, phase: "outer",
+        short: "A subquery that references the outer row (p.product_id) and conceptually re-runs per row, checking whether a matching in-stock inventory record exists.",
+        context: "Read it as a yes/no question asked of every candidate row: 'does at least one in-stock inventory record exist for this exact product?' — it never pulls back actual inventory data, just true/false.",
+        syntax: "WHERE EXISTS (\n  SELECT 1 FROM inventory i\n  WHERE i.product_id = p.product_id\n    AND i.in_stock = true\n)",
+        options: [
+          "<b>Correlated</b> — references an outer-query column (this one); can't run standalone",
+          "<b>Non-correlated</b> — self-contained, e.g. WHERE product_id IN (SELECT product_id FROM ...)",
+          "<b>EXISTS vs IN</b> — EXISTS often short-circuits on first match and handles NULLs more safely"
+        ],
+        example: "product_id=101 → in-stock inventory row exists → kept\nproduct_id=205 → no in-stock row → dropped,\n  even if its sales numbers were great",
+        gotcha: "<b>Gotcha:</b> correlated subqueries can often be rewritten as a JOIN or window function — usually (not always) faster, since the engine isn't forced to re-evaluate row by row."
+      },
+      order_by: {
+        label: "ORDER BY r.region ASC, sales_rank ASC", written: 19, exec: 13, phase: "outer",
+        short: "Sorts the final rows returned. Runs almost last — nothing after it changes which rows exist, only their order.",
+        context: "Sorting is comparatively expensive, especially on large result sets — it's one reason 'sort only what you must' (filter early, sort late) is a common optimization principle.",
+        syntax: "ORDER BY col [ASC|DESC], col2 [ASC|DESC]",
+        options: [
+          "<b>Multiple columns</b> — sorts by the first, breaks ties with the next",
+          "<b>Sort by alias</b> — e.g. ORDER BY sales_rank, since SELECT has already run",
+          "<b>Sort by position</b> — ORDER BY 1, 2 (works, but avoid — fragile if columns change)"
+        ],
+        example: "Unsorted: East(2), West(1), East(1), West(2)\n\nAfter ORDER BY region ASC, sales_rank ASC:\nEast(1), East(2), West(1), West(2)",
+        gotcha: "<b>Gotcha:</b> ORDER BY and SELECT/DISTINCT are the only two clauses that can use column aliases, because they're the last two things to execute."
+      },
+      limit: {
+        label: "LIMIT 50", written: 20, exec: 14, phase: "outer",
+        short: "Caps how many rows come back — the very last step of the whole query.",
+        context: "Because it runs dead last, LIMIT can only ever trim an already-sorted, already-filtered result — it can't influence anything upstream of it.",
+        syntax: "LIMIT n [OFFSET m]",
+        options: [
+          "<b>LIMIT / OFFSET</b> — MySQL, Postgres, SQLite",
+          "<b>TOP n</b> — SQL Server equivalent, written after SELECT instead",
+          "<b>FETCH FIRST n ROWS ONLY</b> — the ANSI SQL standard form (Oracle/DB2)"
+        ],
+        example: "47 rows match everything above → LIMIT 50 returns all 47\n\nSame query with LIMIT 10 → only the first 10,\nafter sorting, are returned",
+        gotcha: "<b>Gotcha:</b> LIMIT without ORDER BY gives an arbitrary, non-guaranteed set of rows — always pair the two."
+      },
+      aggregate: {
+        label: "Aggregate functions — SUM() / COUNT()", written: null, exec: null, phase: "cte",
+        short: "Functions that collapse many rows into a single summary value per group (or over the whole table with no GROUP BY).",
+        context: "They only make sense once rows have been grouped (or the whole table is treated as one big group) — that's why they live in SELECT/HAVING, never in WHERE.",
+        syntax: "SUM(col) / COUNT(*) / COUNT(col) / AVG(col) / MIN(col) / MAX(col)",
+        options: [
+          "<b>SUM / AVG / MIN / MAX</b> — ignore NULLs automatically",
+          "<b>COUNT(*)</b> — counts all rows, including NULLs",
+          "<b>COUNT(col)</b> — counts only non-NULL values of that column",
+          "<b>COUNT(DISTINCT col)</b> — counts unique non-NULL values"
+        ],
+        example: "amount column: 700, 900, NULL, 600\n\nSUM(amount)   = 2200  (NULL ignored)\nCOUNT(*)      = 4     (counts the NULL row too)\nCOUNT(amount) = 3     (ignores the NULL)",
+        gotcha: "<b>Gotcha:</b> COUNT(*) vs COUNT(column) is a favorite trap — they diverge the moment that column has any NULLs."
+      }
+    };
+
+    const LINES = [
+      { key: "exec_plan", html: `<span class="comment">-- tip: prefix with EXPLAIN ANALYZE to inspect the plan</span>` },
+      { key: "create_proc", html: `<span class="kw">CREATE PROCEDURE</span> get_top_regional_products <span class="kw">AS</span>` },
+      { key: "create_proc", html: `<span class="kw">BEGIN</span>` },
+      { key: "begin_txn", html: `&nbsp;&nbsp;<span class="kw">BEGIN TRANSACTION</span>;` },
+      { key: "normalization_comment", html: `&nbsp;&nbsp;<span class="comment">-- schema note: sales / products / promotions are normalized to 3NF</span>` },
+      { key: "with", html: `&nbsp;&nbsp;<span class="kw">WITH</span> regional_sales <span class="kw">AS</span> (` },
+      { key: "cte_select", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> region, product_id, <span class="tok" data-key="aggregate">SUM(amount)</span> <span class="kw">AS</span> total_sales, <span class="tok" data-key="aggregate">COUNT(*)</span> <span class="kw">AS</span> order_count` },
+      { key: "cte_from", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FROM</span> sales` },
+      { key: "cte_where", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> sale_date &gt;= '2024-01-01'` },
+      { key: "cte_groupby", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">GROUP BY</span> region, product_id` },
+      { key: "cte_having", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">HAVING</span> <span class="tok" data-key="aggregate">SUM(amount)</span> &gt; 1000` },
+      { key: null, html: `&nbsp;&nbsp;)`, plain: true },
+      { key: "outer_select", html: `&nbsp;&nbsp;<span class="kw">SELECT</span> <span class="tok" data-key="distinct">DISTINCT</span> r.region, p.product_name, r.total_sales,` },
+      { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">RANK()</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region <span class="kw">ORDER BY</span> r.total_sales <span class="kw">DESC</span>) <span class="kw">AS</span> sales_rank,` },
+      { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">AVG(r.total_sales)</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region) <span class="kw">AS</span> region_avg` },
+      { key: "outer_from", html: `&nbsp;&nbsp;<span class="kw">FROM</span> regional_sales r` },
+      { key: "inner_join", html: `&nbsp;&nbsp;<span class="kw">INNER JOIN</span> products p <span class="kw">ON</span> r.product_id = p.product_id` },
+      { key: "index_note", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">-- index note: idx on product_id keeps this join fast</span>` },
+      { key: "left_join", html: `&nbsp;&nbsp;<span class="kw">LEFT JOIN</span> promotions promo <span class="kw">ON</span> p.product_id = promo.product_id` },
+      { key: "outer_where", html: `&nbsp;&nbsp;<span class="kw">WHERE</span> r.order_count &gt;= 3` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">AND EXISTS</span> (` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> inventory i` },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> i.product_id = p.product_id <span class="kw">AND</span> i.in_stock = true` },
+      { key: null, html: `&nbsp;&nbsp;&nbsp;&nbsp;)`, plain: true },
+      { key: "order_by", html: `&nbsp;&nbsp;<span class="kw">ORDER BY</span> r.region <span class="kw">ASC</span>, sales_rank <span class="kw">ASC</span>` },
+      { key: "limit", html: `&nbsp;&nbsp;<span class="kw">LIMIT</span> 50;` },
+      { key: "begin_txn", html: `&nbsp;&nbsp;<span class="kw">COMMIT</span>;` },
+      { key: "create_proc", html: `<span class="kw">END</span>;` }
+    ];
+
+    let mode = "written";
+    const queryLinesEl = document.getElementById("queryLines");
+    const detailPanel = document.getElementById("detailPanel");
+    const modeTag = document.getElementById("modeTag");
+    const phaseBanner = document.getElementById("phaseBanner");
+
+    function badgeContent(key) {
+      if (!key) return "";
+      const c = CLAUSES[key];
+      if (!c) return "";
+      const val = mode === "written" ? c.written : c.exec;
+      return val === null || val === undefined ? "–" : val;
+    }
+    function badgeClass(key) {
+      if (!key) return "badge";
+      const c = CLAUSES[key];
+      if (!c) return "badge";
+      return "badge " + c.phase;
+    }
+
+    function renderLines() {
+      queryLinesEl.innerHTML = "";
+      LINES.forEach((line) => {
+        const row = document.createElement("div");
+        row.className = "qline" + (line.plain ? " plain" : "");
+        if (line.key) row.dataset.key = line.key;
+
+        const badge = document.createElement("div");
+        badge.className = badgeClass(line.key);
+        badge.textContent = badgeContent(line.key);
+
+        const code = document.createElement("code");
+        code.className = "code";
+        code.innerHTML = line.html;
+
+        row.appendChild(badge);
+        row.appendChild(code);
+        queryLinesEl.appendChild(row);
+
+        if (line.key) {
+          row.addEventListener("click", (e) => {
+            const tok = e.target.closest(".tok");
+            selectClause(tok ? tok.dataset.key : line.key);
+          });
+        }
+      });
+    }
+
+    function clearActive() { document.querySelectorAll(".qline").forEach(el => el.classList.remove("active")); }
+
+    function selectClause(key) {
+      const c = CLAUSES[key];
+      if (!c) return;
+      clearActive();
+      document.querySelectorAll(`.qline[data-key="${key}"]`).forEach(el => el.classList.add("active"));
+
+      const optionsHtml = c.options.map(o => `<li>${o}</li>`).join("");
+      let pills = "";
+      if (c.written !== null || c.exec !== null) {
+        pills = `<div class="order-pill-row">
+      ${c.written !== null ? `<span class="order-pill">Written: step ${c.written}</span>` : ""}
+      ${c.exec !== null ? `<span class="order-pill">Executes: step ${c.exec}</span>` : `<span class="order-pill">Not part of the row pipeline</span>`}
+    </div>`;
+      }
+      const kickerMap = { cte: "Inside the CTE", outer: "Outer query", meta: "Wrapper / annotation" };
+
+      detailPanel.innerHTML = `
+    <p class="kicker">${kickerMap[c.phase] || ""}</p>
+    <h2>${c.label}</h2>
+    <p class="desc">${c.short}</p>
+    ${c.context ? `<p class="desc context">${c.context}</p>` : ""}
+    <p class="block-label">Syntax</p>
+    <div class="syntax-box">${c.syntax.replace(/\n/g, "<br>")}</div>
+    ${c.example ? `<p class="block-label">Worked example</p><div class="example-box">${c.example.replace(/\n/g, "<br>")}</div>` : ""}
+    <p class="block-label">Variants / options</p>
+    <ul class="opt-list">${optionsHtml}</ul>
+    <div class="gotcha">${c.gotcha}</div>
+    ${pills}
+  `;
+    }
+
+    document.getElementById("modeSeg").addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      document.querySelectorAll("#modeSeg button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      mode = btn.dataset.mode;
+      modeTag.textContent = mode === "written" ? "WRITTEN ORDER" : "EXECUTION ORDER";
+      renderLines();
+    });
+
+    const execSequence = [
+      { key: "cte_from", phase: "Phase 1 — building the CTE: read the base table" },
+      { key: "cte_where", phase: "Phase 1 — building the CTE: filter raw rows" },
+      { key: "cte_groupby", phase: "Phase 1 — building the CTE: collapse into groups" },
+      { key: "cte_having", phase: "Phase 1 — building the CTE: filter the groups" },
+      { key: "cte_select", phase: "Phase 1 — building the CTE: shape its output columns" },
+      { key: "outer_from", phase: "Phase 2 — outer query: treat the CTE as a table" },
+      { key: "inner_join", phase: "Phase 2 — outer query: join in products" },
+      { key: "left_join", phase: "Phase 2 — outer query: join in promotions" },
+      { key: "outer_where", phase: "Phase 2 — outer query: filter joined rows" },
+      { key: "exists_subquery", phase: "Phase 2 — outer query: evaluate the correlated subquery" },
+      { key: "window_fn", phase: "Phase 2 — outer query: compute window functions" },
+      { key: "outer_select", phase: "Phase 2 — outer query: pick final columns, dedupe" },
+      { key: "order_by", phase: "Phase 2 — outer query: sort the result" },
+      { key: "limit", phase: "Phase 2 — outer query: cap the row count" }
+    ];
+
+    let playing = false;
+    document.getElementById("playBtn").addEventListener("click", () => {
+      if (playing) return;
+      playing = true;
+      const btn = document.getElementById("playBtn");
+      btn.disabled = true; btn.textContent = "▶ Running…";
+
+      document.querySelectorAll("#modeSeg button").forEach(b => b.classList.remove("active"));
+      document.querySelector('#modeSeg button[data-mode="exec"]').classList.add("active");
+      mode = "exec"; modeTag.textContent = "EXECUTION ORDER";
+      renderLines();
+
+      let i = 0;
+      const step = () => {
+        if (i >= execSequence.length) {
+          playing = false; btn.disabled = false; btn.textContent = "▶ Walk the execution order";
+          phaseBanner.textContent = ""; return;
+        }
+        const s = execSequence[i];
+        selectClause(s.key);
+        phaseBanner.textContent = s.phase;
+        i++;
+        setTimeout(step, 1400);
+      };
+      step();
+    });
+
+    renderLines();
+  </script>
+</body>
+
+</html>

@@ -121,6 +121,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Bitwarden (2026)](https://krishnakanthb13.github.io/D/bitwarden.html): The open-source, zero-knowledge password manager.
 	- [OpenCode Go Overview](https://krishnakanthb13.github.io/D/opencode-go.html): Low-cost subscription for popular open coding models.
 	- [OpenCode Go Dashboard](https://krishnakanthb13.github.io/D/opencode-go/): Live models & usage dashboard.
+	- [SQL Query Anatomy](https://krishnakanthb13.github.io/D/structured-query-language/): Interactive visual guide breaking down SQL clauses & execution order.
 	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.
 
 ---
