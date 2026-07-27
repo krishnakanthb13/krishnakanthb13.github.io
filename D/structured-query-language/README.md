@@ -21,11 +21,12 @@ An interactive, blueprint-themed visual breakdown demonstrating how a complete S
   - **Database Engine Wrappers & Architecture**:
     - `EXPLAIN ANALYZE` (Execution Plan inspection & query optimization)
     - `CREATE PROCEDURE` / `BEGIN ... END` (Stored procedures & encapsulation)
-    - `BEGIN TRANSACTION` / `COMMIT` / `ROLLBACK` (ACID guarantees & transaction isolation)
+    - `BEGIN TRANSACTION` / `COMMIT` / `ROLLBACK` (ACID guarantees, transaction isolation & `FOR UPDATE` / `NOLOCK` locking hints)
     - `B-Tree Indexing` (`idx_products_id` lookup performance)
-    - `Database Normalization` (1NF, 2NF, 3NF & read/write trade-offs)
-- **Interactive Step-by-Step Execution Walkthrough**: Auto-play or manually step through the query execution sequence with real-time visual line highlighting and detailed execution phase indicators.
-- **Expanded Responsive Blueprint Design**: Wide viewport container layout (`max-width: 1560px`) preventing query wrapping on wide screens for optimal readability.
+    - `Database Normalization & Views` (1NF, 2NF, 3NF, standard `CREATE VIEW` vs `MATERIALIZED VIEW`)
+    - `Advanced Clause & Expression Coverage` (`QUALIFY` window filtering, `CASE WHEN` conditional aggregates, `COALESCE` / `NULLIF` null-handling, `LATERAL JOIN` / `CROSS APPLY`)
+- **Interactive Step-by-Step Execution Walkthrough**: Auto-play or manually step through the query execution sequence with real-time visual line highlighting, interactive closing brackets (`WITH` CTE and `EXISTS` subqueries), and detailed execution phase indicators.
+- **Expanded Responsive Blueprint Design**: Custom embedded SQL SVG favicon and wide viewport container layout (`max-width: 1560px`) preventing query wrapping on wide screens for optimal readability.
 
 ---
 

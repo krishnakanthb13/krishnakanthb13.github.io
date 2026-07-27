@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SQL Query Anatomy — One Query, Every Clause</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2314345c'/><text x='50%' y='68%' font-family='monospace' font-weight='bold' font-size='52' fill='%23ffbf5c' text-anchor='middle'>SQL</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
@@ -554,7 +555,8 @@
         options: [
           "<b>Atomicity</b> — all-or-nothing execution",
           "<b>Isolation levels</b> — Read Uncommitted → Read Committed → Repeatable Read → Serializable",
-          "<b>ROLLBACK</b> — undoes everything in the transaction if a step fails"
+          "<b>ROLLBACK</b> — undoes everything in the transaction if a step fails",
+          "<b>Locking Hints (Concept #10)</b> — FOR UPDATE (Postgres/MySQL locks selected rows for writing) vs WITH (NOLOCK) (SQL Server uncommitted read override)"
         ],
         example: "BEGIN TRANSACTION;\n  UPDATE accounts SET balance = balance - 100 WHERE id = 1;\n  UPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;\n\n-- if the 2nd UPDATE fails, ROLLBACK undoes the 1st too —\n-- the transfer never happens 'halfway'",
         gotcha: "<b>Gotcha:</b> this particular query is read-only, so a transaction isn't strictly required — but know 'dirty read', 'non-repeatable read', and 'phantom read' for when a procedure also writes data."
@@ -567,7 +569,9 @@
         options: [
           "<b>1NF</b> — atomic columns, no repeating groups",
           "<b>2NF</b> — no partial dependency on part of a composite key",
-          "<b>3NF</b> — no transitive dependencies between non-key columns"
+          "<b>3NF</b> — no transitive dependencies between non-key columns",
+          "<b>Standard View (Concept #8)</b> — saved logical query shortcut executed dynamically on call",
+          "<b>Materialized View (Concept #8)</b> — query results saved physically to disk; requires REFRESH MATERIALIZED VIEW"
         ],
         example: "Denormalized (1 wide table):\nregion | product | promo_name | promo_pct\n(promo_name repeated on every matching sale row)\n\nNormalized (this schema):\nsales(region, product_id)\n  → products(product_id, name)\n  → promotions(product_id, pct)\n-- same information, nothing duplicated",
         gotcha: "<b>Gotcha:</b> normalization reduces update anomalies but costs JOINs at read time — a deliberately denormalized wide table is a common trade-off for read-heavy analytics."
@@ -593,7 +597,8 @@
         options: [
           "<b>Column alias (AS)</b> — renames output columns for the outer query to reference",
           "<b>Aggregate functions</b> — SUM, COUNT, AVG, MIN, MAX collapse each group to one row",
-          "<b>Expressions</b> — you can compute values here, not just select raw columns"
+          "<b>Expressions</b> — you can compute values here, not just select raw columns",
+          "<b>CASE WHEN (Concept #5)</b> — inline conditional expressions (e.g. SUM(CASE WHEN status='completed' THEN amount ELSE 0 END))"
         ],
         example: "Result of the CTE (regional_sales):\nregion | product_id | total_sales | order_count\nWest   | 101        | 4200        | 6\nEast   | 101        | 1500        | 2",
         gotcha: "<b>Gotcha:</b> this SELECT runs last within the CTE's own pipeline — after FROM, WHERE, GROUP BY, and HAVING have already narrowed things down."
@@ -659,7 +664,8 @@
         options: [
           "<b>SELECT *</b> — all columns (avoid in production queries)",
           "<b>DISTINCT</b> — dedupes the whole row, not one column",
-          "<b>DISTINCT ON (col)</b> — Postgres-specific: one row per value of col"
+          "<b>DISTINCT ON (col)</b> — Postgres-specific: one row per value of col",
+          "<b>COALESCE / NULLIF (Concept #7)</b> — COALESCE(promo.pct, 0) replaces NULLs with fallbacks; NULLIF(a, b) returns NULL if equal"
         ],
         example: "Before DISTINCT (a join created a duplicate):\nWest | Widget | 4200\nWest | Widget | 4200\n\nAfter DISTINCT:\nWest | Widget | 4200   (just one row remains)",
         gotcha: "<b>Gotcha:</b> SELECT is written first but executes almost last — that's why you usually can't reuse a SELECT-list alias within the same SELECT list."
@@ -685,7 +691,8 @@
         options: [
           "<b>RANK() / DENSE_RANK() / ROW_NUMBER()</b> — ranking, with or without gaps",
           "<b>LAG() / LEAD()</b> — look at the previous / next row's value",
-          "<b>SUM()/AVG()/COUNT() OVER (...)</b> — running totals or per-group averages, row-by-row"
+          "<b>SUM()/AVG()/COUNT() OVER (...)</b> — running totals or per-group averages, row-by-row",
+          "<b>QUALIFY Clause (Concept #2)</b> — Snowflake/BigQuery/Databricks clause filtering window results directly (e.g. QUALIFY RANK() OVER (...) <= 3) without extra CTE wrappers!"
         ],
         example: "region=West, product=Widget, total_sales=4200 → sales_rank=1\nregion=West, product=Gadget, total_sales=3000 → sales_rank=2\n\nregion_avg for West = avg of ALL West rows,\nrepeated on every West row (unlike GROUP BY, no rows merge)",
         gotcha: "<b>Gotcha:</b> window functions run after WHERE/GROUP BY/HAVING but before ORDER BY — you can't filter on a window function's result in WHERE without wrapping the query again."
@@ -713,7 +720,8 @@
           "<b>RIGHT JOIN</b> — mirror of LEFT",
           "<b>FULL OUTER JOIN</b> — all rows from both sides",
           "<b>CROSS JOIN</b> — cartesian product",
-          "<b>SELF JOIN</b> — a table joined to itself via two aliases"
+          "<b>SELF JOIN</b> — a table joined to itself via two aliases",
+          "<b>LATERAL JOIN / CROSS APPLY (Concept #9)</b> — subquery join that evaluates dynamically using columns from preceding left-side tables"
         ],
         example: "r.product_id=101 + products.product_id=101 → matched, kept\nr.product_id=999 (no matching product row) → dropped entirely",
         gotcha: "<b>Gotcha:</b> join order doesn't change an INNER JOIN's logical result, but it can massively change performance depending on which side is smaller or pre-filtered."
@@ -736,7 +744,10 @@
         short: "Keeps every row from the left side (products) even if there's no matching promotion — unmatched rows get NULLs for promo columns.",
         context: "Use this whenever the right-hand table is 'optional' information — not every product has an active promotion, but you still want every product to show up.",
         syntax: "LEFT JOIN table ON left.col = right.col",
-        options: ["Same join-type family as INNER JOIN — this card exists separately because it has its own classic gotcha."],
+        options: [
+          "Same join-type family as INNER JOIN — this card exists separately because it has its own classic gotcha.",
+          "<b>Null handling (Concept #7)</b> — pair with COALESCE(promo.pct, 0) to replace missing join values with default fallbacks"
+        ],
         example: "products.product_id=101, no row in promotions\n  → kept, promo.pct = NULL\nproducts.product_id=205, promotions row exists\n  → kept, promo.pct = 15",
         gotcha: "<b>Gotcha (the big one):</b> filtering on a right-table column in WHERE (e.g. WHERE promo.active = true) silently drops the unmatched NULL rows, turning your LEFT JOIN into an INNER JOIN. Put that condition in the ON clause instead."
       },
@@ -816,7 +827,7 @@
       { key: "cte_where", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> sale_date &gt;= '2024-01-01'` },
       { key: "cte_groupby", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">GROUP BY</span> region, product_id` },
       { key: "cte_having", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">HAVING</span> <span class="tok" data-key="aggregate">SUM(amount)</span> &gt; 1000` },
-      { key: null, html: `&nbsp;&nbsp;)`, plain: true },
+      { key: "with", html: `&nbsp;&nbsp;)`, plain: true },
       { key: "outer_select", html: `&nbsp;&nbsp;<span class="kw">SELECT</span> <span class="tok" data-key="distinct">DISTINCT</span> r.region, p.product_name, r.total_sales,` },
       { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">RANK()</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region <span class="kw">ORDER BY</span> r.total_sales <span class="kw">DESC</span>) <span class="kw">AS</span> sales_rank,` },
       { key: "window_fn", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw2">AVG(r.total_sales)</span> <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> r.region) <span class="kw">AS</span> region_avg` },
@@ -828,7 +839,7 @@
       { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">AND EXISTS</span> (` },
       { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> inventory i` },
       { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">WHERE</span> i.product_id = p.product_id <span class="kw">AND</span> i.in_stock = true` },
-      { key: null, html: `&nbsp;&nbsp;&nbsp;&nbsp;)`, plain: true },
+      { key: "exists_subquery", html: `&nbsp;&nbsp;&nbsp;&nbsp;)`, plain: true },
       { key: "order_by", html: `&nbsp;&nbsp;<span class="kw">ORDER BY</span> r.region <span class="kw">ASC</span>, sales_rank <span class="kw">ASC</span>` },
       { key: "limit", html: `&nbsp;&nbsp;<span class="kw">LIMIT</span> 50;` },
       { key: "begin_txn", html: `&nbsp;&nbsp;<span class="kw">COMMIT</span>;` },
@@ -859,7 +870,7 @@
       queryLinesEl.innerHTML = "";
       LINES.forEach((line) => {
         const row = document.createElement("div");
-        row.className = "qline" + (line.plain ? " plain" : "");
+        row.className = "qline" + (line.plain && !line.key ? " plain" : "");
         if (line.key) row.dataset.key = line.key;
 
         const badge = document.createElement("div");
