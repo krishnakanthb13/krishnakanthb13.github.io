@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-07-26T08:24:57.543Z",
+  "updated": "2026-08-02T08:22:52.506Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
@@ -379,7 +379,7 @@ window.__PLUGINS__ = {
       "name": "Dice",
       "category": "Randomizer",
       "published": "December 21st, 2024",
-      "last_updated": "July 11th, 2026",
+      "last_updated": "July 26th, 2026",
       "custom_url": "https://public.amplenote.com/2zJ5cA/dice",
       "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
       "plans": [
