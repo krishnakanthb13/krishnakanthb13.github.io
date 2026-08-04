@@ -819,17 +819,19 @@ const DOCS_URL = 'https://opencode.ai/docs/go/';
 // SOURCE: https://opencode.ai/docs/go/ — keep in sync with source on each build
 let MODEL_DATA = {
     'grok-4.5':            { name: 'Grok 4.5',          input: 2.00,  output: 6.00,  cached: 0.30,   cachedWrite: null,    usage: 15,  req5h: 120,   reqWeek: 300,   reqMonth: 600,    provider: 'xAI' },
+    'gpt-5.6-luna':        { name: 'GPT 5.6 Luna',      input: 0.20,  output: 1.20,  cached: 0.02,   cachedWrite: 0.25,   usage: 15,  req5h: 2050,  reqWeek: 5100,  reqMonth: 10250,  provider: 'OpenAI', note: '≤272K tokens; >272K: $0.40/$1.80/$0.04/$0.50' },
     'glm-5.2':             { name: 'GLM-5.2',            input: 1.40,  output: 4.40,  cached: 0.26,   cachedWrite: null,    usage: 60,  req5h: 880,   reqWeek: 2150,  reqMonth: 4300,   provider: 'Zhipu' },
     'glm-5.1':             { name: 'GLM-5.1',            input: 1.40,  output: 4.40,  cached: 0.26,   cachedWrite: null,    usage: 60,  req5h: 880,   reqWeek: 2150,  reqMonth: 4300,   provider: 'Zhipu' },
     'kimi-k3':             { name: 'Kimi K3',            input: 3.00,  output: 15.00, cached: 0.30,   cachedWrite: null,    usage: 15,  req5h: 110,   reqWeek: 250,   reqMonth: 490,    provider: 'Moonshot' },
-    'kimi-k2.7-code':      { name: 'Kimi K2.7 Code',    input: 0.95,  output: 4.00,  cached: 0.19,   cachedWrite: null,    usage: 60,  req5h: 1350,  reqWeek: 4630,  reqMonth: 9250,   provider: 'Moonshot' },
+    'kimi-k2.7-code':      { name: 'Kimi K2.7 Code',    input: 0.95,  output: 4.00,  cached: 0.19,   cachedWrite: null,    usage: 60,  req5h: 1350,  reqWeek: 3380,  reqMonth: 6750,   provider: 'Moonshot' },
     'kimi-k2.6':           { name: 'Kimi K2.6',          input: 0.95,  output: 4.00,  cached: 0.16,   cachedWrite: null,    usage: 60,  req5h: 1150,  reqWeek: 2880,  reqMonth: 5750,   provider: 'Moonshot' },
     'mimo-v2.5':           { name: 'MiMo-V2.5',          input: 0.14,  output: 0.28,  cached: 0.0028, cachedWrite: null,    usage: 60,  req5h: 30100, reqWeek: 75200, reqMonth: 150400, provider: 'Xiaomi' },
     'mimo-v2.5-pro':       { name: 'MiMo-V2.5-Pro',      input: 0.435, output: 0.87,  cached: 0.003625, cachedWrite: null,  usage: 15,  req5h: 3250,  reqWeek: 8150,  reqMonth: 16300,  provider: 'Xiaomi' },
     'minimax-m3':          { name: 'MiniMax M3',          input: 0.30,  output: 1.20,  cached: 0.06,   cachedWrite: null,    usage: 60,  req5h: 3200,  reqWeek: 8000,  reqMonth: 16000,  provider: 'MiniMax' },
     'minimax-m2.7':        { name: 'MiniMax M2.7',        input: 0.30,  output: 1.20,  cached: 0.06,   cachedWrite: 0.375,  usage: 60,  req5h: 3400,  reqWeek: 8500,  reqMonth: 17000,  provider: 'MiniMax' },
     'minimax-m2.5':        { name: 'MiniMax M2.5',        input: 0.30,  output: 1.20,  cached: 0.06,   cachedWrite: 0.375,  usage: 60,  provider: 'MiniMax' },
-    'qwen3.7-max':         { name: 'Qwen3.7 Max',        input: 2.50,  output: 7.50,  cached: 0.50,   cachedWrite: 3.125,  usage: 60,  req5h: 950,   reqWeek: 2390,  reqMonth: 4770,   provider: 'Alibaba' },
+    'qwen3.8-max':         { name: 'Qwen3.8 Max',        input: 2.00,  output: 6.00,  cached: 0.25,   cachedWrite: 2.50,   usage: 15,  req5h: 160,   reqWeek: 400,   reqMonth: 810,    provider: 'Alibaba' },
+    'qwen3.7-max':         { name: 'Qwen3.7 Max',        input: 2.50,  output: 7.50,  cached: 0.50,   cachedWrite: 3.125,  usage: 60,  req5h: 340,   reqWeek: 840,   reqMonth: 1690,   provider: 'Alibaba' },
     'qwen3.7-plus':        { name: 'Qwen3.7 Plus',       input: 0.40,  output: 1.60,  cached: 0.04,   cachedWrite: 0.50,   usage: 60,  req5h: 4300,  reqWeek: 10800, reqMonth: 21600,  provider: 'Alibaba', note: '≤256K tokens; >256K: $1.20/$4.80/$0.12/$1.50' },
     'qwen3.6-plus':        { name: 'Qwen3.6 Plus',       input: 0.50,  output: 3.00,  cached: 0.05,   cachedWrite: 0.625,  usage: 60,  req5h: 3300,  reqWeek: 8200,  reqMonth: 16300,  provider: 'Alibaba', note: '≤256K tokens; >256K: $2.00/$6.00/$0.20/$2.50' },
     'deepseek-v4-pro':     { name: 'DeepSeek V4 Pro',    input: 0.435, output: 0.87,  cached: 0.003625, cachedWrite: null,  usage: 15,  req5h: 3450,  reqWeek: 8550,  reqMonth: 17150,  provider: 'DeepSeek' },
@@ -898,22 +900,49 @@ function storageSet(key, value) {
     try { localStorage.setItem(key, value); } catch (e) { /* noop */ }
 }
 
-// P0: Sanitize HTML to prevent XSS from external docs
+// P0: Sanitize HTML (allow safe formatting tags from trusted docs, strip scripts/on* attributes)
 function sanitizeHTML(html) {
     const div = document.createElement('div');
-    div.textContent = html;
+    div.innerHTML = html;
+    div.querySelectorAll('script, style, iframe').forEach(el => el.remove());
+    div.querySelectorAll('*').forEach(el => {
+        [...el.attributes].forEach(attr => {
+            if (attr.name.startsWith('on')) el.removeAttribute(attr.name);
+        });
+    });
     return div.innerHTML;
+}
+
+function formatPrice(value) {
+    if (value == null || value === '') return '—';
+    const num = Number(value);
+    if (isNaN(num)) return '—';
+    const str = parseFloat(num.toFixed(6)).toString();
+    if (!str.includes('.')) return '$' + str + '.00';
+    const decs = str.split('.')[1];
+    if (decs.length === 1) return '$' + str + '0';
+    return '$' + str;
 }
 
 // P1: Safe number parsers
 function safeParseInt(value) {
-    const num = parseInt(String(value).replace(/,/g, ''), 10);
+    const str = String(value || '').replace(/[^0-9-]/g, '');
+    const num = parseInt(str, 10);
     return isNaN(num) ? 0 : num;
 }
 
 function safeParseFloat(value) {
-    const num = parseFloat(String(value).replace(/[$,]/g, ''));
+    const str = String(value || '').replace(/[^0-9.-]/g, '');
+    const num = parseFloat(str);
     return isNaN(num) ? 0 : num;
+}
+
+function normalizeName(str) {
+    return String(str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function slugify(name) {
+    return String(name || '').toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function formatNum(n) {
@@ -1050,19 +1079,19 @@ function renderPricingTable() {
 
         const tdInput = document.createElement('td');
         tdInput.className = 'num';
-        tdInput.textContent = '$' + m.input.toFixed(2);
+        tdInput.textContent = formatPrice(m.input);
 
         const tdOutput = document.createElement('td');
         tdOutput.className = 'num';
-        tdOutput.textContent = '$' + m.output.toFixed(2);
+        tdOutput.textContent = formatPrice(m.output);
 
         const tdCached = document.createElement('td');
         tdCached.className = 'num';
-        tdCached.textContent = '$' + m.cached.toFixed(4);
+        tdCached.textContent = formatPrice(m.cached);
 
         const tdCachedWrite = document.createElement('td');
         tdCachedWrite.className = 'num';
-        tdCachedWrite.textContent = cw != null ? '$' + cw.toFixed(3) : '—';
+        tdCachedWrite.textContent = formatPrice(m.cachedWrite);
 
         const tdUsage = document.createElement('td');
         tdUsage.className = 'num';
@@ -1101,12 +1130,28 @@ function renderTokenPatterns(patterns) {
     section.style.display = '';
     grid.innerHTML = '';
 
-    const nameToId = {};
-    Object.entries(MODEL_DATA).forEach(([id, m]) => { nameToId[m.name] = id; });
+    const normToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
+    Object.entries(EXTRA_MODELS).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
 
     const fragment = document.createDocumentFragment();
     Object.entries(patterns).forEach(([name, tp]) => {
-        const id = nameToId[name];
+        let id = normToId[normalizeName(name)];
+        if (!id) {
+            const normPattern = normalizeName(name);
+            for (const [normModelName, modelId] of Object.entries(normToId)) {
+                if (normModelName.startsWith(normPattern) || normPattern.startsWith(normModelName)) {
+                    id = modelId;
+                    break;
+                }
+            }
+        }
         const info = id ? (MODEL_DATA[id] || EXTRA_MODELS[id]) : null;
         const card = document.createElement('div');
         card.className = 'limit-card';
@@ -1356,6 +1401,14 @@ async function fetchDocsData() {
 
     if (!estTable || !priceTable) throw new Error('Could not find required tables in docs page');
 
+    function normalizeName(str) {
+        return String(str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function slugify(name) {
+        return name.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
     const estRows = estTable.querySelectorAll('tbody tr');
     const priceRows = priceTable.querySelectorAll('tbody tr');
 
@@ -1367,45 +1420,72 @@ async function fetchDocsData() {
         const req5h = safeParseInt(cells[1].textContent);
         const reqWeek = safeParseInt(cells[2].textContent);
         const reqMonth = safeParseInt(cells[3].textContent);
-        estMap[name] = { req5h, reqWeek, reqMonth };
+        estMap[normalizeName(name)] = { req5h, reqWeek, reqMonth };
     });
 
     const priceMap = {};
     priceRows.forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length < 6) return;
-        let name = cells[0].textContent.trim();
-        // Strip tier suffixes like "(≤ 256K tokens)"
-        name = name.replace(/\s*\(.*?\)/g, '').trim();
+        let rawName = cells[0].textContent.trim();
+        if (rawName.includes('>')) return; // Ignore secondary tier rows like (> 256K tokens)
+
+        let name = rawName.replace(/\s*\(.*?\)/g, '').trim();
+        const normKey = normalizeName(name);
+        if (priceMap[normKey]) return; // Keep initial/base tier row
+
         const input = safeParseFloat(cells[1].textContent);
         const output = safeParseFloat(cells[2].textContent);
         const cached = safeParseFloat(cells[3].textContent);
         const cachedWriteRaw = cells[4].textContent.trim();
         const cachedWrite = cachedWriteRaw === '-' || cachedWriteRaw === '' ? null : safeParseFloat(cells[4].textContent) || null;
         const usage = safeParseInt(cells[5].textContent) || 60;
-        priceMap[name] = { input, output, cached, cachedWrite, usage };
+        priceMap[normKey] = { name, input, output, cached, cachedWrite, usage };
     });
 
-    // Model name → model ID mapping
-    const nameToId = {};
-    Object.entries(MODEL_DATA).forEach(([id, m]) => { nameToId[m.name] = id; });
-    Object.entries(EXTRA_MODELS).forEach(([id, m]) => { nameToId[m.name] = id; });
+    // Normalized name / ID mapping
+    const normToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
+    Object.entries(EXTRA_MODELS).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
 
-    // True atomic update: deep clone, apply updates to clone, then reassign
+    // Atomic update: deep clone, apply updates to clone, then reassign
     const freshData = JSON.parse(JSON.stringify(MODEL_DATA));
     let updated = 0;
-    Object.entries(priceMap).forEach(([name, price]) => {
-        const id = nameToId[name];
-        if (!id) return;
-        const est = estMap[name] || {};
-        const target = freshData[id];
-        if (!target) return;
-        target.input = price.input;
-        target.output = price.output;
-        target.cached = price.cached;
-        target.cachedWrite = price.cachedWrite;
-        target.usage = price.usage;
-        if (est.req5h) { target.req5h = est.req5h; target.reqWeek = est.reqWeek; target.reqMonth = est.reqMonth; }
+    Object.entries(priceMap).forEach(([normKey, price]) => {
+        let id = normToId[normKey];
+        if (!id) {
+            id = slugify(price.name);
+            normToId[normKey] = id;
+        }
+        const est = estMap[normKey] || {};
+        if (!freshData[id]) {
+            freshData[id] = {
+                name: price.name,
+                input: price.input,
+                output: price.output,
+                cached: price.cached,
+                cachedWrite: price.cachedWrite,
+                usage: price.usage,
+                provider: 'Partner'
+            };
+        } else {
+            freshData[id].input = price.input;
+            freshData[id].output = price.output;
+            freshData[id].cached = price.cached;
+            freshData[id].cachedWrite = price.cachedWrite;
+            freshData[id].usage = price.usage;
+        }
+        if (est.req5h) {
+            freshData[id].req5h = est.req5h;
+            freshData[id].reqWeek = est.reqWeek;
+            freshData[id].reqMonth = est.reqMonth;
+        }
         updated++;
     });
     // Atomic replacement
@@ -1455,7 +1535,17 @@ async function fetchDocsData() {
             };
             // Handle combined entries like "GLM-5.2/5.1" or "Kimi K2.7/K2.6"
             const names = rawName.split('/').map(n => n.trim());
-            names.forEach(name => { tokenPatterns[name] = tp; });
+            let prefix = '';
+            if (names.length > 0) {
+                const matchPrefix = names[0].match(/^([A-Za-z]+[\s\-_]?)/);
+                if (matchPrefix) prefix = matchPrefix[1];
+            }
+            names.forEach(name => {
+                tokenPatterns[name] = tp;
+                if (prefix && !name.toLowerCase().startsWith(prefix.toLowerCase().trim())) {
+                    tokenPatterns[prefix + name] = tp;
+                }
+            });
         }
     }
     // Store for display

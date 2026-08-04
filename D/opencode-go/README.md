@@ -8,21 +8,23 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 
 - **Full Live Sync** — on load and refresh, fetches everything from source: model list (API), pricing, estimates, endpoints/SDK mapping, token patterns, usage limits, info cards
 - **Data Source Badges** — green "Live" badge when docs sync succeeds, orange "Hardcoded" when using fallback data. Shown on chart and pricing table section headers
-- **Token Patterns** — shows input/cached/output tokens per request for each model, parsed from source
+- **Token Patterns** — shows input/cached/output tokens per request for each model, parsed from source with prefix expansion for shorthand names
 - **Dark / Light Mode** — toggle in status bar. Respects system preference on first load. Persisted to localStorage. Charts update colors dynamically without full recreate
 - **Usage Limits** — $12/5hr, $30/week, $60/month dollar-based rolling limits
 - **Grouped Bar Chart** — single horizontal chart showing all three time windows (5h/weekly/monthly) side by side with legend. Aligned data labels at bar end. Smooth animations, themed tooltips (Chart.js)
-- **Full Pricing Table** — input/output/cached read/cached write token prices, monthly allocation, request estimates. All 9 columns sortable (asc → desc → reset). Tiered pricing marked with badge
-- **Info Cards** — "Usage Beyond Limits" (Zen balance fallback) and "Why Some Models Have Lower Usage" (bulk discount explanation)
+- **Full Pricing Table** — input/output/cached read/cached write token prices, monthly allocation, request estimates. All 9 columns sortable (asc → desc → reset). Tiered pricing marked with badge. Formatted with exact precision (`formatPrice`)
+- **Info Cards** — "Usage Beyond Limits" (Zen balance fallback) and "Why Some Models Have Lower Usage" (bulk discount explanation) with rich HTML formatting
 - **Responsive** — large (>1200px), medium (768–1199px), small (<768px) breakpoints
 - **OpenCode Theme** — IBM Plex Sans/Mono fonts, `#0c0c0e` dark / `#f5f5f7` light, `#007aff` accent blue
 
 ## Security & Reliability
 
-- **XSS Prevention** — external content from docs page sanitized via `sanitizeHTML()` before DOM injection
+- **XSS Prevention** — external content from docs page sanitized via `sanitizeHTML()` (strips `<script>`, `<iframe>`, inline `on*` handlers while preserving structural formatting tags)
 - **Race Condition Protection** — debounced refresh with request ID tracking prevents concurrent fetches and stale data overwrites
 - **Browser Compatibility** — `AbortController` with timeout (no `AbortSignal.timeout()` dependency). Works in Chrome 66+, Firefox 57+, Safari 12.1+
-- **Safe Number Parsing** — `safeParseInt()` / `safeParseFloat()` handle invalid input gracefully (returns 0 instead of NaN)
+- **Safe Number Parsing** — `safeParseInt()` / `safeParseFloat()` strip currency symbols (`$`) and non-numeric characters gracefully
+- **Resilient Matching** — `normalizeName()` strips non-alphanumeric characters to bridge spacing/hyphen differences (`MiMo V2.5` ↔ `MiMo-V2.5`)
+- **Tier Filtering** — skips secondary tier rows (`> 256K tokens`) to prevent higher rates from overwriting base pricing
 - **Chart.js Guard** — checks `typeof Chart` before instantiation to handle CDN failures
 - **Cache Versioning** — localStorage entries include version for future invalidation
 
@@ -47,6 +49,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Model | Provider | ID |
 |-------|----------|-----|
 | Grok 4.5 | xAI | `grok-4.5` |
+| GPT 5.6 Luna | OpenAI | `gpt-5.6-luna` |
 | GLM-5.2 | Zhipu | `glm-5.2` |
 | GLM-5.1 | Zhipu | `glm-5.1` |
 | GLM-5 | Zhipu | `glm-5` |
@@ -61,6 +64,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | MiniMax M3 | MiniMax | `minimax-m3` |
 | MiniMax M2.7 | MiniMax | `minimax-m2.7` |
 | MiniMax M2.5 | MiniMax | `minimax-m2.5` |
+| Qwen3.8 Max | Alibaba | `qwen3.8-max` |
 | Qwen3.7 Max | Alibaba | `qwen3.7-max` |
 | Qwen3.7 Plus | Alibaba | `qwen3.7-plus` |
 | Qwen3.6 Plus | Alibaba | `qwen3.6-plus` |
@@ -74,41 +78,45 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 
 | Model | Input | Output | Cached Read | Cached Write | Monthly |
 |-------|-------|--------|-------------|--------------|---------|
-| Grok 4.5 | $2.00 | $6.00 | $0.3000 | — | $15 |
-| GLM-5.2 | $1.40 | $4.40 | $0.2600 | — | $60 |
-| GLM-5.1 | $1.40 | $4.40 | $0.2600 | — | $60 |
-| Kimi K3 | $3.00 | $15.00 | $0.3000 | — | $15 |
-| Kimi K2.7 Code | $0.95 | $4.00 | $0.1900 | — | $60 |
-| Kimi K2.6 | $0.95 | $4.00 | $0.1600 | — | $60 |
+| Grok 4.5 | $2.00 | $6.00 | $0.30 | — | $15 |
+| GPT 5.6 Luna* | $0.20 | $1.20 | $0.02 | $0.25 | $15 |
+| GLM-5.2 | $1.40 | $4.40 | $0.26 | — | $60 |
+| GLM-5.1 | $1.40 | $4.40 | $0.26 | — | $60 |
+| Kimi K3 | $3.00 | $15.00 | $0.30 | — | $15 |
+| Kimi K2.7 Code | $0.95 | $4.00 | $0.19 | — | $60 |
+| Kimi K2.6 | $0.95 | $4.00 | $0.16 | — | $60 |
 | MiMo-V2.5 | $0.14 | $0.28 | $0.0028 | — | $60 |
 | MiMo-V2.5-Pro | $0.435 | $0.87 | $0.003625 | — | $15 |
-| MiniMax M3 | $0.30 | $1.20 | $0.0600 | — | $60 |
-| MiniMax M2.7 | $0.30 | $1.20 | $0.0600 | $0.375 | $60 |
-| MiniMax M2.5 | $0.30 | $1.20 | $0.0600 | $0.375 | $60 |
-| Qwen3.7 Max | $2.50 | $7.50 | $0.5000 | $3.125 | $60 |
-| Qwen3.7 Plus* | $0.40 | $1.60 | $0.0400 | $0.50 | $60 |
-| Qwen3.6 Plus* | $0.50 | $3.00 | $0.0500 | $0.625 | $60 |
+| MiniMax M3 | $0.30 | $1.20 | $0.06 | — | $60 |
+| MiniMax M2.7 | $0.30 | $1.20 | $0.06 | $0.375 | $60 |
+| MiniMax M2.5 | $0.30 | $1.20 | $0.06 | $0.375 | $60 |
+| Qwen3.8 Max | $2.00 | $6.00 | $0.25 | $2.50 | $15 |
+| Qwen3.7 Max | $2.50 | $7.50 | $0.50 | $3.125 | $60 |
+| Qwen3.7 Plus* | $0.40 | $1.60 | $0.04 | $0.50 | $60 |
+| Qwen3.6 Plus* | $0.50 | $3.00 | $0.05 | $0.625 | $60 |
 | DeepSeek V4 Pro | $0.435 | $0.87 | $0.003625 | — | $15 |
 | DeepSeek V4 Flash | $0.14 | $0.28 | $0.0028 | — | $60 |
-| Hy3 | $0.14 | $0.58 | $0.0350 | — | $60 |
+| Hy3 | $0.14 | $0.58 | $0.035 | — | $60 |
 
-\* Qwen3.7 Plus and Qwen3.6 Plus have tiered pricing: shown prices are for ≤256K tokens. Above 256K: Qwen3.7 Plus → $1.20/$4.80/$0.12/$1.50; Qwen3.6 Plus → $2.00/$6.00/$0.20/$2.50.
+\* Tiered pricing: Shown prices are for initial tier. GPT 5.6 Luna (>272K: $0.40/$1.80/$0.04/$0.50), Qwen3.7 Plus (>256K: $1.20/$4.80/$0.12/$1.50), Qwen3.6 Plus (>256K: $2.00/$6.00/$0.20/$2.50).
 
 ## Estimated Requests
 
 | Model | 5h | Week | Month |
 |-------|-----|------|-------|
 | Grok 4.5 | 120 | 300 | 600 |
+| GPT 5.6 Luna | 2,050 | 5,100 | 10,250 |
 | GLM-5.2 | 880 | 2,150 | 4,300 |
 | GLM-5.1 | 880 | 2,150 | 4,300 |
 | Kimi K3 | 110 | 250 | 490 |
-| Kimi K2.7 Code | 1,350 | 4,630 | 9,250 |
+| Kimi K2.7 Code | 1,350 | 3,380 | 6,750 |
 | Kimi K2.6 | 1,150 | 2,880 | 5,750 |
 | MiMo-V2.5 | 30,100 | 75,200 | 150,400 |
 | MiMo-V2.5-Pro | 3,250 | 8,150 | 16,300 |
 | MiniMax M3 | 3,200 | 8,000 | 16,000 |
 | MiniMax M2.7 | 3,400 | 8,500 | 17,000 |
-| Qwen3.7 Max | 950 | 2,390 | 4,770 |
+| Qwen3.8 Max | 160 | 400 | 810 |
+| Qwen3.7 Max | 340 | 840 | 1,690 |
 | Qwen3.7 Plus | 4,300 | 10,800 | 21,600 |
 | Qwen3.6 Plus | 3,300 | 8,200 | 16,300 |
 | DeepSeek V4 Pro | 3,450 | 8,550 | 17,150 |
@@ -132,11 +140,14 @@ Everything syncs automatically on page load and refresh:
 1. **Model list** — fetched from `opencode.ai/zen/go/v1/models` API
 2. **Pricing + estimates** — scraped from `opencode.ai/docs/go` HTML via CORS proxy. Parses pricing table and estimates table, updates `MODEL_DATA` in memory
 3. **Endpoints/SDK** — parsed from docs page Endpoints table. Maps each model ID to its SDK package (OpenAI vs Anthropic)
-4. **Token patterns** — parsed from docs page text line-by-line. Shows input/cached/output tokens per request for each model
+4. **Token patterns** — parsed from docs page text line-by-line with prefix expansion for shorthand model names (e.g. `GLM-5.2/5.1`, `Kimi K2.7/K2.6`). Shows input/cached/output tokens per request for each model
 5. **Usage limits** — parsed from docs page text (`$12`, `$30`, `$60`), updates the limit cards
 6. **Info cards** — "Usage Beyond Limits" and "Why Some Models Have Lower Usage" sections extracted from docs page headings/paragraphs/lists, sanitized before injection
-7. **Fallback** — if docs page is unreachable, uses hardcoded values (still accurate as of last manual update)
-8. **Data source badges** — section headers show green "Live" when docs sync succeeds, orange "Hardcoded" when using fallback
+7. **Tier filtering & normalization** — ignores secondary tier rows (`> 256K tokens`) and normalizes model names (spacing/hyphens) for resilient matching
+8. **Dynamic model addition** — automatically creates entries via `slugify()` for any new model appearing in docs
+9. **Exact price formatting** — `formatPrice()` formats token costs without artificial rounding or zero padding (`$0.435`, `$0.003625`)
+10. **Fallback** — if docs page is unreachable, uses hardcoded values (still accurate as of last manual update)
+11. **Data source badges** — section headers show green "Live" when docs sync succeeds, orange "Hardcoded" when using fallback
 
 The `SOURCE:` comments in `MODEL_DATA` and `EXTRA_MODELS` mark where to manually update if the auto-sync breaks.
 
