@@ -120,6 +120,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [NordPass Readme](https://krishnakanthb13.github.io/D/nordpass.html): Conventions for organising passwords, keys, and secure notes.
 	- [Bitwarden (2026)](https://krishnakanthb13.github.io/D/bitwarden.html): The open-source, zero-knowledge password manager.
 	- [OpenCode Go Overview](https://krishnakanthb13.github.io/D/opencode-go.html): Low-cost subscription for popular open coding models.
+	- [CommandCode Go Overview](https://krishnakanthb13.github.io/D/commandcode-go.html): Low-cost subscription plan for AI coding models with active deals.
 	- [OpenCode Go Dashboard](https://krishnakanthb13.github.io/D/opencode-go/): Live models & usage dashboard.
 	- [SQL Query Anatomy](https://krishnakanthb13.github.io/D/structured-query-language/): Interactive visual guide breaking down SQL clauses & execution order.
 	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.
