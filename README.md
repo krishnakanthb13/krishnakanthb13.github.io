@@ -112,6 +112,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Dump (D):** ([overview](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools, unified light/dark/system theme)
+	- [Meta Muse & Meta Spark](https://krishnakanthb13.github.io/D/meta-muse-spark.html): Meta Model API & Spark AR — models, pricing calculator, playground & SDKs.
 	- [DeepSeek API](https://krishnakanthb13.github.io/D/deepseek.html): V4-Flash and V4-Pro models — 1M context, thinking mode, OpenAI & Anthropic compatible.
 	- [LongCat-2.0-Preview](https://krishnakanthb13.github.io/D/longcat.html): Agentic reasoning model — lightweight, tool-native, open.
 	- [Journaling](https://krishnakanthb13.github.io/D/journaling.html): The transformative power of journaling — methods and benefits.

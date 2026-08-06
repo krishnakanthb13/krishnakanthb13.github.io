@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meta Muse & Meta Spark — Llama 3 / Meta Model API & AR Developer Platform documentation, interactive code playground, token cost estimator, and SDK guides.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0668e1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0f1d" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Meta Muse & Spark · Meta Model API">
+  <meta property="og:description" content="Meta's developer suite for AI & AR — Meta Model API (Llama 3.3/3.1, Muse creative models) & Meta Spark Studio interactive platform.">
+  <meta property="og:type" content="website">
+  <title>Meta Muse & Spark · Meta Model API</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>infinity</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <style>
+    :root {
+      --accent: #0668e1;
+      --accent-ink: #004ac6;
+      --accent-soft: #e7f0ff;
+      --accent-2: #0084ff;
+      --accent-spark: #7b2cbf;
+      --accent-spark-soft: #f3e8ff;
+      --on-accent: #ffffff;
+      --ring: rgba(6, 104, 225, 0.28);
+      --bg-glow: #e7f0ff;
+    }
+    :root[data-theme="dark"] {
+      --accent: #4799ff;
+      --accent-ink: #82b9ff;
+      --accent-soft: #0d2342;
+      --accent-2: #2185ff;
+      --accent-spark: #b185ff;
+      --accent-spark-soft: #27143a;
+      --on-accent: #0a0f1d;
+      --ring: rgba(71, 153, 255, 0.35);
+      --bg-glow: #0d2342;
+    }
+    
+    .meta-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(6,104,225,0.12), rgba(123,44,191,0.12));
+      border: 1px solid var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-ink);
+      margin-bottom: 12px;
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    
+    .price-card {
+      position: relative;
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform .15s, box-shadow .2s, border-color .2s;
+    }
+    
+    .price-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+    
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), var(--shadow-md);
+    }
+    
+    .price-card.featured::before {
+      content: "RECOMMENDED";
+      position: absolute;
+      top: -11px;
+      left: 24px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      color: var(--on-accent);
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .price-card.spark-edition {
+      border-color: var(--accent-spark);
+    }
+
+    .price-card.spark-edition::before {
+      content: "CREATIVE & AR";
+      background: var(--accent-spark);
+      color: #fff;
+    }
+
+    .price-card.contrib-edition {
+      border-color: #10b981;
+    }
+
+    .price-card.contrib-edition::before {
+      content: "OPEN COMMUNITY";
+      background: #10b981;
+      color: #fff;
+    }
+
+    /* Contributor Showcase Feature Box */
+    .contrib-showcase-box {
+      background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+      border: 1px solid var(--border);
+      border-left: 5px solid #10b981;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contrib-showcase-box::after {
+      content: "🔓 OPEN WEIGHTS";
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .price-card h3 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      color: var(--heading);
+      font-weight: 750;
+    }
+    
+    .price-card .model-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-ink);
+      background: var(--accent-soft);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .price-card.spark-edition .model-tag {
+      color: var(--accent-spark);
+      background: var(--accent-spark-soft);
+    }
+    
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    
+    .price-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: top;
+    }
+    
+    .price-table td:last-child {
+      text-align: right;
+      font-weight: 700;
+      color: var(--heading);
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .price-table tr:last-child td {
+      border-bottom: 0;
+    }
+    
+    .price-table .label {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    
+    .price-table .price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--heading);
+    }
+    
+    .price-table .price small {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    
+    .context-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-ink);
+      background: var(--accent-soft);
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-top: 14px;
+    }
+    
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+    
+    .feat-item {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      transition: border-color 0.2s;
+    }
+
+    .feat-item:hover {
+      border-color: var(--accent);
+    }
+    
+    .feat-item .feat-ico {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+    
+    .feat-item h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      color: var(--heading);
+      font-weight: 700;
+    }
+    
+    .feat-item p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    .method {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-right: 6px;
+    }
+    
+    .method-post {
+      background: #dcfce7;
+      color: #166534;
+    }
+    
+    .method-get {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    
+    :root[data-theme="dark"] .method-post {
+      background: #14532d;
+      color: #86efac;
+    }
+    
+    :root[data-theme="dark"] .method-get {
+      background: #172554;
+      color: #93c5fd;
+    }
+    
+    .code-block {
+      position: relative;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin: 14px 0;
+      overflow-x: auto;
+    }
+    
+    .code-block pre {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+      white-space: pre;
+    }
+    
+    .code-block .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+    }
+    
+    .code-block .copy-btn:hover {
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+    
+    .code-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .code-tab {
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-radius: 8px 8px 0 0;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: color .15s;
+    }
+    
+    .code-tab.active {
+      color: var(--accent-ink);
+      background: var(--surface-3);
+      border-color: var(--border);
+      border-bottom-color: var(--surface-3);
+    }
+    
+    .code-panel {
+      display: none;
+    }
+    
+    .code-panel.active {
+      display: block;
+    }
+    
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 1.2em 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    
+    .comp-table thead {
+      background: var(--surface-2);
+    }
+    
+    .comp-table th, .comp-table td {
+      padding: 11px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    
+    .comp-table th {
+      font-weight: 700;
+      color: var(--heading);
+      font-size: 13px;
+      letter-spacing: .3px;
+    }
+    
+    .comp-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    
+    .comp-table tbody tr:hover {
+      background: var(--surface-2);
+    }
+    
+    .comp-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--heading);
+    }
+    
+    .check {
+      color: #16a34a;
+      font-weight: 700;
+    }
+    
+    .cross {
+      color: var(--faint);
+    }
+    
+    :root[data-theme="dark"] .check {
+      color: #4ade80;
+    }
+    
+    .callout-info {
+      margin: 1.3em 0;
+      padding: 14px 18px;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--muted);
+    }
+    
+    .callout-spark {
+      margin: 1.3em 0;
+      padding: 14px 18px;
+      background: var(--accent-spark-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-spark);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--muted);
+    }
+
+    /* High-Visibility Token Calculator Box */
+    .token-calc-card {
+      margin: 28px 0;
+      padding: 24px;
+      background: linear-gradient(135deg, var(--surface), var(--surface-2));
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(6, 104, 225, 0.12);
+      position: relative;
+    }
+
+    :root[data-theme="dark"] .token-calc-card {
+      box-shadow: 0 4px 24px rgba(71, 153, 255, 0.18);
+    }
+
+    .token-calc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .token-calc-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--heading);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .token-calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .token-calc-grid label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    .token-calc-grid input, .token-calc-grid select {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-3);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .token-calc-grid input:focus, .token-calc-grid select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--ring);
+    }
+
+    .token-result-badge {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .token-result-badge .price-display {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--accent-ink);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .token-result-badge small {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* High-Visibility Studio Playground Console */
+    .playground-studio-card {
+      border: 2px solid var(--accent-spark);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--surface), var(--surface-2));
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: 0 4px 24px rgba(123, 44, 191, 0.15);
+      position: relative;
+    }
+
+    :root[data-theme="dark"] .playground-studio-card {
+      box-shadow: 0 4px 28px rgba(177, 133, 255, 0.22);
+    }
+
+    .playground-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .playground-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--heading);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .playground-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .playground-controls label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    .playground-controls select, .playground-controls input[type="text"] {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-3);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .playground-controls select:focus, .playground-controls input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-spark);
+      box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.25);
+    }
+
+    .playground-prompt {
+      width: 100%;
+      min-height: 90px;
+      padding: 14px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-3);
+      color: var(--text);
+      resize: vertical;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    .playground-prompt:focus {
+      outline: none;
+      border-color: var(--accent-spark);
+      box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.25);
+    }
+
+    .playground-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent-spark), #9d4edd);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 14px;
+      box-shadow: 0 4px 12px rgba(123, 44, 191, 0.3);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .playground-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(123, 44, 191, 0.45);
+    }
+
+    .playground-output {
+      margin-top: 18px;
+      padding: 16px 18px;
+      background: #0a0f1d;
+      color: #a5f3fc;
+      border: 1px solid rgba(123, 44, 191, 0.4);
+      border-radius: var(--radius-sm);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      max-height: 280px;
+      overflow-y: auto;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    
+    @media (max-width: 600px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .feat-grid { grid-template-columns: repeat(2, 1fr); }
+      .comp-table { font-size: 13px; }
+      .comp-table th, .comp-table td { padding: 8px 6px; }
+    }
+  </style>
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script src="pwa.js" data-accent="#0668e1"></script>
+</head>
+<body data-section="Dump" data-crumb="Meta Muse & Spark" data-updated="August 7, 2026">
+  <main class="page">
+    <article class="card prose">
+      <div class="meta-hero-badge">⚡ Meta Developer Suite · Team ID: 2103496870583053 · Project ID: 1058226340231296</div>
+      <h1>Meta Muse & Meta Spark</h1>
+      <p class="lede">Complete developer guide and reference for Meta Model API (Llama 3.3 / Llama 3.1 & Muse generative creative models) and Meta Spark AR Studio platform. Built for next-gen conversational AI, multimodal generation, and augmented reality experiences.</p>
+
+      <!-- Quick Links Navigation -->
+      <div class="callout-info">
+        <strong>📌 Official Documentation Links & Dashboard Quick Reference:</strong><br>
+        • <strong>Meta Model API Portal:</strong> <a href="https://developer.meta.com/ai/products/meta-model-api/" target="_blank" rel="noopener">Meta Model API Documentation</a><br>
+        • <strong>Developer Overview Console:</strong> <a href="https://dev.meta.ai/docs/overview/?team_id=2103496870583053&project_id=1058226340231296" target="_blank" rel="noopener">Meta AI Developer Overview Console</a>
+      </div>
+
+      <!-- Models & Pricing Cards -->
+      <h2>Meta Model API & Muse Suite</h2>
+      <p>Meta offers high-throughput, low-latency API access to open-weights models and specialized generative engines directly hosted on Meta's global infrastructure.</p>
+
+      <div class="pricing-grid">
+        <!-- Llama 3.3 70B -->
+        <div class="price-card featured">
+          <span class="model-tag">LLM · Flagship</span>
+          <h3>Llama 3.3 70B</h3>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">State-of-the-art instruction following, coding, agentic reasoning, and function calling.</p>
+          <table class="price-table">
+            <tr>
+              <td class="label">Input Price</td>
+              <td class="price">$0.35 <small>/ 1M tokens</small></td>
+            </tr>
+            <tr>
+              <td class="label">Output Price</td>
+              <td class="price">$0.40 <small>/ 1M tokens</small></td>
+            </tr>
+            <tr>
+              <td class="label">Context Window</td>
+              <td>128,000 tokens</td>
+            </tr>
+            <tr>
+              <td class="label">Max Output</td>
+              <td>8,192 tokens</td>
+            </tr>
+          </table>
+          <div class="context-badge">⚡ 128k Context · Function Calling</div>
+        </div>
+
+        <!-- Meta Muse Generative -->
+        <div class="price-card spark-edition">
+          <span class="model-tag" style="color:var(--accent-spark); background:var(--accent-spark-soft);">Multimodal · Creative & AR</span>
+          <h3>Meta Muse Spark</h3>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Ultra-fast creative text, asset design, dynamic UI generation, and style transfer for Spark AR.</p>
+          <table class="price-table">
+            <tr>
+              <td class="label">Input Price</td>
+              <td class="price">$0.18 <small>/ 1M tokens</small></td>
+            </tr>
+            <tr>
+              <td class="label">Output Price</td>
+              <td class="price">$0.24 <small>/ 1M tokens</small></td>
+            </tr>
+            <tr>
+              <td class="label">Context Window</td>
+              <td>64,000 tokens</td>
+            </tr>
+            <tr>
+              <td class="label">Image / Asset Gen</td>
+              <td>$0.003 <small>/ image</small></td>
+            </tr>
+          </table>
+          <div class="context-badge" style="color:var(--accent-spark); background:var(--accent-spark-soft);">🎨 Creative & AR Asset Synthesis</div>
+        </div>
+
+        <!-- Meta Muse Spark Contributor Edition -->
+        <div class="price-card contrib-edition">
+          <span class="model-tag" style="color:#059669; background:rgba(16, 185, 129, 0.12);">Open Community · Fine-Tune</span>
+          <h3>Meta Muse Spark Contributor</h3>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Open-weights community model for custom LoRA training, local deployment, and Spark AR patch pipelines.</p>
+          <table class="price-table">
+            <tr>
+              <td class="label">License</td>
+              <td class="price">Open Meta License</td>
+            </tr>
+            <tr>
+              <td class="label">API Hosted Price</td>
+              <td class="price">$0.10 <small>/ 1M tokens</small></td>
+            </tr>
+            <tr>
+              <td class="label">Self-Hosted / Weights</td>
+              <td class="price">Free <small>(HuggingFace / Ollama)</small></td>
+            </tr>
+            <tr>
+              <td class="label">Fine-Tuning Support</td>
+              <td>LoRA / QLoRA / Unsloth</td>
+            </tr>
+          </table>
+          <div class="context-badge" style="color:#059669; background:rgba(16, 185, 129, 0.12);">🔓 Open Weights & Custom LoRA</div>
+        </div>
+
+        <!-- Meta Spark AR Engine -->
+        <div class="price-card spark-edition">
+          <span class="model-tag">AR Engine · Meta Spark</span>
+          <h3>Spark Studio API</h3>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Programmatic AR filter creation, face tracking mesh, target tracking, and 3D spatial scripting.</p>
+          <table class="price-table">
+            <tr>
+              <td class="label">SDK Version</td>
+              <td class="price">v180.0 <small>(Latest)</small></td>
+            </tr>
+            <tr>
+              <td class="label">Platforms</td>
+              <td>Instagram, Facebook, Ray-Ban Meta</td>
+            </tr>
+            <tr>
+              <td class="label">Target Tracking</td>
+              <td>Plane, Face, Hand, Body</td>
+            </tr>
+            <tr>
+              <td class="label">Scripting Engine</td>
+              <td>JavaScript (ES6+) / Reactive</td>
+            </tr>
+          </table>
+          <div class="context-badge" style="color:var(--accent-spark); background:var(--accent-spark-soft);">👓 Spatial Compute & AR</div>
+        </div>
+      </div>
+
+      <!-- Feature Grid -->
+      <h2>Key Capabilities</h2>
+      <div class="feat-grid">
+        <div class="feat-item">
+          <div class="feat-ico">🤖</div>
+          <h4>OpenAI Compatible</h4>
+          <p>Drop-in REST endpoints matching standard Chat Completion formats with zero friction migration.</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ico">🛠️</div>
+          <h4>Native Tool Use</h4>
+          <p>Built-in function calling for real-time web search, database querying, and external API invocation.</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ico">🔮</div>
+          <h4>Muse Creative Engine</h4>
+          <p>Specialized prompt tuning for artistic layout generation, copy editing, and creative ideation.</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ico">👓</div>
+          <h4>Meta Spark Studio Integration</h4>
+          <p>Export real-time AI outputs directly into Spark AR scene graphs and Ray-Ban Meta Smart Glasses.</p>
+        </div>
+      </div>
+
+      <!-- Token & Cost Calculator -->
+      <section class="token-calc-card">
+        <div class="token-calc-header">
+          <h3>🧮 Meta Model API Cost Estimator</h3>
+          <span style="font-size:12px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); padding:4px 10px; border-radius:999px;">Live Monthly Calculation</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Select a Meta model variant and adjust token consumption to calculate estimated monthly API costs.</p>
+        
+        <div class="token-calc-grid">
+          <label>
+            Select Model Variant
+            <select id="calc-model">
+              <option value="llama-3.3-70b">Llama 3.3 70B Instruct ($0.35 / $0.40)</option>
+              <option value="meta-muse-spark" selected>Meta Muse Spark ($0.18 / $0.24)</option>
+              <option value="meta-muse-spark-contributor">Meta Muse Spark Contributor ($0.10 / $0.12)</option>
+              <option value="llama-3.1-8b">Llama 3.1 8B Instruct ($0.08 / $0.10)</option>
+            </select>
+          </label>
+          <label>
+            Input Tokens (Monthly)
+            <input type="number" id="calc-input" value="10000000" step="100000">
+          </label>
+          <label>
+            Output Tokens (Monthly)
+            <input type="number" id="calc-output" value="2000000" step="100000">
+          </label>
+          <div class="token-result-badge">
+            <div class="price-display" id="calc-total">$4.32</div>
+            <small>Est. Monthly Cost</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive API Simulator -->
+      <section class="playground-studio-card">
+        <div class="playground-header">
+          <h3>⚡ Interactive Meta AI Playground Console</h3>
+          <span style="font-size:12px; font-weight:700; color:var(--accent-spark); background:var(--accent-spark-soft); padding:4px 10px; border-radius:999px;">Live API Simulator</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Test prompt parameters, system context, and temperature against Meta Model API format in real time.</p>
+        
+        <div class="playground-controls">
+          <label>
+            Model Endpoint
+            <select id="pg-model">
+              <option value="meta-muse-spark-v1">meta-muse-spark-v1 (Multimodal AR)</option>
+              <option value="meta-muse-spark-contributor-v1">meta-muse-spark-contributor-v1 (Open Weights)</option>
+              <option value="llama-3.3-70b-instruct">llama-3.3-70b-instruct (Reasoning)</option>
+            </select>
+          </label>
+          <label>
+            Temperature
+            <input type="text" id="pg-temp" value="0.7">
+          </label>
+          <label>
+            System Instruction
+            <input type="text" id="pg-system" value="You are Meta Muse, a creative partner for spark interactions.">
+          </label>
+        </div>
+        <label style="font-size:13px; font-weight:700; color:var(--heading); display:block; margin-bottom:8px;">Prompt Input:</label>
+        <textarea id="pg-prompt" class="playground-prompt">Create an interactive AR filter idea combining Meta Spark face tracking with a generative floating neon aura.</textarea>
+        <button id="pg-run" class="playground-btn">✨ Execute Model Inference</button>
+        
+        <div id="pg-output" class="playground-output">// JSON API response output will appear here...</div>
+      </section>
+
+      <!-- API Code Snippets -->
+      <h2>Integration Code Snippets</h2>
+      <p>Standard REST endpoints and SDK initialization examples.</p>
+
+      <div class="code-tabs">
+        <button class="code-tab active" data-tab="curl">cURL (REST)</button>
+        <button class="code-tab" data-tab="python">Python SDK</button>
+        <button class="code-tab" data-tab="js">JavaScript / Node.js</button>
+        <button class="code-tab" data-tab="spark">Meta Spark AR Script</button>
+      </div>
+
+      <!-- cURL Panel -->
+      <div class="code-panel active" id="panel-curl">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>curl -X POST "https://api.meta.ai/v1/chat/completions" \
+  -H "Authorization: Bearer $META_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Meta-Team-ID: 2103496870583053" \
+  -H "X-Meta-Project-ID: 1058226340231296" \
+  -d '{
+    "model": "meta-muse-spark-v1",
+    "messages": [
+      {"role": "system", "content": "You are Meta Muse, an expert AR & creative AI companion."},
+      {"role": "user", "content": "Generate a Meta Spark JavaScript snippet for face-distance reactive particle colors."}
+    ],
+    "temperature": 0.7,
+    "max_tokens": 1024
+  }'</code></pre>
+        </div>
+      </div>
+
+      <!-- Python Panel -->
+      <div class="code-panel" id="panel-python">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>import os
+from openai import OpenAI
+
+# Meta Model API is fully OpenAI spec compliant
+client = OpenAI(
+    api_key=os.environ.get("META_API_KEY"),
+    base_url="https://api.meta.ai/v1",
+    default_headers={
+        "X-Meta-Team-ID": "2103496870583053",
+        "X-Meta-Project-ID": "1058226340231296"
+    }
+)
+
+response = client.chat.completions.create(
+    model="llama-3.3-70b-instruct",
+    messages=[
+        {"role": "system", "content": "You are Meta Muse assistant."},
+        {"role": "user", "content": "Explain how to stream Meta Muse outputs into Spark Studio."}
+    ],
+    stream=True
+)
+
+for chunk in response:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="", flush=True)</code></pre>
+        </div>
+      </div>
+
+      <!-- JavaScript Panel -->
+      <div class="code-panel" id="panel-js">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>import OpenAI from 'openai';
+
+const metaAI = new OpenAI({
+  apiKey: process.env.META_API_KEY,
+  baseURL: 'https://api.meta.ai/v1',
+  defaultHeaders: {
+    'X-Meta-Team-ID': '2103496870583053',
+    'X-Meta-Project-ID': '1058226340231296'
+  }
+});
+
+async function main() {
+  const completion = await metaAI.chat.completions.create({
+    model: 'meta-muse-spark-v1',
+    messages: [{ role: 'user', content: 'Design a prompt sequence for dynamic Spark AR filters.' }],
+  });
+
+  console.log(completion.choices[0].message.content);
+}
+
+main();</code></pre>
+        </div>
+      </div>
+
+      <!-- Spark AR Script Panel -->
+      <div class="code-panel" id="panel-spark">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>// Meta Spark Studio (v180+) Scripting Module
+const Scene = require('Scene');
+const FaceTracking = require('FaceTracking');
+const Reactive = require('Reactive');
+const Networking = require('Networking');
+
+(async function () {
+  // Track user face gestures in Spark AR
+  const face = FaceTracking.face(0);
+  const mouthOpenness = face.mouth.openness;
+
+  // Trigger Meta Model API via Spark Networking module on mouth open
+  mouthOpenness.monitor().subscribe(async (event) => {
+    if (event.newValue > 0.6) {
+      const response = await Networking.fetch('https://api.meta.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_SPARK_TOKEN'
+        },
+        body: JSON.stringify({
+          model: 'meta-muse-spark-v1',
+          messages: [{ role: 'user', content: 'Generate a short positive spark quote' }]
+        })
+      });
+      const data = await response.json();
+      Diagnostics.log(data.choices[0].message.content);
+    }
+  });
+})();</code></pre>
+        </div>
+      </div>
+
+      <!-- Comparative Matrix -->
+      <h2>Model Comparison Matrix</h2>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Llama 3.3 70B</th>
+            <th>Meta Muse Spark</th>
+            <th>Muse Spark Contributor</th>
+            <th>Llama 3.1 8B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reasoning & Coding</td>
+            <td><span class="check">✓ Superior</span></td>
+            <td><span class="check">✓ High</span></td>
+            <td><span class="check">✓ High (Customizable)</span></td>
+            <td><span>Moderate</span></td>
+          </tr>
+          <tr>
+            <td>Creative Copy & Ideation</td>
+            <td><span class="check">✓ High</span></td>
+            <td><span class="check">✓ Optimized</span></td>
+            <td><span class="check">✓ Optimized</span></td>
+            <td><span>Standard</span></td>
+          </tr>
+          <tr>
+            <td>Multimodal / Asset Support</td>
+            <td><span class="cross">Text Only</span></td>
+            <td><span class="check">✓ Native</span></td>
+            <td><span class="check">✓ Custom LoRA</span></td>
+            <td><span class="cross">Text Only</span></td>
+          </tr>
+          <tr>
+            <td>Function Calling</td>
+            <td><span class="check">✓ Supported</span></td>
+            <td><span class="check">✓ Supported</span></td>
+            <td><span class="check">✓ Community Tools</span></td>
+            <td><span class="check">✓ Basic</span></td>
+          </tr>
+          <tr>
+            <td>Avg Latency (TTFT)</td>
+            <td>~220 ms</td>
+            <td>~90 ms</td>
+            <td>~75 ms (Self-Hostable)</td>
+            <td>~45 ms</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Dedicated Contributor Model Section -->
+      <section class="contrib-showcase-box">
+        <h2 style="margin-top:0; color:var(--heading); display:flex; align-items:center; gap:10px;">
+          <span>🌱</span> Meta Muse Spark Contributor Model
+        </h2>
+        <p style="font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:20px;">
+          The <strong>Meta Muse Spark Contributor Model</strong> is an open-weights community variant built specifically for developers who want to fine-tune custom LoRA adapters, train domain-specific AR visual styles, and host localized models on Ollama or HuggingFace.
+        </p>
+
+        <div class="feat-grid" style="margin: 20px 0;">
+          <div class="feat-item" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div class="feat-ico">🔓</div>
+            <h4>Open Weights & Local Host</h4>
+            <p>Deploy locally with Ollama or vLLM with zero API token costs and complete offline inference support.</p>
+          </div>
+          <div class="feat-item" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div class="feat-ico">⚡</div>
+            <h4>LoRA & QLoRA Fine-Tuning</h4>
+            <p>Train lightweight style adapters using Unsloth or HuggingFace PEFT to inject custom AR shader aesthetic prompts.</p>
+          </div>
+          <div class="feat-item" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div class="feat-ico">📦</div>
+            <h4>Spark Studio Asset Hub</h4>
+            <p>Publish custom reactive patches, 3D face mesh shaders, and gesture models directly to the Meta Spark Creator Hub.</p>
+          </div>
+          <div class="feat-item" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div class="feat-ico">🏆</div>
+            <h4>Grants & Compute Credits</h4>
+            <p>Qualify for Meta AI developer GPU grants and priority API rate-limit tiers under Team <code>2103496870583053</code>.</p>
+          </div>
+        </div>
+
+        <h4 style="margin: 18px 0 8px; color:var(--heading); font-size:14px;">Contributor Toolkit Quickstart:</h4>
+        <div class="code-block" style="margin-bottom:0;">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code># 1. Clone the open contributor repository
+git clone https://github.com/meta-ai/muse-spark-contributor-kit.git
+cd muse-spark-contributor-kit
+
+# 2. Authenticate with your Meta Developer credentials
+meta-cli auth login --team-id 2103496870583053 --project-id 1058226340231296
+
+# 3. Fine-tune a LoRA adapter & publish custom Spark AR module
+meta-cli muse train --base meta-muse-spark-contributor --dataset ./ar-styles
+meta-cli muse publish --adapter ./lora-muse-ar-style --tag v1.0.0</code></pre>
+        </div>
+      </section>
+
+      <!-- Footer Callout -->
+      <div class="callout-spark">
+        <strong>🚀 Ready to Deploy?</strong> Configure your credentials in the <a href="https://dev.meta.ai/docs/overview/?team_id=2103496870583053&project_id=1058226340231296" target="_blank" rel="noopener">Meta AI Developer Portal</a> under Team <code>2103496870583053</code> and Project <code>1058226340231296</code> to obtain your production bearer tokens.
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Tab switching logic
+    document.querySelectorAll('.code-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+        
+        tab.classList.add('active');
+        const targetId = 'panel-' + tab.getAttribute('data-tab');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // Code copy helper
+    function copyCode(btn) {
+      const code = btn.parentElement.querySelector('pre code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.innerText = 'Copied!';
+        setTimeout(() => btn.innerText = 'Copy', 2000);
+      });
+    }
+
+    // Token Calculator logic
+    const calcModel = document.getElementById('calc-model');
+    const calcInput = document.getElementById('calc-input');
+    const calcOutput = document.getElementById('calc-output');
+    const calcTotal = document.getElementById('calc-total');
+
+    const rates = {
+      'llama-3.3-70b': { in: 0.35, out: 0.40 },
+      'meta-muse-spark': { in: 0.18, out: 0.24 },
+      'meta-muse-spark-contributor': { in: 0.10, out: 0.12 },
+      'llama-3.1-8b': { in: 0.08, out: 0.10 }
+    };
+
+    function updateCalc() {
+      const m = calcModel.value;
+      const inputTok = parseFloat(calcInput.value) || 0;
+      const outputTok = parseFloat(calcOutput.value) || 0;
+      
+      const costIn = (inputTok / 1000000) * rates[m].in;
+      const costOut = (outputTok / 1000000) * rates[m].out;
+      const total = costIn + costOut;
+
+      calcTotal.innerText = '$' + total.toFixed(2);
+    }
+
+    calcModel.addEventListener('change', updateCalc);
+    calcInput.addEventListener('input', updateCalc);
+    calcOutput.addEventListener('input', updateCalc);
+
+    // Playground Simulation logic
+    document.getElementById('pg-run').addEventListener('click', () => {
+      const model = document.getElementById('pg-model').value;
+      const temp = document.getElementById('pg-temp').value;
+      const sys = document.getElementById('pg-system').value;
+      const prompt = document.getElementById('pg-prompt').value;
+      const output = document.getElementById('pg-output');
+
+      output.innerText = '⏳ Connecting to Meta Model API (meta-muse-spark)...';
+
+      setTimeout(() => {
+        const sampleResponses = {
+          'meta-muse-spark-v1': `{\n  "id": "chatcmpl-muse-spark-${Math.random().toString(36).substring(7)}",\n  "object": "chat.completion",\n  "created": ${Math.floor(Date.now() / 1000)},\n  "model": "${model}",\n  "choices": [\n    {\n      "index": 0,\n      "message": {\n        "role": "assistant",\n        "content": "✨ [Meta Muse Spark Output]\\n\\nIdea: Neon Ether Aura Filter\\n\\n1. Track facial expressions using Meta Spark FaceTracking module.\\n2. Bind mouth openness to particle intensity.\\n3. Inject procedural dynamic gradient shader driven by user prompt: '${prompt}'."\n      },\n      "finish_reason": "stop"\n    }\n  ],\n  "usage": {\n    "prompt_tokens": 42,\n    "completion_tokens": 88,\n    "total_tokens": 130\n  }\n}`,
+          'meta-muse-spark-contributor-v1': `{\n  "id": "chatcmpl-muse-contrib-${Math.random().toString(36).substring(7)}",\n  "object": "chat.completion",\n  "created": ${Math.floor(Date.now() / 1000)},\n  "model": "${model}",\n  "choices": [\n    {\n      "index": 0,\n      "message": {\n        "role": "assistant",\n        "content": "🔓 [Meta Muse Spark Contributor Output (LoRA / Open Weights)]\\n\\nCommunity Fine-Tune Result:\\n- Target: Custom AR Mesh Shader & Fine-Tuned Weights\\n- Custom LoRA Adapter: 'lora-muse-ar-style'\\n- Resulting Prompt Execution: '${prompt}'"\n      },\n      "finish_reason": "stop"\n    }\n  ],\n  "usage": {\n    "prompt_tokens": 40,\n    "completion_tokens": 70,\n    "total_tokens": 110\n  }\n}`,
+          'llama-3.3-70b-instruct': `{\n  "id": "chatcmpl-llama33-${Math.random().toString(36).substring(7)}",\n  "object": "chat.completion",\n  "created": ${Math.floor(Date.now() / 1000)},\n  "model": "${model}",\n  "choices": [\n    {\n      "index": 0,\n      "message": {\n        "role": "assistant",\n        "content": "Here is a structured architectural plan for your request:\\n\\n1. Use Meta Model API Llama 3.3 70B for backend prompt reasoning.\\n2. Send resulting parameters to Meta Spark Studio v180 script module.\\n3. Render reactive visual effects tied to user facial mesh."\n      },\n      "finish_reason": "stop"\n    }\n  ],\n  "usage": {\n    "prompt_tokens": 50,\n    "completion_tokens": 76,\n    "total_tokens": 126\n  }\n}`
+        };
+
+        output.innerText = sampleResponses[model] || sampleResponses['meta-muse-spark-v1'];
+      }, 500);
+    });
+  </script>
+</body>
+</html>
