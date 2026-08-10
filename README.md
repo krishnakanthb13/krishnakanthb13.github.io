@@ -123,6 +123,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [OpenCode Go Overview](https://krishnakanthb13.github.io/D/opencode-go.html): Low-cost subscription for popular open coding models.
 	- [CommandCode Go Overview](https://krishnakanthb13.github.io/D/commandcode-go.html): Low-cost subscription plan for AI coding models with active deals.
 	- [CommandCode Plans](https://krishnakanthb13.github.io/D/commandcode.html): Complete guide to Go, GOAT, Pro & Max tiers, pricing, credits, models & usage limits.
+	- [CommandCode Plans Dashboard](https://krishnakanthb13.github.io/D/command-code/): Live models & usage dashboard.
 	- [OpenCode Go Dashboard](https://krishnakanthb13.github.io/D/opencode-go/): Live models & usage dashboard.
 	- [SQL Query Anatomy](https://krishnakanthb13.github.io/D/structured-query-language/): Interactive visual guide breaking down SQL clauses & execution order.
 	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.

@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+    <title>CommandCode Plans — Models & Usage Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://corsproxy.io">
+    <link rel="dns-prefetch" href="https://api.allorigins.win">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <style>
+        :root {
+            --bg: #0e1320;
+            --surface: #151b2e;
+            --surface2: #1c2439;
+            --border: #3a4577;
+            --border-muted: #2c3555;
+            --text: #ffffff;
+            --text-secondary: #c9d2e8;
+            --text-muted: #9aa5c8;
+            --text-disabled: #626d96;
+            --accent: #b06a36;
+            --accent-hover: #8f5328;
+            --accent2: #30d158;
+            --accent3: #ff9f0a;
+            --green: #30d158;
+            --orange: #ff9f0a;
+            --red: #ff453a;
+            --chart-tooltip-bg: rgba(21,27,46,0.95);
+            --chart-tooltip-border: #3a4577;
+            --chart-grid: rgba(58,69,119,0.35);
+            --chart-bar-5h: #b06a36;
+            --chart-bar-weekly: #30d158;
+            --chart-bar-monthly: #ff9f0a;
+            --icon-bg-accent: rgba(176,106,54,0.12);
+            --icon-bg-orange: rgba(255,159,10,0.12);
+        }
+
+        [data-theme="light"] {
+            --bg: #f2ebda;
+            --surface: #ffffff;
+            --surface2: #f6f1e6;
+            --border: #d8cbb0;
+            --border-muted: #e8dfca;
+            --text: #2a1f14;
+            --text-secondary: #4a3b28;
+            --text-muted: #7a6a50;
+            --text-disabled: #a4957a;
+            --accent: #b06a36;
+            --accent-hover: #8f5328;
+            --accent2: #28a745;
+            --accent3: #e68a00;
+            --green: #28a745;
+            --orange: #e68a00;
+            --red: #dc3545;
+            --chart-tooltip-bg: rgba(255,255,255,0.95);
+            --chart-tooltip-border: #d8cbb0;
+            --chart-grid: rgba(0,0,0,0.08);
+            --chart-bar-5h: #8f5328;
+            --chart-bar-weekly: #1e7e34;
+            --chart-bar-monthly: #b26b00;
+            --icon-bg-accent: rgba(176,106,54,0.15);
+            --icon-bg-orange: rgba(230,138,0,0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px 12px 14px;
+            background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .hero .logo svg {
+            height: 26px;
+            width: auto;
+        }
+
+        .hero h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .hero .price-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 16px;
+            background: var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 12px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+        }
+
+        .section-sub code {
+            background: var(--surface2);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+        }
+
+        /* Status bar */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .status-bar .status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.error { background: var(--red); animation: none; }
+        .status-dot.loading { background: var(--orange); }
+        .status-dot.stale { background: var(--orange); animation: pulse 3s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .status-text { font-size: 0.8rem; color: var(--text-muted); }
+        .status-text strong { color: var(--text); }
+
+        .refresh-btn {
+            padding: 5px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: all 0.2s;
+        }
+
+        .refresh-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: var(--surface2);
+            border-color: var(--border-muted);
+            color: var(--text-disabled);
+        }
+
+        .theme-toggle {
+            padding: 5px 10px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /* Plan cards */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .plan-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .plan-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent), 0 4px 16px rgba(176,106,54,0.25);
+        }
+
+        .plan-card .plan-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .plan-card .plan-name .badge {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: rgba(176, 106, 54, 0.15);
+            color: var(--accent);
+        }
+
+        .plan-card .plan-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .plan-card .plan-price small {
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .plan-card .plan-stat {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .plan-card .plan-stat strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .plan-card .plan-model-count {
+            font-size: 0.68rem;
+            color: var(--text-disabled);
+            margin-top: auto;
+        }
+
+        /* Models list */
+        .models-list {
+            margin-bottom: 24px;
+        }
+
+        .model-hints {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+        }
+
+        .hint strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .hint code {
+            background: var(--surface2);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent);
+        }
+
+        .hint-icon {
+            font-size: 0.5rem;
+            color: var(--accent3);
+        }
+
+        .hint-icon.deal-dot {
+            color: var(--accent2);
+        }
+
+        [data-theme="light"] .hint {
+            background: var(--surface);
+            border-color: var(--border);
+        }
+
+        [data-theme="light"] .chart-card::before { opacity: 0.7; }
+        [data-theme="light"] .model-hints .hint code { background: var(--surface2); }
+
+        .models-list table {
+            width: 100%;
+        }
+
+        .models-list tbody tr {
+            transition: background 0.15s;
+        }
+
+        .models-list tbody tr:hover {
+            background: rgba(176, 106, 54, 0.07);
+        }
+
+        .models-list .model-id-cell {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-provider { background: rgba(176, 106, 54, 0.12); color: var(--accent); }
+        .tag-deal { background: rgba(48, 209, 88, 0.12); color: var(--accent2); }
+        .tag-free { background: rgba(255, 159, 10, 0.12); color: var(--accent3); }
+        .tag-max { background: rgba(122, 106, 255, 0.12); color: #7a6aff; }
+
+        [data-theme="light"] .tag-provider { background: rgba(176, 106, 54, 0.1); }
+        [data-theme="light"] .tag-deal { background: rgba(48, 209, 88, 0.1); }
+        [data-theme="light"] .tag-free { background: rgba(255, 159, 10, 0.1); }
+        [data-theme="light"] .tag-max { background: rgba(122, 106, 255, 0.1); }
+
+        /* Data source badge */
+        .data-source-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+            transition: all 0.3s;
+        }
+
+        .data-source-badge .ds-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .data-source-badge.live {
+            background: rgba(48, 209, 88, 0.12);
+            color: var(--green);
+        }
+        .data-source-badge.live .ds-dot {
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        .data-source-badge.stale {
+            background: rgba(255, 159, 10, 0.12);
+            color: var(--orange);
+        }
+        .data-source-badge.stale .ds-dot {
+            background: var(--orange);
+            animation: pulse 3s infinite;
+        }
+
+        [data-theme="light"] .data-source-badge.live { background: rgba(48, 209, 88, 0.1); }
+        [data-theme="light"] .data-source-badge.stale { background: rgba(255, 159, 10, 0.1); }
+
+        /* Charts section */
+        .charts-section {
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            position: relative;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #b06a36, #30d158, #ff9f0a);
+        }
+
+        .chart-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 1px;
+        }
+
+        .chart-card .chart-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .chart-card canvas {
+            max-height: 650px;
+            min-height: 450px;
+            width: 100% !important;
+        }
+
+        /* Usage limits table — center all cells */
+        #limitsTable th,
+        #limitsTable td {
+            text-align: center !important;
+        }
+
+        .chart-card .chart-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .chart-card .chart-wrap canvas {
+            min-width: 560px;
+        }
+
+        /* Usage limits overview */
+        .limits-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .limit-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .limit-card .limit-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .limit-card .limit-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .limit-card .limit-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Pricing table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        thead th {
+            background: var(--surface2);
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        thead th.sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 24px;
+        }
+
+        thead th.sortable:hover {
+            color: var(--text);
+            background: rgba(176, 106, 54, 0.08);
+        }
+
+        thead th.sortable:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+            color: var(--text);
+        }
+
+        thead th.sortable::after {
+            content: '⇅';
+            position: absolute;
+            right: 8px;
+            font-size: 0.75rem;
+            opacity: 0.3;
+            transition: opacity 0.15s;
+        }
+
+        thead th.sortable:hover::after {
+            opacity: 0.6;
+        }
+
+        thead th.sort-asc::after {
+            content: '↑';
+            opacity: 1;
+            color: var(--accent2);
+        }
+
+        thead th.sort-desc::after {
+            content: '↓';
+            opacity: 1;
+            color: var(--accent2);
+        }
+
+        tbody td {
+            padding: 7px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(176, 106, 54, 0.05); }
+
+        td.model-cell {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        td.num {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            text-align: right;
+        }
+
+        td.deal-cell {
+            color: var(--accent2);
+            font-weight: 600;
+        }
+
+        td.free-cell {
+            color: var(--accent3);
+            font-weight: 600;
+        }
+
+        /* Info cards */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .info-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card h3 .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .info-card p, .info-card li {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            list-style: none;
+            margin-top: 6px;
+        }
+
+        .info-card ul li {
+            padding: 3px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .info-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .info-card .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Deals section */
+        .deals-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .deal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            border-left: 3px solid var(--accent2);
+        }
+
+        .deal-card .deal-model {
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--text);
+        }
+
+        .deal-card .deal-discount {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent2);
+            margin: 2px 0;
+        }
+
+        .deal-card .deal-term {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 16px 12px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            height: 140px;
+            border-radius: 12px;
+        }
+
+        /* Responsive — Large (>1200px) */
+        @media (min-width: 1200px) {
+            .container { padding: 20px 24px; }
+            .info-section { grid-template-columns: repeat(2, 1fr); }
+            /* auto-fit keeps cards from getting cramped at exactly 7 columns */
+            .plans-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+        }
+
+        /* Responsive — Medium (768–1199px) */
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .container { padding: 14px 16px; }
+            .limits-overview { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Responsive — Small (<768px) */
+        @media (max-width: 767px) {
+            .hero { padding: 14px 10px 10px; }
+            .hero h1 { font-size: 1.3rem; }
+            .hero p { font-size: 0.8rem; }
+            .container { padding: 10px 8px; }
+            .section-title { font-size: 0.95rem; }
+            .section-sub { font-size: 0.72rem; margin-bottom: 8px; }
+            .model-hints { flex-direction: column; gap: 6px; }
+            .hint { font-size: 0.68rem; padding: 3px 8px; }
+            .limits-overview { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .limit-card { padding: 10px 6px; }
+            .limit-card .limit-value { font-size: 1.2rem; }
+            .chart-card canvas { max-height: 500px; min-height: 300px; }
+            .info-section { grid-template-columns: 1fr; gap: 8px; }
+            .info-card { padding: 12px; }
+            .plans-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .plan-card { padding: 10px; }
+            .plan-card .plan-price { font-size: 1.2rem; }
+            thead th { padding: 6px 8px; font-size: 0.68rem; }
+            tbody td { padding: 5px 8px; font-size: 0.75rem; }
+            .tag { padding: 2px 7px; font-size: 0.65rem; }
+            .models-list .model-id-cell { font-size: 0.72rem; }
+            .status-bar { padding: 5px 8px; }
+            .status-text { font-size: 0.72rem; }
+            .refresh-btn { padding: 4px 10px; font-size: 0.72rem; }
+            .footer { padding: 12px 8px; font-size: 0.72rem; }
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="logo">
+        <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Command Code compass logo">
+            <circle cx="20" cy="20" r="17" stroke="#b06a36" stroke-width="2.5" fill="none"/>
+            <path d="M20 6 L23.5 16.5 L34 20 L23.5 23.5 L20 34 L16.5 23.5 L6 20 L16.5 16.5 Z" fill="#b06a36"/>
+            <circle cx="20" cy="20" r="2.5" fill="#fff"/>
+            <path d="M46 26 L38 14 M46 14 L38 26" stroke="#b06a36" stroke-width="3" stroke-linecap="round"/>
+            <rect x="52" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+            <rect x="74" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+            <rect x="96" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+            <rect x="118" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+            <rect x="140" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+            <rect x="162" y="14" width="18" height="12" rx="3" fill="currentColor"/>
+        </svg>
+    </div>
+    <h1><span>Command Code</span> Plans</h1>
+    <p>Every plan side by side — Go, GOAT, Pro, Max 10×/20×, Provider API &amp; Teams. Credits that never expire, deals that apply automatically, zero markup.</p>
+    <div class="price-badge">$1 – $200/mo · Free to start</div>
+</div>
+
+<div class="container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <div class="status-dot loading" id="statusDot"></div>
+            <span class="status-text" id="statusText" aria-live="polite">Syncing from source...</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle dark mode">☀</button>
+            <button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+        </div>
+    </div>
+    <!-- Visually hidden live region announcing sort changes -->
+    <div id="sortLive" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></div>
+
+    <!-- Plans Overview -->
+    <h2 class="section-title">Plans at a Glance</h2>
+    <p class="section-sub">Live from <code>commandcode.ai/pricing</code> — monthly credits, typical request volume, and effective usage with active deals.</p>
+
+    <div class="plans-grid" id="plansGrid">
+        <div class="plan-card"><div class="plan-name">Go</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+        <div class="plan-card"><div class="plan-name">GOAT</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+        <div class="plan-card"><div class="plan-name">Pro</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+        <div class="plan-card"><div class="plan-name">Max 10×</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+        <div class="plan-card"><div class="plan-name">Max 20×</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+        <div class="plan-card"><div class="plan-name">Provider</div><div class="plan-price skeleton" style="height:28px"></div><div class="plan-stat skeleton" style="height:14px"></div></div>
+    </div>
+
+    <!-- Usage Limits Overview -->
+    <h2 class="section-title">Usage Limits <span class="data-source-badge stale" id="dsLimits"><span class="ds-dot"></span>Hardcoded</span></h2>
+    <p class="section-sub">On top of monthly credits, every subscription plan has two <strong>rolling windows</strong> — a 5-hour limit and a weekly limit — that smooth out bursts so a single session can't drain the whole month. GOAT uses 20% / 50% of its usage pool; all others use 30% / 60%. Limits are measured in credit value, not request count.</p>
+
+    <div class="table-wrapper">
+        <table id="limitsTable">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name" data-table="limits" aria-sort="none" tabindex="0">Plan</th>
+                    <th class="sortable" data-sort="price" data-table="limits" aria-sort="none" tabindex="0">Price / mo</th>
+                    <th class="sortable" data-sort="monthly" data-table="limits" aria-sort="none" tabindex="0">Monthly Credits</th>
+                    <th class="sortable" data-sort="fiveHour" data-table="limits" aria-sort="none" tabindex="0">5-Hour Limit</th>
+                    <th class="sortable" data-sort="weekly" data-table="limits" aria-sort="none" tabindex="0">Weekly Limit</th>
+                    <th>% of Monthly</th>
+                </tr>
+            </thead>
+            <tbody id="limitsBody">
+                <tr><td colspan="6" class="skeleton" style="height:36px"></td></tr>
+                <tr><td colspan="6" class="skeleton" style="height:36px"></td></tr>
+                <tr><td colspan="6" class="skeleton" style="height:36px"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="section-sub" style="margin-top:-14px">Rolling windows open on the <strong>first request</strong> after the previous one elapses and reset exactly one window-length later. Top-up and pay-as-you-go credits are <strong>never throttled</strong> — they spend first while you're over a window. Run <code>/usage</code> in the CLI for live 5-hour and weekly meters.</p>
+
+    <!-- Deals Section -->
+    <h2 class="section-title">Active Deals</h2>
+    <p class="section-sub">Applied automatically — no codes, no toggles. Stacks on top of your credit multiplier on every plan and even top-up credits.</p>
+
+    <div class="deals-list" id="dealsGrid">
+        <div class="deal-card"><div class="deal-model skeleton" style="height:14px"></div><div class="deal-discount skeleton" style="height:12px"></div></div>
+        <div class="deal-card"><div class="deal-model skeleton" style="height:14px"></div><div class="deal-discount skeleton" style="height:12px"></div></div>
+        <div class="deal-card"><div class="deal-model skeleton" style="height:14px"></div><div class="deal-discount skeleton" style="height:12px"></div></div>
+    </div>
+
+    <!-- Models Section -->
+    <h2 class="section-title">Available Models</h2>
+    <p class="section-sub" id="modelsSub">Live from <code>commandcode.ai/docs/resources/pricing-limits</code> — 55 models, prices per 1M tokens. Deals marked ⚡, free models marked FREE.</p>
+
+    <div class="model-hints">
+        <span class="hint"><span class="hint-icon">●</span> <strong>Provider</strong> — model provider (OpenAI, Anthropic, Google, xAI, Meta, Poolside…)</span>
+        <span class="hint"><span class="hint-icon deal-dot">●</span> <strong>Deal</strong> — active discount or usage multiplier, applied automatically</span>
+    </div>
+
+    <div class="models-list" id="modelsGrid">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="index" data-table="models" aria-sort="none" tabindex="0">#</th>
+                    <th class="sortable" data-sort="name" data-table="models" aria-sort="none" tabindex="0">Model</th>
+                    <th class="sortable" data-sort="id" data-table="models" aria-sort="none" tabindex="0">Model ID</th>
+                    <th class="sortable" data-sort="provider" data-table="models" aria-sort="none" tabindex="0">Provider</th>
+                    <th class="sortable" data-sort="context" data-table="models" aria-sort="none" tabindex="0">Context</th>
+                    <th class="sortable" data-sort="tier" data-table="models" aria-sort="none" tabindex="0">Tier</th>
+                </tr>
+            </thead>
+            <tbody id="modelsBody">
+                <tr><td colspan="6" class="skeleton" style="height:40px"></td></tr>
+                <tr><td colspan="6" class="skeleton" style="height:40px"></td></tr>
+                <tr><td colspan="6" class="skeleton" style="height:40px"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <h2 class="section-title">Estimated Requests by Model <span class="data-source-badge stale" id="dsChart"><span class="ds-dot"></span>Hardcoded</span></h2>
+        <p class="section-sub">GOAT plan estimates (typical agent request: ~800 input tokens, ~50K cache reads, ~125–200 output tokens). Shows how far the $70 pool stretches per model.</p>
+
+        <div class="chart-card" style="max-width:100%">
+            <div class="chart-wrap">
+                <canvas id="chartRequests" aria-label="Bar chart showing estimated requests by model across 5-hour, weekly, and monthly periods" role="img">
+                    <p>Bar chart showing estimated requests across 5-hour, weekly, and monthly periods.</p>
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token Patterns -->
+    <div class="charts-section" id="tokenSection" style="display:none">
+        <h2 class="section-title">Token Patterns per Request</h2>
+        <p class="section-sub">Average input, cached, and output tokens used to calculate the request estimates above.</p>
+        <div id="tokenGrid" class="limits-overview" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));"></div>
+    </div>
+
+    <!-- Detailed Table -->
+    <h2 class="section-title">Full Model Pricing <span class="data-source-badge stale" id="dsPricing"><span class="ds-dot"></span>Hardcoded</span></h2>
+    <p class="section-sub">Token prices per 1M tokens and monthly credit allowance per model on the GOAT and Pro plans.</p>
+
+    <div class="table-wrapper">
+        <table id="pricingTable">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name" data-table="pricing" aria-sort="none" tabindex="0">Model</th>
+                    <th class="sortable" data-sort="context" data-table="pricing" aria-sort="none" tabindex="0">Context</th>
+                    <th class="sortable" data-sort="input" data-table="pricing" aria-sort="none" tabindex="0">Input /1M</th>
+                    <th class="sortable" data-sort="output" data-table="pricing" aria-sort="none" tabindex="0">Output /1M</th>
+                    <th class="sortable" data-sort="cached" data-table="pricing" aria-sort="none" tabindex="0">Cache Read /1M</th>
+                    <th class="sortable" data-sort="cachedWrite" data-table="pricing" aria-sort="none" tabindex="0">Cache Write /1M</th>
+                    <th class="sortable" data-sort="goat" data-table="pricing" aria-sort="none" tabindex="0">GOAT Credits</th>
+                    <th class="sortable" data-sort="req5h" data-table="pricing" aria-sort="none" tabindex="0">Req / 5h</th>
+                    <th class="sortable" data-sort="reqWeek" data-table="pricing" aria-sort="none" tabindex="0">Req / Week</th>
+                    <th class="sortable" data-sort="reqMonth" data-table="pricing" aria-sort="none" tabindex="0">Req / Month</th>
+                </tr>
+            </thead>
+            <tbody id="pricingBody"></tbody>
+        </table>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="info-section" id="infoSection">
+        <div class="info-card" id="infoLimits">
+            <h3><span class="icon" style="background:var(--icon-bg-accent);color:var(--accent)">⚡</span> Usage Beyond Limits</h3>
+            <p>Rolling windows throttle only your <span class="highlight">included monthly credits</span>. On-demand top-up credits are never throttled.</p>
+            <ul>
+                <li>While over a window, Command Code spends your on-demand credits first</li>
+                <li>Buy extra credits any time with <code>/extra</code> — they roll over and never expire</li>
+                <li>Free models (<code>Laguna S 2.1</code>) keep working even with zero balance</li>
+                <li>Run <code>/usage</code> in the CLI for live 5-hour &amp; weekly meters</li>
+            </ul>
+        </div>
+        <div class="info-card" id="infoWhy">
+            <h3><span class="icon" style="background:var(--icon-bg-orange);color:var(--accent3)">📉</span> Why Some Models Have Lower Allowances</h3>
+            <p>Command Code negotiates capacity and runs <span class="highlight">95–98% cache hit rates</span> — savings come back to you as bigger credit allowances.</p>
+            <ul>
+                <li>Models with negotiated deals get boosted allowances (up to full $70 on GOAT)</li>
+                <li>New models start at 2× credits ($20 on GOAT) until a deal is landed</li>
+                <li>Allowances update automatically the moment a deal starts — no codes, no toggles</li>
+                <li>Deals stack on top of your plan's credit multiplier, so savings compound</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Data sourced from <a href="https://commandcode.ai/pricing" target="_blank">commandcode.ai/pricing</a> ·
+    Docs: <a href="https://commandcode.ai/docs/resources/pricing-limits" target="_blank">Pricing &amp; Limits</a> ·
+    Plans: <a href="https://commandcode.ai/docs/plans/go" target="_blank">Go</a> · <a href="https://commandcode.ai/docs/plans/goat" target="_blank">GOAT</a> · <a href="https://commandcode.ai/docs/plans/pro" target="_blank">Pro</a> · <a href="https://commandcode.ai/docs/plans/max" target="_blank">Max</a> ·
+    Built with live data — refresh for updates
+</div>
+
+<script>
+const DOCS_URL = 'https://commandcode.ai/docs/resources/pricing-limits';
+
+// Cache lifecycle — the cache stores normalized data, not just a timestamp.
+// Cache version bump invalidates stale-format caches (migration / schema changes).
+const CACHE_VERSION = '2.0.0';
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6h — a full sync refreshes this
+const CACHE_KEY = 'cc-docs-cache';
+
+// Assumptions behind the request estimates — displayed to users in the chart subtitle.
+// REQUEST_PROFILE_VERSION is stored in the cache; bump it whenever the profile
+// changes so stale derived estimates are rejected instead of silently reused.
+const REQUEST_PROFILE = { input: 800, cached: 50000, output: 175 };
+const REQUEST_PROFILE_VERSION = '1.0';
+
+// Known model data (parsed from docs — updated dynamically when possible)
+// SOURCE: https://commandcode.ai/docs/resources/pricing-limits — keep in sync with source on each build
+let MODEL_DATA = {
+    'laguna-s-2.1':            { name: 'Laguna S 2.1',            context: '256K', input: 0.00,   output: 0.00,   cached: 0.00,    cachedWrite: null, provider: 'Poolside', tier: 'Free', free: true,   goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'FREE — while capacity lasts' },
+    'ling-3.0-flash':          { name: 'Ling 3.0 Flash',          context: '256K', input: 0.00,   output: 0.00,   cached: 0.00,    cachedWrite: null, provider: 'InclusionAI', tier: 'Open', free: true,  goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'FREE — while available' },
+    'tencent-hy3':             { name: 'Tencent Hy3',             context: '262K', input: 0.14,   output: 0.58,   cached: 0.035,   cachedWrite: null, provider: 'Tencent', tier: 'Open', free: false, goat: 70,   req5h: 7080,  reqWeek: 17700,  reqMonth: 35400,  note: null },
+    'kimi-k3':                 { name: 'Kimi K3',                 context: '1M',   input: 3.00,   output: 15.00,  cached: 0.30,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: 20,   req5h: 196,   reqWeek: 490,    reqMonth: 980,    note: null },
+    'kimi-k2.7-code':          { name: 'Kimi K2.7 Code',          context: '256K', input: 0.95,   output: 4.00,   cached: 0.19,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: 60,   req5h: 1080,  reqWeek: 2710,   reqMonth: 5420,   note: null },
+    'kimi-k2.7-code-highspeed':{ name: 'Kimi K2.7 Code HighSpeed',context: '262K', input: 1.90,   output: 8.00,   cached: 0.38,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: 20,   req5h: 181,   reqWeek: 452,    reqMonth: 904,    note: null },
+    'kimi-k2.6':               { name: 'Kimi K2.6',               context: '256K', input: 0.95,   output: 4.00,   cached: 0.16,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'kimi-k2.5':               { name: 'Kimi K2.5',               context: '256K', input: 0.60,   output: 3.00,   cached: 0.10,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'glm-5.2':                 { name: 'GLM-5.2',                 context: '1M',   input: 1.40,   output: 4.40,   cached: 0.26,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: 70,   req5h: 947,   reqWeek: 2370,   reqMonth: 4740,   note: null },
+    'glm-5.2-fast':            { name: 'GLM-5.2 Fast',            context: '1M',   input: 3.00,   output: 10.25,  cached: 0.50,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: 20,   req5h: 138,   reqWeek: 346,    reqMonth: 691,    note: null },
+    'glm-5.1':                 { name: 'GLM-5.1',                 context: '200K', input: 1.40,   output: 4.40,   cached: 0.26,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'glm-5':                   { name: 'GLM-5',                   context: '200K', input: 1.00,   output: 3.20,   cached: 0.20,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'minimax-m3':              { name: 'MiniMax M3',              context: '1M',   input: 0.30,   output: 1.20,   cached: 0.06,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: 47,   req5h: 2770,  reqWeek: 6930,   reqMonth: 13900,  note: '⚡ 50% off' },
+    'minimax-m2.7':            { name: 'MiniMax M2.7',            context: '200K', input: 0.30,   output: 1.20,   cached: 0.06,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'minimax-m2.5':            { name: 'MiniMax M2.5',            context: '200K', input: 0.30,   output: 1.20,   cached: 0.03,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'deepseek-v4-pro':         { name: 'DeepSeek V4 Pro',         context: '1M',   input: 0.435,  output: 0.87,   cached: 0.003625, cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 20,   req5h: 5690,  reqWeek: 14200,  reqMonth: 28400,  note: '⚡ 75% off (4× usage)' },
+    'deepseek-v4-flash':       { name: 'DeepSeek V4 Flash',       context: '1M',   input: 0.14,   output: 0.28,   cached: 0.0028,  cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 60,   req5h: 39000, reqWeek: 97400,  reqMonth: 195000, note: null },
+    'qwen3.8-max':             { name: 'Qwen 3.8 Max',            context: '1M',   input: 2.00,   output: 6.00,   cached: 0.25,    cachedWrite: 2.50,  provider: 'Alibaba', tier: 'Open', free: false, goat: 25,   req5h: 327,   reqWeek: 817,    reqMonth: 1630,   note: null },
+    'qwen3.6-max-preview':     { name: 'Qwen 3.6 Max Preview',    context: '200K', input: 1.30,   output: 7.80,   cached: 0.26,    cachedWrite: 1.63,  provider: 'Alibaba', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'qwen3.6-plus':            { name: 'Qwen 3.6 Plus',           context: '200K', input: 0.50,   output: 3.00,   cached: 0.10,    cachedWrite: null, provider: 'Alibaba', tier: 'Open', free: false, goat: 70,   req5h: 2330,  reqWeek: 5830,   reqMonth: 11700,  note: null },
+    'qwen3.7-max':             { name: 'Qwen 3.7 Max',            context: '1M',   input: 2.50,   output: 7.50,   cached: 0.50,    cachedWrite: 3.13,  provider: 'Alibaba', tier: 'Open', free: false, goat: 70,   req5h: 491,   reqWeek: 1230,   reqMonth: 2460,   note: null },
+    'qwen3.7-plus':            { name: 'Qwen 3.7 Plus',           context: '1M',   input: 0.40,   output: 1.60,   cached: 0.08,    cachedWrite: 0.50,  provider: 'Alibaba', tier: 'Open', free: false, goat: 70,   req5h: 3020,  reqWeek: 7540,   reqMonth: 15100,  note: null },
+    'qwen3.7-flash':           { name: 'Qwen 3.7 Flash',          context: '1M',   input: 0.03,   output: 0.13,   cached: 0.006,   cachedWrite: 0.038, provider: 'Alibaba', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'step-3.7-flash':          { name: 'Step 3.7 Flash',          context: '256K', input: 0.20,   output: 1.15,   cached: 0.04,    cachedWrite: null, provider: 'StepFun', tier: 'Open', free: false, goat: 20,   req5h: 1670,  reqWeek: 4180,   reqMonth: 8370,   note: null },
+    'step-3.5-flash':          { name: 'Step 3.5 Flash',          context: '1M',   input: 0.10,   output: 0.30,   cached: 0.02,    cachedWrite: null, provider: 'StepFun', tier: 'Open', free: false, goat: 20,   req5h: 3510,  reqWeek: 8770,   reqMonth: 17500,  note: null },
+    'mimo-v2.5-pro':           { name: 'MiMo V2.5 Pro',           context: '1M',   input: 0.435,  output: 0.87,   cached: 0.0036,  cachedWrite: null, provider: 'Xiaomi', tier: 'Open', free: false, goat: 20,   req5h: 5700,  reqWeek: 14200,  reqMonth: 28500,  note: '⚡ 99% off' },
+    'mimo-v2.5':               { name: 'MiMo V2.5',               context: '1M',   input: 0.14,   output: 0.28,   cached: 0.0028,  cachedWrite: null, provider: 'Xiaomi', tier: 'Open', free: false, goat: 30,   req5h: 19500, reqWeek: 48700,  reqMonth: 97400,  note: '⚡ 98% off' },
+    'nemotron-3-ultra':        { name: 'Nemotron 3 Ultra',        context: '1M',   input: 0.60,   output: 2.40,   cached: 0.12,    cachedWrite: null, provider: 'NVIDIA', tier: 'Open', free: false, goat: 20,   req5h: 575,   reqWeek: 1440,   reqMonth: 2870,   note: null },
+    'claude-fable-5':          { name: 'Claude Fable 5',          context: '1M',   input: 10.00,  output: 50.00,  cached: 1.00,    cachedWrite: 12.50, provider: 'Anthropic', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'claude-opus-5':           { name: 'Claude Opus 5',           context: '1M',   input: 5.00,   output: 25.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'Anthropic', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'claude-opus-4.8':         { name: 'Claude Opus 4.8',         context: '1M',   input: 5.00,   output: 25.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'Anthropic', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'claude-opus-4.7':         { name: 'Claude Opus 4.7',         context: '1M',   input: 5.00,   output: 25.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'Anthropic', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'claude-opus-4.6':         { name: 'Claude Opus 4.6',         context: '1M',   input: 5.00,   output: 25.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'Anthropic', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'claude-sonnet-5':         { name: 'Claude Sonnet 5',         context: '1M',   input: 2.00,   output: 10.00,  cached: 0.20,    cachedWrite: 2.50,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Intro pricing → reverts Sept 1, 2026' },
+    'claude-sonnet-4.6':       { name: 'Claude Sonnet 4.6',       context: '1M',   input: 3.00,   output: 15.00,  cached: 0.30,    cachedWrite: 3.75,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'claude-haiku-4.5':        { name: 'Claude Haiku 4.5',        context: '200K', input: 1.00,   output: 5.00,   cached: 0.10,    cachedWrite: 1.25,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'claude-sonnet-4.5':       { name: 'Claude Sonnet 4.5',       context: '1M',   input: 3.00,   output: 15.00,  cached: 0.30,    cachedWrite: 3.75,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.6-sol':             { name: 'GPT-5.6 Sol',             context: '1.1M', input: 5.00,   output: 30.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.6-terra':           { name: 'GPT-5.6 Terra',           context: '1.1M', input: 1.00,   output: 6.00,   cached: 0.10,    cachedWrite: 1.25,  provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: '⚡ 50% off' },
+    'gpt-5.6-luna':            { name: 'GPT-5.6 Luna',            context: '1.1M', input: 0.10,   output: 0.60,   cached: 0.01,    cachedWrite: 0.125, provider: 'OpenAI', tier: 'All', free: false, goat: 70,   req5h: 10400, reqWeek: 25900,  reqMonth: 51800,  note: '⚡ 50% off · available on every plan' },
+    'gpt-5.5':                 { name: 'GPT-5.5',                 context: '200K', input: 5.00,   output: 30.00,  cached: 0.50,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.4':                 { name: 'GPT-5.4',                 context: '400K', input: 2.50,   output: 15.00,  cached: 0.25,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.4-mini':            { name: 'GPT-5.4 Mini',            context: '400K', input: 0.75,   output: 4.50,   cached: 0.075,   cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.3-codex':           { name: 'GPT-5.3 Codex',           context: '400K', input: 2.00,   output: 8.00,   cached: 0.50,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gemini-3.6-flash':        { name: 'Gemini 3.6 Flash',        context: '1M',   input: 1.50,   output: 7.50,   cached: 0.15,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gemini-3.5-flash':        { name: 'Gemini 3.5 Flash',        context: '1M',   input: 1.50,   output: 9.00,   cached: 0.15,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gemini-3.5-flash-lite':   { name: 'Gemini 3.5 Flash Lite',   context: '1M',   input: 0.30,   output: 2.50,   cached: 0.03,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gemini-3.1-flash-lite':   { name: 'Gemini 3.1 Flash Lite',   context: '1M',   input: 0.25,   output: 1.50,   cached: 0.03,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'fugu-ultra':              { name: 'Fugu Ultra',              context: '1M',   input: 5.00,   output: 30.00,  cached: 0.50,    cachedWrite: null, provider: 'Sakana', tier: 'Max', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'Max only' },
+    'muse-spark-1.2':          { name: 'Muse Spark 1.2',          context: '1M',   input: 1.25,   output: 4.25,   cached: 0.15,    cachedWrite: null, provider: 'Meta', tier: 'GOAT', free: false, goat: 20,   req5h: 428,   reqWeek: 1070,   reqMonth: 2140,   note: 'GOAT and above' },
+    'muse-spark-1.2-contributor':{ name: 'Muse Spark 1.2 Contributor', context: '1M', input: 0.10, output: 0.20,  cached: 0.002,   cachedWrite: null, provider: 'Meta', tier: 'All', free: false, goat: 20,   req5h: 18200, reqWeek: 45500,  reqMonth: 90900,  note: 'available on every plan' },
+    'muse-spark-1.1':          { name: 'Muse Spark 1.1',          context: '1M',   input: 1.25,   output: 4.25,   cached: 0.15,    cachedWrite: null, provider: 'Meta', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'grok-4.5':                { name: 'Grok 4.5',                context: '500K', input: 2.00,   output: 6.00,   cached: 0.50,    cachedWrite: null, provider: 'xAI', tier: 'All', free: false, goat: 20,   req5h: 144,   reqWeek: 360,    reqMonth: 719,    note: 'available on every plan' },
+    'inkling':                 { name: 'Inkling',                 context: '256K', input: 1.00,   output: 4.05,   cached: 0.17,    cachedWrite: null, provider: 'Thinking Machines', tier: 'Open', free: false, goat: 20,   req5h: 396,   reqWeek: 989,    reqMonth: 1980,   note: null },
+    'inkling-small':           { name: 'Inkling Small',           context: '1M',   input: 0.50,   output: 1.20,   cached: 0.10,    cachedWrite: null, provider: 'Thinking Machines', tier: 'Open', free: false, goat: 20,   req5h: 709,   reqWeek: 1770,   reqMonth: 3550,   note: null },
+};
+
+// Plan comparison data — sourced from https://commandcode.ai/pricing and docs/plans/*
+// SOURCE: https://commandcode.ai/pricing — keep in sync with source on each build
+let PLAN_DATA = {
+    go:       { name: 'Go',       price: '$1',     priceNum: 1,     credits: '$10',    req: '~15K',   eff: 'Up to $40',   models: 32,   desc: 'Open models + select premium (Luna, Grok 4.5, Qwen Max & Plus)', tier: '5h 30% · wk 60%', featured: false, visible: true },
+    goat:     { name: 'GOAT',     price: '$10',    priceNum: 10,    credits: '$70',    req: '~75K',   eff: 'Up to $100',  models: 33,   desc: 'Open models + per-model allowances, 7× multiplier',               tier: '5h 20% · wk 50%', featured: true, visible: true },
+    pro:      { name: 'Pro',      price: '$20',    priceNum: 20,    credits: '$80',    req: '~100K',  eff: 'Up to $150',  models: 47,   desc: 'Open-source + premium (Claude, GPT, Gemini) at $20 each',         tier: '5h 30% · wk 60%', featured: false, visible: true },
+    max10x:   { name: 'Max 10×',  price: '$100',   priceNum: 100,   credits: '$150',   req: '~230K',  eff: 'Up to $600',  models: 53,   desc: 'Every model, no restrictions — Claude Opus & Fable included',      tier: '5h 30% · wk 60%', featured: false, visible: true },
+    max20x:   { name: 'Max 20×',  price: '$200',   priceNum: 200,   credits: '$300',   req: '~370K',  eff: 'Up to $1,200', models: 53,  desc: 'Every model, max throughput for the heaviest users',               tier: '5h 30% · wk 60%', featured: false, visible: true },
+    provider: { name: 'Provider', price: '$15',    priceNum: 15,    credits: 'PAYG',   req: 'Uncapped', eff: 'No markup', models: 55,  desc: 'OpenAI & Anthropic compatible API — every deal applies',             tier: 'No windows', featured: false, visible: true },
+    team:     { name: 'Team Pro', price: '$40',    priceNum: 40,    credits: '$40',    req: '~35K',   eff: 'Pooled',     models: 53,   desc: 'Pooled credits, shared billing, central admin',                    tier: '5h 30% · wk 60%', featured: false, visible: true },
+};
+
+// Active deals — sourced from https://commandcode.ai/docs/resources/pricing-limits#deals
+// SOURCE: https://commandcode.ai/docs/resources/pricing-limits — keep in sync with source on each build
+// `expiresAt`/`startsAt` are ISO timestamps; the term string is only for display. Expired deals are hidden automatically.
+let DEAL_DATA = [
+    { model: 'deepseek-v4-pro',        name: 'DeepSeek V4 Pro',         discount: '75% off · 4× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 4× further' },
+    { model: 'gpt-5.6-luna',           name: 'GPT-5.6 Luna',            discount: 'Up to 95% off',      term: 'Ends Aug 13, 2026', expiresAt: '2026-08-13T23:59:59Z', desc: '50% off list + plan credit multiplier' },
+    { model: 'gpt-5.6-terra',          name: 'GPT-5.6 Terra',           discount: '50% off',            term: 'Ends Aug 13, 2026', expiresAt: '2026-08-13T23:59:59Z', desc: '50% off list on premium tier' },
+    { model: 'minimax-m3',             name: 'MiniMax M3',              discount: '50% off · 2× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 2× further' },
+    { model: 'mimo-v2.5-pro',          name: 'MiMo V2.5 Pro',           discount: 'Up to 99% off',      term: 'Permanent',   expiresAt: null,            desc: 'Cache reads down to $0.0036/1M (111× value)' },
+    { model: 'mimo-v2.5',              name: 'MiMo V2.5',               discount: 'Up to 98% off',      term: 'Permanent',   expiresAt: null,            desc: 'Cache reads down to $0.0028/1M (57× value)' },
+    { model: 'laguna-s-2.1',           name: 'Laguna S 2.1',            discount: '100% off (FREE)',    term: 'While capacity lasts', expiresAt: null,        desc: 'Input, output, and cache reads all $0.00' },
+    { model: 'ling-3.0-flash',         name: 'Ling 3.0 Flash',          discount: '100% off (FREE)',    term: 'While available', expiresAt: null,             desc: 'Free across all subscription tiers' },
+];
+
+// A deal is active when the current time is within [startsAt, expiresAt).
+// Null bounds mean unbounded (e.g. "Permanent").
+function isDealActive(deal, now = Date.now()) {
+    if (deal.startsAt && now < new Date(deal.startsAt).getTime()) return false;
+    if (deal.expiresAt && now >= new Date(deal.expiresAt).getTime()) return false;
+    return true;
+}
+
+// Whether a model currently has an active deal. The DEAL tag in the models and
+// pricing tables must reflect the real deal registry — not a hardcoded note
+// string that goes stale when a deal expires.
+function isModelOnActiveDeal(modelId) {
+    return DEAL_DATA.some(d => d.model === modelId && isDealActive(d));
+}
+
+// Usage limits per plan — sourced from https://commandcode.ai/docs/resources/pricing-limits#usage-limits
+// SOURCE: https://commandcode.ai/docs/resources/pricing-limits — keep in sync with source on each build
+let USAGE_LIMITS = {
+    go:       { fiveHour: 3,   weekly: 6,    monthly: 10,  fivePct: '30%', weekPct: '60%' },
+    goat:     { fiveHour: 14,  weekly: 35,   monthly: 70,  fivePct: '20%', weekPct: '50%' },
+    pro:      { fiveHour: 24,  weekly: 48,   monthly: 80,  fivePct: '30%', weekPct: '60%' },
+    max10x:   { fiveHour: 45,  weekly: 90,   monthly: 150, fivePct: '30%', weekPct: '60%' },
+    max20x:   { fiveHour: 90,  weekly: 180,  monthly: 300, fivePct: '30%', weekPct: '60%' },
+    provider: { fiveHour: null, weekly: null, monthly: null, fivePct: '—', weekPct: '—' },
+    team:     { fiveHour: 12,  weekly: 24,   monthly: 40,  fivePct: '30%', weekPct: '60%' },
+};
+
+let ALL_KNOWN = { ...MODEL_DATA };
+
+let requestsChart;
+let rawModels = [];
+let isRefreshing = false;
+const sortState = { models: { key: null, dir: null }, pricing: { key: null, dir: null }, limits: { key: null, dir: null } };
+
+// Chart.js barLabels plugin — defined once at module level
+const barLabelsPlugin = {
+    id: 'barLabels',
+    afterDatasetsDraw(chart) {
+        const { ctx: c, chartArea } = chart;
+        const fixedX = chartArea.right + 6;
+        c.save();
+        chart.data.datasets.forEach((ds, dsi) => {
+            const meta = chart.getDatasetMeta(dsi);
+            meta.data.forEach((bar, i) => {
+                const v = ds.data[i];
+                if (!v) return;
+                const barHeight = bar.height || 14;
+                const fontSize = Math.min(Math.max(barHeight * 0.7, 7), 13);
+                const label = v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v.toLocaleString();
+                c.fillStyle = ds.borderColor;
+                c.font = `600 ${fontSize}px 'IBM Plex Mono'`;
+                c.textBaseline = 'middle';
+                c.textAlign = 'left';
+                // Horizontal bar: bar.y is already the vertical center of the bar
+                c.fillText(label, fixedX, bar.y);
+            });
+        });
+        c.restore();
+    }
+};
+
+// DOM cache — avoid repeated getElementById calls
+const domCache = {};
+function getCachedEl(id) {
+    if (!domCache[id]) domCache[id] = document.getElementById(id);
+    return domCache[id];
+}
+
+// localStorage guards (throws in Safari private mode)
+function storageGet(key, fallback) {
+    try { return localStorage.getItem(key) ?? fallback; } catch (e) { return fallback; }
+}
+function storageSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* noop */ }
+}
+function storageRemove(key) {
+    try { localStorage.removeItem(key); } catch (e) { /* noop */ }
+}
+
+// P1: Safe JSON parsing — malformed localStorage content must never crash the sync flow
+function safeParseJSON(value, fallback = null) {
+    try { return JSON.parse(value); } catch (e) { return fallback; }
+}
+
+function formatPrice(value) {
+    if (value == null || value === '') return '—';
+    const num = Number(value);
+    if (isNaN(num)) return '—';
+    const str = parseFloat(num.toFixed(6)).toString();
+    if (!str.includes('.')) return '$' + str + '.00';
+    const decs = str.split('.')[1];
+    if (decs.length === 1) return '$' + str + '0';
+    return '$' + str;
+}
+
+// P1: Safe number parsers
+function safeParseInt(value) {
+    const str = String(value || '').replace(/[^0-9-]/g, '');
+    const num = parseInt(str, 10);
+    return isNaN(num) ? 0 : num;
+}
+
+// P1: Distinguish "couldn't parse" (null) from an actual zero — important for
+// integrity-sensitive parsing like usage limits.
+function parseIntOrNull(value) {
+    const str = String(value || '').replace(/[^0-9.-]/g, '');
+    const num = parseFloat(str);
+    return Number.isFinite(num) ? num : null;
+}
+
+function safeParseFloat(value) {
+    const str = String(value || '').replace(/[^0-9.-]/g, '');
+    const num = parseFloat(str);
+    return isNaN(num) ? 0 : num;
+}
+
+// P1: Parse "256K", "1M", "1.1M" into a token count for correct numeric sorting.
+// Returns null for unknown/missing contexts so callers can sort them last
+// (a -1 would put unknown contexts before every valid value).
+function contextTokens(context) {
+    if (context == null) return null;
+    const m = String(context).trim().match(/^([\d.]+)\s*(K|M|B)?$/i);
+    if (!m) return null;
+    const n = parseFloat(m[1]);
+    const mult = m[2] ? { K: 1e3, M: 1e6, B: 1e9 }[m[2].toUpperCase()] : 1;
+    return n * mult;
+}
+
+function normalizeName(str) {
+    return String(str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function slugify(name) {
+    return String(name || '').toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+function formatNum(n) {
+    if (n >= 100000) return (n / 1000).toFixed(0) + 'K';
+    if (n >= 10000) return (n / 1000).toFixed(1) + 'K';
+    return n.toLocaleString();
+}
+
+function getTierLabel(modelId) {
+    const m = ALL_KNOWN[modelId];
+    if (!m) return 'Unknown';
+    return m.tier || 'Unknown';
+}
+
+function sortModels(models, key, dir) {
+    if (!key || !dir) return models;
+    // P1: Build index map once for O(1) lookup
+    const indexMap = new Map(models.map((m, i) => [m.id, i]));
+    return [...models].sort((a, b) => {
+        const da = ALL_KNOWN[a.id] || {};
+        const db = ALL_KNOWN[b.id] || {};
+        let va, vb;
+        switch (key) {
+            case 'index': va = indexMap.get(a.id); vb = indexMap.get(b.id); break;
+            case 'name': va = (da.name || a.id).toLowerCase(); vb = (db.name || b.id).toLowerCase(); break;
+            case 'id': va = a.id; vb = b.id; break;
+            case 'provider': va = (da.provider || '').toLowerCase(); vb = (db.provider || b.id).toLowerCase(); break;
+            case 'context': va = contextTokens(da.context); vb = contextTokens(db.context); break;
+            case 'tier': va = getTierLabel(a.id); vb = getTierLabel(b.id); break;
+            default: return 0;
+        }
+        if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        // Nulls sort last regardless of direction (e.g. unknown context)
+        const na = va == null, nb = vb == null;
+        if (na || nb) return na && nb ? 0 : (na ? 1 : -1);
+        return dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function renderModels(models) {
+    rawModels = models;
+    const tbody = getCachedEl('modelsBody');
+    tbody.innerHTML = '';
+    const s = sortState.models;
+    const sorted = sortModels(models, s.key, s.dir);
+
+    // P2: Use DocumentFragment for batch DOM updates
+    const fragment = document.createDocumentFragment();
+    sorted.forEach((m, i) => {
+        const info = ALL_KNOWN[m.id] || {};
+        const tr = document.createElement('tr');
+
+        const tdIndex = document.createElement('td');
+        tdIndex.style.cssText = 'color:var(--text-muted);width:40px';
+        tdIndex.textContent = String(i + 1);
+
+        const tdName = document.createElement('td');
+        tdName.className = 'model-cell';
+        tdName.textContent = info.name || m.id;
+        if (info.note || isModelOnActiveDeal(m.id)) {
+            const tag = document.createElement('span');
+            // Color matches the deal/free state, same as the pricing table:
+            // FREE (orange) > DEAL (green) > NOTE (neutral)
+            tag.className = 'tag ' + (info.free ? 'tag-free' : (isModelOnActiveDeal(m.id) ? 'tag-deal' : 'tag-provider'));
+            tag.style.marginLeft = '6px';
+            tag.style.fontSize = '0.6rem';
+            tag.title = info.note || '';
+            // DEAL state comes from the live deal registry, not the note string
+            tag.textContent = info.free ? 'FREE' : (isModelOnActiveDeal(m.id) ? 'DEAL' : 'NOTE');
+            tdName.appendChild(tag);
+        }
+
+        const tdId = document.createElement('td');
+        tdId.className = 'model-id-cell';
+        tdId.textContent = m.id;
+
+        const tdProvider = document.createElement('td');
+        const provTag = document.createElement('span');
+        provTag.className = 'tag tag-provider';
+        // Unknown provenance must not be presented as a real provider
+        provTag.textContent = info.provider || 'Unknown';
+        if (!info.provider) provTag.style.opacity = '0.6';
+        tdProvider.appendChild(provTag);
+
+        const tdContext = document.createElement('td');
+        tdContext.textContent = info.context || '—';
+
+        const tdTier = document.createElement('td');
+        const tierTag = document.createElement('span');
+        tierTag.className = 'tag ' + (info.tier === 'Max' ? 'tag-max' : 'tag-provider');
+        tierTag.textContent = info.tier || 'Unknown';
+        if (!info.tier) tierTag.style.opacity = '0.6';
+        tdTier.appendChild(tierTag);
+
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdName);
+        tr.appendChild(tdId);
+        tr.appendChild(tdProvider);
+        tr.appendChild(tdContext);
+        tr.appendChild(tdTier);
+        fragment.appendChild(tr);
+    });
+    tbody.appendChild(fragment);
+}
+
+function sortPricing(entries, key, dir) {
+    if (!key || !dir) return entries;
+    return [...entries].sort((a, b) => {
+        let va, vb;
+        const ma = a[1], mb = b[1];
+        switch (key) {
+            case 'name': va = ma.name.toLowerCase(); vb = mb.name.toLowerCase(); break;
+            case 'context': va = contextTokens(ma.context); vb = contextTokens(mb.context); break;
+            case 'input': va = ma.input; vb = mb.input; break;
+            case 'output': va = ma.output; vb = mb.output; break;
+            case 'cached': va = ma.cached; vb = mb.cached; break;
+            case 'cachedWrite': va = ma.cachedWrite; vb = mb.cachedWrite; break;
+            case 'goat': va = ma.goat; vb = mb.goat; break;
+            case 'req5h': va = ma.req5h; vb = mb.req5h; break;
+            case 'reqWeek': va = ma.reqWeek; vb = mb.reqWeek; break;
+            case 'reqMonth': va = ma.reqMonth; vb = mb.reqMonth; break;
+            default: return 0;
+        }
+        if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        // Both null → equal. One null → null last. Otherwise numeric compare.
+        const na = va == null, nb = vb == null;
+        if (na || nb) return na && nb ? 0 : (na ? 1 : -1);
+        return dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function renderPricingTable() {
+    const body = getCachedEl('pricingBody');
+    body.innerHTML = '';
+    const s = sortState.pricing;
+    let entries = Object.entries(MODEL_DATA);
+    entries = sortPricing(entries, s.key, s.dir);
+
+    const fragment = document.createDocumentFragment();
+    entries.forEach(([id, m]) => {
+        const row = document.createElement('tr');
+
+        const tdName = document.createElement('td');
+        tdName.className = 'model-cell';
+        tdName.textContent = m.name;
+        if (m.note || isModelOnActiveDeal(id)) {
+            const tag = document.createElement('span');
+            tag.className = 'tag ' + (m.free ? 'tag-free' : 'tag-deal');
+            tag.style.cssText = 'margin-left:4px;font-size:0.6rem';
+            tag.title = m.note || '';
+            tag.textContent = m.free ? 'FREE' : (isModelOnActiveDeal(id) ? 'DEAL' : 'NOTE');
+            tdName.appendChild(tag);
+        }
+
+        const tdContext = document.createElement('td');
+        tdContext.textContent = m.context || '—';
+
+        const tdInput = document.createElement('td');
+        tdInput.className = 'num' + (m.free ? ' free-cell' : '');
+        tdInput.textContent = m.free ? 'Free' : formatPrice(m.input);
+
+        const tdOutput = document.createElement('td');
+        tdOutput.className = 'num' + (m.free ? ' free-cell' : '');
+        tdOutput.textContent = m.free ? 'Free' : formatPrice(m.output);
+
+        const tdCached = document.createElement('td');
+        tdCached.className = 'num' + (m.free ? ' free-cell' : '');
+        tdCached.textContent = m.free ? 'Free' : formatPrice(m.cached);
+
+        const tdCachedWrite = document.createElement('td');
+        tdCachedWrite.className = 'num';
+        tdCachedWrite.textContent = formatPrice(m.cachedWrite);
+
+        const tdGoat = document.createElement('td');
+        tdGoat.className = 'num';
+        tdGoat.textContent = m.goat ? '$' + m.goat : '—';
+
+        const td5h = document.createElement('td');
+        td5h.className = 'num';
+        td5h.textContent = m.req5h ? m.req5h.toLocaleString() : '—';
+
+        const tdWeek = document.createElement('td');
+        tdWeek.className = 'num';
+        tdWeek.textContent = m.reqWeek ? m.reqWeek.toLocaleString() : '—';
+
+        const tdMonth = document.createElement('td');
+        tdMonth.className = 'num';
+        tdMonth.textContent = m.reqMonth ? m.reqMonth.toLocaleString() : '—';
+
+        row.appendChild(tdName);
+        row.appendChild(tdContext);
+        row.appendChild(tdInput);
+        row.appendChild(tdOutput);
+        row.appendChild(tdCached);
+        row.appendChild(tdCachedWrite);
+        row.appendChild(tdGoat);
+        row.appendChild(td5h);
+        row.appendChild(tdWeek);
+        row.appendChild(tdMonth);
+        fragment.appendChild(row);
+    });
+    body.appendChild(fragment);
+}
+
+function renderPlans() {
+    const grid = getCachedEl('plansGrid');
+    grid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    // Derive the grid from PLAN_DATA (visible flag) so it can never drift from
+    // the limits table. Team Pro was previously hardcoded-out of this grid.
+    const order = Object.entries(PLAN_DATA)
+        .filter(([, p]) => p.visible !== false)
+        .map(([key]) => key);
+    order.forEach(key => {
+        const p = PLAN_DATA[key];
+        if (!p) return;
+        const card = document.createElement('div');
+        card.className = 'plan-card' + (p.featured ? ' featured' : '');
+
+        const name = document.createElement('div');
+        name.className = 'plan-name';
+        name.textContent = p.name;
+        if (p.featured) {
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.textContent = 'BEST VALUE';
+            name.appendChild(badge);
+        }
+
+        const price = document.createElement('div');
+        price.className = 'plan-price';
+        price.textContent = p.price + '/mo';
+        if (p.credits === 'PAYG') {
+            const small = document.createElement('small');
+            small.textContent = '/mo';
+            price.textContent = p.price;
+            price.appendChild(small);
+        }
+
+        const stat = document.createElement('div');
+        stat.className = 'plan-stat';
+        const stats = [
+            [p.credits, ' credits'],
+            [p.req, ' requests'],
+            [p.eff, ' effective']
+        ];
+        stats.forEach(([val, suffix], i) => {
+            if (i > 0) stat.appendChild(document.createElement('br'));
+            const strong = document.createElement('strong');
+            strong.textContent = val;
+            stat.appendChild(strong);
+            stat.appendChild(document.createTextNode(suffix));
+        });
+
+        const modelCount = document.createElement('div');
+        modelCount.className = 'plan-model-count';
+        modelCount.textContent = `${p.models} models · ${p.tier}`;
+
+        card.appendChild(name);
+        card.appendChild(price);
+        card.appendChild(stat);
+        card.appendChild(modelCount);
+        fragment.appendChild(card);
+    });
+    grid.appendChild(fragment);
+}
+
+function renderDeals() {
+    const grid = getCachedEl('dealsGrid');
+    grid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    const active = DEAL_DATA.filter(isDealActive);
+    if (!active.length) {
+        // Empty-state — every deal expired; don't leave a blank grid
+        const empty = document.createElement('div');
+        empty.className = 'deal-card';
+        empty.style.cssText = 'grid-column:1/-1;text-align:center;color:var(--text-muted);border-left-color:var(--border-muted)';
+        empty.textContent = 'No active deals right now.';
+        fragment.appendChild(empty);
+        grid.appendChild(fragment);
+        return;
+    }
+    active.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'deal-card';
+
+        const model = document.createElement('div');
+        model.className = 'deal-model';
+        model.textContent = d.name;
+
+        const discount = document.createElement('div');
+        discount.className = 'deal-discount';
+        discount.textContent = d.discount;
+
+        const term = document.createElement('div');
+        term.className = 'deal-term';
+        term.textContent = d.term + ' · ' + d.desc;
+
+        card.appendChild(model);
+        card.appendChild(discount);
+        card.appendChild(term);
+        fragment.appendChild(card);
+    });
+    grid.appendChild(fragment);
+}
+
+function sortLimits(entries, key, dir) {
+    if (!key || !dir) return entries;
+    return [...entries].sort((a, b) => {
+        let va, vb;
+        const la = a[1], lb = b[1];
+        const pa = PLAN_DATA[a[0]], pb = PLAN_DATA[b[0]];
+        switch (key) {
+            case 'name': va = (pa?.name || a[0]).toLowerCase(); vb = (pb?.name || b[0]).toLowerCase(); break;
+            // Keep nulls as null — the comparator below sorts them last,
+            // matching sortPricing (a -1 sentinel would sort nulls first).
+            case 'price': va = pa?.priceNum ?? null; vb = pb?.priceNum ?? null; break;
+            case 'monthly': va = la.monthly ?? null; vb = lb.monthly ?? null; break;
+            case 'fiveHour': va = la.fiveHour ?? null; vb = lb.fiveHour ?? null; break;
+            case 'weekly': va = la.weekly ?? null; vb = lb.weekly ?? null; break;
+            default: return 0;
+        }
+        if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        // Nulls sort last regardless of direction (Provider plan's "—" limits)
+        const na = va == null, nb = vb == null;
+        if (na || nb) return na && nb ? 0 : (na ? 1 : -1);
+        return dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function renderLimits() {
+    const body = getCachedEl('limitsBody');
+    if (!body) return;
+    body.innerHTML = '';
+    const s = sortState.limits;
+    const order = ['go', 'goat', 'pro', 'max10x', 'max20x', 'provider', 'team'];
+    let entries = order.map(key => [key, USAGE_LIMITS[key]]);
+    entries = sortLimits(entries, s.key, s.dir);
+
+    const fragment = document.createDocumentFragment();
+    entries.forEach(([key, l]) => {
+        const plan = PLAN_DATA[key];
+        if (!plan) return;
+        const row = document.createElement('tr');
+
+        const tdName = document.createElement('td');
+        tdName.className = 'model-cell';
+        tdName.textContent = plan.name;
+
+        const tdPrice = document.createElement('td');
+        tdPrice.className = 'num';
+        tdPrice.textContent = plan.price + '/mo';
+
+        const tdMonthly = document.createElement('td');
+        tdMonthly.className = 'num';
+        tdMonthly.textContent = l.monthly == null ? '—' : '$' + l.monthly;
+
+        const td5h = document.createElement('td');
+        td5h.className = 'num';
+        td5h.textContent = l.fiveHour == null ? '—' : '$' + l.fiveHour;
+
+        const tdWeek = document.createElement('td');
+        tdWeek.className = 'num';
+        tdWeek.textContent = l.weekly == null ? '—' : '$' + l.weekly;
+
+        const tdPct = document.createElement('td');
+        tdPct.className = 'num';
+        tdPct.textContent = (l.fivePct === '—') ? '—' : `${l.fivePct} / ${l.weekPct}`;
+
+        row.appendChild(tdName);
+        row.appendChild(tdPrice);
+        row.appendChild(tdMonthly);
+        row.appendChild(td5h);
+        row.appendChild(tdWeek);
+        row.appendChild(tdPct);
+        fragment.appendChild(row);
+    });
+    body.appendChild(fragment);
+}
+
+function renderTokenPatterns(patterns) {
+    const grid = getCachedEl('tokenGrid');
+    const section = getCachedEl('tokenSection');
+    // Null/type guard — Object.keys(null) would throw
+    if (!grid || !patterns || typeof patterns !== 'object' || !Object.keys(patterns).length) {
+        if (section) section.style.display = 'none';
+        return;
+    }
+    section.style.display = '';
+    grid.innerHTML = '';
+
+    const normToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
+
+    // Shared stat helper — created once instead of per card
+    const mkStat = (statsDiv, color, glyph, value, label) => {
+        const span = document.createElement('span');
+        span.style.color = color;
+        span.textContent = glyph;
+        statsDiv.appendChild(span);
+        statsDiv.appendChild(document.createTextNode(` ${value} ${label} `));
+    };
+
+    const fragment = document.createDocumentFragment();
+    Object.entries(patterns).forEach(([name, tp]) => {
+        // Deterministic matching: exact normalized name only. No prefix heuristics —
+        // two models sharing a prefix (e.g. GPT-5.6 Luna / Terra) would otherwise
+        // attach the pattern to whichever model happened to be inserted first.
+        let id = normToId[normalizeName(name)] || null;
+        if (!id) {
+            console.warn(`Token pattern for "${name}" did not match any model — showing raw name`);
+        }
+        const info = id ? (MODEL_DATA[id]) : null;
+        const card = document.createElement('div');
+        card.className = 'limit-card';
+        card.style.textAlign = 'left';
+        card.style.padding = '10px';
+
+        const nameDiv = document.createElement('div');
+        nameDiv.style.cssText = 'font-size:0.72rem;font-weight:600;color:var(--text);margin-bottom:4px';
+        // textContent already escapes — no sanitizer round-trip needed here
+        nameDiv.textContent = info?.name || name;
+
+        const statsDiv = document.createElement('div');
+        statsDiv.style.cssText = 'font-size:0.68rem;color:var(--text-muted);line-height:1.5';
+        mkStat(statsDiv, 'var(--accent)', '↓', tp.input.toLocaleString(), 'in');
+        mkStat(statsDiv, 'var(--accent2)', '⚡', tp.cached.toLocaleString(), 'cached');
+        mkStat(statsDiv, 'var(--accent3)', '↑', tp.output.toLocaleString(), 'out');
+
+        card.appendChild(nameDiv);
+        card.appendChild(statsDiv);
+        fragment.appendChild(card);
+    });
+    grid.appendChild(fragment);
+}
+
+function handleSort(e) {
+    const th = e.target.closest('th.sortable');
+    if (!th) return;
+    const table = th.dataset.table;
+    const key = th.dataset.sort;
+    const st = sortState[table];
+
+    // Cycle: null → asc → desc → null
+    if (st.key !== key) {
+        st.key = key;
+        st.dir = 'asc';
+    } else if (st.dir === 'asc') {
+        st.dir = 'desc';
+    } else {
+        st.key = null;
+        st.dir = null;
+    }
+
+    // Update header classes and ARIA attributes
+    const thead = th.closest('thead');
+    thead.querySelectorAll('th.sortable').forEach(h => {
+        h.classList.remove('sort-asc', 'sort-desc');
+        h.setAttribute('aria-sort', 'none');
+    });
+    if (st.dir) {
+        th.classList.add(st.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+        th.setAttribute('aria-sort', st.dir === 'asc' ? 'ascending' : 'descending');
+    }
+
+    if (table === 'models') renderModels(rawModels);
+    else if (table === 'pricing') renderPricingTable();
+    else if (table === 'limits') renderLimits();
+
+    // Announce the new order for screen readers
+    const sortLive = getCachedEl('sortLive');
+    if (sortLive) {
+        const label = th.textContent.trim();
+        sortLive.textContent = st.dir
+            ? `Sorted by ${label}, ${st.dir === 'asc' ? 'ascending' : 'descending'}`
+            : `Sorting cleared for ${label}`;
+    }
+}
+
+// Keep deal expiry live while the tab is open — a deal whose expiresAt passes
+// should drop its DEAL tags and cards without waiting for a manual refresh.
+function refreshDealUI() {
+    renderDeals();
+    renderModels(rawModels);
+    renderPricingTable();
+}
+
+function renderCharts() {
+    // P0: Guard against Chart.js not being loaded yet
+    if (typeof Chart === 'undefined') {
+        // #17: Visible fallback instead of a silently blank chart section
+        const wrap = document.querySelector('.chart-wrap');
+        if (wrap && !wrap.querySelector('.chart-fallback')) {
+            const fallback = document.createElement('div');
+            fallback.className = 'chart-fallback';
+            fallback.style.cssText = 'padding:24px;text-align:center;color:var(--text-muted);font-size:0.82rem';
+            fallback.textContent = 'Chart library failed to load — request estimates are available in the pricing table below.';
+            wrap.appendChild(fallback);
+        }
+        console.warn('Chart.js not loaded yet, deferring render');
+        return;
+    }
+    // Clear any prior fallback message once the chart can render
+    document.querySelectorAll('.chart-fallback').forEach(el => el.remove());
+
+    const entries = Object.entries(MODEL_DATA)
+        .filter(([, m]) => m.req5h)
+        .sort((a, b) => b[1].reqMonth - a[1].reqMonth);
+
+    // Empty state — no model has request estimates yet (audit: blank canvas)
+    if (!entries.length) {
+        const wrap = document.querySelector('.chart-wrap');
+        // Hide the blank canvas so only the message shows
+        const canvas = getCachedEl('chartRequests');
+        if (canvas) canvas.style.display = 'none';
+        if (wrap && !wrap.querySelector('.chart-fallback')) {
+            const fallback = document.createElement('div');
+            fallback.className = 'chart-fallback';
+            fallback.style.cssText = 'padding:24px;text-align:center;color:var(--text-muted);font-size:0.82rem';
+            fallback.textContent = 'No request estimates available yet — sync has not produced allowance data.';
+            wrap.appendChild(fallback);
+        }
+        if (requestsChart) { requestsChart.destroy(); requestsChart = null; }
+        return;
+    }
+    document.querySelectorAll('.chart-fallback').forEach(el => el.remove());
+
+    const labels = entries.map(([, m]) => m.name);
+    const data5h = entries.map(([, m]) => m.req5h);
+    const dataWeek = entries.map(([, m]) => m.reqWeek);
+    const dataMonth = entries.map(([, m]) => m.reqMonth);
+
+    const cs = getComputedStyle(document.documentElement);
+    const tooltipBg = cs.getPropertyValue('--chart-tooltip-bg').trim();
+    const tooltipBorder = cs.getPropertyValue('--chart-tooltip-border').trim();
+    const gridColor = cs.getPropertyValue('--chart-grid').trim();
+    const textMuted = cs.getPropertyValue('--text-muted').trim();
+    const textSec = cs.getPropertyValue('--text-secondary').trim();
+    // Theme-aware bar colors (audit: hard-coded hex ignored light mode)
+    const bar5h = cs.getPropertyValue('--chart-bar-5h').trim() || '#b06a36';
+    const barWeekly = cs.getPropertyValue('--chart-bar-weekly').trim() || '#30d158';
+    const barMonthly = cs.getPropertyValue('--chart-bar-monthly').trim() || '#ff9f0a';
+
+    const canvas = getCachedEl('chartRequests');
+    const ctx = canvas.getContext('2d');
+    // Restore the canvas if the empty-state hid it
+    canvas.style.display = '';
+
+    // P2: Size canvas to the data — 24+ bars need more height than a fixed 450px can hold
+    // without clipping the last rows. 3 datasets × N bars, ~26px per bar row.
+    // Clamp to the CSS max-height so Chart.js never lays out for a clipped canvas.
+    const rowCount = labels.length;
+    canvas.style.height = Math.min(Math.max(450, rowCount * 26), 650) + 'px';
+
+    // Cheap label-identity check: compare length + a rolling checksum instead of
+    // serializing the whole array on every render.
+    const labelsHash = labels.length + ':' + labels.reduce((acc, l) => ((acc * 31) + l.length) >>> 0, 7);
+    if (requestsChart && requestsChart._labelsHash === labelsHash) {
+        requestsChart.data.datasets[0].data = data5h;
+        requestsChart.data.datasets[1].data = dataWeek;
+        requestsChart.data.datasets[2].data = dataMonth;
+        requestsChart.update('active');
+        return;
+    }
+
+    if (requestsChart) requestsChart.destroy();
+
+    // Legend labels derive from the current GOAT limits, not hardcoded dollars —
+    // after a live limits update the chart labels stay truthful.
+    const goat = USAGE_LIMITS.goat || {};
+    const fmt = v => (v == null ? '?' : '$' + v);
+
+    requestsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: `5 Hour (${fmt(goat.fiveHour)})`,
+                    data: data5h,
+                    backgroundColor: bar5h + 'cc',
+                    borderColor: bar5h,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                },
+                {
+                    label: `Weekly (${fmt(goat.weekly)})`,
+                    data: dataWeek,
+                    backgroundColor: barWeekly + 'cc',
+                    borderColor: barWeekly,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                },
+                {
+                    label: `Monthly (${fmt(goat.monthly)})`,
+                    data: dataMonth,
+                    backgroundColor: barMonthly + 'cc',
+                    borderColor: barMonthly,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900, easing: 'easeOutQuart' },
+            layout: { padding: { right: 80 } },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        color: textMuted,
+                        font: { family: "'IBM Plex Sans'", size: 11, weight: '500' },
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded',
+                        padding: 14,
+                    }
+                },
+                tooltip: {
+                    backgroundColor: tooltipBg,
+                    titleColor: cs.getPropertyValue('--text').trim(),
+                    bodyColor: textMuted,
+                    borderColor: tooltipBorder,
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    padding: 12,
+                    titleFont: { family: "'IBM Plex Sans'", weight: '600', size: 13 },
+                    bodyFont: { family: "'IBM Plex Mono'", size: 12 },
+                    callbacks: {
+                        label: ctx => {
+                            const v = ctx.parsed.x;
+                            const label = v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v.toLocaleString();
+                            return ` ${ctx.dataset.label}: ${label} requests`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: textMuted,
+                        font: { family: "'IBM Plex Mono'", size: 10 },
+                        callback: v => formatNum(v),
+                        maxTicksLimit: 8,
+                    },
+                    grid: { color: gridColor, drawBorder: false },
+                    border: { display: false }
+                },
+                y: {
+                    ticks: {
+                        color: textSec,
+                        font: { family: "'IBM Plex Sans'", size: 11, weight: '500' },
+                        padding: 6,
+                    },
+                    grid: { display: false },
+                    border: { display: false }
+                }
+            }
+        },
+        plugins: [barLabelsPlugin]
+    });
+    requestsChart._labelsHash = labelsHash;
+}
+
+async function fetchRawWithProxy(url) {
+    const attempts = [
+        url,
+        `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    ];
+    for (const attempt of attempts) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 12000);
+        try {
+            const res = await fetch(attempt, { signal: controller.signal });
+            if (!res.ok) continue;
+            return await res.text();
+        } catch (_) { /* try next */ }
+        finally { clearTimeout(timer); }
+    }
+    throw new Error('All fetch attempts failed');
+}
+
+// Fetch docs page and parse model pricing + limits into MODEL_DATA
+// Returns a result object with `updated` (models updated) and `prices`, `limits`,
+// `tokenPatterns` for caching. Throws if nothing usable could be parsed — a failed
+// sync must never partially mutate application state.
+async function fetchDocsData() {
+    const html = await fetchRawWithProxy(DOCS_URL);
+    if (!html || html.length < 500 || !html.includes('<table')) {
+        throw new Error('Docs response did not look like a page (too short or no tables)');
+    }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Find tables by header content, not index (resilient to docs restructure).
+    // Rejects tables whose headers look like unrelated modalities (embedding,
+    // image, audio, vision) so an ambiguous pricing-like table can't be grabbed.
+    function findTable(...keywords) {
+        return [...doc.querySelectorAll('table')].find(t => {
+            const headers = [...t.querySelectorAll('th')].map(th => th.textContent.toLowerCase());
+            const hasAll = keywords.every(k => headers.some(h => h.includes(k)));
+            const hasNone = ['embedding', 'image', 'audio', 'vision'].every(k => !headers.some(h => h.includes(k)));
+            return hasAll && hasNone;
+        });
+    }
+
+    // Map column headers to indices once — parsing survives table reordering.
+    // Falls back to the first header row when <thead> is missing (DOMParser
+    // doesn't always insert it for hand-written docs tables).
+    function mapColumns(table, wanted) {
+        let headerEls = [...table.querySelectorAll('thead th')];
+        if (!headerEls.length) {
+            const firstRow = table.querySelector('tr');
+            if (firstRow) headerEls = [...firstRow.querySelectorAll('th, td')];
+        }
+        const headers = headerEls.map(h => h.textContent.toLowerCase().trim());
+        const map = {};
+        wanted.forEach(w => {
+            const i = headers.findIndex(h => h.includes(w));
+            if (i >= 0) map[w] = i;
+        });
+        return map;
+    }
+
+    // Per-section results (all optional; the sync succeeds if pricing parsed)
+    let prices = null;
+    let limits = null;
+    let tokenPatterns = null;
+
+    // Known-model name set — used for the structural overlap invariant below
+    const knownNames = new Set();
+    Object.entries(MODEL_DATA).forEach(([id, m]) => {
+        knownNames.add(normalizeName(m.name));
+        knownNames.add(normalizeName(id));
+    });
+
+    // --- Parse pricing table ---
+    try {
+        // Fingerprint with the model name column too — "context/input/output" alone
+        // could match an unrelated embedding-models or changelog table.
+        const priceTable = findTable('model', 'context', 'input', 'output');
+        if (priceTable) {
+            // Map every semantically meaningful column — including the model name
+            // and cache-write. Never assume the model name is column 0.
+            const col = mapColumns(priceTable, ['model', 'context', 'input', 'output', 'cache read', 'cache write']);
+            if (col.context != null && col.input != null && col.output != null && col.model != null) {
+                // Data rows are those containing <td> cells. Rows may legitimately
+                // use <th scope="row"> for the model name (Markdown-generated docs),
+                // so filtering by "no <th>" would silently discard every row.
+                const priceRows = [...priceTable.querySelectorAll('tr')]
+                    .filter(row => row.closest('thead') == null && row.querySelector('td'));
+                const priceMap = {};
+                priceRows.forEach(row => {
+                    // Collect ALL cells (th + td) so <th scope="row"> header cells
+                    // are included in the column indexing.
+                    const cells = row.querySelectorAll('th, td');
+                    const last = Math.max(col.context, col.input, col.output, col['cache read'] ?? -1, col['cache write'] ?? -1);
+                    if (last < 0 || cells.length <= last) return;
+                    const rawName = cells[col.model].textContent.trim();
+                    if (rawName.includes('>') || rawName.includes('<')) return;
+
+                    let name = rawName.replace(/\s*\(.*?\)/g, '').trim();
+                    const normKey = normalizeName(name);
+                    if (priceMap[normKey]) return;
+
+                    // Pick the last (discounted) price from "~~$0.60~~ $0.30" style cells.
+                    // Commas must survive: "$1,000.00" is one number, not "$1" + "000.00".
+                    const lastPrice = (raw) => {
+                        if (/free/i.test(raw)) return 0;
+                        const matches = [...raw.matchAll(/\$\s*([\d,]+(?:\.\d+)?)/g)]
+                            .map(m => parseFloat(m[1].replace(/,/g, '')));
+                        if (!matches.length) return null;
+                        return matches[matches.length - 1];
+                    };
+                    const inputRaw = cells[col.input].textContent;
+                    const outputRaw = cells[col.output].textContent;
+                    const cachedRaw = cells[col['cache read']].textContent;
+                    const cachedWriteRaw = col['cache write'] != null ? cells[col['cache write']].textContent.trim() : '';
+
+                    const input = lastPrice(inputRaw);
+                    const output = lastPrice(outputRaw);
+                    const cached = lastPrice(cachedRaw);
+                    // Reject clearly invalid rows instead of committing garbage
+                    if (input == null || output == null || cached == null || input < 0 || output < 0 || cached < 0) return;
+                    if (!name || !cells[col.context].textContent.trim()) return;
+
+                    // Preserve any parenthetical note (e.g. "Intro pricing → reverts Sept 1, 2026")
+                    // instead of dropping the row because the note mentions "reverts".
+                    const noteMatch = cells[col.model].textContent.match(/\(([^)]+)\)/);
+                    const note = noteMatch ? noteMatch[1].trim() : null;
+
+                    priceMap[normKey] = {
+                        name,
+                        context: cells[col.context].textContent.trim(),
+                        input,
+                        output,
+                        cached,
+                        // lastPrice already returns null for unparseable cells —
+                        // the old `|| null` would clobber a legitimate free (0) value.
+                        cachedWrite: cachedWriteRaw === '-' || cachedWriteRaw === '' ? null : lastPrice(cachedWriteRaw),
+                        note,
+                    };
+                });
+                // Reject suspiciously small results — keep the previous data instead
+                if (Object.keys(priceMap).length < 30) {
+                    throw new Error(`Docs parse suspiciously small result (${Object.keys(priceMap).length} rows) — rejecting update`);
+                }
+                // Structural invariant: a healthy parse must still overlap heavily
+                // with the known model set. A huge drop means the table structure
+                // (or the page itself) changed unexpectedly.
+                const parsedKeys = Object.keys(priceMap);
+                const knownOverlap = parsedKeys.filter(k => knownNames.has(k)).length / parsedKeys.length;
+                if (knownOverlap < 0.5) {
+                    throw new Error(`Docs parse overlap with known models too low (${(knownOverlap * 100).toFixed(0)}%) — rejecting update`);
+                }
+                prices = priceMap;
+            }
+        }
+    } catch (e) {
+        console.warn('Pricing table parse failed:', e);
+    }
+    if (!prices) throw new Error('Could not parse pricing table from docs page');
+
+    // --- Parse usage limits table (atomic: build complete new object first) ---
+    try {
+        // Include the plan column in the fingerprint so a different "5-hour/weekly"
+        // table can't be grabbed by mistake.
+        const limitsTable = findTable('plan', '5-hour', 'weekly');
+        if (limitsTable) {
+            // Map the plan name column too — never assume it's column 0
+            const col = mapColumns(limitsTable, ['plan', '5-hour', 'weekly']);
+            if (col['5-hour'] != null && col.weekly != null && col.plan != null) {
+                const newLimits = {};
+                // Same structural row filter as the pricing table — tolerate
+                // <th scope="row"> header cells and a missing <tbody>.
+                const limitRows = [...limitsTable.querySelectorAll('tr')]
+                    .filter(row => row.closest('thead') == null && row.querySelector('td, th'));
+                limitRows.forEach(row => {
+                    // Collect ALL cells (th + td) — same as the pricing parser,
+                    // so a row-header <th> for the plan name stays in the index.
+                    const cells = row.querySelectorAll('th, td');
+                    const last = Math.max(col['5-hour'], col.weekly);
+                    if (cells.length <= last) return;
+                    const planKey = normalizeName(cells[col.plan].textContent.trim()).replace(/[\s-]/g, '');
+                    // parseIntOrNull: an unparseable cell is "unavailable", not 0
+                    const fiveHour = parseIntOrNull(cells[col['5-hour']].textContent);
+                    const weekly = parseIntOrNull(cells[col.weekly].textContent);
+                    const planId = planKey.startsWith('goat') ? 'goat'
+                        : planKey.startsWith('max10') ? 'max10x'
+                        : planKey.startsWith('max20') ? 'max20x'
+                        : planKey.startsWith('team') ? 'team'
+                        : planKey.startsWith('pro') ? 'pro'
+                        : planKey.startsWith('go') ? 'go'
+                        : null;
+                    // Sanity: both must parse, and weekly must never be smaller
+                    // than the 5-hour window. zero is a valid limit; null is not.
+                    if (planId && fiveHour != null && weekly != null && fiveHour >= 0 && weekly >= fiveHour) {
+                        newLimits[planId] = { fiveHour, weekly };
+                    }
+                });
+                if (Object.keys(newLimits).length) limits = newLimits;
+            }
+        }
+    } catch (e) {
+        console.warn('Limits table parse failed:', e);
+    }
+
+    // --- Parse token patterns ---
+    // Source format: "Model Name — 1,100 input, 71,500 cached, 220 output tokens per request"
+    try {
+        const tokenPatternsMap = {};
+        // Split on one-or-more newlines: <p>-based docs can produce empty lines
+        // between paragraphs, which would otherwise all be blank matches.
+        (doc.body?.textContent || '').split(/\n+/).forEach(line => {
+            // Trim first: CRLF line endings would otherwise leave a \r at the end
+            // of the line, and the regex is anchored to the start.
+            const trimmed = line.trim();
+            if (!trimmed) return;
+            const match = trimmed.match(/^(.+?)\s*[—–-]\s*([\d,]+)\s*input[^,]*,\s*([\d,]+)\s*cached[^,]*,\s*([\d,]+)\s*output/i);
+            if (!match) return;
+            const rawName = match[1].trim();
+            if (!rawName) return;
+            const tp = {
+                input: safeParseInt(match[2]),
+                cached: safeParseInt(match[3]),
+                output: safeParseInt(match[4])
+            };
+            const names = rawName.split('/').map(n => n.trim()).filter(Boolean);
+            // No prefix heuristics — each token pattern registers under the exact
+            // name from the docs, matching the deterministic name lookup elsewhere.
+            names.forEach(name => {
+                tokenPatternsMap[name] = tp;
+            });
+        });
+        if (Object.keys(tokenPatternsMap).length) tokenPatterns = tokenPatternsMap;
+    } catch (e) {
+        console.warn('Token pattern parse failed:', e);
+    }
+
+    return { updated: Object.keys(prices).length, prices, limits, tokenPatterns };
+}
+
+// Commit a validated sync result to application state. Transactional: builds every
+// collection (models, estimates, limits) on clones, and only swaps the live
+// references after all of them have been prepared successfully.
+function applyDocsData(result) {
+    const { prices } = result;
+
+    // Normalized name / ID mapping
+    const normToId = {};
+    Object.entries(MODEL_DATA).forEach(([id, m]) => {
+        normToId[normalizeName(m.name)] = id;
+        normToId[normalizeName(id)] = id;
+    });
+
+    const nextModelData = JSON.parse(JSON.stringify(MODEL_DATA));
+    Object.entries(prices).forEach(([normKey, price]) => {
+        let id = normToId[normKey];
+        if (!id) {
+            id = slugify(price.name);
+            normToId[normKey] = id;
+        }
+        if (!nextModelData[id]) {
+            // Unknown metadata for newly discovered models — render as "Unknown",
+            // never invented "Partner"/"Open" labels.
+            nextModelData[id] = {
+                name: price.name,
+                context: price.context,
+                input: price.input,
+                output: price.output,
+                cached: price.cached,
+                cachedWrite: price.cachedWrite,
+                provider: null,
+                tier: null,
+                free: price.input === 0,
+                goat: null,
+                req5h: null,
+                reqWeek: null,
+                reqMonth: null,
+                note: price.note || null
+            };
+        } else {
+            nextModelData[id].input = price.input;
+            nextModelData[id].output = price.output;
+            nextModelData[id].cached = price.cached;
+            nextModelData[id].cachedWrite = price.cachedWrite;
+            nextModelData[id].context = price.context;
+            // A model that became free (all three prices → 0) must stop getting
+            // request estimates. Derive free from every price, not input alone.
+            nextModelData[id].free =
+                price.input === 0 && price.output === 0 && price.cached === 0;
+            // Commit the note unconditionally — a note removed from the source
+            // must also disappear from the dashboard (null clears it).
+            nextModelData[id].note = price.note || null;
+        }
+    });
+
+    // Prepare limits on a clone first, so estimates below use the FRESH limits
+    let nextLimits = USAGE_LIMITS;
+    if (result.limits) {
+        nextLimits = JSON.parse(JSON.stringify(USAGE_LIMITS));
+        Object.entries(result.limits).forEach(([pid, v]) => {
+            if (nextLimits[pid]) {
+                nextLimits[pid].fiveHour = v.fiveHour;
+                nextLimits[pid].weekly = v.weekly;
+            }
+        });
+        // Recompute the "% of Monthly" percentages from the new dollar limits so
+        // the limits table never shows stale percentages after a live sync.
+        recomputeLimitPercentages(nextLimits);
+    }
+
+    // Recompute request estimates on the clone — derived data never goes stale.
+    // Uses the freshly prepared limits so estimates match the synced dollars.
+    recomputeRequestEstimates(nextModelData, result.tokenPatterns, nextLimits.goat);
+
+    // One commit point — nothing above may throw after this
+    MODEL_DATA = nextModelData;
+    ALL_KNOWN = { ...MODEL_DATA };
+    USAGE_LIMITS = nextLimits;
+    updateModelsSubtitle();
+
+    if (result.tokenPatterns) {
+        window._tokenPatterns = result.tokenPatterns;
+        renderTokenPatterns(result.tokenPatterns);
+    }
+}
+
+// Recompute the 5-hour / weekly "percent of monthly" figures from the actual
+// dollar limits. Only the plans with a known monthly allowance get percentages.
+function recomputeLimitPercentages(limits) {
+    Object.entries(limits).forEach(([pid, l]) => {
+        if (l.monthly == null || l.fiveHour == null || l.weekly == null) {
+            l.fivePct = '—';
+            l.weekPct = '—';
+            return;
+        }
+        if (l.monthly <= 0) return;
+        l.fivePct = Math.round((l.fiveHour / l.monthly) * 100) + '%';
+        l.weekPct = Math.round((l.weekly / l.monthly) * 100) + '%';
+    });
+}
+
+// Derive the 5-hour / weekly / monthly request counts for a model from its current
+// prices and a token-per-request profile. Falls back to the global REQUEST_PROFILE
+// when the docs don't provide a specific pattern for the model.
+function estimateRequests(model, tokenPattern, goatLimits) {
+    if (!model || model.free) return null;
+    const tp = tokenPattern || REQUEST_PROFILE;
+    const cost = (
+        (model.input || 0) * tp.input +
+        (model.cached || 0) * tp.cached +
+        (model.output || 0) * tp.output
+    ) / 1_000_000;
+    if (!(cost > 0)) return null;
+    const goat = goatLimits || USAGE_LIMITS.goat;
+    if (!goat || goat.fiveHour == null) return null;
+    return {
+        req5h: Math.floor(goat.fiveHour / cost),
+        reqWeek: Math.floor(goat.weekly / cost),
+        reqMonth: Math.floor(goat.monthly / cost),
+    };
+}
+
+// Recompute req5h/reqWeek/reqMonth for every model that has a GOAT allowance.
+// Operates on the given model object (clone during sync) — never on the live
+// reference before the transaction commits.
+function recomputeRequestEstimates(modelData, tokenPatterns, goatLimits) {
+    const patterns = tokenPatterns || window._tokenPatterns || null;
+    const normToPattern = new Map();
+    if (patterns) {
+        Object.entries(patterns).forEach(([name, tp]) => {
+            normToPattern.set(normalizeName(name), tp);
+        });
+    }
+    Object.entries(modelData).forEach(([id, m]) => {
+        if (m.goat == null) return; // no GOAT allowance — leave as null
+        let est;
+        if (patterns) {
+            const tp = normToPattern.get(normalizeName(m.name)) || normToPattern.get(normalizeName(id));
+            est = estimateRequests(m, tp || null, goatLimits);
+        } else {
+            est = estimateRequests(m, REQUEST_PROFILE, goatLimits);
+        }
+        if (est) {
+            m.req5h = est.req5h;
+            m.reqWeek = est.reqWeek;
+            m.reqMonth = est.reqMonth;
+        } else {
+            // Clear stale estimates — a model that became free, or whose token
+            // pattern disappeared, must not keep showing old request counts.
+            m.req5h = null;
+            m.reqWeek = null;
+            m.reqMonth = null;
+        }
+    });
+}
+
+// Schema validation for both live data and cached payloads. Returns an array of
+// problems; an empty array means the state is structurally sound enough to use.
+function validateNormalizedState(modelData, usageLimits, tokenPatterns) {
+    const problems = [];
+    if (!modelData || typeof modelData !== 'object') return ['modelData missing'];
+    const ids = new Set();
+    Object.entries(modelData).forEach(([id, m]) => {
+        if (!m || typeof m !== 'object') { problems.push(`model ${id}: not an object`); return; }
+        if (!id) problems.push('model with empty id');
+        if (ids.has(id)) problems.push(`duplicate id ${id}`);
+        ids.add(id);
+        if (!m.name || typeof m.name !== 'string') problems.push(`${id}: missing name`);
+        if (typeof m.input !== 'number' || !isFinite(m.input) || m.input < 0) problems.push(`${id}: invalid input`);
+        if (typeof m.output !== 'number' || !isFinite(m.output) || m.output < 0) problems.push(`${id}: invalid output`);
+        if (typeof m.cached !== 'number' || !isFinite(m.cached) || m.cached < 0) problems.push(`${id}: invalid cached`);
+        if (m.free && (m.input > 0 || m.output > 0 || m.cached > 0)) problems.push(`${id}: free but has prices`);
+    });
+    if (usageLimits && typeof usageLimits === 'object') {
+        Object.entries(usageLimits).forEach(([pid, l]) => {
+            if (!l || typeof l !== 'object') { problems.push(`limits ${pid}: not an object`); return; }
+            if (l.monthly != null && l.weekly != null && l.fiveHour != null) {
+                if (!(l.weekly >= l.fiveHour)) problems.push(`limits ${pid}: weekly < fiveHour`);
+                if (!(l.monthly >= l.weekly)) problems.push(`limits ${pid}: monthly < weekly`);
+            }
+        });
+    }
+    if (tokenPatterns != null) {
+        if (typeof tokenPatterns !== 'object' || Array.isArray(tokenPatterns)) {
+            problems.push('tokenPatterns: not an object');
+        } else {
+            Object.entries(tokenPatterns).forEach(([name, tp]) => {
+                if (!name || !tp || typeof tp !== 'object') {
+                    problems.push(`tokenPattern ${name}: invalid`);
+                    return;
+                }
+                for (const key of ['input', 'cached', 'output']) {
+                    if (typeof tp[key] !== 'number' || !Number.isFinite(tp[key]) || tp[key] < 0) {
+                        problems.push(`tokenPattern ${name}: invalid ${key}`);
+                    }
+                }
+            });
+        }
+    }
+    return problems;
+}
+
+// Load a previously-synced normalized cache (if fresh enough) into state.
+// Returns { source: 'cached'|'stale', cache } or null when there is no usable cache.
+// A cache whose REQUEST_PROFILE differs from the current one is rejected, because
+// the stored request estimates were derived from the old profile.
+function loadDocsCache() {
+    const cache = safeParseJSON(storageGet(CACHE_KEY, ''), null);
+    if (!cache || cache.version !== CACHE_VERSION) return null;
+    if (cache.profileVersion !== REQUEST_PROFILE_VERSION) return null;
+    const problems = validateNormalizedState(cache.modelData, cache.usageLimits, cache.tokenPatterns);
+    if (problems.length) {
+        console.warn('Rejecting cache — schema validation failed:', problems.slice(0, 5));
+        storageRemove(CACHE_KEY);
+        return null;
+    }
+    const age = Date.now() - (cache.ts || 0);
+    return {
+        source: (age >= 0 && age <= CACHE_TTL_MS) ? 'cached' : 'stale',
+        cache
+    };
+}
+
+// Apply a normalized cache payload to state and re-render every view.
+function applyDocsCache(cache) {
+    if (cache.modelData && typeof cache.modelData === 'object') {
+        MODEL_DATA = cache.modelData;
+        ALL_KNOWN = { ...MODEL_DATA };
+    }
+    if (cache.usageLimits && typeof cache.usageLimits === 'object') {
+        USAGE_LIMITS = cache.usageLimits;
+        // Caches written before percentages were recomputed may carry stale
+        // fivePct/weekPct strings — derive them from the stored dollar limits.
+        recomputeLimitPercentages(USAGE_LIMITS);
+    }
+    if (cache.tokenPatterns && typeof cache.tokenPatterns === 'object') {
+        window._tokenPatterns = cache.tokenPatterns;
+    }
+    renderModels(Object.keys(MODEL_DATA).map(id => ({ id, object: 'model', created: Date.now(), owned_by: 'commandcode' })));
+    renderPricingTable();
+    renderCharts();
+    renderLimits();
+    updateModelsSubtitle();
+    if (cache.tokenPatterns && typeof cache.tokenPatterns === 'object') {
+        renderTokenPatterns(cache.tokenPatterns);
+    }
+}
+
+// Keep the "N models" section subtitle in sync with the actual model count.
+// Used on cache hydration and after live commits (the static text said "55 models").
+function updateModelsSubtitle() {
+    const modelsSub = getCachedEl('modelsSub');
+    if (!modelsSub) return;
+    const count = Object.keys(MODEL_DATA).length;
+    modelsSub.innerHTML = '';
+    modelsSub.appendChild(document.createTextNode('Live from '));
+    const code = document.createElement('code');
+    code.textContent = 'commandcode.ai/docs/resources/pricing-limits';
+    modelsSub.appendChild(code);
+    modelsSub.appendChild(document.createTextNode(` — ${count} models, prices per 1M tokens. Deals marked ⚡, free models marked FREE.`));
+}
+
+// The single source-of-truth update path: fetch → parse → validate → commit → render.
+// Returns an object describing the outcome (for status labels), never throws.
+// A generation token discards results from a stale request that finishes after a
+// newer sync has already committed (audit: late response could overwrite newer data).
+let syncGeneration = 0;
+// Owns the generation token. Pass a caller-supplied generation (from fetchModels)
+// to keep a single increment per logical sync — otherwise a new one is claimed.
+async function refreshAllData(generation) {
+    if (generation == null) generation = ++syncGeneration;
+    try {
+        const result = await fetchDocsData();
+        if (generation !== syncGeneration) {
+            console.warn('Discarding stale sync result (a newer sync started)');
+            return { state: 'discarded', ts: null, updated: 0 };
+        }
+        applyDocsData(result);
+        storageSet(CACHE_KEY, JSON.stringify({
+            version: CACHE_VERSION,
+            ts: Date.now(),
+            updated: result.updated,
+            modelData: MODEL_DATA,
+            usageLimits: USAGE_LIMITS,
+            tokenPatterns: result.tokenPatterns || null,
+            profileVersion: REQUEST_PROFILE_VERSION
+        }));
+        renderModels(Object.keys(MODEL_DATA).map(id => ({ id, object: 'model', created: Date.now(), owned_by: 'commandcode' })));
+        renderPricingTable();
+        renderCharts();
+        renderLimits();
+        // All sections were parsed and committed atomically
+        return { state: 'live', ts: Date.now(), updated: result.updated, sections: { pricing: true, chart: true, limits: !!result.limits } };
+    } catch (e) {
+        console.warn('Docs sync failed:', e);
+        if (generation !== syncGeneration) {
+            return { state: 'discarded', ts: null, updated: 0, sections: {} };
+        }
+        const loaded = loadDocsCache();
+        if (loaded) {
+            applyDocsCache(loaded.cache);
+            return {
+                state: loaded.source,
+                ts: loaded.cache.ts,
+                updated: loaded.cache.updated || 0,
+                sections: { pricing: true, chart: true, limits: !!loaded.cache.usageLimits }
+            };
+        }
+        // No usable cache — fall back to the hardcoded built-in data (already rendered).
+        renderModels(Object.keys(MODEL_DATA).map(id => ({ id, object: 'model', created: Date.now(), owned_by: 'commandcode' })));
+        renderPricingTable();
+        renderCharts();
+        renderLimits();
+        return { state: 'fallback', ts: null, updated: 0, sections: { pricing: false, chart: false, limits: false } };
+    }
+}
+
+async function fetchModels() {
+    const generation = ++syncGeneration;
+    const dot = getCachedEl('statusDot');
+    const text = getCachedEl('statusText');
+
+    dot.className = 'status-dot loading';
+    // Loading state built with DOM nodes — consistent with the rest of the status bar
+    text.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = 'commandcode.ai';
+    text.appendChild(document.createTextNode('Syncing from '));
+    text.appendChild(strong);
+    text.appendChild(document.createTextNode('...'));
+
+    // Step 1: Render the built-in fallback immediately (no public models API),
+    // then let refreshAllData replace it with cache or live data when available.
+    const fallback = Object.keys(ALL_KNOWN).map(id => ({ id, object: 'model', created: Date.now(), owned_by: 'commandcode' }));
+    renderModels(fallback);
+
+    // Step 2: Fetch → validate → commit (falls back to cache, then to built-in data)
+    const outcome = await refreshAllData(generation);
+    // A newer sync started while we were waiting — don't let this one touch the UI
+    if (generation !== syncGeneration) return;
+    const modelCount = Object.keys(MODEL_DATA).length;
+    // Status is built with DOM nodes — no innerHTML with interpolated strings
+    const statusEls = () => {
+        text.innerHTML = '';
+        const strong = document.createElement('strong');
+        strong.textContent = String(modelCount);
+        text.appendChild(strong);
+        text.appendChild(document.createTextNode(' models'));
+        return strong;
+    };
+    // Keep the section subtitle's model count in sync (shared helper — also
+    // called from applyDocsCache/applyDocsData so cache hydration updates it).
+    updateModelsSubtitle();
+
+    // Step 3: Status — honest about where the data actually came from
+    if (outcome.state === 'live') {
+        dot.className = 'status-dot';
+        statusEls();
+        text.appendChild(document.createTextNode(', pricing synced live · ' + new Date(outcome.ts).toLocaleTimeString()));
+    } else if (outcome.state === 'cached' || outcome.state === 'stale') {
+        dot.className = 'status-dot stale';
+        const ageMs = Date.now() - (outcome.ts || 0);
+        const ageLabel = ageMs >= 0 ? ` · ${Math.round(ageMs / 60000)} min old` : '';
+        statusEls();
+        text.appendChild(document.createTextNode(', ' + (outcome.state === 'stale' ? 'using stale cached data' : 'using cached data') + ageLabel + ' · synced ' + new Date(outcome.ts).toLocaleTimeString()));
+    } else {
+        dot.className = 'status-dot error';
+        statusEls();
+        text.appendChild(document.createTextNode(', using built-in fallback data — refresh to retry'));
+    }
+
+    // Step 4: Data source badges reflect each section's actual provenance —
+    // limits can legitimately differ from pricing/chart (e.g. limits table absent).
+    const sectionOk = outcome.sections || { pricing: outcome.state === 'live', chart: outcome.state === 'live', limits: outcome.state === 'live' };
+    const badgeSpecs = {
+        dsPricing: sectionOk.pricing ? outcome.state : 'fallback',
+        dsChart: sectionOk.chart ? outcome.state : 'fallback',
+        dsLimits: sectionOk.limits ? outcome.state : 'fallback'
+    };
+    ['dsChart', 'dsPricing', 'dsLimits'].forEach(id => {
+        const el = getCachedEl(id);
+        if (el) {
+            const state = badgeSpecs[id];
+            el.className = 'data-source-badge ' + (state === 'live' ? 'live' : 'stale');
+            el.innerHTML = `<span class="ds-dot"></span>${state === 'live' ? 'Live' : (state === 'cached' || state === 'stale' ? 'Cached' : 'Built-in')}`;
+        }
+    });
+}
+
+// P0: Debounce refresh to prevent race conditions
+async function refreshAll() {
+    if (isRefreshing) return;
+    isRefreshing = true;
+
+    const btn = document.querySelector('.refresh-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⟳ Syncing...';
+    }
+
+    try {
+        await fetchModels();
+    } finally {
+        isRefreshing = false;
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = '↻ Refresh';
+        }
+    }
+}
+
+// Theme
+function initTheme() {
+    const saved = storageGet('cc-theme', null);
+    const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (preferDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeBtn(theme);
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    storageSet('cc-theme', next);
+    updateThemeBtn(next);
+    // P2: Update chart colors dynamically instead of full recreate
+    if (requestsChart) {
+        const cs = getComputedStyle(document.documentElement);
+        const tooltipBg = cs.getPropertyValue('--chart-tooltip-bg').trim();
+        const tooltipBorder = cs.getPropertyValue('--chart-tooltip-border').trim();
+        const gridColor = cs.getPropertyValue('--chart-grid').trim();
+        const textMuted = cs.getPropertyValue('--text-muted').trim();
+        const textSec = cs.getPropertyValue('--text-secondary').trim();
+        const bar5h = cs.getPropertyValue('--chart-bar-5h').trim() || '#b06a36';
+        const barWeekly = cs.getPropertyValue('--chart-bar-weekly').trim() || '#30d158';
+        const barMonthly = cs.getPropertyValue('--chart-bar-monthly').trim() || '#ff9f0a';
+
+        requestsChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+        requestsChart.options.plugins.tooltip.titleColor = cs.getPropertyValue('--text').trim();
+        requestsChart.options.plugins.tooltip.bodyColor = textMuted;
+        requestsChart.options.plugins.tooltip.borderColor = tooltipBorder;
+        requestsChart.options.plugins.legend.labels.color = textMuted;
+        requestsChart.options.scales.x.ticks.color = textMuted;
+        requestsChart.options.scales.x.grid.color = gridColor;
+        requestsChart.options.scales.y.ticks.color = textSec;
+        // Dataset bars are theme-aware too (audit: they stayed dark-mode in light mode)
+        requestsChart.data.datasets[0].backgroundColor = bar5h + 'cc';
+        requestsChart.data.datasets[0].borderColor = bar5h;
+        requestsChart.data.datasets[1].backgroundColor = barWeekly + 'cc';
+        requestsChart.data.datasets[1].borderColor = barWeekly;
+        requestsChart.data.datasets[2].backgroundColor = barMonthly + 'cc';
+        requestsChart.data.datasets[2].borderColor = barMonthly;
+        requestsChart.update('none');
+    }
+}
+
+function updateThemeBtn(theme) {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    // Icon shows what you'll switch TO; label announces the action
+    const next = theme === 'dark' ? 'light' : 'dark';
+    btn.textContent = theme === 'dark' ? '☀' : '☾';
+    btn.setAttribute('aria-label', `Switch to ${next} mode`);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    renderPlans();
+    renderDeals();
+    renderLimits();
+    document.querySelectorAll('thead th.sortable').forEach(th => {
+        // Announce the header is an interactive sort control to screen readers
+        th.setAttribute('role', 'button');
+        th.setAttribute('aria-label', `Sort by ${th.textContent.trim()}. Press Enter to cycle sorting.`);
+        th.addEventListener('click', handleSort);
+        th.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSort(e);
+            }
+        });
+    });
+    // Render with cached/hardcoded data first, then fetch live
+    const loaded = loadDocsCache();
+    if (loaded) {
+        // Hydrate from a previous sync so the page isn't empty/flashy while fetching
+        applyDocsCache(loaded.cache);
+    } else {
+        renderPricingTable();
+        renderCharts();
+    }
+    fetchModels().catch(e => {
+        console.error('Initial sync failed:', e);
+        const dot = getCachedEl('statusDot');
+        const text = getCachedEl('statusText');
+        dot.className = 'status-dot error';
+        // Build the retry link with DOM APIs — no innerHTML with user input
+        text.innerHTML = '';
+        text.appendChild(document.createTextNode('Sync error — showing built-in data. '));
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = 'Retry';
+        link.addEventListener('click', ev => {
+            ev.preventDefault();
+            refreshAll();
+        });
+        text.appendChild(link);
+    });
+
+    // Deal expiry refresh: re-render deal cards + DEAL tags when the tab becomes
+    // visible again (and periodically, cheaply, while open) so an expired deal
+    // disappears without a manual refresh.
+    const refreshDealsSoon = () => setTimeout(refreshDealUI, 1000);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') refreshDealsSoon();
+    });
+    setInterval(refreshDealUI, 60000);
+});
+</script>
+
+</body>
+</html>
