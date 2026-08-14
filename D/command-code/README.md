@@ -6,7 +6,7 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 
 ## Features
 
-- **Full Live Sync** — on load and refresh, fetches everything from source: model pricing, usage limits, and token patterns from the docs page. Model count is dynamic (starts at 55 hardcoded, grows as docs add models)
+- **Full Live Sync** — on load and refresh, fetches everything from source: model pricing, usage limits, and token patterns from the docs page. Model count is dynamic (starts at 57 hardcoded, grows as docs add models)
 - **Data Source Badges** — section headers reflect the actual provenance of each section: green **Live** when a fresh sync succeeded, **Cached** when showing a TTL-valid cache, **Stale cache** when the cache is older than 6h, or **Built-in** when falling back to hardcoded data. Pricing, chart, and limits badges are independent
 - **Plans at a Glance** — 7 plan cards (Go, GOAT, Pro, Max 10×, Max 20×, Provider, Team Pro) with price, monthly credits, typical request volume, effective usage with deals, and model count. GOAT marked "BEST VALUE"
 - **Usage Limits Table** — all 7 plans (Go, GOAT, Pro, Max 10×, Max 20×, Provider API, Team Pro) with price, monthly credits, 5-hour limit, weekly limit, and window percentages. Centered, sortable
@@ -91,12 +91,13 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 | Claude Haiku 4.5 | Anthropic | Pro | `claude-haiku-4.5` |
 | Claude Sonnet 4.5 | Anthropic | Pro | `claude-sonnet-4.5` |
 | GPT-5.6 Sol | OpenAI | Pro | `gpt-5.6-sol` |
-| GPT-5.6 Terra ⚡ | OpenAI | Pro | `gpt-5.6-terra` |
-| GPT-5.6 Luna ⚡ | OpenAI | All | `gpt-5.6-luna` |
+| GPT-5.6 Terra | OpenAI | Pro | `gpt-5.6-terra` |
+| GPT-5.6 Luna | OpenAI | All | `gpt-5.6-luna` |
 | GPT-5.5 | OpenAI | Pro | `gpt-5.5` |
 | GPT-5.4 | OpenAI | Pro | `gpt-5.4` |
 | GPT-5.4 Mini | OpenAI | Pro | `gpt-5.4-mini` |
 | GPT-5.3 Codex | OpenAI | Pro | `gpt-5.3-codex` |
+| Gemini 3.7 Flash ⚡ | Google | GOAT | `gemini-3.7-flash` |
 | Gemini 3.6 Flash | Google | Pro | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | Google | Pro | `gemini-3.5-flash` |
 | Gemini 3.5 Flash Lite | Google | Pro | `gemini-3.5-flash-lite` |
@@ -105,6 +106,7 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 | Muse Spark 1.2 | Meta | GOAT | `muse-spark-1.2` |
 | Muse Spark 1.2 Contributor | Meta | All | `muse-spark-1.2-contributor` |
 | Muse Spark 1.1 | Meta | Pro | `muse-spark-1.1` |
+| Grok 4.6 | xAI | GOAT | `grok-4.6` |
 | Grok 4.5 | xAI | All | `grok-4.5` |
 | Inkling | Thinking Machines | Open | `inkling` |
 | Inkling Small | Thinking Machines | Open | `inkling-small` |
@@ -118,9 +120,9 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 | Go | $1 | $10 | ~15K | Up to $40 | 32 |
 | GOAT | $10 | $70 | ~75K | Up to $100 | 33 |
 | Pro | $20 | $80 | ~100K | Up to $150 | 47 |
-| Max 10× | $100 | $150 | ~230K | Up to $600 | 53 |
-| Max 20× | $200 | $300 | ~370K | Up to $1,200 | 53 |
-| Provider API | $15 | Pay as you go | Uncapped | No markup | 55 |
+| Max 10× | $100 | $150 | ~219K | Up to $600 | 53 |
+| Max 20× | $200 | $300 | ~437K | Up to $1,200 | 53 |
+| Provider API | $15 | Pay as you go | Uncapped | No markup | 57 |
 | Team Pro | $40 | $40 | ~35K | Pooled | 53 |
 
 ## Usage Limits
@@ -129,7 +131,7 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 |------|-----------------|--------------|--------------|--------------|
 | Go | $10 | $3 | $6 | 30% / 60% |
 | GOAT | $70 | $14 | $35 | 20% / 50% |
-| Pro | $80 | $24 | $48 | 30% / 60% |
+| Pro | $80 | $16 | $40 | 20% / 50% |
 | Max 10× | $150 | $45 | $90 | 30% / 60% |
 | Max 20× | $300 | $90 | $180 | 30% / 60% |
 | Provider API | — | — | — | No windows |
@@ -140,13 +142,12 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 ## Active Deals
 
 - **DeepSeek V4 Pro** — 75% off · 4× usage · Permanent
-- **GPT-5.6 Luna** — Up to 95% off · Ends Aug 13, 2026
-- **GPT-5.6 Terra** — 50% off · Ends Aug 13, 2026
+- **Gemini 3.7 Flash** — 50% off · 2× usage · Ends Dec 31, 2026
 - **MiniMax M3** — 50% off · 2× usage · Permanent
 - **MiMo V2.5 Pro** — Up to 99% off · Permanent
 - **MiMo V2.5** — Up to 98% off · Permanent
 - **Laguna S 2.1** — 100% off (FREE) · While capacity lasts
-- **Ling 3.0 Flash** — 100% off (FREE) · While available
+- **Ling 3.0 Flash** — 100% off (FREE) · Through Aug 2, 2026
 
 ## Pricing (per 1M tokens, after deals)
 
@@ -188,8 +189,8 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 | Claude Sonnet 4.5 | $3.00 | $15.00 | $0.30 | $3.75 |
 | Claude Haiku 4.5 | $1.00 | $5.00 | $0.10 | $1.25 |
 | GPT-5.6 Sol | $5.00 | $30.00 | $0.50 | $6.25 |
-| GPT-5.6 Terra* | $1.00 | $6.00 | $0.10 | $1.25 |
-| GPT-5.6 Luna* | $0.10 | $0.60 | $0.01 | $0.125 |
+| GPT-5.6 Terra | $2.00 | $12.00 | $0.20 | $2.50 |
+| GPT-5.6 Luna | $0.20 | $1.20 | $0.02 | $0.25 |
 | GPT-5.5 | $5.00 | $30.00 | $0.50 | — |
 | GPT-5.4 | $2.50 | $15.00 | $0.25 | — |
 | GPT-5.4 Mini | $0.75 | $4.50 | $0.075 | — |
@@ -202,6 +203,7 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 | Muse Spark 1.2 | $1.25 | $4.25 | $0.15 | — |
 | Muse Spark 1.2 Contributor | $0.10 | $0.20 | $0.002 | — |
 | Muse Spark 1.1 | $1.25 | $4.25 | $0.15 | — |
+| Grok 4.6 | $2.00 | $6.00 | $0.50 | — |
 | Grok 4.5 | $2.00 | $6.00 | $0.50 | — |
 | Inkling | $1.00 | $4.05 | $0.17 | — |
 | Inkling Small | $0.50 | $1.20 | $0.10 | — |

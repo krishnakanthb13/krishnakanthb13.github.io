@@ -50,6 +50,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 |-------|----------|-----|
 | Grok 4.5 | xAI | `grok-4.5` |
 | GPT 5.6 Luna | OpenAI | `gpt-5.6-luna` |
+| GLM-5.3 | Zhipu | `glm-5.3` |
 | GLM-5.2 | Zhipu | `glm-5.2` |
 | GLM-5.1 | Zhipu | `glm-5.1` |
 | GLM-5 | Zhipu | `glm-5` |
@@ -80,6 +81,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 |-------|-------|--------|-------------|--------------|---------|
 | Grok 4.5 | $2.00 | $6.00 | $0.30 | — | $15 |
 | GPT 5.6 Luna* | $0.20 | $1.20 | $0.02 | $0.25 | $15 |
+| GLM-5.3 | $1.40 | $4.40 | $0.26 | — | $15 |
 | GLM-5.2 | $1.40 | $4.40 | $0.26 | — | $60 |
 | GLM-5.1 | $1.40 | $4.40 | $0.26 | — | $60 |
 | Kimi K3 | $3.00 | $15.00 | $0.30 | — | $15 |
@@ -106,6 +108,7 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 |-------|-----|------|-------|
 | Grok 4.5 | 120 | 300 | 600 |
 | GPT 5.6 Luna | 2,050 | 5,100 | 10,250 |
+| GLM-5.3 | 220 | 540 | 1,080 |
 | GLM-5.2 | 880 | 2,150 | 4,300 |
 | GLM-5.1 | 880 | 2,150 | 4,300 |
 | Kimi K3 | 110 | 250 | 490 |

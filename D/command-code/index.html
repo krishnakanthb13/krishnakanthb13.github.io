@@ -1006,7 +1006,7 @@ const DOCS_URL = 'https://commandcode.ai/docs/resources/pricing-limits';
 
 // Cache lifecycle — the cache stores normalized data, not just a timestamp.
 // Cache version bump invalidates stale-format caches (migration / schema changes).
-const CACHE_VERSION = '2.0.0';
+const CACHE_VERSION = '2.1.0';
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6h — a full sync refreshes this
 const CACHE_KEY = 'cc-docs-cache';
 
@@ -1057,12 +1057,13 @@ let MODEL_DATA = {
     'claude-haiku-4.5':        { name: 'Claude Haiku 4.5',        context: '200K', input: 1.00,   output: 5.00,   cached: 0.10,    cachedWrite: 1.25,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'claude-sonnet-4.5':       { name: 'Claude Sonnet 4.5',       context: '1M',   input: 3.00,   output: 15.00,  cached: 0.30,    cachedWrite: 3.75,  provider: 'Anthropic', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gpt-5.6-sol':             { name: 'GPT-5.6 Sol',             context: '1.1M', input: 5.00,   output: 30.00,  cached: 0.50,    cachedWrite: 6.25,  provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
-    'gpt-5.6-terra':           { name: 'GPT-5.6 Terra',           context: '1.1M', input: 1.00,   output: 6.00,   cached: 0.10,    cachedWrite: 1.25,  provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: '⚡ 50% off' },
-    'gpt-5.6-luna':            { name: 'GPT-5.6 Luna',            context: '1.1M', input: 0.10,   output: 0.60,   cached: 0.01,    cachedWrite: 0.125, provider: 'OpenAI', tier: 'All', free: false, goat: 70,   req5h: 10400, reqWeek: 25900,  reqMonth: 51800,  note: '⚡ 50% off · available on every plan' },
+    'gpt-5.6-terra':           { name: 'GPT-5.6 Terra',           context: '1.1M', input: 2.00,   output: 12.00,  cached: 0.20,    cachedWrite: 2.50,  provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gpt-5.6-luna':            { name: 'GPT-5.6 Luna',            context: '1.1M', input: 0.20,   output: 1.20,   cached: 0.02,    cachedWrite: 0.25,  provider: 'OpenAI', tier: 'All', free: false, goat: 70,   req5h: 5200,  reqWeek: 13000,  reqMonth: 25900,  note: 'available on every plan' },
     'gpt-5.5':                 { name: 'GPT-5.5',                 context: '200K', input: 5.00,   output: 30.00,  cached: 0.50,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gpt-5.4':                 { name: 'GPT-5.4',                 context: '400K', input: 2.50,   output: 15.00,  cached: 0.25,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gpt-5.4-mini':            { name: 'GPT-5.4 Mini',            context: '400K', input: 0.75,   output: 4.50,   cached: 0.075,   cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gpt-5.3-codex':           { name: 'GPT-5.3 Codex',           context: '400K', input: 2.00,   output: 8.00,   cached: 0.50,    cachedWrite: null, provider: 'OpenAI', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'gemini-3.7-flash':        { name: 'Gemini 3.7 Flash',        context: '1M',   input: 0.75,   output: 3.75,   cached: 0.075,   cachedWrite: 0.04167, provider: 'Google', tier: 'GOAT', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: '⚡ 50% off · ends Dec 31, 2026' },
     'gemini-3.6-flash':        { name: 'Gemini 3.6 Flash',        context: '1M',   input: 1.50,   output: 7.50,   cached: 0.15,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gemini-3.5-flash':        { name: 'Gemini 3.5 Flash',        context: '1M',   input: 1.50,   output: 9.00,   cached: 0.15,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'gemini-3.5-flash-lite':   { name: 'Gemini 3.5 Flash Lite',   context: '1M',   input: 0.30,   output: 2.50,   cached: 0.03,    cachedWrite: null, provider: 'Google', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
@@ -1071,6 +1072,7 @@ let MODEL_DATA = {
     'muse-spark-1.2':          { name: 'Muse Spark 1.2',          context: '1M',   input: 1.25,   output: 4.25,   cached: 0.15,    cachedWrite: null, provider: 'Meta', tier: 'GOAT', free: false, goat: 20,   req5h: 428,   reqWeek: 1070,   reqMonth: 2140,   note: 'GOAT and above' },
     'muse-spark-1.2-contributor':{ name: 'Muse Spark 1.2 Contributor', context: '1M', input: 0.10, output: 0.20,  cached: 0.002,   cachedWrite: null, provider: 'Meta', tier: 'All', free: false, goat: 20,   req5h: 18200, reqWeek: 45500,  reqMonth: 90900,  note: 'available on every plan' },
     'muse-spark-1.1':          { name: 'Muse Spark 1.1',          context: '1M',   input: 1.25,   output: 4.25,   cached: 0.15,    cachedWrite: null, provider: 'Meta', tier: 'Pro', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'grok-4.6':                { name: 'Grok 4.6',                context: '500K', input: 2.00,   output: 6.00,   cached: 0.50,    cachedWrite: null, provider: 'xAI', tier: 'GOAT', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: 'GOAT and above' },
     'grok-4.5':                { name: 'Grok 4.5',                context: '500K', input: 2.00,   output: 6.00,   cached: 0.50,    cachedWrite: null, provider: 'xAI', tier: 'All', free: false, goat: 20,   req5h: 144,   reqWeek: 360,    reqMonth: 719,    note: 'available on every plan' },
     'inkling':                 { name: 'Inkling',                 context: '256K', input: 1.00,   output: 4.05,   cached: 0.17,    cachedWrite: null, provider: 'Thinking Machines', tier: 'Open', free: false, goat: 20,   req5h: 396,   reqWeek: 989,    reqMonth: 1980,   note: null },
     'inkling-small':           { name: 'Inkling Small',           context: '1M',   input: 0.50,   output: 1.20,   cached: 0.10,    cachedWrite: null, provider: 'Thinking Machines', tier: 'Open', free: false, goat: 20,   req5h: 709,   reqWeek: 1770,   reqMonth: 3550,   note: null },
@@ -1081,9 +1083,9 @@ let MODEL_DATA = {
 let PLAN_DATA = {
     go:       { name: 'Go',       price: '$1',     priceNum: 1,     credits: '$10',    req: '~15K',   eff: 'Up to $40',   models: 32,   desc: 'Open models + select premium (Luna, Grok 4.5, Qwen Max & Plus)', tier: '5h 30% · wk 60%', featured: false, visible: true },
     goat:     { name: 'GOAT',     price: '$10',    priceNum: 10,    credits: '$70',    req: '~75K',   eff: 'Up to $100',  models: 33,   desc: 'Open models + per-model allowances, 7× multiplier',               tier: '5h 20% · wk 50%', featured: true, visible: true },
-    pro:      { name: 'Pro',      price: '$20',    priceNum: 20,    credits: '$80',    req: '~100K',  eff: 'Up to $150',  models: 47,   desc: 'Open-source + premium (Claude, GPT, Gemini) at $20 each',         tier: '5h 30% · wk 60%', featured: false, visible: true },
-    max10x:   { name: 'Max 10×',  price: '$100',   priceNum: 100,   credits: '$150',   req: '~230K',  eff: 'Up to $600',  models: 53,   desc: 'Every model, no restrictions — Claude Opus & Fable included',      tier: '5h 30% · wk 60%', featured: false, visible: true },
-    max20x:   { name: 'Max 20×',  price: '$200',   priceNum: 200,   credits: '$300',   req: '~370K',  eff: 'Up to $1,200', models: 53,  desc: 'Every model, max throughput for the heaviest users',               tier: '5h 30% · wk 60%', featured: false, visible: true },
+    pro:      { name: 'Pro',      price: '$20',    priceNum: 20,    credits: '$80',    req: '~100K',  eff: 'Up to $150',  models: 47,   desc: 'Open-source + premium (Claude, GPT, Gemini) at $20 each',         tier: '5h 20% · wk 50%', featured: false, visible: true },
+    max10x:   { name: 'Max 10×',  price: '$100',   priceNum: 100,   credits: '$150',   req: '~219K',  eff: 'Up to $600',  models: 53,   desc: 'Every model, no restrictions — Claude Opus & Fable included',      tier: '5h 30% · wk 60%', featured: false, visible: true },
+    max20x:   { name: 'Max 20×',  price: '$200',   priceNum: 200,   credits: '$300',   req: '~437K',  eff: 'Up to $1,200', models: 53,  desc: 'Every model, max throughput for the heaviest users',               tier: '5h 30% · wk 60%', featured: false, visible: true },
     provider: { name: 'Provider', price: '$15',    priceNum: 15,    credits: 'PAYG',   req: 'Uncapped', eff: 'No markup', models: 55,  desc: 'OpenAI & Anthropic compatible API — every deal applies',             tier: 'No windows', featured: false, visible: true },
     team:     { name: 'Team Pro', price: '$40',    priceNum: 40,    credits: '$40',    req: '~35K',   eff: 'Pooled',     models: 53,   desc: 'Pooled credits, shared billing, central admin',                    tier: '5h 30% · wk 60%', featured: false, visible: true },
 };
@@ -1093,13 +1095,12 @@ let PLAN_DATA = {
 // `expiresAt`/`startsAt` are ISO timestamps; the term string is only for display. Expired deals are hidden automatically.
 let DEAL_DATA = [
     { model: 'deepseek-v4-pro',        name: 'DeepSeek V4 Pro',         discount: '75% off · 4× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 4× further' },
-    { model: 'gpt-5.6-luna',           name: 'GPT-5.6 Luna',            discount: 'Up to 95% off',      term: 'Ends Aug 13, 2026', expiresAt: '2026-08-13T23:59:59Z', desc: '50% off list + plan credit multiplier' },
-    { model: 'gpt-5.6-terra',          name: 'GPT-5.6 Terra',           discount: '50% off',            term: 'Ends Aug 13, 2026', expiresAt: '2026-08-13T23:59:59Z', desc: '50% off list on premium tier' },
+    { model: 'gemini-3.7-flash',        name: 'Gemini 3.7 Flash',        discount: '50% off · 2× usage', term: 'Ends Dec 31, 2026',  expiresAt: '2026-12-31T23:59:59Z', desc: 'Every $1 of credit goes 2× further' },
     { model: 'minimax-m3',             name: 'MiniMax M3',              discount: '50% off · 2× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 2× further' },
     { model: 'mimo-v2.5-pro',          name: 'MiMo V2.5 Pro',           discount: 'Up to 99% off',      term: 'Permanent',   expiresAt: null,            desc: 'Cache reads down to $0.0036/1M (111× value)' },
     { model: 'mimo-v2.5',              name: 'MiMo V2.5',               discount: 'Up to 98% off',      term: 'Permanent',   expiresAt: null,            desc: 'Cache reads down to $0.0028/1M (57× value)' },
     { model: 'laguna-s-2.1',           name: 'Laguna S 2.1',            discount: '100% off (FREE)',    term: 'While capacity lasts', expiresAt: null,        desc: 'Input, output, and cache reads all $0.00' },
-    { model: 'ling-3.0-flash',         name: 'Ling 3.0 Flash',          discount: '100% off (FREE)',    term: 'While available', expiresAt: null,             desc: 'Free across all subscription tiers' },
+    { model: 'ling-3.0-flash',         name: 'Ling 3.0 Flash',          discount: '100% off (FREE)',    term: 'Through Aug 2, 2026', expiresAt: '2026-08-02T23:59:59Z', desc: 'Free across all subscription tiers' },
 ];
 
 // A deal is active when the current time is within [startsAt, expiresAt).
@@ -1122,7 +1123,7 @@ function isModelOnActiveDeal(modelId) {
 let USAGE_LIMITS = {
     go:       { fiveHour: 3,   weekly: 6,    monthly: 10,  fivePct: '30%', weekPct: '60%' },
     goat:     { fiveHour: 14,  weekly: 35,   monthly: 70,  fivePct: '20%', weekPct: '50%' },
-    pro:      { fiveHour: 24,  weekly: 48,   monthly: 80,  fivePct: '30%', weekPct: '60%' },
+    pro:      { fiveHour: 16,  weekly: 40,   monthly: 80,  fivePct: '20%', weekPct: '50%' },
     max10x:   { fiveHour: 45,  weekly: 90,   monthly: 150, fivePct: '30%', weekPct: '60%' },
     max20x:   { fiveHour: 90,  weekly: 180,  monthly: 300, fivePct: '30%', weekPct: '60%' },
     provider: { fiveHour: null, weekly: null, monthly: null, fivePct: '—', weekPct: '—' },
