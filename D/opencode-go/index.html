@@ -816,7 +816,7 @@ const MODELS_API = 'https://opencode.ai/zen/go/v1/models';
 const DOCS_URL = 'https://opencode.ai/docs/go/';
 
 // Known model data (parsed from docs — updated dynamically when possible)
-// SOURCE: https://opencode.ai/docs/go/ — keep in sync with source on each build
+// SOURCE: https://opencode.ai/docs/go/ — keep in sync with source on each build (synced 2026-08-17)
 let MODEL_DATA = {
     'grok-4.5':            { name: 'Grok 4.5',          input: 2.00,  output: 6.00,  cached: 0.30,   cachedWrite: null,    usage: 15,  req5h: 120,   reqWeek: 300,   reqMonth: 600,    provider: 'xAI' },
     'gpt-5.6-luna':        { name: 'GPT 5.6 Luna',      input: 0.20,  output: 1.20,  cached: 0.02,   cachedWrite: 0.25,   usage: 15,  req5h: 2050,  reqWeek: 5100,  reqMonth: 10250,  provider: 'OpenAI', note: '≤272K tokens; >272K: $0.40/$1.80/$0.04/$0.50' },
@@ -835,8 +835,8 @@ let MODEL_DATA = {
     'qwen3.7-max':         { name: 'Qwen3.7 Max',        input: 2.50,  output: 7.50,  cached: 0.50,   cachedWrite: 3.125,  usage: 60,  req5h: 340,   reqWeek: 840,   reqMonth: 1690,   provider: 'Alibaba' },
     'qwen3.7-plus':        { name: 'Qwen3.7 Plus',       input: 0.40,  output: 1.60,  cached: 0.04,   cachedWrite: 0.50,   usage: 60,  req5h: 4300,  reqWeek: 10800, reqMonth: 21600,  provider: 'Alibaba', note: '≤256K tokens; >256K: $1.20/$4.80/$0.12/$1.50' },
     'qwen3.6-plus':        { name: 'Qwen3.6 Plus',       input: 0.50,  output: 3.00,  cached: 0.05,   cachedWrite: 0.625,  usage: 60,  req5h: 3300,  reqWeek: 8200,  reqMonth: 16300,  provider: 'Alibaba', note: '≤256K tokens; >256K: $2.00/$6.00/$0.20/$2.50' },
-    'deepseek-v4-pro':     { name: 'DeepSeek V4 Pro',    input: 0.435, output: 0.87,  cached: 0.003625, cachedWrite: null,  usage: 15,  req5h: 3450,  reqWeek: 8550,  reqMonth: 17150,  provider: 'DeepSeek' },
-    'deepseek-v4-flash':   { name: 'DeepSeek V4 Flash',  input: 0.14,  output: 0.28,  cached: 0.0028, cachedWrite: null,    usage: 60,  req5h: 31650, reqWeek: 79050, reqMonth: 158150, provider: 'DeepSeek' },
+    'deepseek-v4-pro':     { name: 'DeepSeek V4 Pro',    input: 0.66,  output: 1.98,  cached: 0.022,  cachedWrite: null,    usage: 15,  req5h: 1050,  reqWeek: 2600,  reqMonth: 5200,   provider: 'DeepSeek', note: 'Off-Peak; Peak (01:00-04:00, 06:00-10:00 UTC): $1.32/$3.96/$0.044' },
+    'deepseek-v4-flash':   { name: 'DeepSeek V4 Flash',  input: 0.22,  output: 0.66,  cached: 0.007,  cachedWrite: null,    usage: 15,  req5h: 3800,  reqWeek: 9450,  reqMonth: 18900,  provider: 'DeepSeek', note: 'Off-Peak; Peak (01:00-04:00, 06:00-10:00 UTC): $0.44/$1.32/$0.014' },
     'hy3':                 { name: 'Hy3',                 input: 0.14,  output: 0.58,  cached: 0.035,  cachedWrite: null,    usage: 60,  req5h: 4300,  reqWeek: 10750, reqMonth: 21500,  provider: 'HY' },
 };
 

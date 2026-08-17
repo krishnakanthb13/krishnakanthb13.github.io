@@ -96,11 +96,11 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Qwen3.7 Max | $2.50 | $7.50 | $0.50 | $3.125 | $60 |
 | Qwen3.7 Plus* | $0.40 | $1.60 | $0.04 | $0.50 | $60 |
 | Qwen3.6 Plus* | $0.50 | $3.00 | $0.05 | $0.625 | $60 |
-| DeepSeek V4 Pro | $0.435 | $0.87 | $0.003625 | — | $15 |
-| DeepSeek V4 Flash | $0.14 | $0.28 | $0.0028 | — | $60 |
+| DeepSeek V4 Pro* | $0.66 | $1.98 | $0.022 | — | $15 |
+| DeepSeek V4 Flash* | $0.22 | $0.66 | $0.007 | — | $15 |
 | Hy3 | $0.14 | $0.58 | $0.035 | — | $60 |
 
-\* Tiered pricing: Shown prices are for initial tier. GPT 5.6 Luna (>272K: $0.40/$1.80/$0.04/$0.50), Qwen3.7 Plus (>256K: $1.20/$4.80/$0.12/$1.50), Qwen3.6 Plus (>256K: $2.00/$6.00/$0.20/$2.50).
+\* Tiered pricing: Shown prices are for Off-Peak/initial tier. GPT 5.6 Luna (>272K: $0.40/$1.80/$0.04/$0.50), Qwen3.7 Plus (>256K: $1.20/$4.80/$0.12/$1.50), Qwen3.6 Plus (>256K: $2.00/$6.00/$0.20/$2.50), DeepSeek V4 Pro Peak: $1.32/$3.96/$0.044, DeepSeek V4 Flash Peak: $0.44/$1.32/$0.014 (Peak 01:00-04:00 & 06:00-10:00 UTC).
 
 ## Estimated Requests
 
@@ -122,8 +122,8 @@ Compact single-page dashboard pulling live data from the OpenCode API. Models li
 | Qwen3.7 Max | 340 | 840 | 1,690 |
 | Qwen3.7 Plus | 4,300 | 10,800 | 21,600 |
 | Qwen3.6 Plus | 3,300 | 8,200 | 16,300 |
-| DeepSeek V4 Pro | 3,450 | 8,550 | 17,150 |
-| DeepSeek V4 Flash | 31,650 | 79,050 | 158,150 |
+| DeepSeek V4 Pro | 1,050 | 2,600 | 5,200 |
+| DeepSeek V4 Flash | 3,800 | 9,450 | 18,900 |
 | Hy3 | 4,300 | 10,750 | 21,500 |
 
 ## Usage Limits

@@ -6,7 +6,7 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 
 ## Features
 
-- **Full Live Sync** — on load and refresh, fetches everything from source: model pricing, usage limits, and token patterns from the docs page. Model count is dynamic (starts at 57 hardcoded, grows as docs add models)
+- **Full Live Sync** — on load and refresh, fetches everything from source: model pricing, usage limits, and token patterns from the docs page. Model count is dynamic (starts at 58 hardcoded, grows as docs add models)
 - **Data Source Badges** — section headers reflect the actual provenance of each section: green **Live** when a fresh sync succeeded, **Cached** when showing a TTL-valid cache, **Stale cache** when the cache is older than 6h, or **Built-in** when falling back to hardcoded data. Pricing, chart, and limits badges are independent
 - **Plans at a Glance** — 7 plan cards (Go, GOAT, Pro, Max 10×, Max 20×, Provider, Team Pro) with price, monthly credits, typical request volume, effective usage with deals, and model count. GOAT marked "BEST VALUE"
 - **Usage Limits Table** — all 7 plans (Go, GOAT, Pro, Max 10×, Max 20×, Provider API, Team Pro) with price, monthly credits, 5-hour limit, weekly limit, and window percentages. Centered, sortable
@@ -61,6 +61,7 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 | Kimi K2.7 Code HighSpeed | Moonshot | Open | `kimi-k2.7-code-highspeed` |
 | Kimi K2.6 | Moonshot | Open | `kimi-k2.6` |
 | Kimi K2.5 | Moonshot | Open | `kimi-k2.5` |
+| GLM-5.3 | Zhipu | Open | `glm-5.3` |
 | GLM-5.2 | Zhipu | Open | `glm-5.2` |
 | GLM-5.2 Fast | Zhipu | Open | `glm-5.2-fast` |
 | GLM-5.1 | Zhipu | Open | `glm-5.1` |
@@ -68,8 +69,8 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 | MiniMax M3 ⚡ | MiniMax | Open | `minimax-m3` |
 | MiniMax M2.7 | MiniMax | Open | `minimax-m2.7` |
 | MiniMax M2.5 | MiniMax | Open | `minimax-m2.5` |
-| DeepSeek V4 Pro ⚡ | DeepSeek | Open | `deepseek-v4-pro` |
-| DeepSeek V4 Flash | DeepSeek | Open | `deepseek-v4-flash` |
+| DeepSeek V4 Pro (latest) | DeepSeek | Open | `deepseek-v4-pro` |
+| DeepSeek V4 Flash (latest) | DeepSeek | Open | `deepseek-v4-flash` |
 | Qwen 3.8 Max | Alibaba | Open | `qwen3.8-max` |
 | Qwen 3.6 Max Preview | Alibaba | Open | `qwen3.6-max-preview` |
 | Qwen 3.6 Plus | Alibaba | Open | `qwen3.6-plus` |
@@ -117,12 +118,12 @@ Compact single-page dashboard pulling live data from the Command Code docs. Plan
 
 | Plan | Price/mo | Credits | Typical Requests | Effective (with Deals) | Models |
 |------|----------|---------|------------------|------------------------|--------|
-| Go | $1 | $10 | ~15K | Up to $40 | 32 |
+| Go | $1 | $10 | ~15K | Up to $50 | 32 |
 | GOAT | $10 | $70 | ~75K | Up to $100 | 33 |
 | Pro | $20 | $80 | ~100K | Up to $150 | 47 |
-| Max 10× | $100 | $150 | ~219K | Up to $600 | 53 |
-| Max 20× | $200 | $300 | ~437K | Up to $1,200 | 53 |
-| Provider API | $15 | Pay as you go | Uncapped | No markup | 57 |
+| Max 10× | $100 | $150 | ~230K | Up to $750 | 53 |
+| Max 20× | $200 | $300 | ~370K | Up to $1,500 | 53 |
+| Provider API | $15 | Pay as you go | Uncapped | No markup | 58 |
 | Team Pro | $40 | $40 | ~35K | Pooled | 53 |
 
 ## Usage Limits
@@ -141,13 +142,11 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 
 ## Active Deals
 
-- **DeepSeek V4 Pro** — 75% off · 4× usage · Permanent
 - **Gemini 3.7 Flash** — 50% off · 2× usage · Ends Dec 31, 2026
 - **MiniMax M3** — 50% off · 2× usage · Permanent
 - **MiMo V2.5 Pro** — Up to 99% off · Permanent
 - **MiMo V2.5** — Up to 98% off · Permanent
 - **Laguna S 2.1** — 100% off (FREE) · While capacity lasts
-- **Ling 3.0 Flash** — 100% off (FREE) · Through Aug 2, 2026
 
 ## Pricing (per 1M tokens, after deals)
 
@@ -161,6 +160,7 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 | Kimi K2.7 Code HighSpeed | $1.90 | $8.00 | $0.38 | — |
 | Kimi K2.6 | $0.95 | $4.00 | $0.16 | — |
 | Kimi K2.5 | $0.60 | $3.00 | $0.10 | — |
+| GLM-5.3 | $1.40 | $4.40 | $0.26 | — |
 | GLM-5.2 | $1.40 | $4.40 | $0.26 | — |
 | GLM-5.2 Fast | $3.00 | $10.25 | $0.50 | — |
 | GLM-5.1 | $1.40 | $4.40 | $0.26 | — |
@@ -168,8 +168,8 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 | MiniMax M3* | $0.30 | $1.20 | $0.06 | — |
 | MiniMax M2.7 | $0.30 | $1.20 | $0.06 | — |
 | MiniMax M2.5 | $0.30 | $1.20 | $0.03 | — |
-| DeepSeek V4 Pro* | $0.435 | $0.87 | $0.003625 | — |
-| DeepSeek V4 Flash | $0.14 | $0.28 | $0.0028 | — |
+| DeepSeek V4 Pro (latest) | $0.66 | $1.98 | $0.022 | — |
+| DeepSeek V4 Flash (latest) | $0.22 | $0.66 | $0.007 | — |
 | Qwen 3.8 Max | $2.00 | $6.00 | $0.25 | $2.50 |
 | Qwen 3.6 Max Preview | $1.30 | $7.80 | $0.26 | $1.63 |
 | Qwen 3.6 Plus | $0.50 | $3.00 | $0.10 | — |
@@ -195,6 +195,7 @@ Rolling windows open on first use and reset after one window-length (5h / 7 days
 | GPT-5.4 | $2.50 | $15.00 | $0.25 | — |
 | GPT-5.4 Mini | $0.75 | $4.50 | $0.075 | — |
 | GPT-5.3 Codex | $2.00 | $8.00 | $0.50 | — |
+| Gemini 3.7 Flash* | $0.75 | $3.75 | $0.075 | $0.04167 |
 | Gemini 3.6 Flash | $1.50 | $7.50 | $0.15 | — |
 | Gemini 3.5 Flash | $1.50 | $9.00 | $0.15 | — |
 | Gemini 3.5 Flash Lite | $0.30 | $2.50 | $0.03 | — |

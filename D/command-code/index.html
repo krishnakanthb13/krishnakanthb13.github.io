@@ -1006,7 +1006,7 @@ const DOCS_URL = 'https://commandcode.ai/docs/resources/pricing-limits';
 
 // Cache lifecycle — the cache stores normalized data, not just a timestamp.
 // Cache version bump invalidates stale-format caches (migration / schema changes).
-const CACHE_VERSION = '2.1.0';
+const CACHE_VERSION = '2.2.0';
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6h — a full sync refreshes this
 const CACHE_KEY = 'cc-docs-cache';
 
@@ -1027,6 +1027,7 @@ let MODEL_DATA = {
     'kimi-k2.7-code-highspeed':{ name: 'Kimi K2.7 Code HighSpeed',context: '262K', input: 1.90,   output: 8.00,   cached: 0.38,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: 20,   req5h: 181,   reqWeek: 452,    reqMonth: 904,    note: null },
     'kimi-k2.6':               { name: 'Kimi K2.6',               context: '256K', input: 0.95,   output: 4.00,   cached: 0.16,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'kimi-k2.5':               { name: 'Kimi K2.5',               context: '256K', input: 0.60,   output: 3.00,   cached: 0.10,    cachedWrite: null, provider: 'Moonshot', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
+    'glm-5.3':                 { name: 'GLM-5.3',                 context: '1M',   input: 1.40,   output: 4.40,   cached: 0.26,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'glm-5.2':                 { name: 'GLM-5.2',                 context: '1M',   input: 1.40,   output: 4.40,   cached: 0.26,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: 70,   req5h: 947,   reqWeek: 2370,   reqMonth: 4740,   note: null },
     'glm-5.2-fast':            { name: 'GLM-5.2 Fast',            context: '1M',   input: 3.00,   output: 10.25,  cached: 0.50,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: 20,   req5h: 138,   reqWeek: 346,    reqMonth: 691,    note: null },
     'glm-5.1':                 { name: 'GLM-5.1',                 context: '200K', input: 1.40,   output: 4.40,   cached: 0.26,    cachedWrite: null, provider: 'Zhipu', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
@@ -1034,8 +1035,8 @@ let MODEL_DATA = {
     'minimax-m3':              { name: 'MiniMax M3',              context: '1M',   input: 0.30,   output: 1.20,   cached: 0.06,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: 47,   req5h: 2770,  reqWeek: 6930,   reqMonth: 13900,  note: '⚡ 50% off' },
     'minimax-m2.7':            { name: 'MiniMax M2.7',            context: '200K', input: 0.30,   output: 1.20,   cached: 0.06,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'minimax-m2.5':            { name: 'MiniMax M2.5',            context: '200K', input: 0.30,   output: 1.20,   cached: 0.03,    cachedWrite: null, provider: 'MiniMax', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
-    'deepseek-v4-pro':         { name: 'DeepSeek V4 Pro',         context: '1M',   input: 0.435,  output: 0.87,   cached: 0.003625, cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 20,   req5h: 5690,  reqWeek: 14200,  reqMonth: 28400,  note: '⚡ 75% off (4× usage)' },
-    'deepseek-v4-flash':       { name: 'DeepSeek V4 Flash',       context: '1M',   input: 0.14,   output: 0.28,   cached: 0.0028,  cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 60,   req5h: 39000, reqWeek: 97400,  reqMonth: 195000, note: null },
+    'deepseek-v4-pro':         { name: 'DeepSeek V4 Pro',         context: '1M',   input: 0.66,   output: 1.98,   cached: 0.022,   cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 20,   req5h: 5690,  reqWeek: 14200,  reqMonth: 28400,  note: 'off-peak 17h/day · peak $1.32/$3.96' },
+    'deepseek-v4-flash':       { name: 'DeepSeek V4 Flash',       context: '1M',   input: 0.22,   output: 0.66,   cached: 0.007,   cachedWrite: null, provider: 'DeepSeek', tier: 'Open', free: false, goat: 60,   req5h: 39000, reqWeek: 97400,  reqMonth: 195000, note: 'off-peak 17h/day · peak $0.44/$1.32' },
     'qwen3.8-max':             { name: 'Qwen 3.8 Max',            context: '1M',   input: 2.00,   output: 6.00,   cached: 0.25,    cachedWrite: 2.50,  provider: 'Alibaba', tier: 'Open', free: false, goat: 25,   req5h: 327,   reqWeek: 817,    reqMonth: 1630,   note: null },
     'qwen3.6-max-preview':     { name: 'Qwen 3.6 Max Preview',    context: '200K', input: 1.30,   output: 7.80,   cached: 0.26,    cachedWrite: 1.63,  provider: 'Alibaba', tier: 'Open', free: false, goat: null,  req5h: null, reqWeek: null, reqMonth: null, note: null },
     'qwen3.6-plus':            { name: 'Qwen 3.6 Plus',           context: '200K', input: 0.50,   output: 3.00,   cached: 0.10,    cachedWrite: null, provider: 'Alibaba', tier: 'Open', free: false, goat: 70,   req5h: 2330,  reqWeek: 5830,   reqMonth: 11700,  note: null },
@@ -1081,12 +1082,12 @@ let MODEL_DATA = {
 // Plan comparison data — sourced from https://commandcode.ai/pricing and docs/plans/*
 // SOURCE: https://commandcode.ai/pricing — keep in sync with source on each build
 let PLAN_DATA = {
-    go:       { name: 'Go',       price: '$1',     priceNum: 1,     credits: '$10',    req: '~15K',   eff: 'Up to $40',   models: 32,   desc: 'Open models + select premium (Luna, Grok 4.5, Qwen Max & Plus)', tier: '5h 30% · wk 60%', featured: false, visible: true },
+    go:       { name: 'Go',       price: '$1',     priceNum: 1,     credits: '$10',    req: '~15K',   eff: 'Up to $50',   models: 32,   desc: 'Open models + select premium (Luna, Grok 4.5, Qwen Max & Plus)', tier: '5h 30% · wk 60%', featured: false, visible: true },
     goat:     { name: 'GOAT',     price: '$10',    priceNum: 10,    credits: '$70',    req: '~75K',   eff: 'Up to $100',  models: 33,   desc: 'Open models + per-model allowances, 7× multiplier',               tier: '5h 20% · wk 50%', featured: true, visible: true },
     pro:      { name: 'Pro',      price: '$20',    priceNum: 20,    credits: '$80',    req: '~100K',  eff: 'Up to $150',  models: 47,   desc: 'Open-source + premium (Claude, GPT, Gemini) at $20 each',         tier: '5h 20% · wk 50%', featured: false, visible: true },
-    max10x:   { name: 'Max 10×',  price: '$100',   priceNum: 100,   credits: '$150',   req: '~219K',  eff: 'Up to $600',  models: 53,   desc: 'Every model, no restrictions — Claude Opus & Fable included',      tier: '5h 30% · wk 60%', featured: false, visible: true },
-    max20x:   { name: 'Max 20×',  price: '$200',   priceNum: 200,   credits: '$300',   req: '~437K',  eff: 'Up to $1,200', models: 53,  desc: 'Every model, max throughput for the heaviest users',               tier: '5h 30% · wk 60%', featured: false, visible: true },
-    provider: { name: 'Provider', price: '$15',    priceNum: 15,    credits: 'PAYG',   req: 'Uncapped', eff: 'No markup', models: 55,  desc: 'OpenAI & Anthropic compatible API — every deal applies',             tier: 'No windows', featured: false, visible: true },
+    max10x:   { name: 'Max 10×',  price: '$100',   priceNum: 100,   credits: '$150',   req: '~230K',  eff: 'Up to $750',  models: 53,   desc: 'Every model, no restrictions — Claude Opus & Fable included',      tier: '5h 30% · wk 60%', featured: false, visible: true },
+    max20x:   { name: 'Max 20×',  price: '$200',   priceNum: 200,   credits: '$300',   req: '~370K',  eff: 'Up to $1,500', models: 53,  desc: 'Every model, max throughput for the heaviest users',               tier: '5h 30% · wk 60%', featured: false, visible: true },
+    provider: { name: 'Provider', price: '$15',    priceNum: 15,    credits: 'PAYG',   req: 'Uncapped', eff: 'No markup', models: 58,  desc: 'OpenAI & Anthropic compatible API — every deal applies',             tier: 'No windows', featured: false, visible: true },
     team:     { name: 'Team Pro', price: '$40',    priceNum: 40,    credits: '$40',    req: '~35K',   eff: 'Pooled',     models: 53,   desc: 'Pooled credits, shared billing, central admin',                    tier: '5h 30% · wk 60%', featured: false, visible: true },
 };
 
@@ -1094,7 +1095,6 @@ let PLAN_DATA = {
 // SOURCE: https://commandcode.ai/docs/resources/pricing-limits — keep in sync with source on each build
 // `expiresAt`/`startsAt` are ISO timestamps; the term string is only for display. Expired deals are hidden automatically.
 let DEAL_DATA = [
-    { model: 'deepseek-v4-pro',        name: 'DeepSeek V4 Pro',         discount: '75% off · 4× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 4× further' },
     { model: 'gemini-3.7-flash',        name: 'Gemini 3.7 Flash',        discount: '50% off · 2× usage', term: 'Ends Dec 31, 2026',  expiresAt: '2026-12-31T23:59:59Z', desc: 'Every $1 of credit goes 2× further' },
     { model: 'minimax-m3',             name: 'MiniMax M3',              discount: '50% off · 2× usage', term: 'Permanent',   expiresAt: null,            desc: 'Every $1 of credit goes 2× further' },
     { model: 'mimo-v2.5-pro',          name: 'MiMo V2.5 Pro',           discount: 'Up to 99% off',      term: 'Permanent',   expiresAt: null,            desc: 'Cache reads down to $0.0036/1M (111× value)' },
