@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of the Hot, Fun, Sane trilemma: only two can coexist. Explore the sociology of desire, the Hot-Crazy Matrix, and the pathologization of female autonomy.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#0f172a">
+
+    <title>The Feminine Trilemma: Hot, Fun, Sane</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💃</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --hot-color: #fb7185;
+            --fun-color: #fbbf24;
+            --sane-color: #a78bfa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(251, 113, 133, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 60%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--hot-color), var(--fun-color), var(--sane-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 640px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
+
+        /* DASHBOARD GRID */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+
+        /* VISUALIZATION */
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(0.75rem, 1.6vw, 0.95rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.3); border-radius: 12px; border-left: 4px solid var(--sane-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.1rem; }
+        #insight-desc { font-size: 0.9rem; line-height: 1.4; }
+
+        /* CONTROLS */
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #hot-slider::-webkit-slider-thumb { background: var(--hot-color); box-shadow: 0 0 12px var(--hot-color); }
+        #fun-slider::-webkit-slider-thumb { background: var(--fun-color); box-shadow: 0 0 12px var(--fun-color); }
+        #sane-slider::-webkit-slider-thumb { background: var(--sane-color); box-shadow: 0 0 12px var(--sane-color); }
+        #hot-slider::-moz-range-thumb { background: var(--hot-color); box-shadow: 0 0 12px var(--hot-color); }
+        #fun-slider::-moz-range-thumb { background: var(--fun-color); box-shadow: 0 0 12px var(--fun-color); }
+        #sane-slider::-moz-range-thumb { background: var(--sane-color); box-shadow: 0 0 12px var(--sane-color); }
+
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--hot-color), var(--fun-color), var(--sane-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 600; }
+
+        /* BUTTONS & ACTIONS */
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.9rem); }
+        .btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .btn.active { border-color: var(--hot-color); background: rgba(251, 113, 133, 0.1); }
+
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--hot-color), var(--sane-color)); color: #fff; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(251, 113, 133, 0.3); }
+
+        #action-plan-output { display: none; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--hot-color); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+
+        /* COMPACT ARTICLE SECTION */
+        .article-container {
+            max-width: 800px; width: 100%; margin: 1rem auto 2rem;
+            background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-hot { color: var(--hot-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-fun { color: var(--fun-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-sane { color: var(--sane-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+
+        /* ACCORDIONS */
+        details { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 260px;
+            gap: 1.5rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider-hot { background-color: var(--hot-color); box-shadow: 0 0 10px rgba(251, 113, 133, 0.4); }
+        input:checked + .toggle-slider-fun { background-color: var(--fun-color); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        input:checked + .toggle-slider-sane { background-color: var(--sane-color); box-shadow: 0 0 10px rgba(167, 139, 250, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+        /* QUOTE BLOCK */
+        .quote-block {
+            background: rgba(251, 113, 133, 0.05);
+            border-left: 4px solid var(--hot-color);
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+
+        /* TABLE */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+
+        @media (max-width: 800px) {
+            .dashboard { display: flex; flex-direction: column; gap: 1rem; }
+            .panel-visual { order: -1; padding: 1rem; }
+            .panel-controls { padding: 1rem; }
+            .triangle-container { height: 200px; min-height: auto; }
+            .insight-box { padding: 0.8rem 1rem; }
+            #insight-desc { font-size: 0.85rem; }
+            .btn { padding: 0.5rem; }
+            .comparison-table { font-size: 0.75rem; }
+            .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Feminine Trilemma</h1>
+        <p class="subtitle">Hot, Fun, Sane. You can only pick two. A folk taxonomy deconstructed through the sociology of desire, lookism, and compulsory heterosexuality.</p>
+    </header>
+
+    <div class="dashboard">
+
+        <!-- Controls Panel -->
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Desire</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.4;">Max Capacity: 200%. A patriarchal lens that forces trade-offs — raising one state inevitably drains another.</p>
+
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="hot-slider" style="color:var(--hot-color)">🔥 HOT (Attractiveness)</label><span id="hot-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="hot-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="fun-slider" style="color:var(--fun-color)">🎭 FUN (Spontaneity)</label><span id="fun-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="fun-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="sane-slider" style="color:var(--sane-color)">🧘 SANE (Stability)</label><span id="sane-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="sane-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Taxonomy Overload! Auto-balancing...</div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Archetypes</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('boring')"><span>🫥</span> Boring Hot<br><small style="font-size:0.7rem;opacity:0.7">+🔥 +🧘 -🎭</small></button>
+                    <button class="btn" onclick="applyScenario('crazy')"><span>💥</span> Wild Hot<br><small style="font-size:0.7rem;opacity:0.7">+🔥 +🎭 -🧘</small></button>
+                    <button class="btn" onclick="applyScenario('quirky')"><span>🌻</span> Quirky Warm<br><small style="font-size:0.7rem;opacity:0.7">+🎭 +🧘 -🔥</small></button>
+                </nav>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3F()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Trigger</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Lens</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <!-- Visualization Panel -->
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Gaze Triangle</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(251, 113, 133, 0.2)" stroke="var(--hot-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="35" class="node-label" fill="var(--hot-color)">HOT</text>
+                    <text x="370" y="345" class="node-label" fill="var(--fun-color)">FUN</text>
+                    <text x="30" y="345" class="node-label" fill="var(--sane-color)">SANE</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--hot-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Gaze</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly exposes the trilemma's core trick: the frame itself manufactures artificial scarcity.</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>The Folk Law</h2>
+        <div class="quote-block">
+            No woman is hot, fun, and emotionally stable. You can only pick two. If she's stable and hot, she's not fun. She's boring. If she's hot and fun, she's not emotionally stable. She's crazy. She might have keyed your car, but at least you still had a good time. If she's stable and fun, she's not hot. She is ugly. I mean, maybe her personality is great. And if you were lucky enough to find a girl who's hot, fun, and emotionally stable, she's a lesbian.
+        </div>
+
+        <h2>Sociological Analysis</h2>
+        <p>This trilemma is not an accurate description of female psychology. It is a description of a <em>patriarchal rating system</em> that runs out of resolution. <strong>Hot</strong> measures how well a woman photographs for someone else's status; <strong>fun</strong> measures how little friction she creates in a male script; <strong>sane</strong> measures how cheap her emotions are to manage. That bundle has no stable maximum — because the moment a woman clears all three, the system has to invent an escape hatch ("she's a lesbian") rather than admit the categories were never orthogonal.</p>
+        <p>Notice the underlying economics: each pair predicts the slur attached to the third. <em>Stable + Hot</em> = "boring" (she won't perform unscripted spontaneity on demand). <em>Hot + Fun</em> = "crazy" (her boundaries register as volatility). <em>Stable + Fun</em> = "ugly" (without conventional sex appeal, warmth is recoded as non-sexual). The fourth quadrant joke — the unicorn — outsources the contradiction to compulsory heterosexuality: if she passed your audit completely, she must not be audited by you at all.</p>
+        <p>The actual move isn't to search for the mythical unicorn within this triangle. It is to refuse the premise that attractiveness, enjoyment, and steadiness are tradeable commodities — and to ask whose convenience is being priced by each edge.</p>
+
+        <h2>What the Research Says</h2>
+
+        <h3><span class="accent-hot">Hot + Sane without Fun</span> — the "boring" tax</h3>
+        <p>The framework codes this as "stable and hot, but boring." In affect theory, this maps to <em>managed femininity</em>: women who score high on attractiveness and regulation are penalized if they don't also produce surplus entertainment. Likability research consistently shows extraversion is gendered — the same low reactivity praised as "stoic" in men is read as "flat" in women when it isn't paired with caretaking warmth or flirtatious availability. The trilemma monetizes fun as unpaid emotional labor, then calls its absence a personality flaw.</p>
+
+        <h3><span class="accent-fun">Hot + Fun without Sane</span> — the "crazy" premium</h3>
+        <p>This is the cultural core of the matrix. Sociologists trace "crazy" not to clinical instability but to <em>legible autonomy</em>: sexual spontaneity, direct desire, anger, boundary-setting, or non-monogamy read as excess within a system that expects women's emotions to be low-cost. The contradiction is functional: fun requires spontaneity; stability requires predictability. The trilemma demands both from the same person simultaneously, then pathologizes whichever pole moves. That is not diagnosis — that is a double bind.</p>
+
+        <h3><span class="accent-sane">Sane + Fun without Hot</span> — the "ugly" clause</h3>
+        <p>The cruelest edge of the heuristic. Warmth and steadiness without conventional hotness is re-coded as asexual. Attraction research shows halo effects collapse when a woman ages, gains weight, or opts out of high-maintenance beauty work — regardless of competence or kindness. "Personality is great" barely softens the sentence because the system already priced personality in dollars of male attention. This is lookism with a punchline.</p>
+
+        <h3>The counter-evidence: <span class="accent-sane">all three coexist constantly</span></h3>
+        <p>Epidemiology does not support a negative correlation between attractiveness, emotional stability, and sociability at the population level. Big Five personality studies show no intrinsic trade where extraversion cancels emotional stability and both cancel perceived attractiveness — the triangle predicts a constraint that raw data refuses to find. Ask any community outside audit culture and they will name dozens of women who are hot, funny, and grounded, no unicorn required. The trilemma holds only inside the room that needs it to hold.</p>
+
+        <h2>The Trilemma Interactive</h2>
+        <p>Experience the taxonomy directly: try to turn all three ON. If you activate the third, one of the other active states will randomly toggle off — demonstrating how the framework mechanically prohibits three-way harmony.</p>
+
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--hot-color)">🔥 Hot</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-hot" checked>
+                        <span class="toggle-slider toggle-slider-hot"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--fun-color)">🎭 Fun</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-fun">
+                        <span class="toggle-slider toggle-slider-fun"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--sane-color)">🧘 Sane</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-sane" checked>
+                        <span class="toggle-slider toggle-slider-sane"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: The Sociological Deconstruction</h2>
+
+        <details>
+            <summary>1. The Epistemological Origins: From Figurines to the 1-10 Scale</summary>
+            <div class="details-content">
+                <p>The reduction of female worth to a numerical value is not a novel phenomenon of the internet age; it is deeply embedded in the historical trajectory of patriarchal societies. The compulsion to establish order from the "chaos" of female diversity has historically mirrored scientific and mathematical innovations.</p>
+                
+                <table class="comparison-table">
+                    <thead><tr><th>Historical Era</th><th>Innovation / Event</th><th>Sociological Implication in Gendered Contexts</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>40,000 Years Ago</strong></td><td>Symbolic thought & bodily ornamentation.</td><td>Prehistoric societies begin creating Venus figurines, establishing the earliest aesthetic evaluations of the female form.</td></tr>
+                        <tr><td><strong>300 B.C.</strong></td><td>Greek botanical classification systems.</td><td>Grouping alike items (herbs, shrubs, trees) established the cognitive framework for human categorization.</td></tr>
+                        <tr><td><strong>Centuries 1–4 A.D.</strong></td><td>Hindu-Arabic numeral system (Base-10).</td><td>Provided mathematical digits (0-9) eventually appropriated into the ubiquitous "1-10 scale" for physical attractiveness.</td></tr>
+                        <tr><td><strong>20th Century</strong></td><td>Richter Scale & volume amplification.</td><td>Cultural touchstones (e.g., <em>This Is Spinal Tap</em>'s "goes to 11") were rapidly appropriated to describe women whose looks purportedly exceeded standard scales.</td></tr>
+                        <tr><td><strong>21st Century</strong></td><td>Digital institutionalization of rating scales.</td><td>Campus "Fuck Lists" (e.g., Duke) and male forums (Total Frat Move, Return of Kings) defined decimal metrics like the "embarrassment metric".</td></tr>
+                    </tbody>
+                </table>
+                <p>These milestones illustrate that quantifying female attractiveness is an exercise in power: by assigning a score, the male observer positions himself as the objective arbiter of human worth.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. The Iron Triangle of Project Management and Relational Economics</summary>
+            <div class="details-content">
+                <p>The structure of the trilemma is a direct adaptation of the Project Management Triangle (Iron Triangle / Triple Constraint) from the 1950s U.S. defense sector: <strong>Good, Fast, Cheap — pick two</strong>.</p>
+                
+                <table class="comparison-table">
+                    <thead><tr><th>Project Constraint</th><th>Dating Trilemma Equivalent</th><th>Underlying Valuation Metric</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Quality (Good)</strong></td><td><strong>Attractiveness (Hot)</strong></td><td>Physical aesthetic and sexual capital treated as a consumable commodity.</td></tr>
+                        <tr><td><strong>Time (Fast)</strong></td><td><strong>Personality (Fun)</strong></td><td>Entertainment value, sexual spontaneity, and rapid gratification.</td></tr>
+                        <tr><td><strong>Cost (Cheap)</strong></td><td><strong>Stability (Sane)</strong></td><td>Low emotional maintenance cost, psychological tolerance, and low drama.</td></tr>
+                    </tbody>
+                </table>
+                <p>Applying industrial logic to human romance objectifies the partner, reducing complex psychology to a menu of competing consumer choices. It absolves the chooser: friction isn't an interpersonal failure, but proof you "picked" the hot + fun model and must pay in volatility.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. The Vicky Mendoza Diagonal in How I Met Your Mother</summary>
+            <div class="details-content">
+                <p>The earliest mainstream institutionalization of this geometric concept occurred in a 2007 episode of <em>How I Met Your Mother</em> ("How I Met Everyone Else"). The character Barney Stinson introduces the "Hot/Crazy Scale" with Y = hotness and X = craziness.</p>
+                <p>He posits the theoretical threshold named the <strong>Vicky Mendoza Diagonal</strong>: a woman's erratic or dangerous behavior is permissible strictly so long as her physical attractiveness increases commensurately to offset it. The sitcom relied on audience fluency with "pretty privilege" and lookism — sociological biases where highly attractive individuals are granted disproportionate leeway for transgressive behavior.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. Dana McLendon’s Universal Hot-Crazy Matrix (2014)</summary>
+            <div class="details-content">
+                <p>The trope reached its viral peak when Nashville divorce attorney Dana McLendon published the "Universal Hot-Crazy Matrix: A Man's Guide to Women," starting with the misogynistic axiom that "there is no woman below a 4 crazy."</p>
+
+                <table class="comparison-table">
+                    <thead><tr><th>Matrix Zone</th><th>Hotness</th><th>Craziness</th><th>Patriarchal Function</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>The No-Go Zone</strong></td><td>&lt; 5</td><td>Any</td><td>Discarded entirely from social consciousness and the mating pool.</td></tr>
+                        <tr><td><strong>The Fun Zone</strong></td><td>5 to 7</td><td>4 to 8</td><td>Short-term sexual gratification; emotional needs tolerated only temporarily.</td></tr>
+                        <tr><td><strong>The Danger Zone</strong></td><td>8 to 10</td><td>8 to 10</td><td>High volatility ("keyed your car"); pursued purely for physical access.</td></tr>
+                        <tr><td><strong>The Wife Zone</strong></td><td>8 to 10</td><td>5 to 7</td><td>Patriarchal ideal: attractive, subservient, with manageable emotional expression.</td></tr>
+                        <tr><td><strong>Unicorns</strong></td><td>8 to 10</td><td>&lt; 5</td><td>Mythological anomaly. Closed with a transphobic caveat ("you're talking to a man").</td></tr>
+                    </tbody>
+                </table>
+                <p>As analyzed in texts like Stefan Aarnio's <em>Hard Times Create Strong Men</em>, this ideology frames a woman's interior life as an inevitable burden that men must tactically manage to preserve masculine polarity.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. The Pathologization of Female Emotion: Hysteria & Gaslighting</summary>
+            <div class="details-content">
+                <p>The concept of "crazy" is rooted in the medical diagnosis of <em>hysteria</em> (from <em>hystera</em>, Greek for uterus). Historically, any female behavior from political outspokenness to emotional distress was attributed to a "wandering womb." Hysteria remained in American Psychiatric Association texts until 1952.</p>
+                <p>In modern parlance, "crazy" belongs to the "dismissal faction" of language, weaponized in the tactic known as <strong>gaslighting</strong> (originating from the 1944 film <em>Gaslight</em>). Dr. Robin Stern outlines the "Gaslight Tango":</p>
+
+                <table class="comparison-table">
+                    <thead><tr><th>Mechanism of Gaslighting</th><th>Manifestation in Victim ("Gaslight Tango")</th><th>Purpose of Manipulator</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Invalidation</strong> ("You're too sensitive", "Overreacting")</td><td>Victim constantly asks "Am I too sensitive?".</td><td>Dictate allowable feelings; strip emotional autonomy.</td></tr>
+                        <tr><td><strong>Denial of Reality</strong> ("That never happened")</td><td>Victim feels confused and doubts her own memory.</td><td>Substitute manipulator's reality for victim's.</td></tr>
+                        <tr><td><strong>Shifting Blame</strong> ("If you weren't dramatic, I wouldn't yell")</td><td>Victim apologizes constantly for abuser's actions.</td><td>Absolve manipulator of all interpersonal responsibility.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. Feminist Theoretical Frameworks: Card, Bartky, and de Beauvoir</summary>
+            <div class="details-content">
+                <p>Key feminist philosophers illuminate how the matrix operates as an instrument of control:</p>
+                <ul>
+                    <li><strong>Claudia Card — Patriarchy as a Protection Racket:</strong> Under patriarchy, women face persistent threats of violence and economic exclusion. Docility and beauty purchase conditional "protection." Women who exhibit unchecked sexuality or reject male authority are branded "crazy" and stripped of protection.</li>
+                    <li><strong>Sandra Bartky — The Internalized Panopticon:</strong> Disciplinary practices of femininity are enforced psychologically. Women act as their own wardens, measuring their hotness against craziness, creating a "truncated self" alienated from genuine personhood.</li>
+                    <li><strong>Simone de Beauvoir — "Othering":</strong> Treating the male experience as default rationality reduces women's emotional boundaries to symptoms of pathology.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. Academic Complicity: The Blanchard et al. (2020) PAID Study Controversy</summary>
+            <div class="details-content">
+                <p>In 2020, the academic journal <em>Personality and Individual Differences (PAID)</em> published a paper by Alyson Blanchard, Thomas J. Dunn, and Alex Sumich titled "Testing the ‘Hot Crazy Matrix’", substituting colloquial "crazy" with clinical Borderline Personality Disorder (BPD) metrics.</p>
+
+                <table class="comparison-table">
+                    <thead><tr><th>Evolutionary Hypothesis</th><th>Finding</th><th>Implication Drawn by Authors</th></tr></thead>
+                    <tbody>
+                        <tr><td>Men tolerate BPD traits in attractive women for short-term mating.</td><td>Supported</td><td>Men engage in turbulent relationships if aesthetic reward is high.</td></tr>
+                        <tr><td>Women compensate for low male attractiveness with high wealth.</td><td>Supported</td><td>Women prioritize resource acquisition over looks.</td></tr>
+                        <tr><td>Both genders reject secondary psychopathy in long-term scenarios.</td><td>Supported</td><td>Psychopathy is rejected as violent and dangerous.</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>The Backlash:</strong> Science integrity advocate Dr. Elisabeth Bik, along with formal rebuttals by Thomas M. Olino and clinical psychologist Sara Rose Masland (<em>Perspectives on Psychological Science</em>), demonstrated that using an unscientific internet meme to study BPD launders misogyny and stigmatizes a psychiatric condition rooted in trauma and minority stress.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. The Lesbian Punchline: Compulsory Heterosexuality</summary>
+            <div class="details-content">
+                <p>The punchline — "she's a lesbian" — serves as the structural failsafe of the matrix. A woman who is completely autonomous, gorgeous, and emotionally self-sufficient poses an existential threat to patriarchal logic: she does not need the patriarchal protection racket.</p>
+                <p>Adrienne Rich’s 1980 essay <em>"Compulsory Heterosexuality and Lesbian Existence"</em> explains how patriarchy forces women into heterosexual arrangements. When men use "lesbian" as the punchline, they acknowledge male anxiety that the most self-possessed women escape the male gaze entirely.</p>
+
+                <table class="comparison-table">
+                    <thead><tr><th>Humor Framework</th><th>Focus / Mechanism</th><th>Sociological Implication</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Heteronormative Humor</strong> (Hot-Crazy Matrix)</td><td>Female sexual availability vs. mental instability.</td><td>Posits the lesbian as an imaginary state of perfection denied to men.</td></tr>
+                        <tr><td><strong>Lesbian In-Group Humor</strong> (U-Haul, Gay-dar)</td><td>Emotional processing, domesticity, community potlucks.</td><td>Claims self-definition; prioritizes cooperative community over sexual commodification.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. Reclamations in Feminist Media: Crazy Ex-Girlfriend & Horror</summary>
+            <div class="details-content">
+                <p>Modern feminist media actively dismantles the matrix:</p>
+                <ul>
+                    <li><strong>Rachel Bloom's <em>Crazy Ex-Girlfriend</em> (2015–2019):</strong> Directly challenges the title's sexism ("the situation's a lot more nuanced than that"). In season 3, Rebecca Bunch is diagnosed with BPD, portrayed with clinical empathy. Her self-worth is untethered from male approval, and female solidarity replaces romantic competition.</li>
+                    <li><strong>The Feminist Horror Vanguard:</strong> Tropes like the "Final Girl" and the "Monstrous Feminine" reframe male terror: men fear the "crazy woman" because she embodies female rage against systemic subjugation, transforming the "Danger Zone" into radical resistance.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. Synthesis & Moving Beyond the Matrix</summary>
+            <div class="details-content">
+                <p>The trilemma maps how patriarchal dating markets <em>price</em> women when treated as consumable specs. It fails completely as psychology: there is no negative manifold linking attractiveness, extraversion, and emotional stability.</p>
+                <p>Its durability relies on three conveniences: lowering male accountability ("nature made her flawed"), laundering pretty privilege into a graph, and pathologizing boundaries as "crazy." The corrective is simple: put down the scorecard and recognize women not as data points on a matrix of male convenience, but as complete, autonomous subjects.</p>
+            </div>
+        </details>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Life Mechanics Hub. Developed by Krishnakanth.</p>
+    </footer>
+
+    <script>
+        const sliders = {
+            hot: document.getElementById('hot-slider'),
+            fun: document.getElementById('fun-slider'),
+            sane: document.getElementById('sane-slider')
+        };
+        const vals = {
+            hot: document.getElementById('hot-val'),
+            fun: document.getElementById('fun-val'),
+            sane: document.getElementById('sane-val')
+        };
+        const capFill = document.getElementById('cap-fill');
+        const capVal = document.getElementById('cap-val');
+        const warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly');
+        const insightContainer = document.getElementById('insight-container');
+        const insightTitle = document.getElementById('insight-title');
+        const insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams() {
+            const url = new URL(window.location);
+            url.searchParams.set('h', sliders.hot.value);
+            url.searchParams.set('f', sliders.fun.value);
+            url.searchParams.set('s', sliders.sane.value);
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('h')) sliders.hot.value = params.get('h');
+            if (params.has('f')) sliders.fun.value = params.get('f');
+            if (params.has('s')) sliders.sane.value = params.get('s');
+        }
+
+        function updateUI(sourceSlider = null) {
+            let h = parseInt(sliders.hot.value);
+            let f = parseInt(sliders.fun.value);
+            let s = parseInt(sliders.sane.value);
+            let total = h + f + s;
+
+            if (total > MAX_CAPACITY) {
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity = '1';
+                setTimeout(() => { warningMsg.style.opacity = '0'; }, 2000);
+
+                let others = Object.keys(sliders);
+                if (sourceSlider) {
+                    others = others.filter(k => sliders[k] !== sourceSlider);
+                }
+                others.sort((a, b) => sliders[b].value - sliders[a].value);
+
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(sliders[key].value);
+                    let toDrain = Math.min(val, excess);
+                    sliders[key].value = val - toDrain;
+                    excess -= toDrain;
+                }
+                h = parseInt(sliders.hot.value);
+                f = parseInt(sliders.fun.value);
+                s = parseInt(sliders.sane.value);
+                total = h + f + s;
+            }
+
+            vals.hot.innerText = h + '%';
+            vals.fun.innerText = f + '%';
+            vals.sane.innerText = s + '%';
+
+            let percent = (total / MAX_CAPACITY) * 100;
+            capFill.style.width = percent + '%';
+            capVal.innerText = `${total} / 200`;
+            capFill.style.background = percent > 90 
+                ? 'linear-gradient(90deg, var(--hot-color), #f43f5e)' 
+                : 'linear-gradient(90deg, var(--hot-color), var(--fun-color), var(--sane-color))';
+
+            // SVG points calculation: Top (200, 50), Bottom-Right (350, 320), Bottom-Left (50, 320), Center (200, 185)
+            const hX = 200;
+            const hY = 185 - (135 * (h / 100));
+            const fX = 200 + (150 * (f / 100));
+            const fY = 185 + (135 * (f / 100));
+            const sX = 200 - (150 * (s / 100));
+            const sY = 185 + (135 * (s / 100));
+
+            poly.setAttribute('points', `${hX},${hY} ${fX},${fY} ${sX},${sY}`);
+
+            let dominantColor = 'var(--text-main)';
+            if (h >= f && h >= s) dominantColor = 'var(--hot-color)';
+            else if (f >= h && f >= s) dominantColor = 'var(--fun-color)';
+            else dominantColor = 'var(--sane-color)';
+
+            poly.setAttribute('stroke', dominantColor);
+            insightContainer.style.borderLeftColor = dominantColor;
+
+            generateInsight(h, f, s);
+            updateURLParams();
+        }
+
+        function generateInsight(h, f, s) {
+            if (h > 80 && s > 80 && f < 30) {
+                insightTitle.innerText = "The Boring Hot (Managed Femininity)";
+                insightTitle.style.color = "var(--hot-color)";
+                insightDesc.innerText = "Stable and stunning — coded as flat. Likability research identifies this as the extraversion tax: composure is labeled dullness when it doesn't provide unearned entertainment.";
+            } else if (h > 80 && f > 80 && s < 30) {
+                insightTitle.innerText = "The Wild Hot (The Danger Zone)";
+                insightTitle.style.color = "var(--fun-color)";
+                insightDesc.innerText = "\"She keyed your car but you had fun.\" Spontaneity and desire read as volatility the moment boundaries emerge. The matrix prices compliance, recoding agency as madness.";
+            } else if (s > 80 && f > 80 && h < 30) {
+                insightTitle.innerText = "The Quirky Warm (Desexualized Care)";
+                insightTitle.style.color = "var(--sane-color)";
+                insightDesc.innerText = "\"Maybe her personality is great.\" Warmth and steadiness without conventional hotness is re-coded as asexual. The halo collapses without aesthetic maintenance.";
+            } else if (h < 20 && f < 20 && s < 20) {
+                insightTitle.innerText = "Outside the Gaze";
+                insightTitle.style.color = "#f43f5e";
+                insightDesc.innerText = "Scored near zero on an audit never built to recognize human depth. The question isn't how to score higher — it's who profits when you try.";
+            } else if (f > 80 && h < 30 && s < 30) {
+                insightTitle.innerText = "The Jester (Pure Fun)";
+                insightTitle.style.color = "var(--fun-color)";
+                insightDesc.innerText = "Frictionless entertainment without aesthetic or stability credit. Enjoyed in the room, discounted outside it.";
+            } else if (h > 80 && f < 30 && s < 30) {
+                insightTitle.innerText = "The Poster (Pure Hot)";
+                insightTitle.style.color = "var(--hot-color)";
+                insightDesc.innerText = "High aesthetic capital, low emotional legibility. Desired and discounted simultaneously as an image rather than a person.";
+            } else if (s > 80 && h < 30 && f < 30) {
+                insightTitle.innerText = "The Anchor (Pure Sane)";
+                insightTitle.style.color = "var(--sane-color)";
+                insightDesc.innerText = "Self-regulating and steady. Stability without spectacle prices at zero because it saves the observer nothing cinematic.";
+            } else {
+                insightTitle.innerText = "The Balanced Gaze";
+                insightTitle.style.color = "var(--text-main)";
+                insightDesc.innerText = "Holding all three lightly exposes the trilemma's trick: the scarcity appears only when demanding all three at maximum through a single consumer lens.";
+            }
+        }
+
+        function applyScenario(type) {
+            document.querySelectorAll('.archetypes .btn').forEach(b => b.classList.remove('active'));
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+            if (type === 'boring') {
+                sliders.hot.value = 90;
+                sliders.sane.value = 85;
+                sliders.fun.value = 15;
+                updateUI(sliders.hot);
+            } else if (type === 'crazy') {
+                sliders.hot.value = 90;
+                sliders.fun.value = 90;
+                sliders.sane.value = 15;
+                updateUI(sliders.hot);
+            } else if (type === 'quirky') {
+                sliders.sane.value = 90;
+                sliders.fun.value = 85;
+                sliders.hot.value = 15;
+                updateUI(sliders.sane);
+            }
+        }
+
+        function generateActionPlan() {
+            let h = parseInt(sliders.hot.value);
+            let f = parseInt(sliders.fun.value);
+            let s = parseInt(sliders.sane.value);
+            let states = [
+                { name: 'Hotness', val: h, color: 'var(--hot-color)' },
+                { name: 'Fun', val: f, color: 'var(--fun-color)' },
+                { name: 'Sanity', val: s, color: 'var(--sane-color)' }
+            ];
+            states.sort((x, y) => y.val - x.val);
+            let maxState = states[0];
+            let minState = states[2];
+
+            let text = `<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">📝 Lens Commitment: Prioritizing ${maxState.name}</strong>` +
+                `You are currently evaluating dynamics primarily through <strong>${maxState.name}</strong>.<br><br>` +
+                `Be mindful that this audit tends to undervalue <strong>${minState.name}</strong>. Notice when you catch yourself recoding boundaries as "crazy" or steadiness as "boring" — and interrupt the score.<br><br>` +
+                `<em>(State preserved in URL parameters. Share or bookmark to reflect.)</em>`;
+
+            actionPlanOutput.innerHTML = text;
+            actionPlanOutput.style.borderLeftColor = maxState.color;
+            actionPlanOutput.style.display = 'block';
+        }
+
+        function triggerRandomEvent3F() {
+            const events = [
+                { text: "She sets a firm boundary and enforces it", h: 5, f: -15, s: 25, solution: "Notice the urge to recode boundary as \"crazy.\" Ask: did anything clinically destabilize, or did convenience destabilize?" },
+                { text: "Magnetic first date — instant explosive chemistry", h: 25, f: 20, s: -20, solution: "The Danger Zone surge. Don't graph adrenaline as destiny. Ask what data excitement is obscuring." },
+                { text: "Year-long partnership — quiet, kind, emotionally steady", h: -10, f: 10, s: 30, solution: "Warm + stable without spectacle. Don't mistake the absence of drama for the absence of attraction." },
+                { text: "She stops performing high-maintenance beauty labor", h: -30, f: 5, s: 10, solution: "Watch the halo effect collapse in real time. If your rating dropped while her character remained steady, the bias is yours." },
+                { text: "She expresses acute career burnout and asks for care", h: 0, f: -20, s: -15, solution: "Distress is not volatility. Am I scoring her needs as a flaw because they make a claim on my time?" },
+                { text: "You meet someone hot, hilarious, grounded — who is completely unavailable to you", h: 30, f: 30, s: 30, solution: "The unicorn in reality. Not proof of \"must be a lesbian\" — proof that the trilemma was an aperture problem all along." },
+                { text: "She says no to a sexual script you assumed", h: -10, f: -25, s: 15, solution: "No is regulatory. If fun dropped the moment desire wasn't automated, fun was merely measuring compliance." },
+                { text: "A viral podcast clip praises the Hot-Crazy Matrix", h: 15, f: 15, s: -20, solution: "Laugh tracks calibrate folk taxonomies. Interrogate what the joke requires you to believe about female autonomy." }
+            ];
+
+            let ev = events[Math.floor(Math.random() * events.length)];
+            sliders.hot.value = Math.max(0, Math.min(100, parseInt(sliders.hot.value) + ev.h));
+            sliders.fun.value = Math.max(0, Math.min(100, parseInt(sliders.fun.value) + ev.f));
+            sliders.sane.value = Math.max(0, Math.min(100, parseInt(sliders.sane.value) + ev.s));
+            updateUI();
+
+            actionPlanOutput.innerHTML = `<strong>🎲 Trigger: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor = '#94a3b8';
+            actionPlanOutput.style.display = 'block';
+        }
+
+        Object.keys(sliders).forEach(key => {
+            sliders[key].addEventListener('input', () => updateUI(sliders[key]));
+        });
+
+        // 3-Way Toggle Paradox Widget Logic
+        const paraHot = document.getElementById('para-hot');
+        const paraFun = document.getElementById('para-fun');
+        const paraSane = document.getElementById('para-sane');
+        const paraSwitches = [paraHot, paraFun, paraSane];
+
+        function updateParadoxInsight() {
+            const h = paraHot.checked;
+            const f = paraFun.checked;
+            const s = paraSane.checked;
+            const insightEl = document.getElementById('para-insight');
+            let title = "", desc = "", color = "var(--text-muted)";
+
+            if (h && s && !f) {
+                title = "The Boring Hot (Hot + Sane)";
+                color = "var(--hot-color)";
+                desc = "\"Stable and hot — she's boring.\" Low reactivity is penalized as dullness. The composure praised as stoic in men is priced as flat when expected to perform entertaining warmth.";
+            } else if (h && f && !s) {
+                title = "The Wild Hot (Hot + Fun)";
+                color = "var(--fun-color)";
+                desc = "\"Hot and fun — she's crazy.\" Spontaneity plus sexual desire reads as danger the second boundaries appear. The \"fun\" was measuring compliance; boundaries look like system failure.";
+            } else if (s && f && !h) {
+                title = "The Quirky Warm (Sane + Fun)";
+                color = "var(--sane-color)";
+                desc = "\"Stable and fun — she's ugly.\" Warmth and steadiness without conventional hotness is desexualized: \"maybe her personality is great\" is the consolation prize for failing the aesthetic audit.";
+            } else if (h && !f && !s) {
+                title = "The Poster (Hot Only)";
+                color = "var(--hot-color)";
+                desc = "High aesthetic capital, low relational legibility. Stored as image rather than connection.";
+            } else if (f && !h && !s) {
+                title = "The Entertainer (Fun Only)";
+                color = "var(--fun-color)";
+                desc = "Frictionless and funny without hotness or documented stability. Enjoyed as a spectacle, rarely chosen for commitment.";
+            } else if (s && !h && !f) {
+                title = "The Anchor (Sane Only)";
+                color = "var(--sane-color)";
+                desc = "Regulated and reliable — invisible inside optics systems that only reward spectacle.";
+            } else if (!h && !f && !s) {
+                title = "Outside the Audit (All Off)";
+                color = "#f43f5e";
+                desc = "Scored zero on a test that needed you to score somewhere. The trilemma depends on never meeting someone outside its ruler.";
+            }
+
+            insightEl.style.borderLeftColor = color;
+            insightEl.innerHTML = `<strong style="color: ${color}; display: block; margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        paraSwitches.forEach(sw => {
+            sw.addEventListener('change', function () {
+                if (this.checked) {
+                    const checkedOnes = paraSwitches.filter(s => s.checked);
+                    if (checkedOnes.length > 2) {
+                        const others = paraSwitches.filter(s => s !== this);
+                        const randomOther = others[Math.floor(Math.random() * others.length)];
+                        randomOther.checked = false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+
+        // Initialize
+        loadFromURL();
+        if (!window.location.search) {
+            sliders.hot.value = 33;
+            sliders.fun.value = 33;
+            sliders.sane.value = 34;
+        }
+        updateUI();
+        updateParadoxInsight();
+    </script>
+</body>
+</html>

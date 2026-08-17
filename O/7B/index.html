@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of grief: Confusion, Denial, Anger, Bargaining, Sadness, Depression, Acceptance. The neurobiology of prediction error, heartbreak, and learning to live with absence.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#0f172a">
+    <title>The Seven Stages: Grief as Neural Learning</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫀</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --confusion-color: #94a3b8;
+            --denial-color: #a78bfa;
+            --anger-color: #f87171;
+            --bargaining-color: #fbbf24;
+            --sad-color: #38bdf8;
+            --depression-color: #6366f1;
+            --acceptance-color: #4ade80;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(167, 139, 250, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 65%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.4rem); font-weight: 800; background: linear-gradient(to right, var(--confusion-color), var(--denial-color), var(--anger-color), var(--bargaining-color), var(--sad-color), var(--depression-color), var(--acceptance-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.05rem); color: var(--text-muted); max-width: 720px; margin: 0 auto; line-height: 1.5; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1150px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 1.6rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.15rem, 3vw, 1.35rem); margin-bottom: 0.4rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .heptagon-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 240px; max-height: 340px; position: relative; margin-bottom: 0.8rem; }
+        .heptagon-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 700; font-size: 0.68rem; fill: var(--text-main); text-anchor: middle; letter-spacing: 0.3px; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.32); border-radius: 12px; border-left: 4px solid var(--denial-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.05rem; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.45; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.88rem; }
+        .slider-header label { display: flex; align-items: center; gap: 0.35rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 7px; background: rgba(255, 255, 255, 0.09); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 2px solid rgba(255,255,255,0.9); }
+        input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9); transition: transform 0.2s, box-shadow 0.2s; }
+        #confusion-slider::-webkit-slider-thumb { background: var(--confusion-color); box-shadow: 0 0 10px var(--confusion-color); }
+        #denial-slider::-webkit-slider-thumb { background: var(--denial-color); box-shadow: 0 0 10px var(--denial-color); }
+        #anger-slider::-webkit-slider-thumb { background: var(--anger-color); box-shadow: 0 0 10px var(--anger-color); }
+        #bargaining-slider::-webkit-slider-thumb { background: var(--bargaining-color); box-shadow: 0 0 10px var(--bargaining-color); }
+        #sad-slider::-webkit-slider-thumb { background: var(--sad-color); box-shadow: 0 0 10px var(--sad-color); }
+        #depression-slider::-webkit-slider-thumb { background: var(--depression-color); box-shadow: 0 0 10px var(--depression-color); }
+        #acceptance-slider::-webkit-slider-thumb { background: var(--acceptance-color); box-shadow: 0 0 10px var(--acceptance-color); }
+        #confusion-slider::-moz-range-thumb { background: var(--confusion-color); }
+        #denial-slider::-moz-range-thumb { background: var(--denial-color); }
+        #anger-slider::-moz-range-thumb { background: var(--anger-color); }
+        #bargaining-slider::-moz-range-thumb { background: var(--bargaining-color); }
+        #sad-slider::-moz-range-thumb { background: var(--sad-color); }
+        #depression-slider::-moz-range-thumb { background: var(--depression-color); }
+        #acceptance-slider::-moz-range-thumb { background: var(--acceptance-color); }
+        .total-capacity { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 9px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; margin: 0 0.8rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--confusion-color), var(--anger-color), var(--acceptance-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.25rem; font-weight: 600; }
+        .archetypes { margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
+        .btn { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.55rem 0.3rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; text-align: center; font-size: 0.78rem; line-height: 1.2; }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+        .btn.active { border-color: var(--acceptance-color); background: rgba(74, 222, 128, 0.08); }
+        .action-plan-btn { width: 100%; margin-top: 0.9rem; background: linear-gradient(135deg, var(--denial-color), var(--acceptance-color)); color: #0f172a; padding: 0.78rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.92rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(167, 139, 250, 0.25); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.4); padding: 0.95rem; border-radius: 8px; margin-top: 0.9rem; border-left: 4px solid var(--denial-color); font-size: 0.88rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 800px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.65; font-size: clamp(0.95rem, 2vw, 1.04rem); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.35rem, 3vw, 1.75rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.4px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.25rem); color: #f4f4f5; margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .article-container p { margin-bottom: 0.95rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.45rem; padding: 0; }
+        .article-container li { margin-bottom: 0.35rem; }
+        .accent-confusion { color: var(--confusion-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-denial { color: var(--denial-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-anger { color: var(--anger-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-bargaining { color: var(--bargaining-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-sad { color: var(--sad-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-depression { color: var(--depression-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-acceptance { color: var(--acceptance-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 0.9rem; overflow: hidden; }
+        summary { padding: 0.95rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.4rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.28); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.4rem; margin: 1.5rem 0; text-align: center; }
+        .switch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1.2rem; margin-top: 1.2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; padding: 0.55rem 0.75rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.88rem; display: flex; align-items: center; gap: 0.35rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(22px); }
+        input:checked + .ts-confusion { background-color: var(--confusion-color); box-shadow: 0 0 8px rgba(148,163,184,0.4); }
+        input:checked + .ts-denial { background-color: var(--denial-color); box-shadow: 0 0 8px rgba(167,139,250,0.4); }
+        input:checked + .ts-anger { background-color: var(--anger-color); box-shadow: 0 0 8px rgba(248,113,113,0.4); }
+        input:checked + .ts-bargaining { background-color: var(--bargaining-color); box-shadow: 0 0 8px rgba(251,191,36,0.4); }
+        input:checked + .ts-sad { background-color: var(--sad-color); box-shadow: 0 0 8px rgba(56,189,248,0.4); }
+        input:checked + .ts-depression { background-color: var(--depression-color); box-shadow: 0 0 8px rgba(99,102,241,0.45); }
+        input:checked + .ts-acceptance { background-color: var(--acceptance-color); box-shadow: 0 0 8px rgba(74,222,128,0.4); }
+        .quote-block { background: rgba(167, 139, 250, 0.06); border-left: 4px solid var(--denial-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(1rem, 2.2vw, 1.12rem); line-height: 1.75; color: #e2e8f0; }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.82rem; }
+        .comparison-table th, .comparison-table td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.07); vertical-align: top; }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; white-space: nowrap; }
+        .comparison-table td { color: #cbd5e1; }
+        @media (max-width: 860px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .heptagon-container { min-height: 220px; } .switch-grid { grid-template-columns: 1fr; } .comparison-table { font-size: 0.74rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Seven Stages of Grief</h1>
+        <p class="subtitle">Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance. Not a staircase — a weather system. Grief is the brain learning that someone will not return.</p>
+    </header>
+
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Track Grief Load</h2>
+                <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.82rem; line-height: 1.45;">Max Load: 300%. You cannot hold all seven at full intensity — oscillation is the biology. Push one, others soften.</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group"><div class="slider-header"><label for="confusion-slider" style="color:var(--confusion-color)">🌫️ CONFUSION</label><span id="confusion-val" aria-live="polite">14%</span></div><input type="range" id="confusion-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="denial-slider" style="color:var(--denial-color)">🛡️ DENIAL</label><span id="denial-val" aria-live="polite">14%</span></div><input type="range" id="denial-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="anger-slider" style="color:var(--anger-color)">🔥 ANGER</label><span id="anger-val" aria-live="polite">14%</span></div><input type="range" id="anger-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="bargaining-slider" style="color:var(--bargaining-color)">🤝 BARGAINING</label><span id="bargaining-val" aria-live="polite">14%</span></div><input type="range" id="bargaining-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="sad-slider" style="color:var(--sad-color)">💧 SADNESS</label><span id="sad-val" aria-live="polite">14%</span></div><input type="range" id="sad-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="depression-slider" style="color:var(--depression-color)">🌑 DEPRESSION</label><span id="depression-val" aria-live="polite">14%</span></div><input type="range" id="depression-slider" min="0" max="100" value="14"></div>
+                    <div class="slider-group"><div class="slider-header"><label for="acceptance-slider" style="color:var(--acceptance-color)">🌱 ACCEPTANCE</label><span id="acceptance-val" aria-live="polite">16%</span></div><input type="range" id="acceptance-slider" min="0" max="100" value="16"></div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar"><div class="capacity-fill" id="cap-fill"></div></div>
+                    <span id="cap-val" aria-live="polite">100 / 300</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Emotional Overload! Auto-balancing...</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.85rem; margin: 0.9rem 0 0.5rem; color: var(--text-muted);">Grief Snapshots</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('shock')"><span>⚡</span>Acute Shock<small style="opacity:0.7">Confusion + Denial</small></button>
+                    <button class="btn" onclick="applyScenario('angry')"><span>🌋</span>Rage & Bargain<small style="opacity:0.7">Anger + Bargaining</small></button>
+                    <button class="btn" onclick="applyScenario('depressive')"><span>🌧️</span>Heavy Fog<small style="opacity:0.7">Sadness + Depression</small></button>
+                    <button class="btn" onclick="applyScenario('integrated')"><span>🕊️</span>Integrated<small style="opacity:0.7">Acceptance + Sadness</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.9rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent7B()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.78rem; font-size: 0.88rem; color: #94a3b8; box-shadow: none;">🎲 Event</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in State</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Grief Heptagon</h2>
+            <figure class="heptagon-container" aria-hidden="true">
+                <svg class="heptagon-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon id="heptagon-bg" points="200,45 306,92 341,200 284,302 116,302 59,200 94,92" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185 200,185 200,185 200,185 200,185" fill="rgba(167, 139, 250, 0.18)" stroke="var(--denial-color)" stroke-width="3.5" stroke-linejoin="round" style="transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <!-- labels will be positioned via JS, static fallback -->
+                    <text x="200" y="30" class="node-label">CONFUSION</text>
+                    <text x="312" y="78" class="node-label">DENIAL</text>
+                    <text x="352" y="200" class="node-label">ANGER</text>
+                    <text x="288" y="322" class="node-label">BARGAINING</text>
+                    <text x="112" y="322" class="node-label">DEPRESS.</text>
+                    <text x="48" y="200" class="node-label">SADNESS</text>
+                    <text x="88" y="78" class="node-label">ACCEPT.</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--denial-color); font-family: Outfit, sans-serif;" id="insight-title">Oscillation</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">No stage owns grief. The nervous system pendulates — loss-orientation and restoration-orientation trading off by the hour. Linear progress is a myth.</p>
+            </article>
+        </section>
+    </div>
+
+    <main class="article-container">
+        <h2>The Law (as told)</h2>
+        <div class="quote-block">
+            Confusion<br>
+            Denial<br>
+            Anger<br>
+            Bargaining<br>
+            Sad<br>
+            Depression<br>
+            Acceptance
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: 'Outfit', sans-serif; margin-top: -0.8rem; margin-bottom: 1.2rem;">The folk seven — Kübler-Ross's five (DABDA) expanded to include initial confusion/shock and to split sadness from clinical depression. Often recited as a ladder. Lived as weather.</p>
+
+        <h2>Krishna's analysis</h2>
+        <p>The seven are not steps. They are <em>states your prediction system visits</em> while it rewrites a map that still expects someone to be where reality says they are not. Confusion is the compute error itself — "map says they're here, sensors say they're not, retry." Denial is the brain's throttling ("deliver that update in tolerable packets"). Anger is pain with a target. Bargaining is the frantic "undo" — please, if I change shape, will the map become true again?</p>
+        <p>Sadness is when the new map briefly renders and you see the future without them. Depression is not sadness plus duration; it is the body going to dorsal vagal shutdown to conserve energy when pain has no actionable exit. Acceptance is not happiness — it is <em>map convergence</em>: interior prediction and exterior reality finally agree often enough that you can live without re-checking the door.</p>
+        <p>The practical error is treating the list as a curriculum to complete. The helpful move is Worden's: four <em>tasks</em> that can be revisited in any order — accept reality, feel the pain, adjust to the new world, and relocate the bond while reinvesting. Oscillate, don't graduate.</p>
+
+        <h2>What the research says</h2>
+        <h3><span class="accent-confusion">Confusion → Denial</span> — the 72-hour rule</h3>
+        <p>Early grief is high prediction error plus HPA-axis flooding. The first 72 hours are defined by cognitive clouding and dysregulation; clinicians explicitly advise no major decisions and forced physical/digital distance. Tools that help here are grounding, not insight: a <em>Reality Journal</em> (write only verifiable facts — "the call was Tuesday") to give the prefrontal cortex an anchor, and the <em>Unsent Letter</em> to discharge unregulated anger without re-opening contact and re-creating intermittent reinforcement loops.</p>
+        <h3><span class="accent-anger">Anger ↔ Bargaining</span> — the craving loop</h3>
+        <p>Helen Fisher's imaging shows VTA/dopamine signatures of early attachment resembling stimulant reward. Severance cuts oxytocin, dysregulates HPA axis (cortisol + norepinephrine up), and the VTA keeps firing expectation signals — a craving loop driving rumination and compulsive checking. The variable-ratio dopamine of a single social-media sighting prolongs withdrawal for weeks. Anger and bargaining are not moral failures; they are withdrawal behaviors attempting to restore a lost equilibrium.</p>
+        <h3><span class="accent-depression">Sadness vs. Depression</span> — not a matter of degree</h3>
+        <p>Sadness is the wave when permanence registers; depression-stage phenomenology often reflects <em>dorsal vagal shutdown</em> (Porges) — bradycardia, heaviness, fog, dissociation — the system's oldest defense when fight/flight cannot resolve threat. Add Takotsubo risk (catecholamine stunning of the left ventricle mimicking MI), immune suppression (low NK-cell activity, inflammatory cytokines causing literal aches), and REM fragmentation ( elevated nighttime cortisol prevents emotional depotentiation) — and "just cheering up" becomes biologically illiterate advice.</p>
+
+        <h2>The Stages Lab — Interactive</h2>
+        <p>Try to hold multiple stages at maximum. Push any slider past the 300% load cap and the system auto-balances by softening the currently highest other stages — mimicking how the nervous system cannot sustain every affect at once. Save your URL to bookmark your current grief geometry.</p>
+
+        <div class="paradox-widget">
+            <p style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #e2e8f0;">Stage Switches — Hold up to three at once</p>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 0.25rem;">Turn a fourth ON and one of the active stages will randomly toggle OFF — grief does not queue linearly; it preempts.</p>
+            <div class="switch-grid">
+                <div class="switch-item"><span class="switch-label" style="color: var(--confusion-color)">🌫️ Confusion</span><label class="toggle-switch"><input type="checkbox" id="para-confusion"><span class="toggle-slider ts-confusion"></span></label></div>
+                <div class="switch-item"><span class="switch-label" style="color: var(--denial-color)">🛡️ Denial</span><label class="toggle-switch"><input type="checkbox" id="para-denial" checked><span class="toggle-slider ts-denial"></span></label></div>
+                <div class="switch-item"><span class="switch-label" style="color: var(--anger-color)">🔥 Anger</span><label class="toggle-switch"><input type="checkbox" id="para-anger"><span class="toggle-slider ts-anger"></span></label></div>
+                <div class="switch-item"><span class="switch-label" style="color: var(--bargaining-color)">🤝 Bargaining</span><label class="toggle-switch"><input type="checkbox" id="para-bargaining"><span class="toggle-slider ts-bargaining"></span></label></div>
+                <div class="switch-item"><span class="switch-label" style="color: var(--sad-color)">💧 Sadness</span><label class="toggle-switch"><input type="checkbox" id="para-sad" checked><span class="toggle-slider ts-sad"></span></label></div>
+                <div class="switch-item"><span class="switch-label" style="color: var(--depression-color)">🌑 Depression</span><label class="toggle-switch"><input type="checkbox" id="para-depression"><span class="toggle-slider ts-depression"></span></label></div>
+                <div class="switch-item" style="grid-column: 1 / -1; max-width: 260px; margin: 0 auto; width: 100%;"><span class="switch-label" style="color: var(--acceptance-color)">🌱 Acceptance</span><label class="toggle-switch"><input type="checkbox" id="para-acceptance"><span class="toggle-slider ts-acceptance"></span></label></div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.2rem; font-size: 0.92rem; color: var(--text-muted); min-height: 64px; line-height: 1.5; font-style: normal; text-align: left; padding: 0.95rem; background: rgba(0,0,0,0.28); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deconstructing the Seven — Bereavement vs. Breakup</h2>
+        <p>The seven provide shared vocabulary, but cognitive demands differ by loss type. Kübler-Ross described terminal patients facing own mortality; the public ported it to bereavement; clinicians later expanded it for breakup. Same words, different prediction errors.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Stage</th><th>Bereavement (death)</th><th>Breakup (dissolution)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Confusion</strong></td><td>Cognitive paralysis, numbness; semantic reality won't compile.</td><td>Traumatic refusal to integrate; ghosting maximizes this — no closure to seed new map.</td></tr>
+                <tr><td><strong>Denial</strong></td><td>Buffering — psyche doses reality; "they'll walk through the door."</td><td>Negotiable-impasse fantasy; "they'll return once they realize."</td></tr>
+                <tr><td><strong>Anger</strong></td><td>Pain masked as fury — at deceased, staff, God, unfairness.</td><td>At ex / self / circumstance; infidelity → hypervigilance & prolonged rage.</td></tr>
+                <tr><td><strong>Bargaining</strong></td><td>Spiritual negotiations, sacrifice offers to reverse irreversibility.</td><td>"If only / what if" + pleading, promising radical self-reform.</td></tr>
+                <tr><td><strong>Sadness</strong></td><td>Permanence solidifies; cue-triggered sorrow waves.</td><td>Future-loss realization; crying, emptiness, dependency ache.</td></tr>
+                <tr><td><strong>Depression</strong></td><td>Metabolic toll — withdrawal, anhedonia, hopelessness.</td><td>Rumination, sleep/appetite disruption, self-concept collapse.</td></tr>
+                <tr><td><strong>Acceptance</strong></td><td>Loss integrated to narrative; memories bring comfort with pain.</td><td>Detachment turning point; self-worth re-anchored outside the bond.</td></tr>
+            </tbody>
+        </table>
+        <details>
+            <summary>The linear fallacy — what Yale actually found</summary>
+            <div class="details-content">
+                <p>Stroebe, Schut, and Bonanno show no longitudinal support for obligatory DABDA order. The Yale Bereavement Study found <em>acceptance most common from the very start</em>, and <em>yearning</em> — absent from Kübler-Ross — dominant for ~2 years. Framing stages as mandatory checklist creates iatrogenic harm: people who skip, reorder, or feel relief + sorrow simultaneously conclude they're "grieving wrong," and supporters try to force them through an invented curriculum.</p>
+                <p>Use the seven as weather labels, not curriculum milestones. Contemporary models treat states as oscillating, not sequential.</p>
+            </div>
+        </details>
+
+        <h2>The Neurobiology of Absence</h2>
+        <p>Attach, then sever — the biology is withdrawal plus map error.</p>
+        <details>
+            <summary>Dopamine, oxytocin & the craving loop (Helen Fisher)</summary>
+            <div class="details-content">
+                <p>Attachment recruits VTA → nucleus accumbens, dopamine + oxytocin, then endogenous opioids for settled safety and co-regulation. Severance cuts supply but not expectation: VTA keeps firing, seeking the absent reward — obsessive thoughts, social-media checking, ruminative replay. Intermittent reinforcement (one update = micro-dose) prolongs withdrawal for weeks. Simultaneously, oxytocin drop destabilizes HPA axis → cortisol/norepinephrine up → chronic fight-or-flight. Bargaining and denial are the brain trying to re-establish equilibrium.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Prediction error — Mary-Frances O'Connor: grief as learning</summary>
+            <div class="details-content">
+                <p>The brain predicts where/when/how close an attachment figure will be (space/time/closeness). After loss, networks still expect presence. Walking into a shared room or awaiting a Sunday call fires a prediction; reality mismatches → massive prediction error → pain, yearning, confusion. <em>Grief</em> is the pain when error fires; <em>grieving</em> is the metabolically expensive weeks-to-years of updating the internal model. Ghosting is uniquely traumatic because it denies the semantic/episodic closure data the updater needs.</p>
+            </div>
+        </details>
+        <details>
+            <summary>EEG signatures — what "grief fog" looks like</summary>
+            <div class="details-content">
+                <table class="comparison-table">
+                    <thead><tr><th>Pattern</th><th>What it means in grief</th></tr></thead>
+                    <tbody>
+                        <tr><td>Right-shifted frontal alpha asymmetry</td><td>Withdrawal motivation, negative affect, depressive pull (vs. left-frontal approach).</td></tr>
+                        <tr><td>Elevated frontal/central theta (4–8 Hz)</td><td>Overdrive memory retrieval + map updating — the brain reviewing the bond.</td></tr>
+                        <tr><td>Disrupted alpha (8–13 Hz)</td><td>Irregular, disorganized resting rhythm — subjective "grief brain fog."</td></tr>
+                        <tr><td>Elevated high-beta (20–30 Hz) frontal</td><td>Chronic hypervigilance/rumination — stuck in search mode; marks complicated grief.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <h2>The Body Keeps the Score</h2>
+        <p>Anterior cingulate + insula light up for both physical pain and social rejection. Loss reads as survival threat.</p>
+        <details>
+            <summary>Takotsubo — Broken Heart Syndrome</summary>
+            <div class="details-content">
+                <p>Catecholamine surge (SAM axis adrenaline/noradrenaline + HPA cortisol) stuns the left ventricle — ballooning, chest pain, ECG changes, arrhythmia, but patent coronaries. Prior chronic stress (low basal cortisol) removes the brake on adrenaline, raising vulnerability. Usually reversible in weeks, but proof the heart is not metaphorical.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Polyvagal shutdown — why depression feels heavy</summary>
+            <div class="details-content">
+                <p>Safety → ventral vagal (calm, social engagement). Threat → sympathetic (fight/flight). Overwhelm → dorsal vagal "shutdown/freeze": hypoarousal, bradycardia, shallow breath, heaviness, dissociation, numbness, fog. The "depression" stage often <em>is</em> this — not moodiness but energy conservation when pain has no exit.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Sleep & immune — the viscous cycle</summary>
+            <div class="details-content">
+                <p>Nighttime cortisol fragments sleep and specifically impairs REM, which depotentiates emotional charge via norepinephrine reduction. Without REM, the day's errors don't consolidate — acute suffering loops. Simultaneously cortisol suppresses NK-cell activity and raises pro-inflammatory cytokines → muscle/joint aches identical to viral response. Grieving people aren't imagining the flu-like body pain.</p>
+            </div>
+        </details>
+
+        <h2>Attachment, Identity, and Family Systems</h2>
+        <details>
+            <summary>How attachment style steers breakup grief</summary>
+            <div class="details-content">
+                <table class="comparison-table">
+                    <thead><tr><th>Style</th><th>Grief trajectory</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Secure</strong></td><td>Acute pain, high resilience; processes openly without equating breakup to flaw; uses support; updates model.</td></tr>
+                        <tr><td><strong>Anxious</strong></td><td>Hyperactivation — extreme distress, rumination, jealousy, protest/contact attempts; yearning conflated with unlovability; paradoxically, intensity can later fuel growth.</td></tr>
+                        <tr><td><strong>Avoidant</strong></td><td>Deactivation — suppression, minimal outward distress, fast apparent "recovery," then delayed grief, somatization, stunted growth.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+        <details>
+            <summary>Self-concept clarity & PISD (Post-Infidelity Stress Disorder)</summary>
+            <div class="details-content">
+                <p>Slotter: coupled identity merges → <em>self-concept constriction</em> at breakup; reduced self-concept clarity predicts depression more than partner loss itself. Betrayal compounds: PISD mimics PTSD — hypervigilance, intrusive replays, numbness, trust collapse. The attachment figure becomes the danger signal; reality-testing itself feels unreliable.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Intergenerational & family-system shockwaves</summary>
+            <div class="details-content">
+                <p>Bowen: family as emotional unit — death sends <em>shockwaves</em> through extended network, intensity proportional to deceased's regulatory role and family maturity. Unresolved grief → IFS "Exiles" managed by rigid Managers / destructive Firefighters (e.g., substance use) → parental unavailability or hyper-protection → child insecure attachment. Grief transmits when it is not metabolized.</p>
+            </div>
+        </details>
+
+        <h2>How Healing Actually Works (no ladder required)</h2>
+        <details>
+            <summary>Worden's Four Tasks of Mourning — active, not passive</summary>
+            <div class="details-content">
+                <table class="comparison-table">
+                    <thead><tr><th>Task</th><th>What it asks</th><th>Why it works</th></tr></thead>
+                    <tbody>
+                        <tr><td>I. Accept reality</td><td>Intellectual + emotional acknowledgment that they are gone.</td><td>Aligns internal map with sensory reality — ends prediction-error prolongation.</td></tr>
+                        <tr><td>II. Process pain</td><td>Feel sadness/anger/guilt/relief without numbing.</td><td>Prevents dorsal shutdown & somatization → CV/autoimmune risk down.</td></tr>
+                        <tr><td>III. Adjust to world</td><td>Internal (identity), external (roles/money/household), spiritual.</td><td>Counters constriction → rebuilds self-concept clarity & efficacy.</td></tr>
+                        <tr><td>IV. Enduring bond + new life</td><td>Relocate bond in memory; reinvest energy in living/ new ties.</td><td>Integrated grief — not closure, but co-existence.</td></tr>
+                    </tbody>
+                </table>
+                <p>Tasks can be addressed in any order, revisited, and overlapped. Progress is task engagement, not stage graduation.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Dual Process Model (Stroebe & Schut) — oscillation is adaptive</summary>
+            <div class="details-content">
+                <p><strong>Loss-oriented:</strong> confront absence, yearn, look at photos, weep, grapple. Exhausting. <strong>Restoration-oriented:</strong> handle secondary stressors — finances, roles, work, distraction, a movie with friends. <em>Key insight:</em> restoration/distraction is not avoidance pathology; it is biological necessity to prevent overload/burnout. Pathology is rigidity — stuck in one pole exclusively.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Bonanno — resilience is the common trajectory</summary>
+            <div class="details-content">
+                <p>Grief is not inevitably prolonged breakdown. Longitudinal patterns: <strong>Resilience</strong> (stable functioning + capacity for positive emotion despite pain — most common), <strong>Recovery</strong> (months of subthreshold distress then return to baseline), <strong>Chronic dysfunction</strong> (years — minority). Dismantles "grief work hypothesis" that you must confront all negativity to heal; flexible regulation + brief reprieves from sadness are adaptive.</p>
+            </div>
+        </details>
+
+        <h2>When Grief Stays Stuck — and What Helps</h2>
+        <details>
+            <summary>Prolonged Grief Disorder (PGD) — DSM-5-TR / ICD-11</summary>
+            <div class="details-content">
+                <p>~10% develop chronic impairment. PGD (2022): loss ≥12 months ago (adults; 6 for children), persistent intense yearning/preoccupation + ≥3 of: identity disruption ("part of me died"), disbelief, intense pain (anger/bitterness/sorrow), avoidance of reminders, difficulty re-engaging, numbness/shutdown, meaninglessness without deceased. Distinct from MDD and PTSD — core is attachment-yearning + prediction-error persistence.</p>
+            </div>
+        </details>
+        <details>
+            <summary>Prolonged Grief Therapy (PGT) — 16-session gold standard</summary>
+            <div class="details-content">
+                <p>Shear's Complicated Grief Treatment → PGT: attachment + CBT exposure + Dual Process, targeting derailers via 7 themes — (1) psychoeducation, (2) affect regulation tools, (3) aspirational goals (restoration), (4) strengthening relationships, (5) narrating the death (imaginal exposure → update implicit memory), (6) in-vivo exposure to avoided cues, (7) enduring integrated bond. Response 51% vs 28% for IPT in trials.</p>
+            </div>
+        </details>
+        <details>
+            <summary>GF-CBT & ACT — large effects, group = individual</summary>
+            <div class="details-content">
+                <p><strong>GF-CBT:</strong> targets catastrophic/self-blame appraisals + behavioral activation vs withdrawal. RCT (n=113, 65+): PGD reduction d=1.74 (group) / 1.46 (individual) — group non-inferior, enabling scale.<br><br><strong>ACT:</strong> builds psychological flexibility via defusion + mindfulness + values alignment, reducing <em>experiential avoidance</em>. Self-as-context helps accept unwanted emotion while acting on values — directly scaffolding restoration-orientation even while sorrow remains.</p>
+            </div>
+        </details>
+
+        <h2>Synthesis</h2>
+        <p>The ladder from confusion to acceptance mislabels a <em>learning system</em> as a moral staircase. Grief is not endurance; it is updating — VTA craving, oxytocin withdrawal, prediction errors firing where someone used to be, the body bracing as if survival itself were at stake. The body answers with real cardiac, immune, and sleep costs; the family system answers with shockwaves that outlive the funeral.</p>
+        <p>Modern science relocates hope: oscillation is normal, resilience is common, and even stuck grief has effective treatments. Worden's tasks and the Dual Process Model replace "are you at acceptance yet?" with "which task does today allow, and which pole does your nervous system need next?" Prolonged Grief Therapy, GF-CBT, and ACT translate that insight into protocols that work — including in groups.</p>
+        <p>The tax of deep attachment is grief. The capacity to pay it — slowly, non-linearly, with support — is not rare virtue. It is, for most people, the operating system itself.</p>
+    </main>
+
+    <footer><p>Interactive visualization of the 7 grief states + modern models of adaptation. Save your URL to preserve your state.</p></footer>
+
+    <script>
+        const ids = ['confusion','denial','anger','bargaining','sad','depression','acceptance'];
+        const colors = {
+            confusion: 'var(--confusion-color)', denial: 'var(--denial-color)', anger: 'var(--anger-color)',
+            bargaining: 'var(--bargaining-color)', sad: 'var(--sad-color)', depression: 'var(--depression-color)', acceptance: 'var(--acceptance-color)'
+        };
+        const sliders = {}; const vals = {};
+        ids.forEach(id => { sliders[id] = document.getElementById(id+'-slider'); vals[id] = document.getElementById(id+'-val'); });
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const MAX_CAPACITY = 300;
+
+        function updateURLParams(){
+            const url = new URL(window.location);
+            url.searchParams.set('cf', sliders.confusion.value);
+            url.searchParams.set('de', sliders.denial.value);
+            url.searchParams.set('an', sliders.anger.value);
+            url.searchParams.set('ba', sliders.bargaining.value);
+            url.searchParams.set('sa', sliders.sad.value);
+            url.searchParams.set('dp', sliders.depression.value);
+            url.searchParams.set('ac', sliders.acceptance.value);
+            window.history.replaceState({}, '', url);
+        }
+        function loadFromURL(){
+            const p = new URLSearchParams(window.location.search);
+            if(p.has('cf')) sliders.confusion.value = p.get('cf');
+            if(p.has('de')) sliders.denial.value = p.get('de');
+            if(p.has('an')) sliders.anger.value = p.get('an');
+            if(p.has('ba')) sliders.bargaining.value = p.get('ba');
+            if(p.has('sa')) sliders.sad.value = p.get('sa');
+            if(p.has('dp')) sliders.depression.value = p.get('dp');
+            if(p.has('ac')) sliders.acceptance.value = p.get('ac');
+        }
+
+        function heptagonPoints(values){
+            const cx=200, cy=185, n=7, baseR=115;
+            const order=['confusion','denial','anger','bargaining','acceptance','depression','sad'];
+            // order around circle to match visual labels clockwise from top: confusion(top), denial, anger, bargaining, depression(approx), sad, acceptance
+            // SVG labels: top confusion, top-right denial, right anger, bottom-right bargaining, bottom-right-ish depression? let's map clean clockwise
+            // We'll map ids to angles clockwise from -90deg (top)
+            const angleMap = { confusion: -90, denial: -38.57, anger: 12.86, bargaining: 64.29, depression: 115.71, sad: 167.14, acceptance: 218.57 };
+            // Actually 7 steps 51.428 deg each from -90.
+            // Let's just assign sequentially clockwise: confusion(-90), denial(-38.57), anger(12.86), bargaining(64.29), depression(115.71), sad(167.14), acceptance(218.57) and wrap? That leaves gap; better evenly space.
+            const pts=[];
+            const seq=['confusion','denial','anger','bargaining','depression','sad','acceptance'];
+            seq.forEach((id,i)=>{
+                const ang = -90 + i*(360/7);
+                const rad = ang*Math.PI/180;
+                const v = parseInt(values[id]||0);
+                const r = 22 + (v/100)*108;
+                const x = cx + r*Math.cos(rad);
+                const y = cy + r*Math.sin(rad);
+                pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+            });
+            return pts.join(' ');
+        }
+
+        function updateUI(sourceSlider=null){
+            let total = ids.reduce((s,id)=>s+parseInt(sliders[id].value),0);
+            if(total > MAX_CAPACITY){
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0', 2000);
+                let others = ids.slice();
+                if(sourceSlider){
+                    const srcId = Object.keys(sliders).find(k=>sliders[k]===sourceSlider);
+                    others = others.filter(k=>k!==srcId);
+                }
+                others.sort((a,b)=>parseInt(sliders[b].value)-parseInt(sliders[a].value));
+                for(let key of others){
+                    if(excess<=0) break;
+                    let val=parseInt(sliders[key].value), toDrain=Math.min(val, excess);
+                    sliders[key].value = val - toDrain; excess -= toDrain;
+                }
+                total = ids.reduce((s,id)=>s+parseInt(sliders[id].value),0);
+            }
+            ids.forEach(id=> vals[id].innerText = sliders[id].value + '%');
+            const percent = (total/MAX_CAPACITY)*100;
+            capFill.style.width = percent + '%';
+            capVal.innerText = `${total} / ${MAX_CAPACITY}`;
+            capFill.style.background = percent > 90 ? 'linear-gradient(90deg, var(--anger-color), #f43f5e)' : 'linear-gradient(90deg, var(--denial-color), var(--acceptance-color))';
+
+            const curVals={}; ids.forEach(id=>curVals[id]=sliders[id].value);
+            poly.setAttribute('points', heptagonPoints(curVals));
+            let maxId = ids.reduce((a,b)=> parseInt(sliders[a].value) >= parseInt(sliders[b].value) ? a : b);
+            poly.setAttribute('stroke', colors[maxId]);
+            insightContainer.style.borderLeftColor = colors[maxId];
+            generateInsight(curVals);
+            updateURLParams();
+            const out=document.getElementById('action-plan-output'); if(out) out.style.display='none';
+        }
+
+        function generateInsight(v){
+            const cf=+v.confusion, de=+v.denial, an=+v.anger, ba=+v.bargaining, sa=+v.sad, dp=+v.depression, ac=+v.acceptance;
+            if(cf>70 && de>60 && an<30 && ac<30){ insightTitle.innerText="Acute Shock"; insightTitle.style.color=colors.confusion; insightDesc.innerText="Prediction error is firing nonstop — \"this can't be real\" on loop. 72-hour rule applies: no big decisions, minimal contact, reality journal only."; }
+            else if(an>75 && ba>60){ insightTitle.innerText="Rage & Bargain"; insightTitle.style.color=colors.anger; insightDesc.innerText="Pain with a target + frantic undo. VTA craving is loud — bargaining is the brain offering any sacrifice to make the map true again."; }
+            else if(dp>75 && sa>60){ insightTitle.innerText="Heavy Fog / Shutdown"; insightTitle.style.color=colors.depression; insightDesc.innerText="Not just sadness — likely dorsal vagal shutdown: heaviness, bradycardia, fog. Conservation mode. Sleep, nutrition, co-regulation before insight."; }
+            else if(ac>75 && sa>40 && dp<30){ insightTitle.innerText="Integrated Grief"; insightTitle.style.color=colors.acceptance; insightDesc.innerText="Map convergence beginning — reality and prediction agreeing more often. Sadness remains, but yearning no longer drives the day. Relocated bond, reinvested energy."; }
+            else if(de>70 && cf>50){ insightTitle.innerText="Denial Buffer"; insightTitle.style.color=colors.denial; insightDesc.innerText="Buffering in tolerable doses. The psyche is packet-switching reality — unsent letters and small, verifiable facts help without forcing the flood."; }
+            else if(ba>70){ insightTitle.innerText="Bargaining Loop"; insightTitle.style.color=colors.bargaining; insightDesc.innerText="\"If only / what if\" on repeat. Intermittent reinforcement keeps it alive — each check is a micro-dose for the withdrawal. Distance is the intervention."; }
+            else if(sa>70 && dp<35){ insightTitle.innerText="Sorrow Wave"; insightTitle.style.color=colors.sad; insightDesc.innerText="Permanence has rendered. Cue-triggered waves, not character flaw. REM sleep + tears + brief restoration breaks are the physiology of updating."; }
+            else if(cf<20 && de<20 && an<20 && ba<20 && sa<20 && dp<20 && ac<20){ insightTitle.innerText="Numb Baseline"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="All channels low — possible early numbness or shutdown, not peace. Prioritize safety, sleep, and not being alone with big decisions."; }
+            else { insightTitle.innerText="Oscillation"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Dual Process in action — loss-orientation and restoration-orientation trading off. No stage owns the hour. Flexibility + brief reprieves are adaptive."; }
+        }
+
+        function applyScenario(type){
+            if(type==='shock'){ sliders.confusion.value=80; sliders.denial.value=75; sliders.anger.value=18; sliders.bargaining.value=15; sliders.sad.value=20; sliders.depression.value=10; sliders.acceptance.value=12; updateUI(sliders.confusion); }
+            else if(type==='angry'){ sliders.anger.value=85; sliders.bargaining.value=70; sliders.confusion.value=20; sliders.denial.value=25; sliders.sad.value=30; sliders.depression.value=18; sliders.acceptance.value=15; updateUI(sliders.anger); }
+            else if(type==='depressive'){ sliders.depression.value=82; sliders.sad.value=70; sliders.confusion.value=22; sliders.denial.value=18; sliders.anger.value=15; sliders.bargaining.value=12; sliders.acceptance.value=20; updateUI(sliders.depression); }
+            else if(type==='integrated'){ sliders.acceptance.value=78; sliders.sad.value=42; sliders.depression.value=18; sliders.confusion.value=12; sliders.denial.value=12; sliders.anger.value=15; sliders.bargaining.value=15; updateUI(sliders.acceptance); }
+        }
+
+        function generateActionPlan(){
+            const valsNow={}; ids.forEach(id=>valsNow[id]=parseInt(sliders[id].value));
+            const sorted=ids.map(id=>({name:id, val:valsNow[id], color:colors[id]})).sort((a,b)=>b.val-a.val);
+            const top=sorted[0], bottom=sorted[sorted.length-1];
+            const nameMap={confusion:'Confusion', denial:'Denial', anger:'Anger', bargaining:'Bargaining', sad:'Sadness', depression:'Depression', acceptance:'Acceptance'};
+            const text=`<strong style="color:${top.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">My Grief Commitment — Dominant: ${nameMap[top.name]}</strong>Right now <strong>${nameMap[top.name]}</strong> is loudest. I will treat it as weather, not identity.<br><br><strong>${nameMap[bottom.name]}</strong> is quietest. I will set a floor: one small restoration or loss-orientation act today that honors ${nameMap[bottom.name]} without forcing it.<br><br><em>Worden check: which of the 4 tasks does today actually allow — (I) accept reality, (II) feel pain, (III) adjust world, (IV) carry bond forward? Pick one, not all.<br>Bookmark this URL to save state. Review in 2 weeks — oscillation is expected.</em>`;
+            const out=document.getElementById('action-plan-output'); out.innerHTML=text; out.style.borderColor=top.color; out.style.display='block';
+        }
+
+        function triggerRandomEvent7B(){
+            const events=[
+                { text:"Ghosted — no closure message arrives", d:{confusion:28, denial:18, anger:10, bargaining:8, sad:5, depression:5, acceptance:-12}, solution:"No semantic closure for the updater — prediction error spikes. Write the Reality Journal: only verifiable facts, zero interpretation. Do not check their feed." },
+                { text:"Anniversary / song / place ambush", d:{sad:26, confusion:10, denial:-6, anger:6, bargaining:8, depression:12, acceptance:-4}, solution:"Cue-triggered sorrow wave. Set a 20-min loss-orientation timer — look at photo, feel — then intentionally switch to restoration: cook, walk, call someone." },
+                { text:"Friends say \"you should be over it by now\"", d:{anger:20, depression:18, denial:-8, confusion:8, bargaining:-4, sad:6, acceptance:-10}, solution:"Linear-ladder pressure is iatrogenic. Name it: \"I'm oscillating, not failing.\" Borrow Bonanno: resilience includes joy between waves." },
+                { text:"Found an old unsent apology / gift", d:{bargaining:28, anger:12, sad:14, depression:6, confusion:8, denial:4, acceptance:-10}, solution:"Bargaining surge — the \"undo\" urge. Use the Unsent Letter: write it, don't send it. The urge peaks and falls if you don't reinforce it." },
+                { text:"Full night of broken sleep (cortisol spike)", d:{depression:22, confusion:18, sad:10, anger:6, denial:4, bargaining:2, acceptance:-12}, solution:"REM was fragmented — depotentiation didn't happen. Tonight protect sleep hygiene ruthlessly: no screens, same wake time, no catch-up myth." },
+                { text:"Supportive call — someone co-regulates with you", d:{acceptance:18, sad:8, depression:-10, confusion:-8, denial:-6, anger:-6, bargaining:-4}, solution:"Ventral vagal safety: the nervous system borrows regulation from another. Let it count — acceptance isn't solo virtue." },
+                { text:"Seeing them happy with someone else (social feed)", d:{anger:24, bargaining:16, sad:18, depression:10, confusion:8, denial:-8, acceptance:-14}, solution:"Variable-ratio dopamine trap. One view = micro-dose + hours of withdrawal extension. Block/mute for 30 days — not forever, just for the updater." },
+                { text:"First time laughing without guilt", d:{acceptance:22, sad:6, depression:-12, confusion:-6, anger:-4, bargaining:-4, denial:-4}, solution:"Restoration-orientation is not betrayal. Bonanno: positive emotion during grief is normative and protective. Let it land." },
+                { text:"Chest tightness after intense wave", d:{anger:14, depression:16, confusion:10, sad:12, acceptance:-8, denial:4, bargaining:2}, solution:"Sympathetic + SAM surge — body is not being dramatic. Breathe slow exhale (vagal brake), sit, and if pain is crushing / radiating, seek medical care — Takotsubo is real." },
+                { text:"Therapy session: narrative exposure completed", d:{acceptance:20, denial:-14, depression:-10, confusion:-10, anger:-4, bargaining:-6, sad:8}, solution:"Imaginal exposure updated implicit memory — map converged a little. Expect fatigue after. Schedule restoration, not another deep dive." },
+                { text:"Family gathering — shockwave hits everyone", d:{confusion:16, sad:18, depression:14, anger:10, bargaining:6, denial:8, acceptance:-6}, solution:"Bowen shockwave: grief is systemic. Name roles — who regulates whom? — and don't transmit shutdown silently to the next generation." },
+                { text:"Realized self-concept narrowed (\"who am I now?\")", d:{sad:18, depression:16, acceptance:-6, confusion:10, bargaining:6, anger:4, denial:2}, solution:"Slotter: identity constriction predicts depression. Worden Task III — rebuild one small efficacy: a route, a recipe, a bill paid differently — self-clarity returns via doing." }
+            ];
+            const ev=events[Math.floor(Math.random()*events.length)];
+            ids.forEach(id=>{
+                const delta = ev.d[id]||0;
+                sliders[id].value = Math.max(0, Math.min(100, parseInt(sliders[id].value)+delta));
+            });
+            updateUI();
+            const out=document.getElementById('action-plan-output');
+            out.innerHTML=`<strong>🎲 Event: ${ev.text}</strong><br><br>💡 <strong>Strategy:</strong> ${ev.solution}`;
+            out.style.borderColor='#94a3b8'; out.style.display='block';
+        }
+
+        ids.forEach(id=> sliders[id].addEventListener('input', ()=> updateUI(sliders[id])));
+
+        const paraIds=['confusion','denial','anger','bargaining','sad','depression','acceptance'];
+        const paraInputs={}; paraIds.forEach(id=> paraInputs[id]=document.getElementById('para-'+id));
+        const paraList = paraIds.map(id=> paraInputs[id]);
+
+        function updateParadoxInsight(){
+            const on = paraIds.filter(id=> paraInputs[id].checked);
+            const el=document.getElementById('para-insight');
+            let title="", desc="", color="var(--text-muted)";
+            if(on.length===0){ title="All Quiet — Shutdown Check"; color="#f43f5e"; desc="No stage active. If this matches lived experience, screen for dorsal vagal shutdown / numbing — not \"fine.\" Co-regulate, sleep, and reach out."; }
+            else if(on.length===1){
+                const m={confusion:["Fog","Prediction error firing — \"where are they?\" The brain is retrying a stale map."], denial:["Buffering","Dosing reality in packets. Not lying — self-protecting from flood."], anger:["Pain With Target","Anger is often grief with somewhere to go. Check: at whom, at what story?"], bargaining:["The Undo","\"If I change, will the map become true?\" Intermittent hope keeps the loop alive."], sad:["Sorrow Wave","Permanence rendered — future without them seen clearly. Tears are updating."], depression:["Heavy Fog","Heaviness/fog/bradycardia — likely dorsal shutdown conserving energy, not weakness."], acceptance:["Map Convergence","Reality and prediction agreeing more often. Sadness can co-exist with forward motion."]}[on[0]];
+                title=m[0]+" — "+on[0].charAt(0).toUpperCase()+on[0].slice(1); color=colors[on[0]]; desc=m[1];
+            } else if(on.length===2){
+                const key=on.sort().join('+');
+                if(key.includes('anger')&&key.includes('bargaining')){ title="Anger + Bargaining — The Craving Loop"; color=colors.anger; desc="Fury + pleading = withdrawal. VTA still expects reward. Distance + no-check rule is the intervention."; }
+                else if(key.includes('denial')&&key.includes('confusion')){ title="Confusion + Denial — Early Shock"; color=colors.confusion; desc="Classic first-72-hour pairing. Grounding > insight. Reality Journal beats rumination theatre."; }
+                else if(key.includes('sad')&&key.includes('depression')){ title="Sadness + Depression — Wave vs Fog"; color=colors.depression; desc="Wave (sad) is acute sorrow; fog (depression) is systemic shutdown. One needs expression, the other needs energy conservation + co-regulation."; }
+                else if(key.includes('acceptance')&&key.includes('sad')){ title="Acceptance + Sadness — Integrated Grief"; color=colors.acceptance; desc="The healthy co-existence: you carry the bond and you live. Bonanno's resilient trajectory often looks exactly like this."; }
+                else { title=on.map(s=>s.charAt(0).toUpperCase()+s.slice(1)).join(" + "); color=colors[on[0]]; desc="Two stages co-active — normal. Grief is not exclusive; oscillation can switch dominance within hours."; }
+            } else if(on.length===3){
+                title="Three Active — Full Weather"; color="#e2e8f0"; desc="Three concurrent states is already a lot to metabolize. Dual Process says: intentionally pivot to restoration after ~20 minutes of loss-orientation to avoid overload."; 
+            }
+            el.style.borderLeftColor=color;
+            el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+        paraList.forEach(inp=>{
+            inp.addEventListener('change', function(){
+                if(this.checked){
+                    const active = paraList.filter(s=>s.checked);
+                    if(active.length>3){
+                        const others = active.filter(s=>s!==this);
+                        const victim = others[Math.floor(Math.random()*others.length)];
+                        victim.checked=false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+        updateParadoxInsight();
+        loadFromURL();
+        if(!window.location.search){ ids.forEach(id=> sliders[id].value=14); sliders.acceptance.value=16; }
+        updateUI();
+    </script>
+</body>
+</html>

@@ -10,6 +10,9 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Four Burners (4B)](4B/)**: Manage 25 energy points across Career, Family, Friends, and Health.
 *   **[The Heartbreak Triad (3L)](3L/)**: Balance Self-Awareness, Peace, and Love after heartbreak (only two can coexist).
 *   **[The Sleep Paradox (3N)](3N/)**: Balance early sleep, late sleep, and waking life. Explore the economics of sleep debt, revenge bedtime procrastination, and orthosomnia.
+*   **[The Feminine Trilemma (3F)](3F/)**: Hot, Fun, and Sane — pick two. Deconstruct the Hot-Crazy Matrix, Vicky Mendoza Diagonal, and the "lesbian" punchline.
+*   **[The Masculine Trilemma (3M)](3M/)**: Nice, Handsome, and Rich — pick two. Deconstruct the marketplace heuristic and manosphere economics.
+*   **[The Seven Stages of Grief (7B)](7B/)**: Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance. Grief as prediction-error learning, not a staircase.
 
 ---
 

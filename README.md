@@ -1,4 +1,4 @@
-# krishnakanthb.github.io
+﻿# krishnakanthb.github.io
 
 All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
@@ -23,6 +23,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Life Mechanics Hub](https://krishnakanthb13.github.io/O/) — Interactive Frameworks to Map Finite Resources, Visualize Trade-Offs
 	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/) — Self-Awareness, Peace, and Love. Toggle to experience the trade-off.
 	- [The Sleep Paradox](https://krishnakanthb13.github.io/O/3N/) — Early sleep, late sleep, and waking life. Balance autonomy, debt, and regret.
+	- [The Feminine Trilemma](https://krishnakanthb13.github.io/O/3F/) — Hot, Fun, and Sane. Pick two. The Hot-Crazy Matrix & Vicky Mendoza Diagonal.
+	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/) — Nice, Handsome, and Rich. Pick two. The manosphere marketplace & Sartain report.
+	- [The Seven Stages of Grief](https://krishnakanthb13.github.io/O/7B/) — Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 	- [NoteTile](https://krishnakanthb13.github.io/O/NT/) — A fast, offline-first, Progressive Web App for taking notes.
@@ -73,6 +76,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Four Burners](https://krishnakanthb13.github.io/O/4B/): Manage 25 energy points across Career, Family, Friends, and Health.
 	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/): Balance Self-Awareness, Peace, and Love after heartbreak (only two can coexist).
 	- [The Sleep Paradox](https://krishnakanthb13.github.io/O/3N/): Balance early sleep, late sleep, and waking life (autonomy, debt, and regret).
+	- [The Feminine Trilemma](https://krishnakanthb13.github.io/O/3F/): Hot, Fun, and Sane — pick two (Hot-Crazy Matrix).
+	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/): Nice, Handsome, and Rich — pick two (manosphere marketplace).
+	- [The Seven Stages of Grief](https://krishnakanthb13.github.io/O/7B/): Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
 
 ---
 

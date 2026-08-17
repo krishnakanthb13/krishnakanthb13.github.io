@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive exploration of the masculine trilemma: Nice, Handsome, Rich — pick two. Deconstruct the economics of male archetypes, manosphere monetization, and dating market heuristics.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+
+    <title>The Masculine Trilemma: Nice, Handsome, Rich</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕴️</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --nice-color: #4ade80;
+            --handsome-color: #38bdf8;
+            --rich-color: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 65%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--nice-color), var(--handsome-color), var(--rich-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 660px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
+
+        /* DASHBOARD GRID */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+
+        /* VISUALIZATION */
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(0.75rem, 1.6vw, 0.95rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--rich-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.1rem; }
+        #insight-desc { font-size: 0.9rem; line-height: 1.4; }
+
+        /* CONTROLS */
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #nice-slider::-webkit-slider-thumb { background: var(--nice-color); box-shadow: 0 0 12px var(--nice-color); }
+        #handsome-slider::-webkit-slider-thumb { background: var(--handsome-color); box-shadow: 0 0 12px var(--handsome-color); }
+        #rich-slider::-webkit-slider-thumb { background: var(--rich-color); box-shadow: 0 0 12px var(--rich-color); }
+        #nice-slider::-moz-range-thumb { background: var(--nice-color); box-shadow: 0 0 12px var(--nice-color); }
+        #handsome-slider::-moz-range-thumb { background: var(--handsome-color); box-shadow: 0 0 12px var(--handsome-color); }
+        #rich-slider::-moz-range-thumb { background: var(--rich-color); box-shadow: 0 0 12px var(--rich-color); }
+
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--nice-color), var(--handsome-color), var(--rich-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 600; }
+
+        /* BUTTONS & ACTIONS */
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.9rem); }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--handsome-color); background: rgba(56, 189, 248, 0.1); }
+
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--handsome-color), var(--rich-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--handsome-color); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+
+        /* COMPACT ARTICLE SECTION */
+        .article-container {
+            max-width: 800px; width: 100%; margin: 1rem auto 2rem;
+            background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-nice { color: var(--nice-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-handsome { color: var(--handsome-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-rich { color: var(--rich-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+
+        /* ACCORDIONS */
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+
+        /* PARADOX WIDGET */
+        .paradox-widget {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 260px;
+            gap: 1.5rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider-nice { background-color: var(--nice-color); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); }
+        input:checked + .toggle-slider-handsome { background-color: var(--handsome-color); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+        input:checked + .toggle-slider-rich { background-color: var(--rich-color); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+        /* QUOTE BLOCK */
+        .quote-block {
+            background: rgba(56, 189, 248, 0.05);
+            border-left: 4px solid var(--handsome-color);
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+
+        /* TABLE */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+
+        @media (max-width: 800px) {
+            .dashboard { display: flex; flex-direction: column; gap: 1rem; }
+            .panel-visual { order: -1; padding: 1rem; }
+            .panel-controls { padding: 1rem; }
+            .triangle-container { height: 200px; min-height: auto; }
+            .insight-box { padding: 0.8rem 1rem; }
+            #insight-desc { font-size: 0.85rem; }
+            .btn { padding: 0.5rem; }
+            .comparison-table { font-size: 0.75rem; }
+            .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Masculine Trilemma</h1>
+        <p class="subtitle">Nice, Handsome, Rich. You only get two. An analytical deconstruction of manosphere heuristics, status funnels, and the economics of male archetypes.</p>
+    </header>
+
+    <div class="dashboard">
+
+        <!-- Controls Panel -->
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Market Capital</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.4;">Max Capacity: 200%. The marketplace frame insists on sacrifice — push one trait and another collapses.</p>
+
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="nice-slider" style="color:var(--nice-color)">🤝 NICE (Kindness)</label><span id="nice-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="nice-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="handsome-slider" style="color:var(--handsome-color)">✨ HANDSOME (Attractiveness)</label><span id="handsome-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="handsome-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="rich-slider" style="color:var(--rich-color)">💰 RICH (Resources)</label><span id="rich-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="rich-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Market Overload! Auto-balancing...</div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Market Archetypes</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('broke')"><span>💸</span> Pretty Broke<br><small style="font-size:0.7rem;opacity:0.7">+🤝 +✨ -💰</small></button>
+                    <button class="btn" onclick="applyScenario('psychopath')"><span>🦈</span> Cold Elite<br><small style="font-size:0.7rem;opacity:0.7">+✨ +💰 -🤝</small></button>
+                    <button class="btn" onclick="applyScenario('simp')"><span>🛡️</span> Provider Simp<br><small style="font-size:0.7rem;opacity:0.7">+🤝 +💰 -✨</small></button>
+                </nav>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3M()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Trigger</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Strategy</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <!-- Visualization Panel -->
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Market Triangle</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(56, 189, 248, 0.12)" stroke="var(--handsome-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="35" class="node-label" fill="var(--nice-color)">NICE</text>
+                    <text x="370" y="345" class="node-label" fill="var(--rich-color)">RICH</text>
+                    <text x="30" y="345" class="node-label" fill="var(--handsome-color)">HANDSOME</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--handsome-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Position</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three modestly — the grounded configuration that market funnels insist is structurally impossible.</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- FULL DOCUMENTATION SECTION -->
+    <main class="article-container">
+        <h2>The Marketplace Adage</h2>
+        <div class="quote-block">
+            Men can only be nice, handsome, or rich. And you can only pick two. If you're nice and handsome, you are not rich. You are broke. She's paying your bills, she's cooking your food, and you're borrowing her car to cheat on her with other women. If you're handsome and rich, you're not nice. You clawed your way to the top, you know you look good, so you used it to your advantage, and you crushed everyone on the way. You are a psychopath. And if you're nice and rich, you are not handsome. You need to be a simp. Simply improving my position. It's not a bad thing. It's a good thing for you and a good thing for me. It's a good strategy. There's one man who has all three qualities. He's nice, handsome, and rich. He is gay.
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: 'Outfit', sans-serif;">Attributed to <strong>Michael Sartain</strong> — <em>The Sartain Report</em>, episode "Nice, Handsome or Rich, You Only Get 2" (Founder of the *Men of Action* coaching program).</p>
+
+        <h2>Sociological Analysis</h2>
+        <p>Where 3F prices women as consumable product specs (good/fast/cheap), 3M prices men as <em>market portfolio assets</em>. <strong>Nice</strong> represents emotional labor and compliance; <strong>handsome</strong> represents genetic capital leveraged for status; <strong>rich</strong> represents material leverage and resource extraction. The trilemma's rhetorical trick is identical: it pretends these compete structurally so that any relational failure is pre-excused by "you picked the wrong pair."</p>
+        <p>Each pair produces a specific slur that polices male behavior. <em>Nice + Handsome</em> = "broke" (kindness without capital reads as parasitism). <em>Handsome + Rich</em> = "psychopath" (beauty plus leverage without agreeableness reads as predation). <em>Nice + Rich</em> = "simp" (kindness plus capital without looks reads as purchased proximity). The fourth quadrant — the flawless man who is "gay" — functions exactly like 3F's lesbian punchline: full humanity is rendered sexually unavailable to the evaluator, preserving the speaker's ego and protecting the rating matrix from disconfirmation.</p>
+        <p>The real arbitrage is recognizing the trilemma as a <strong>commercial sales funnel</strong>. It manufactures a crisis of male deficiency to sell high-status networking playbooks, VIP room access, and affiliate sales courses. When someone sells you the cure to a constraint they just invented, interrogate the constraint.</p>
+
+        <h2>What the Research Says</h2>
+
+        <h3><span class="accent-nice">Nice + Handsome without Rich</span> — the "kept man" trope</h3>
+        <p>This archetype describes the "hobosexual" or financial dependent. Sociology of precarious masculinity explains why this slur lands: male worth in traditional patriarchy is tied to economic provision; attractiveness without financial dominance is coded as parasitic debt. However, labor economics shows attractive men naturally receive a "beauty premium" in income — the trilemma's negative correlation between looks and money is theatrical rather than empirical.</p>
+
+        <h3><span class="accent-handsome">Handsome + Rich without Nice</span> — the Dark Triad myth</h3>
+        <p>The manosphere claims extreme wealth requires ruthless Machiavellianism. While Dark Triad traits (narcissism, Machiavellianism, psychopathy) can correlate with short-term status striving, prosocial cooperation and high fluid intelligence predict long-term institutional success far more reliably. The trilemma confuses ruthless selection in winner-take-all tournament games with intrinsic human nature, moralizing structural wealth as ruthless villainy.</p>
+
+        <h3><span class="accent-rich">Nice + Rich without Handsome</span> — the "simp" provider tax</h3>
+        <p>Here the system repackages male care and resource sharing as compensation for missing genetic aesthetics ("Simply Improving My Position"). In empirical relationship science, warmth and resources are independent positive predictors of long-term desirability; they are powerful complements, not consolation prizes. Labeling male care a "simp tax" is an attempt to monetize male insecurity.</p>
+
+        <h3>The counter-evidence: <span class="accent-nice">all three coexist in the wild</span></h3>
+        <p>Population studies show no negative manifold linking agreeableness, income, and physical attractiveness. Outside environments organized around staged VIP tables and algorithmic dating apps, millions of men are kind, attractive, and financially stable. The manosphere's trilemma holds only inside the commercial ecosystem that needs it to survive.</p>
+
+        <h2>The Trilemma Interactive</h2>
+        <p>Experience the marketplace directly: try to turn all three ON. If you activate the third, one of the other active states will randomly toggle off — proving only two can be maximized inside this audit.</p>
+
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--nice-color)">🤝 Nice</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-nice" checked>
+                        <span class="toggle-slider toggle-slider-nice"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--handsome-color)">✨ Handsome</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-handsome">
+                        <span class="toggle-slider toggle-slider-handsome"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--rich-color)">💰 Rich</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-rich" checked>
+                        <span class="toggle-slider toggle-slider-rich"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Deconstructing the Marketplace</h2>
+
+        <details>
+            <summary>1. Genesis: Michael Sartain &amp; the Manosphere Funnel</summary>
+            <div class="details-content">
+                <p>The quote originates from Michael Sartain, host of <em>The Sartain Report</em> and founder of the <strong>Men of Action (MOA)</strong> mentoring program. MOA promises to help everyday men build elite social circles in 7 days by bypassing dating apps and the "dead cold approach."</p>
+                <p>The rhetoric functions as an ideological sales funnel: by convincing men that modern dating is an impossible mathematical trilemma, Sartain positions his high-status networking courses, $5k–$20k/mo sales-team roles, and affiliate programs as the sole solution. He leans on evolutionary concepts like <em>mate choice copying</em> and <em>pre-selection</em>, teaching clients to artificially manufacture social proof by surrounding themselves with signed models in VIP sections.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. Deconstructing Archetype I: The "Kept Man" (Nice + Handsome)</summary>
+            <div class="details-content">
+                <p>The man who is nice and handsome is coded as broke: <em>"She's paying your bills, cooking your food, and you're borrowing her car to cheat on her."</em></p>
+                <p>In evolutionary psychology, this represents trading genetic fitness for short-term resource extraction. The trope mirrors pop culture representations of the "hobosexual" dependent. As macroeconomic realities shift and women increasingly out-earn men in various sectors, this inversion of the traditional provider role is weaponized to assign inherent duplicity to attractive, non-wealthy men.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. Deconstructing Archetype II: The "Psychopath" (Handsome + Rich)</summary>
+            <div class="details-content">
+                <p>The quote asserts: <em>"You clawed your way to the top... you crushed everyone on the way. You are a psychopath."</em></p>
+                <p>This profile maps to the <strong>Dark Triad</strong> (narcissism, Machiavellianism, psychopathy). The heuristic claims immense wealth requires abandoning empathy. Furthermore, it highlights how the "halo effect" allows attractive men to navigate corporate hierarchies with less friction, weaponizing their aesthetic capital to dominate social ladders.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. Deconstructing Archetype III: The "Simp" (Nice + Rich)</summary>
+            <div class="details-content">
+                <p>The man who has wealth and kindness but lacks physical looks is labeled a "simp": <em>"Simply improving my position. It's a good strategy."</em></p>
+                <p>This archetype aligns with the evolutionary concept of the "beta provider." The heuristic cynically frames this not as authentic love, but as a cold economic alliance where the woman tolerates a lack of physical attraction in exchange for financial elevation, and the man purchases proximity to a partner he could not otherwise attract.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. The Homoerotic Subversion: The Gay Male Punchline</summary>
+            <div class="details-content">
+                <p>The punchline — <em>"There's one man who has all three qualities... He is gay"</em> — serves multiple rhetorical functions:</p>
+                <ul>
+                    <li><strong>Absolves straight men:</strong> Removes the burden of needing to achieve all three traits.</li>
+                    <li><strong>Validates female frustration:</strong> Suggests the ideal straight man is a mathematical impossibility.</li>
+                    <li><strong>Pop culture resonance:</strong> Parallels Nicole Byer's <em>Why Won't You Date Me</em>, discussions by Trixie Mattel, Chinese Danmei boys' love literature (e.g., He Yu), and David Hockney's paintings depicting the aesthetic bond between glamorous women and wealthy gay confidantes.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. Core Archetype Matrix Summary</summary>
+            <div class="details-content">
+                <table class="comparison-table">
+                    <thead><tr><th>Trait Combination</th><th>Deficit</th><th>Sociological Label</th><th>Psychological Mechanism</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Nice + Handsome</strong></td><td>Wealth</td><td>The "Kept Man" / Hobosexual</td><td>Exploitation of aesthetic capital to secure resources; short-term mating strategy.</td></tr>
+                        <tr><td><strong>Handsome + Rich</strong></td><td>Kindness</td><td>The Dark Triad ("Psychopath")</td><td>Utilization of Machiavellianism and halo effects to dominate hierarchies.</td></tr>
+                        <tr><td><strong>Nice + Rich</strong></td><td>Attractiveness</td><td>The Beta Provider ("Simp")</td><td>Compensating for lack of physical traits through resource provisioning.</td></tr>
+                        <tr><td><strong>Nice + Handsome + Rich</strong></td><td>Heterosexuality</td><td>The Market Anomaly ("He is gay")</td><td>Rhetorical failsafe removing the ideal from the heterosexual mating pool.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. The Gamification of Intimacy & Algorithmic Mating</summary>
+            <div class="details-content">
+                <p>Creators like Austin Dunham (promoting the "Romeo Effect") and Sartain gamify dating as an algorithm to be hacked. The narrative pushes the concept of a "loser epidemic," arguing men are falling behind in ambition and resilience.</p>
+                <p>As social norms discourage public cold approaches, men are funneled onto algorithmic dating apps governed by extreme Pareto distributions. A small minority of top-tier men command the majority of attention, fostering dark triad behaviors because apex men face minimal market consequences for poor conduct.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. Empirical Rebuttals: What Sociological Data Actually Proves</summary>
+            <div class="details-content">
+                <p>Empirical psychological and economic research thoroughly dismantles the trilemma's core assertions:</p>
+                
+                <table class="comparison-table">
+                    <thead><tr><th>Quote Assertion</th><th>Empirical Counter-Evidence</th><th>Sociological Reality</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Handsome + Rich = Psychopath</strong></td><td><strong>University of Oslo Study (Alexi Gugushvili):</strong> Attractive adolescent boys naturally experience higher upward social mobility, prestigious jobs, and higher incomes.</td><td>"Pretty privilege" grants handsome men smoother access to wealth without requiring Dark Triad ruthlessness. The halo effect acts as an economic multiplier.</td></tr>
+                        <tr><td><strong>Nice + Rich = Simp</strong></td><td><strong>Shandong Normal University Study:</strong> High fluid intelligence strongly correlates with prosocial behavior, empathy, and cooperation.</td><td>Intelligent, high-earning men default to kindness because high cognitive function recognizes the compounding returns of long-term cooperation.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. The Female Counter-Narrative: Likability Penalties &amp; Pragmatism</summary>
+            <div class="details-content">
+                <p>When women navigate high-status environments, they face the <strong>likability penalty</strong>: competence and decisiveness (traits praised in men) are systematically labeled "difficult" or "aggressive" in women (as observed by figures like Sabrina Carpenter).</p>
+                <p>Online discussions reveal that female choice often blurs manosphere archetypes. In tough economic landscapes ("In this economy? give me the dollar"), women frequently view wealth not as greed, but as a reliable proxy for ambition, intelligence, and work ethic.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. The Macroeconomic Reality of the "Rich" Pillar</summary>
+            <div class="details-content">
+                <p>The trilemma treats being "rich" as an accessible character class that any man can simply claw his way into. In reality, vast wealth is heavily structural and protected by fiscal policies.</p>
+                <p>For example, pass-through business deductions allow top business owners to pay effective rates as low as 29.6%, while wage earners face top marginal rates of 37%. Achieving true wealth is mathematically impossible for the vast majority of men, proving the trilemma rigs the game before men even begin.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. Alternative Paradigms &amp; Digital Discourse</summary>
+            <div class="details-content">
+                <p>On forums like Reddit's <em>r/AskReddit</em> ("Pick two: Rich, Smart, Handsome"), users frequently swap "Nice" for "Smart." Most choose Smart + Rich or Smart + Handsome, viewing intelligence as the engine for wealth generation.</p>
+
+                <table class="comparison-table">
+                    <thead><tr><th>Manosphere Concept</th><th>Application in Coaching</th><th>Real-World Translation</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Simp / Beta</strong></td><td>A man trading cash for intimacy.</td><td>Intelligent, prosocial man valuing stable cooperation.</td></tr>
+                        <tr><td><strong>Pre-Selection</strong></td><td>Hacking proof via models.</td><td>Natural human tendency to trust vetted partners.</td></tr>
+                        <tr><td><strong>The "Rich" Pillar</strong></td><td>Status won through raw grinding.</td><td>Structural anomaly protected by tax policy.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>12. The Societal Opt-Out: Seeking Authentic Meaning</summary>
+            <div class="details-content">
+                <p>Exhaustion with gamified dating has triggered a cultural exodus. Individuals are opting out to seek authentic stabilization:</p>
+                <ul>
+                    <li><strong>Personal Exploration:</strong> Traveling (such as biking into La Paz, Bolivia) to strip away urban performative status.</li>
+                    <li><strong>Reclaiming Simple Decency:</strong> Rejecting the cynical view that innocence is slow-wittedness or kindness is weakness.</li>
+                    <li><strong>Non-Transactional Hobbies:</strong> The explosive resurgence of birdwatching and public enthusiasm for initiatives like the <em>Invertebrate of the Year</em> contest (celebrating Melbourne earthworms and Patagonian bumblebees), reminding humanity that life's profound beauty exists far outside human socio-economic hierarchies.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. Synthesis &amp; Conclusion</summary>
+            <div class="details-content">
+                <p>The "Nice, Handsome, or Rich" trilemma is an autopsy of manosphere economics, not a law of biology. It monetizes male insecurity and views human romance through the bleak lens of commercial transactions.</p>
+                <p>By putting down the marketplace scorecard, individuals can reject zero-sum transactional dating and build meaningful lives rooted in self-possession, genuine empathy, and non-transactional kindness.</p>
+            </div>
+        </details>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Life Mechanics Hub. Developed by Krishnakanth.</p>
+    </footer>
+
+    <script>
+        const sliders = {
+            nice: document.getElementById('nice-slider'),
+            handsome: document.getElementById('handsome-slider'),
+            rich: document.getElementById('rich-slider')
+        };
+        const vals = {
+            nice: document.getElementById('nice-val'),
+            handsome: document.getElementById('handsome-val'),
+            rich: document.getElementById('rich-val')
+        };
+        const capFill = document.getElementById('cap-fill');
+        const capVal = document.getElementById('cap-val');
+        const warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly');
+        const insightContainer = document.getElementById('insight-container');
+        const insightTitle = document.getElementById('insight-title');
+        const insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams() {
+            const url = new URL(window.location);
+            url.searchParams.set('n', sliders.nice.value);
+            url.searchParams.set('h', sliders.handsome.value);
+            url.searchParams.set('r', sliders.rich.value);
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('n')) sliders.nice.value = params.get('n');
+            if (params.has('h')) sliders.handsome.value = params.get('h');
+            if (params.has('r')) sliders.rich.value = params.get('r');
+        }
+
+        function updateUI(sourceSlider = null) {
+            let n = parseInt(sliders.nice.value);
+            let h = parseInt(sliders.handsome.value);
+            let r = parseInt(sliders.rich.value);
+            let total = n + h + r;
+
+            if (total > MAX_CAPACITY) {
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity = '1';
+                setTimeout(() => { warningMsg.style.opacity = '0'; }, 2000);
+
+                let others = Object.keys(sliders);
+                if (sourceSlider) {
+                    others = others.filter(k => sliders[k] !== sourceSlider);
+                }
+                others.sort((a, b) => sliders[b].value - sliders[a].value);
+
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(sliders[key].value);
+                    let toDrain = Math.min(val, excess);
+                    sliders[key].value = val - toDrain;
+                    excess -= toDrain;
+                }
+                n = parseInt(sliders.nice.value);
+                h = parseInt(sliders.handsome.value);
+                r = parseInt(sliders.rich.value);
+                total = n + h + r;
+            }
+
+            vals.nice.innerText = n + '%';
+            vals.handsome.innerText = h + '%';
+            vals.rich.innerText = r + '%';
+
+            let percent = (total / MAX_CAPACITY) * 100;
+            capFill.style.width = percent + '%';
+            capVal.innerText = `${total} / 200`;
+            capFill.style.background = percent > 90 
+                ? 'linear-gradient(90deg, var(--handsome-color), #f43f5e)' 
+                : 'linear-gradient(90deg, var(--nice-color), var(--handsome-color), var(--rich-color))';
+
+            // Top: Nice (200, 50), Bottom-Right: Rich (350, 320), Bottom-Left: Handsome (50, 320), Center (200, 185)
+            const nX = 200;
+            const nY = 185 - (135 * (n / 100));
+            const rX = 200 + (150 * (r / 100));
+            const rY = 185 + (135 * (r / 100));
+            const hX = 200 - (150 * (h / 100));
+            const hY = 185 + (135 * (h / 100));
+
+            poly.setAttribute('points', `${nX},${nY} ${rX},${rY} ${hX},${hY}`);
+
+            let dominantColor = 'var(--text-main)';
+            if (n >= h && n >= r) dominantColor = 'var(--nice-color)';
+            else if (h >= n && h >= r) dominantColor = 'var(--handsome-color)';
+            else dominantColor = 'var(--rich-color)';
+
+            poly.setAttribute('stroke', dominantColor);
+            insightContainer.style.borderLeftColor = dominantColor;
+
+            generateInsight(n, h, r);
+            updateURLParams();
+        }
+
+        function generateInsight(n, h, r) {
+            if (n > 80 && h > 80 && r < 30) {
+                insightTitle.innerText = "The Pretty Broke (Kept Man Archetype)";
+                insightTitle.style.color = "var(--nice-color)";
+                insightDesc.innerText = "\"Nice and handsome — broke.\" The frame punishes dependence as parasitism, ignoring the documented reality of pretty privilege and social mobility.";
+            } else if (h > 80 && r > 80 && n < 30) {
+                insightTitle.innerText = "The Cold Elite (Dark Triad Archetype)";
+                insightTitle.style.color = "var(--handsome-color)";
+                insightDesc.innerText = "\"Handsome and rich — psychopath.\" Status plus leverage recoded as predatory climbing to make empathy look strategically weak.";
+            } else if (n > 80 && r > 80 && h < 30) {
+                insightTitle.innerText = "The Provider Simp (Beta-Provisioning)";
+                insightTitle.style.color = "var(--rich-color)";
+                insightDesc.innerText = "\"Nice and rich — not handsome.\" Care and resources desexualized as compensation. In reality, intelligence and kindness compound together.";
+            } else if (n < 20 && h < 20 && r < 20) {
+                insightTitle.innerText = "Outside the Marketplace";
+                insightTitle.style.color = "#f43f5e";
+                insightDesc.innerText = "Scored near zero on a market designed to price you as an asset. Step outside the scorecard to find non-transactional grounding.";
+            } else if (h > 80 && n < 30 && r < 30) {
+                insightTitle.innerText = "The Muse (Pure Handsome)";
+                insightTitle.style.color = "var(--handsome-color)";
+                insightDesc.innerText = "Aesthetic capital alone — admired at a distance, rarely entrusted with shared burdens.";
+            } else if (r > 80 && n < 30 && h < 30) {
+                insightTitle.innerText = "The Wallet (Pure Rich)";
+                insightTitle.style.color = "var(--rich-color)";
+                insightDesc.innerText = "Leverage without warmth or appeal. Purchases proximity rather than genuine attachment.";
+            } else if (n > 80 && h < 30 && r < 30) {
+                insightTitle.innerText = "The Confidant (Pure Nice)";
+                insightTitle.style.color = "var(--nice-color)";
+                insightDesc.innerText = "Deeply cherished by community, but invisible in market optics that only price display.";
+            } else {
+                insightTitle.innerText = "The Balanced Position";
+                insightTitle.style.color = "var(--text-main)";
+                insightDesc.innerText = "Holding all three lightly. Scarcity is manufactured by funnels that demand extreme performance at one currency.";
+            }
+        }
+
+        function applyScenario(type) {
+            document.querySelectorAll('.archetypes .btn').forEach(b => b.classList.remove('active'));
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+            if (type === 'broke') {
+                sliders.nice.value = 90;
+                sliders.handsome.value = 85;
+                sliders.rich.value = 15;
+                updateUI(sliders.nice);
+            } else if (type === 'psychopath') {
+                sliders.handsome.value = 90;
+                sliders.rich.value = 90;
+                sliders.nice.value = 15;
+                updateUI(sliders.handsome);
+            } else if (type === 'simp') {
+                sliders.nice.value = 90;
+                sliders.rich.value = 85;
+                sliders.handsome.value = 15;
+                updateUI(sliders.nice);
+            }
+        }
+
+        function generateActionPlan() {
+            let n = parseInt(sliders.nice.value);
+            let h = parseInt(sliders.handsome.value);
+            let r = parseInt(sliders.rich.value);
+            let states = [
+                { name: 'Niceness', val: n, color: 'var(--nice-color)' },
+                { name: 'Handsomeness', val: h, color: 'var(--handsome-color)' },
+                { name: 'Wealth', val: r, color: 'var(--rich-color)' }
+            ];
+            states.sort((x, y) => y.val - x.val);
+            let maxState = states[0];
+            let minState = states[2];
+
+            let text = `<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">📝 Strategy Commitment: Optimizing for ${maxState.name}</strong>` +
+                `You are currently anchoring your identity around <strong>${maxState.name}</strong>.<br><br>` +
+                `Be conscious that this focus may deprioritize <strong>${minState.name}</strong>. Remember that kindness is not weakness, wealth is largely structural, and true connection exists beyond status funnels.<br><br>` +
+                `<em>(State preserved in URL parameters. Share or bookmark to reflect.)</em>`;
+
+            actionPlanOutput.innerHTML = text;
+            actionPlanOutput.style.borderLeftColor = maxState.color;
+            actionPlanOutput.style.display = 'block';
+        }
+
+        function triggerRandomEvent3M() {
+            const events = [
+                { text: "Promotion + bonus land simultaneously", n: -10, h: 0, r: 35, solution: "Rich surged. Resist the temptation to treat kindness as optional now that leverage exists." },
+                { text: "Gym transformation — compliments flood your notifications", n: -10, h: 30, r: 0, solution: "Handsome spiked. Distinguish temporary attention from genuine attachment." },
+                { text: "You pay for everything on a third date — again", n: 15, h: -10, r: -20, solution: "Nice + rich basin. Ask: are you building mutual reciprocity, or buying position?" },
+                { text: "A colleague calls you \"too nice\" to lead a major project", n: -5, h: 10, r: -5, solution: "Niceness misread as weakness is a tournament myth. Prosocial leaders achieve higher compounding team returns." },
+                { text: "Manosphere clip: \"Get money, everything else will follow\"", n: -20, h: 15, r: 20, solution: "The Cold Elite sales funnel. Check base rates: kindness and warmth predict relationship longevity far more than money." },
+                { text: "You meet a nice, handsome, wealthy man in a thriving gay relationship", n: 15, h: 15, r: 15, solution: "The unicorn in reality. Proof the trilemma was a rhetorical boundary rather than an immutable law." },
+                { text: "Laid off in a tech downturn — income drops", n: 15, h: -10, r: -35, solution: "Rich collapsed. Resist the \"broke pretty boy\" shame script. Budget wisely without moralizing self-worth." },
+                { text: "Community vouches for your character without status display", n: 20, h: 10, r: 10, solution: "Pre-selection without performative VIP rooms. Authentic reputation is built in relation, not rented in clubs." }
+            ];
+
+            let ev = events[Math.floor(Math.random() * events.length)];
+            sliders.nice.value = Math.max(0, Math.min(100, parseInt(sliders.nice.value) + ev.n));
+            sliders.handsome.value = Math.max(0, Math.min(100, parseInt(sliders.handsome.value) + ev.h));
+            sliders.rich.value = Math.max(0, Math.min(100, parseInt(sliders.rich.value) + ev.r));
+            updateUI();
+
+            actionPlanOutput.innerHTML = `<strong>🎲 Trigger: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor = '#94a3b8';
+            actionPlanOutput.style.display = 'block';
+        }
+
+        Object.keys(sliders).forEach(key => {
+            sliders[key].addEventListener('input', () => updateUI(sliders[key]));
+        });
+
+        // 3-Way Toggle Paradox Widget Logic
+        const paraNice = document.getElementById('para-nice');
+        const paraHand = document.getElementById('para-handsome');
+        const paraRich = document.getElementById('para-rich');
+        const paraSwitches = [paraNice, paraHand, paraRich];
+
+        function updateParadoxInsight() {
+            const n = paraNice.checked;
+            const h = paraHand.checked;
+            const r = paraRich.checked;
+            const insightEl = document.getElementById('para-insight');
+            let title = "", desc = "", color = "var(--text-muted)";
+
+            if (n && h && !r) {
+                title = "The Pretty Broke (Nice + Handsome)";
+                color = "var(--nice-color)";
+                desc = "\"Nice and handsome — not rich.\" The frame punishes economic dependence: \"she pays, she cooks, you cheat in her car.\" Kindness without wealth is treated as debt.";
+            } else if (h && r && !n) {
+                title = "The Cold Elite (Handsome + Rich)";
+                color = "var(--handsome-color)";
+                desc = "\"Handsome and rich — not nice. You crushed everyone — psychopath.\" Aesthetic leverage is recoded as predatory climbing so empathy looks naive.";
+            } else if (n && r && !h) {
+                title = "The Provider Simp (Nice + Rich)";
+                color = "var(--rich-color)";
+                desc = "\"Nice and rich — not handsome. You need to be a simp.\" Care and provisioning are desexualized as compensation for missing genetic aesthetics.";
+            } else if (n && !h && !r) {
+                title = "The Confidant (Nice Only)";
+                color = "var(--nice-color)";
+                desc = "Warmth without display or leverage — beloved in personal circles, invisible in marketplace optics.";
+            } else if (h && !n && !r) {
+                title = "The Muse (Handsome Only)";
+                color = "var(--handsome-color)";
+                desc = "Aesthetic capital alone — admired from afar, rarely entrusted with partnership load.";
+            } else if (r && !n && !h) {
+                title = "The Wallet (Rich Only)";
+                color = "var(--rich-color)";
+                desc = "Resources without warmth or appeal. Purchases proximity rather than earned attachment.";
+            } else if (!n && !h && !r) {
+                title = "Off the Market (All Off)";
+                color = "#f43f5e";
+                desc = "Scored zero on a test that needed you to be scorable. Exit the marketplace frame and reclaim authentic value.";
+            }
+
+            insightEl.style.borderLeftColor = color;
+            insightEl.innerHTML = `<strong style="color: ${color}; display: block; margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        paraSwitches.forEach(sw => {
+            sw.addEventListener('change', function () {
+                if (this.checked) {
+                    const checkedOnes = paraSwitches.filter(s => s.checked);
+                    if (checkedOnes.length > 2) {
+                        const others = paraSwitches.filter(s => s !== this);
+                        const randomOther = others[Math.floor(Math.random() * others.length)];
+                        randomOther.checked = false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+
+        // Initialize
+        loadFromURL();
+        if (!window.location.search) {
+            sliders.nice.value = 33;
+            sliders.handsome.value = 33;
+            sliders.rich.value = 34;
+        }
+        updateUI();
+        updateParadoxInsight();
+    </script>
+</body>
+</html>
