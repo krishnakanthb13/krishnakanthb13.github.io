@@ -14,6 +14,7 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Masculine Trilemma (3M)](3M/)**: Nice, Handsome, and Rich — pick two. Deconstruct the marketplace heuristic and manosphere economics.
 *   **[The Seven Stages of Grief (7B)](7B/)**: Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance. Grief as prediction-error learning, not a staircase.
 *   **[The Wealth Trilemma (3W)](3W/)**: Passive, Reliable, Low Effort — pick two. Deconstruct the myth of passive wealth, leveraged income, the Trinity Study, micro-SaaS churn & the dashboard that ate your nervous system.
+*   **[The Leisure Trilemma (3V)](3V/)**: Memorable, Budget-Friendly, Stress-Free — pick two. Navigate the Iron Triangle of travel, Type 2 Fun, hedonic adaptation & why your best stories were miserable in the moment.
 
 ---
 
@@ -36,6 +37,7 @@ AI-powered applications, text utilities, and gaming arenas.
 - 3M - 3 Things about Masculine / Male
 - 3N - 3 Things about Sleep / Night
 - 3W - 3 Things about Wealth / Work
+- 3V - 3 Things about Vacation / Leisure Travel
 
 - 7B - 7 Stages of Heart Break / Grief / Loss
 - 3S - 3 Switches - Time / Money / Health
