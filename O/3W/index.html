@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive deconstruction of the Wealth Trilemma: Passive, Reliable, Low Effort — pick two. Explore leveraged income, the Trinity Study, micro-SaaS churn, and the physiological cost of dashboard addiction.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+    <title>The Wealth Trilemma: Passive, Reliable, Low Effort</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --passive-color: #38bdf8;
+            --reliable-color: #fbbf24;
+            --effort-color: #34d399;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 65%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--passive-color), var(--reliable-color), var(--effort-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.2rem; line-height: 1.1; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 720px; margin: 0 auto; line-height: 1.4; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 600; font-size: clamp(0.7rem, 1.6vw, 0.95rem); fill: var(--text-main); text-anchor: middle; transition: all 0.3s ease; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--reliable-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.1rem; }
+        #insight-desc { font-size: 0.9rem; line-height: 1.4; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #passive-slider::-webkit-slider-thumb { background: var(--passive-color); box-shadow: 0 0 12px var(--passive-color); }
+        #reliable-slider::-webkit-slider-thumb { background: var(--reliable-color); box-shadow: 0 0 12px var(--reliable-color); }
+        #effort-slider::-webkit-slider-thumb { background: var(--effort-color); box-shadow: 0 0 12px var(--effort-color); }
+        #passive-slider::-moz-range-thumb { background: var(--passive-color); box-shadow: 0 0 12px var(--passive-color); }
+        #reliable-slider::-moz-range-thumb { background: var(--reliable-color); box-shadow: 0 0 12px var(--reliable-color); }
+        #effort-slider::-moz-range-thumb { background: var(--effort-color); box-shadow: 0 0 12px var(--effort-color); }
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--passive-color), var(--reliable-color), var(--effort-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 600; }
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; font-size: clamp(0.7rem, 1.5vw, 0.85rem); }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--reliable-color); background: rgba(251, 191, 36, 0.1); }
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--passive-color), var(--effort-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--passive-color); font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 800px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.6; font-size: clamp(0.95rem, 2vw, 1.05rem); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); color: #fafafa; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-passive { color: var(--passive-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-reliable { color: var(--reliable-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-effort { color: var(--effort-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; }
+        .switch-container { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; margin-top: 1.5rem; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 280px; gap: 1.5rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.05rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider-passive { background-color: var(--passive-color); box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+        input:checked + .toggle-slider-reliable { background-color: var(--reliable-color); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        input:checked + .toggle-slider-effort { background-color: var(--effort-color); box-shadow: 0 0 10px rgba(52, 211, 153, 0.4); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .quote-block { background: rgba(251, 191, 36, 0.05); border-left: 4px solid var(--reliable-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(1rem, 2.2vw, 1.15rem); line-height: 1.7; color: #e2e8f0; }
+        .quote-block strong { font-family: 'Outfit', sans-serif; font-style: normal; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+        .formula-box { background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0; font-family: monospace; font-size: 0.95rem; text-align: center; color: #e0f2fe; }
+        @media (max-width: 800px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .triangle-container { height: 200px; min-height: auto; } .insight-box { padding: 0.8rem 1rem; } #insight-desc { font-size: 0.85rem; } .btn { padding: 0.5rem; } .comparison-table { font-size: 0.75rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.5rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Wealth Trilemma</h1>
+        <p class="subtitle">Passive, Reliable, Low Effort — you can only pick two. An interactive disassembly of the myth of passive wealth and the physiological cost of leveraged capital.</p>
+    </header>
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Income Traits</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.4;">Max Capacity: 200%. Pushing one trait beyond its limit auto-drains the others — just like the market does to you.</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="passive-slider" style="color:var(--passive-color)">💤 PASSIVE</label><span id="passive-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="passive-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="reliable-slider" style="color:var(--reliable-color)">🏦 RELIABLE</label><span id="reliable-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="reliable-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="effort-slider" style="color:var(--effort-color)">🍃 LOW EFFORT</label><span id="effort-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="effort-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Capital Overload! Auto-balancing...</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Income Archetypes</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('vending')"><span>🥤</span> Vending Machine<br><small style="font-size:0.7rem;opacity:0.7">+🍃 +💤 -🏦</small></button>
+                    <button class="btn" onclick="applyScenario('childhood')"><span>👶</span> Active Childhood<br><small style="font-size:0.7rem;opacity:0.7">+💤 +🏦 -🍃</small></button>
+                    <button class="btn" onclick="applyScenario('lifesupport')"><span>🏥</span> Life Support<br><small style="font-size:0.7rem;opacity:0.7">+🍃 +🏦 -💤</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3W()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.9rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Strategy</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Income Triangle</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,50 350,320 50,320" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(251, 191, 36, 0.12)" stroke="var(--reliable-color)" stroke-width="4" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="35" class="node-label" fill="var(--passive-color)">PASSIVE</text>
+                    <text x="370" y="345" class="node-label" fill="var(--effort-color)">LOW EFFORT</text>
+                    <text x="30" y="345" class="node-label" fill="var(--reliable-color)">RELIABLE</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--reliable-color); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Hustle</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly — the distribution that the 'sleep while you earn' ads insist is possible, before the market forces a choice.</p>
+            </article>
+        </section>
+    </div>
+    <main class="article-container">
+        <h2>The Folk Law</h2>
+        <div class="quote-block">
+            As an adult, you can't have all three together. You have to pick two. If it is low effort and passive, it won't be reliable. It makes money sometime. You genuinely don't know whether it will pay rent this month or ghost you like a situationship. It's not a passive income. It's a vending machine you have to praise till work. If it is passive and reliable, it won't be low effort. It pays while you sleep, beautiful, except getting it there took three years of 2 a.m. panic attacks checking whether everything was still breathing — it's passive now but it had a very active childhood. If it is low effort and reliable it won't be passive — it works seamlessly but only because you are checking it 40 times a day to make sure it hasn't died. You refresh the dashboard like it's a life support machine. You did not automate a system, you outsourced your nervous system.
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted);font-family:'Outfit',sans-serif;">The contemporary digital economy is marketed on the "sleep while you earn" paradigm — a utopian vision where income is decoupled from labor. Empirical analysis of the creator economy, behavioral economics and psychophysiology reveals the opposite: purely passive, reliable, low-effort income is structurally impossible.</p>
+
+        <h2>The Impossible Trinity of Income Generation</h2>
+        <p>In international macroeconomics, the Mundell-Fleming trilemma posits that an economy cannot simultaneously maintain a fixed exchange rate, free capital movement, and independent monetary policy. A parallel impossible trinity governs individual enterprise:</p>
+        <blockquote style="border-left:3px solid rgba(255,255,255,0.15);padding-left:1rem;margin:1rem 0;color:#e2e8f0;">
+            1. <strong style="color:var(--passive-color)">Passive:</strong> Revenue generates autonomously, requiring no ongoing labor to transact or fulfill.<br>
+            2. <strong style="color:var(--reliable-color)">Reliable:</strong> Consistent, predictable yield sufficient to cover baseline liabilities (rent).<br>
+            3. <strong style="color:var(--effort-color)">Low Effort:</strong> Minimal upfront or ongoing capital, labor, or cognitive bandwidth to establish and maintain.
+        </blockquote>
+        <p>Just as adjusting one vertex of the project-management iron triangle (scope / time / cost) deforms the others, attempting to force all three income vertices results in systemic failure.</p>
+
+        <h2>The Trade-Off Matrix: Deconstructing the Permutations</h2>
+        <h3><span class="accent-effort">Low Effort + Passive = Unreliable</span> — The Vending Machine</h3>
+        <p>When an individual seeks minimal setup and autonomous fulfillment, reliability is forfeited. This domain is populated by low-tier affiliate marketing, generic digital products on saturated marketplaces, zero-capital dropshipping with minimal research, or low-yield automated content. Yield is erratic — intermittent bursts leaving the operator uncertain whether rent will be paid or the stream will vanish. It operates as a temperamental vending machine demanding persistent praise and coaxing for occasional results.</p>
+        <h3><span class="accent-passive">Passive + Reliable = High Effort</span> — The Active Childhood</h3>
+        <p>Income that is genuinely passive in maturity and reliable in yield is never low-effort in genesis. Assets such as a successful micro-SaaS, dominant faceless YouTube channel, or deeply researched curriculum require massive upfront capitalization — financial or sweat equity. Once established they may pay while you sleep, but reaching equilibrium typically requires years of hyper-vigilance and severe strain. The asset is passive now only because it had a highly active, labor-intensive childhood — often years of 2 a.m. panic checks.</p>
+        <h3><span class="accent-reliable">Low Effort + Reliable = Active Monitoring</span> — The Life Support Machine</h3>
+        <p>If an income stream is easy to establish and reliably generates cash flow, it cannot be passive. Active side hustles, gig work, or systems requiring constant manual overrides flow seamlessly only because the operator feeds and checks the machine continuously. The creator refreshes the dashboard forty times a day; they have not automated a wealth system, they have outsourced their nervous system to the interface, monitoring it like a life support machine.</p>
+
+        <h2>The Trilemma Interactive</h2>
+        <p>Experience the constraint directly: try to turn all three ON. Activating the third will randomly toggle off one of the other active states — demonstrating why the marketplace mechanically prohibits three-way harmony.</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--passive-color)">💤 Passive</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-passive" checked>
+                        <span class="toggle-slider toggle-slider-passive"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--reliable-color)">🏦 Reliable</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-reliable">
+                        <span class="toggle-slider toggle-slider-reliable"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--effort-color)">🍃 Low Effort</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-effort" checked>
+                        <span class="toggle-slider toggle-slider-effort"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; font-style: normal; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Deconstructing Wealth Creation</h2>
+
+        <details>
+            <summary>1. The Semantics of Capital: Passive vs Leveraged Income</summary>
+            <div class="details-content">
+                <p>The ubiquitous misuse of "passive income" misallocates human capital and generates distress. The error is conflating yield on deployed financial capital with deferred compensation of highly leveraged human labor.</p>
+                <p><strong>The Macroeconomic Definition of Passive Income:</strong> In classical terms, passive income is strictly yield on deployed financial capital — dividend equities, bond ladders, REITs, CDs, high-yield savings, money-market instruments. It is governed by the <strong>Trinity Study (1998)</strong>, which tested historical stock/bond portfolios to determine safe withdrawal rates.</p>
+                <p>The Trinity Study popularized the <strong>4% Rule</strong>: withdraw 4% of a balanced portfolio annually (inflation-adjusted) with ~95% probability of surviving 30 years. To generate a modest truly passive $40,000/year, you must deploy <strong>$1,000,000</strong> upfront. With longer horizons (40-50 years, FIRE) and high valuations (Shiller CAPE), researchers model closer to <strong>3.25–3.5%</strong>. Monte Carlo simulations show rigid 4% withdrawals during prolonged downturns sharply raise depletion risk. True passive income requires vast reserves or dynamic "guardrails" — actively restricting consumption in corrections.</p>
+                <p><strong>The Mechanics of Leveraged Income:</strong> What the digital economy actually offers the uncapitalized is <em>leveraged income</em> — output decoupled from hours. Like pushing a heavily weighted ball: immense initial kinetic energy yields little motion, but sustained effort builds momentum. Once rolling, less energy maintains velocity, but walking away lets friction stop it. SaaS, curricula, content libraries never eliminate oversight; they produce leveraged cash flow, not cash-flowing assets.</p>
+                <div class="formula-box">CAPM: E(R<sub>i</sub>) = R<sub>f</sub> + β<sub>i</sub> [E(R<sub>m</sub>) − R<sub>f</sub>] — analogized: R<sub>f</sub> = salaried active income; β = systematic risk of creator bets; outsized returns demand outsized uncompensated hours that may find no product-market fit. Arbitrage Pricing Theory reminds us: no risk-free arbitrage, no frictionless wealth.</div>
+                <table class="comparison-table">
+                    <thead><tr><th>Dimension</th><th>True Passive Income</th><th>Leveraged Income</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Source</strong></td><td>Yield on deployed financial capital</td><td>Infinitely saleable asset built from leveraged human labor</td></tr>
+                        <tr><td><strong>Upfront Cost</strong></td><td>$1M for $40k/yr at 4%</td><td>Thousands of uncompensated hours + iteration</td></tr>
+                        <tr><td><strong>Ongoing Need</strong></td><td>Guardrails in drawdowns</td><td>Maintenance, optimization, churn mitigation</td></tr>
+                        <tr><td><strong>Risk Pricing</strong></td><td>Market beta</td><td>Creator beta — failure priced by sweat equity</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. The Empirical Reality: Side-Hustle &amp; Gig Economy Statistics</summary>
+            <div class="details-content">
+                <p>The gig/side-hustle market reached ~$556B by 2024. 72% of U.S. workers maintain or plan a side hustle; 73% of Gen Z want one, 45% identify as digital side hustlers. 49% cite making ends meet against inflation.</p>
+                <p>Distribution is Pareto (winner-take-all): average side hustle = <strong>$885/month</strong>, median = <strong>$200/month</strong>. Only 11% exceed $1,000/month, 2% cross $5,000. 32.1% earn $51–$250. 40% quit citing lack of time; 67% report severe burnout.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Cohort</th><th>Share / Stat</th><th>Implication</th></tr></thead>
+                    <tbody>
+                        <tr><td>Mean vs Median gap</td><td>$885 vs $200</td><td>Small elite pulls average up</td></tr>
+                        <tr><td>&gt;$1k / &gt;$5k month</td><td>11% / 2%</td><td>Scaling past startup is rare</td></tr>
+                        <tr><td>Primary driver</td><td>Inflation (49%)</td><td>Necessity, not opportunity</td></tr>
+                        <tr><td>Top quit reason</td><td>Time (40%), burnout (67%)</td><td>Effort constraint binds first</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. The Digital Product &amp; Print-on-Demand Markets</summary>
+            <div class="details-content">
+                <p>Digital products (courses, templates, eBooks, micro-tools) = $32B of a $290B creator economy projected for 2026 (22–28% YoY growth). Marginal cost ~zero; barrier to entry now ~zero, creating severe stratification.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Creator Tier</th><th>Annual Revenue</th><th>Share of Active Creators</th></tr></thead>
+                    <tbody>
+                        <tr><td>Top 1%</td><td>$250,000+</td><td>1%</td></tr>
+                        <tr><td>Top 5%</td><td>$50k – $250k</td><td>4%</td></tr>
+                        <tr><td>Top 10%</td><td>$20k – $50k</td><td>5%</td></tr>
+                        <tr><td>Top 25%</td><td>$5k – $20k</td><td>15%</td></tr>
+                        <tr><td>Median</td><td>$1,200</td><td>50th percentile</td></tr>
+                        <tr><td>Bottom 50%</td><td>Under $500</td><td>50%</td></tr>
+                    </tbody>
+                </table>
+                <p>Median active creator earns $1,200/year ($100/month). Only premium guides ($29–$99) and high-ticket courses command revenue; generic $5–$19 eBooks are lead magnets.</p>
+                <p><strong>Print-on-Demand:</strong> Touted as zero-inventory passive income, growing 26% CAGR to $102.99B by 2034. Fulfillment handled, but margins 20–40% — $2–$8 net per apparel sale on Etsy/Shopify. To net $3,000/month requires hundreds of transactions and active marketing, design iteration, and SEO — antithesis of passivity.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. Faceless YouTube Automation &amp; the Algorithmic Grind</summary>
+            <div class="details-content">
+                <p>Faceless channels (AI scripts/voice/visuals) = 38% of new monetization ventures (+217% since 2022). AI video generator market to $3.44B by 2033. Trust is high: 86% perceive faceless content as authentic; 72% of Gen Z prioritize information quality over creator presence.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Niche</th><th>CPM (per 1k views)</th><th>Est. RPM (Creator Yield)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Personal Finance</td><td>$15 – $22</td><td>$10 – $15</td></tr>
+                        <tr><td>AI &amp; Technology</td><td>$15 – $22</td><td>$10 – $15</td></tr>
+                        <tr><td>Educational Explainers</td><td>$10 – $25</td><td>$7 – $15</td></tr>
+                        <tr><td>True Crime / Documentary</td><td>$8 – $15</td><td>$4 – $8</td></tr>
+                        <tr><td>Entertainment / Memes</td><td>$2 – $6</td><td>$1 – $3</td></tr>
+                    </tbody>
+                </table>
+                <p>A finance channel at 10k views/video can target $4,000/month — yet success rate to monetization is <strong>3%</strong>; probability of earning $100/day is <strong>0.028%</strong>. The modal quit point is months 4–6, just before algorithmic compounding. Endurance through the active childhood determines survival.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. The Micro-SaaS Reality: Churn, LTV and the Leaky Bucket</summary>
+            <div class="details-content">
+                <p>Niche SaaS for local services, CRM affiliates (telecrm, HubSpot, Pipedrive), or AI repurposing bypasses broad-market competition but is acutely vulnerable to churn — requiring relentless active management.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Segment by ACV</th><th>Median Monthly Churn (2026)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Enterprise (&gt;$100K)</td><td>1.5%</td></tr>
+                        <tr><td>Mid-Market ($10K–$100K)</td><td>3.1%</td></tr>
+                        <tr><td>SMB ($1K–$10K)</td><td>5.2%</td></tr>
+                        <tr><td>Micro / Self-serve</td><td>7.3%</td></tr>
+                        <tr><td>Consumer / Prosumer</td><td>8.9%</td></tr>
+                    </tbody>
+                </table>
+                <p>At 7.3% monthly churn, a founder must replace nearly the entire base every 14 months to stay flat. The bucket leaks; $10k MRR takes a solo bootstrapper 12–18 months. 20–40% of churn is involuntary (failed payments) — recoverable 40–60% via Smart Dunning. Without LTV:CAC vigilance, cohort analysis, and cancellation save-flows, the system demands daily focus.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. Outsourcing the Nervous System: Psychophysiology of Monitoring</summary>
+            <div class="details-content">
+                <p>The deepest cost is not financial but physiological. Automated leveraged assets replace physical labor with continuous systemic monitoring — the creator outsources their central nervous system to the dashboard, scanning 40 times a day for collapse.</p>
+                <p><strong>Alert fatigue:</strong> Like Security Operations Centers where 99% of alerts are false positives, solo founders face a 24-hour stream — Stripe failures, downtime, algorithmic strikes, support tickets, API errors. As single point of failure, hypervigilance dissolves work/rest boundaries; the asset transacts at 2 a.m., the founder's subconscious remains tethered, disrupting sleep.</p>
+                <p><strong>Cortisol &amp; autonomic disruption:</strong> Wearables (HRV, galvanic skin response, pupil diameter) with ML ensembles (SVM, Random Forests, CapsNets) detect occupational stress &gt;90% accuracy. Healthy cortisol peaks at morning, decays by night for melatonin; continuously monitoring founders exhibit <em>flattened curves</em> — elevated all night — producing fatigue, depressive symptoms, GI distress. Each dashboard refresh delivers micro-doses of dopamine (sale) or cortisol (churn) — a slot-machine loop creating addiction.</p>
+                <p><strong>Algorithmic management:</strong> Escaping a human manager subordinates you to opaque platform algorithms (YouTube, Google, Shopify, Amazon) that can demonetize, derank, or suspend with zero due process. Studies on electronic performance monitoring show continuous automated observation proliferates stress, reduces autonomy, and violates privacy — leaving founders in perpetual manager/operational risk for an unfeeling algorithm.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. Behavioral Economics: Mental Accounting &amp; the Illusion of Rationality</summary>
+            <div class="details-content">
+                <p>67% report burnout yet entry remains massive — explained by <strong>mental accounting</strong> (Richard Thaler): money is not fungible in the mind. Salary ("safe money for rent") and side-hustle income ("bonus money") sit in separate accounts. A founder isolates $500 + 200 hours in the "side hustle" account; failure contaminates only that account. A 21-country replication (5,589 participants) confirms universality of this heuristic.</p>
+                <p>This shields the entrepreneur from opportunity cost: $200/month may feel like pure gain, while true hourly wage after hundreds of hours may be sub-minimum wage. <strong>Loss aversion</strong> then locks them in — abandoning after sunk effort feels like realizing a massive loss in that mental account. YouTube quit point months 4–6 is exactly this threshold: the account is deeply red before validation arrives. Survivors reframe effort as "educational investment" or regulate emotion better.</p>
+                <p><strong>Emotional sobriety</strong> becomes prerequisite: sever the link between self-worth/mood and daily dashboard variance, accept algorithmic volatility as structural rather than existential, and treat feedback as invitation to coherence.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Bias</th><th>Mechanism</th><th>Outcome</th></tr></thead>
+                    <tbody>
+                        <tr><td>Mental accounting</td><td>Isolate side-hustle ledger</td><td>Underprices time/attention costs</td></tr>
+                        <tr><td>Sunk cost / Loss aversion</td><td>Quitting = realizing loss</td><td>Persistence past rational quit point — or collapse at 4–6 months</td></tr>
+                        <tr><td>Emotional sobriety</td><td>Decouple mood from revenue</td><td>Durability without outsourced nervous system</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. Strategies for Sustainable Leveraged Income</summary>
+            <div class="details-content">
+                <p>Since perfect passivity + reliability + low effort is impossible, optimization targets sustainable <em>leveraged</em> income with accepted trade-offs:</p>
+                <ol>
+                    <li><strong>Transition to capitalized portfolio income:</strong> Redirect high-velocity leveraged cash flow (e.g., $10k/month channel/SaaS) into genuinely passive vehicles — index funds, REITs, fixed income — where the 4% Rule applies. Don't treat a decaying algorithmic asset as a permanent retirement plan.</li>
+                    <li><strong>Aggressive churn mitigation &amp; automation:</strong> Since 20–40% of churn is involuntary, Smart Dunning can recover 40–60% of failed payments — repairing the leaky bucket and lowering pressure to constantly acquire.</li>
+                    <li><strong>Asymmetrical niche selection:</strong> Generalized markets guarantee high effort + low reliability. High willingness-to-pay, low-saturation niches (specific CRM for tradespeople, B2B affiliates with lifetime recurring, or high-CPM finance/software tutorials at $20 vs $2 entertainment) shift economics with lower absolute viewership.</li>
+                    <li><strong>Cultivate "passion income":</strong> When effort can't be minimized, change its weight. Work aligned with core competencies mitigates cortisol response; effort remains high but no longer drains the nervous system, sustaining momentum.</li>
+                </ol>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. Full Research: Macro Foundations &amp; Works Cited</summary>
+            <div class="details-content">
+                <p><strong>Mundell-Fleming trilemma</strong> (fixed exchange / free capital / independent monetary policy) — Indonesia/Malaysia liquidity shortages, post-QE "new monetary trinity," and the project-management iron triangle (good/fast/cheap) as structural analogs for why forcing all three income traits collapses the system.</p>
+                <ul style="font-size:0.85rem;word-break:break-all;">
+                    <li>The impossibility of the impossible trinity? The case of Indonesia — ResearchGate</li>
+                    <li>Speeches — Reserve Bank of India</li>
+                    <li>The Impossible Trinity: Asia's Liquidity Dilemma — Equentis</li>
+                    <li>Chapter 9: Impossible Trinity — Emerald Insight</li>
+                    <li>François Villeroy de Galhau: from the "impossible trinity" to the "growth triangle" — BIS</li>
+                    <li>The Complete Guide 2026 — Project Management Triangle</li>
+                    <li>21 Passive Income Ideas to Build Wealth in 2026 — Millennial Money</li>
+                    <li>r/MiddleClassFinance — passive income discussion</li>
+                    <li>12 Unique Business Ideas for Passive Income in 2026 — MyDesigns.io</li>
+                    <li>r/singaporefi — passive income streams that actually work</li>
+                    <li>Digital Product Market Size 2026 — 152K Products Analyzed — InsightRaider</li>
+                    <li>Passive Income Is a Lie — Build Passion Income Instead — Solo</li>
+                    <li>15 Best Bootstrapped SaaS Niches — Entrepreneur Loop</li>
+                    <li>Faceless YouTube Statistics 2026 — Frameloop</li>
+                    <li>How to Understand and Optimize Your Income Streams — PlanetSpark</li>
+                    <li>Occupational Stress Monitoring Using Biomarkers — PMC</li>
+                    <li>15 Digital Income Terms Every Investor Needs to Know — Entrepreneur</li>
+                    <li>Passive income — Wikipedia</li>
+                    <li>4% Rule in 2026: Safe Withdrawal Rate Calculator | InvestingFIRE</li>
+                    <li>Trinity study — Wikipedia</li>
+                    <li>Safe Withdrawal Rate for Early Retirees — Mad Fientist</li>
+                    <li>7 Actionable Bootstrapped SaaS Success Stories &amp; Playbooks — SaaSOperations</li>
+                    <li>Faceless Content Creator Statistics 2026 — AutoFaceless.ai</li>
+                    <li>What Is CAPM? — NetSuite</li>
+                    <li>Capital Asset Pricing Model — Yale / ACCA / igidr / AnalystPrep</li>
+                    <li>Side Hustle Statistics in 2026 — Podbase &amp; Whop</li>
+                    <li>Print-on-demand statistics 2026 — Printful</li>
+                    <li>9 Best CRM Affiliate Programs In India (2026) — telecrm</li>
+                    <li>The Seven R's of Customer Retention — Baremetrics</li>
+                    <li>The State of SaaS Churn in 2026 — ChurnTools &amp; Vena Solutions</li>
+                    <li>Best Micro SaaS Ideas for Solopreneurs — Superframeworks</li>
+                    <li>A Unified Framework for Human–AI Collaboration in SOCs — arXiv</li>
+                    <li>Mental Stress Detection Using Physiological Sensors — PMC</li>
+                    <li>Private Eyes, They See Your Every Move: Workplace Surveillance — PMC</li>
+                    <li>Financial Evaluation of Mental Accounting — ACADlore / EconStor / Cerge-Ei</li>
+                    <li>Is Mental Accounting Universal? — Psychology Today (21-country replication)</li>
+                    <li>A Structural Model of Mental Accounting — CMU</li>
+                    <li>2026 The Year of Awakening — Everand</li>
+                </ul>
+                <p style="font-size:0.85rem;color:var(--text-muted);">All claims above are synthesized from the provided <code>info.txt</code> / <code>index.md</code> research packet; no external hallucinations introduced.</p>
+            </div>
+        </details>
+
+        <h2>Conclusion</h2>
+        <p>The pursuit of purely passive income in the digital economy is largely a semantic illusion sustained by survivorship bias and misclassification. The impossible trinity holds: no income stream is simultaneously passive, reliable, and low effort. True passivity belongs to vast capital (millions at 3.25–4%). What the digital realm offers is leveraged income — volatile, demanding, decoupled from hours but tethered to continuous oversight.</p>
+        <p>The cost is outsourcing your nervous system to dashboards, algorithms, and alerts demanding constant monitoring. Longevity requires stripping the "sleep and earn" vending-machine myth, practicing emotional sobriety, sophisticated mental accounting, algorithmic resilience, and strategic conversion of high-stress leveraged cash flow into genuinely passive, heavily capitalized portfolio assets.</p>
+    </main>
+    <footer>
+        <p>&copy; 2026 Life Mechanics Hub. Developed by Krishnakanth. Save your URL to preserve your state.</p>
+    </footer>
+    <script>
+        const sliders = { passive: document.getElementById('passive-slider'), reliable: document.getElementById('reliable-slider'), effort: document.getElementById('effort-slider') };
+        const vals = { passive: document.getElementById('passive-val'), reliable: document.getElementById('reliable-val'), effort: document.getElementById('effort-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+        const MAX_CAPACITY = 200;
+        function updateURLParams(){ const url=new URL(window.location); url.searchParams.set('p', sliders.passive.value); url.searchParams.set('r', sliders.reliable.value); url.searchParams.set('e', sliders.effort.value); window.history.replaceState({},'',url); }
+        function loadFromURL(){ const params=new URLSearchParams(window.location.search); if(params.has('p')) sliders.passive.value=params.get('p'); if(params.has('r')) sliders.reliable.value=params.get('r'); if(params.has('e')) sliders.effort.value=params.get('e'); }
+        function updateUI(sourceSlider=null){
+            let p=parseInt(sliders.passive.value), r=parseInt(sliders.reliable.value), e=parseInt(sliders.effort.value), total=p+r+e;
+            if(total>MAX_CAPACITY){
+                let excess=total-MAX_CAPACITY; warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0',2000);
+                let others=Object.keys(sliders); if(sourceSlider) others=others.filter(k=>sliders[k]!==sourceSlider); others.sort((a,b)=>sliders[b].value-sliders[a].value);
+                for(let key of others){ if(excess<=0) break; let val=parseInt(sliders[key].value), toDrain=Math.min(val,excess); sliders[key].value=val-toDrain; excess-=toDrain; }
+                p=parseInt(sliders.passive.value); r=parseInt(sliders.reliable.value); e=parseInt(sliders.effort.value); total=p+r+e;
+            }
+            vals.passive.innerText=p+'%'; vals.reliable.innerText=r+'%'; vals.effort.innerText=e+'%';
+            let percent=(total/MAX_CAPACITY)*100; capFill.style.width=percent+'%'; capVal.innerText=`${total} / 200`; capFill.style.background=percent>90?'linear-gradient(90deg, var(--reliable-color), #f43f5e)':'linear-gradient(90deg, var(--passive-color), var(--reliable-color), var(--effort-color))';
+            const pX=200, pY=185-(135*(p/100)), eX=200+(150*(e/100)), eY=185+(135*(e/100)), rX=200-(150*(r/100)), rY=185+(135*(r/100));
+            poly.setAttribute('points', `${pX},${pY} ${eX},${eY} ${rX},${rY}`);
+            let dominantColor='var(--text-main)'; if(p>=r && p>=e) dominantColor='var(--passive-color)'; else if(r>=p && r>=e) dominantColor='var(--reliable-color)'; else dominantColor='var(--effort-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor=dominantColor;
+            generateInsight(p,r,e); updateURLParams();
+        }
+        function generateInsight(p,r,e){
+            if(p>80 && e>80 && r<30){ insightTitle.innerText="The Vending Machine (Passive + Low Effort)"; insightTitle.style.color="var(--passive-color)"; insightDesc.innerText="Low-tier affiliate, generic digital product, zero-capital dropship. It makes money sometimes — ghosting you like a situationship. Not passive income; a vending machine you have to praise till it works."; }
+            else if(p>80 && r>80 && e<30){ insightTitle.innerText="The Active Childhood (Passive + Reliable)"; insightTitle.style.color="var(--reliable-color)"; insightDesc.innerText="Pays while you sleep — because getting there took three years of 2 a.m. panic checks. Micro-SaaS, dominant YouTube, premium curriculum. Beautifully autonomous, built on grueling hyper-vigilance."; }
+            else if(e>80 && r>80 && p<30){ insightTitle.innerText="The Life Support Machine (Low Effort + Reliable)"; insightTitle.style.color="var(--effort-color)"; insightDesc.innerText="Works seamlessly only because you refresh the dashboard 40 times a day. You didn't automate a system — you outsourced your nervous system. Reliability is pegged to your continuous participation."; }
+            else if(p<20 && r<20 && e<20){ insightTitle.innerText="Depleted Portfolio"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="Scored near zero on a market designed to promise all three at once. The constraint isn't you — it's the impossible promise you were sold."; }
+            else if(p>80 && r<30 && e<30){ insightTitle.innerText="Pure Passive"; insightTitle.style.color="var(--passive-color)"; insightDesc.innerText="Autonomous but unproven — transactions happen without you, but volume is thin."; }
+            else if(r>80 && p<30 && e<30){ insightTitle.innerText="Pure Reliable"; insightTitle.style.color="var(--reliable-color)"; insightDesc.innerText="Consistent cash flow anchored to your hands. Reliable because you are the reliability layer."; }
+            else if(e>80 && p<30 && r<30){ insightTitle.innerText="Pure Low Effort"; insightTitle.style.color="var(--effort-color)"; insightDesc.innerText="Minimal setup — but minimal gravity. Easy to start, easy to ignore, easy to forget."; }
+            else { insightTitle.innerText="The Balanced Hustle"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Holding all three lightly. The scarcity appears only when demanding all three at maximum through a single asset — the trilemma is a constraint, not a curse."; }
+        }
+        function applyScenario(type){
+            document.querySelectorAll('.archetypes .btn').forEach(b=>b.classList.remove('active')); if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(type==='vending'){ sliders.passive.value=90; sliders.effort.value=85; sliders.reliable.value=15; updateUI(sliders.passive); }
+            else if(type==='childhood'){ sliders.passive.value=90; sliders.reliable.value=90; sliders.effort.value=15; updateUI(sliders.passive); }
+            else if(type==='lifesupport'){ sliders.effort.value=90; sliders.reliable.value=85; sliders.passive.value=15; updateUI(sliders.effort); }
+        }
+        function generateActionPlan(){
+            let p=parseInt(sliders.passive.value), r=parseInt(sliders.reliable.value), e=parseInt(sliders.effort.value);
+            let states=[{name:'Passivity',val:p,color:'var(--passive-color)'},{name:'Reliability',val:r,color:'var(--reliable-color)'},{name:'Low Effort',val:e,color:'var(--effort-color)'}];
+            states.sort((x,y)=>y.val-x.val); let maxState=states[0], minState=states[2];
+            let text=`<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">📝 Strategy Commitment: Optimizing for ${maxState.name}</strong>`+
+                `You are currently anchoring around <strong>${maxState.name}</strong>.<br><br>`+
+                `Accept that <strong>${minState.name}</strong> will remain constrained. If you chase all three, you will outsource your nervous system to the dashboard. Protect a floor for health, convert leveraged flow into capitalized portfolio income, and treat volatility as structural, not existential.<br><br>`+
+                `<em>(State preserved in URL. Bookmark or share to reflect.)</em>`;
+            actionPlanOutput.innerHTML=text; actionPlanOutput.style.borderLeftColor=maxState.color; actionPlanOutput.style.display='block';
+        }
+        function triggerRandomEvent3W(){
+            const events=[
+                { text:"Stripe alert: 12 failed payments overnight", p:-10, r:-25, e:0, solution:"This is involuntary churn (20–40% of all churn). Deploy Smart Dunning — recover 40–60% without manual grind — before acquiring a single new user." },
+                { text:"Viral tweet sends 4,000 views to your generic eBook", p:15, r:10, e:-10, solution:"Vending-machine spike. Don't mistake intermittent reinforcement for reliable income. Treat $100 median reality as base case, not the $4k outlier." },
+                { text:"YouTube strikes your top video — impressions collapse", p:-20, r:-30, e:0, solution:"Algorithmic management in action. Build newsletter + owned audience this week so one platform cannot erase reliability." },
+                { text:"Micro-SaaS hits $10k MRR after 14 months of grind", p:20, r:30, e:-20, solution:"Active childhood completed. Now cap effort: automate dunning, document 7 R's retention, and redirect cash flow into index funds per the 4% Rule." },
+                { text:"You check analytics for the 38th time before noon", p:-10, r:0, e:-15, solution:"Life-support signal. Schedule two fixed dashboard windows; push alerts to daily digest. Flatten your cortisol curve before it flattens you." },
+                { text:"Premium course launch nets $22k in 48 hours", p:15, r:20, e:-15, solution:"High-effort genesis paying out. Price reflects beta — CAPM in action. Bank 60% into portfolio income; don't re-invest all into the next weighted ball." },
+                { text:"POD store needs 180 orders/month to hit $3k — you have 22", p:-15, r:-20, e:10, solution:"Margin math ($2–$8 net per sale) exposes the trade. Either raise price via asymmetrical niche or accept unreliability and treat it as bonus-account money." },
+                { text:"You reframe schedule as 'passion income' — work feels lighter", p:10, r:10, e:15, solution:"Passion income re-weights cost. Effort unchanged, cortisol down. Protect this by aligning labor with intrinsic skill so momentum sustains without life-support checking." },
+                { text:"Burnout quiz flags 67% pattern — you haven't slept through the night in a week", p:-15, r:-15, e:-15, solution:"Outsourced-nervous-system diagnosis. Enforce guardrails: minimum 7h sleep, maximum two platforms, one floor for health not to be violated." },
+                { text:"Affiliate partner offers lifetime recurring on CRM deal", p:15, r:25, e:5, solution:"Asymmetrical niche lever. Switch from low-CPM entertainment ($2) logic to high-CPM B2B ($20) logic — fewer views, higher compounding." }
+            ];
+            let ev=events[Math.floor(Math.random()*events.length)];
+            sliders.passive.value=Math.max(0,Math.min(100,parseInt(sliders.passive.value)+ev.p));
+            sliders.reliable.value=Math.max(0,Math.min(100,parseInt(sliders.reliable.value)+ev.r));
+            sliders.effort.value=Math.max(0,Math.min(100,parseInt(sliders.effort.value)+ev.e));
+            updateUI();
+            actionPlanOutput.innerHTML=`<strong>🎲 Shock: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor='#94a3b8'; actionPlanOutput.style.display='block';
+        }
+        Object.keys(sliders).forEach(key=>{ sliders[key].addEventListener('input', ()=>updateUI(sliders[key])); });
+        const paraPassive=document.getElementById('para-passive'), paraReliable=document.getElementById('para-reliable'), paraEffort=document.getElementById('para-effort');
+        const paraSwitches=[paraPassive, paraReliable, paraEffort];
+        function updateParadoxInsight(){
+            const p=paraPassive.checked, r=paraReliable.checked, e=paraEffort.checked; const el=document.getElementById('para-insight'); let title="",desc="",color="var(--text-muted)";
+            if(p && e && !r){ title="The Vending Machine (Passive + Low Effort)"; color="var(--passive-color)"; desc="Minimal setup, autonomous flow — but ghosting you like a situationship. Will it pay rent this month? No one knows. A vending machine you praise till it works."; }
+            else if(p && r && !e){ title="The Active Childhood (Passive + Reliable)"; color="var(--reliable-color)"; desc="Pays while you sleep because it had a hypervigilant childhood — three years of 2 a.m. panic checks. Beautifully passive only after massive sweat equity."; }
+            else if(e && r && !p){ title="The Life Support Machine (Low Effort + Reliable)"; color="var(--effort-color)"; desc="Easy start, steady cash — but only because you refresh 40×/day. You outsourced your nervous system; the dashboard is life support."; }
+            else if(p && !r && !e){ title="Passive Only"; color="var(--passive-color)"; desc="Autonomous trickle. Transactions without you, but insufficient and erratic."; }
+            else if(r && !p && !e){ title="Reliable Only"; color="var(--reliable-color)"; desc="Steady because you are the stability. Active labor converted to reliability."; }
+            else if(e && !p && !r){ title="Low Effort Only"; color="var(--effort-color)"; desc="Minimal friction — but minimal return. Easy entry, zero moat."; }
+            else if(!p && !r && !e){ title="All Off — Depleted"; color="#f43f5e"; desc="Every reservoir dark. Not a verdict on you — a signal to stabilize before optimizing."; }
+            el.style.borderLeftColor=color; el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit',sans-serif;">${title}</strong>${desc}`;
+        }
+        paraSwitches.forEach(sw=>{ sw.addEventListener('change', function(){ if(this.checked){ const checkedOnes=paraSwitches.filter(s=>s.checked); if(checkedOnes.length>2){ const others=paraSwitches.filter(s=>s!==this); const randomOther=others[Math.floor(Math.random()*others.length)]; randomOther.checked=false; } } updateParadoxInsight(); }); });
+        loadFromURL(); if(!window.location.search){ sliders.passive.value=33; sliders.reliable.value=33; sliders.effort.value=34; }
+        updateUI(); updateParadoxInsight();
+    </script>
+</body>
+</html>
