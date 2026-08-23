@@ -24,12 +24,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Heartbreak Triad](https://krishnakanthb13.github.io/O/3L/) — Self-Awareness, Peace, and Love. Toggle to experience the trade-off.
 	- [The Sleep Paradox](https://krishnakanthb13.github.io/O/3N/) — Early sleep, late sleep, and waking life. Balance autonomy, debt, and regret.
 	- [The Feminine Trilemma](https://krishnakanthb13.github.io/O/3F/) — Hot, Fun, and Sane. Pick two. The Hot-Crazy Matrix & Vicky Mendoza Diagonal.
-	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/) — Nice, Handsome, and Rich. Pick two. The manosphere marketplace & Sartain report.
-	- [The Seven Stages of Grief](https://krishnakanthb13.github.io/O/7B/) — Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
-	- [The Wealth Trilemma](https://krishnakanthb13.github.io/O/3W/) — Passive, Reliable, Low Effort — pick two. The myth of passive wealth & leveraged income.
-	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/) — Memorable, Budget-Friendly, Stress-Free — pick two. The Iron Triangle of travel, Type 2 Fun & the bill with a bodyguard.
+	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/) — Nice, Handsome, and Rich. Pick two. The manosphere marketplace.
+	- [The 7 steps of Grief](https://krishnakanthb13.github.io/O/7B/) — Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
+	- [The Wealth Trilemma](https://krishnakanthb13.github.io/O/3W/) — Passive, Reliable, Low Effort. Pick two. Myth of passive wealth & leveraged income.
+	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/) — Memorable, Budget-Friendly, Stress-Free — pick two. The Iron Triangle of travel.
 	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/) — Fast, Comfortable, Affordable — pick two.
-	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/) — Attractive, Emotionally Mature, Replies Fast — pick two. Halo Effect, attachment styles, Gottman bids, RSD & sexual economics.
+	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/) — Attractive, Emotionally Mature, Replies Fast — pick two.
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 	- [NoteTile](https://krishnakanthb13.github.io/O/NT/) — A fast, offline-first, Progressive Web App for taking notes.
@@ -82,11 +82,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Sleep Paradox](https://krishnakanthb13.github.io/O/3N/): Balance early sleep, late sleep, and waking life (autonomy, debt, and regret).
 	- [The Feminine Trilemma](https://krishnakanthb13.github.io/O/3F/): Hot, Fun, and Sane — pick two (Hot-Crazy Matrix).
 	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/): Nice, Handsome, and Rich — pick two (manosphere marketplace).
-	- [The Seven Stages of Grief](https://krishnakanthb13.github.io/O/7B/): Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
+	- [The 7 steps of Grief](https://krishnakanthb13.github.io/O/7B/): Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
 	- [The Wealth Trilemma](https://krishnakanthb13.github.io/O/3W/): Passive, Reliable, Low Effort — pick two (myth of passive wealth & leveraged income).
-	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/): Memorable, Budget-Friendly, Stress-Free — pick two (Iron Triangle of travel, Type 2 Fun & the bill with a bodyguard).
+	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/): Memorable, Budget-Friendly, Stress-Free — pick two (Iron Triangle of travel).
 	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/): Fast, Comfortable, Affordable — pick two.
-	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/): Attractive, Emotionally Mature, Replies Fast — pick two (Halo Effect, attachment theory, Gottman bids & sexual economics).
+	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/): Attractive, Emotionally Mature, Replies Fast — pick two.
 
 ---
 
