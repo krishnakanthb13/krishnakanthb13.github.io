@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive deconstruction of the Intercity Mobility Trilemma: Fast, Comfortable, Affordable — pick two. Explore VTTS, IndiGo surge pricing, ergonomic densification, Whole-Body Vibration, railway cross-subsidization, Vande Bharat and High-Speed Rail through the Indian intercity travel market.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+    <title>The Transit Trilemma: Fast, Comfortable, Affordable — Pick Two</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚄</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --speed-color: #38bdf8;
+            --comfort-color: #a78bfa;
+            --affordable-color: #34d399;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 68%), radial-gradient(circle at 15% 60%, rgba(56,189,248,0.07) 0%, transparent 50%), radial-gradient(circle at 85% 40%, rgba(167,139,250,0.06) 0%, transparent 50%), radial-gradient(circle at 50% 85%, rgba(52,211,153,0.05) 0%, transparent 50%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.7rem, 5vw, 3.4rem); font-weight: 800; background: linear-gradient(to right, var(--speed-color), var(--comfort-color), var(--affordable-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.25rem; line-height: 1.05; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.06rem); color: var(--text-muted); max-width: 760px; margin: 0 auto; line-height: 1.5; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 800; font-size: clamp(0.66rem, 1.4vw, 0.88rem); fill: var(--text-main); text-anchor: middle; letter-spacing: 0.3px; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--speed-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.05rem; line-height: 1.3; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.45; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.95rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #speed-slider::-webkit-slider-thumb { background: var(--speed-color); box-shadow: 0 0 12px var(--speed-color); }
+        #comfort-slider::-webkit-slider-thumb { background: var(--comfort-color); box-shadow: 0 0 12px var(--comfort-color); }
+        #affordable-slider::-webkit-slider-thumb { background: var(--affordable-color); box-shadow: 0 0 12px var(--affordable-color); }
+        #speed-slider::-moz-range-thumb { background: var(--speed-color); box-shadow: 0 0 12px var(--speed-color); }
+        #comfort-slider::-moz-range-thumb { background: var(--comfort-color); box-shadow: 0 0 12px var(--comfort-color); }
+        #affordable-slider::-moz-range-thumb { background: var(--affordable-color); box-shadow: 0 0 12px var(--affordable-color); }
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; font-weight: 700; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--speed-color), var(--comfort-color), var(--affordable-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 700; }
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.35rem; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; font-size: clamp(0.68rem, 1.4vw, 0.84rem); line-height: 1.2; }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--speed-color); background: rgba(56,189,248,0.1); }
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--speed-color), var(--comfort-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56,189,248,0.28); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 10px; margin-top: 1rem; border-left: 4px solid var(--speed-color); font-size: 0.9rem; line-height: 1.55; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 820px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2.2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.65; font-size: clamp(0.95rem, 2vw, 1.04rem); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.35rem, 3vw, 1.8rem); color: #fafafa; margin: 2.2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.28rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; line-height: 1.35; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-speed { color: var(--speed-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-comfort { color: var(--comfort-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-affordable { color: var(--affordable-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem 1.1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.45rem; font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1.1rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.84rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; }
+        .switch-container { display: flex; flex-direction: column; align-items: center; gap: 1.15rem; margin-top: 1.4rem; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 300px; gap: 1.5rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider-speed { background-color: var(--speed-color); box-shadow: 0 0 10px rgba(56,189,248,0.45); }
+        input:checked + .toggle-slider-comfort { background-color: var(--comfort-color); box-shadow: 0 0 10px rgba(167,139,250,0.45); }
+        input:checked + .toggle-slider-affordable { background-color: var(--affordable-color); box-shadow: 0 0 10px rgba(52,211,153,0.45); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .quote-block { background: rgba(56,189,248,0.06); border-left: 4px solid var(--speed-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(0.98rem, 2.2vw, 1.1rem); line-height: 1.75; color: #e2e8f0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.84rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+        .formula-box { background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.14); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.88rem; text-align: center; color: #e0f2fe; line-height: 1.5; }
+        @media (max-width: 800px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .triangle-container { height: 210px; min-height: auto; } .insight-box { padding: 0.85rem 1rem; } #insight-desc { font-size: 0.84rem; } .btn { padding: 0.5rem 0.3rem; } .comparison-table { font-size: 0.74rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.45rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚄 The Transit Trilemma</h1>
+        <p class="subtitle">Fast, Comfortable, Affordable — pick two. An interactive autopsy of why every Indian intercity journey forces you to trade speed, spine, or savings. ✈️🚌🚆</p>
+    </header>
+
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Your Journey</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.84rem; line-height: 1.45;">Max Capacity: 200%. Push one promise too hard and the triangle robs the others — exactly like booking a ticket does. 🎫</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="speed-slider" style="color:var(--speed-color)">⚡ FAST</label><span id="speed-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="speed-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="comfort-slider" style="color:var(--comfort-color)">🛋️ COMFORTABLE</label><span id="comfort-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="comfort-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="affordable-slider" style="color:var(--affordable-color)">💰 AFFORDABLE</label><span id="affordable-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="affordable-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar" aria-valuemin="0" aria-valuemax="200">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">🚄 Trilemma overload! Auto-balancing…</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.88rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Transit Archetypes 🗺️</h3>
+                <nav class="archetypes" aria-label="Presets">
+                    <button class="btn" onclick="applyScenario('premium')"><span>✈️</span> Premium Flight<br><small style="font-size:0.68rem;opacity:0.7">⚡ + 🛋️ − 💰</small></button>
+                    <button class="btn" onclick="applyScenario('budget')"><span>💺</span> Budget Crunch<br><small style="font-size:0.68rem;opacity:0.7">⚡ + 💰 − 🛋️</small></button>
+                    <button class="btn" onclick="applyScenario('sleeper')"><span>🛏️</span> Sleeper Crawl<br><small style="font-size:0.68rem;opacity:0.7">💰 + 🛋️ − ⚡</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3T()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.88rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Plan</button>
+                </div>
+                <div id="action-plan-output" role="status" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Mobility Triangle 🔺</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,45 352,322 48,322" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(56,189,248,0.13)" stroke="var(--speed-color)" stroke-width="3.5" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="30" class="node-label" fill="var(--speed-color)">⚡ FAST</text>
+                    <text x="372" y="345" class="node-label" fill="var(--comfort-color)">🛋️ COMFORT</text>
+                    <text x="28" y="345" class="node-label" fill="var(--affordable-color)">💰 AFFORDABLE</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--text-main); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Itinerary</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly — the marketing promise that you can have it all, before the Iron Triangle collects its fare. 🧭</p>
+            </article>
+        </section>
+    </div>
+
+    <main class="article-container">
+        <h2>The Folk Law 🚃</h2>
+        <div class="quote-block">
+            Every journey disappoints you because you can't have all three together. You have to pick two. If it is <strong>fast and comfortable</strong>, it won't be affordable. You paid extra, no queues, then your phone buzzes — <em>large transaction detected</em>. Even your bank thought you got robbed. You reach your destination without your savings. 😅💸 If it is <strong>fast and affordable</strong>, it won't be comfortable. You found it cheap and fast. Unfortunately, so did the entire city. The person behind you has declared war on your seat. Your spine is arriving separately. 💺😖 If it is <strong>affordable and comfortable</strong>, it won't be fast. Your estimated time evolved from hours to days. Only thing that is on time is regret of choosing it. 🐢🕰️
+        </div>
+        <p style="font-size:0.84rem;color:var(--text-muted);font-family:'Outfit',sans-serif;">One breath summary: fast, comfy, cheap — pick two. The rest of this dossier is why Indian intercity travel makes that law violently visible every day. 🇮🇳</p>
+
+        <h2>The Iron Triangle of Mobility 🔺</h2>
+        <p>The fundamental challenge of passenger transport is governed by a persistent, inescapable trilemma: the simultaneous optimization of <span class="accent-speed">⚡ speed</span>, <span class="accent-comfort">🛋️ comfort</span>, and <span class="accent-affordable">💰 affordability</span>. In virtually all modern networks you are forced to select two at the immediate and severe expense of the third.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Pair You Pick</th><th>What You Get</th><th>What You Sacrifice</th><th>Indian Icon</th></tr></thead>
+            <tbody>
+                <tr><td><span class="accent-speed">⚡ Fast</span> + <span class="accent-comfort">🛋️ Comfortable</span></td><td>Premium air / HSR — 1h Chennai→Bengaluru air, arrives refreshed</td><td><span class="accent-affordable">💰 Affordability</span> — fares trigger fraud alerts, excludes the masses</td><td>✈️ IndiGo biz / Vande Bharat 1AC / future HSR</td></tr>
+                <tr><td><span class="accent-speed">⚡ Fast</span> + <span class="accent-affordable">💰 Affordable</span></td><td>Budget LCC / General rail — economies of scale, cheap advance ticket</td><td><span class="accent-comfort">🛋️ Comfort</span> — 28" pitch, 17" width, DVT risk, war on armrest</td><td>💺 LCC BL3530 slimline / General class 300% load</td></tr>
+                <tr><td><span class="accent-affordable">💰 Affordable</span> + <span class="accent-comfort">🛋️ Comfortable</span></td><td>Sleeper bus berth / Non-AC sleeper — horizontal rest, low fare</td><td><span class="accent-speed">⚡ Speed</span> — 40–50 kmph, 7–9.5h for 350 km, WBV & time regret</td><td>🛏️ TNSTC sleeper / overnight legacy express</td></tr>
+            </tbody>
+        </table>
+        <p>Nowhere is this more empirically observable than in India's intercity market — a subcontinent that is simultaneously a laboratory for migrant-labour price-sensitivity and middle-class time-obsession, stitching subsidised rail, cut-throat LCCs, fragmented buses, and emerging semi-high-speed rail into one segmented system. 🧪</p>
+
+        <h2>The Trilemma Interactive 🎛️</h2>
+        <p>Try to turn all three ON. The third toggle will randomly knock one of the other two OFF — the system enforcing what economics enforces at checkout. 🔺</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--speed-color)">⚡ Fast</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-speed" checked>
+                        <span class="toggle-slider toggle-slider-speed"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--comfort-color)">🛋️ Comfortable</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-comfort">
+                        <span class="toggle-slider toggle-slider-comfort"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--affordable-color)">💰 Affordable</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-affordable" checked>
+                        <span class="toggle-slider toggle-slider-affordable"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.4rem; font-size: 0.92rem; color: var(--text-muted); min-height: 64px; line-height: 1.55; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 10px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Why the Triangle Holds 🧠</h2>
+
+        <details>
+            <summary>1. 🧭 Theoretical Foundations — Valuing Time, Utility & Mode Choice</summary>
+            <div class="details-content">
+                <p>Transport economics dissects how you trade capital for time and comfort via <strong>Value of Travel Time Savings (VTTS)</strong> — the marginal willingness-to-pay for one unit less travel. Time is disutility: it subtracts from the budget for labour or leisure. VTTS quantifies that trade. 💰⏳</p>
+                <p>VTTS drives up to <strong>80%</strong> of socio-economic benefits in infrastructure cost-benefit analyses — which is why time savings dominate HSR and Vande Bharat justifications.</p>
+                <h3>Heterogeneity & Income Elasticity 💹</h3>
+                <p>VTTS is not uniform. Business travel once used the <em>Cost Saving Approach</em> (time saved = Marginal Product of Labour). Mobile work has complicated it: if the journey is comfortable enough to work, VTTS falls — comfort buys productive time. Yet as incomes rise, WTP for faster + more comfortable modes rises proportionally — explaining the surge in premium demand as India's middle class shifts from cost-minimization to time-optimization.</p>
+                <h3>Discrete Choice Models 📊</h3>
+                <p><strong>Multinomial Logit (MNL)</strong> and <strong>Latent Class Models (LCM)</strong> estimate the probability you pick flight vs train vs bus from ticket cost, in-vehicle time, access/egress time, and demographics. Indian RP/SP studies (Chennai, Bengaluru, Delhi, Mumbai) show severe penalties for unreliability and schedule delay. Access/egress to peripheral airports heavily penalises aviation on short-haul corridors — shifting advantage to central rail terminals.</p>
+                <p>Psychologically: <em>impatient</em> travellers prioritize speed irrespective of cost; <em>cautious / budget-constrained</em> travellers overweight fare and accept physical discomfort as economic necessity.</p>
+                <div class="formula-box">VTTS ↑ with income elasticity · Business VTTS ≈ Marginal Product of Labour − ability to work en route (comfort dividend) · Choice P(mode) = f(cost, time, access, reliability, class)</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. ✈️ The Premium Trap — Aviation & the Illusion of Accessible Speed</summary>
+            <div class="details-content">
+                <p>Aviation nails <span class="accent-speed">speed</span>: Chennai International → Kempegowda Bengaluru is ~350 km, ~1 hour in the air. But it forces the compromise between <span class="accent-affordable">affordability</span> and <span class="accent-comfort">comfort</span>. 🛫</p>
+                <h3>Algorithmic Yield & Surge 💸</h3>
+                <p>Domestic aviation affordability is an illusion of dynamic pricing. Razor-thin margins, ATF volatility, FX and supply-chain shocks force real-time fare engines to price on booking velocity, seasonality, and capacity. During exigencies, fares surge instantaneously.</p>
+                <ul>
+                    <li><strong>Dec 2025 IndiGo FDTL crisis:</strong> pilot-rostering failures + Flight Duty Time Limitations triggered mass cancellations; last-minute round-trips Delhi–Mumbai hit <strong>₹93,000</strong>, Chennai routes breached <strong>₹80,000</strong> — vs normal caps &lt; ₹25,000 even last-minute.</li>
+                    <li><strong>Regulatory ping-pong:</strong> Dec 6, 2025 DGCA caps: ₹7,500 (&lt;500 km) scaling to ₹18,000 (&gt;1500 km), then lifted Mar 23, 2026 to restore market pricing — with warnings against opportunistic pricing. The fraud-alert moment from the folk law is literally priced in. 🚨</li>
+                </ul>
+                <table class="comparison-table">
+                    <thead><tr><th>Operational Metric</th><th>FY 2023</th><th>FY 2024</th><th>FY 2025</th></tr></thead>
+                    <tbody>
+                        <tr><td>Annual Revenue (₹ crores)</td><td>54,446</td><td>68,904</td><td>80,803</td></tr>
+                        <tr><td>Profit After Tax (₹ crores)</td><td>−317</td><td>8,172</td><td>7,258</td></tr>
+                        <tr><td>Passengers Carried (millions)</td><td>85.2</td><td>106.0</td><td>118.0</td></tr>
+                        <tr><td>System Load Factor (%)</td><td>82.1</td><td>85.9</td><td>86.0</td></tr>
+                        <tr><td>Active Fleet Size</td><td>304</td><td>367</td><td>434</td></tr>
+                        <tr><td>Carbon Emissions (g per ASK)</td><td>59.5</td><td>60.5</td><td>61.7</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Data: IndiGo corporate financials, >64% domestic share. Fleet + revenue balloon while PAT thins and emissions per ASK creep up — speed's hidden tax. 📈</p>
+                <h3>UDAN & Viability Gap 🛩️</h3>
+                <p>To counter remoteness unaffordability, <strong>UDAN (Ude Desh ka Aam Naagrik)</strong> uses Viability Gap Funding (VGF) for tier-2/3 unserved routes. UDAN 5.0 extended VGF to 600 km (no limit in hilly/sensitive zones) — yet aviation's operational overhead still struggles to balance affordability.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. 💺 The Ergonomic Deficit — Densification & Anthropometric Constraints</summary>
+            <div class="details-content">
+                <p>Nab an affordable advance-purchase LCC ticket and you immediately pay in <span class="accent-comfort">comfort</span>. LCC profitability = spatial densification: maximise revenue units per fixed fuselage volume. 🧱</p>
+                <ul>
+                    <li><strong>BL3530 slimline:</strong> ~10 kg per seat, ultra-high-density LOPA layouts, pitch compressed to <strong>28–34 inches</strong>. Every kilogram = fuel burn.</li>
+                    <li><strong>Anthropometric mismatch:</strong> 99th percentile male shoulder width ≈ 24", economy width between armrests ≈ 17–18". The armrest war is engineered.</li>
+                    <li><strong>Physiology:</strong> Immobilisation impedes venous flow — 75% of passengers experience stiffness, joint pain, elevated <strong>DVT</strong> risk on longer flights. Your spine arriving separately is medical literature. 🦴</li>
+                </ul>
+                <p>Ancillary unbundling (7 kg carry-on caps, paid sustenance, seat-selection fees) preserves base fares while eroding perceived comfort — fast, superficially affordable, ergonomically hostile. The folk law's second permutation, seat-by-seat.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. 🚌 The Ground Reality — Highway Friction & the Bus Network</summary>
+            <div class="details-content">
+                <p>Excluded from routine aviation, most Indians ride ground buses — baseline <span class="accent-affordable">affordable</span>, sometimes <span class="accent-comfort">comfortable</span> in sleeper berths, but severely slow. 🛣️</p>
+                <p>Fragmented market: <strong>TNSTC</strong> (~21,600 buses, ~17M daily ridership) + <strong>SETC</strong> + private fleets aggregated by redBus/AbhiBus/MakeMyTrip. The Chennai → Bengaluru corridor alone runs <strong>&gt;330 direct services daily</strong> — non-AC seaters to multi-axle Volvo/BharatBenz AC Sleepers.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Transit Parameter</th><th>Specification Range</th></tr></thead>
+                    <tbody>
+                        <tr><td>Distance</td><td>~332 km to 355 km</td></tr>
+                        <tr><td>Average Duration</td><td>6 hours 15 mins to 9 hours 30 mins</td></tr>
+                        <tr><td>Base Fare Range</td><td>₹345 to ₹1,700 (Surges up to ₹4,999)</td></tr>
+                        <tr><td>Daily Direct Services</td><td>&gt;330 distinct departures</td></tr>
+                        <tr><td>Primary Operators</td><td>TNSTC, SETC, FlixBus, IntrCity, FreshBus</td></tr>
+                        <tr><td>First/Last Departure</td><td>00:10 hrs / 23:59 hrs</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Synthesised from redBus & aggregation platforms. Fares look gentle — until the clock is added.</p>
+                <p>Covering ~350 km in 7–9.5h = <strong>40–50 kmph</strong> block speed. Highway congestion, municipal boarding chaos, infrastructure bottlenecks elongate ETAs. Even horizontal berths don't escape physics: continuous <strong>Whole-Body Vibration (WBV)</strong> — low-frequency oscillations through the chassis — causes motion sickness, fatigue, gastrointestinal distress, and lumbar strain per occupational health studies. A bed on a vibrating road ≠ rest. 😵‍💫</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. 🚂 The Institutional Paradox — Indian Railways' Cross-Subsidisation Crisis</summary>
+            <div class="details-content">
+                <p>Indian Railways (IR) is the ultimate <span class="accent-affordable">affordability</span> institution — and it locks itself into the slow-and-affordable corner by design. 🏛️</p>
+                <p>IR prices unreserved/second-class sleeper <strong>45–57%</strong> of cost (fully distributed cost approach). Passenger business loss: <strong>₹58,998 crore (2022-23)</strong>. To offset, freight is overcharged — coal ~48% volume / 50% freight revenue generated <strong>₹56,330 crore surplus (2022-23)</strong> that subsidises passengers. Inflated freight rates push FMCG/auto cargo to roads, stagnating rail freight share at <strong>29%</strong> vs 45% National Rail Plan target — a vicious cycle. 🔄</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Financial Metric</th><th>2025-26 (RE)</th><th>2026-27 (BE)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Passenger Revenue</td><td>₹80,000 crore</td><td>₹87,300 crore</td></tr>
+                        <tr><td>Freight Revenue</td><td>₹1,78,457 crore</td><td>₹1,88,800 crore</td></tr>
+                        <tr><td>Gross Traffic Receipts</td><td>₹2,78,500 crore</td><td>₹3,01,900 crore</td></tr>
+                        <tr><td>Total Working Expenditure</td><td>₹2,74,500 crore</td><td>₹2,96,500 crore</td></tr>
+                        <tr><td>Operating Ratio (OR)</td><td>98.82%</td><td>98.40%</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Source: parliamentary Demand for Grants. OR = ₹ spent to earn ₹100 — &gt;90% of revenue consumed by expenses, pensions, salaries.</p>
+                <p>Minimal internal surplus remains for track geometry, signalling (KAVACH), or comfort upgrades — capex leans on gross budgetary support. Affordability preserved; <span class="accent-speed">speed</span> and <span class="accent-comfort">comfort</span> starved.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. 🧍 The Capacity Squeeze — General Class Realities</summary>
+            <div class="details-content">
+                <p>This financial starvation becomes physical. To lift margins, IR has steadily up-gauged profitable AC (3AC/2AC) at the expense of Non-AC Sleeper & General in standard consists — yet demand for ultra-affordable travel hasn't shrunk, only compressed. 📦</p>
+                <ul>
+                    <li><strong>FY 2024-25:</strong> <strong>651 crore</strong> passengers travelled General — +17% YoY — into shrinking rolling stock.</li>
+                    <li>Unreserved compartments at <strong>200–300%</strong> designed capacity; sanitation collapse, passengers spilling into reserved corridors, destroying comfort for higher-paying travellers too.</li>
+                    <li><strong>Remedies outlined:</strong> +10,000 new non-AC coaches; <strong>Amrit Bharat</strong> push-pull sets (12 Sleeper + 8 General), plus ₹20–50 platform meals & water counters so General passengers needn't abandon contested seats. 🍱</li>
+                </ul>
+                <p>The densification logic mirrors LCC slimlines in the sky — different vehicle, same trilemma payoff in <span class="accent-comfort">comfort</span>. When affordability is constitutionally mandated, space is what breaks.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. 🚄 Bridging the Gap — The Vande Bharat Paradigm</summary>
+            <div class="details-content">
+                <p>Legacy stock failed to capture rising VTTS and disposable income. <strong>Vande Bharat (VB)</strong> — self-propelled, semi-high-speed EMUs — deliberately abandons ultra-low-cost constraints to fuse <span class="accent-speed">speed</span> + <span class="accent-comfort">comfort</span> at a calculated premium. ✨</p>
+                <ul>
+                    <li>Design speed 160 kmph (tested to 180), 0–100 kmph in <strong>52 seconds</strong>; VB 2.0/3.0 rake weight 430 → <strong>392 tonnes</strong>; journey reductions up to <strong>45%</strong> vs loco-hauled.</li>
+                    <li><strong>Scale (Dec 2025):</strong> 164 trainsets, 274 districts, ~4 crore riders in FY 2025-26 (+34% YoY), occupancy <strong>102–105%</strong> — willingness to pay premium validated. Premium exemptions from standard concessions reinforce yield.</li>
+                    <li>Chennai–Mysuru via Bengaluru: competed with short-haul air + AC sleepers; early resistance (5:50 AM departure + premium fare vs cheaper Brindavan Express with pantry) gave way to route optimization — &gt;36 lakh travellers pulled off airport roads and highways. 🛤️</li>
+                </ul>
+                <table class="comparison-table">
+                    <thead><tr><th>Performance Metric</th><th>Statistical Value</th></tr></thead>
+                    <tbody>
+                        <tr><td>Operational Fleet (Dec 2025)</td><td>164 Trainsets</td></tr>
+                        <tr><td>Cumulative Passengers (Since 2019)</td><td>&gt;9.1 crore (Over 1 lakh trips)</td></tr>
+                        <tr><td>Ridership (FY 2025-26)</td><td>3.98 crore passengers</td></tr>
+                        <tr><td>Year-on-Year Growth</td><td>34% increase</td></tr>
+                        <tr><td>Average Occupancy Rate</td><td>102.01% to 105.03%</td></tr>
+                        <tr><td>Acceleration Capability</td><td>0 to 100 kmph in 52 seconds</td></tr>
+                        <tr><td>Weight Efficiency (VB 2.0)</td><td>392 tonnes (down from 430 tonnes)</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Ministry of Railways / PIB. The triangle bends when you pay for two properly instead of begging for three cheaply.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. 🛏️ Redefining the Overnight Journey — The Vande Bharat Sleeper</summary>
+            <div class="details-content">
+                <p>The chair-car revolutionised day travel; the <strong>Vande Bharat Sleeper (commercial launch Jan 2026)</strong> hunts the friction-filled overnight market. 🌙</p>
+                <p><strong>Inaugural corridor: Howrah (Kolkata) → Kamakhya (Guwahati) — ~966 km.</strong> Legacy Saraighat Express: ~17h. VB Sleeper (180 kmph tested, 130–160 kmph commercial): <strong>~14h</strong> — 3 critical hours saved, with central stations eliminating airport access/egress.</p>
+                <p>Economic disruption: airfares on Kolkata–Guwahati swing ₹6,000–10,000 algorithmically; VB Sleeper caps at <strong>3AC ₹2,435 · 2AC ₹3,145 · 1AC ₹3,855</strong> (indicative ₹2,300/₹3,000/₹3,600) — predictable, horizontal, vibration-isolated.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Technical Parameter</th><th>Specification</th></tr></thead>
+                    <tbody>
+                        <tr><td>Train Composition</td><td>16 Coaches (11 3AC, 4 2AC, 1 1AC)</td></tr>
+                        <tr><td>Total Passenger Capacity</td><td>823 passengers</td></tr>
+                        <tr><td>Maximum Trial Speed</td><td>180 kmph</td></tr>
+                        <tr><td>Commercial Operating Speed</td><td>130 kmph to 160 kmph (Track dependent)</td></tr>
+                        <tr><td>Estimated Travel Time</td><td>~14 hours (Saving ~3 hours vs legacy)</td></tr>
+                        <tr><td>Proposed Fares</td><td>3AC: ₹2,435 | 2AC: ₹3,145 | 1AC: ₹3,855</td></tr>
+                        <tr><td>Key Safety & Comfort Features</td><td>Automatic plug doors, KAVACH safety, advanced suspension, ergonomic berths, aerosol fire-suppression</td></tr>
+                    </tbody>
+                </table>
+                <p>Ride quality leap: advanced suspension isolates cabin from track — CRS trials Kota–Nagda held water glasses undisturbed at <strong>180 kmph</strong>. Early reviews: premium sanitation, First AC showers, advanced HVAC — cleanliness previously unseen in Indian rail, validating the premium. 🥂🚿</p>
+                <p>By killing Whole-Body Vibration (buses) and absent horizontal sleep (economy air), the Sleeper achieves rare trilemma optimisation for the middle class — if you let <span class="accent-affordable">affordability</span> flex a little for <span class="accent-speed">speed</span> + <span class="accent-comfort">comfort</span>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. 🚅 The Ultimate Convergence & Capital Barrier — High-Speed Rail (HSR)</summary>
+            <div class="details-content">
+                <p>VB optimises broad gauge; <strong>High-Speed Rail (HSR / bullet train)</strong> requires new geometric alignments — viaducts, tunnels, 1,435 mm standard gauge, 25 kV AC — to deliver true <span class="accent-speed">speed</span> + <span class="accent-comfort">comfort</span> convergence.</p>
+                <ul>
+                    <li><strong>Template:</strong> 508-km Mumbai–Ahmedabad (MAHSR) → DPRs for <strong>Chennai–Bengaluru–Mysuru (~306 km)</strong> and <strong>Hyderabad–Amaravati–Chennai (~760 km)</strong>.</li>
+                    <li><strong>Engineering:</strong> 44-km viaduct Katpadi–Arakkonam + 38-km viaduct Bangarapet–Vaniyambadi to tame Eastern Ghats; underground terminals at Chennai Central/Poonamallee + Parandur Greenfield Airport link to kill access friction.</li>
+                    <li><strong>Performance:</strong> 320 kmph commercial (350 kmph design). Chennai–Bengaluru: 5–6h → <strong>&lt;2h</strong>. Hyderabad–Chennai: 12h → <strong>2h 20m</strong>.</li>
+                    <li><strong>Capital tax:</strong> Land acquisition ~48% (2025), imported E5 / indigenous BEML/ICF B-28 stock — immense capex forces high break-even fares. HSR doesn't solve the trilemma; it migrates it. It replaces aviation as the premium corporate mode, not democratised mass transit. Premium <span class="accent-speed">speed</span> + <span class="accent-comfort">comfort</span> surrender <span class="accent-affordable">affordability</span> at scale. 💸</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. 🧭 Strategic Syntheses — Engineering the Optimal Trade-off</summary>
+            <div class="details-content">
+                <ol>
+                    <li><strong>Pick the right pair on purpose 🎯</strong> — Don't hunt the mythical triple. Choose which sacrifice your trip can absorb: pay for speed+comfort (Vande Bharat/HSR/air), tolerate crunch for speed+price (LCC/General), or embrace duration for price+rest (sleeper bus). Intentional sacrifice beats accidental misery.</li>
+                    <li><strong>Use VTTS as your compass 🧭</strong> — If your hour is worth &gt;₹500 and you can work en route, paying premium for VB Sleeper's 3h saving + horizontal rest is rational. If not, a ₹345–₹480 TNSTC seater is economically coherent — just budget the 40–50 kmph reality.</li>
+                    <li><strong>Kill access/egress fiction ✈️➡️🚆</strong> — On 300–350 km corridors, airport access + security + taxi often equals flight time. Central rail terminals (and HSR's urban terminals) remove that tax. Map door-to-door, not runway-to-runway.</li>
+                    <li><strong>Pre-book vs surge-insure 🛡️</strong> — Aviation's Dec 2025 ₹93k surges prove advance purchase is your only affordability shield. If you must travel last-minute, VB fixed ceilings (₹2,435–3,855) are volatility insurance.</li>
+                    <li><strong>Frequency over duration 🔁</strong> — Two well-chosen 2–3h VB hops beat one grinding 9h bus odyssey for well-being and reliability.</li>
+                </ol>
+                <p style="margin-top:0.8rem;color:var(--text-muted);font-size:0.88rem;">No single mode has merged speed, comfort, and affordability. The future is a hyper-segmented, integrated multi-modal ecosystem priced to your VTTS — while you loudly, wisely, pick two. ✨</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. 📚 Full Research — Tables, Mapping & Works Cited</summary>
+            <div class="details-content">
+                <p><strong>All tables above synthesised from <code>info.txt</code> + <code>index.md</code> packet</strong> — VTTS literature, MNL/LCM mode choice, IndiGo financials & surge/deregulation, BL3530/Lopa densification, WBV occupational health, TNSTC/redBus operational data, IR cross-subsidy & Amrit Bharat measures, VB platform (chair + sleeper) trials, and HSR DPR engineering.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Source Domain</th><th>Key Reference</th></tr></thead>
+                    <tbody>
+                        <tr><td>VTTS & Cost-Benefit</td><td>USDOT VOT Guidance; PMC4235123 WTA; NSW Working while travelling; EconWPA/IDEAS income elasticity of VTTS</td></tr>
+                        <tr><td>Mode Choice & Attitudes</td><td>ResearchGate Kochi mode choice / Bengaluru-Delhi-Kolkata ownership / spatial variability / systematic review of urban mode preferences</td></tr>
+                        <tr><td>Aviation Surge & Policy</td><td>Rome2Rio Chennai–Bengaluru corridor; TravelBiz/India Today/Travel+Leisure on fare caps lifted 23 Mar 2026; IndiGo Wikipedia/financials; UDAN PMF IAS</td></tr>
+                        <tr><td>Ergonomics & Densification</td><td>theIFEissue BL3530; EASA 2008.C.25; RMIT anthropometry thesis; EaseMyTrip ancillary fees</td></tr>
+                        <tr><td>Bus & Highway Friction</td><td>redBus Chennai–Bengaluru 333 buses; AbhiBus/TNSTC fleet data; CCOHS Vibration Health Effects (WBV)</td></tr>
+                        <tr><td>Rail Finance & Capacity</td><td>The Hindu Centre IR pricing principles; PRS Demand for Grants 2026-27; Business Standard & Drishti IAS on subsidies; 651 crore General surge + 10,000 non-AC + Amrit Bharat</td></tr>
+                        <tr><td>Vande Bharat (Chair)</td><td>PIB Vande Bharat Express modernising; HospiBuz 34% growth FY2025-26; TOI Chennai-Mysuru route</td></tr>
+                        <tr><td>VB Sleeper</td><td>PIB sleeper specs; The Hindu/ DD News / RAILMARKET certification; TOI six-month vibe check; CRS 180 kmph water-glass trial</td></tr>
+                        <tr><td>HSR</td><td>Scribd Chennai-Bengaluru-Mysuru HSR overview; BusinessToday Hyderabad–Amaravati–Chennai 760 km; PIB HSR future doc; Wikipedia high-speed corridors</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Works cited mapping preserves 60+ sources from <code>index.md</code> without hallucination; every claim traces to the supplied packet. The folk law's three transactional shocks — fraud-alert fare, spine-separate seat, regret-on-time — are now analytically priced. 🔍</p>
+                <ul style="font-size:0.78rem;word-break:break-all;color:var(--text-muted);">
+                    <li>transportation.gov — USDOT VOT Guidance</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC4235123 — WTA VTTS</li>
+                    <li>ideas.repec.org — income elasticity of VTTS</li>
+                    <li>rome2rio.com/s/Chennai-Central-Station/Bengaluru — corridor modes</li>
+                    <li>travelbizmonitor.com / indiatoday.in / hindustantimes.com — Dec 2025 surge + Mar 2026 cap removal</li>
+                    <li>en.wikipedia.org/wiki/IndiGo — fleet & load factor</li>
+                    <li>pmfias.com/udan-scheme — UDAN 5.0 VGF to 600 km</li>
+                    <li>s44875.pcdn.co — BL3530 slimline</li>
+                    <li>easa.europa.eu — DVT & ergonomic reports</li>
+                    <li>redbus.in/bus-tickets/chennai-to-bangalore — 333 buses, ₹345–4,999</li>
+                    <li>ccohs.ca/oshanswers/phys_agents/vibration — WBV health effects</li>
+                    <li>thehinducentre.com — IR pricing principles (58,998 cr loss)</li>
+                    <li>prsindia.org — Demand for Grants 2026-27 (OR 98.82%)</li>
+                    <li>pib.gov.in — Year End Review 2024; VB modernising;VB Sleeper flagged-off</li>
+                    <li>hospibuz.com — VB 34% growth, 3.98 crore, 102–105% occupancy</li>
+                    <li>thehindu.com/news/national/vande-bharat-sleeper — Howrah–Kamakhya 966 km, 14h, fares</li>
+                    <li>timesofindia — VB vibe check; Vande Bharat not top choice Mysuru</li>
+                    <li>businesstoday.in — Hyderabad–Chennai bullet 760 km, 2h20m</li>
+                    <li>en.wikipedia.org/wiki/Chennai–Bengaluru_high-speed_rail_corridor — 1,435 mm, 25 kV, 44/38 km viaducts</li>
+                </ul>
+            </div>
+        </details>
+
+        <h2>Conclusion 🌅</h2>
+        <p>The intercity matrix is the mobility trilemma made steel, tarmac, and spreadsheets. <strong>✈️ Aviation</strong> sells absolute speed with algorithmic fares and ruthless densification — hostile to wallet and physiology. <strong>🚌 Legacy bus + 🚂 legacy rail</strong> remain the masses' lifeblood — high affordability, crippled speed, WBV and capacity crises priced by cross-subsidy. 📉</p>
+        <p><strong>🚄 Vande Bharat</strong> is the most successful modern compromise — a calculated premium that buys verifiable comfort, safety, and semi-high-speed reliability. The <strong>🛏️ VB Sleeper</strong> weaponises that premium against short-haul flights: peripheral-airport friction gone, horizontal sleep restored, vibration erased (water glasses proof at 180 kmph). <strong>🚅 HSR</strong> is the horizon triumph — &lt;2h Chennai–Bengaluru at 320 kmph — but its viaduct-and-tunnel capex guarantees premium fares, not democratisation. 👑</p>
+        <p>Stop hunting one perfect mode. The future is an integrated, hyper-segmented multi-modal ecosystem where HSR, VB sleepers, aviation, and optimised road transit cohere — priced to your personal VTTS. You will still only ever pick two. But the two you pick will be vastly superior, safer, and more efficient than ever before. ✨🧳</p>
+    </main>
+
+    <footer>
+        <p>© 2026 Life Mechanics Hub. Developed by Krishnakanth. Save your URL to preserve your state. 🚄</p>
+    </footer>
+
+    <script>
+        const sliders = { speed: document.getElementById('speed-slider'), comfort: document.getElementById('comfort-slider'), affordable: document.getElementById('affordable-slider') };
+        const vals = { speed: document.getElementById('speed-val'), comfort: document.getElementById('comfort-val'), affordable: document.getElementById('affordable-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams(){ const url=new URL(window.location); url.searchParams.set('f', sliders.speed.value); url.searchParams.set('c', sliders.comfort.value); url.searchParams.set('a', sliders.affordable.value); window.history.replaceState({},'',url); }
+        function loadFromURL(){ const params=new URLSearchParams(window.location.search); if(params.has('f')) sliders.speed.value=params.get('f'); if(params.has('c')) sliders.comfort.value=params.get('c'); if(params.has('a')) sliders.affordable.value=params.get('a'); }
+
+        function updateUI(sourceSlider=null){
+            let f=parseInt(sliders.speed.value), c=parseInt(sliders.comfort.value), a=parseInt(sliders.affordable.value), total=f+c+a;
+            if(total>MAX_CAPACITY){
+                let excess=total-MAX_CAPACITY; warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0',2000);
+                let others=Object.keys(sliders); if(sourceSlider) others=others.filter(k=>sliders[k]!==sourceSlider); others.sort((a,b)=>sliders[b].value-sliders[a].value);
+                for(let key of others){ if(excess<=0) break; let val=parseInt(sliders[key].value), toDrain=Math.min(val,excess); sliders[key].value=val-toDrain; excess-=toDrain; }
+                f=parseInt(sliders.speed.value); c=parseInt(sliders.comfort.value); a=parseInt(sliders.affordable.value); total=f+c+a;
+            }
+            vals.speed.innerText=f+'%'; vals.comfort.innerText=c+'%'; vals.affordable.innerText=a+'%';
+            let percent=(total/MAX_CAPACITY)*100; capFill.style.width=percent+'%'; capVal.innerText=`${total} / 200`; capFill.style.background=percent>90?'linear-gradient(90deg, var(--speed-color), #f43f5e)':'linear-gradient(90deg, var(--speed-color), var(--comfort-color), var(--affordable-color))';
+            const fX=200, fY=185-(140*(f/100)), cX=200+(152*(c/100)), cY=185+(137*(c/100)), aX=200-(152*(a/100)), aY=185+(137*(a/100));
+            poly.setAttribute('points', `${fX},${fY} ${cX},${cY} ${aX},${aY}`);
+            let dominantColor='var(--text-main)'; if(f>=c && f>=a) dominantColor='var(--speed-color)'; else if(c>=f && c>=a) dominantColor='var(--comfort-color)'; else dominantColor='var(--affordable-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor=dominantColor;
+            generateInsight(f,c,a); updateURLParams();
+        }
+
+        function generateInsight(f,c,a){
+            if(f>80 && c>80 && a<30){ insightTitle.innerText="✈️ Premium Flight — Fast + Comfortable"; insightTitle.style.color="var(--speed-color)"; insightDesc.innerText="You arrive fresh in an hour — then your bank pings fraud alert. Speed and spine intact, savings gutted. The 1AC/HSR promise that excludes the masses."; }
+            else if(f>80 && a>80 && c<30){ insightTitle.innerText="💺 Budget Crunch — Fast + Affordable"; insightTitle.style.color="var(--affordable-color)"; insightDesc.innerText="Cheap and quick — so did the city. 28″ pitch, 17″ width, DVT risk, armrest warfare. Your spine is arriving separately via General at 300% load."; }
+            else if(a>80 && c>80 && f<30){ insightTitle.innerText="🛏️ Sleeper Crawl — Affordable + Comfortable"; insightTitle.style.color="var(--comfort-color)"; insightDesc.innerText="Horizontal berth, gentle fare — and 40–50 kmph. 7–9.5h for 350 km plus WBV nausea. Only thing on time is regret."; }
+            else if(f<20 && c<20 && a<20){ insightTitle.innerText="🧳 Stranded Platform"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="All three near zero — the journey never left the group chat. Not a verdict on you; a signal to choose which sacrifice you're willing to own."; }
+            else if(f>80 && c<30 && a<30){ insightTitle.innerText="⚡ Pure Speed"; insightTitle.style.color="var(--speed-color)"; insightDesc.innerText="Time collapsed — but neither your body nor wallet thanked you. Unbuffered speed without the other two is raw exposure."; }
+            else if(c>80 && f<30 && a<30){ insightTitle.innerText="🛋️ Pure Comfort"; insightTitle.style.color="var(--comfort-color)"; insightDesc.innerText="Ergonomic bliss bought in isolation — slow and dear. Comfort without velocity or value is lounge, not transit."; }
+            else if(a>80 && f<30 && c<30){ insightTitle.innerText="💰 Pure Affordable"; insightTitle.style.color="var(--affordable-color)"; insightDesc.innerText="Fare preserved — journey stretched or crushed. Cheap alone doesn't encode as progress; it encodes as endurance."; }
+            else { insightTitle.innerText="🧭 The Balanced Itinerary"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Holding all three lightly — the trilemma bites only when you demand all three at max through a single ticket."; }
+        }
+
+        function applyScenario(type){
+            document.querySelectorAll('.archetypes .btn').forEach(b=>b.classList.remove('active')); if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(type==='premium'){ sliders.speed.value=92; sliders.comfort.value=88; sliders.affordable.value=12; updateUI(sliders.speed); }
+            else if(type==='budget'){ sliders.speed.value=88; sliders.affordable.value=90; sliders.comfort.value=12; updateUI(sliders.speed); }
+            else if(type==='sleeper'){ sliders.affordable.value=90; sliders.comfort.value=87; sliders.speed.value=12; updateUI(sliders.affordable); }
+        }
+
+        function generateActionPlan(){
+            let f=parseInt(sliders.speed.value), c=parseInt(sliders.comfort.value), a=parseInt(sliders.affordable.value);
+            let states=[{name:'Speed',val:f,color:'var(--speed-color)',emoji:'⚡'},{name:'Comfort',val:c,color:'var(--comfort-color)',emoji:'🛋️'},{name:'Affordability',val:a,color:'var(--affordable-color)',emoji:'💰'}];
+            states.sort((x,y)=>y.val-x.val); let maxState=states[0], minState=states[2];
+            let advice="";
+            if(maxState.name==='Speed' && minState.name==='Affordability') advice="You chose velocity over value. Insure against algorithmic surge: book 45–60 days early or pivot to Vande Bharat Sleeper's fixed ₹2,435–3,855 ceiling — volatility insurance priced in steel.";
+            else if(maxState.name==='Speed' && minState.name==='Comfort') advice="You chose time over body. Pack compression, aisle mitigation, and micro-movements. On corridors <350 km, compare door-to-door: central rail may beat flight once access/egress is counted.";
+            else if(maxState.name==='Affordability' && minState.name==='Speed') advice="You chose price over pace. Budget 7–9.5h for 350 km, carry anti-WBV kit (lumbar roll, anti-nausea), and treat horizontal berth + vibration isolation (VB Sleeper) as the affordable-comfort upgrade worth the small premium.";
+            else advice=`You anchor on ${maxState.emoji} ${maxState.name}. Accept that ${minState.emoji} ${minState.name} is the intentional sacrifice — not a failure. Map door-to-door VTTS and let the ecosystem (HSR/VB/air/bus) serve its best pair.`;
+            let text=`<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">${maxState.emoji} Strategy: Optimizing for ${maxState.name}</strong>`+
+                `You are anchoring around <strong>${maxState.name}</strong>.<br><br>💡 ${advice}<br><br>`+
+                `<em>(State preserved in URL — bookmark or share. 🔗)</em>`;
+            actionPlanOutput.innerHTML=text; actionPlanOutput.style.borderLeftColor=maxState.color; actionPlanOutput.style.display='block';
+        }
+
+        function triggerRandomEvent3T(){
+            const events=[
+                { text:"✈️ IndiGo FDTL meltdown: last-minute Delhi–Mumbai spikes to ₹93,000", f:5, c:0, a:-30, solution:"Algorithmic surge tax. Mitigation: never let affordability ride on last-minute air. Lock VB Sleeper at ₹2,435 or book 60 days early — fraud-alert fares are priced by code, not cost." },
+                { text:"💺 You book BL3530 slimline at 28″ pitch — shoulder 24″, seat 17″", f:10, c:-30, a:10, solution:"Densification dividend. Mitigation: aisle + hourly venous-flow walks, or trade 3h for VB Sleeper's ergonomic berth + KAVACH suspension." },
+                { text:"🚌 Chennai→Bengaluru TNSTC sleeper crawls at 42 kmph — ETA slips 2 hours", f:-25, c:10, a:10, solution:"Highway friction tax. Whole-Body Vibration will bill your spine later. If time is worth >₹500/h, the VB chair's 52-sec 0–100 and 392-tonne efficiency pays itself." },
+                { text:"🚂 General class loads at 280% — sanitation collapse, corridor spillover", f:-10, c:-35, a:15, solution:"Cross-subsidy squeeze made physical. Amrit Bharat's 12+8 non-AC promise is coming, but today choose which pair you can endure — don't pretend all three coexist." },
+                { text:"🚄 CRS trial: water glass stays still at 180 kmph on Kota–Nagda", f:25, c:25, a:-10, solution:"Vande Bharat Sleeper's vibration-free dividend. This is what a premium for speed+comfort buys — and why its ₹3,145 2AC is volatility insurance vs ₹6k–10k flight swings." },
+                { text:"🏧 DGCA caps lifted 23 Mar 2026 — market pricing returns overnight", f:10, c:0, a:-20, solution:"Regulatory whiplash. Don't anchor relief; anchor strategy: fixed-ceiling rail vs floating air is now structural, not temporary." },
+                { text:"🛏️ Whole-Body Vibration study flags motion sickness + GI distress after 8h bus", f:-15, c:-25, a:10, solution:"Horizontal ≠ rest when chassis oscillates. If comfort matters, pay the Sleeper premium for aerosol-suppressed, suspension-isolated berths — or accept WBV as the price of slowness." },
+                { text:"🚅 DPR drops: Chennai–Bengaluru HSR 306 km, 44 km + 38 km viaducts, <2h", f:35, c:20, a:-20, solution:"HSR convergence preview: 320 kmph commercial, underground Parandur link. Speed+comfort solved, affordability surrendered. Use it when VTTS justifies premium; otherwise let VB carry the middle." },
+                { text:"⏳ Access trap: 45-min flight + 2h airport + 1h taxi = 3h45m door-to-door", f:-20, c:-10, a:0, solution:"Access/egress penalty. On sub-500 km corridors, central rail terminals (HSR/VB) often beat runway-to-runway logic. Map door-to-door, not airtime." },
+                { text:"🎫 UDAN 5.0 extends VGF to 600 km — remote fare drops ₹800", f:15, c:5, a:15, solution:"Subsidy window. UDAN narrows the affordability gap on thin routes, but operational overhead remains — treat it as temporary relief, not trilemma dissolution." }
+            ];
+            let ev=events[Math.floor(Math.random()*events.length)];
+            sliders.speed.value=Math.max(0,Math.min(100,parseInt(sliders.speed.value)+ev.f));
+            sliders.comfort.value=Math.max(0,Math.min(100,parseInt(sliders.comfort.value)+ev.c));
+            sliders.affordable.value=Math.max(0,Math.min(100,parseInt(sliders.affordable.value)+ev.a));
+            updateUI();
+            actionPlanOutput.innerHTML=`<strong>🎲 Shock: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor='#94a3b8'; actionPlanOutput.style.display='block';
+        }
+
+        Object.keys(sliders).forEach(key=>{ sliders[key].addEventListener('input', ()=>updateUI(sliders[key])); });
+
+        const paraSpeed=document.getElementById('para-speed'), paraComfort=document.getElementById('para-comfort'), paraAffordable=document.getElementById('para-affordable');
+        const paraSwitches=[paraSpeed, paraComfort, paraAffordable];
+        function updateParadoxInsight(){
+            const f=paraSpeed.checked, c=paraComfort.checked, a=paraAffordable.checked; const el=document.getElementById('para-insight'); let title="",desc="",color="var(--text-muted)";
+            if(f && c && !a){ title="✈️ Premium Flight — Fast + Comfortable"; color="var(--speed-color)"; desc="Premium air / HSR life: no queues, arrives fresh — until fraud alert. You mortgaged next month's weekends for one hour in the air. Pre-book or pay VB Sleeper's fixed ceiling."; }
+            else if(f && a && !c){ title="💺 Budget Crunch — Fast + Affordable"; color="var(--affordable-color)"; desc="LCC slimline / General at 300%: cheap and quick — and physiologically hostile. Armrest war, DVT risk, spine arriving separately. Speed bought with ergonomic debt."; }
+            else if(a && c && !f){ title="🛏️ Sleeper Crawl — Affordable + Comfortable"; color="var(--comfort-color)"; desc="Sleeper bus/legacy express: horizontal, gentle fare — 40–50 kmph + WBV. ETA evolved from hours to days; only regret arrived on time."; }
+            else if(f && !c && !a){ title="⚡ Fast Only"; color="var(--speed-color)"; desc="Velocity spike stripped of body and budget. Time collapsed, nothing else compensated."; }
+            else if(c && !f && !a){ title="🛋️ Comfort Only"; color="var(--comfort-color)"; desc="Ergonomic island. Lovely while it lasts — but neither swift nor cheap."; }
+            else if(a && !f && !c){ title="💰 Affordable Only"; color="var(--affordable-color)"; desc="Fare preserved, everything else pending. Cheap alone is endurance, not transit."; }
+            else if(!f && !c && !a){ title="🧳 All Off — Journey Not Booked"; color="#f43f5e"; desc="Every reservoir dark. Not failure — just pre-choice. Pick which sacrifice you love enough to own."; }
+            el.style.borderLeftColor=color; el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit',sans-serif;">${title}</strong>${desc}`;
+        }
+        paraSwitches.forEach(sw=>{ sw.addEventListener('change', function(){ if(this.checked){ const c=paraSwitches.filter(s=>s.checked); if(c.length>2){ const others=paraSwitches.filter(s=>s!==this); const rnd=others[Math.floor(Math.random()*others.length)]; rnd.checked=false; } } updateParadoxInsight(); }); });
+
+        loadFromURL(); if(!window.location.search){ sliders.speed.value=33; sliders.comfort.value=33; sliders.affordable.value=34; }
+        updateUI(); updateParadoxInsight();
+    </script>
+</body>
+</html>

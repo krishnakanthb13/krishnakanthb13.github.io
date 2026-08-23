@@ -15,6 +15,7 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Seven Stages of Grief (7B)](7B/)**: Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance. Grief as prediction-error learning, not a staircase.
 *   **[The Wealth Trilemma (3W)](3W/)**: Passive, Reliable, Low Effort — pick two. Deconstruct the myth of passive wealth, leveraged income, the Trinity Study, micro-SaaS churn & the dashboard that ate your nervous system.
 *   **[The Leisure Trilemma (3V)](3V/)**: Memorable, Budget-Friendly, Stress-Free — pick two. Navigate the Iron Triangle of travel, Type 2 Fun, hedonic adaptation & why your best stories were miserable in the moment.
+*   **[The Transit Trilemma (3T)](3T/)**: Fast, Comfortable, Affordable — pick two.
 
 ---
 
@@ -38,6 +39,7 @@ AI-powered applications, text utilities, and gaming arenas.
 - 3N - 3 Things about Sleep / Night
 - 3W - 3 Things about Wealth / Work
 - 3V - 3 Things about Vacation / Leisure Travel
+- 3T - 3 Things about Transit / Travel / Mobility
 
 - 7B - 7 Stages of Heart Break / Grief / Loss
 - 3S - 3 Switches - Time / Money / Health
