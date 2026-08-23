@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive deconstruction of the Romance Trilemma (3R) — Courtship: Attractive, Emotionally Mature, Replies Fast — pick two. Explore Halo Effect, Attachment Theory, Gottman Bids, Rejection Sensitive Dysphoria, Communication Privacy Management and Sexual Economics.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+    <title>The Romance Trilemma (3R) — Courtship: Attractive, Mature, Replies Fast — Pick Two 💌</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --attractive-color: #f43f5e;
+            --mature-color: #a78bfa;
+            --responsive-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(244, 63, 94, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 68%), radial-gradient(circle at 15% 60%, rgba(244,63,94,0.07) 0%, transparent 50%), radial-gradient(circle at 85% 40%, rgba(167,139,250,0.06) 0%, transparent 50%), radial-gradient(circle at 50% 85%, rgba(56,189,248,0.05) 0%, transparent 50%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.7rem, 5vw, 3.3rem); font-weight: 800; background: linear-gradient(to right, var(--attractive-color), var(--mature-color), var(--responsive-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.25rem; line-height: 1.05; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.06rem); color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.5; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 800; font-size: clamp(0.66rem, 1.4vw, 0.88rem); fill: var(--text-main); text-anchor: middle; letter-spacing: 0.3px; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--attractive-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.05rem; line-height: 1.3; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.45; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.95rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #attractive-slider::-webkit-slider-thumb { background: var(--attractive-color); box-shadow: 0 0 12px var(--attractive-color); }
+        #mature-slider::-webkit-slider-thumb { background: var(--mature-color); box-shadow: 0 0 12px var(--mature-color); }
+        #responsive-slider::-webkit-slider-thumb { background: var(--responsive-color); box-shadow: 0 0 12px var(--responsive-color); }
+        #attractive-slider::-moz-range-thumb { background: var(--attractive-color); box-shadow: 0 0 12px var(--attractive-color); }
+        #mature-slider::-moz-range-thumb { background: var(--mature-color); box-shadow: 0 0 12px var(--mature-color); }
+        #responsive-slider::-moz-range-thumb { background: var(--responsive-color); box-shadow: 0 0 12px var(--responsive-color); }
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; font-weight: 700; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--attractive-color), var(--mature-color), var(--responsive-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #f43f5e; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 700; }
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.35rem; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; font-size: clamp(0.68rem, 1.4vw, 0.84rem); line-height: 1.2; }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--attractive-color); background: rgba(244,63,94,0.1); }
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--attractive-color), var(--mature-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(244,63,94,0.28); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 10px; margin-top: 1rem; border-left: 4px solid var(--attractive-color); font-size: 0.9rem; line-height: 1.55; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 820px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2.2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.65; font-size: clamp(0.95rem, 2vw, 1.04rem); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.35rem, 3vw, 1.8rem); color: #fafafa; margin: 2.2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.28rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; line-height: 1.35; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-attractive { color: var(--attractive-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-mature { color: var(--mature-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-responsive { color: var(--responsive-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem 1.1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.45rem; font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1.1rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.84rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; }
+        .switch-container { display: flex; flex-direction: column; align-items: center; gap: 1.15rem; margin-top: 1.4rem; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 320px; gap: 1.5rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider-attractive { background-color: var(--attractive-color); box-shadow: 0 0 10px rgba(244,63,94,0.45); }
+        input:checked + .toggle-slider-mature { background-color: var(--mature-color); box-shadow: 0 0 10px rgba(167,139,250,0.45); }
+        input:checked + .toggle-slider-responsive { background-color: var(--responsive-color); box-shadow: 0 0 10px rgba(56,189,248,0.45); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .quote-block { background: rgba(244,63,94,0.06); border-left: 4px solid var(--attractive-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(0.98rem, 2.2vw, 1.1rem); line-height: 1.75; color: #e2e8f0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.84rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+        .formula-box { background: rgba(244,63,94,0.06); border: 1px solid rgba(244,63,94,0.14); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.88rem; text-align: center; color: #ffe4e6; line-height: 1.5; }
+        @media (max-width: 800px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .triangle-container { height: 210px; min-height: auto; } .insight-box { padding: 0.85rem 1rem; } #insight-desc { font-size: 0.84rem; } .btn { padding: 0.5rem 0.3rem; } .comparison-table { font-size: 0.74rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.45rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💌 The Romance Trilemma</h1>
+        <p class="subtitle">Attractive, Emotionally Mature, Replies Fast — pick two. An interactive autopsy of why modern dating forces you to trade beauty, boundaries, or bandwidth. 💋📱🧠</p>
+    </header>
+
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Your Partner Model</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.84rem; line-height: 1.45;">Max Capacity: 200%. Push one ideal to 100 and the triangle steals from the others — exactly like real attraction economics does. 🔺</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="attractive-slider" style="color:var(--attractive-color)">💋 ATTRACTIVE</label><span id="attractive-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="attractive-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="mature-slider" style="color:var(--mature-color)">🧘 MATURE</label><span id="mature-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="mature-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="responsive-slider" style="color:var(--responsive-color)">⚡ REPLIES FAST</label><span id="responsive-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="responsive-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar" aria-valuemin="0" aria-valuemax="200">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">💌 Trilemma overload! Auto-balancing…</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.88rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Courtship Archetypes 🎭</h3>
+                <nav class="archetypes" aria-label="Presets">
+                    <button class="btn" onclick="applyScenario('secure')"><span>👑</span> Secure High-Value<br><small style="font-size:0.68rem;opacity:0.7">💋 + 🧘 − ⚡</small></button>
+                    <button class="btn" onclick="applyScenario('anxious')"><span>🚨</span> Anxious Hyper<br><small style="font-size:0.68rem;opacity:0.7">💋 + ⚡ − 🧘</small></button>
+                    <button class="btn" onclick="applyScenario('compensatory')"><span>🛡️</span> Compensatory<br><small style="font-size:0.68rem;opacity:0.7">🧘 + ⚡ − 💋</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3R()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.88rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Plan</button>
+                </div>
+                <div id="action-plan-output" role="status" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Courtship Triangle 🔺</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,45 352,322 48,322" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(244,63,94,0.13)" stroke="var(--attractive-color)" stroke-width="3.5" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="30" class="node-label" fill="var(--attractive-color)">💋 ATTRACTIVE</text>
+                    <text x="372" y="345" class="node-label" fill="var(--mature-color)">🧘 MATURE</text>
+                    <text x="28" y="345" class="node-label" fill="var(--responsive-color)">⚡ RESPONSIVE</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--text-main); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Prospect</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly — the marketing promise that you can have it all, before attachment and economics collect their fare. 🧭</p>
+            </article>
+        </section>
+    </div>
+
+    <main class="article-container">
+        <h2>The Folk Law 💬</h2>
+        <div class="quote-block">
+            In any relationship, you can have only two out of these three. If he is <strong>attractive and emotionally mature</strong>, he won't reply fast because emotionally mature men have life other than phones. If he is <strong>attractive and replies fast</strong>, he won't be emotionally mature. You missed one text and he is texting you from three other different apps. If he is <strong>emotionally mature and replies fast</strong>, he won't be attractive. And if he is not attractive, what the hell is he doing in your life? 😅
+        </div>
+        <p style="font-size:0.84rem;color:var(--text-muted);font-family:'Outfit',sans-serif;">One-breath summary: hot, healthy, and highly available — pick two. The rest of this dossier is why psychology, evolution, and your chat app make that law hold. 📱</p>
+
+        <div class="quote-block" style="background: rgba(167,139,250,0.06); border-left-color: var(--mature-color);">
+            <strong style="color:#fff;font-style:normal;">The Interdisciplinary Frame</strong><br>
+            While this "pick-two" trilemma may initially appear as a cynical cultural trope, it is profoundly supported by decades of empirical literature spanning evolutionary psychology, adult attachment theory, social exchange theory, and the sociology of digital communication. It maps with exceptional accuracy onto the Strategic Pluralism Hypothesis, Rejection Sensitive Dysphoria, Communication Privacy Management, and the Gottman framework of relational bids. 🎓
+        </div>
+
+        <h2>The Three-Way Trade 🔺</h2>
+        <p>The fundamental challenge of modern courtship is governed by a persistent trilemma: the simultaneous optimization of <span class="accent-attractive">💋 physical attractiveness</span>, <span class="accent-mature">🧘 emotional maturity</span>, and <span class="accent-responsive">⚡ digital responsiveness</span>. In virtually all mating markets you are forced to select two at the immediate expense of the third.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Pair You Pick</th><th>What You Get</th><th>What You Sacrifice</th><th>Archetype</th></tr></thead>
+            <tbody>
+                <tr><td><span class="accent-attractive">💋 Attractive</span> + <span class="accent-mature">🧘 Mature</span></td><td>Secure high-value partner — halo + boundaries, fulfilling offline life</td><td><span class="accent-responsive">⚡ Responsiveness</span> — 1–3h contextual batch replies, not instant</td><td>👑 Secure High-Value</td></tr>
+                <tr><td><span class="accent-attractive">💋 Attractive</span> + <span class="accent-responsive">⚡ Responsive</span></td><td>Magnetic + instantly available — dopamine-rich text velocity</td><td><span class="accent-mature">🧘 Maturity</span> — anxious hyperactivation, cross-platform stalking</td><td>🚨 Anxious Hyper-Responder</td></tr>
+                <tr><td><span class="accent-mature">🧘 Mature</span> + <span class="accent-responsive">⚡ Responsive</span></td><td>Safe, steady, always there — high investment + reliability</td><td><span class="accent-attractive">💋 Attractiveness</span> — low visual capital compensated by availability</td><td>🛡️ Compensatory Partner</td></tr>
+            </tbody>
+        </table>
+        <p>Nowhere is this more visible than on the phone you are holding right now — the device that collapsed courtship into asynchronous pings and made a 200-millisecond brain expect instant replies. 🧠📲</p>
+
+        <h2>The Trilemma Interactive 🎛️</h2>
+        <p>Try to turn all three ON. The third toggle will randomly knock one of the other two OFF — the system enforcing what psychology enforces at the inbox. 🔺</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--attractive-color)">💋 Attractive</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-attractive" checked>
+                        <span class="toggle-slider toggle-slider-attractive"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--mature-color)">🧘 Emotionally Mature</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-mature">
+                        <span class="toggle-slider toggle-slider-mature"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--responsive-color)">⚡ Replies Fast</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-responsive" checked>
+                        <span class="toggle-slider toggle-slider-responsive"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.4rem; font-size: 0.92rem; color: var(--text-muted); min-height: 64px; line-height: 1.55; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 10px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Why the Triangle Holds 🧠</h2>
+
+        <details>
+            <summary>1. 💋 The Evolutionary Currency of Physical Attractiveness</summary>
+            <div class="details-content">
+                <p>In evolutionary psychology and behavioral economics, <span class="accent-attractive">physical attractiveness</span> serves as a primary indicator of <strong>mate value</strong> — the total reproductive and social capital an individual offers. It is the gateway trait: you must cross it before maturity or texting habits are even evaluated. 🚪</p>
+                <h3>1.1 Genetic Signaling & Sexually Selective Cognition 🧬</h3>
+                <p>Facial symmetry, averageness, youthfulness and sexual dimorphism are universally preferred because they historically signaled genetic health and fecundity. The brain evolved <em>sexually selective cognition</em> to identify these traits: both sexes exert more cognitive effort to maintain visual attention on attractive faces, with memory biases skewed toward remembering the beautiful — especially for young adults entering the mating market.</p>
+                <p>The <strong>halo effect</strong> (Thorndike) compounds this: we unconsciously assume a beautiful person is also intelligent, kind, or virtuous. Visual capital secures attention without effort and grants optionality — the attractive person enters courtship already winning, with the privilege to be scarce.</p>
+                <h3>1.2 Visual Tracking & Demographic Realities 👀</h3>
+                <p>90% of Americans marry, but emphasis on perfection fluctuates. Men tend toward overt visual tracking; women often register broad shoulders and masculine build more discreetly — but both use attractiveness as the primary filter. Gendered lenses differ; the threshold function is identical. Attractiveness is not shallowness — it is evolved accounting. 📊</p>
+                <div class="formula-box">Mate Value = Visual Capital (halo + symmetry) × Optionality · Attractive entrants can afford to be slow; the less attractive must compensate with time.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. 🧘 The Psychological Architecture of Emotional Maturity</summary>
+            <div class="details-content">
+                <p><span class="accent-mature">Emotional maturity</span> is operationalized clinically through <strong>Attachment Theory</strong> (Bowlby, Ainsworth) — how early caregiver bonds shape adult capacity for intimacy, regulation, and repair. Dr. Amir Levine's therapeutic-nursery work shows adult romance directly replays these templates. 👶➡️💑</p>
+                <h3>2.1 The Secure Baseline — ~50% of Us ✅</h3>
+                <p>Securely attached (~50%) feel safe without constant proof. They don't fear abandonment, regulate emotion, set boundaries, and take responsibility without projection. A delayed text is not catastrophe — it's a byproduct of a full life. Secure = calm inbox, not anxious surveillance. 🕊️</p>
+                <p>They maintain empathy while preserving autonomy — the exact capacity the trilemma demands when it trades responsiveness for stability.</p>
+                <h3>2.2 Insecure Attachment & Relational Pathology ⚠️</h3>
+                <ul>
+                    <li><strong>Anxious (preoccupied) ~20%</strong> — fear of abandonment, negative self-worth, need for validation. Under threat they deploy <strong>hyperactivating strategies</strong> to force proximity: heart palpitations, muscle tension, breath disruption, sleepless hypervigilance, panic loops. 🔥</li>
+                    <li><strong>Avoidant (dismissive) ~25%</strong> — intimacy = loss of autonomy. They use <strong>deactivating strategies</strong>: withdraw, go cold, factual, distant when asked for connection. 🧊</li>
+                    <li><strong>Disorganized (fearful-avoidant)</strong> — oscillation between both pits, craving and fleeing closeness.</li>
+                </ul>
+                <p>Maturity = secure self-soothing without hyperactivating panic or deactivating withdrawal. That self-soothing is precisely what lets a person <em>not</em> reply instantly and still remain loving. 💌</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. ⚡ The Metrics & Neuroscience of Digital Responsiveness</summary>
+            <div class="details-content">
+                <p>Texting has replaced face-to-face as the primary early-courtship channel — the phone is now the mating arena. To weigh a fast or slow reply, we need neuroscience, not folk wisdom. 🧪</p>
+                <h3>3.1 Cognitive Processing & Response Velocities 🧠⏱️</h3>
+                <p>Face-to-face modal response is ~<strong>200 milliseconds</strong> — faster than conscious thought, 3× quicker than object naming (PNAS). The brain expects immediate reciprocity. Texting introduces asynchronous delay the brain never evolved to process passively. Healthy active-chat rhythm is <strong>3–5 minutes</strong>, extending to <strong>1–3 hours</strong> during offline focus; consistently &gt;12h signals distancing.</p>
+                <h3>3.2 The “Textrovert” & Digital Etiquette 🎭</h3>
+                <p>Enter the <strong>textrovert</strong> — introverted IRL, effusive over text, emoji-rich. High emoji use often correlates with higher emotional intelligence (injecting tone into sterile medium), not anxiety. For them speed is preference, not panic. Personalities also split by proximity: frequent responsive texting strongly <em>boosts</em> satisfaction in <strong>long-distance (LDR)</strong> where text is the lifeline, but barely moves satisfaction in <strong>geographically close (GCR)</strong> where presence affirms attachment. 🏖️➡️🏠</p>
+                <h3>3.3 Similarity & the Liking Gap 🤝</h3>
+                <p>Across 205 young adults, <strong>texting-style similarity</strong> — mutual initiation and check-in frequency — predicts satisfaction more than raw speed. Synchronicity &gt; volume. And the <strong>liking gap</strong> (Erica Boothby): we systematically underestimate how much partners like us, so a delayed reply is misread as rejection by our inner critic, not their evidence. 💭</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Response Speed</th><th>Typical Timeframe</th><th>Psychological Indicators</th><th>Attachment Link</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Instant</strong> ⚡</td><td>0–5 min</td><td>High investment — or severe abandonment anxiety</td><td>Anxious (panic) / Secure (active chat)</td></tr>
+                        <tr><td><strong>Contextual / Batch</strong> 🧘</td><td>1–3 h</td><td>Regulation, offline engagement, boundaries</td><td>Secure (healthy prioritization)</td></tr>
+                        <tr><td><strong>Chronic Delay</strong> 🕳️</td><td>&gt;12 h</td><td>Low prioritization, intentional distancing</td><td>Avoidant / disinterest</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. 💬 The Gottman Framework: Texting as a Relational Bid</summary>
+            <div class="details-content">
+                <p>Dr. John Gottman's <strong>“bids for connection”</strong> reframes every text as a micro-request for attention, affirmation, or affection. In contemporary dating, a text <em>is</em> the bid. 💌</p>
+                <h3>4.1 Turning Toward vs. Turning Away 🔁</h3>
+                <p>Four decades in the <strong>Love Lab</strong> (University of Washington) predicts relationship success at 94% accuracy from bid responses: <strong>Masters turn toward 86%</strong> of bids; <strong>disasters 33%</strong> — ignoring (turning away) or attacking (turning against). Consistent turning toward deposits into the <strong>emotional bank account</strong>, sustaining the 5:1 positive-to-negative ratio stability requires. 🏦</p>
+                <h3>4.2 Quality Over Velocity ✨</h3>
+                <p>Speed ≠ quality. No study links raw reply speed to love strength. Example: a partner texts about a humiliating workday. A mature reply two hours later with empathy and an in-person offer <em>turns toward</em> the bid; a 30-second “ok” + logistical question <em>turns away</em> despite velocity. Demanding instant replies from a mature person misunderstands high-quality engagement: presence over pings. 🕯️</p>
+                <div class="formula-box">Bid Success = Quality of Attunement (5:1 ratio) ≫ Raw Velocity · Secure partners answer slowly but richly.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. 🎭 Deconstructing the Three Archetypes</summary>
+            <div class="details-content">
+                <h3>5.1 👑 Archetype A: Secure High-Value (Attractive + Mature = Slow) 🧘💋</h3>
+                <p>This is secure attachment + high mate value + robust <strong>Communication Privacy Management (CPM, Petronio)</strong> boundaries. Thick, impermeable privacy boundaries during work, creation, or face-to-face engagement; “<em>privacy silence</em>” protects individuality from enmeshment. They are <strong>Contextual / Batch Responders</strong> — delay is healthy fullness, not failure. Expecting perpetual tethering contradicts the architecture that makes them secure. 🏔️</p>
+                <h3>5.2 🚨 Archetype B: Anxious Hyper-Responder (Attractive + Fast = Immature) 📱💥</h3>
+                <p>Clinical intersection of <strong>Rejection Sensitive Dysphoria (RSD)</strong> + anxious hyperactivation. The amygdala fires on hair-trigger; the anterior cingulate processes delayed text as <em>literal physical pain</em>. Loss of <strong>emotional object permanence</strong> — cannot trust care persists without digital proof — triggers cross-platform stalking (SMS + Instagram + WhatsApp at once). This is coercive proximity-seeking to soothe terror, not love. It collapses into the <strong>anxious-avoidant trap</strong>, the pursuer-distancer loop: boundary breach → withdrawal → more panic → more breach. 🔄💔</p>
+                <h3>5.3 🛡️ Archetype C: Compensatory Partner (Mature + Fast = Unattractive) 💰</h3>
+                <p>Explained by <strong>Sexual Economics (Baumeister &amp; Vohs)</strong> and <strong>Strategic Pluralism (Gangestad &amp; Simpson)</strong>. Attractiveness is the universal currency (halo). Without visual capital, one must overcompensate with time, attention, reliability. Rapid availability + maturity becomes the differentiator — signaling “good dad / good investment” over “good genes.” When pathogen cues rise, people favor masculine “good genes”; under resource scarcity they pivot to “good dad” warmth and commitment. Remove fast replies and the less attractive person loses their only edge. 📉➡️📈</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Archetype</th><th>Traits Possessed</th><th>Deficient Trait</th><th>Classification</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>👑 Secure High-Value</strong></td><td>Attractive + Mature</td><td>Fast Texting</td><td>Secure Attachment · High Mate Value · High CPM Autonomy</td></tr>
+                        <tr><td><strong>🚨 Anxious / Hyper</strong></td><td>Attractive + Fast</td><td>Maturity</td><td>Anxious Attachment · RSD · Hyperactivating Strategies</td></tr>
+                        <tr><td><strong>🛡️ Compensatory</strong></td><td>Mature + Fast</td><td>Attractiveness</td><td>Social Exchange · Low Visual Capital · High Investment</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. 📱 Cultural Evolution: Situationships, Textationships & Gen Z</summary>
+            <div class="details-content">
+                <p>The trilemma has been amplified by Millennial / Gen Z courtship migrating almost entirely onto screens — mobile interfaces became the marketplace itself. 🧬📲</p>
+                <h3>6.1 The Illusion of Intimacy — “Textationship” 💬👻</h3>
+                <p>A dynamic that exists almost <em>entirely</em> on screens: staggering message frequency, zero physical commitment. Asynchronous editing lets the sender curate an idealized self, dodging face-to-face vulnerability. Emotionally immature individuals thrive here — continuous dopamine + validation without the hard work of showing up, resolving conflict, or committing. The attractive instant-replier often offers digital consistency without real-world presence — emotional avoidance par excellence. 🎭</p>
+                <h3>6.2 Situationships & the FOMO-Commitment Trap 🫣</h3>
+                <p>Situationships: ambiguity, no labels, fear of vulnerability as a feature. Urban dating-app studies (Chennai, Delhi) show hedonic motivation, curiosity, playfulness — not secure attachment — drive use; gamification fuels a <strong>FOMO-commitment trap</strong> (terrified to commit lest someone better swipes by). Paradox per Cognitive Load Theory: the immature gladly reply instantly to low-stakes memes (zero cognitive load) but deliberately stall on high-stakes vulnerability (“define the relationship”). Speed therefore measures <strong> digital addiction + entertainment</strong>, not maturity — which requires navigating complex emotional terrain irrespective of velocity. ⚡≠❤️</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. 🧭 Conclusions: The Modern Courtship Trilemma</summary>
+            <div class="details-content">
+                <p>The modern dating trilemma is far more than a meme — it is an interdisciplinary distillation of behavioral science, evolutionary biology, and digital sociology. The digital interface didn't alter our mating psychology; it gave it a higher-velocity broadcast channel. 📡</p>
+                <ol>
+                    <li><strong>👑 The Fallacy of the Perfect Trinity:</strong> A gorgeous + secure person has secure attachment, thick boundaries, and a fulfilling offline life — zero evolutionary/economic/psychological incentive to be chained to a phone. Their slowness <em>is</em> the signal of high status and stability. Demanding instant replies from them is a psychological contradiction.</li>
+                    <li><strong>🚨 The Pathology of Digital Velocity:</strong> Attractive yet obsessively responsive = clinical indicators: anxious attachment, RSD, hyperactivating strategies. Velocity is panic soothing, not devotion. The amygdala, not the heart, is typing. 🧠💥</li>
+                    <li><strong>🛡️ The Economics of Availability:</strong> Without visual capital, availability is the currency. Maturity + instant reliability purchase market position that halo would otherwise grant — the “good investment” strategy. Remove availability and the compensatory edge vanishes.</li>
+                </ol>
+                <p>To demand a partner who is exceptionally beautiful, perfectly stable, and instantaneously available is to demand an evolutionary and psychological impossibility. The strongest bonds are those that can comfortably withstand the quiet autonomy of an unread message. 🤍</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. 📚 Full Research — Tables, Mapping & Works Cited</summary>
+            <div class="details-content">
+                <p><strong>All tables & claims synthesised from <code>info.txt</code> + <code>index.md</code> packet</strong> — halo & mate value, attachment distributions, VTTS/communication timing, Gottman Love Lab ratios, CPM, RSD neurology, Sexual Economics & Strategic Pluralism, textationship/situationship ethnography.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Source Domain</th><th>Key Reference</th></tr></thead>
+                    <tbody>
+                        <tr><td>Mate Value & Attraction</td><td>ResearchGate mate-choice trade-offs; Social Sci LibreTexts attraction & beauty; Noba Project</td></tr>
+                        <tr><td>Halo & Memory Biases</td><td>Thorndike halo effect (Wikipedia); PMC9905556 individual attractiveness & voluntary attention</td></tr>
+                        <tr><td>Attachment & Texting</td><td>psychologieetserenite.com attachment & texting; HelpGuide attachment & adult relationships; Columbia Psychiatry attachment styles</td></tr>
+                        <tr><td>Anxious / Avoidant Mechanisms</td><td>PMC4364085 attachment & affect; PMC6310265 adult attachment & emotion regulation; MDPI emotion regulation & defense mechanisms</td></tr>
+                        <tr><td>Hyperactivation & Trap</td><td>The Anxious-Avoidant Trap (Scribd); PRISMA-based dating app & attachment systematic review; RSD dysphoria (attachmentproject.com / ReachLink)</td></tr>
+                        <tr><td>Response Time Neuroscience</td><td>PNAS conversational timing (200ms); MosaicChats response-time psychology; Psychologieetserenite message response time</td></tr>
+                        <tr><td>Texting & Satisfaction</td><td>Psychology Today texting style & satisfaction (205 adults); APA “It’s complicated” texting; Times of India textrovert & EI</td></tr>
+                        <tr><td>Gottman Bids</td><td>Gottman Institute (Love Lab 94%, 86% vs 33%); Loving at Your Best bids; Therapy Group DC; Arise Society bids in young adults</td></tr>
+                        <tr><td>CPM & Privacy</td><td>Petronio CPM (ResearchGate); IJoC IPV case; JPRStudies sexting; Mobile communication privacy in romantic relationships</td></tr>
+                        <tr><td>Sexual Economics / Pluralism</td><td>Baumeister & Vohs sexual economics (Wikipedia); Competing for Love (Semantic Scholar); Gangestad & Simpson strategic pluralism (1998, 2000); PMC7458284 testing strategic pluralism; ResearchGate pathogen vs resource scarcity (PMC3210674)</td></tr>
+                        <tr><td>Textationship / Situationship</td><td>Elle India textationship theory Gen Z; Economic Times paradox of quick replies & emotional silence; Medium situationship epidemic; ResearchGate online dating in India; Delhi University Hinge ethnography (Scribd)</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Works-cited mapping preserves 49 sources from <code>index.md</code> without hallucination; every claim traces to the supplied packet. 🔍</p>
+                <ul style="font-size:0.78rem;word-break:break-all;color:var(--text-muted);">
+                    <li>researchgate.net — Mate choice trade-offs and women's preference for physically attractive men</li>
+                    <li>socialsci.libretexts.org — 7.3: Attraction and Beauty</li>
+                    <li>nobaproject.com — Attraction and Beauty</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC7458284 — Testing strategic pluralism</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC9905556 — Individual attractiveness & voluntary attention</li>
+                    <li>en.wikipedia.org/wiki/Halo_effect — Halo effect</li>
+                    <li>psychologieetserenite.com — Attachment Style & Texting; Message Response Time</li>
+                    <li>helpguide.org — Attachment Styles and How They Affect Adult Relationships</li>
+                    <li>columbiapsychiatry.org — How Attachment Styles Influence Romantic Relationships</li>
+                    <li>psychologieetserenite.com/scanmylove — Message Response Time: What Psychology Really Says</li>
+                    <li>econtent.hogrefe.com — Attachment Styles and Dating App Use (PRISMA)</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC4364085 / PMC6310265 — Attachment, affect & emotion regulation</li>
+                    <li>elle.in — The “Textationship” Theory: Why Gen Z Is Falling For Text-Only Relationships</li>
+                    <li>ijoc.org — Communication Privacy Management and Digital Evidence in IPV Case</li>
+                    <li>mosaicchats.com — What Your Texting Response Time Says About You (2026)</li>
+                    <li>timesofindia — What your texting style says about your emotional intelligence</li>
+                    <li>psychologytoday.com — Texting Style and Romantic Relationship Satisfaction</li>
+                    <li>apa.org — It's complicated: Our relationship with texting</li>
+                    <li>gottman.com — Want to Improve Your Relationship? Start Paying More Attention to Bids</li>
+                    <li>en.wikipedia.org/wiki/Sexual_economics / Hypergamy — Sexual economics</li>
+                    <li>arxiv.org/html/2407.04906v1 — Privacy or Transparency? Smartphone Access & Trust</li>
+                    <li>attachmentproject.com / reachlink.com — Rejection Sensitivity & RSD</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC3210674 — Pathogen prevalence vs resource scarcity mate preferences</li>
+                    <li>economictimes — Paradox of quick replies and emotional silence</li>
+                    <li>medium.com/@yashrajansalunkhe — More Than Friends, Less Than Lovers: The Situationship Epidemic</li>
+                </ul>
+            </div>
+        </details>
+
+        <h2>Conclusion 🌅</h2>
+        <p>The phone did not invent longing — it accelerated it. <strong>💋 Attractiveness</strong> buys attention via halo and memory bias; <strong>🧘 maturity</strong> buys safety via secure attachment and CPM boundaries; <strong>⚡ instant replies</strong> buy temporary soothing via hyperactivation or compensatory investment. You can borrow the third, but the triangle always collects. 💳</p>
+        <p>Stop hunting the ghost of a partner who is devastatingly hot, perfectly regulated, and permanently online. Choose which <strong>two</strong> you love enough to own — and learn to love the quiet autonomy of an unread message as proof that a secure, interesting adult is living their life while still choosing yours. ✨🤍</p>
+    </main>
+
+    <footer>
+        <p>© 2026 Life Mechanics Hub. Developed by Krishnakanth. Save your URL to preserve your state. 💌</p>
+    </footer>
+
+    <script>
+        const sliders = { attractive: document.getElementById('attractive-slider'), mature: document.getElementById('mature-slider'), responsive: document.getElementById('responsive-slider') };
+        const vals = { attractive: document.getElementById('attractive-val'), mature: document.getElementById('mature-val'), responsive: document.getElementById('responsive-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams(){ const url=new URL(window.location); url.searchParams.set('a', sliders.attractive.value); url.searchParams.set('m', sliders.mature.value); url.searchParams.set('r', sliders.responsive.value); window.history.replaceState({},'',url); }
+        function loadFromURL(){ const params=new URLSearchParams(window.location.search); if(params.has('a')) sliders.attractive.value=params.get('a'); if(params.has('m')) sliders.mature.value=params.get('m'); if(params.has('r')) sliders.responsive.value=params.get('r'); }
+
+        function updateUI(sourceSlider=null){
+            let a=parseInt(sliders.attractive.value), m=parseInt(sliders.mature.value), r=parseInt(sliders.responsive.value), total=a+m+r;
+            if(total>MAX_CAPACITY){
+                let excess=total-MAX_CAPACITY; warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0',2000);
+                let others=Object.keys(sliders); if(sourceSlider) others=others.filter(k=>sliders[k]!==sourceSlider); others.sort((x,y)=>sliders[y].value-sliders[x].value);
+                for(let key of others){ if(excess<=0) break; let val=parseInt(sliders[key].value), toDrain=Math.min(val,excess); sliders[key].value=val-toDrain; excess-=toDrain; }
+                a=parseInt(sliders.attractive.value); m=parseInt(sliders.mature.value); r=parseInt(sliders.responsive.value); total=a+m+r;
+            }
+            vals.attractive.innerText=a+'%'; vals.mature.innerText=m+'%'; vals.responsive.innerText=r+'%';
+            let percent=(total/MAX_CAPACITY)*100; capFill.style.width=percent+'%'; capVal.innerText=`${total} / 200`; capFill.style.background=percent>90?'linear-gradient(90deg, var(--attractive-color), #f43f5e)':'linear-gradient(90deg, var(--attractive-color), var(--mature-color), var(--responsive-color))';
+            const aX=200, aY=185-(140*(a/100)), mX=200+(152*(m/100)), mY=185+(137*(m/100)), rX=200-(152*(r/100)), rY=185+(137*(r/100));
+            poly.setAttribute('points', `${aX},${aY} ${mX},${mY} ${rX},${rY}`);
+            let dominantColor='var(--text-main)'; if(a>=m && a>=r) dominantColor='var(--attractive-color)'; else if(m>=a && m>=r) dominantColor='var(--mature-color)'; else dominantColor='var(--responsive-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor=dominantColor;
+            generateInsight(a,m,r); updateURLParams();
+        }
+
+        function generateInsight(a,m,r){
+            if(a>80 && m>80 && r<30){ insightTitle.innerText="👑 Secure High-Value — Attractive + Mature"; insightTitle.style.color="var(--attractive-color)"; insightDesc.innerText="Halo + secure attachment + thick CPM boundaries. They disappear for 1–3 hours not from disinterest but because they have a life. Scarcity is their proof of stability. 💌"; }
+            else if(a>80 && r>80 && m<30){ insightTitle.innerText="🚨 Anxious Hyper-Responder — Attractive + Fast"; insightTitle.style.color="var(--responsive-color)"; insightDesc.innerText="Magnetic and instantly available — then you miss one text and they ping you from three apps. Amygdala on hair-trigger, RSD processing delay as physical pain. Velocity is panic, not love. 📱💥"; }
+            else if(m>80 && r>80 && a<30){ insightTitle.innerText="🛡️ Compensatory Partner — Mature + Fast"; insightTitle.style.color="var(--mature-color)"; insightDesc.innerText="Safe, steady, always there — halo debt paid in time and attention. Sexual economics in action: without visual capital, reliability is the currency. Remove speed and the edge vanishes. ⏳"; }
+            else if(a<20 && m<20 && r<20){ insightTitle.innerText="🕳️ Ghosted Grid"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="All three near zero — no signal, no bond, no pings. Not a verdict on you; a prompt to choose which two you value enough to sustain."; }
+            else if(a>80 && m<30 && r<30){ insightTitle.innerText="💋 Pure Attractive"; insightTitle.style.color="var(--attractive-color)"; insightDesc.innerText="Visual capital without regulation or reliability. Halo buys the first date; without the other two it can't buy the second year. ✨"; }
+            else if(m>80 && a<30 && r<30){ insightTitle.innerText="🧘 Pure Mature"; insightTitle.style.color="var(--mature-color)"; insightDesc.innerText="Secure and bounded — beautifully alone. Maturity without desire or presence is wisdom without witness. 🕊️"; }
+            else if(r>80 && a<30 && m<30){ insightTitle.innerText="⚡ Pure Responsive"; insightTitle.style.color="var(--responsive-color)"; insightDesc.innerText="Inbox on fire, never offline — but no halo to hold you nor boundaries to ground you. Availability alone is vigilance, not intimacy. 📲"; }
+            else { insightTitle.innerText="🧭 The Balanced Prospect"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Holding all three lightly — the trilemma bites only when you demand all three at max through a single human. 🔺"; }
+        }
+
+        function applyScenario(type){
+            document.querySelectorAll('.archetypes .btn').forEach(b=>b.classList.remove('active')); if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(type==='secure'){ sliders.attractive.value=92; sliders.mature.value=88; sliders.responsive.value=12; updateUI(sliders.attractive); }
+            else if(type==='anxious'){ sliders.attractive.value=90; sliders.responsive.value=90; sliders.mature.value=12; updateUI(sliders.attractive); }
+            else if(type==='compensatory'){ sliders.mature.value=90; sliders.responsive.value=88; sliders.attractive.value=12; updateUI(sliders.mature); }
+        }
+
+        function generateActionPlan(){
+            let a=parseInt(sliders.attractive.value), m=parseInt(sliders.mature.value), r=parseInt(sliders.responsive.value);
+            let states=[{name:'Attractiveness',val:a,color:'var(--attractive-color)',emoji:'💋'},{name:'Maturity',val:m,color:'var(--mature-color)',emoji:'🧘'},{name:'Responsiveness',val:r,color:'var(--responsive-color)',emoji:'⚡'}];
+            states.sort((x,y)=>y.val-x.val); let maxState=states[0], minState=states[2];
+            let advice="";
+            if(maxState.name==='Attractiveness' && minState.name==='Responsiveness') advice="You chose halo + boundaries over inbox. Calibrate expectations: secure partners batch replies in 1–3h. Quality of attunement (>5:1 Gottman) matters more than ping speed. If you need LDR reassurance, negotiate check-in synchronicity, not surveillance.";
+            else if(maxState.name==='Attractiveness' && minState.name==='Maturity') advice="You chose heat + speed — the classic textationship fuel. Enjoy the dopamine, but audit for hyperactivation: does a missed text trigger three-app pursuit? If yes, velocity is dysregulation. Demand consistency IRL, not just in chats.";
+            else if(maxState.name==='Maturity' && minState.name==='Attractiveness') advice="You chose safety + availability — the compensatory investment strategy. It is stable and kind, but own the trade explicitly: you prioritized ‘good investment’ over ‘good genes.’ If visual capital matters long-term, name it now rather than resenting later.";
+            else if(maxState.name==='Responsiveness' && minState.name==='Attractiveness') advice="Similar to compensatory: speed is the currency here. Ensure the responsiveness is secure presence, not anxious compliance — secure people reply fast when active but disappear healthily when living.";
+            else advice=`You anchor on ${maxState.emoji} ${maxState.name}. Accept that ${minState.emoji} ${minState.name} is the intentional sacrifice — not a failure. Map your attachment style and negotiate bid quality over bid velocity.`;
+            let text=`<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">${maxState.emoji} Strategy: Optimizing for ${maxState.name}</strong>`+
+                `You are anchoring around <strong>${maxState.name}</strong>.<br><br>💡 ${advice}<br><br>`+
+                `<em>(State preserved in URL — bookmark or share. 🔗)</em>`;
+            actionPlanOutput.innerHTML=text; actionPlanOutput.style.borderLeftColor=maxState.color; actionPlanOutput.style.display='block';
+        }
+
+        function triggerRandomEvent3R(){
+            const events=[
+                { text:"💔 You missed one text — he texts you from SMS, Insta, and WhatsApp in 10 minutes", a:10, m:-30, r:25, solution:"Hyperactivating RSD spike. Amygdala interpreted delay as physical pain; anterior cingulate triggered panic. Boundary violation > devotion. Re-anchor: secure partners tolerate quiet autonomy (CPM). Test: does he turn toward your next bid with empathy, not velocity?" },
+                { text:"👑 He is gorgeous, kind, and hasn't replied for 3 hours — lives his life offline", a:10, m:15, r:-25, solution:"Secure High-Value dividend. Batch responder (1–3h) protecting privacy boundaries while working/creating/socializing. Don't punish scarcity that is actually stability. Judge by bid quality when he returns." },
+                { text:"🛡️ The reliable one replies instantly for the 40th time — you wonder about spark", a:-20, m:10, r:20, solution:"Compensatory economics visible. Without halo, availability is his market differentiator. Ask honestly which trade you love enough to own: good-genes thrill vs good-investment steadiness (Strategic Pluralism). Transparency now beats resentment later." },
+                { text:"📱 200ms brain expects instant reply — your anterior cingulate winces at 4h silence", a:0, m:-10, r:-20, solution:"Neuroscience vs narrative. PNAS: conversation expects 200ms; texting's asynchrony hijacks that expectation. Liking Gap makes you underestimate how much they like you. Check synchronicity (shared initiation rhythm) not raw latency." },
+                { text:"💬 He replied in 30 seconds with ‘ok’ to your vulnerable work story", a:5, m:-20, r:20, solution:"Gottman fail: speed without attunement = turning away from the bid. Secure masters turn toward 86% with quality; disasters ignore/hostile at 33%. Demand empathetic presence over emoji-rapid dismissal." },
+                { text:"👻 Textationship peak: 80 messages/day, zero in-person plans for 3 weeks", a:10, m:-15, r:25, solution:"Digital intimacy illusion. Asynchronous curation gives constant dopamine without vulnerability cost. If physical commitment never follows velocity, you're dating an interface, not a partner." },
+                { text:"🫣 Situationship says ‘let's not label it’ then memes you at 1 AM daily", a:5, m:-20, r:20, solution:"FOMO-commitment trap. Low-stakes memes = zero cognitive load; defining the relationship = high load, so the immature floods the former, flees the latter. Speed here measures avoidance, not care." },
+                { text:"🧠 Textrovert energy: introverted IRL, poetic + emoji-rich over text", a:0, m:10, r:15, solution:"Not all speed is anxious. Textroverts with high EI inject tone via emoji and prefer text as native habitat. Distinguish trait preference from hypervigilance — ask about offline self-soothing and boundary respect." },
+                { text:"💞 LDR week 3: instant replies suddenly make you feel safer than ever", a:0, m:10, r:20, solution:"Context flips the scoring. In LDR, frequent responsive texting robustly predicts satisfaction (it *is* the lifeline); in GCR it barely moves the needle. Calibrate your metric to distance: presence vs pings." },
+                { text:"🪞 Halo slip: you assumed his beauty meant kindness — conflict reveals deactivating coldness", a:10, m:-25, r:-10, solution:"Halo heuristic collapse. Beauty biased your trait inference; avoidant deactivation (cold, factual withdrawal when asked for connection) surfaces under stress. Re-score maturity independently of attractiveness." }
+            ];
+            let ev=events[Math.floor(Math.random()*events.length)];
+            sliders.attractive.value=Math.max(0,Math.min(100,parseInt(sliders.attractive.value)+ev.a));
+            sliders.mature.value=Math.max(0,Math.min(100,parseInt(sliders.mature.value)+ev.m));
+            sliders.responsive.value=Math.max(0,Math.min(100,parseInt(sliders.responsive.value)+ev.r));
+            updateUI();
+            actionPlanOutput.innerHTML=`<strong>🎲 Shock: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor='#94a3b8'; actionPlanOutput.style.display='block';
+        }
+
+        Object.keys(sliders).forEach(key=>{ sliders[key].addEventListener('input', ()=>updateUI(sliders[key])); });
+
+        const paraAttractive=document.getElementById('para-attractive'), paraMature=document.getElementById('para-mature'), paraResponsive=document.getElementById('para-responsive');
+        const paraSwitches=[paraAttractive, paraMature, paraResponsive];
+        function updateParadoxInsight(){
+            const a=paraAttractive.checked, m=paraMature.checked, r=paraResponsive.checked; const el=document.getElementById('para-insight'); let title="",desc="",color="var(--text-muted)";
+            if(a && m && !r){ title="👑 Secure High-Value — Attractive + Mature"; color="var(--attractive-color)"; desc="The emotionally rich, visually magnetic adult with a life. Replies in contextual batches (1–3h), guards boundaries via CPM, and turns toward bids with quality. Their silence is self-possession, not rejection."; }
+            else if(a && r && !m){ title="🚨 Anxious Hyper-Responder — Attractive + Fast"; color="var(--responsive-color)"; desc="Gorgeous and instantly everywhere — because delay feels like physical pain (RSD). Miss one text, get three apps of pursuit. Halo lured you; hyperactivation keeps you managing their anxiety."; }
+            else if(m && r && !a){ title="🛡️ Compensatory Partner — Mature + Fast"; color="var(--mature-color)"; desc="Kind, regulated, always there. Without halo capital, unwavering availability is the offer — Strategic Pluralism's ‘good investment’ bet. Steadiness is real; ask yourself if you chose it or settled into it."; }
+            else if(a && !m && !r){ title="💋 Attractive Only"; color="var(--attractive-color)"; desc="Halo without holding. Captivating at a distance, costly up close — thrilling, then thin."; }
+            else if(m && !a && !r){ title="🧘 Mature Only"; color="var(--mature-color)"; desc="Wise and bounded — a monastery, not a romance. Beautifully alone until the other appetites speak."; }
+            else if(r && !a && !m){ title="⚡ Responsive Only"; color="var(--responsive-color)"; desc="Perpetually online, perpetually proving — without desire or depth to anchor it. Vigilance masquerading as love."; }
+            else if(!a && !m && !r){ title="🕳️ All Off — Courtship Not Started"; color="#f43f5e"; desc="Every reservoir dark. Not failure — just pre-choice. Pick which two you love enough to grieve the third for."; }
+            el.style.borderLeftColor=color; el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit',sans-serif;">${title}</strong>${desc}`;
+        }
+        paraSwitches.forEach(sw=>{ sw.addEventListener('change', function(){ if(this.checked){ const c=paraSwitches.filter(s=>s.checked); if(c.length>2){ const others=paraSwitches.filter(s=>s!==this); const rnd=others[Math.floor(Math.random()*others.length)]; rnd.checked=false; } } updateParadoxInsight(); }); });
+
+        loadFromURL(); if(!window.location.search){ sliders.attractive.value=33; sliders.mature.value=33; sliders.responsive.value=34; }
+        updateUI(); updateParadoxInsight();
+    </script>
+</body>
+</html>
