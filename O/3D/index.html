@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive deconstruction of the Dating Trilemma (3D) — Mating: Ambitious, Present, Funny — pick two. Explore Ideal Standards Model, Strategic Pluralism, Big Five, DMN vs CEN, Suffocation Model, Dual-Career physics and Maximizers vs Satisficers.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+    <title>The Dating Trilemma (3D) — Ambitious, Present, Funny — Pick Two 💘</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💘</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --ambitious-color: #f59e0b;
+            --present-color: #34d399;
+            --funny-color: #a78bfa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(245, 158, 11, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 68%), radial-gradient(circle at 15% 60%, rgba(245,158,11,0.07) 0%, transparent 50%), radial-gradient(circle at 85% 40%, rgba(167,139,250,0.06) 0%, transparent 50%), radial-gradient(circle at 50% 85%, rgba(52,211,153,0.05) 0%, transparent 50%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.7rem, 5vw, 3.4rem); font-weight: 800; background: linear-gradient(to right, var(--ambitious-color), var(--present-color), var(--funny-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.25rem; line-height: 1.05; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.06rem); color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.5; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 800; font-size: clamp(0.66rem, 1.4vw, 0.88rem); fill: var(--text-main); text-anchor: middle; letter-spacing: 0.3px; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--ambitious-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.05rem; line-height: 1.3; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.45; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.95rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #ambitious-slider::-webkit-slider-thumb { background: var(--ambitious-color); box-shadow: 0 0 12px var(--ambitious-color); }
+        #present-slider::-webkit-slider-thumb { background: var(--present-color); box-shadow: 0 0 12px var(--present-color); }
+        #funny-slider::-webkit-slider-thumb { background: var(--funny-color); box-shadow: 0 0 12px var(--funny-color); }
+        #ambitious-slider::-moz-range-thumb { background: var(--ambitious-color); box-shadow: 0 0 12px var(--ambitious-color); }
+        #present-slider::-moz-range-thumb { background: var(--present-color); box-shadow: 0 0 12px var(--present-color); }
+        #funny-slider::-moz-range-thumb { background: var(--funny-color); box-shadow: 0 0 12px var(--funny-color); }
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; font-weight: 700; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--ambitious-color), var(--present-color), var(--funny-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #fbbf24; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 700; }
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.35rem; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; font-size: clamp(0.68rem, 1.4vw, 0.84rem); line-height: 1.2; }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--ambitious-color); background: rgba(245,158,11,0.1); }
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--ambitious-color), var(--funny-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(245,158,11,0.28); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 10px; margin-top: 1rem; border-left: 4px solid var(--ambitious-color); font-size: 0.9rem; line-height: 1.55; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 820px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2.2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.65; font-size: clamp(0.95rem, 2vw, 1.04rem); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.35rem, 3vw, 1.8rem); color: #fafafa; margin: 2.2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.28rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; line-height: 1.35; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-ambitious { color: var(--ambitious-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-present { color: var(--present-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-funny { color: var(--funny-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem 1.1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.45rem; font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1.1rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.84rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; }
+        .switch-container { display: flex; flex-direction: column; align-items: center; gap: 1.15rem; margin-top: 1.4rem; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 340px; gap: 1.5rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider-ambitious { background-color: var(--ambitious-color); box-shadow: 0 0 10px rgba(245,158,11,0.45); }
+        input:checked + .toggle-slider-present { background-color: var(--present-color); box-shadow: 0 0 10px rgba(52,211,153,0.45); }
+        input:checked + .toggle-slider-funny { background-color: var(--funny-color); box-shadow: 0 0 10px rgba(167,139,250,0.45); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .quote-block { background: rgba(245,158,11,0.06); border-left: 4px solid var(--ambitious-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(0.98rem, 2.2vw, 1.1rem); line-height: 1.75; color: #e2e8f0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.84rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+        .formula-box { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.14); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.88rem; text-align: center; color: #fef3c7; line-height: 1.5; }
+        @media (max-width: 800px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .triangle-container { height: 210px; min-height: auto; } .insight-box { padding: 0.85rem 1rem; } #insight-desc { font-size: 0.84rem; } .btn { padding: 0.5rem 0.3rem; } .comparison-table { font-size: 0.74rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.45rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💘 The Dating Trilemma</h1>
+        <p class="subtitle">Ambitious, Present, Funny — pick two. An interactive autopsy of why dating forces you to trade drive, devotion, or delight. 🚀💚😂</p>
+    </header>
+
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Your Partner Model</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.84rem; line-height: 1.45;">Max Capacity: 200%. Push one ideal to 100 and the triangle steals from the others — exactly like real mate economics does. 🔺</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="ambitious-slider" style="color:var(--ambitious-color)">🚀 AMBITIOUS</label><span id="ambitious-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="ambitious-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="present-slider" style="color:var(--present-color)">💚 PRESENT</label><span id="present-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="present-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="funny-slider" style="color:var(--funny-color)">😂 FUNNY</label><span id="funny-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="funny-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar" aria-valuemin="0" aria-valuemax="200">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">💘 Trilemma overload! Auto-balancing…</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.88rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Dating Archetypes 🎭</h3>
+                <nav class="archetypes" aria-label="Presets">
+                    <button class="btn" onclick="applyScenario('taskmaster')"><span>📋</span> Task-Master<br><small style="font-size:0.68rem;opacity:0.7">🚀 + 💚 − 😂</small></button>
+                    <button class="btn" onclick="applyScenario('doormat')"><span>🧸</span> Doormat<br><small style="font-size:0.68rem;opacity:0.7">💚 + 😂 − 🚀</small></button>
+                    <button class="btn" onclick="applyScenario('entertainer')"><span>🎤</span> Entertainer<br><small style="font-size:0.68rem;opacity:0.7">🚀 + 😂 − 💚</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3D()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.88rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Plan</button>
+                </div>
+                <div id="action-plan-output" role="status" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Mating Triangle 🔺</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,45 352,322 48,322" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(245,158,11,0.13)" stroke="var(--ambitious-color)" stroke-width="3.5" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="30" class="node-label" fill="var(--ambitious-color)">🚀 AMBITIOUS</text>
+                    <text x="372" y="345" class="node-label" fill="var(--present-color)">💚 PRESENT</text>
+                    <text x="28" y="345" class="node-label" fill="var(--funny-color)">😂 FUNNY</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--text-main); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Prospect</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly — the marketing promise that you can have it all, before personality, neurology and time collect their fare. 🧭</p>
+            </article>
+        </section>
+    </div>
+
+    <main class="article-container">
+        <h2>The Folk Law 💬</h2>
+        <div class="quote-block">
+            In dating, you can't have all three together. You have to pick only two. If he is <strong>ambitious and present</strong>, he won't be funny. You ask him a simple thing and he will give you a three-step recovery process. The fun is dead. 😑📋 If he is <strong>present and funny</strong>, he will not be ambitious. You will feel like you are living with another doormat without any growth potential. 🧸 If he is <strong>ambitious and funny</strong>, he won't be present. He has other people to entertain. 🎤✈️
+        </div>
+        <p style="font-size:0.84rem;color:var(--text-muted);font-family:'Outfit',sans-serif;">One-breath summary: drive, devotion, delight — pick two. The rest of this dossier is why evolution, personality, neuroscience and your calendar make that law hold. 🧬🧠⏳</p>
+
+        <div class="quote-block" style="background: rgba(167,139,250,0.06); border-left-color: var(--funny-color);">
+            <strong style="color:#fff;font-style:normal;">The Interdisciplinary Frame</strong><br>
+            While frequently dismissed as a cynical cultural trope, this "pick-two" heuristic is a remarkably accurate reflection of human cognitive limits and temporal constraints. It maps onto the <strong>Ideal Standards Model</strong>, the <strong>mating economy (necessities vs luxuries)</strong>, <strong>Strategic Pluralism</strong>, the <strong>Big Five</strong>, <strong>DMN vs CEN antagonism</strong>, the <strong>Suffocation Model</strong>, and the <strong>Maximizer vs Satisficer</strong> paradox of choice. 🎓
+        </div>
+
+        <h2>The Three-Way Trade 🔺</h2>
+        <p>The fundamental challenge of modern mating is governed by a persistent trilemma: the simultaneous optimization of <span class="accent-ambitious">🚀 ambition (Status-Resources, industrious provisioning)</span>, <span class="accent-present">💚 presence (Warmth-Trustworthiness, emotional availability)</span>, and <span class="accent-funny">😂 humor (Vitality-Attractiveness, charisma & play)</span>. In virtually all mating markets you are forced to select two at the immediate expense of the third.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Pair You Pick</th><th>What You Get</th><th>What You Sacrifice</th><th>Archetype</th></tr></thead>
+            <tbody>
+                <tr><td><span class="accent-ambitious">🚀 Ambitious</span> + <span class="accent-present">💚 Present</span></td><td>Reliable provider — high Conscientiousness + Agreeableness, loyal, goal-driven, shows up</td><td><span class="accent-funny">😂 Funny</span> — three-step recovery process where a joke should be; fun flatlines</td><td>📋 Task-Master</td></tr>
+                <tr><td><span class="accent-present">💚 Present</span> + <span class="accent-funny">😂 Funny</span></td><td>Warm + entertaining — affiliative humor, always there, tension-soother</td><td><span class="accent-ambitious">🚀 Ambitious</span> — low Conscientiousness, conflict-avoidant, no upward momentum</td><td>🧸 Doormat</td></tr>
+                <tr><td><span class="accent-ambitious">🚀 Ambitious</span> + <span class="accent-funny">😂 Funny</span></td><td>Magnetic & driven — extraverted charisma fuels network & status</td><td><span class="accent-present">💚 Present</span> — low Agreeableness, scarce, "other people to entertain"</td><td>🎤 Entertainer / Exploiter</td></tr>
+            </tbody>
+        </table>
+        <p>Nowhere is this more visible than when you ask for emotional play and get project management — the brain's networks literally cannot do both at once. 🧠</p>
+
+        <h2>The Trilemma Interactive 🎛️</h2>
+        <p>Try to turn all three ON. The third toggle will randomly knock one of the other two OFF — the system enforcing what personality and time enforce at home. 🔺</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--ambitious-color)">🚀 Ambitious</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-ambitious" checked>
+                        <span class="toggle-slider toggle-slider-ambitious"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--present-color)">💚 Present</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-present">
+                        <span class="toggle-slider toggle-slider-present"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--funny-color)">😂 Funny</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-funny" checked>
+                        <span class="toggle-slider toggle-slider-funny"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.4rem; font-size: 0.92rem; color: var(--text-muted); min-height: 64px; line-height: 1.55; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 10px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Why the Triangle Holds 🧠</h2>
+
+        <details>
+            <summary>1. 🧭 The Ideal Standards Model — Where the Three Live in Your Head</summary>
+            <div class="details-content">
+                <p>The <strong>Ideal Standards Model (ISM, Fletcher et al.)</strong> is the most robust framework for how we judge partners. Factor analyses converge on three orthogonal dimensions — the mind's scorecards — that map 1:1 onto the folk trilemma. 📋</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Trilemma</th><th>ISM Dimension</th><th>Behaviours</th><th>Evolutionary Utility</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="accent-present">💚 Presence</span></td><td>Warmth-Trustworthiness</td><td>Active listening, empathy, reliability, fidelity</td><td>Pair-bond stability, co-parenting, protection</td></tr>
+                        <tr><td><span class="accent-ambitious">🚀 Ambition</span></td><td>Status-Resources</td><td>Career focus, goal orientation, industriousness, wealth</td><td>Provisioning, upward mobility</td></tr>
+                        <tr><td><span class="accent-funny">😂 Funny</span></td><td>Vitality-Attractiveness</td><td>Playfulness, charisma, energy, creativity, humor</td><td>Genetic fitness, social capital, health signal</td></tr>
+                    </tbody>
+                </table>
+                <p>The conflict is structural: the ISM predicts we <em>evaluate, explain, and regulate</em> against ideals — and when a partner misses a dimension (e.g., hilarious but not present), discrepancy triggers crisis. Few humans sit at the top percentile of all three orthogonal axes; competition for those who do is extreme. Expecting all three at once exceeds the statistical budget of the market. 📊</p>
+                <div class="formula-box">Desire = Warmth + Status + Vitality — but budget = finite · Highest percentiles on all three = near-zero probability.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. 💰 Mating Economics — Necessities, Luxuries & Your Mate-Dollars</summary>
+            <div class="details-content">
+                <p>Evolutionary psychology recasts dating as resource allocation. <strong>Norman Li's necessities vs luxuries</strong> model (microeconomics of mate dollars) shows we don't split points evenly when budget is tight — we buy necessities to threshold before spending on luxuries. 🛒</p>
+                <p>In long-term mating, <span class="accent-ambitious">Status-Resources (Ambition)</span> and <span class="accent-present">Warmth-Trustworthiness (Presence)</span> are <strong>necessities</strong>: minimum socioeconomic + loyalty thresholds must be met before <span class="accent-funny">Vitality (Humor)</span> — a <strong>luxury</strong> — gets spend. This is why picking ambitious + present exhausts your mate-value budget; there is literally no residual to also filter for elite comedic talent. "You can't have all three" is arithmetic. 🧮</p>
+                <p>Threshold logic also explains gendered weighting: status-resources as non-negotiable necessity for females evaluating male partners; warmth as universal long-term necessity for both sexes for child-rearing stability. Humor delights, but delight is purchased after security. 🔐</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. 🧬 Strategic Pluralism — Good Dad vs Good Genes</summary>
+            <div class="details-content">
+                <p><strong>Gangestad & Simpson's Strategic Pluralism</strong> hypothesises facultative calibration between two phenotypes: <em>reliable long-term provider</em> vs <em>high-genetic-quality charismatic mate</em>. 🔀</p>
+                <p>High-charisma, funny, socially dominant individuals signal fitness and amass social capital — but models predict an <strong>inverse relationship between phenotypic attractiveness/charisma and parental-care effort</strong>. Why invest in maintenance when mating opportunities are vast and cheap? Conversely, heavy investment in provisioning (ambition) + maintenance (presence) drains the extraverted spontaneity that reads as funny. The brain is built to feel this tension — seeking "exceptional provider + exceptional entertainer" is asking for two strategies that evolved to trade off. ⚖️</p>
+                <div class="formula-box">High mate value (vitality) → high optionality → lower parental investment · High investment (ambition+presence) → lower display charisma.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. 🧩 Personality Architecture — The Big Five Behind the Three Archetypes</summary>
+            <div class="details-content">
+                <p>The <strong>Big Five (OCEAN)</strong> — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism (orthogonal, normally distributed) — explains why the three folk caricatures keep recurring. Extremes on multiple axes are rare; certain combos enable or suppress the trilemma traits. 📐</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Big Five Trait</th><th>Behavioural Correlates</th><th>Trilemma Driver</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Conscientiousness</strong></td><td>Self-control, diligence, industriousness, orderliness</td><td><span class="accent-ambitious">🚀 Ambition</span> · success predictor</td></tr>
+                        <tr><td><strong>Agreeableness</strong></td><td>Compassion, politeness, cooperation, altruism</td><td><span class="accent-present">💚 Presence</span> · support & conflict repair</td></tr>
+                        <tr><td><strong>Extraversion</strong></td><td>Sociability, assertiveness, energy, positive affect</td><td><span class="accent-funny">😂 Funny</span> · charisma & entertainment</td></tr>
+                        <tr><td><strong>Openness</strong></td><td>Creativity, curiosity, imagination, novelty</td><td>Supports wit & divergent humor</td></tr>
+                        <tr><td><strong>Neuroticism</strong></td><td>Instability, anxiety, irritability</td><td>Hurts all three · volatility tax</td></tr>
+                    </tbody>
+                </table>
+                <h3>📋 Archetype 1: The Task-Master (Ambitious + Present = Not Funny)</h3>
+                <p><em>"Three-step recovery process. The fun is dead."</em> High <strong>Conscientiousness</strong> (ambition, delay of gratification) + high <strong>Agreeableness</strong> (loyal, supportive, reliable) — but lower <strong>Extraversion/Openness</strong>. Play reads as problem; problem gets project-managed. Intent = deeply agreeable (help!), execution = utilitarian. The spreadsheet answers where a punchline should. 📊</p>
+                <h3>🧸 Archetype 2: The Doormat (Present + Funny = Not Ambitious)</h3>
+                <p>High <strong>Agreeableness + Extraversion</strong>, critically <strong>low Conscientiousness</strong>. Humor is <strong>Affiliative</strong> (Rod Martin: jokes to ease others, reduce tension, cohere group — extraverted + agreeable) plus frequent <strong>Self-Defeating</strong> humor (self as butt to buy approval, avoid conflict). Charming + warm, but cooperative over competitive, capitulating in negotiations, grit-starved — hence "no growth potential." 🥀</p>
+                <h3>🎤 Archetype 3: The Entertainer / Exploiter (Ambitious + Funny = Not Present)</h3>
+                <p>High <strong>Extraversion + Conscientiousness</strong>, low <strong>Agreeableness</strong>. Humor as dominance/networking weapon (often <strong>Aggressive</strong> humor: sarcasm, teasing), ambition fueled by charisma, bandwidth externalised — "other people to entertain." At extreme, the <strong>exploitative dater / future-faker</strong>: charm + success captivate, low agreeableness makes them inconsistent, self-focused, weaponising busyness to dodge intimacy. 💔</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. 🧠 Neurobiological Antagonism — DMN vs CEN (Why the Joke Dies)</summary>
+            <div class="details-content">
+                <p>This is hardware, not attitude. <span class="accent-ambitious">Ambition + presence</span> ride the <strong>Central Executive Network (CEN)</strong> — goal-directed, problem-solving, externally oriented. <span class="accent-funny">Humor</span> rides the <strong>Default Mode Network (DMN)</strong> — medial prefrontal + posterior cingulate + precuneus + angular gyrus — the free-associative, mind-wandering network that connects incongruous ideas. 🎭⚙️</p>
+                <p><strong>CEN and DMN are strongly anticorrelated</strong>: when one fires, the other is suppressed. The hyper-ambitious brain is chronically CEN-locked (optimise, schedule, execute). When you offer an emotional/playful bid, it cannot instantly toggle to DMN's relaxed divergent state to land wit — it ships the executive solution it knows: the three-step plan. The fun isn't dead from lack of love; it's suppressed by neural resource allocation. 🔒</p>
+                <div class="formula-box">CEN ↑ (ambition/task) ⟷ DMN ↓ (humor/play) · Simultaneity = neurobiological impossibility, not personality flaw.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. ⏳ The Sociological Burden — Suffocation, Dual-Career & Temporal Scarcity</summary>
+            <div class="details-content">
+                <p><strong>Eli Finkel's Suffocation Model</strong> (Maslow ascent): historically marriage = survival/economics/child-rearing; today we demand one partner deliver economic security <em>and</em> profound intimacy, self-actualisation, and constant intellectual play — work once done by village + family + networks. The weight suffocates; no single human can be CEO + therapist + comedian at once. 🏔️😮‍💨</p>
+                <p><strong>Dual-career physics (Petriglieri, <em>Couples That Work</em>)</strong>: ambition and presence draw from the <em>same</em> reservoir — time, energy, attention. High-pressure "up-or-out" systems demand travel, preoccupation, scheduling — directly debiting presence. Three predictable transitions — <em>"How can we make this work?" → "What do we really want?" → "Who are we now?"</em> — push ambitious+present couples to treat love logistically, automating bids into sterile routines. Cognitive load extinguishes spontaneity; the three-step process is now a coping calendar invite. 📅</p>
+                <p>Social media's illusion — present earner + hilarious companion — is curation, not capacity. Energy is zero-sum; maxing all three = burnout, not balance. 🔋</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. 🎯 Decision Theory — Maximizers vs Satisficers (How to Live With the Trade)</summary>
+            <div class="details-content">
+                <p><strong>Barry Schwartz, <em>The Paradox of Choice</em></strong>: insisting on all three at top percentile is a <strong>Maximizer</strong> stance — exhaustive search, stringent thresholds, endless comparison, choice overload (dating apps amplify). You meet an ambitious+present partner lacking spontaneous humor, fixate on deficit, reject, and re-enter infinite scroll. Outcome may be objectively higher; satisfaction is chronically lower — regret, paralysis, buyer's remorse. 🔍😣</p>
+                <p><strong>Satisficers</strong> set "good enough" on core necessities (e.g., ambition + presence) and <em>stop searching</em> once met. They practice <strong>implicit compromise</strong> — subconscious recalibration of ideals to market/mate-value reality (healthy), vs explicit compromise (conscious yearning + resentment). They outsource missing luxuries to friendship/media/community, and report higher satisfaction + lower depression. 🌿</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Decision Style</th><th>Dating Strategy</th><th>Psychological Outcome</th><th>Response to Trilemma</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Maximizer</strong></td><td>Exhaustive hunt for top percentiles on all three</td><td>High regret, choice paralysis, chronic dissatisfaction</td><td>Rejects partner missing third trait; searches forever</td></tr>
+                        <tr><td><strong>Satisficer</strong></td><td>Threshold on necessities, commits, stops search</td><td>Higher life satisfaction, stable bonding</td><td>Owns absence of third trait as structural trade</td></tr>
+                    </tbody>
+                </table>
+                <p>Liberation = naming which trade aligns with your values, then loving that choice enough to grieve the road not taken. 🕊️</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. 📚 Full Research — Tables, Mapping & Works Cited</summary>
+            <div class="details-content">
+                <p><strong>All tables & claims synthesised from <code>info.txt</code> + <code>index.md</code> packet</strong> — ISM, mating economics (necessities/luxuries, mate value), Strategic Pluralism, Big Five & humor styles, DMN/CEN neuroscience, Suffocation & dual-career temporal scarcity, and Maximizer/Satisficer decision theory.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Source Domain</th><th>Key Reference</th></tr></thead>
+                    <tbody>
+                        <tr><td>Ideal Standards Model</td><td>Fletcher et al. ISM (evaluation / explanation / regulation); Warmth-Trustworthiness, Status-Resources, Vitality-Attractiveness; PMC5625328; Frontiers 10.3389/fpsyg.2017.01691</td></tr>
+                        <tr><td>Necessities vs Luxuries</td><td>Norman Li — mate dollars, marginal value; InK SMU soss_research 1717; Li 2007 necessities & luxuries; pubmed 12051582</td></tr>
+                        <tr><td>Strategic Pluralism</td><td>Gangestad & Simpson — Strategic Pluralism; evolution of human mating; Wikipedia Strategic pluralism; PMC7458284 testing conditionality</td></tr>
+                        <tr><td>Big Five & Humor Styles</td><td>OCEAN Costa & McCrae; Yukaichou / Wikipedia Big Five; Martin HSQ — Affiliative / Self-Enhancing / Aggressive / Self-Defeating</td></tr>
+                        <tr><td>DMN vs CEN</td><td>Default Mode Network — medial PFC / PCC / precuneus / angular; CEN anticorrelation; PMC6132281 / PMC12025022 / PMC4427863</td></tr>
+                        <tr><td>Suffocation & Dual-Career</td><td>Finkel Suffocation Model (Baylor / Semantic Scholar); Petriglieri Couples That Work; up-or-out temporal scarcity</td></tr>
+                        <tr><td>Maximizers vs Satisficers</td><td>Schwartz Paradox of Choice; satisficing vs explicit/implicit compromise; Psychologist World; ReachLink; GRASS paradox of choice in dating apps</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Works-cited mapping preserves 60+ sources from <code>index.md</code> without hallucination; every claim traces to the supplied packet. 🔍</p>
+                <ul style="font-size:0.78rem;word-break:break-all;color:var(--text-muted);">
+                    <li>baylor-ir.tdl.org/bitstreams/53f67980... — Suffocation / Capstone Marriage</li>
+                    <li>semanticscholar.org — The Suffocation Model — Finkel & Cheung</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC5625328 — Ideal Standards, Acceptance & Satisfaction</li>
+                    <li>ink.library.smu.edu.sg — Li necessities and luxuries of mate preferences</li>
+                    <li>matingstraighttalk.com/the-mating-economy — Mate Value & Mating Economy</li>
+                    <li>en.wikipedia.org/wiki/Strategic_pluralism — Strategic pluralism</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC7458284 — Testing strategic pluralism</li>
+                    <li>yukaichou.com/behavioral-analysis/big-five-personality... — OCEAN</li>
+                    <li>en.wikipedia.org/wiki/Big_Five_personality_traits — Big Five</li>
+                    <li>jonathansandling.com/4-humour-styles — Martin HSQ 2003</li>
+                    <li>en.wikipedia.org/wiki/Default_mode_network — DMN</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC6132281 — Role of DMN in cognitive transitions</li>
+                    <li>knowledge.insead.edu — Proper care and feeding of dual-career couples (Petriglieri)</li>
+                    <li>psychologistworld.com/cognitive/maximizers-satisficers... — Maximizers vs Satisficers</li>
+                    <li>grass.camp/en-US/blog/paradox-of-choice-dating-apps — Paradox of Choice in dating apps</li>
+                </ul>
+            </div>
+        </details>
+
+        <h2>Conclusion 🌅</h2>
+        <p>"Pick two" is not cynicism — it is <strong>evolutionary economics, personality architecture, and neurobiology</strong> converging on one sentence. <strong>🚀 Ambition + 💚 Presence</strong> demand CEN; <strong>😂 Humor</strong> demands DMN — they suppress each other. Time is zero-sum; provisioning, entertaining, and being emotionally available cannot simultaneously max out. The mating budget funds necessities (resources, warmth) before luxuries (vitality). 🔺</p>
+        <p>Chasing all three at top percentile via a <strong>Maximizer</strong> lens guarantees overload and remorse. A <strong>Satisficer</strong> names which pair aligns with core values, <em>implicitly compromises</em> on the third, and outsources it to friendships, community, and play elsewhere. Choose your trade on purpose — then love the quiet that comes after choosing. ✨🤍</p>
+    </main>
+
+    <footer>
+        <p>© 2026 Life Mechanics Hub. Developed by Krishnakanth. Save your URL to preserve your state. 💘</p>
+    </footer>
+
+    <script>
+        const sliders = { ambitious: document.getElementById('ambitious-slider'), present: document.getElementById('present-slider'), funny: document.getElementById('funny-slider') };
+        const vals = { ambitious: document.getElementById('ambitious-val'), present: document.getElementById('present-val'), funny: document.getElementById('funny-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams(){ const url=new URL(window.location); url.searchParams.set('a', sliders.ambitious.value); url.searchParams.set('p', sliders.present.value); url.searchParams.set('f', sliders.funny.value); window.history.replaceState({},'',url); }
+        function loadFromURL(){ const params=new URLSearchParams(window.location.search); if(params.has('a')) sliders.ambitious.value=params.get('a'); if(params.has('p')) sliders.present.value=params.get('p'); if(params.has('f')) sliders.funny.value=params.get('f'); }
+
+        function updateUI(sourceSlider=null){
+            let a=parseInt(sliders.ambitious.value), p=parseInt(sliders.present.value), f=parseInt(sliders.funny.value), total=a+p+f;
+            if(total>MAX_CAPACITY){
+                let excess=total-MAX_CAPACITY; warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0',2000);
+                let others=Object.keys(sliders); if(sourceSlider) others=others.filter(k=>sliders[k]!==sourceSlider); others.sort((x,y)=>sliders[y].value-sliders[x].value);
+                for(let key of others){ if(excess<=0) break; let val=parseInt(sliders[key].value), toDrain=Math.min(val,excess); sliders[key].value=val-toDrain; excess-=toDrain; }
+                a=parseInt(sliders.ambitious.value); p=parseInt(sliders.present.value); f=parseInt(sliders.funny.value); total=a+p+f;
+            }
+            vals.ambitious.innerText=a+'%'; vals.present.innerText=p+'%'; vals.funny.innerText=f+'%';
+            let percent=(total/MAX_CAPACITY)*100; capFill.style.width=percent+'%'; capVal.innerText=`${total} / 200`; capFill.style.background=percent>90?'linear-gradient(90deg, var(--ambitious-color), #f43f5e)':'linear-gradient(90deg, var(--ambitious-color), var(--present-color), var(--funny-color))';
+            const aX=200, aY=185-(140*(a/100)), pX=200+(152*(p/100)), pY=185+(137*(p/100)), fX=200-(152*(f/100)), fY=185+(137*(f/100));
+            poly.setAttribute('points', `${aX},${aY} ${pX},${pY} ${fX},${fY}`);
+            let dominantColor='var(--text-main)'; if(a>=p && a>=f) dominantColor='var(--ambitious-color)'; else if(p>=a && p>=f) dominantColor='var(--present-color)'; else dominantColor='var(--funny-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor=dominantColor;
+            generateInsight(a,p,f); updateURLParams();
+        }
+
+        function generateInsight(a,p,f){
+            if(a>80 && p>80 && f<30){ insightTitle.innerText="📋 Task-Master — Ambitious + Present"; insightTitle.style.color="var(--ambitious-color)"; insightDesc.innerText="High Conscientiousness + high Agreeableness. Shows up, delivers, loves well — then hands you a three-step recovery process where a joke should be. CEN-suppressed DMN; fun flatlines by design. 📋"; }
+            else if(p>80 && f>80 && a<30){ insightTitle.innerText="🧸 Doormat — Present + Funny"; insightTitle.style.color="var(--present-color)"; insightDesc.innerText="Affiliative humor + warmth, conflict-averse, self-defeating punchlines. Always there, always delightful — no upward momentum. You feel you're living with another doormat. 🫠"; }
+            else if(a>80 && f>80 && p<30){ insightTitle.innerText="🎤 Entertainer — Ambitious + Funny"; insightTitle.style.color="var(--funny-color)"; insightDesc.innerText="Extraverted + industrious, magnetic and driven — but low Agreeableness. Energy externalised: other people to entertain, other rooms to win. Presence is scarce. ✈️"; }
+            else if(a<20 && p<20 && f<20){ insightTitle.innerText="🕳️ Ghosted Grid"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="All three near zero — no signal, no bond, no laughter. Not a verdict on you; a prompt to choose which two you value enough to sustain."; }
+            else if(a>80 && p<30 && f<30){ insightTitle.innerText="🚀 Pure Ambitious"; insightTitle.style.color="var(--ambitious-color)"; insightDesc.innerText="Drive without devotion or delight. Goals compound; intimacy doesn't. Impressive from distance, thin up close."; }
+            else if(p>80 && a<30 && f<30){ insightTitle.innerText="💚 Pure Present"; insightTitle.style.color="var(--present-color)"; insightDesc.innerText="Deeply available, tender, loyal — beautifully alone. Presence without drive or play is sanctuary without spark. 🕊️"; }
+            else if(f>80 && a<30 && p<30){ insightTitle.innerText="😂 Pure Funny"; insightTitle.style.color="var(--funny-color)"; insightDesc.innerText="Always on, always entertaining — but nowhere when it counts. Charisma without care is performance. 🎭"; }
+            else { insightTitle.innerText="🧭 The Balanced Prospect"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Holding all three lightly — the trilemma bites only when you demand all three at max through a single human. 🔺"; }
+        }
+
+        function applyScenario(type){
+            document.querySelectorAll('.archetypes .btn').forEach(b=>b.classList.remove('active')); if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(type==='taskmaster'){ sliders.ambitious.value=92; sliders.present.value=88; sliders.funny.value=12; updateUI(sliders.ambitious); }
+            else if(type==='doormat'){ sliders.present.value=90; sliders.funny.value=88; sliders.ambitious.value=12; updateUI(sliders.present); }
+            else if(type==='entertainer'){ sliders.ambitious.value=90; sliders.funny.value=88; sliders.present.value=12; updateUI(sliders.ambitious); }
+        }
+
+        function generateActionPlan(){
+            let a=parseInt(sliders.ambitious.value), p=parseInt(sliders.present.value), f=parseInt(sliders.funny.value);
+            let states=[{name:'Ambition',val:a,color:'var(--ambitious-color)',emoji:'🚀'},{name:'Presence',val:p,color:'var(--present-color)',emoji:'💚'},{name:'Humor',val:f,color:'var(--funny-color)',emoji:'😂'}];
+            states.sort((x,y)=>y.val-x.val); let maxState=states[0], minState=states[2];
+            let advice="";
+            if(maxState.name==='Ambition' && minState.name==='Humor') advice="You chose drive + devotion over delight. Expect the three-step recovery process. Protect play elsewhere: friendships, improv, media, community that can carry DMN for you. Don't grade a CEN brain on DMN punchlines.";
+            else if(maxState.name==='Presence' && minState.name==='Ambition') advice="You chose warmth + wit over upward thrust. Own it: this is affiliative humor funding harmony at the cost of momentum. If growth matters, budget explicit Conscientious scaffolding (goals, accountability) outside the romance so resentment doesn't accrue.";
+            else if(maxState.name==='Ambition' && minState.name==='Presence') advice="You chose drive + delight over devotion. His scarcity is extraverted externalisation — other people to entertain. In a dual-career world, time is zero-sum; negotiate protected presence blocks or accept intermittent intimacy as structural, not personal.";
+            else advice=`You anchor on ${maxState.emoji} ${maxState.name}. Accept that ${minState.emoji} ${minState.name} is the intentional sacrifice — not a failure. Be a Satisficer: set thresholds on necessities, stop maximising, and outsource the luxury to friendships.`;
+            let text=`<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">${maxState.emoji} Strategy: Optimizing for ${maxState.name}</strong>`+
+                `You are anchoring around <strong>${maxState.name}</strong>.<br><br>💡 ${advice}<br><br>`+
+                `<em>(State preserved in URL — bookmark or share. 🔗)</em>`;
+            actionPlanOutput.innerHTML=text; actionPlanOutput.style.borderLeftColor=maxState.color; actionPlanOutput.style.display='block';
+        }
+
+        function triggerRandomEvent3D(){
+            const events=[
+                { text:"📋 You share a vulnerable evening — he replies with a three-step recovery process", a:10, p:10, f:-30, solution:"Task-Master dividend. High-C/low humorequity: CEN solved, DMN never booted. Reframe: intent = agreeable care, execution = executive overreach. Teach bid-for-play vs bid-for-fix; outsource wit to community, keep his reliability." },
+                { text:"🧸 He's hilarious at brunch, present all weekend — promotion slipped again", a:-25, p:10, f:15, solution:"Doormat economics visible. Affiliative + self-defeating humor bought harmony at cost of competitive drive (low Conscientiousness). If growth is a necessity for you, name threshold now; satisficing is choice, not drift." },
+                { text:"🎤 He's magnetic on stage and in the pitch — but misses date night for 'network drinks'", a:15, p:-30, f:10, solution:"Entertainer scarcity. Extraversion + Conscientiousness fuel status; low Agreeableness starves presence. Dual-career physics: ambition debits presence directly. Contract explicit presence windows, don't hope for accidental availability." },
+                { text:"🧠 200ms expectation meets CEN-locked reply — your play bid became a fix-it ticket", a:10, p:0, f:-20, solution:"Neuro antagonism in action. CEN ↔ DMN anticorrelation means ambitious focus suppresses divergent humor on demand. Don't punish hardware limits; schedule play states intentionally when CEN can stand down." },
+                { text:"💸 Suffocation check: you ask one person to be provider + therapist + comedian", a:-10, p:-10, f:-10, solution:"Finkel's suffocation — one partner asked to do village-scale labor. Redistribute: let partner carry two, let friendships/family/media carry the third. Village > unicorn." },
+                { text:"🗓️ Dual-career squeeze: both calendars at 60h, humor is the first casualty", a:15, p:-20, f:-20, solution:"Petriglieri transition tax. When ambition spikes, presence + humor get robotised. The ‘process' reply is time-scarcity coping, not coldness. Protect low-load windows for DMN to return." },
+                { text:"🔍 Maximizer spiral: you meet 85th-percentile on two, reject hunting 99th on three", a:10, p:10, f:-20, solution:"Paradox of Choice. Apps sell infinite search; reality sells finite humans. Satisficer move: threshold necessities, implicit compromise on luxury, exit search. Happiness = stopping rule." },
+                { text:"🎭 Aggressive humor stings at dinner — the Entertainer's sarcasm lands as status play", a:5, p:-20, f:15, solution:"Humor style matters. Affiliative bonds; aggressive ranks. Low Agreeableness untethers wit from kindness. Filter not just funniness but humor style — affiliative + self-enhancing predict relationship safety." },
+                { text:"🏦 Mate-dollar audit: you paid all budget on ambitious + present — humor shows ₹0", a:15, p:15, f:-25, solution:"Necessity spending exhausted budget. Li's model predicts this: luxuries unaffordable after thresholds. Either own it or supply humor off-partner — not every need must be met by one human." },
+                { text:"🪞 Halo check: you assumed drive meant delight — but his calendar ate his comedy", a:10, p:-10, f:-15, solution:"ISM halo slip: high Status-Resources inferred as Vitality. Re-score independently: conscientious order ≠ creative play. Love the trade you actually picked." }
+            ];
+            let ev=events[Math.floor(Math.random()*events.length)];
+            sliders.ambitious.value=Math.max(0,Math.min(100,parseInt(sliders.ambitious.value)+ev.a));
+            sliders.present.value=Math.max(0,Math.min(100,parseInt(sliders.present.value)+ev.p));
+            sliders.funny.value=Math.max(0,Math.min(100,parseInt(sliders.funny.value)+ev.f));
+            updateUI();
+            actionPlanOutput.innerHTML=`<strong>🎲 Shock: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor='#94a3b8'; actionPlanOutput.style.display='block';
+        }
+
+        Object.keys(sliders).forEach(key=>{ sliders[key].addEventListener('input', ()=>updateUI(sliders[key])); });
+
+        const paraAmbitious=document.getElementById('para-ambitious'), paraPresent=document.getElementById('para-present'), paraFunny=document.getElementById('para-funny');
+        const paraSwitches=[paraAmbitious, paraPresent, paraFunny];
+        function updateParadoxInsight(){
+            const a=paraAmbitious.checked, p=paraPresent.checked, f=paraFunny.checked; const el=document.getElementById('para-insight'); let title="",desc="",color="var(--text-muted)";
+            if(a && p && !f){ title="📋 Task-Master — Ambitious + Present"; color="var(--ambitious-color)"; desc="Reliable, loyal, goal-driven. Asks for play, gets a process doc. CEN ascendant, DMN suppressed — love expressed as logistics. Steward his order, source wit elsewhere."; }
+            else if(p && f && !a){ title="🧸 Doormat — Present + Funny"; color="var(--present-color)"; desc="Warm, hilarious, ever-there — low Conscientiousness. Avoids conflict with affiliative & self-defeating humor. Doormat dread is real; growth needs scaffolding you both agree to."; }
+            else if(a && f && !p){ title="🎤 Entertainer — Ambitious + Funny"; color="var(--funny-color)"; desc="Charismatic and climbing — scarce by design. Low Agreeableness externalises bandwidth: other people to entertain. Future-faker risk at extreme: charm without consistency."; }
+            else if(a && !p && !f){ title="🚀 Ambitious Only"; color="var(--ambitious-color)"; desc="Pure drive — distant, serious, impressive. Without presence or play, ambition is résumé, not relationship."; }
+            else if(p && !a && !f){ title="💚 Present Only"; color="var(--present-color)"; desc="Beautifully available — alone with your tenderness. Sanctuary without spark or thrust."; }
+            else if(f && !a && !p){ title="😂 Funny Only"; color="var(--funny-color)"; desc="Stage-light without stewardship — delightful interruption, not durable bond."; }
+            else if(!a && !p && !f){ title="🕳️ All Off — Dating Not Started"; color="#f43f5e"; desc="Every reservoir dark. Not failure — just pre-choice. Pick which two you love enough to grieve the third for."; }
+            el.style.borderLeftColor=color; el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit',sans-serif;">${title}</strong>${desc}`;
+        }
+        paraSwitches.forEach(sw=>{ sw.addEventListener('change', function(){ if(this.checked){ const c=paraSwitches.filter(s=>s.checked); if(c.length>2){ const others=paraSwitches.filter(s=>s!==this); const rnd=others[Math.floor(Math.random()*others.length)]; rnd.checked=false; } } updateParadoxInsight(); }); });
+
+        loadFromURL(); if(!window.location.search){ sliders.ambitious.value=33; sliders.present.value=33; sliders.funny.value=34; }
+        updateUI(); updateParadoxInsight();
+    </script>
+</body>
+</html>

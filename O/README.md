@@ -17,6 +17,7 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Leisure Trilemma (3V)](3V/)**: Memorable, Budget-Friendly, Stress-Free — pick two. Navigate the Iron Triangle of travel, Type 2 Fun, hedonic adaptation & why your best stories were miserable in the moment.
 *   **[The Transit Trilemma (3T)](3T/)**: Fast, Comfortable, Affordable — pick two.
 *   **[The Courtship Trilemma (3R)](3R/)**: Attractive, Emotionally Mature, Replies Fast — pick two. Deconstruct Halo Effect, attachment theory, Gottman bids, Rejection Sensitive Dysphoria, Communication Privacy Management & sexual economics.
+*   **[The Dating Trilemma (3D)](3D/)**: Ambitious, Present, Funny — pick two. Deconstruct the Ideal Standards Model, Strategic Pluralism, Big Five archetypes, DMN vs CEN antagonism, the Suffocation Model & Maximizers vs Satisficers.
 
 ---
 
@@ -42,6 +43,7 @@ AI-powered applications, text utilities, and gaming arenas.
 - 3V - 3 Things about Vacation / Leisure Travel
 - 3T - 3 Things about Transit / Travel / Mobility
 - 3R - 3 Things about Romance / Relationship
+- 3D - 3 Things about Dating / Mating
 
 - 7B - 7 Stages of Heart Break / Grief / Loss
 - 3S - 3 Switches - Time / Money / Health
@@ -58,5 +60,6 @@ AI-powered applications, text utilities, and gaming arenas.
 - Skill: [Skill](life_mechanics_generator.md)
 - Main: [Index](index.html)
 - Readme: [Details](README.md)
+- Promt: [Prompt Template](prompt_template.txt)
 
 ---

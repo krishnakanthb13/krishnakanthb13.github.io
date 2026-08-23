@@ -1,0 +1,41 @@
+2026-08-23 15:15:03
+
+- W - Work
+- V - Vacation
+- R - Romance / Relationship
+- T - Travel
+
+@3W\info.txt and @3W\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3W\info.txt and @3W\index.md to build the index.html. and update @index.html with the newly created index.html
+
+- @3V\info.txt and @3V\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3V\info.txt and @3V\index.md to build the index.html. and update @index.html with the newly created index.html.
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+- @3D\info.txt and @3D\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3D\info.txt and @3D\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+- @3T\info.txt and @3T\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3T\info.txt and @3T\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+- D - Dating
+- P - Peer / Pals
+- A - Attire / Appearance / Aesthetic
+
+- D - Dating
+- @3D\info.txt and @3D\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3D\info.txt and @3D\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+- P - Peer / Pals
+- @3P\info.txt and @3P\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3P\info.txt and @3P\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+- A - Attire / Appearance / Aesthetic
+- @3A\info.txt and @3A\index.md - use this to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @3A\info.txt and @3A\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
+---

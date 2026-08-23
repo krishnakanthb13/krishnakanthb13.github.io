@@ -30,6 +30,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/) — Memorable, Budget-Friendly, Stress-Free — pick two. The Iron Triangle of travel.
 	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/) — Fast, Comfortable, Affordable — pick two.
 	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/) — Attractive, Emotionally Mature, Replies Fast — pick two.
+	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/) — Ambitious, Present, Funny — pick two. Ideal Standards, DMN vs CEN, Recovery Process.
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 	- [NoteTile](https://krishnakanthb13.github.io/O/NT/) — A fast, offline-first, Progressive Web App for taking notes.
@@ -87,6 +88,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/): Memorable, Budget-Friendly, Stress-Free — pick two (Iron Triangle of travel).
 	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/): Fast, Comfortable, Affordable — pick two.
 	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/): Attractive, Emotionally Mature, Replies Fast — pick two.
+	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/): Ambitious, Present, Funny — pick two (Ideal Standards, DMN vs CEN, Recovery Process).
 
 ---
 
