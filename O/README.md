@@ -18,6 +18,7 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Transit Trilemma (3T)](3T/)**: Fast, Comfortable, Affordable — pick two.
 *   **[The Courtship Trilemma (3R)](3R/)**: Attractive, Emotionally Mature, Replies Fast — pick two. Deconstruct Halo Effect, attachment theory, Gottman bids, Rejection Sensitive Dysphoria, Communication Privacy Management & sexual economics.
 *   **[The Dating Trilemma (3D)](3D/)**: Ambitious, Present, Funny — pick two. Deconstruct the Ideal Standards Model, Strategic Pluralism, Big Five archetypes, DMN vs CEN antagonism, the Suffocation Model & Maximizers vs Satisficers.
+*   **[The Peer Trilemma (3P)](3P/)**: Funny, Reliable, Smart — pick two. Explore the Big Five, Humor Styles (HSQ), the dumb robot, the vibe killer & why your best group needs Anchor, Spark & Glue.
 
 ---
 
@@ -44,6 +45,7 @@ AI-powered applications, text utilities, and gaming arenas.
 - 3T - 3 Things about Transit / Travel / Mobility
 - 3R - 3 Things about Romance / Relationship
 - 3D - 3 Things about Dating / Mating
+- 3P - 3 Things about Peer / Pals
 
 - 7B - 7 Stages of Heart Break / Grief / Loss
 - 3S - 3 Switches - Time / Money / Health

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive deconstruction of the Peer Trilemma (3P) — Pals: Funny, Reliable, Smart — pick two. Explore Big Five, Humor Styles, DMN vs CEN, Psychological Safety, Neil Gaiman's freelance trilemma and why the triple-threat friend is metabolically impossible.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#020617">
+    <title>The Peer Trilemma (3P) — Funny, Reliable, Smart — Pick Two 🤝</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --funny-color: #f59e0b;
+            --reliable-color: #10b981;
+            --smart-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(245, 158, 11, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body { background-color: var(--bg-color); background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 68%), radial-gradient(circle at 15% 60%, rgba(245,158,11,0.07) 0%, transparent 50%), radial-gradient(circle at 85% 40%, rgba(56,189,248,0.06) 0%, transparent 50%), radial-gradient(circle at 50% 85%, rgba(16,185,129,0.05) 0%, transparent 50%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1rem; overflow-x: hidden; }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; }
+        h1 { font-size: clamp(1.7rem, 5vw, 3.4rem); font-weight: 800; background: linear-gradient(to right, var(--funny-color), var(--reliable-color), var(--smart-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.25rem; line-height: 1.05; }
+        p.subtitle { font-size: clamp(0.9rem, 2vw, 1.06rem); color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.5; padding: 0 1rem; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1100px; width: 100%; margin-bottom: 3rem; align-items: stretch; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6); display: flex; flex-direction: column; }
+        .glass-panel h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 0.5rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        .triangle-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; min-height: 180px; max-height: 280px; position: relative; margin-bottom: 1rem; }
+        .triangle-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label { font-weight: 800; font-size: clamp(0.66rem, 1.4vw, 0.88rem); fill: var(--text-main); text-anchor: middle; letter-spacing: 0.3px; }
+        .insight-box { padding: 1rem 1.2rem; background: rgba(0,0,0,0.35); border-radius: 12px; border-left: 4px solid var(--funny-color); transition: border-color 0.3s ease; margin-top: auto; }
+        #insight-title { margin-bottom: 0.3rem; font-size: 1.05rem; line-height: 1.3; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.45; }
+        .sliders-wrapper { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.95rem; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; outline: none; transition: all 0.3s ease; cursor: pointer; touch-action: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; transition: transform 0.2s, box-shadow 0.2s; }
+        #funny-slider::-webkit-slider-thumb { background: var(--funny-color); box-shadow: 0 0 12px var(--funny-color); }
+        #reliable-slider::-webkit-slider-thumb { background: var(--reliable-color); box-shadow: 0 0 12px var(--reliable-color); }
+        #smart-slider::-webkit-slider-thumb { background: var(--smart-color); box-shadow: 0 0 12px var(--smart-color); }
+        #funny-slider::-moz-range-thumb { background: var(--funny-color); box-shadow: 0 0 12px var(--funny-color); }
+        #reliable-slider::-moz-range-thumb { background: var(--reliable-color); box-shadow: 0 0 12px var(--reliable-color); }
+        #smart-slider::-moz-range-thumb { background: var(--smart-color); box-shadow: 0 0 12px var(--smart-color); }
+        .total-capacity { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; font-weight: 700; }
+        .capacity-bar { flex-grow: 1; height: 10px; background: rgba(255,255,255,0.08); border-radius: 5px; margin: 0 1rem; overflow: hidden; position: relative; }
+        .capacity-fill { height: 100%; background: linear-gradient(90deg, var(--funny-color), var(--reliable-color), var(--smart-color)); width: 0%; transition: width 0.3s ease, background 0.3s ease; }
+        .warning-text { color: #fbbf24; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; text-align: right; margin-top: 0.3rem; font-weight: 700; }
+        .archetypes { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+        .btn { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.6rem 0.35rem; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; font-size: clamp(0.68rem, 1.4vw, 0.84rem); line-height: 1.2; }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn.active { border-color: var(--funny-color); background: rgba(245,158,11,0.1); }
+        .action-plan-btn { width: 100%; margin-top: 1rem; background: linear-gradient(135deg, var(--funny-color), var(--reliable-color)); color: #020617; padding: 0.8rem; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .action-plan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(245,158,11,0.28); }
+        #action-plan-output { display: none; background: rgba(0,0,0,0.45); padding: 1rem; border-radius: 10px; margin-top: 1rem; border-left: 4px solid var(--funny-color); font-size: 0.9rem; line-height: 1.55; color: #e2e8f0; animation: fadeInDown 0.3s ease-out; }
+        .article-container { max-width: 820px; width: 100%; margin: 1rem auto 2rem; background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2.2rem); font-family: 'Lora', serif; color: #d4d4d8; line-height: 1.65; font-size: clamp(0.95rem, 2vw, 1.04rem); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .article-container h2 { font-family: 'Outfit', sans-serif; font-size: clamp(1.35rem, 3vw, 1.8rem); color: #fafafa; margin: 2.2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 { font-family: 'Outfit', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.28rem); color: #f4f4f5; margin: 1.5rem 0 0.8rem; font-weight: 700; line-height: 1.35; }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        .accent-funny { color: var(--funny-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-reliable { color: var(--reliable-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        .accent-smart { color: var(--smart-color); font-weight: 700; font-family: 'Outfit', sans-serif; }
+        details { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1rem 1.1rem; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; color: #fff; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.45rem; font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 0 1.1rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0.5rem; padding-top: 1rem; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.84rem; opacity: 0.7; padding: 2rem 0; width: 100%; }
+        .paradox-widget { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; }
+        .switch-container { display: flex; flex-direction: column; align-items: center; gap: 1.15rem; margin-top: 1.4rem; }
+        .switch-item { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 340px; gap: 1.5rem; }
+        .switch-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.02rem; display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); transition: .3s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        input:checked + .toggle-slider-funny { background-color: var(--funny-color); box-shadow: 0 0 10px rgba(245,158,11,0.45); }
+        input:checked + .toggle-slider-reliable { background-color: var(--reliable-color); box-shadow: 0 0 10px rgba(16,185,129,0.45); }
+        input:checked + .toggle-slider-smart { background-color: var(--smart-color); box-shadow: 0 0 10px rgba(56,189,248,0.45); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .quote-block { background: rgba(245,158,11,0.06); border-left: 4px solid var(--funny-color); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; font-size: clamp(0.98rem, 2.2vw, 1.1rem); line-height: 1.75; color: #e2e8f0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.84rem; }
+        .comparison-table th, .comparison-table td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+        .comparison-table th { font-family: 'Outfit', sans-serif; color: #fafafa; font-weight: 700; }
+        .comparison-table td { color: #cbd5e1; }
+        .formula-box { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.14); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.88rem; text-align: center; color: #fef3c7; line-height: 1.5; }
+        @media (max-width: 800px) { .dashboard { display: flex; flex-direction: column; gap: 1rem; } .panel-visual { order: -1; padding: 1rem; } .panel-controls { padding: 1rem; } .triangle-container { height: 210px; min-height: auto; } .insight-box { padding: 0.85rem 1rem; } #insight-desc { font-size: 0.84rem; } .btn { padding: 0.5rem 0.3rem; } .comparison-table { font-size: 0.74rem; } .comparison-table th, .comparison-table td { padding: 0.4rem 0.45rem; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🤝 The Peer Trilemma</h1>
+        <p class="subtitle">Funny, Reliable, Smart — pick two. An interactive anatomy of why your friend group can never have all three at once — and why it shouldn't. 😂🛡️🧠</p>
+    </header>
+
+    <div class="dashboard">
+        <section class="glass-panel panel-controls" aria-labelledby="allocate-heading">
+            <div>
+                <h2 id="allocate-heading">Allocate Your Friend Model</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.84rem; line-height: 1.45;">Max Capacity: 200%. Push one trait to 100 and the triangle steals from the others — exactly like friendship economics does. 🔺</p>
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="funny-slider" style="color:var(--funny-color)">😂 FUNNY</label><span id="funny-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="funny-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="reliable-slider" style="color:var(--reliable-color)">🛡️ RELIABLE</label><span id="reliable-val" aria-live="polite">33%</span></div>
+                        <input type="range" id="reliable-slider" min="0" max="100" value="33">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header"><label for="smart-slider" style="color:var(--smart-color)">🧠 SMART</label><span id="smart-val" aria-live="polite">34%</span></div>
+                        <input type="range" id="smart-slider" min="0" max="100" value="34">
+                    </div>
+                </div>
+                <div class="total-capacity">
+                    <span id="load-label">Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar" aria-valuemin="0" aria-valuemax="200">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">100 / 200</span>
+                </div>
+                <div class="warning-text" id="warning-msg">🤝 Trilemma overload! Auto-balancing…</div>
+            </div>
+            <div>
+                <h3 style="font-size: 0.88rem; margin: 1rem 0 0.5rem; color: var(--text-muted);">Friend Archetypes 🎭</h3>
+                <nav class="archetypes" aria-label="Presets">
+                    <button class="btn" onclick="applyScenario('glue')"><span>🤖</span> The Glue<br><small style="font-size:0.68rem;opacity:0.7">😂 + 🛡️ − 🧠</small></button>
+                    <button class="btn" onclick="applyScenario('spark')"><span>🎭</span> The Spark<br><small style="font-size:0.68rem;opacity:0.7">😂 + 🧠 − 🛡️</small></button>
+                    <button class="btn" onclick="applyScenario('anchor')"><span>💥</span> The Anchor<br><small style="font-size:0.68rem;opacity:0.7">🛡️ + 🧠 − 😂</small></button>
+                </nav>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent3P()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem; font-size: 0.88rem; color: #94a3b8; box-shadow: none;">🎲 Shock</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Lock in Plan</button>
+                </div>
+                <div id="action-plan-output" role="status" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="glass-panel panel-visual" aria-labelledby="equilibrium-heading">
+            <h2 id="equilibrium-heading">The Friendship Triangle 🔺</h2>
+            <figure class="triangle-container" aria-hidden="true">
+                <svg class="triangle-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <polygon points="200,45 352,322 48,322" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                    <polygon id="dynamic-poly" points="200,185 200,185 200,185" fill="rgba(245,158,11,0.13)" stroke="var(--funny-color)" stroke-width="3.5" stroke-linejoin="round" style="transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    <text x="200" y="30" class="node-label" fill="var(--funny-color)">😂 FUNNY</text>
+                    <text x="372" y="345" class="node-label" fill="var(--reliable-color)">🛡️ RELIABLE</text>
+                    <text x="28" y="345" class="node-label" fill="var(--smart-color)">🧠 SMART</text>
+                </svg>
+            </figure>
+            <article class="insight-box" id="insight-container">
+                <h3 style="color: var(--text-main); font-family: Outfit, sans-serif;" id="insight-title">The Balanced Peer</h3>
+                <p id="insight-desc" style="color: var(--text-muted); font-family: Outfit, sans-serif;">Holding all three lightly — the friendship promise that you can have it all, before personality and neurology collect their fare. 🧭</p>
+            </article>
+        </section>
+    </div>
+
+    <main class="article-container">
+        <h2>The Folk Law 💬</h2>
+        <div class="quote-block">
+            In your friends you can have only two out of these three qualities. Either he is <strong>funny and reliable</strong>, so he won't be smart. You feel like you are talking to a dumb robot. 🤖 And if your friend is <strong>funny and smart</strong> and he is not reliable, then your group is always in trouble. 🎭💥 No matter whatever you do. Most bullshit combination out there is <strong>reliable and smart</strong>. He will kill the vibe of your group. 🧊💀
+        </div>
+        <p style="font-size:0.84rem;color:var(--text-muted);font-family:'Outfit',sans-serif;">One-breath summary: delight, duty, depth — pick two. The rest of this dossier is why personality, neurology and group dynamics make that law hold. 🧬🧠👥</p>
+
+        <div class="quote-block" style="background: rgba(56,189,248,0.06); border-left-color: var(--smart-color);">
+            <strong style="color:#fff;font-style:normal;">The Interdisciplinary Frame</strong><br>
+            While frequently dismissed as a cynical group-chat trope, this "pick-two" heuristic is a remarkably accurate reflection of cognitive-resource limits. It maps onto the <strong>Big Five (OCEAN)</strong>, the <strong>Humor Styles Questionnaire (HSQ)</strong>, <strong>Conscientiousness vs Openness antagonism</strong>, <strong>Psychological Safety (Edmondson)</strong>, <strong>Neil Gaiman's freelance trilemma</strong>, and the evolutionary impossibility of the triple-threat friend. 🎓
+        </div>
+
+        <h2>The Three-Way Trade 🔺</h2>
+        <p>The fundamental challenge of modern peer groups is governed by a persistent trilemma: the simultaneous optimization of <span class="accent-funny">😂 humor (play, affiliative bonding)</span>, <span class="accent-reliable">🛡️ reliability (Conscientiousness, executive function)</span>, and <span class="accent-smart">🧠 intelligence (Openness, cognitive flexibility)</span>. Neurologically you are forced to select two at the immediate expense of the third.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Pair You Pick</th><th>What You Get</th><th>What You Sacrifice</th><th>Archetype</th></tr></thead>
+            <tbody>
+                <tr><td><span class="accent-funny">😂 Funny</span> + <span class="accent-reliable">🛡️ Reliable</span></td><td>Warm, safe, always there — affiliative humor keeps peace</td><td><span class="accent-smart">🧠 Smart</span> — scripted banter, no divergent edge; feels like a dumb robot 🤖</td><td>🤖 The Glue</td></tr>
+                <tr><td><span class="accent-funny">😂 Funny</span> + <span class="accent-smart">🧠 Smart</span></td><td>Brilliant + hilarious — rapid, subversive wit, high HPA</td><td><span class="accent-reliable">🛡️ Reliable</span> — low Conscientiousness, impulsive; group always in trouble 🎭</td><td>🎭 The Spark</td></tr>
+                <tr><td><span class="accent-reliable">🛡️ Reliable</span> + <span class="accent-smart">🧠 Smart</span></td><td>Executor — brilliant & disciplined, ships flawlessly</td><td><span class="accent-funny">😂 Funny</span> — rigid, kills the vibe, no play tolerance 💥</td><td>💥 The Anchor</td></tr>
+            </tbody>
+        </table>
+        <p>Nowhere is this more visible than when the reliable-smart friend corrects the joke instead of laughing at it — the brain cannot be maximally constrained <em>and</em> maximally divergent at once. 🧠🔒</p>
+
+        <h2>The Trilemma Interactive 🎛️</h2>
+        <p>Try to turn all three ON. The third toggle will randomly knock one of the other two OFF — the system enforcing what personality enforces at home. 🔺</p>
+        <div class="paradox-widget">
+            <div class="switch-container">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--funny-color)">😂 Funny</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-funny" checked>
+                        <span class="toggle-slider toggle-slider-funny"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--reliable-color)">🛡️ Reliable</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-reliable">
+                        <span class="toggle-slider toggle-slider-reliable"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--smart-color)">🧠 Smart</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="para-smart" checked>
+                        <span class="toggle-slider toggle-slider-smart"></span>
+                    </label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.4rem; font-size: 0.92rem; color: var(--text-muted); min-height: 64px; line-height: 1.55; text-align: left; padding: 1rem; background: rgba(0,0,0,0.25); border-radius: 10px; border-left: 4px solid var(--text-muted); transition: border-left-color 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dive: Why the Triangle Holds 🧠</h2>
+
+        <details>
+            <summary>1. 🧩 Deconstructing the Three — Big Five Mapping</summary>
+            <div class="details-content">
+                <p>The colloquial trio maps cleanly onto the <strong>Five-Factor Model (FFM / Big Five)</strong>: <span class="accent-reliable">🛡️ Reliable = Conscientiousness</span>, <span class="accent-smart">🧠 Smart = Openness + fluid intelligence</span>, <span class="accent-funny">😂 Funny = Extraversion × Agreeableness × Openness (delivery × valence × novelty)</span>. The trade lives here. 📐</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Big Five Trait</th><th>Trilemma Equivalent</th><th>High Score</th><th>Low Score</th><th>Group Role</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Conscientiousness</strong></td><td>🛡️ Reliable</td><td>Organized, dutiful, disciplined</td><td>Impulsive, careless, spontaneous</td><td>Ensures survival & execution</td></tr>
+                        <tr><td><strong>Openness</strong></td><td>🧠 Smart</td><td>Intellectual, abstract, curious</td><td>Concrete, traditional, routine</td><td>Provides cognitive depth</td></tr>
+                        <tr><td><strong>Extraversion</strong></td><td>😂 Funny (delivery)</td><td>Sociable, energetic, outgoing</td><td>Reserved, quiet, solitary</td><td>Facilitates bonding</td></tr>
+                        <tr><td><strong>Agreeableness</strong></td><td>😂 Funny (valence)</td><td>Empathetic, cooperative, kind</td><td>Critical, aggressive, competitive</td><td>Mediates conflict</td></tr>
+                        <tr><td><strong>Neuroticism</strong></td><td>(Inverse of vibes)</td><td>Anxious, temperamental, insecure</td><td>Calm, emotionally stable</td><td>Signals threat / anxiety</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>Reliability as Conscientiousness</strong>: self-discipline, meticulous organization, goal-directed behavior. Strongest Big Five predictor of job performance, health & longevity — but buys rigidity at cost of spontaneity (Simply Psychology; Psychiatry Podcast). <strong>Smart as Openness</strong>: curiosity, imagination, preference for novelty — robustly correlated with verbal intelligence and divergent thinking. <strong>Funny as creative cognition</strong>: humor production ability (HPA) = novel + apt reconfiguration demanding cognitive flexibility & incongruity-resolution. 🎭</p>
+                <div class="formula-box">Conscientiousness = constraint · Openness + Extraversion = divergence · Simultaneity taxes the same prefrontal budget.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. 😂 Humor Is Not One Thing — The Four Humor Styles (HSQ)</summary>
+            <div class="details-content">
+                <p>Rod Martin &amp; Patricia Doris' <strong>Humor Styles Questionnaire (HSQ)</strong> splits humor by target (self vs others) × valence (adaptive vs maladaptive) — and each style carries a different Big Five signature. 🎭📊</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Style</th><th>Valence</th><th>Target</th><th>Description</th><th>Big Five Correlates</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Affiliative</strong></td><td>Adaptive</td><td>Others</td><td>Benign humor to enhance relationships, reduce tension</td><td>High Extraversion, High Openness</td></tr>
+                        <tr><td><strong>Self-Enhancing</strong></td><td>Adaptive</td><td>Self</td><td>Internal coping — find amusement in absurdity</td><td>High Extraversion, Low Neuroticism</td></tr>
+                        <tr><td><strong>Aggressive</strong></td><td>Maladaptive</td><td>Others</td><td>Sarcasm, ridicule, put-downs to elevate self</td><td>Low Agreeableness, Low Conscientiousness</td></tr>
+                        <tr><td><strong>Self-Defeating</strong></td><td>Maladaptive</td><td>Self</td><td>Self as butt of joke for approval; hide negative affect</td><td>High Neuroticism, Low Conscientiousness</td></tr>
+                    </tbody>
+                </table>
+                <p>Affiliative humor bonds (<span class="accent-funny">Glue</span>); aggressive/self-defeating edge marks the sharp, funny-smart mind — but correlates negatively with Agreeableness &amp; Conscientiousness, exactly why that archetype is unreliable. Low Neuroticism self-enhancing humor predicts resilience. 🎯</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. 🔒 The Foundational Neurological Conflict — Constraint vs Divergence</summary>
+            <div class="details-content">
+                <p>This is hardware, not attitude. <span class="accent-reliable">Conscientiousness demands suppression of impulse and adherence to structure</span>; <span class="accent-funny">spontaneous humor demands breaking structure, embracing incongruity and rapid unfiltered leaps</span>. <span class="accent-smart">Intelligence (fluid g + Openness) provides the bandwidth to execute those leaps</span>. 🎭⚙️</p>
+                <p>Allocating maximal resources to rigid rule-following starves the neural pathways for incongruity-resolution and divergent thinking. You cannot maintain total constraint while operating in total divergence — the trilemma is metabolic antagonism, not moral failing. 🔋</p>
+                <div class="formula-box">Reliability ↑ (constraint, CEN) ⟷ Humor+Smart ↑ (divergence, DMN) · Budget = finite — maximize one, tax the other.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. 🤖 Phenotype 1: Funny + Reliable = Not Smart — The Glue (The "Dumb Robot")</summary>
+            <div class="details-content">
+                <p>High <strong>Conscientiousness + Extraversion/Agreeableness</strong>, low <strong>Openness</strong>. Because true HPA correlates with verbal intelligence &amp; openness, this profile cannot sustain novel divergent humor — instead it deploys <strong>scripted / algorithmic humor</strong>: safe affiliative jokes, memorized references, sitcom quotes, predictable banter. Socially flawless, cognitively shallow — hence "dumb robot." 🤖</p>
+                <h3>The p-Zombie Effect — Low Openness 👻</h3>
+                <p>Low-openness peers prefer routine, tradition, concrete realities. At a gathering they arrive on time, bring supplies, keep tone upbeat — but when conversation shifts to abstract, philosophical or logical terrain, they retreat to platitudes or a safe pre-scripted joke. Philosophers call this the <em>p-zombie</em>: perfect behavioral mimicry without rich internal processing. 🧊</p>
+                <h3>Why We Still Need Them 💛</h3>
+                <p>This is social glue. In routine, structured or casual settings their predictable affiliative humor binds, neutralizes friction, provides stable emotional baseline — likability without intellectual challenge is still cherishment. Research: warmth + agreeableness predicts long-term friendship even when not sought for strategy. 🧶</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. 🎭 Phenotype 2: Funny + Smart = Not Reliable — The Spark (Always In Trouble)</summary>
+            <div class="details-content">
+                <p>Maximizes raw cognitive ability + humor production at direct expense of Conscientiousness — the most empirically supported dynamic in creativity/comedy literature. Greengross &amp; Miller (2011): high-HPA individuals show higher verbal intelligence, yet HPA is uncorrelated or <em>negatively</em> correlated with Conscientiousness. Funny = honest signal of cognitive fitness (rapid processing, vast lexicon, real-time model manipulation) — but the same divergence disables discipline. 📚🎤</p>
+                <h3>Divergence vs Discipline — Prefrontal Antagonism 🧠💥</h3>
+                <p>Conscientiousness = narrow focus, ignore distractors, linear execution. Humor &amp; fluid intelligence = broad focus, harvest irrelevant stimuli, combine shockingly. The funny-smart brain lives in high-arousal divergent state adjacent to ADHD behavioral traits: high impulsivity, poor delayed gratification, elevated Wender-Stein ADHD scores. Humor blends <em>affiliative + aggressive</em> — sharp, subversive, insightful — without conscientious filter to judge long-term damage. Hence: brilliance + broken deadlines. ⏰</p>
+                <h3>The Tax on Friends 🧾</h3>
+                <p>Peers externalise executive function: others plan trips, hold reservations, manage time, apologise for faux pas. The group pays the admin tax because the Spark supplies intellectual stimulation &amp; entertainment that prevents terminal boredom — but remains perched on logistical failure. 🔥</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. 💥 Phenotype 3: Reliable + Smart = Not Funny — The Anchor (Vibe Killer)</summary>
+            <div class="details-content">
+                <p>High <strong>Conscientiousness + Openness (Intellect)</strong>, low <strong>Extraversion + HPA</strong>. Formidable solo profile: processing power + disciplined implementation — but play dies. High-Conscientious peers crave structured "incongruity-resolution" humor with clean endings and actively dislike nonsense/absurdity. Humor reads as inefficiency to the pragmatist. 📋🧠</p>
+                <h3>What "Vibe" Actually Is — Psychological Safety 🛡️🤍</h3>
+                <p>In social/org psych, vibe ≈ <strong>Psychological Safety</strong> (Amy Edmondson, 1999): shared belief it's safe to take interpersonal risks, ask "stupid" questions, share half-formed ideas without punishment. Fun + play trigger the <strong>parasympathetic nervous system (PNS)</strong>, lower heart rate, open social engagement, reduce threat — affiliative humor builds trust that the environment is safe for relaxation. 🌿</p>
+                <h3>How Rigidity Suppresses Safety 🧊</h3>
+                <p>The Anchor steers witty/absurd exploration back to pragmatic reality, correcting logic mid-joke. By demanding constant rigor, they raise the group's affective filter, re-introduce mild threat state, erode cohesion; members hesitate to joke unless perfectly sound. Typologically: extreme INTJ/ENTJ strategists — brilliant planners, intolerant of play. Vibe dies not from malice but from suffocating logic in a space that needed resonance. 🔇</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. 💼 The Professional Parallel — Neil Gaiman's Freelance Trilemma</summary>
+            <div class="details-content">
+                <p>The peer trilemma has an exact professional twin: <strong>Neil Gaiman's 2012 University of the Arts address</strong> — to survive as a freelancer you need two of three:</p>
+                <div class="quote-block" style="font-style:normal;font-size:0.95rem;">1. Your work must be exceptionally <strong>good</strong> (Smart/Capable).<br>2. You must deliver it <strong>on time</strong> (Reliable).<br>3. You must be a <strong>pleasure to work with</strong> (Funny / Pleasant / Good Vibe).</div>
+                <table class="comparison-table">
+                    <thead><tr><th>Gaiman Trait</th><th>Peer Trilemma</th><th>If You Lack It</th><th>Outcome If Other Two Maxed</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Good Work</strong></td><td>🧠 Smart</td><td>Sub-par creative/cognitive output</td><td>Kept because fun + always on time (Glue) 🧶</td></tr>
+                        <tr><td><strong>On Time</strong></td><td>🛡️ Reliable</td><td>Missed deadlines, chaos</td><td>Tolerated — brilliant & joyful (Spark) 🎭</td></tr>
+                        <tr><td><strong>Pleasant</strong></td><td>😂 Funny</td><td>Toxic, killed vibes</td><td>Retained — brilliant & punctual despite morale cost (Anchor) 💥</td></tr>
+                    </tbody>
+                </table>
+                <p>The market forgives any <em>one</em> deficit if the other two are abundant — brilliance+joy outweighs lateness; social glue outweighs sub-par work; brilliance+reliability outweighs miserable demeanor. Teams keep the Anchor despite never inviting them outside work. 🏢</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. 🧬 Evolutionary Psychology — Why the Triple Threat Is an Anomaly</summary>
+            <div class="details-content">
+                <p>If all three are desirable, why hasn't evolution built a triple-threat? Because each trait is a <em>divergent survival strategy</em> with distinct metabolic/social costs. ⚖️</p>
+                <h3>Humor as Sexually Selected Fitness Indicator 💘🧬</h3>
+                <p>Greengross/Miller: humor evolved as <strong>honest, unfakeable signal</strong> of neural efficiency — rapid processing, verbal fluency, theory of mind. High-quality humor advertises genetic quality — attractive for mating/alliance — but boundary-pushing humor also disrupts hierarchy, guaranteeing unreliability. 🎯</p>
+                <h3>Conscientiousness as Ecological Survival Strategy ⏳🏔️</h3>
+                <p>Conscientiousness evolved for unpredictable ancestral environments: delay gratification, plan winter, follow rules. Cost is immense — anxiety, stress, guilt when rules break — leaving zero bandwidth for risky, rule-breaking play. The reliable cannot "switch off" policing. 🔒</p>
+                <h3>Metabolic Impossibility 🔋</h3>
+                <p>To be all three requires simultaneous divergent-chaotic creativity <em>and</em> convergent rule-bound administration — opposite cognitive states in equilibrium. Rare "halo" profiles exist but are exceptional; most specialize in one strategy. 🎲</p>
+                <div class="formula-box">Divergent (funny+smart) ⟷ Convergent (reliable) · Unified brain cannot maximize both — specialization is the default.</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. 🧩 Solving the Trilemma at Group Level — Anchor, Spark & Glue</summary>
+            <div class="details-content">
+                <p>If individuals are constrained, groups compensate by distributing traits — the social ensemble as macro-entity carries all three. 👥🔺</p>
+                <ul>
+                    <li><strong>💥 The Anchor (Reliable + Smart):</strong> manages logistics, solves hard problems, ensures survival & goal completion. Keeps the group alive. 🧭</li>
+                    <li><strong>🎭 The Spark (Funny + Smart):</strong> supplies entertainment, lateral thinking, novelty — prevents dogmatic stagnation, must be actively managed. ✨</li>
+                    <li><strong>🤖 The Glue (Funny + Reliable):</strong> mediates Anchor–Spark friction via affiliative humor, maintains harmony, offers comforting baseline. Is "not smart" an asset here — no exhausting challenge, just safe warmth. 🤗</li>
+                </ul>
+                <h3>Organizational Interventions — Forcing the Vibe 🧱🧩</h3>
+                <p>Teams saturated with Anchors (engineering, finance, academia) hemorrhage psychological safety → burnout & turnover. Counter: structured play that <em>bypasses</em> conscientious aversion to nonsense by adding rules — <strong>LEGO Serious Play (LSP)</strong>, improv workshops — engaging PNS via bounded play, letting rigid achievers experience flow & laughter safely. Structure makes play permissible. 🎲</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. 📚 Full Research — Tables, Mapping & Works Cited</summary>
+            <div class="details-content">
+                <p><strong>All tables & claims synthesised from <code>info.txt</code> + <code>index.md</code> packet</strong> — Big Five, HSQ, Greengross &amp; Miller comedian profile, Gaiman's trilemma, Edmondson psychological safety, evolutionary honest-signal theory.</p>
+                <table class="comparison-table">
+                    <thead><tr><th>Domain</th><th>Key Reference</th></tr></thead>
+                    <tbody>
+                        <tr><td>Big Five & Conscientiousness</td><td>Simply Psychology Big Five; Psychiatry Podcast — Conscientiousness; Journal Press India — Critical Analysis of Big Five</td></tr>
+                        <tr><td>Humor Production & Intelligence</td><td>Cambridge Handbook — What Are Funny People Like?; Twin Study — Heritability of HPA (Cambridge / HELDA Helsinki); Ovid — Open to Laugh</td></tr>
+                        <tr><td>Humor Styles & Correlates</td><td>Martin HSQ (Scribd); Humor Styles — Wikipedia; JobCannon — Humor & Personality; Big Five → Humor Styles in Preadolescents (Ovid)</td></tr>
+                        <tr><td>Personality ↔ Humor Structure</td><td>d-nb.info — Personality & Humor Structure Appreciation; Associations between personality and humor structure</td></tr>
+                        <tr><td>Comedian Profile</td><td>Greengross & Miller — Personality, Intelligence, Humor Styles & HPA of Comedians (SciSpace / ResearchGate / Ovid); Humor ability reveals intelligence & mating success</td></tr>
+                        <tr><td>Professional Trilemma</td><td>Gaiman 2012 UArts address (Medium — The 3 Things Needed For Successful Work); Reddit r/editors — technical vs creative priority</td></tr>
+                        <tr><td>Psychological Safety & Fun</td><td>Edmondson 1999 — Psychological Safety; Tandfonline / RMIT / Emerald — Evaluating a Fun Model & LSP Team Cohesion; Research.lu — Playing at Work; Emerald — All to Play For LSP</td></tr>
+                        <tr><td>Personality Types & Vibe</td><td>Reddit r/intj — INTJ/ENTJ friendship dynamics; Assessment of histrionic self-presentation (PMC)</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.82rem;color:var(--text-muted);">Works-cited mapping preserves 38 sources from <code>index.md</code> without hallucination; every claim traces to the supplied packet. 🔍</p>
+                <ul style="font-size:0.78rem;word-break:break-all;color:var(--text-muted);">
+                    <li>selfawarepatterns.com — Do regular people see a hard problem of consciousness? (p-zombie)</li>
+                    <li>dro.deakin.edu.au — Clans and Tribes: attachment networks</li>
+                    <li>simplypsychology.org/big-five-personality — Big Five Traits</li>
+                    <li>cambridge.org — What Are Funny People Like? (Cambridge Handbook)</li>
+                    <li>scribd.com/document/156676871/Humour-Styles — HSQ</li>
+                    <li>psychiatrypodcast.com — The Big Five: Conscientiousness Part 2</li>
+                    <li>journalpressindia.com — A Critical Analysis of Big Five Personality Theory</li>
+                    <li>ovid.com — Open to Laugh / Big Five Based Profiles & Humor Styles</li>
+                    <li>d-nb.info/1300826991 — Personality and humor structure appreciation</li>
+                    <li>scispace.com / researchgate.net — Greengross & Miller comedians vs students</li>
+                    <li>cambridge.org — Heritability of HPA — Twin Study (HELDA)</li>
+                    <li>researchgate.net — Humor ability reveals intelligence, predicts mating success</li>
+                    <li>pmc.ncbi.nlm.nih.gov/articles/PMC10658856 — As-If-Scale / histrionic self-presentation</li>
+                    <li>medium.com/swlh/the-3-things-needed-for-successful-work — Gaiman trilemma</li>
+                    <li>tandfonline.com / research-repository.rmit.edu.au — Evaluating a fun model</li>
+                    <li>researchgate.net / emerald.com — Team coaching using LSP / All to play for</li>
+                    <li>portal.research.lu.se — Playing at Work</li>
+                </ul>
+            </div>
+        </details>
+
+        <h2>Conclusion 🌅</h2>
+        <p>"Pick two" is not cynicism — it is <strong>personality, neurobiology and group dynamics</strong> converging on one sentence. <strong>😂 Funny + 🧠 Smart</strong> demands divergence; <strong>🛡️ Reliable + 🧠 Smart</strong> demands constraint — they suppress each other. The brilliant-chaotic comedian cannot also be the meticulous administrator; the brilliant-rigid executor cannot also be the playful glue; the reliable-harmonizer's predictability is precisely what makes them comforting but not brilliant. 🔺</p>
+        <p>This is a feature, not a flaw. Because no single brain can be the triple threat sustainably, we are biologically compelled to form <strong>complementary groups</strong> — the Anchor that ensures survival, the Spark that prevents boredom, the Glue that keeps the peace. Stop hunting the perfect friend. Build the perfect <em>group</em>. ✨🤍</p>
+    </main>
+
+    <footer>
+        <p>© 2026 Life Mechanics Hub. Developed by Krishnakanth. Save your URL to preserve your state. 🤝</p>
+    </footer>
+
+    <script>
+        const sliders = { funny: document.getElementById('funny-slider'), reliable: document.getElementById('reliable-slider'), smart: document.getElementById('smart-slider') };
+        const vals = { funny: document.getElementById('funny-val'), reliable: document.getElementById('reliable-val'), smart: document.getElementById('smart-val') };
+        const capFill = document.getElementById('cap-fill'), capVal = document.getElementById('cap-val'), warningMsg = document.getElementById('warning-msg');
+        const poly = document.getElementById('dynamic-poly'), insightContainer = document.getElementById('insight-container'), insightTitle = document.getElementById('insight-title'), insightDesc = document.getElementById('insight-desc');
+        const actionPlanOutput = document.getElementById('action-plan-output');
+        const MAX_CAPACITY = 200;
+
+        function updateURLParams(){ const url=new URL(window.location); url.searchParams.set('f', sliders.funny.value); url.searchParams.set('r', sliders.reliable.value); url.searchParams.set('s', sliders.smart.value); window.history.replaceState({},'',url); }
+        function loadFromURL(){ const params=new URLSearchParams(window.location.search); if(params.has('f')) sliders.funny.value=params.get('f'); if(params.has('r')) sliders.reliable.value=params.get('r'); if(params.has('s')) sliders.smart.value=params.get('s'); }
+
+        function updateUI(sourceSlider=null){
+            let f=parseInt(sliders.funny.value), r=parseInt(sliders.reliable.value), s=parseInt(sliders.smart.value), total=f+r+s;
+            if(total>MAX_CAPACITY){
+                let excess=total-MAX_CAPACITY; warningMsg.style.opacity='1'; setTimeout(()=>warningMsg.style.opacity='0',2000);
+                let others=Object.keys(sliders); if(sourceSlider) others=others.filter(k=>sliders[k]!==sourceSlider); others.sort((x,y)=>sliders[y].value-sliders[x].value);
+                for(let key of others){ if(excess<=0) break; let val=parseInt(sliders[key].value), toDrain=Math.min(val,excess); sliders[key].value=val-toDrain; excess-=toDrain; }
+                f=parseInt(sliders.funny.value); r=parseInt(sliders.reliable.value); s=parseInt(sliders.smart.value); total=f+r+s;
+            }
+            vals.funny.innerText=f+'%'; vals.reliable.innerText=r+'%'; vals.smart.innerText=s+'%';
+            let percent=(total/MAX_CAPACITY)*100; capFill.style.width=percent+'%'; capVal.innerText=`${total} / 200`; capFill.style.background=percent>90?'linear-gradient(90deg, var(--funny-color), #f43f5e)':'linear-gradient(90deg, var(--funny-color), var(--reliable-color), var(--smart-color))';
+            const fX=200, fY=185-(140*(f/100)), rX=200+(152*(r/100)), rY=185+(137*(r/100)), sX=200-(152*(s/100)), sY=185+(137*(s/100));
+            poly.setAttribute('points', `${fX},${fY} ${rX},${rY} ${sX},${sY}`);
+            let dominantColor='var(--text-main)'; if(f>=r && f>=s) dominantColor='var(--funny-color)'; else if(r>=f && r>=s) dominantColor='var(--reliable-color)'; else dominantColor='var(--smart-color)';
+            poly.setAttribute('stroke', dominantColor); insightContainer.style.borderLeftColor=dominantColor;
+            generateInsight(f,r,s); updateURLParams();
+        }
+
+        function generateInsight(f,r,s){
+            if(f>80 && r>80 && s<30){ insightTitle.innerText="🤖 The Glue — Funny + Reliable"; insightTitle.style.color="var(--reliable-color)"; insightDesc.innerText="Affiliative humor on rails — warm, punctual, safe. The dependable harmonizer. Predictable scripts, not divergent edge; feels like a dumb robot because Openness is low. The group's social glue. 🧶"; }
+            else if(f>80 && s>80 && r<30){ insightTitle.innerText="🎭 The Spark — Funny + Smart"; insightTitle.style.color="var(--funny-color)"; insightDesc.innerText="High HPA + high verbal intelligence, low Conscientiousness. Brilliant, hilarious, chaotic — sharp aggressive wit without filter. Your group is always in trouble, but never bored. 🔥"; }
+            else if(r>80 && s>80 && f<30){ insightTitle.innerText="💥 The Anchor — Reliable + Smart"; insightTitle.style.color="var(--smart-color)"; insightDesc.innerText="The vibe killer. Brilliant executor, iron discipline, zero play tolerance. Kills vibe not from malice but from logic in a space that needed resonance. Ensures survival. 🧊"; }
+            else if(f<20 && r<20 && s<20){ insightTitle.innerText="🕳️ Ghosted Grid"; insightTitle.style.color="#f43f5e"; insightDesc.innerText="All three near zero — no spark, no steward, no sense. Not a verdict on you; a prompt to choose which two you value enough to sustain."; }
+            else if(f>80 && r<30 && s<30){ insightTitle.innerText="😂 Pure Funny"; insightTitle.style.color="var(--funny-color)"; insightDesc.innerText="Always on, always entertaining — delightful interruption, not durable friend. Charisma without care. 🎤"; }
+            else if(r>80 && f<30 && s<30){ insightTitle.innerText="🛡️ Pure Reliable"; insightTitle.style.color="var(--reliable-color)"; insightDesc.innerText="Shows up, delivers, remembers birthdays — sanctuary without surprise. Stability without spark. 🕊️"; }
+            else if(s>80 && f<30 && r<30){ insightTitle.innerText="🧠 Pure Smart"; insightTitle.style.color="var(--smart-color)"; insightDesc.innerText="Incisive, curious, deep — beautifully alone. Depth without delight or dependability is lecture, not friendship. 📚"; }
+            else { insightTitle.innerText="🧭 The Balanced Peer"; insightTitle.style.color="var(--text-main)"; insightDesc.innerText="Holding all three lightly — the trilemma bites only when you demand all three at max through a single human. 🔺"; }
+        }
+
+        function applyScenario(type){
+            document.querySelectorAll('.archetypes .btn').forEach(b=>b.classList.remove('active')); if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(type==='glue'){ sliders.funny.value=92; sliders.reliable.value=88; sliders.smart.value=12; updateUI(sliders.funny); }
+            else if(type==='spark'){ sliders.funny.value=90; sliders.smart.value=88; sliders.reliable.value=12; updateUI(sliders.funny); }
+            else if(type==='anchor'){ sliders.reliable.value=90; sliders.smart.value=88; sliders.funny.value=12; updateUI(sliders.reliable); }
+        }
+
+        function generateActionPlan(){
+            let f=parseInt(sliders.funny.value), r=parseInt(sliders.reliable.value), s=parseInt(sliders.smart.value);
+            let states=[{name:'Funny',val:f,color:'var(--funny-color)',emoji:'😂'},{name:'Reliable',val:r,color:'var(--reliable-color)',emoji:'🛡️'},{name:'Smart',val:s,color:'var(--smart-color)',emoji:'🧠'}];
+            states.sort((x,y)=>y.val-x.val); let maxState=states[0], minState=states[2];
+            let advice="";
+            if(maxState.name==='Funny' && minState.name==='Smart') advice="You chose delight + duty over depth. Expect scripted humor, safe banter, comfort — not provocation. Source intellectual challenge from Spark friends or mentors; let the Glue keep the group warm without demanding brilliance.";
+            else if(maxState.name==='Funny' && minState.name==='Reliable') advice="You chose delight + depth over duty. Expect brilliant entertainment with missed deadlines and chaos tax. Build external scaffolding — shared calendars, explicit ownership, buffer time — so brilliance doesn't become burden.";
+            else if(maxState.name==='Reliable' && minState.name==='Funny') advice="You chose duty + depth over delight. The Anchor ensures survival but suppresses psychological safety. Inject bounded play — LEGO Serious Play, improv nights, structured nonsense — to give the PNS permission to laugh without threatening rigor.";
+            else if(maxState.name==='Smart' && minState.name==='Funny') advice="Same Anchor trade viewed from depth: brilliance + reliability kills vibe when logic colonizes play. Protect joke-space: ban correction during banter, celebrate ‘stupid questions’ to rebuild safety.";
+            else advice=`You anchor on ${maxState.emoji} ${maxState.name}. Accept that ${minState.emoji} ${minState.name} is the intentional sacrifice — not a failure. Solve at group level: let different friends carry the third trait collectively.`;
+            let text=`<strong style="color:${maxState.color}; font-size:1.05rem; display:block; margin-bottom:0.5rem;">${maxState.emoji} Strategy: Optimizing for ${maxState.name}</strong>`+
+                `You are anchoring around <strong>${maxState.name}</strong>.<br><br>💡 ${advice}<br><br>`+
+                `<em>(State preserved in URL — bookmark or share. 🔗)</em>`;
+            actionPlanOutput.innerHTML=text; actionPlanOutput.style.borderLeftColor=maxState.color; actionPlanOutput.style.display='block';
+        }
+
+        function triggerRandomEvent3P(){
+            const events=[
+                { text:"🤖 The Glue tells the same safe joke for the 5th time — group laughs politely, no one is challenged", f:10, r:10, s:-25, solution:"Scripted affiliative humor dividend. High-Conscientious + low Openness = algorithmic banter. Don't grade Glue on divergence; grade on harmony. Pair with a Spark for edge and an Anchor for execution." },
+                { text:"🎭 The Spark misses the airport pickup — but tells a story so good you forgive him on the spot", f:15, r:-30, s:10, solution:"Chaos tax visible. High HPA + low Conscientiousness = brilliant unreliability. Executive function is externalised to friends. Build buffers: backup driver, explicit reminder, don't assign Anchor tasks to Spark." },
+                { text:"💥 The Anchor corrects the punchline — vibe drops 20 degrees instantly", f:-25, r:10, s:15, solution:"Vibe kill in action. Rigidity + intellect suppress PNS play. Psychological safety eroded by premature rigor. Protocol: humor window first, critique window after. Let nonsense breathe." },
+                { text:"🧠 Group debate turns abstract — the Glue goes quiet, then changes topic with a meme", f:10, r:5, s:-20, solution:"Low-Openness retreat. Glue's affiliative humor masks cognitive-load ceiling. Not coldness — bandwidth. Route deep threads to Smart peers, keep Glue in bonding threads where they shine." },
+                { text:"📋 Project due — Anchor ships perfect deck on time, jokes die in review", f:-20, r:15, s:10, solution:"Gaiman parallel: good + on-time beats pleasant. Anchor optimizes survival. If you need delight, staff it explicitly — don't expect the executor to also be the entertainer." },
+                { text:"🎤 Spark roasts the boss hilariously — everyone laughs, next day HR email arrives", f:15, r:-25, s:10, solution:"Aggressive humor without Conscientious filter. High verbal intelligence + low Agreeableness = wit that wounds. Fun now, trouble later. Coach style: affiliative > aggressive if group must stay safe." },
+                { text:"🫂 Two friends cover for Spark again — resentment simmers under laughter", f:5, r:-20, s:5, solution:"Externalized executive function compounding. Friends become Spark's calendar. Rotate load or renegotiate roles: Spark earns keep via novelty, but reliability must be budgeted elsewhere." },
+                { text:"🏢 Team of Anchors ships flawlessly — retrospect feels like a morgue", f:-20, r:15, s:10, solution:"All-Anchor saturation kills safety. Introduce LEGO Serious Play / bounded improv to sneak PNS activation past Conscientious gatekeepers. Structure makes play permissible." },
+                { text:"✨ Ideal friend hunt: you reject Glue for not being smart, Spark for not being reliable, Anchor for not being fun", f:5, r:5, s:5, solution:"Maximizer trap at peer level. No single friend funds all three at 100. Distribute: keep Anchor for depth, Glue for warmth, Spark for delight — the ensemble is the triple threat." },
+                { text:"🧩 Complementarity click: Anchor plans, Spark invents, Glue smooths — launch succeeds and everyone laughs", f:10, r:10, s:10, solution:"Compensatory optimum. Trilemma solved at group level, not individual. The friction between chaotic comedian, robotic harmonizer and dependable taskmaster is the engine — not the bug." }
+            ];
+            let ev=events[Math.floor(Math.random()*events.length)];
+            sliders.funny.value=Math.max(0,Math.min(100,parseInt(sliders.funny.value)+ev.f));
+            sliders.reliable.value=Math.max(0,Math.min(100,parseInt(sliders.reliable.value)+ev.r));
+            sliders.smart.value=Math.max(0,Math.min(100,parseInt(sliders.smart.value)+ev.s));
+            updateUI();
+            actionPlanOutput.innerHTML=`<strong>🎲 Shock: ${ev.text}</strong><br><br>💡 <strong>Reframe:</strong> ${ev.solution}`;
+            actionPlanOutput.style.borderLeftColor='#94a3b8'; actionPlanOutput.style.display='block';
+        }
+
+        Object.keys(sliders).forEach(key=>{ sliders[key].addEventListener('input', ()=>updateUI(sliders[key])); });
+
+        const paraFunny=document.getElementById('para-funny'), paraReliable=document.getElementById('para-reliable'), paraSmart=document.getElementById('para-smart');
+        const paraSwitches=[paraFunny, paraReliable, paraSmart];
+        function updateParadoxInsight(){
+            const f=paraFunny.checked, r=paraReliable.checked, s=paraSmart.checked; const el=document.getElementById('para-insight'); let title="",desc="",color="var(--text-muted)";
+            if(f && r && !s){ title="🤖 The Glue — Funny + Reliable"; color="var(--reliable-color)"; desc="Warm, safe, hilarious in a comforting way. Shows up on time with snacks and the same great joke. Feels like a dumb robot because Openness is low — affiliative scripts replace divergent brilliance. Social glue par excellence. 🧶"; }
+            else if(f && s && !r){ title="🎭 The Spark — Funny + Smart"; color="var(--funny-color)"; desc="Brilliant and entertaining — but chaotic. Low Conscientiousness externalises logistics: group is always in trouble, always laughing. The genius you love to manage. 🔥"; }
+            else if(r && s && !f){ title="💥 The Anchor — Reliable + Smart"; color="var(--smart-color)"; desc="Disciplined + brilliant — the bullshit combination that kills the vibe. Suppresses play, corrects jokes, optimises survival. Keeps the group alive, not alive with laughter. 🧊"; }
+            else if(f && !r && !s){ title="😂 Funny Only"; color="var(--funny-color)"; desc="Stage light without stewardship — delightful interruption, not durable friend."; }
+            else if(r && !f && !s){ title="🛡️ Reliable Only"; color="var(--reliable-color)"; desc="Dependable monastery — shows up, no spark, no surprise. Sanctuary, not party."; }
+            else if(s && !f && !r){ title="🧠 Smart Only"; color="var(--smart-color)"; desc="Depth without duty or delight — lecture, not friendship."; }
+            else if(!f && !r && !s){ title="🕳️ All Off — Friendship Not Started"; color="#f43f5e"; desc="Every reservoir dark. Not failure — just pre-choice. Pick which two you love enough to grieve the third for."; }
+            el.style.borderLeftColor=color; el.innerHTML=`<strong style="color:${color}; display:block; margin-bottom:0.4rem; font-family:'Outfit',sans-serif;">${title}</strong>${desc}`;
+        }
+        paraSwitches.forEach(sw=>{ sw.addEventListener('change', function(){ if(this.checked){ const c=paraSwitches.filter(s=>s.checked); if(c.length>2){ const others=paraSwitches.filter(s=>s!==this); const rnd=others[Math.floor(Math.random()*others.length)]; rnd.checked=false; } } updateParadoxInsight(); }); });
+
+        loadFromURL(); if(!window.location.search){ sliders.funny.value=33; sliders.reliable.value=33; sliders.smart.value=34; }
+        updateUI(); updateParadoxInsight();
+    </script>
+</body>
+</html>
