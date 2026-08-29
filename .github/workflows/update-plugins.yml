@@ -13,7 +13,7 @@ name: Update plugins
 #  literal, so the schedule is checked daily and these decide if it acts.)
 # ──────────────────────────────────────────────────────────────────────
 env:
-  SYNC_ENABLED: "true"    # "true" = sync runs · "false" = paused (nothing runs at all)
+  SYNC_ENABLED: "false"    # "true" = sync runs · "false" = paused (nothing runs at all)
   SYNC_FREQUENCY: "weekly"  # "daily" = every day · "weekly" = once a week
   SYNC_WEEKLY_DAY: "0"     # weekly mode only — 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
 
@@ -49,8 +49,8 @@ jobs:
       - name: Decide whether to run
         id: gate
         run: |
-          if [ "$SYNC_ENABLED" != "true" ]; then
-            echo "⏸  Sync paused (SYNC_ENABLED=$SYNC_ENABLED). Nothing to do."
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$SYNC_ENABLED" != "true" ]; then
+            echo "⏸  Scheduled sync paused (SYNC_ENABLED=$SYNC_ENABLED). Nothing to do."
             echo "run=false" >> "$GITHUB_OUTPUT"; exit 0
           fi
           if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$SYNC_FREQUENCY" = "weekly" ]; then
