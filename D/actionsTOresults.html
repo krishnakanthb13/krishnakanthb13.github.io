@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Actions → Results — 5 science-backed actions that rewire your brain: restore energy, focus, confidence, self-respect and purpose. 36 citations, interactive diagnostics, and protocols.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2ebda" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Actions → Results — Reclaiming Agency in a Hyper-Stimulating World">
+  <meta property="og:description" content="5 actions, 5 results: a neurobiology-backed playbook to reclaim energy, focus, confidence, self-respect and purpose.">
+  <meta property="og:type" content="article">
+  <title>Actions → Results · KKB</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="assets/base.css">
+  <script>(function(){var m=localStorage.getItem('kkb-theme')||'system',d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script src="pwa.js" data-accent="#b06a36"></script>
+  <style>
+    /* ─── Hero & Overview ─── */
+    .hero{margin:-8px 0 20px;padding:26px 24px 22px;border-radius:18px;background:linear-gradient(135deg,var(--surface-2),var(--surface));border:1px solid var(--border);position:relative;overflow:hidden;box-shadow:var(--shadow-sm)}
+    .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(650px 240px at 80% 0%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 65%),radial-gradient(550px 220px at 15% 100%,color-mix(in srgb,var(--accent-2) 12%,transparent),transparent 65%);pointer-events:none}
+    .hero > *{position:relative}
+    .kicker{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:800}
+    .hero h1{margin:.25em 0 .35em;font-size:clamp(26px,4.5vw,36px);line-height:1.16;letter-spacing:-.02em}
+    .hero p.lede{margin:0;max-width:68ch;font-size:15.5px;line-height:1.6}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .badge{font-size:12px;font-weight:650;padding:5px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    
+    /* ─── 5-Card Hub Grid ─── */
+    .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0 8px}
+    @media(max-width:960px){.grid5{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.grid5{grid-template-columns:1fr}}
+    .mini-card{display:flex;flex-direction:column;gap:8px;padding:16px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:transform .18s cubic-bezier(.2,0,0,1),box-shadow .18s,border-color .18s;position:relative}
+    .mini-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--accent)}
+    .mini-card .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--on-accent);font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));flex-shrink:0}
+    .mini-card h3{margin:0;font-size:14.5px;line-height:1.28;font-weight:700}
+    .mini-card p{margin:0;font-size:12.5px;line-height:1.48;color:var(--muted);flex-grow:1}
+    .mini-card a{font-size:12.5px;font-weight:700;color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-top:4px}
+    .mini-card a:hover{text-decoration:underline}
+
+    /* ─── Sticky Table of Contents ─── */
+    .toc{position:sticky;top:68px;display:flex;gap:6px;padding:8px 10px;margin:0 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:999px;box-shadow:var(--shadow-sm);overflow-x:auto;z-index:20;-webkit-overflow-scrolling:touch}
+    .toc a{font-size:12px;font-weight:650;padding:6px 11px;border-radius:999px;text-decoration:none;color:var(--muted);border:1px solid transparent;white-space:nowrap;transition:all .15s}
+    .toc a:hover{color:var(--accent-ink);background:var(--accent-soft);border-color:var(--border)}
+    .toc a.active{color:var(--on-accent);background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+
+    /* ─── Callout Boxes & Protocol Cards ─── */
+    .callout{position:relative}
+    .callout.green{border-left-color:#16a34a}
+    .protocol-box{border:1px solid var(--border);border-left:4px solid var(--accent);background:linear-gradient(135deg,var(--surface-2),var(--surface));border-radius:14px;padding:18px 20px;margin:18px 0;position:relative}
+    .protocol-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+    .protocol-title{font-size:14.5px;font-weight:800;color:var(--heading);display:flex;align-items:center;gap:6px}
+    .btn-copy{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+    .btn-copy:hover{color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft)}
+
+    /* ─── Checklist Tracker ─── */
+    .protocol-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .check-item{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;cursor:pointer;user-select:none;padding:4px 6px;border-radius:8px;transition:background .12s}
+    .check-item:hover{background:var(--accent-soft)}
+    .check-item input[type="checkbox"]{width:17px;height:17px;margin-top:2px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+    .check-item.done span{text-decoration:line-through;color:var(--muted);opacity:0.75}
+
+    /* ─── Visual Circuit Diagram (Vicious vs. Virtuous) ─── */
+    .circuit-container{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:18px;margin:20px 0;box-shadow:var(--shadow-sm)}
+    .circuit-switch{display:flex;gap:8px;margin-bottom:14px}
+    .circuit-btn{flex:1;padding:9px 12px;font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);color:var(--muted);cursor:pointer;transition:all .15s}
+    .circuit-btn.active{background:var(--accent);color:var(--on-accent);border-color:var(--accent);box-shadow:var(--shadow-sm)}
+    .circuit-view{display:none;animation:fadeIn .25s ease}
+    .circuit-view.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    .circuit-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+    @media(max-width:760px){.circuit-flow{grid-template-columns:1fr}}
+    .flow-step{padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);display:flex;flex-direction:column;gap:6px;position:relative}
+    .flow-step .num{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .flow-step .title{font-size:13.5px;font-weight:750;color:var(--heading);line-height:1.25}
+    .flow-step .desc{font-size:12px;color:var(--muted);line-height:1.45;margin:0}
+
+    /* ─── Interactive Micro-Tools (Timer & Audit) ─── */
+    .tool-box{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:20px;margin:20px 0}
+    .timer-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:10px 0}
+    .timer-display{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent-ink);letter-spacing:1px}
+    .timer-circle{width:110px;height:110px;border-radius:50%;border:4px solid var(--border);display:grid;place-items:center;position:relative;margin:0 auto}
+    .timer-circle.breathing{animation:pulseBreath 8s infinite ease-in-out;border-color:var(--accent)}
+    @keyframes pulseBreath{0%,100%{transform:scale(0.92);opacity:0.7}50%{transform:scale(1.08);opacity:1}}
+    .timer-controls{display:flex;gap:10px}
+
+    /* ─── Self-Diagnostic Audit ─── */
+    .audit-card{border:1px solid var(--border);border-radius:16px;background:linear-gradient(135deg,var(--surface-2),var(--surface));padding:20px;margin:22px 0}
+    .audit-q{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .audit-q:last-of-type{border-bottom:none}
+    .audit-label{font-size:13.5px;font-weight:700;display:block;margin-bottom:6px;color:var(--heading)}
+    .audit-options{display:flex;gap:8px;flex-wrap:wrap}
+    .audit-btn{padding:6px 12px;font-size:12px;font-weight:650;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s}
+    .audit-btn.selected{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent);font-weight:750}
+    .audit-result{display:none;margin-top:16px;padding:16px;border-radius:12px;background:var(--surface);border:1px solid var(--accent);animation:fadeIn .25s ease}
+
+    /* ─── Searchable Works Cited ─── */
+    .ref-filter-wrap{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+    .filter-btn{padding:5px 11px;font-size:11.5px;font-weight:700;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s}
+    .filter-btn.active{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+    .search-input{width:100%;max-width:320px;padding:7px 12px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;margin-bottom:12px}
+    .search-input:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+    .refs{font-size:13px;padding-left:22px;margin:0}
+    .refs li{margin:.45em 0;line-height:1.55}
+    .refs a{word-break:break-all;font-weight:600}
+    .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+    @media(max-width:540px){.stat-row{grid-template-columns:1fr}}
+    .stat{text-align:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+    .stat .n{font-size:24px;font-weight:800;color:var(--accent-ink);line-height:1}
+    .stat .d{font-size:12px;color:var(--muted);margin-top:5px}
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--heading);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.25);transform:translateY(100px);opacity:0;transition:all .25s cubic-bezier(.2,0,0,1);z-index:999;pointer-events:none}
+    .toast.show{transform:translateY(0);opacity:1}
+  </style>
+</head>
+<body data-section="Dump" data-crumb="Actions → Results" data-updated="August 31, 2026">
+  <main class="page">
+    <article class="card prose">
+      <span class="eyebrow">Neuroscience · Psychology · Habit</span>
+      
+      <!-- ─── HERO ─── -->
+      <div class="hero">
+        <div class="kicker"><span>⚡</span> Actions → Results · Science-backed playbook</div>
+        <h1>Reclaim Your Energy, Focus, Confidence &amp; Purpose — <span style="color:var(--accent-ink)">5 Actions That Rewire Your Brain</span></h1>
+        <p class="lede">Modern life floods your nervous system with supernormal stimuli — infinite algorithmic scrolling, frictionless hyper-novelty, and digital casinos. This interactive guide translates peer-reviewed neurobiology and empirical psychology into five actionable levers: what to quit, what to build, and why it works — backed by 36 citations and practical daily protocols.</p>
+        
+        <div class="badges">
+          <span class="badge">⏱ 18–22 min read</span>
+          <span class="badge">📚 36 peer-reviewed citations</span>
+          <span class="badge">🧠 PET · fNIRS · RCT Data</span>
+          <span class="badge">🛠 Interactive Tools &amp; Trackers</span>
+          <span class="badge">By Krishna Kanth B</span>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#actions">Start with 5 Actions →</a>
+          <a class="btn btn-ghost" href="#audit">Take the 2-Min Agency Audit</a>
+          <a class="btn btn-ghost" href="#circuit">View Brain Circuit Flow</a>
+        </div>
+      </div>
+
+      <!-- ─── STICKY TABLE OF CONTENTS ─── -->
+      <nav class="toc" aria-label="On this page">
+        <a href="#actions">5 Actions</a>
+        <a href="#circuit">Circuit Flow</a>
+        <a href="#audit">Agency Audit</a>
+        <a href="#sec1">1 · Energy</a>
+        <a href="#sec2">2 · Focus</a>
+        <a href="#sec3">3 · Strength</a>
+        <a href="#sec4">4 · Discipline</a>
+        <a href="#sec5">5 · Purpose</a>
+        <a href="#tools">Micro-Tools</a>
+        <a href="#conclusion">Conclusion</a>
+        <a href="#refs">Works Cited</a>
+      </nav>
+
+      <!-- ─── 5 ACTIONS SUMMARY ─── -->
+      <div id="actions">
+        <span class="eyebrow" style="background:var(--accent-soft)">TL;DR — The 5 Core Pillars</span>
+        <h2>5 Actions → 5 Results</h2>
+        <div class="grid5">
+          <div class="mini-card">
+            <div class="ic">①</div>
+            <h3>Quit supernormal novelty</h3>
+            <p>Let ΔFosB degrade and resolve prefrontal hypofrontality.</p>
+            <a href="#sec1">→ Get energy back</a>
+          </div>
+          <div class="mini-card">
+            <div class="ic">②</div>
+            <h3>Stop endless scrolling</h3>
+            <p>Slash cognitive load and restore DLPFC clustering density.</p>
+            <a href="#sec2">→ Get focus back</a>
+          </div>
+          <div class="mini-card">
+            <div class="ic">③</div>
+            <h3>Lift heavy (progressive)</h3>
+            <p>Manufacture exercise self-efficacy and objective mastery.</p>
+            <a href="#sec3">→ Get confidence back</a>
+          </div>
+          <div class="mini-card">
+            <div class="ic">④</div>
+            <h3>Keep promises to self</h3>
+            <p>Rehabilitate the top-down executive braking system.</p>
+            <a href="#sec4">→ Get self-respect back</a>
+          </div>
+          <div class="mini-card">
+            <div class="ic">⑤</div>
+            <h3>Build meaningful work</h3>
+            <p>Channel capacity into Ikigai to shield against mortality.</p>
+            <a href="#sec5">→ Get purpose back</a>
+          </div>
+        </div>
+        <div class="callout green" style="margin-top:14px">
+          <strong>Interactive Feature:</strong> Every protocol below comes with interactive checkboxes that automatically save your daily progress locally, plus a one-click <strong>Copy Protocol</strong> button to export into your notes app.
+        </div>
+      </div>
+
+      <!-- ─── INTERACTIVE CIRCUIT FLOW DIAGRAM ─── -->
+      <div id="circuit" class="circuit-container">
+        <span class="eyebrow" style="background:var(--accent-soft)">Neurobiological Modeling</span>
+        <h3 style="margin-top:4px">Visual Neural Pathways: Entrapment vs. Recovery</h3>
+        <p style="font-size:13.5px;color:var(--muted);margin-bottom:12px">Toggle between the chronic decay pathway caused by supernormal inputs and the neuroplastic recovery pathway created by deliberate physical and mental constraint.</p>
+        
+        <div class="circuit-switch">
+          <button type="button" class="circuit-btn active" onclick="switchCircuit('trap')">🔴 The Supernormal Entrapment Loop</button>
+          <button type="button" class="circuit-btn" onclick="switchCircuit('recovery')">🟢 The Virtuous Calibration Cycle</button>
+        </div>
+
+        <div id="circuit-trap" class="circuit-view active">
+          <div class="circuit-flow">
+            <div class="flow-step" style="border-left:3px solid #ef4444">
+              <span class="num">Phase 1 · Input</span>
+              <span class="title">Supernormal Stimuli</span>
+              <p class="desc">High-speed pornography &amp; infinite reels flood the mesolimbic system with steep dopamine surges.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #ef4444">
+              <span class="num">Phase 2 · Molecular Lock</span>
+              <span class="title">ΔFosB Accumulation</span>
+              <p class="desc">Ultra-stable transcription factor builds up in NAc &amp; VTA, creating an ingrained reward memory trace.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #ef4444">
+              <span class="num">Phase 3 · Executive Failure</span>
+              <span class="title">Prefrontal Hypofrontality</span>
+              <p class="desc">DLPFC &amp; ACC inhibitory control weakens; the brain's "braking system" fails under distraction.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #ef4444">
+              <span class="num">Phase 4 · Result</span>
+              <span class="title">Cognitive Decay &amp; Apathy</span>
+              <p class="desc">Ordinary tasks lose salience; severe lethargy, working memory shrinkage, and loss of self-respect.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="circuit-recovery" class="circuit-view">
+          <div class="circuit-flow">
+            <div class="flow-step" style="border-left:3px solid #16a34a">
+              <span class="num">Phase 1 · Constraint</span>
+              <span class="title">Stimulus Elimination</span>
+              <p class="desc">Abstinence from supernormal novelty allows elevated dopaminergic baseline to reset homeostatically.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #16a34a">
+              <span class="num">Phase 2 · Molecular Decay</span>
+              <span class="title">ΔFosB Degradation</span>
+              <p class="desc">Over 3–4 weeks of withdrawal, accumulated ΔFosB naturally degrades, restoring baseline reward sensitivity.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #16a34a">
+              <span class="num">Phase 3 · Somatic Proof</span>
+              <span class="title">Progressive Resistance &amp; Equanimity</span>
+              <p class="desc">Heavy lifting builds Exercise Self-Efficacy while stillness meditation decouples visceral craving.</p>
+            </div>
+            <div class="flow-step" style="border-left:3px solid #16a34a">
+              <span class="num">Phase 4 · Result</span>
+              <span class="title">Restored Agency &amp; Ikigai</span>
+              <p class="desc">Prefrontal cortex commands top-down agency; sustained energy and focus channeled into purpose.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── INTERACTIVE AGENCY AUDIT TOOL ─── -->
+      <div id="audit" class="audit-card">
+        <span class="eyebrow" style="background:var(--accent-soft)">Quick Diagnostic</span>
+        <h3 style="margin-top:4px">2-Minute Self-Audit: Where Is Your Agency Leaking?</h3>
+        <p style="font-size:13.5px;color:var(--muted);margin-bottom:14px">Select your current status across the 5 pillars to evaluate your neural fatigue level and get a prioritized protocol recommendation.</p>
+
+        <div class="audit-q">
+          <span class="audit-label">1. Digital Novelty &amp; Dopamine Stimuli:</span>
+          <div class="audit-options" data-pillar="dopamine">
+            <button type="button" class="audit-btn" data-val="3">Daily porn / high-novelty triggers</button>
+            <button type="button" class="audit-btn" data-val="2">Occasional / weekly use</button>
+            <button type="button" class="audit-btn" data-val="1">Strictly abstinent / clean</button>
+          </div>
+        </div>
+
+        <div class="audit-q">
+          <span class="audit-label">2. Morning &amp; Daily Screen Habits:</span>
+          <div class="audit-options" data-pillar="screen">
+            <button type="button" class="audit-btn" data-val="3">Check phone immediately in bed</button>
+            <button type="button" class="audit-btn" data-val="2">Check within 15–30 min of waking</button>
+            <button type="button" class="audit-btn" data-val="1">60+ min screen-free morning buffer</button>
+          </div>
+        </div>
+
+        <div class="audit-q">
+          <span class="audit-label">3. Physical Overload &amp; Resistance Training:</span>
+          <div class="audit-options" data-pillar="lifting">
+            <button type="button" class="audit-btn" data-val="3">Sedentary / no structured lifting</button>
+            <button type="button" class="audit-btn" data-val="2">Irregular or aerobic-only exercise</button>
+            <button type="button" class="audit-btn" data-val="1">3+ progressive compound sessions/wk</button>
+          </div>
+        </div>
+
+        <div class="audit-q">
+          <span class="audit-label">4. Internal Promises &amp; Executive Braking:</span>
+          <div class="audit-options" data-pillar="brake">
+            <button type="button" class="audit-btn" data-val="3">Frequently break plans / snooze alarm</button>
+            <button type="button" class="audit-btn" data-val="2">Moderate adherence with periodic slips</button>
+            <button type="button" class="audit-btn" data-val="1">High follow-through; strong determination</button>
+          </div>
+        </div>
+
+        <div class="audit-q">
+          <span class="audit-label">5. Purpose Vector &amp; Meaningful Output:</span>
+          <div class="audit-options" data-pillar="purpose">
+            <button type="button" class="audit-btn" data-val="3">Drifting without a clear build goal</button>
+            <button type="button" class="audit-btn" data-val="2">Have goals but inconsistent execution</button>
+            <button type="button" class="audit-btn" data-val="1">Active daily maker block (Ikigai aligned)</button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" style="margin-top:6px;width:100%" onclick="calculateAudit()">Calculate My Agency Index →</button>
+
+        <div id="audit-result" class="audit-result">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <strong style="font-size:16px;color:var(--heading)" id="audit-score-text">Agency Score: --</strong>
+            <span class="badge" id="audit-status-badge" style="background:var(--surface-2)">Pending</span>
+          </div>
+          <p id="audit-recommendation" style="font-size:13.5px;line-height:1.5;margin:10px 0 0;color:var(--text)"></p>
+        </div>
+      </div>
+
+      <div id="intro">
+        <h2>Your Brain Wasn't Built for This Much Stimulation</h2>
+        <p>Ethologist Nikolaas Tinbergen discovered <em>supernormal stimuli</em> — artificial inputs that hijack instincts more strongly than nature ever intended. Today those stimuli are ubiquitous: high-definition infinite novelty porn, algorithmic short-form video loops, and variable-ratio push notification casinos. The American Society of Addiction Medicine classifies both substance and behavioural addictions under a unified biological umbrella of reward, motivation, and memory dysfunction.</p>
+        <p>The neurobiological result is rising cognitive overload, blunted motivation, shrunken working memory, and a quiet erosion of human agency. Below is an exhaustive breakdown of the five evidence-based levers that reverse this state — each grounded in neuroimaging, molecular transcription studies, and clinical trials.</p>
+      </div>
+
+      <!-- ─── SECTION 1: ENERGY ─── -->
+      <h2 id="sec1">1 · Quit Supernormal Porn → Get Your Energy Back</h2>
+      <p><strong>Core premise:</strong> Hyper-stimulating digital sexual novelty pushes the mesolimbic reward system far past ancestral baselines. Eliminating it allows the dopaminergic system to normalize and the prefrontal cortex to regain top-down dominance — experienced subjectively as a profound return of energy and natural drive.</p>
+      
+      <h3>The mesolimbic loop &amp; receptor dynamics</h3>
+      <p>The reward circuit projects from the ventral tegmental area (VTA) to the nucleus accumbens (NAc) with regulatory connections to the prefrontal cortex (PFC). Initial exposure activates low-affinity <b>D1 receptors</b>, mediating fast dopamine surges and subjective highs. While classical substance models involve gross downregulation of high-affinity D2 receptors, a PET study using [¹¹C]-raclopride (n=10 healthy controls vs. n=15 compulsive pornography users) discovered <b>no significant volumetric loss of striatal D2/D3 receptors</b>. This demonstrates that behavioral entrapment relies primarily on micro-plastic synaptic remodeling and genetic transcription factors rather than gross volumetric receptor loss.</p>
+
+      <h3>ΔFosB: the molecular memory of reward</h3>
+      <p>When natural rewards or addictive inputs are repeatedly engaged, the truncated transcription factor <b>ΔFosB</b> accumulates in the NAc, VTA, and medial PFC. Because of its unusual molecular stability, ΔFosB exhibits a half-life of several weeks. Overexpression of ΔFosB sensitizes the brain to the stimulus, while viral vectors blocking ΔFosB (via ΔJunD) completely abolish facilitated seeking behavior. In essence, chronic consumption of supernormal novelty writes a durable physical "memory trace" that blunts sensitivity to low-dopamine, high-effort endeavors.</p>
+
+      <h3>Prefrontal hypofrontality &amp; the reset</h3>
+      <p>Continuous overstimulation leads to clinical <b>hypofrontality</b> — the impairment of the brain's executive "braking system." Goals that require sustained, unrewarded effort feel impossible to pursue, producing chronic lethargy. 30 to 90 days of abstinence allows accumulated ΔFosB to degrade, restoring prefrontal dominance over mesolimbic impulses.</p>
+
+      <table>
+        <thead><tr><th>Mechanism</th><th>Brain Region</th><th>Role in Sensitization &amp; Recovery</th></tr></thead>
+        <tbody>
+          <tr><td><strong>D1 Receptor Surge</strong></td><td>Nucleus Accumbens (NAc)</td><td>Fast dopamine release mediating subjective rush &amp; conditioned seeking.</td></tr>
+          <tr><td><strong>ΔFosB Accumulation</strong></td><td>NAc, VTA, mPFC</td><td>Ultra-stable transcription factor creating enduring molecular reward memory.</td></tr>
+          <tr><td><strong>Hypofrontality</strong></td><td>Prefrontal Cortex (PFC)</td><td>Weakened executive braking leading to amotivation and lethargy.</td></tr>
+          <tr><td><strong>Neuroplastic Reset</strong></td><td>PFC &amp; Mesolimbic tract</td><td>Gradual ΔFosB decay restores natural reward salience and baseline vitality.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- PROTOCOL 1 -->
+      <div class="protocol-box" id="proto-1">
+        <div class="protocol-header">
+          <span class="protocol-title">⚡ Protocol: 30-Day Dopaminergic Baseline Reset</span>
+          <button type="button" class="btn-copy" onclick="copyProtocol('proto-1-list')">📋 Copy Protocol</button>
+        </div>
+        <ul class="protocol-list" id="proto-1-list">
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Friction Barrier:</strong> Remove browser access from bedroom; place charging station in another room.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Effortful Reward Replacement:</strong> Replace nighttime browsing with cold showers, book reading, or walking.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>20-Minute Urge Surfing:</strong> When cravings strike, use the built-in timer below; cravings peak &amp; dissipate in ~20 min.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Awareness of Weeks 2–3:</strong> Recognize that mid-point lethargy is the ΔFosB degradation window, not a permanent state.</span></li>
+        </ul>
+      </div>
+
+      <!-- ─── SECTION 2: FOCUS ─── -->
+      <h2 id="sec2">2 · Stop Doomscrolling → Get Your Focus Back</h2>
+      <p><strong>Core premise:</strong> Algorithmic short-form feeds fragment continuous attention, leading to working memory degradation, inefficient neural network clustering, and structural thinning in the anterior cingulate cortex.</p>
+
+      <h3>fNIRS evidence: working memory &amp; DLPFC</h3>
+      <p>Functional near-infrared spectroscopy (fNIRS) during 2-back working memory tasks reveals stark disparities between high screen time groups (HSTG) and low screen time groups (LSTG). Low screen time participants display robust activation in the <b>bilateral dorsolateral prefrontal cortex (DLPFC)</b>, premotor cortex, and supplementary motor cortex. Furthermore, graph-theoretical network analysis shows that heavy screen use causes reduced network density and lower clustering coefficients, forcing the brain to use biologically inefficient neural circuits to perform baseline cognitive tasks.</p>
+
+      <h3>Event-Related Potentials &amp; "Phone Conscious Thought"</h3>
+      <p>EEG analysis of Event-Related Potentials demonstrates that smartphone notifications significantly dampen the <b>N2 oddball effect</b> (the neural signature of top-down conflict monitoring and prepotent response suppression) and diminish the <b>P2 amplitude</b> (early attentional allocation). Even the mere physical presence of an inactive smartphone on a desk consumes measurable prefrontal bandwidth ("phone conscious thought") as the brain constantly expends energy suppressing the urge to interact with it.</p>
+
+      <h3>Cortical thinning &amp; the "Brain Rot" reality</h3>
+      <p>Neuroimaging among young adults reveals that heavy multimedia multitasking correlates with accelerated <b>cortical thinning</b> and reduced grey matter volume in the <b>anterior cingulate cortex (ACC)</b> — the central hub for error detection, impulse control, and emotional regulation.</p>
+
+      <table>
+        <thead><tr><th>Cognitive Domain</th><th>High Screen Time Manifestation</th><th>Associated Neural Marker</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Working Memory</strong></td><td>Decreased accuracy, slower retrieval</td><td>Reduced bilateral DLPFC &amp; PreM activation</td></tr>
+          <tr><td><strong>Network Efficiency</strong></td><td>Disorganized, inefficient routing</td><td>Lower clustering coefficient &amp; network density</td></tr>
+          <tr><td><strong>Conflict Monitoring</strong></td><td>Impaired suppression of task-irrelevant cues</td><td>Smaller N2 ERP oddball amplitude</td></tr>
+          <tr><td><strong>Structural Volume</strong></td><td>Accelerated cortical thinning</td><td>Lower grey matter volume in the ACC</td></tr>
+        </tbody>
+      </table>
+
+      <!-- PROTOCOL 2 -->
+      <div class="protocol-box" id="proto-2">
+        <div class="protocol-header">
+          <span class="protocol-title">📱 Protocol: Prefrontal Attention Reclamation</span>
+          <button type="button" class="btn-copy" onclick="copyProtocol('proto-2-list')">📋 Copy Protocol</button>
+        </div>
+        <ul class="protocol-list" id="proto-2-list">
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>60-Minute Morning Firewall:</strong> Zero screen engagement for the first hour of waking to preserve melatonin clearance and autonomic calm.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Physical Phone Exile:</strong> Store phone in a drawer or another room during deep cognitive work blocks.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Timeboxed Consumption:</strong> Limit algorithmic social feeds to two 15-minute scheduled windows per day.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Grayscale Mode:</strong> Convert screen to monochrome in system settings to strip visual supernormal salience.</span></li>
+        </ul>
+      </div>
+
+      <!-- ─── SECTION 3: CONFIDENCE ─── -->
+      <h2 id="sec3">3 · Lift Heavy → Get Your Confidence Back</h2>
+      <p><strong>Core premise:</strong> Progressive resistance training (RT) operates as a powerful somatic and psychophysiological intervention. Moving quantifiable physical loads systematically shatters learned helplessness, manufacturing Exercise Self-Efficacy that generalizes to global self-worth.</p>
+
+      <h3>Self-efficacy vs. Global self-esteem</h3>
+      <p>Albert Bandura's Social Cognitive Theory defines <b>Exercise Self-Efficacy (ESE)</b> as task-specific confidence to execute physical challenges and persist through barriers. Unlike diffuse cardio, resistance training provides immediate, objective progressive overload (plates on the bar, reps completed). Meta-analyses demonstrate an effect size of <b>Hedges' g = 0.538</b> for RT self-efficacy, <b>0.319</b> for physical self-worth, and <b>0.289</b> for perceived strength. In psychiatric populations, resistance exercise significantly alleviates depressive symptoms (MD = -0.29) while boosting self-esteem (MD = 0.23).</p>
+
+      <div class="stat-row">
+        <div class="stat"><div class="n">+12.14</div><div class="d">ESE points gained in 12-week RT cohort</div></div>
+        <div class="stat"><div class="n">+8.58</div><div class="d">Global self-esteem point increase</div></div>
+        <div class="stat"><div class="n">-2.75%</div><div class="d">Average body-fat reduction</div></div>
+      </div>
+
+      <h3>Mindfulness-Enhanced Resistance Training (MRT)</h3>
+      <p>A 30-week RCT compared standard RT against <b>Mindfulness-Enhanced RT (MRT)</b> where lifters synchronized nasal breath with reps and observed muscular burn without judgment. While both groups experienced muscular gains, <em>only MRT lifters showed statistically significant increases in mindfulness, self-esteem, and subjective well-being</em> — with self-esteem fully mediating the happiness dividends.</p>
+
+      <table>
+        <thead><tr><th>Psychological Metric</th><th>Theoretical Framework</th><th>Resistance Training Effect Size</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Exercise Self-Efficacy (ESE)</strong></td><td>Social Cognitive Theory</td><td>g = 0.538 — primary driver of sustained adherence</td></tr>
+          <tr><td><strong>Global Self-Esteem</strong></td><td>Rosenberg Scale</td><td>SMD = 0.31 — frequently outperforms aerobic exercise</td></tr>
+          <tr><td><strong>Depressive Symptoms</strong></td><td>Psychiatric Inventories</td><td>MD = -0.29 — substantial reduction in clinical distress</td></tr>
+          <tr><td><strong>Mind-Body Integration</strong></td><td>MRT Framework</td><td>Full mediation of subjective well-being via self-esteem</td></tr>
+        </tbody>
+      </table>
+
+      <!-- PROTOCOL 3 -->
+      <div class="protocol-box" id="proto-3">
+        <div class="protocol-header">
+          <span class="protocol-title">🏋️ Protocol: Progressive Somatic Mastery (3×/week)</span>
+          <button type="button" class="btn-copy" onclick="copyProtocol('proto-3-list')">📋 Copy Protocol</button>
+        </div>
+        <ul class="protocol-list" id="proto-3-list">
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Compound Hierarchy:</strong> Focus on Squat/Hinge, Overhead/Bench Press, Barbell Row, and Weighted Carries.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Progressive Overload Log:</strong> Track every working set; add 1 rep or 1 kg weekly as tangible proof of agency.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>MRT Somatic Anchor:</strong> Anchor nasal breathing during eccentric phases; observe intense burn without cognitive panic.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Environmental Scaffolding:</strong> Join structured strength boxes (e.g. dedicated coaching facilities) to offload programming friction.</span></li>
+        </ul>
+      </div>
+
+      <!-- ─── SECTION 4: SELF-RESPECT ─── -->
+      <h2 id="sec4">4 · Keep Promises to Yourself → Get Your Self-Respect Back</h2>
+      <p><strong>Core premise:</strong> Self-respect is the internal psychological sensation that your prefrontal cortex can reliably override limbic impulses. When promises are broken, self-trust collapses. Rigorous environmental constraint — exemplified by the 10-day Vipassana model — rehabilitates this executive brake.</p>
+
+      <h3>The Vipassana laboratory of restraint</h3>
+      <p>Standardized 10-day residential courses (such as Dhamma Setu, Thirumudivakkam, Chennai) operate as crucibles of constraint. Participants observe <b>Noble Silence</b> (zero verbal, gesture, or digital communication), adhere to strict ethical precepts, wake at 4:00 AM, and meditate for ~10 hours daily while fasting past noon. Every habitual escape valve is eliminated.</p>
+
+      <table>
+        <thead><tr><th>Time Block</th><th>Daily Protocol at Dhamma Setu</th><th>Neurocognitive Adaptation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>04:00 AM</strong></td><td>Wake-up bell</td><td>Overriding sleep inertia; immediate executive initiation.</td></tr>
+          <tr><td><strong>04:30 – 06:30 AM</strong></td><td>Baseline meditation</td><td>Sustained concentration before sensory contamination.</td></tr>
+          <tr><td><strong>08:00 – 11:00 AM</strong></td><td>Group determination sitting</td><td>Physical stillness under discomfort; DLPFC endurance.</td></tr>
+          <tr><td><strong>11:00 AM – 01:00 PM</strong></td><td>Lunch &amp; intermittent fast</td><td>Metabolic and sensory discipline.</td></tr>
+          <tr><td><strong>01:00 – 05:00 PM</strong></td><td>Deep meditation blocks</td><td>Confronting psychological fatigue; emotional resilience.</td></tr>
+          <tr><td><strong>07:00 – 08:30 PM</strong></td><td>Discourse &amp; integration</td><td>Cognitive reframing around impermanence (Anicca) &amp; equanimity.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Anapana to Vipassana: decoupling visceral craving</h3>
+      <p>The initial 3 days focus on <em>Anapana</em> (micro-attention anchored to the triangle below the nostrils), directly strengthening the DLPFC's focus hardware. From Day 4 onward, <em>Vipassana</em> trains systematic body scanning with strict <b>equanimity</b>. In standard biology, pleasant sensations trigger dopaminergic craving, while unpleasant sensations trigger cortisol-driven aversion. By sitting in complete stillness during "sittings of strong determination" without shifting posture or reacting, the nervous system uncouples raw sensory input from limbic reactivity. Keeping these brutal self-promises builds genuine, evidence-backed self-respect.</p>
+
+      <!-- PROTOCOL 4 -->
+      <div class="protocol-box" id="proto-4">
+        <div class="protocol-header">
+          <span class="protocol-title">🧘 Protocol: Daily Executive Brake Conditioning</span>
+          <button type="button" class="btn-copy" onclick="copyProtocol('proto-4-list')">📋 Copy Protocol</button>
+        </div>
+        <ul class="protocol-list" id="proto-4-list">
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Inviolable Wake Time:</strong> Set wake-up time 7 days a week; feet on the floor immediately upon alarm (zero snooze).</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>10-Min Strong Determination Sit:</strong> Sit upright in silence; maintain absolute physical stillness regardless of minor itches.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Micro-Promise Log:</strong> State 1 non-negotiable task every morning and execute it before noon without exception.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Noble Hour:</strong> Maintain 60 continuous minutes of absolute silence and zero digital input every evening.</span></li>
+        </ul>
+      </div>
+
+      <!-- ─── SECTION 5: PURPOSE ─── -->
+      <h2 id="sec5">5 · Build Something Meaningful → Get Your Purpose Back</h2>
+      <p><strong>Core premise:</strong> Restored vitality, focus, and strength require a productive vector. Viktor Frankl's Logotherapy and the Japanese concept of Ikigai prove that meaning is a hard biological shield that downregulates chronic allostatic stress and lowers all-cause mortality.</p>
+
+      <h3>Logotherapy &amp; the biological utility of meaning</h3>
+      <p>Viktor Frankl posited that the primary human drive is the "will to meaning." Public health reviews confirm that dimensions of purpose in life, optimism, and mastery produce protective biological dividends far exceeding simple hedonic pleasure. Having an overarching purpose significantly reduces allostatic load on cardiovascular and neuroendocrine systems.</p>
+
+      <h3>The Ikigai construct &amp; longevity data</h3>
+      <p>Large-scale cohort studies demonstrate a direct, inverse relationship between possessing a high sense of <em>Ikigai</em> (purpose in life) and all-cause mortality. Purpose drives healthier behavioral choices, bolsters resilience against depressive episodes, and preserves cognitive vitality into old age. Humans were not biologically engineered merely to consume passive stimuli and expire; we are designed to exert agency and construct enduring value.</p>
+
+      <!-- PROTOCOL 5 -->
+      <div class="protocol-box" id="proto-5">
+        <div class="protocol-header">
+          <span class="protocol-title">🚀 Protocol: 14-Day Ikigai Maker Sprint</span>
+          <button type="button" class="btn-copy" onclick="copyProtocol('proto-5-list')">📋 Copy Protocol</button>
+        </div>
+        <ul class="protocol-list" id="proto-5-list">
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Define the Build:</strong> Select one tangible artifact to ship in 14 days (an open-source tool, deep guide, or community project).</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Protected 90-Min Maker Block:</strong> Block 90 uninterrupted morning minutes daily for pure creation (zero notifications).</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Contribution Verification:</strong> Ensure the project solves a real problem for at least 1 other human being.</span></li>
+          <li class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span><strong>Ship &amp; Iterate:</strong> Publish the work publicly on Day 14 to close the feedback loop and anchor identity.</span></li>
+        </ul>
+      </div>
+
+      <!-- ─── INTERACTIVE MICRO-TOOLS ─── -->
+      <div id="tools" class="tool-box">
+        <span class="eyebrow" style="background:var(--accent-soft)">Real-Time Utilities</span>
+        <h3 style="margin-top:4px">Behavioral Micro-Timers</h3>
+        <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px">Use these timers right here on the page to execute your protocols without getting distracted by your phone.</p>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px">
+          <button type="button" class="filter-btn active" onclick="setTimerPreset(20, 'Urge Surfing (20 min)', true)">🌊 20-Min Urge Surfer</button>
+          <button type="button" class="filter-btn" onclick="setTimerPreset(10, 'Strong Determination Sit (10 min)', false)">🧘 10-Min Equanimity Sit</button>
+          <button type="button" class="filter-btn" onclick="setTimerPreset(60, 'Morning Screen Firewall (60 min)', false)">🛡️ 60-Min Screen Firewall</button>
+        </div>
+
+        <div class="timer-wrap">
+          <div class="timer-circle" id="timer-circle">
+            <div class="timer-display" id="timer-display">20:00</div>
+          </div>
+          <div id="timer-label" style="font-size:13px;font-weight:700;color:var(--muted)">Urge Surfing · Breathe with the circle</div>
+          <div class="timer-controls">
+            <button type="button" class="btn btn-primary" id="btn-timer-start" onclick="toggleTimer()">Start Timer</button>
+            <button type="button" class="btn btn-ghost" onclick="resetTimer()">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── CONCLUSION ─── -->
+      <hr>
+      <div id="conclusion">
+        <h2>Agency Is a Neurobiological State You Build</h2>
+        <p><strong>Passivity engineers biological decay; intentional resistance rewires your brain.</strong></p>
+        <ul>
+          <li><b>Quit supernormal novelty</b> → degrade accumulated ΔFosB, cure hypofrontality, and restore dopamine sensitivity.</li>
+          <li><b>Stop doomscrolling</b> → rescue DLPFC network clustering and preserve anterior cingulate cortex volume.</li>
+          <li><b>Lift progressively</b> → generate quantifiable Exercise Self-Efficacy that shatters learned helplessness.</li>
+          <li><b>Keep promises to yourself</b> → rebuild top-down inhibitory control; self-respect follows as empirical evidence.</li>
+          <li><b>Direct capacity toward Ikigai</b> → Frankl's will to meaning downregulates stress and extends lifespan.</li>
+        </ul>
+        <p>Start with one single lever today. Stack the next when the first is automatic. Agency compounds.</p>
+        
+        <div class="callout green">
+          <strong>Medical &amp; Scientific Disclaimer:</strong> This document synthesizes peer-reviewed neuroimaging and psychological literature for educational purposes. It is not medical or psychiatric advice. If you are struggling with compulsive behaviors or clinical distress, consider consulting a certified healthcare professional.
+        </div>
+      </div>
+
+      <!-- ─── WORKS CITED (ACCORDION & SEARCHABLE FILTER) ─── -->
+      <div class="accordion" id="refs" style="margin-top:22px">
+        <div class="acc-item">
+          <button type="button" class="acc-head" data-collapse aria-expanded="true">
+            <span class="acc-no">📚</span>
+            <span>Works Cited &amp; Literature Evidence (36 Sources)</span>
+            <svg class="acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="acc-body" style="max-height:none"><div class="acc-inner">
+            <input type="text" id="ref-search" class="search-input" placeholder="🔍 Search citations by topic, author, or keyword..." oninput="filterReferences()">
+            
+            <div class="ref-filter-wrap">
+              <button type="button" class="filter-btn active" onclick="setRefCategory('all')">All (36)</button>
+              <button type="button" class="filter-btn" onclick="setRefCategory('dopamine')">Dopamine &amp; ΔFosB</button>
+              <button type="button" class="filter-btn" onclick="setRefCategory('screen')">Screen Time &amp; fNIRS</button>
+              <button type="button" class="filter-btn" onclick="setRefCategory('lifting')">Resistance &amp; Self-Efficacy</button>
+              <button type="button" class="filter-btn" onclick="setRefCategory('meditation')">Vipassana &amp; Executive Control</button>
+              <button type="button" class="filter-btn" onclick="setRefCategory('purpose')">Ikigai &amp; Longevity</button>
+            </div>
+
+            <ol class="refs" id="refs-list">
+              <li data-cat="dopamine">Pornography addiction – a supranormal stimulus considered — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3960020/" target="_blank" rel="noopener">PMC3960020</a></li>
+              <li data-cat="dopamine">Neuroscience of Internet Pornography Addiction: A Review — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4600144/" target="_blank" rel="noopener">PMC4600144</a></li>
+              <li data-cat="screen">Demystifying the New Dilemma of Brain Rot in the Digital Era — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11939997/" target="_blank" rel="noopener">PMC11939997</a></li>
+              <li data-cat="screen">The Developing Brain in the Digital Era: A Scoping Review — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8432290/" target="_blank" rel="noopener">PMC8432290</a></li>
+              <li data-cat="dopamine">ΔFosB in the nucleus accumbens is critical for reinforcing effects — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2970635/" target="_blank" rel="noopener">PMC2970635</a></li>
+              <li data-cat="dopamine">Pornography addiction: A neuroscience perspective — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3050060/" target="_blank" rel="noopener">PMC3050060</a></li>
+              <li data-cat="dopamine">Neurobiology of addiction: a neurocircuitry analysis — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6135092/" target="_blank" rel="noopener">PMC6135092</a></li>
+              <li data-cat="dopamine">Neurobiology of Addiction — StatPearls (NCBI Bookshelf) — <a href="https://www.ncbi.nlm.nih.gov/books/NBK597351/" target="_blank" rel="noopener">NBK597351</a></li>
+              <li data-cat="dopamine">No evidence for decreased D2/3 receptor availability in CPU (PET) — <a href="https://pubmed.ncbi.nlm.nih.gov/33774451/" target="_blank" rel="noopener">PubMed 33774451</a></li>
+              <li data-cat="dopamine">The Influence of ΔFosB in the Nucleus Accumbens on Natural Reward — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2653197/" target="_blank" rel="noopener">PMC2653197</a></li>
+              <li data-cat="dopamine">The Neurobiology of Successful Abstinence — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3706547/" target="_blank" rel="noopener">PMC3706547</a></li>
+              <li data-cat="screen">Screen Time Exposure and Domain-Specific Working Memory — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11187442/" target="_blank" rel="noopener">PMC11187442</a></li>
+              <li data-cat="screen">Excessive Smartphone Use Is Associated With Health Problems — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8204720/" target="_blank" rel="noopener">PMC8204720</a></li>
+              <li data-cat="screen">The impact of smartphone use on working memory in college students (fNIRS) — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12883783/" target="_blank" rel="noopener">PMC12883783</a></li>
+              <li data-cat="screen">Working memory and functional near-infrared spectroscopy — <a href="https://pubmed.ncbi.nlm.nih.gov/41668776/" target="_blank" rel="noopener">PubMed 41668776</a></li>
+              <li data-cat="screen">The effects of smartphone notifications on cognitive control (ERP) — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9671478/" target="_blank" rel="noopener">PMC9671478</a></li>
+              <li data-cat="screen">Mobile phones: The effect of its presence on learning and memory — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7425970/" target="_blank" rel="noopener">PMC7425970</a></li>
+              <li data-cat="screen">What Excessive Screen Time Does to the Adult Brain — <a href="https://lifestylemedicine.stanford.edu/what-excessive-screen-time-does-to-the-adult-brain/" target="_blank" rel="noopener">Stanford Lifestyle Medicine</a></li>
+              <li data-cat="lifting">The Era of Resistance Training as a Primary Form of Physical Activity — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12476322/" target="_blank" rel="noopener">PMC12476322</a></li>
+              <li data-cat="lifting">The impact of exercise self-efficacy, self-esteem and physical activity — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12902059/" target="_blank" rel="noopener">PMC12902059</a></li>
+              <li data-cat="lifting">The Effect of Resistance Training Interventions on 'The Self' in Youth — <a href="https://pubmed.ncbi.nlm.nih.gov/31270635/" target="_blank" rel="noopener">PubMed 31270635</a></li>
+              <li data-cat="lifting">Exercise interventions for self-perceived body image &amp; self-esteem — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11413083/" target="_blank" rel="noopener">PMC11413083</a></li>
+              <li data-cat="lifting">Effect of exercise interventions on depression, anxiety, and self-esteem — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12577281/" target="_blank" rel="noopener">PMC12577281</a></li>
+              <li data-cat="lifting">The Influence of Mindfulness-Enhanced Resistance Training (MRT) — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13113385/" target="_blank" rel="noopener">PMC13113385</a></li>
+              <li data-cat="lifting">The Quad @ Chennai — Strength &amp; Conditioning — <a href="https://chennai.thequad.in/" target="_blank" rel="noopener">chennai.thequad.in</a></li>
+              <li data-cat="lifting">Top Strength Training Centres in Besant Nagar Chennai — <a href="https://www.justdial.com/Chennai/Strength-Training-Centres-in-Besant-Nagar/nct-11382098" target="_blank" rel="noopener">Justdial</a></li>
+              <li data-cat="meditation">Vipassana Chennai: Dhamma Setu, Thirumudivakkam — <a href="https://vipassana.cool/t/vipassana-chennai" target="_blank" rel="noopener">vipassana.cool</a></li>
+              <li data-cat="meditation">Dhamma Setu Vipassana Meditation Centre — <a href="https://balancegurus.com/location/india/chennai/dhamma-setu-vipassana-meditation-centre-chennai-india" target="_blank" rel="noopener">BalanceGurus</a></li>
+              <li data-cat="meditation">10 Days Noble Silence Experience — Vipassana — <a href="https://safeandhealthytravel.com/10-days-vipassana/" target="_blank" rel="noopener">safeandhealthytravel.com</a></li>
+              <li data-cat="meditation">My Vipassana Journey: Dhamma Setu, Thirumudivakkam — <a href="https://inclearmind.com/unveiling-my-vipassana-journey-dhamma-setu-thirumudivakkam-part-1/" target="_blank" rel="noopener">inclearmind.com</a></li>
+              <li data-cat="meditation">10 Day Vipassana Meditation Experience &amp; Analysis — <a href="https://www.youtube.com/watch?v=k1I7UGsdvEs" target="_blank" rel="noopener">YouTube Video</a></li>
+              <li data-cat="purpose">The role of purpose in life in healthy aging — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12181576/" target="_blank" rel="noopener">PMC12181576</a></li>
+              <li data-cat="purpose">Psychological well-being as part of the public health debate — <a href="https://www.springermedizin.de/psychological-well-being-as-part-of-the-public-health-debate-ins/17678926" target="_blank" rel="noopener">Springer Medizin</a></li>
+              <li data-cat="purpose">Ikigai and subsequent health and wellbeing among older adults — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8814687/" target="_blank" rel="noopener">PMC8814687</a></li>
+              <li data-cat="purpose">An Integrated Cognitive-Motivational Model of Ikigai — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10936145/" target="_blank" rel="noopener">PMC10936145</a></li>
+              <li data-cat="purpose">Exploring the Psychological Impact of Logotherapy on Hope — <a href="https://brieflands.com/journals/ijcm/articles/164641" target="_blank" rel="noopener">Brieflands IJCM</a></li>
+            </ol>
+            <p style="margin-top:12px;font-size:12px;color:var(--muted)">ΔFosB rendered as ΔFosB; β-cell rendered as β-cell. Search supports title, PMC/PubMed ID, or keyword.</p>
+          </div></div>
+        </div>
+      </div>
+
+      <p id="page-footer-note" style="margin-top:14px;color:var(--muted);font-size:13px">Published in The Dump · Last updated Aug 31, 2026 · <a href="index.html">← Back to Dump</a></p>
+    </article>
+  </main>
+
+  <div id="toast" class="toast">Protocol copied to clipboard!</div>
+
+  <script src="assets/base.js" defer></script>
+  <script>
+    /* ─── Table of Contents ScrollSpy ─── */
+    (function(){
+      var links=[].slice.call(document.querySelectorAll('.toc a'));
+      var ids=links.map(function(a){return a.getAttribute('href').slice(1);});
+      function setActive(id){ links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id);});}
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
+      },{rootMargin:'-35% 0px -55% 0px',threshold:0});
+      ids.forEach(function(id){var el=document.getElementById(id); if(el) obs.observe(el);});
+    })();
+
+    /* ─── Circuit Switcher ─── */
+    function switchCircuit(mode){
+      document.querySelectorAll('.circuit-btn').forEach(function(b,i){
+        b.classList.toggle('active', (mode==='trap'&&i===0)||(mode==='recovery'&&i===1));
+      });
+      document.getElementById('circuit-trap').classList.toggle('active', mode==='trap');
+      document.getElementById('circuit-recovery').classList.toggle('active', mode==='recovery');
+    }
+
+    /* ─── Checkbox Persistence ─── */
+    var STORE_KEY = 'kkb-agency-checklist';
+    function loadChecks(){
+      try{
+        var saved = JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+        document.querySelectorAll('.check-item').forEach(function(item, idx){
+          var box = item.querySelector('input[type="checkbox"]');
+          if(box && saved[idx]){ box.checked = true; item.classList.add('done'); }
+        });
+      }catch(e){}
+    }
+    function toggleCheck(item){
+      var box = item.querySelector('input[type="checkbox"]');
+      if(!box) return;
+      box.checked = !box.checked;
+      item.classList.toggle('done', box.checked);
+      saveChecks();
+    }
+    document.querySelectorAll('.check-item input[type="checkbox"]').forEach(function(cb){
+      cb.addEventListener('click', function(e){ e.stopPropagation(); this.closest('.check-item').classList.toggle('done', this.checked); saveChecks(); });
+    });
+    function saveChecks(){
+      var state = {};
+      document.querySelectorAll('.check-item').forEach(function(item, idx){
+        var box = item.querySelector('input[type="checkbox"]');
+        if(box) state[idx] = box.checked;
+      });
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    }
+    loadChecks();
+
+    /* ─── Toast & Copy Protocol ─── */
+    function showToast(msg){
+      var t = document.getElementById('toast');
+      if(!t) return;
+      t.textContent = msg || 'Copied to clipboard!';
+      t.classList.add('show');
+      setTimeout(function(){ t.classList.remove('show'); }, 2200);
+    }
+    function copyProtocol(listId){
+      var el = document.getElementById(listId);
+      if(!el) return;
+      var text = Array.from(el.querySelectorAll('.check-item span')).map(function(s,i){
+        return (i+1) + '. ' + s.innerText.replace(/\s+/g, ' ').trim();
+      }).join('\n');
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('Protocol copied to clipboard!');
+      }).catch(function(){
+        showToast('Selection copied!');
+      });
+    }
+
+    /* ─── Agency Audit Calculator ─── */
+    document.querySelectorAll('.audit-options').forEach(function(optGroup){
+      optGroup.addEventListener('click', function(e){
+        var btn = e.target.closest('.audit-btn');
+        if(!btn) return;
+        optGroup.querySelectorAll('.audit-btn').forEach(function(b){ b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+    });
+
+    function calculateAudit(){
+      var groups = document.querySelectorAll('.audit-options');
+      var total = 0, answered = 0, highestFriction = '', maxVal = 0;
+      var labels = {
+        'dopamine': 'Dopaminergic Hyper-Stimulation (Pillar 1)',
+        'screen': 'Morning Screen Fragmentation (Pillar 2)',
+        'lifting': 'Physical Resistance Deficit (Pillar 3)',
+        'brake': 'Executive Inhibitory Collapse (Pillar 4)',
+        'purpose': 'Purpose / Ikigai Drift (Pillar 5)'
+      };
+      
+      groups.forEach(function(g){
+        var sel = g.querySelector('.audit-btn.selected');
+        if(sel){
+          var val = parseInt(sel.getAttribute('data-val'), 10);
+          total += val;
+          answered++;
+          var pillar = g.getAttribute('data-pillar');
+          if(val >= maxVal){ maxVal = val; highestFriction = labels[pillar] || pillar; }
+        }
+      });
+
+      if(answered < 5){
+        alert('Please answer all 5 questions to generate your diagnostic.');
+        return;
+      }
+
+      // Max score = 15 (severe fatigue), Min score = 5 (optimum agency)
+      // Percentage score: 100 - ((total - 5)/10 * 100)
+      var pct = Math.round(100 - ((total - 5) / 10 * 100));
+      var resBox = document.getElementById('audit-result');
+      var scoreText = document.getElementById('audit-score-text');
+      var badge = document.getElementById('audit-status-badge');
+      var rec = document.getElementById('audit-recommendation');
+
+      scoreText.textContent = 'Agency Index: ' + pct + '% (' + (pct >= 75 ? 'Optimal' : pct >= 45 ? 'Moderate Fatigue' : 'High Friction') + ')';
+      
+      if(pct >= 75){
+        badge.textContent = 'High Agency';
+        badge.style.color = '#16a34a';
+        rec.innerHTML = '<strong>Primary Focus:</strong> Maintain momentum and direct maximum capacity toward <strong>Pillar 5 (Ikigai Maker Sprint)</strong>. Your prefrontal hardware is well calibrated.';
+      } else if(pct >= 45){
+        badge.textContent = 'Moderate Friction';
+        badge.style.color = '#d97706';
+        rec.innerHTML = '<strong>Primary Bottleneck:</strong> ' + highestFriction + '. Implement the corresponding daily protocol first before attempting multi-habit overhauls.';
+      } else {
+        badge.textContent = 'Severe Neural Fatigue';
+        badge.style.color = '#dc2626';
+        rec.innerHTML = '<strong>Critical Reset Required:</strong> Begin strictly with <strong>Pillars 1 & 2</strong> (Dopamine baseline reset + 60-min morning screen firewall). Allow 2 weeks for prefrontal hypofrontality to resolve.';
+      }
+
+      resBox.style.display = 'block';
+      resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* ─── Real-Time Behavioral Micro-Timers ─── */
+    var timerInterval = null;
+    var timerRemaining = 1200; // seconds (20 mins default)
+    var isTimerRunning = false;
+    var timerIsBreathing = true;
+
+    function formatTime(sec){
+      var m = Math.floor(sec / 60);
+      var s = sec % 60;
+      return (m < 10 ? '0'+m : m) + ':' + (s < 10 ? '0'+s : s);
+    }
+
+    function updateTimerDisplay(){
+      document.getElementById('timer-display').textContent = formatTime(timerRemaining);
+    }
+
+    function setTimerPreset(mins, label, breath){
+      if(timerInterval) clearInterval(timerInterval);
+      isTimerRunning = false;
+      document.getElementById('btn-timer-start').textContent = 'Start Timer';
+      timerRemaining = mins * 60;
+      timerIsBreathing = breath;
+      document.getElementById('timer-label').textContent = label;
+      var circle = document.getElementById('timer-circle');
+      circle.classList.remove('breathing');
+      updateTimerDisplay();
+      
+      // Update active filter button
+      event.target.closest('.tool-box').querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      event.target.classList.add('active');
+    }
+
+    function toggleTimer(){
+      var btn = document.getElementById('btn-timer-start');
+      var circle = document.getElementById('timer-circle');
+      if(isTimerRunning){
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        btn.textContent = 'Resume';
+        circle.classList.remove('breathing');
+      } else {
+        isTimerRunning = true;
+        btn.textContent = 'Pause';
+        if(timerIsBreathing) circle.classList.add('breathing');
+        timerInterval = setInterval(function(){
+          if(timerRemaining > 0){
+            timerRemaining--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            btn.textContent = 'Completed!';
+            circle.classList.remove('breathing');
+            showToast('Timer completed!');
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer(){
+      if(timerInterval) clearInterval(timerInterval);
+      isTimerRunning = false;
+      document.getElementById('btn-timer-start').textContent = 'Start Timer';
+      document.getElementById('timer-circle').classList.remove('breathing');
+      timerRemaining = 1200;
+      updateTimerDisplay();
+    }
+
+    /* ─── Searchable & Filterable Works Cited ─── */
+    var activeRefCat = 'all';
+    function setRefCategory(cat){
+      activeRefCat = cat;
+      document.querySelectorAll('.ref-filter-wrap .filter-btn').forEach(function(b){
+        b.classList.toggle('active', b.getAttribute('onclick').indexOf(cat) !== -1);
+      });
+      filterReferences();
+    }
+
+    function filterReferences(){
+      var q = (document.getElementById('ref-search').value || '').toLowerCase().trim();
+      var items = document.querySelectorAll('#refs-list li');
+      items.forEach(function(item){
+        var cat = item.getAttribute('data-cat') || '';
+        var matchesCat = (activeRefCat === 'all' || cat === activeRefCat);
+        var text = item.textContent.toLowerCase();
+        var matchesQuery = !q || text.indexOf(q) !== -1;
+        item.style.display = (matchesCat && matchesQuery) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
