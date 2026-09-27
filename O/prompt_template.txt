@@ -45,4 +45,9 @@
 - update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
 - At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
 
+- BH - 6 Stages of Breakup Healing - Trigger, Impulse, Body, Story, Regulate, Need
+- @BH\info.txt and @BH\index.md - use this to build a index.html - refer to the other folder which start with BH for your reference, make sure you utilize all the content from @BH\info.txt and @BH\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+
 ---

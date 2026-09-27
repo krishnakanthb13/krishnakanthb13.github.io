@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet the Need, Change the Behavior | Interactive Infographic</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js CDN -->
@@ -63,34 +64,42 @@
 <body class="bg-slate-50 text-slate-800 font-sans antialiased smooth-scroll">
 
     <!-- Sticky Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-white py-3 px-4 sm:px-8">
-        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <a href="../../index.html" class="text-xs text-slate-400 hover:text-white transition-colors bg-slate-800/80 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1">
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Left Branding -->
+            <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                <a href="../../index.html" class="text-xs text-slate-400 hover:text-white transition-colors bg-slate-800/80 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1 whitespace-nowrap">
                     &larr; Hub
                 </a>
-                <div class="flex items-center gap-2 font-bold text-lg text-amber-400">
-                    <span class="text-2xl">🧠</span>
-                    <span>Behavior as Communication</span>
+                <div class="flex items-center gap-2 font-bold text-sm sm:text-base text-amber-400 whitespace-nowrap">
+                    <span class="text-lg">🧠</span>
+                    <span class="bg-gradient-to-r from-amber-400 via-orange-300 to-rose-400 bg-clip-text text-transparent">Behavior as Communication</span>
                 </div>
+                <span class="hidden md:inline-block bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 font-extrabold text-[10px] px-2 py-0.5 rounded-full tracking-wider uppercase whitespace-nowrap">
+                    Clinical Guide
+                </span>
             </div>
-            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-300">
+
+            <!-- Middle Section Links (hidden on compact screens, shown on desktop) -->
+            <div class="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-medium text-slate-300 whitespace-nowrap">
                 <a href="#overview" class="hover:text-amber-400 transition-colors">Core Matrix</a>
-                <a href="#cft-model" class="hover:text-teal-400 transition-colors">CFT Emotion Systems</a>
+                <a href="#cft-model" class="hover:text-teal-400 transition-colors">CFT Systems</a>
                 <a href="#activation" class="hover:text-orange-400 transition-colors">Behavioral Activation</a>
-                <a href="#attachment" class="hover:text-purple-400 transition-colors">Attachment Styles</a>
-                <a href="#autonomic" class="hover:text-rose-400 transition-colors">Autonomic States</a>
+                <a href="#attachment" class="hover:text-purple-400 transition-colors">Attachment</a>
+                <a href="#autonomic" class="hover:text-rose-400 transition-colors">Autonomic</a>
             </div>
-            <div class="flex items-center gap-2">
-                <a href="../index.html" class="bg-indigo-950 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-200 font-semibold px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1">
-                    <span>🧩</span> Enneagon Simulator
+
+            <!-- Right Action Buttons -->
+            <div class="flex items-center gap-2 shrink-0 text-xs font-semibold whitespace-nowrap">
+                <a href="../index.html" class="bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-200 px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>🧩</span> Simulator
                 </a>
-                <a href="#explorer" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider transition-all shadow-md">
+                <a href="#explorer" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold px-3.5 py-1.5 rounded-full transition-all shadow-md">
                     Toolkit
                 </a>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Header -->
     <header class="gradient-hero text-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

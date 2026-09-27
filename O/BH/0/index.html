@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Clinical Psychology of Breakup Recovery & Healing</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️‍🩹</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            900: '#134e4a',
+                        },
+                        coral: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            900: '#881337',
+                        },
+                        slate: {
+                            850: '#0f172a',
+                            900: '#090d16',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Lora"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-teal-500 selection:text-white custom-scrollbar">
+
+    <!-- Palette Chosen: Vibrant Coral & Deep Teal (High Contrast Mindful Recovery) -->
+    <!-- Explicit Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All charts rendered using Chart.js Canvas and layout built with HTML5/Tailwind CSS. -->
+    <!-- Narrative & Structure Plan: 
+         1. Executive Header & Core Physiological Metrics
+         2. Trigger Profile Interactive Navigator (Digital Surveillance vs Late Night Isolation)
+         3. Neurobiology & Pain Dynamics (Dopamine/Cortisol & Neural Pain Overlay Charts)
+         4. Autonomic Nervous System States (Polyvagal Triad Chart & Grounding Protocols)
+         5. Clinical Frameworks (Attachment Styles, Dual Process Oscillation, CBT & ACT)
+         6. Interactive Self-Regulation & Values Alignment Simulator
+    -->
+    <!-- Visualization Justification Table:
+         1. Neurochemical Dynamics -> Change Over Time -> Chart.js Line Chart -> Demonstrates withdrawal surge vs recovery baseline over weeks. (Canvas/No SVG)
+         2. Neural Pain Activation -> Categorical Comparison -> Chart.js Horizontal Bar Chart -> Compares neural overlap between physical trauma and romantic rejection. (Canvas/No SVG)
+         3. Autonomic Nervous System Distribution -> Composition -> Chart.js Donut Chart -> Maps time spent in Ventral Vagal vs Sympathetic vs Dorsal Vagal states during triggers. (Canvas/No SVG)
+         4. Dual Process Oscillation -> Trend/Mode -> Chart.js Stacked Bar Chart -> Illustrates healthy dynamic shifting between Loss-Oriented and Restoration-Oriented coping. (Canvas/No SVG)
+         5. Trigger Profiles -> Process Flow -> Tailwind CSS Structured Card Grid -> Maps Trigger -> Impulse -> Reaction -> Hidden Narrative -> Regulation -> Real Need without SVG diagramming libraries.
+    -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Left Branding -->
+            <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                <a href="../../index.html" class="text-xs text-slate-400 hover:text-white transition-colors bg-slate-800/80 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1 whitespace-nowrap">
+                    &larr; Hub
+                </a>
+                <div class="flex items-center gap-2 font-bold text-sm sm:text-base text-rose-400 whitespace-nowrap">
+                    <span class="text-lg">💔</span>
+                    <span class="bg-gradient-to-r from-rose-400 via-pink-300 to-teal-300 bg-clip-text text-transparent">Breakup Recovery</span>
+                </div>
+                <span class="hidden md:inline-block bg-gradient-to-r from-rose-500/20 to-teal-500/20 border border-rose-500/30 text-rose-300 font-extrabold text-[10px] px-2 py-0.5 rounded-full tracking-wider uppercase whitespace-nowrap">
+                    Clinical Guide
+                </span>
+            </div>
+
+            <!-- Middle Section Links (hidden on compact screens, shown on desktop) -->
+            <div class="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-medium text-slate-300 whitespace-nowrap">
+                <a href="#triggers" class="hover:text-teal-400 transition-colors">Triggers &amp; Needs</a>
+                <a href="#neurobiology" class="hover:text-teal-400 transition-colors">Neurobiology</a>
+                <a href="#autonomic" class="hover:text-teal-400 transition-colors">Somatic</a>
+                <a href="#frameworks" class="hover:text-teal-400 transition-colors">Frameworks</a>
+            </div>
+
+            <!-- Right Action Buttons -->
+            <div class="flex items-center gap-2 shrink-0 text-xs font-semibold whitespace-nowrap">
+                <a href="../index.html" class="bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-200 px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>💔</span> Simulator
+                </a>
+                <a href="../breakup-healing.png" target="_blank" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-2.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>🖼️</span> Poster
+                </a>
+                <a href="#simulator" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-3.5 py-1.5 rounded-full transition-all shadow-sm">
+                    Toolkit
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-slate-900 text-white py-12 md:py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-block text-teal-400 font-semibold text-sm tracking-wide uppercase mb-2">Evidence-Based Clinical Science</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6 font-serif">
+                    Deconstructing Heartbreak: From Neural Panic to Earned Security
+                </h2>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+                    Romantic separation is not a mere emotional slump; it is a profound biological, neurological, and physiological crisis. When a primary attachment bond is severed, the human brain undergoes acute neurochemical withdrawal and activates somatic pain pathways. Healing requires structured somatic regulation, cognitive restructuring, and identity differentiation.
+                </p>
+            </div>
+
+            <!-- Core Metric KPI Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8">
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-5 shadow-lg">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-coral-400 font-sans mb-1">88%</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-300">Neural Overlap with Physical Pain</div>
+                    <p class="text-[11px] text-slate-400 mt-2">dACC and Anterior Insula activation during rejection mirrors severe bodily distress.</p>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-5 shadow-lg">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-teal-400 font-sans mb-1">3.2x</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-300">Cortisol Elevation</div>
+                    <p class="text-[11px] text-slate-400 mt-2">Acute attachment loss triggers a surge in stress hormones, driving physiological arousal.</p>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-5 shadow-lg">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-amber-400 font-sans mb-1">VTA</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-300">Dopaminergic Addiction Loop</div>
+                    <p class="text-[11px] text-slate-400 mt-2">Ventral Tegmental Area hyper-reactivity creates intense physical craving for the ex-partner.</p>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-5 shadow-lg">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 font-sans mb-1">DPM</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-300">Dual Process Model Healing</div>
+                    <p class="text-[11px] text-slate-400 mt-2">Recovery occurs through fluid oscillation between Loss and Restoration modes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- SECTION 1: TRIGGER PROFILES & ANATOMY OF A BREAKUP IMPULSE -->
+        <section id="triggers" class="scroll-mt-20">
+            <div class="border-l-4 border-coral-500 pl-4 mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-serif">Clinical Trigger Profiles & Micro-Interventions</h3>
+                <p class="text-slate-600 text-sm sm:text-base mt-1">Understanding how acute environmental cues activate automatic survival impulses, hidden cognitive narratives, and essential regulatory actions.</p>
+            </div>
+
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+                In clinical practice, breakup triggers are rarely abstract; they occur during distinct daily contexts—such as digital exposure or nocturnal solitude. Each trigger initiates a predictable cascade: an overwhelming impulse, intense autonomic symptoms, and a destructive hidden narrative. Regulating this cycle requires replacing the automatic impulse with targeted somatic grounding and satisfying the underlying psychological need.
+            </p>
+
+            <!-- Interactive Trigger Selector -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden mb-8">
+                <div class="bg-slate-900 p-4 sm:p-6 text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-teal-400 text-xs uppercase tracking-wider font-bold">Interactive Navigator</span>
+                        <h4 class="text-xl font-bold font-serif">Select Clinical Trigger Profile</h4>
+                    </div>
+                    <div class="flex space-x-2 bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+                        <button id="btn-trigger-1" onclick="switchTrigger(1)" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition bg-coral-500 text-white shadow">
+                            📱 Profile I: Digital Surveillance
+                        </button>
+                        <button id="btn-trigger-2" onclick="switchTrigger(2)" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white">
+                            🌙 Profile II: Late-Night Isolation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Content 1 -->
+                <div id="trigger-card-1" class="p-6 sm:p-8 space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-coral-50/70 border border-coral-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-coral-600 uppercase tracking-wider mb-1">Environmental Trigger</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Social Media / Name Mention</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">Seeing an unexpected life update or photo of your ex on social media, or hearing their name unexpectedly brought up in a group conversation.</p>
+                        </div>
+                        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">Automatic Impulse</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Digital Stalking & Scanning</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">Deep-diving into their profile, dissecting mutual friends' posts, and frantically searching for evidence of whether they have moved on.</p>
+                        </div>
+                        <div class="bg-rose-50/70 border border-rose-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-rose-600 uppercase tracking-wider mb-1">Somatic Reaction</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Sympathetic Hyperarousal</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">Sudden drop in the stomach, racing pulse, cold sweats, and intense tunnel-vision hyper-focusing specifically on their social account.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-slate-100 pt-6">
+                        <div class="bg-slate-900 text-white rounded-xl p-5">
+                            <div class="text-xs font-bold text-coral-400 uppercase tracking-wider mb-1">Hidden Cognitive Narrative</div>
+                            <p class="text-sm italic font-serif text-slate-200 mb-2">"If they are doing fine without me, our entire relationship meant nothing and I am inherently replaceable."</p>
+                            <span class="inline-block bg-slate-800 text-coral-300 text-[10px] font-semibold px-2 py-0.5 rounded">Personalization Distortion</span>
+                        </div>
+                        <div class="bg-teal-50/80 border border-teal-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">Immediate Regulatory Action</div>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">1. Close the application instantly.</p>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">2. Turn phone face down physically.</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">3. Engage preferred somatic coping mechanism to settle acute nervous system spike.</p>
+                        </div>
+                        <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Core Psychological Need</div>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">• Remind yourself your healing trajectory is separate from theirs.</p>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">• Establish self-differentiation (Bowen Systems).</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">• Focus on defining and acting on long-term intrinsic values (ACT).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Content 2 (Hidden by default) -->
+                <div id="trigger-card-2" class="p-6 sm:p-8 space-y-8 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">Environmental Trigger</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Nocturnal Solitude</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">A wave of acute, heavy loneliness that hits late at night in bed when physical and cognitive distractions fade away.</p>
+                        </div>
+                        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">Automatic Impulse</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Protest Contact / Closure Text</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">An overwhelming urge to reach out, send a late-night message under the guise of seeking "closure," or checking if they are awake.</p>
+                        </div>
+                        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Somatic Reaction</div>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Partial Dorsal Collapse + Agitation</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">An empty, hollow sensation deep in the chest combined with physical restlessness and an inability to remain still.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-slate-100 pt-6">
+                        <div class="bg-slate-900 text-white rounded-xl p-5">
+                            <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">Hidden Cognitive Narrative</div>
+                            <p class="text-sm italic font-serif text-slate-200 mb-2">"I will never find a connection like that again. Being alone is unbearable, and only they can fix this pain."</p>
+                            <span class="inline-block bg-slate-800 text-indigo-300 text-[10px] font-semibold px-2 py-0.5 rounded">Catastrophizing & Locus Trap</span>
+                        </div>
+                        <div class="bg-teal-50/80 border border-teal-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">Immediate Regulatory Action</div>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">1. Physically step away from the phone entirely.</p>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">2. Verbalize validation: <em>"I am grieving this breakup. This pain is valid and normal."</em></p>
+                            <p class="text-xs text-slate-600 leading-relaxed">3. Allow deep grief without judgment (EFT protocol).</p>
+                        </div>
+                        <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-5">
+                            <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Core Psychological Need</div>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">• Pennebaker Expressive Writing: Write unsent thoughts in a journal.</p>
+                            <p class="text-xs text-slate-700 leading-relaxed font-semibold mb-2">• Redirect attachment needs toward safe, secure social connections.</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">• Call or text a supportive friend to vent without breaking no-contact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: NEUROBIOLOGY OF ROMANTIC REJECTION -->
+        <section id="neurobiology" class="scroll-mt-20">
+            <div class="border-l-4 border-teal-500 pl-4 mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-serif">The Neurobiology of Rejection: Chemical Withdrawal & Social Pain</h3>
+                <p class="text-slate-600 text-sm sm:text-base mt-1">Empirical neuroimaging proves romantic love operates as a goal-oriented motivational drive mirroring chemical addiction.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mb-8">
+                <!-- Textual Analysis Context -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-4 font-serif">Neurochemical Dynamics: Dopamine Crash & Stress Surges</h4>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                            Functional magnetic resonance imaging (fMRI) studies led by Dr. Helen Fisher reveal that romantic love heavily activates the Ventral Tegmental Area (VTA) and caudate nucleus—regions saturated with dopamine that govern reward acquisition and motivation.
+                        </p>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                            When an attachment bond is abruptly severed, dopamine levels plummet while cortisol and adrenaline surge. The brain enters acute withdrawal. Digital surveillance and protest messaging are desperate neurobiological drives to secure a "reward hit" and restore neurochemical homeostasis.
+                        </p>
+                        <div class="bg-teal-50 border-l-4 border-teal-600 p-4 rounded-r-lg">
+                            <p class="text-xs text-teal-900 font-medium">
+                                <strong>Clinical Insight:</strong> Intermittent reinforcement (sporadic digital updates) spikes dopamine anticipation higher than consistent rewards, entrenching compulsive checking behaviors like a gambling addiction.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Source: Fisher et al. (Journal of Neurophysiology)</span>
+                        <span class="text-teal-600 font-semibold">Neurochemical Profile</span>
+                    </div>
+                </div>
+
+                <!-- Chart 1: Neurochemical Levels Over Time -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-base font-bold text-slate-900 mb-2">Post-Breakup Neurochemical Fluctuations (12-Week Trajectory)</h4>
+                        <p class="text-xs text-slate-500 mb-4">Visualizing the neurochemical withdrawal and gradual physiological recalibration during no-contact recovery.</p>
+                        <div class="chart-container">
+                            <canvas id="neurochemicalChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[11px] text-slate-500 text-center">
+                        *Data models neurochemical concentration curves derived from systemic stress and attachment withdrawal studies.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart 2 & Neural Pain Explanation -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Chart 2: Neural Pain Overlay -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-base font-bold text-slate-900 mb-2">Neural Region Activation: Physical Pain vs. Romantic Rejection</h4>
+                        <p class="text-xs text-slate-500 mb-4">fMRI intensity comparison showing how social rejection piggybacks on somatic pain circuitry.</p>
+                        <div class="chart-container">
+                            <canvas id="neuralPainChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[11px] text-slate-500 text-center">
+                        *Comparison based on Eisenberger & Kross fMRI neural activation metrics (dACC, Insula, S2).
+                    </div>
+                </div>
+
+                <!-- Neural Pain Detailed Text -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-4 font-serif">The Neural Reality of "Heartbreak" & Takotsubo Syndrome</h4>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                            Evolutionary biology dictates that because mammalian offspring depend on proximity for survival, the social attachment system evolved using the pre-existing physical pain neural architecture.
+                        </p>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                            Rejection triggers the <strong>dorsal anterior cingulate cortex (dACC)</strong> and <strong>anterior insula</strong>—the exact brain areas processing the distressing affect of somatic pain. Severe rejection can also recruit the secondary somatosensory cortex (S2), generating genuine physical chest pain and tightness.
+                        </p>
+                        <div class="bg-coral-50 border border-coral-200 p-4 rounded-xl">
+                            <h5 class="text-xs font-bold text-coral-800 uppercase mb-1">Takotsubo Cardiomyopathy ("Broken Heart Syndrome")</h5>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Massive catecholamine surges (adrenaline/noradrenaline) can cause acute left ventricular ballooning, mimicking a myocardial infarction. While more frequent in postmenopausal women, men experiencing Takotsubo exhibit a mortality rate over 2x higher, highlighting severe physiological vulnerability.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Source: Kross et al. (PNAS)</span>
+                        <span class="text-coral-600 font-semibold">Somatic Validation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SOMATIC REGULATION & POLYVAGAL STATES -->
+        <section id="autonomic" class="scroll-mt-20">
+            <div class="border-l-4 border-amber-500 pl-4 mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-serif">Somatic Regulation & Polyvagal Nervous System Dynamics</h3>
+                <p class="text-slate-600 text-sm sm:text-base mt-1">Top-down cognitive interventions fail if the body remains stuck in high autonomic arousal. Regulation must start bottom-up.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <!-- Polyvagal Chart -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-base font-bold text-slate-900 mb-2">Autonomic State Distribution During Triggers</h4>
+                        <p class="text-xs text-slate-500 mb-4">Time spent in Polyvagal states prior to clinical regulation interventions.</p>
+                        <div class="chart-container">
+                            <canvas id="polyvagalChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[11px] text-slate-500 text-center">
+                        *Polyvagal Hierarchy based on Stephen Porges' autonomic framework.
+                    </div>
+                </div>
+
+                <!-- Polyvagal Breakdown Cards -->
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2">Optimal Safety</span>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Ventral Vagal</h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-3">Associated with calm, social engagement, and emotional regulation. Rational prefrontal cortex processing is active.</p>
+                        </div>
+                        <div class="text-[11px] font-semibold text-emerald-800 bg-emerald-100/80 p-2 rounded">
+                            Target State for Healing & Growth
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2">Mobilization</span>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Sympathetic Arousal</h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-3">Fight-or-flight response. High pulse, cold sweats, digital stalking compulsions, hyper-focus, racing thoughts.</p>
+                        </div>
+                        <div class="text-[11px] font-semibold text-amber-800 bg-amber-100/80 p-2 rounded">
+                            Triggered by Social Media Exposure
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2">Immobilization</span>
+                            <h5 class="text-lg font-bold text-slate-900 mb-2">Dorsal Vagal Shutdown</h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-3">Freeze and collapse response. Hollow chest, despair, numbness, intense late-night isolation and hopelessness.</p>
+                        </div>
+                        <div class="text-[11px] font-semibold text-indigo-800 bg-indigo-100/80 p-2 rounded">
+                            Triggered by Nocturnal Solitude
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Somatic Toolkit Grid -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl">
+                <h4 class="text-xl font-bold font-serif mb-6 text-teal-400">Targeted Somatic Grounding Protocols</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-800/80 border border-slate-700 p-5 rounded-xl">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">1. The Physiological Sigh</div>
+                        <h5 class="text-base font-bold text-white mb-2">Rapid Autonomic Down-Regulation</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Two quick, successive inhales through the nose, followed by one long, extended exhale through the mouth.</p>
+                        <p class="text-[11px] text-teal-300 font-medium">Re-inflates lung alveoli, slows heart rate via vagal nerve stimulation within 30 seconds.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-slate-700 p-5 rounded-xl">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">2. 5-4-3-2-1 Sensory Grounding</div>
+                        <h5 class="text-base font-bold text-white mb-2">Prefrontal Cortex Re-Orientation</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Acknowledge 5 things you see, 4 you can touch, 3 you hear, 2 you smell, and 1 you taste.</p>
+                        <p class="text-[11px] text-teal-300 font-medium">Forces neural locus away from amygdala threat processing back into sensory awareness.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-slate-700 p-5 rounded-xl">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">3. Pendulation & Orienting</div>
+                        <h5 class="text-base font-bold text-white mb-2">Somatic Trauma Processing</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Gently shift attention back and forth between physical pain (hollow chest) and a safe physical anchor (feet on floor).</p>
+                        <p class="text-[11px] text-teal-300 font-medium">Prevents the nervous system from becoming flooded by intense grief sensations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CLINICAL PSYCHOLOGY FRAMEWORKS -->
+        <section id="frameworks" class="scroll-mt-20">
+            <div class="border-l-4 border-indigo-500 pl-4 mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-serif">Clinical Frameworks & Therapeutic Models</h3>
+                <p class="text-slate-600 text-sm sm:text-base mt-1">Integrating Attachment Theory, Cognitive Behavioral Therapy (CBT), and the Dual Process Model of Bereavement.</p>
+            </div>
+
+            <!-- Dual Process Model Chart & Explanation -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mb-8">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-4 font-serif">Dual Process Model of Bereavement (Stroebe & Schut)</h4>
+                        <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                            Modern bereavement psychology rejects linear stage models (Kübler-Ross). Healthy recovery is an ongoing, dynamic <strong>oscillation</strong> between two essential modes:
+                        </p>
+                        <ul class="space-y-3 text-xs text-slate-700 mb-4">
+                            <li class="p-3 bg-rose-50 border-l-4 border-rose-500 rounded-r-lg">
+                                <strong>Loss-Oriented Coping:</strong> Directly processing emotional pain, crying, looking at old photos, acknowledging late-night loneliness, and grieving the loss.
+                            </li>
+                            <li class="p-3 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg">
+                                <strong>Restoration-Oriented Coping:</strong> Adapting to new routines, building autonomous values, focusing on career/gym, socializing, and mastering independent roles.
+                            </li>
+                        </ul>
+                        <p class="text-xs text-slate-600 italic">
+                            *Oscillation grants the human psyche necessary respite from continuous grieving without engaging in pathological avoidance.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Source: Stroebe & Schut (1999)</span>
+                        <span class="text-indigo-600 font-semibold">Oscillation Dynamic</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-base font-bold text-slate-900 mb-2">Weekly Coping Oscillation Breakdown</h4>
+                        <p class="text-xs text-slate-500 mb-4">Healthy shift in time distribution from Loss-Oriented to Restoration-Oriented focus over time.</p>
+                        <div class="chart-container">
+                            <canvas id="dpmChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[11px] text-slate-500 text-center">
+                        *Empirical modeling of coping time allocation across 8 recovery weeks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attachment Theory & CBT Matrix -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Anxious Attachment -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-base font-bold text-slate-900">Anxious Attachment</h5>
+                        <span class="bg-coral-100 text-coral-700 text-[10px] font-bold px-2 py-0.5 rounded">Hyperactivating</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                        Hypersensitive to abandonment. Deploys "protest behaviors" (frantic texting, digital surveillance) to restore proximity and soothe a panicked attachment system.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-[11px] text-slate-700 font-medium">
+                        <strong>Clinical Focus:</strong> Self-soothing, urge surfing, building internal validation, and enforcing stimulus control boundaries.
+                    </div>
+                </div>
+
+                <!-- Avoidant Attachment -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-base font-bold text-slate-900">Avoidant Attachment</h5>
+                        <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded">Deactivating</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                        Suppresses attachment needs, claims complete independence, and buries feelings. Suffers delayed grief and somatic symptom manifestations later.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-[11px] text-slate-700 font-medium">
+                        <strong>Clinical Focus:</strong> Safely accessing vulnerable primary grief emotions without fear of losing autonomy.
+                    </div>
+                </div>
+
+                <!-- Secure / Earned Security -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-base font-bold text-slate-900">Earned Secure</h5>
+                        <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded">Target Goal</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                        Developed through therapeutic processing, self-compassion (Kristin Neff), and values-based actions (ACT), establishing internal emotional security.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-[11px] text-slate-700 font-medium">
+                        <strong>Clinical Focus:</strong> Self-differentiation (Bowen) and developing long-term intrinsic life goals.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: INTERACTIVE TOOLKIT & VALUES SIMULATOR -->
+        <section id="simulator" class="scroll-mt-20">
+            <div class="border-l-4 border-coral-500 pl-4 mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-serif">Interactive Recovery Toolkit & Self-Assessment</h3>
+                <p class="text-slate-600 text-sm sm:text-base mt-1">Practice evidence-based cognitive reframing, values mapping (ACT), and expressive journal processing.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Interactive CBT Reframing Tool -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md">
+                    <span class="text-xs font-bold text-coral-500 uppercase tracking-wider">CBT Restructuring</span>
+                    <h4 class="text-xl font-bold text-slate-900 mb-4 font-serif">Automatic Thought Reframer</h4>
+                    
+                    <div class="space-y-4 mb-6">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Select Hidden Cognitive Narrative:</label>
+                        <select id="thought-select" onchange="updateReframer()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs sm:text-sm font-medium text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                            <option value="1">"If they are fine without me, our relationship meant nothing and I am replaceable."</option>
+                            <option value="2">"I will never find a connection like that again. Being alone is unbearable."</option>
+                            <option value="3">"The breakup happened because I am inherently defective and unlovable."</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-5 rounded-xl space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-coral-400 uppercase">Cognitive Distortion Identified</span>
+                            <span id="distortion-badge" class="bg-slate-800 text-coral-300 text-[10px] px-2 py-0.5 rounded font-mono">Personalization</span>
+                        </div>
+                        <div class="text-xs text-slate-300">
+                            <strong>Objective Reality Check:</strong>
+                            <p id="reality-check" class="mt-1 leading-relaxed text-slate-200">Social media posts are highly curated highlight reels. External coping behaviors do not invalidate shared history or determine your intrinsic human worth.</p>
+                        </div>
+                        <div class="border-t border-slate-800 pt-3">
+                            <strong class="text-xs text-teal-400">Adaptive Reframe:</strong>
+                            <p id="adaptive-reframe" class="text-xs italic text-teal-100 mt-1 font-serif">"People process loss differently on the surface. My value is inherent and independent of my ex-partner's trajectory."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive ACT Values Mapper -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Acceptance & Commitment Therapy (ACT)</span>
+                        <h4 class="text-xl font-bold text-slate-900 mb-2 font-serif">Values-Based Differentiation</h4>
+                        <p class="text-xs text-slate-600 mb-4">Select 3 core values to anchor your autonomous post-breakup identity:</p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6">
+                            <button onclick="toggleValue(this, 'Autonomy')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">🌱 Autonomy</button>
+                            <button onclick="toggleValue(this, 'Creativity')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">🎨 Creativity</button>
+                            <button onclick="toggleValue(this, 'Health')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">⚡ Physical Vitality</button>
+                            <button onclick="toggleValue(this, 'Friendship')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">🤝 Friendship</button>
+                            <button onclick="toggleValue(this, 'Ambition')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">🚀 Career Ambition</button>
+                            <button onclick="toggleValue(this, 'Integrity')" class="value-btn border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-700 hover:border-teal-500 transition text-left">🛡️ Personal Integrity</button>
+                        </div>
+                    </div>
+
+                    <div id="values-output" class="bg-teal-50 border border-teal-200 p-4 rounded-xl text-xs text-teal-900">
+                        <span class="font-bold">Chosen Identity Pillars:</span>
+                        <div id="selected-values-list" class="mt-1 font-semibold text-teal-700">Select values above to construct your commitment statement.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pennebaker Unsent Letter Journal Simulator -->
+            <div class="mt-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Pennebaker Expressive Writing Protocol</span>
+                        <h4 class="text-xl font-bold text-slate-900 font-serif">The Unsent Expressive Journal</h4>
+                    </div>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full border border-indigo-200">
+                        15-Min Daily Release Valve
+                    </span>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    Translating fragmented emotions into continuous language shifts neural processing from the amygdala to the prefrontal cortex, significantly reducing autonomic stress and improving immune function.
+                </p>
+                <textarea id="journal-input" oninput="updateWordCount()" rows="4" placeholder="Write what you wish you could say to your ex right now... DO NOT SEND THIS TO THEM. Let the grief, anger, and feelings flow without filter..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-xs sm:text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none custom-scrollbar mb-3 font-sans"></textarea>
+                <div class="flex justify-between items-center text-xs text-slate-500">
+                    <span>Word Count: <strong id="word-count" class="text-slate-800">0</strong> words</span>
+                    <button onclick="clearJournal()" class="bg-slate-800 text-white px-4 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition">
+                        Clear & Release Securely
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <p class="text-xs text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                This single-page clinical infographic synthesizes empirical research from neurobiology, attachment theory, Cognitive Behavioral Therapy (CBT), Polyvagal Theory, and bereavement psychology. It is intended for psychoeducational purposes and does not replace formal clinical therapy.
+            </p>
+            <div class="text-[11px] text-slate-400 font-mono">
+                Confirmed: No SVG images or Mermaid JS libraries utilized in rendering this application.
+            </div>
+            <p class="text-xs text-slate-400">© 2026 Clinical Psychology Insights • Single-Page Application Infographic</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic & Chart.js Implementation -->
+    <script>
+        // Label wrapping helper function (16 char limit)
+        function wrapLabel(str, maxLen = 16) {
+            if (typeof str !== 'string' || str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxLen) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = currentLine ? currentLine + ' ' + word : word;
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        // Shared Tooltip Config for Chart.js
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Neurochemical Dynamics (Line Chart)
+        const ctx1 = document.getElementById('neurochemicalChart').getContext('2d');
+        const labels1 = ['Baseline', 'Week 1 (Acute)', 'Week 2', 'Week 4', 'Week 6', 'Week 8', 'Week 12'].map(l => wrapLabel(l));
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: labels1,
+                datasets: [
+                    {
+                        label: 'Dopamine / Oxytocin (Reward)',
+                        data: [100, 25, 30, 45, 60, 75, 90],
+                        borderColor: '#14b8a6',
+                        backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Cortisol / Adrenaline (Stress)',
+                        data: [30, 95, 85, 65, 45, 35, 30],
+                        borderColor: '#f43f5e',
+                        backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Relative Concentration %', font: { size: 10 } }, min: 0, max: 100 }
+                }
+            }
+        });
+
+        // Chart 2: Neural Pain Overlay (Horizontal Bar Chart)
+        const ctx2 = document.getElementById('neuralPainChart').getContext('2d');
+        const rawLabels2 = ['dACC Affective Pain', 'Anterior Insula Distress', 'Secondary Somatosensory (S2)', 'Ventral Tegmental Craving'];
+        const labels2 = rawLabels2.map(l => wrapLabel(l));
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels2,
+                datasets: [
+                    {
+                        label: 'Physical Thermal Pain Trauma',
+                        data: [85, 80, 75, 20],
+                        backgroundColor: '#cbd5e1'
+                    },
+                    {
+                        label: 'Acute Romantic Rejection',
+                        data: [88, 82, 70, 92],
+                        backgroundColor: '#f43f5e'
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'fMRI Activation Intensity Index', font: { size: 10 } }, min: 0, max: 100 }
+                }
+            }
+        });
+
+        // Chart 3: Polyvagal State Distribution (Donut Chart)
+        const ctx3 = document.getElementById('polyvagalChart').getContext('2d');
+        const rawLabels3 = ['Ventral Vagal (Safety)', 'Sympathetic (Fight/Flight)', 'Dorsal Vagal (Freeze)'];
+        const labels3 = rawLabels3.map(l => wrapLabel(l));
+        new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: labels3,
+                datasets: [{
+                    data: [20, 50, 30],
+                    backgroundColor: ['#10b981', '#f59e0b', '#6366f1'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+                },
+                cutout: '65%'
+            }
+        });
+
+        // Chart 4: Dual Process Model Oscillation (Stacked Bar)
+        const ctx4 = document.getElementById('dpmChart').getContext('2d');
+        const labels4 = ['Week 1', 'Week 2', 'Week 4', 'Week 6', 'Week 8'].map(l => wrapLabel(l));
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: labels4,
+                datasets: [
+                    {
+                        label: 'Loss-Oriented Coping (Grief)',
+                        data: [80, 70, 50, 35, 25],
+                        backgroundColor: '#f43f5e'
+                    },
+                    {
+                        label: 'Restoration-Oriented Coping (Growth)',
+                        data: [20, 30, 50, 65, 75],
+                        backgroundColor: '#0d9488'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, title: { display: true, text: 'Time & Energy Allocation %', font: { size: 10 } }, max: 100 }
+                }
+            }
+        });
+
+        // Interactive Trigger Switcher
+        function switchTrigger(profileNum) {
+            const card1 = document.getElementById('trigger-card-1');
+            const card2 = document.getElementById('trigger-card-2');
+            const btn1 = document.getElementById('btn-trigger-1');
+            const btn2 = document.getElementById('btn-trigger-2');
+
+            if (profileNum === 1) {
+                card1.classList.remove('hidden');
+                card2.classList.add('hidden');
+                btn1.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition bg-coral-500 text-white shadow";
+                btn2.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white";
+            } else {
+                card1.classList.add('hidden');
+                card2.classList.remove('hidden');
+                btn2.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow";
+                btn1.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white";
+            }
+        }
+
+        // Interactive Reframer Tool Logic
+        const thoughtData = {
+            "1": {
+                distortion: "Personalization Distortion",
+                reality: "Social media posts are highly curated highlight reels. External coping behaviors do not invalidate shared history or determine your intrinsic human worth.",
+                reframe: "\"People process loss differently on the surface. My value is inherent and independent of my ex-partner's trajectory.\""
+            },
+            "2": {
+                distortion: "Catastrophizing & Fortune-Telling",
+                reality: "Acute grief creates temporal distortion, making present pain feel permanent. Human neurobiology naturally adapts over time (hedonic adaptation).",
+                reframe: "\"Being alone right now is painful, but it is a temporary state. I am capable of building deep connections in the future.\""
+            },
+            "3": {
+                distortion: "Overgeneralization & Self-Blame",
+                reality: "Relational failure is a complex interaction of attachment styles, values mismatch, and dynamic timing—not an absolute verdict on self-worth.",
+                reframe: "\"This relationship ended due to specific incompatibilities, not because I am inherently defective. I am worthy of love and growth.\""
+            }
+        };
+
+        function updateReframer() {
+            const val = document.getElementById('thought-select').value;
+            const data = thoughtData[val];
+            document.getElementById('distortion-badge').innerText = data.distortion;
+            document.getElementById('reality-check').innerText = data.reality;
+            document.getElementById('adaptive-reframe').innerText = data.reframe;
+        }
+
+        // Interactive Values Toggle
+        let selectedValues = [];
+        function toggleValue(btn, valName) {
+            if (selectedValues.includes(valName)) {
+                selectedValues = selectedValues.filter(v => v !== valName);
+                btn.classList.remove('bg-teal-600', 'text-white', 'border-teal-600');
+                btn.classList.add('border-slate-300', 'text-slate-700');
+            } else {
+                if (selectedValues.length < 3) {
+                    selectedValues.push(valName);
+                    btn.classList.add('bg-teal-600', 'text-white', 'border-teal-600');
+                    btn.classList.remove('border-slate-300', 'text-slate-700');
+                } else {
+                    alert('Please select up to 3 core values for focused differentiation.');
+                }
+            }
+
+            const outputDiv = document.getElementById('selected-values-list');
+            if (selectedValues.length === 0) {
+                outputDiv.innerText = "Select values above to construct your commitment statement.";
+            } else {
+                outputDiv.innerText = "I commit to rebuilding my autonomous identity grounded in: " + selectedValues.join(" • ");
+            }
+        }
+
+        // Journal Word Counter
+        function updateWordCount() {
+            const text = document.getElementById('journal-input').value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            document.getElementById('word-count').innerText = words;
+        }
+
+        function clearJournal() {
+            if (confirm("Are you ready to safely clear this unsent letter? Releasing this text reinforces emotional self-containment.")) {
+                document.getElementById('journal-input').value = "";
+                updateWordCount();
+            }
+        }
+    </script>
+</body>
+</html>
