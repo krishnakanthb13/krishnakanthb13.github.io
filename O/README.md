@@ -20,6 +20,7 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[The Dating Trilemma (3D)](3D/)**: Ambitious, Present, Funny — pick two. Deconstruct the Ideal Standards Model, Strategic Pluralism, Big Five archetypes, DMN vs CEN antagonism, the Suffocation Model & Maximizers vs Satisficers.
 *   **[The Peer Trilemma (3P)](3P/)**: Funny, Reliable, Smart — pick two. Explore the Big Five, Humor Styles (HSQ), the dumb robot, the vibe killer & why your best group needs Anchor, Spark & Glue.
 *   **[The Sartorial Trilemma (3A)](3A/)**: Look Good, Feel Comfortable, Be On Time — pick two. Explore Triple Constraint, ATUS time tax, Beauty Tax, enclothed cognition, plantar fasciitis FEM & Chennai's linen answer.
+*   **[The Nine Behaviors (9B)](9B/)**: Overthinking, procrastination, snapping, people-pleasing, doomscrolling & more — map 9 reactive impulses to their underlying core needs and immediate micro-actions. *"Meet the need, change the behavior."* ([Interactive Simulator](9B/index.html) | [Infographic Dashboard](9B/0/index.html))
 
 ---
 
@@ -50,6 +51,9 @@ AI-powered applications, text utilities, and gaming arenas.
 - 3A - 3 Things about Attire / Appearance / Aesthetic
 
 - 7B - 7 Stages of Heart Break / Grief / Loss
+- 9B - 9 Behaviors / Behavioral Loops - Meet the Need, Change the Behavior 
+    - [Simulator](9B/index.html)
+    - [Infographic](9B/0/index.html)
 - 3S - 3 Switches - Time / Money / Health
 - 4B - 4 Burners - Career / Family / Friends / Health
 

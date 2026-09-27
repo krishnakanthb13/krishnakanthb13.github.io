@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="An interactive clinical exploration of the 9 behavioral paradigms: Overthinking, Procrastinating, Snapping, People Pleasing, Doom Scrolling, Canceling Plans, Lack of Motivation, Clinginess, and Self-Criticism. Meet the need, change the behavior.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#0a0d18">
+    <title>The Nine Behaviors: Meet the Need, Change the Behavior</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #070913;
+            --glass-bg: rgba(17, 24, 39, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --overthinking-color: #818cf8;
+            --procrastinating-color: #f59e0b;
+            --snapping-color: #f43f5e;
+            --pleasing-color: #ec4899;
+            --doomscroll-color: #06b6d4;
+            --canceling-color: #8b5cf6;
+            --motivation-color: #64748b;
+            --clinginess-color: #fb923c;
+            --criticism-color: #ef4444;
+            --antidote-emerald: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(129, 140, 248, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, sans-serif; }
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 55%),
+                radial-gradient(circle at 10% 40%, rgba(14, 116, 144, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 60%, rgba(225, 29, 72, 0.1) 0%, transparent 45%),
+                #070913;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            overflow-x: hidden;
+        }
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+        header { text-align: center; margin-bottom: 1.5rem; animation: fadeInDown 1s ease-out; width: 100%; max-width: 900px; }
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 3.4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #ec4899, #f59e0b, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.35rem;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        p.subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+            color: var(--text-muted);
+            max-width: 780px;
+            margin: 0 auto;
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 1.25rem;
+            max-width: 1220px;
+            width: 100%;
+            margin-bottom: 3rem;
+            align-items: stretch;
+        }
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: clamp(1.2rem, 3vw, 1.75rem);
+            box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-panel h2 { font-size: clamp(1.15rem, 3vw, 1.35rem); margin-bottom: 0.4rem; }
+        .panel-visual { order: 2; }
+        .panel-controls { order: 1; justify-content: space-between; }
+        
+        .enneagon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            min-height: 290px;
+            max-height: 380px;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+        .enneagon-svg { width: 100%; height: 100%; overflow: visible; }
+        .node-label {
+            font-weight: 700;
+            font-size: 0.62rem;
+            fill: var(--text-main);
+            text-anchor: middle;
+            letter-spacing: 0.2px;
+            user-select: none;
+        }
+        .enneagon-web-line {
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-dasharray: 2, 3;
+        }
+        
+        .insight-box {
+            padding: 1.1rem 1.3rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 14px;
+            border-left: 4px solid var(--overthinking-color);
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        .insight-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        #insight-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        #insight-title { font-size: 1.15rem; font-weight: 700; }
+        #insight-desc { font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; }
+        .insight-need-row {
+            margin-top: 0.65rem;
+            padding-top: 0.65rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+        }
+        .need-pill {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .need-pill strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; }
+
+        .sliders-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem 0.9rem;
+            margin-top: 0.6rem;
+        }
+        .slider-group { display: flex; flex-direction: column; gap: 0.25rem; }
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.82rem;
+        }
+        .slider-header label { display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+        
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            touch-action: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid rgba(255,255,255,0.9);
+        }
+        input[type=range]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.9);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        #overthinking-slider::-webkit-slider-thumb { background: var(--overthinking-color); box-shadow: 0 0 8px var(--overthinking-color); }
+        #procrastinating-slider::-webkit-slider-thumb { background: var(--procrastinating-color); box-shadow: 0 0 8px var(--procrastinating-color); }
+        #snapping-slider::-webkit-slider-thumb { background: var(--snapping-color); box-shadow: 0 0 8px var(--snapping-color); }
+        #pleasing-slider::-webkit-slider-thumb { background: var(--pleasing-color); box-shadow: 0 0 8px var(--pleasing-color); }
+        #doomscroll-slider::-webkit-slider-thumb { background: var(--doomscroll-color); box-shadow: 0 0 8px var(--doomscroll-color); }
+        #canceling-slider::-webkit-slider-thumb { background: var(--canceling-color); box-shadow: 0 0 8px var(--canceling-color); }
+        #motivation-slider::-webkit-slider-thumb { background: var(--motivation-color); box-shadow: 0 0 8px var(--motivation-color); }
+        #clinginess-slider::-webkit-slider-thumb { background: var(--clinginess-color); box-shadow: 0 0 8px var(--clinginess-color); }
+        #criticism-slider::-webkit-slider-thumb { background: var(--criticism-color); box-shadow: 0 0 8px var(--criticism-color); }
+        
+        #overthinking-slider::-moz-range-thumb { background: var(--overthinking-color); }
+        #procrastinating-slider::-moz-range-thumb { background: var(--procrastinating-color); }
+        #snapping-slider::-moz-range-thumb { background: var(--snapping-color); }
+        #pleasing-slider::-moz-range-thumb { background: var(--pleasing-color); }
+        #doomscroll-slider::-moz-range-thumb { background: var(--doomscroll-color); }
+        #canceling-slider::-moz-range-thumb { background: var(--canceling-color); }
+        #motivation-slider::-moz-range-thumb { background: var(--motivation-color); }
+        #clinginess-slider::-moz-range-thumb { background: var(--clinginess-color); }
+        #criticism-slider::-moz-range-thumb { background: var(--criticism-color); }
+
+        .slider-full-width { grid-column: 1 / -1; }
+
+        .total-capacity {
+            margin-top: 0.9rem;
+            padding-top: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+        .capacity-bar {
+            flex-grow: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 5px;
+            margin: 0 0.8rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .capacity-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #818cf8, #ec4899, #10b981);
+            width: 0%;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+        .warning-text {
+            color: #f43f5e;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-align: right;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+        .archetypes {
+            margin-top: 0.8rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.45rem;
+        }
+        .btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 0.55rem 0.3rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            text-align: center;
+            font-size: 0.74rem;
+            line-height: 1.2;
+        }
+        .btn:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+        .btn.active { border-color: var(--antidote-emerald); background: rgba(16, 185, 129, 0.12); }
+        
+        .action-plan-btn {
+            width: 100%;
+            margin-top: 0.9rem;
+            background: linear-gradient(135deg, #818cf8, #10b981);
+            color: #070913;
+            padding: 0.78rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.92rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .action-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+        }
+        #action-plan-output {
+            display: none;
+            background: rgba(0,0,0,0.45);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 0.9rem;
+            border-left: 4px solid var(--antidote-emerald);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: #e2e8f0;
+            animation: fadeInDown 0.3s ease-out;
+        }
+
+        /* Article / Long-form styling */
+        .article-container {
+            max-width: 860px;
+            width: 100%;
+            margin: 1rem auto 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: clamp(1.4rem, 3.5vw, 2.4rem);
+            font-family: 'Lora', serif;
+            color: #d4d4d8;
+            line-height: 1.7;
+            font-size: clamp(0.96rem, 2vw, 1.05rem);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+        .article-container h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 1.85rem);
+            color: #fafafa;
+            margin: 2.2rem 0 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0.45rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+        .article-container h2:first-child { margin-top: 0; }
+        .article-container h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: #f4f4f5;
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 700;
+        }
+        .article-container p { margin-bottom: 1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1.1rem 1.5rem; padding: 0; }
+        .article-container li { margin-bottom: 0.4rem; }
+        
+        .quote-block {
+            background: rgba(129, 140, 248, 0.08);
+            border-left: 4px solid var(--overthinking-color);
+            border-radius: 0 14px 14px 0;
+            padding: 1.3rem 1.6rem;
+            margin: 1.6rem 0;
+            font-style: italic;
+            font-family: 'Lora', serif;
+            font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+        .quote-block strong {
+            font-family: 'Outfit', sans-serif;
+            font-style: normal;
+            display: block;
+            margin-top: 0.6rem;
+            font-weight: 800;
+            color: var(--antidote-emerald);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.84rem;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 0.65rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            vertical-align: top;
+        }
+        .comparison-table th {
+            font-family: 'Outfit', sans-serif;
+            color: #fafafa;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.03);
+            white-space: nowrap;
+        }
+        .comparison-table td { color: #cbd5e1; }
+        .comparison-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+        details {
+            background: rgba(0,0,0,0.22);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 0.95rem;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        details[open] { border-color: rgba(255, 255, 255, 0.12); }
+        summary {
+            padding: 1rem 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.02rem;
+            color: #fff;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.4rem; font-weight: 300; transition: transform 0.3s; color: var(--text-muted); }
+        details[open] summary::after { transform: rotate(45deg); color: var(--antidote-emerald); }
+        .details-content {
+            padding: 0 1.1rem 1.1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 0.4rem;
+            padding-top: 1rem;
+        }
+
+        /* Impulse Switch Widget */
+        .paradox-widget {
+            background: rgba(0,0,0,0.32);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.8rem 0;
+            text-align: center;
+        }
+        .switch-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.2rem;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 10px;
+            padding: 0.55rem 0.75rem;
+        }
+        .switch-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
+        input:checked + .toggle-slider:before { transform: translateX(20px); }
+        
+        input:checked + .ts-overthinking { background-color: var(--overthinking-color); box-shadow: 0 0 8px rgba(129,140,248,0.4); }
+        input:checked + .ts-procrastinating { background-color: var(--procrastinating-color); box-shadow: 0 0 8px rgba(245,158,11,0.4); }
+        input:checked + .ts-snapping { background-color: var(--snapping-color); box-shadow: 0 0 8px rgba(244,63,94,0.4); }
+        input:checked + .ts-pleasing { background-color: var(--pleasing-color); box-shadow: 0 0 8px rgba(236,72,153,0.4); }
+        input:checked + .ts-doomscroll { background-color: var(--doomscroll-color); box-shadow: 0 0 8px rgba(6,182,212,0.4); }
+        input:checked + .ts-canceling { background-color: var(--canceling-color); box-shadow: 0 0 8px rgba(139,92,246,0.4); }
+        input:checked + .ts-motivation { background-color: var(--motivation-color); box-shadow: 0 0 8px rgba(100,116,139,0.4); }
+        input:checked + .ts-clinginess { background-color: var(--clinginess-color); box-shadow: 0 0 8px rgba(251,146,60,0.4); }
+        input:checked + .ts-criticism { background-color: var(--criticism-color); box-shadow: 0 0 8px rgba(239,68,68,0.4); }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            opacity: 0.75;
+            padding: 2.5rem 0;
+            width: 100%;
+        }
+
+        @media (max-width: 920px) {
+            .dashboard { display: flex; flex-direction: column; gap: 1.2rem; }
+            .panel-visual { order: -1; padding: 1.2rem; }
+            .panel-controls { padding: 1.2rem; }
+            .sliders-wrapper { grid-template-columns: 1fr; }
+            .slider-full-width { grid-column: auto; }
+            .archetypes { grid-template-columns: 1fr 1fr; }
+            .switch-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .switch-grid { grid-template-columns: 1fr; }
+            .archetypes { grid-template-columns: 1fr; }
+            .insight-need-row { grid-template-columns: 1fr; }
+            .enneagon-container { min-height: 240px; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div style="width: 100%; max-width: 1220px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding: 0 0.5rem; flex-wrap: wrap; gap: 0.6rem;">
+        <a href="../index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 8px; transition: all 0.2s;">
+            &larr; Life Mechanics Hub
+        </a>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: #fff; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.85rem; background: rgba(129, 140, 248, 0.2); border: 1px solid var(--overthinking-color); border-radius: 8px; font-weight: 600;">
+                🧩 Enneagon Simulator
+            </span>
+            <a href="0/index.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 8px; transition: all 0.2s;">
+                📊 Infographic Dashboard (0) &rarr;
+            </a>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Nine Behaviors</h1>
+        <p class="subtitle">When dysregulated, your surface want is a misapplied proxy for an unmet core need. Deconstruct 9 reactive loops into actionable nervous system regulation: <strong>Meet the need, change the behavior.</strong></p>
+    </header>
+
+    <div class="dashboard">
+        <!-- Controls Panel -->
+        <section class="glass-panel panel-controls" aria-labelledby="controls-heading">
+            <div>
+                <h2 id="controls-heading">Active Behavioral Dysregulation</h2>
+                <p style="color: var(--text-muted); margin-bottom: 0.8rem; font-size: 0.82rem; line-height: 1.45;">
+                    Max System Load: 300%. The autonomic nervous system cannot maintain every defensive proxy at maximum intensity simultaneously. Raise one, others yield.
+                </p>
+
+                <div class="sliders-wrapper">
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="overthinking-slider" style="color:var(--overthinking-color)">🌀 OVERTHINKING</label>
+                            <span id="overthinking-val" aria-live="polite">25%</span>
+                        </div>
+                        <input type="range" id="overthinking-slider" min="0" max="100" value="25">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="procrastinating-slider" style="color:var(--procrastinating-color)">⏳ PROCRASTINATING</label>
+                            <span id="procrastinating-val" aria-live="polite">35%</span>
+                        </div>
+                        <input type="range" id="procrastinating-slider" min="0" max="100" value="35">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="snapping-slider" style="color:var(--snapping-color)">⚡ SNAPPING</label>
+                            <span id="snapping-val" aria-live="polite">15%</span>
+                        </div>
+                        <input type="range" id="snapping-slider" min="0" max="100" value="15">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="pleasing-slider" style="color:var(--pleasing-color)">🤝 PEOPLE PLEASING</label>
+                            <span id="pleasing-val" aria-live="polite">20%</span>
+                        </div>
+                        <input type="range" id="pleasing-slider" min="0" max="100" value="20">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="doomscroll-slider" style="color:var(--doomscroll-color)">📱 DOOM SCROLLING</label>
+                            <span id="doomscroll-val" aria-live="polite">40%</span>
+                        </div>
+                        <input type="range" id="doomscroll-slider" min="0" max="100" value="40">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="canceling-slider" style="color:var(--canceling-color)">🚪 CANCELING PLANS</label>
+                            <span id="canceling-val" aria-live="polite">15%</span>
+                        </div>
+                        <input type="range" id="canceling-slider" min="0" max="100" value="15">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="motivation-slider" style="color:var(--motivation-color)">🪫 NO MOTIVATION</label>
+                            <span id="motivation-val" aria-live="polite">30%</span>
+                        </div>
+                        <input type="range" id="motivation-slider" min="0" max="100" value="30">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="clinginess-slider" style="color:var(--clinginess-color)">🧲 CLINGINESS</label>
+                            <span id="clinginess-val" aria-live="polite">15%</span>
+                        </div>
+                        <input type="range" id="clinginess-slider" min="0" max="100" value="15">
+                    </div>
+
+                    <div class="slider-group slider-full-width">
+                        <div class="slider-header">
+                            <label for="criticism-slider" style="color:var(--criticism-color)">🪞 SELF-CRITICISM</label>
+                            <span id="criticism-val" aria-live="polite">25%</span>
+                        </div>
+                        <input type="range" id="criticism-slider" min="0" max="100" value="25">
+                    </div>
+                </div>
+
+                <div class="total-capacity">
+                    <span id="load-label">Nervous System Load</span>
+                    <div class="capacity-bar" role="progressbar" id="cap-progressbar">
+                        <div class="capacity-fill" id="cap-fill"></div>
+                    </div>
+                    <span id="cap-val" aria-live="polite">220 / 300</span>
+                </div>
+                <div class="warning-text" id="warning-msg">Nervous System Threshold Exceeded! Auto-regulating other channels...</div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.85rem; margin: 0.9rem 0 0.5rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Behavioral Archetypes</h3>
+                <nav class="archetypes">
+                    <button class="btn" onclick="applyScenario('overthinker')"><span>🌀</span>Overanalyzer<small style="opacity:0.75">Certainty + Safety</small></button>
+                    <button class="btn" onclick="applyScenario('fawnfreeze')"><span>🦌</span>Fawn & Freeze<small style="opacity:0.75">Appease + Escape</small></button>
+                    <button class="btn" onclick="applyScenario('reactive')"><span>⚡</span>Hyper-Aroused<small style="opacity:0.75">Attack + Chase</small></button>
+                    <button class="btn" onclick="applyScenario('healthyadult')"><span>🌱</span>Healthy Adult<small style="opacity:0.75">Regulated Baseline</small></button>
+                </nav>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.9rem;">
+                    <button class="action-plan-btn" onclick="triggerRandomEvent9B()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); padding: 0.78rem; font-size: 0.88rem; color: #cbd5e1; box-shadow: none;">🎲 Trigger Event</button>
+                    <button class="action-plan-btn" onclick="generateActionPlan()" style="flex: 2; margin-top: 0;">📝 Prescribe Intervention</button>
+                </div>
+                <div id="action-plan-output"></div>
+            </div>
+        </section>
+
+        <!-- Visualizer Panel -->
+        <section class="glass-panel panel-visual" aria-labelledby="enneagon-heading">
+            <h2 id="enneagon-heading">The Behavioral Enneagon (9-gon)</h2>
+            <figure class="enneagon-container" aria-hidden="true">
+                <svg class="enneagon-svg" viewBox="0 0 440 440" preserveAspectRatio="xMidYMid meet">
+                    <!-- Concentric web rings -->
+                    <polygon id="enneagon-ring-1" points="" fill="none" class="enneagon-web-line" stroke-width="1"/>
+                    <polygon id="enneagon-ring-2" points="" fill="none" class="enneagon-web-line" stroke-width="1"/>
+                    <polygon id="enneagon-ring-3" points="" fill="none" class="enneagon-web-line" stroke-width="1"/>
+                    <polygon id="enneagon-ring-4" points="" fill="none" class="enneagon-web-line" stroke-width="1.2"/>
+                    <polygon id="enneagon-bg" points="" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                    
+                    <!-- Dynamic morphed polygon -->
+                    <polygon id="dynamic-poly" points="" fill="rgba(129, 140, 248, 0.2)" stroke="var(--overthinking-color)" stroke-width="3" stroke-linejoin="round" style="transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+                    
+                    <!-- Vertex Markers & Spokes will be added via JS -->
+                    <g id="enneagon-spokes"></g>
+                    <g id="enneagon-labels"></g>
+                </svg>
+            </figure>
+
+            <article class="insight-box" id="insight-container">
+                <div class="insight-meta">
+                    <span id="insight-badge" style="color: var(--overthinking-color);">Active Pattern</span>
+                    <span id="insight-framework" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Dugas GAD Model</span>
+                </div>
+                <h3 style="color: var(--overthinking-color); font-family: Outfit, sans-serif;" id="insight-title">Overthinking</h3>
+                <p id="insight-desc">You are seeking control because the brain perceives uncertainty as dangerous. Continuous rumination only reinforces the alarm.</p>
+                <div class="insight-need-row">
+                    <div class="need-pill">
+                        <strong>True Need</strong>
+                        <span id="insight-need-text">Certainty</span>
+                    </div>
+                    <div class="need-pill">
+                        <strong style="color: var(--antidote-emerald);">Adaptive Antidote</strong>
+                        <span id="insight-help-text" style="color: #34d399; font-weight: 600;">Deciding Now</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <!-- Long-form Deep Dive Content -->
+    <main class="article-container">
+        <h2>The Foundational Law</h2>
+        <div class="quote-block">
+            When I am overthinking, I want to control. What I need is certainty and what helps me is deciding now.<br>
+            When I am procrastinating, what I want is to avoid. What I need is safety and what actually helps is a tiny start.<br>
+            When I am snapping, I want to attack. What I actually need is space and what actually helps is to pause first.<br>
+            When I am people pleasing, I want to appease. What I actually need is safety. And what actually helps is a small boundary.<br>
+            When I am doom scrolling, what I actually want is to escape. What I actually need is regulation. What actually helps me is to change my state.<br>
+            When I am cancelling plans, what I want is to withdraw. What I actually need is rest. And what actually helps is an honest check-in.<br>
+            When I have no motivation, I want to wait until it arrives. What I actually need is momentum. What actually helps is doing it for two minutes.<br>
+            When I feel clingy, what I want to do is chase. What I actually need is reassurance. And what actually helps is asking directly.<br>
+            When I am criticizing myself, what I want to use is shame. What I actually need is compassion. What helps me is a reframe.<br>
+            <strong>Meet the need, change the behavior.</strong>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: 'Outfit', sans-serif; margin-top: -0.9rem; margin-bottom: 1.5rem;">
+            The central clinical thesis: Maladaptive behaviors are neither moral defects nor signs of broken willpower. They are intelligent, misapplied survival strategies of a dysregulated nervous system. Extinguish the utility of the defense by meeting the underlying need directly.
+        </p>
+
+        <h2>Behavior as Communication: The Epistemological Shift</h2>
+        <p>
+            In contemporary clinical psychology, affective neuroscience, and behavioral traumatology, a fundamental paradigm shift has recontextualized maladaptive coping. Historically, behaviors such as chronic procrastination, rumination, interpersonal clinginess, and punitive self-criticism were analyzed through the lens of moral deficit, characterological weakness, or simple cognitive dysfunction.
+        </p>
+        <p>
+            Modern therapeutic frameworks—ranging from <strong>Cognitive Behavioral Therapy (CBT)</strong> and <strong>Schema Therapy</strong> to <strong>Compassion-Focused Therapy (CFT)</strong> and <strong>Polyvagal Theory</strong>—now assert that these behaviors are highly evolved, survival-oriented mechanisms. The foundational maxim, <em>"behavior is communication,"</em> posits that every frustrating or self-sabotaging impulse is an organism's attempt to regulate autonomic distress and secure an unmet core psychological need.
+        </p>
+        <p>
+            When an individual operates from emotional dysregulation, the conscious "want" (the surface urge) is an imperfect, reactive proxy for a deeper psychological requirement (the true need). By identifying and feeding the underlying need, the individual inherently extinguishes the pathological behavior, stepping out of survival reactivity and into regulated resilience.
+        </p>
+
+        <h2>The Nine Paradigms: Master Clinical Matrix</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Behavioral Presentation</th>
+                    <th>Surface Urge (Want)</th>
+                    <th>Core Psychological Need</th>
+                    <th>Adaptive Intervention (Help)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong style="color:var(--overthinking-color)">🌀 Overthinking</strong></td>
+                    <td>To exert control</td>
+                    <td>Certainty</td>
+                    <td>Deciding in the present moment</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--procrastinating-color)">⏳ Procrastinating</strong></td>
+                    <td>To avoid negative affect</td>
+                    <td>Psychological safety</td>
+                    <td>Initiating a tiny start ("Shrinking the start")</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--snapping-color)">⚡ Snapping</strong></td>
+                    <td>To attack the stressor</td>
+                    <td>Physical/Emotional space</td>
+                    <td>Implementing a pause first</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--pleasing-color)">🤝 People Pleasing</strong></td>
+                    <td>To appease others</td>
+                    <td>Relational safety</td>
+                    <td>Setting a small boundary</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--doomscroll-color)">📱 Doom Scrolling</strong></td>
+                    <td>To escape reality</td>
+                    <td>Autonomic regulation</td>
+                    <td>Changing physiological state (Somatic shift)</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--canceling-color)">🚪 Canceling Plans</strong></td>
+                    <td>To socially withdraw</td>
+                    <td>Rest and recovery</td>
+                    <td>Conducting an honest check-in</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--motivation-color)">🪫 Lack of Motivation</strong></td>
+                    <td>To wait for readiness</td>
+                    <td>Forward momentum</td>
+                    <td>Engaging for two minutes (Action precedes motivation)</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--clinginess-color)">🧲 Clinginess</strong></td>
+                    <td>To chase proximity</td>
+                    <td>Emotional reassurance</td>
+                    <td>Asking directly for support</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:var(--criticism-color)">🪞 Self-Criticism</strong></td>
+                    <td>To use shame as fuel</td>
+                    <td>Self-compassion</td>
+                    <td>Cognitive reframing (CFT Soothing System)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Interactive Impulse Switch Widget -->
+        <div class="paradox-widget">
+            <p style="font-family: 'Outfit', sans-serif; font-weight: 700; color: #f8fafc; font-size: 1.1rem;">Behavioral Impulse Switches — Hold Up to Three</p>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Toggle up to three defensive impulses simultaneously. Turn a fourth ON, and the nervous system automatically preempts an existing one. Dysregulation is an active energy budget.
+            </p>
+            <div class="switch-grid">
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--overthinking-color)">🌀 Overthinking</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-overthinking" checked><span class="toggle-slider ts-overthinking"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--procrastinating-color)">⏳ Procrastination</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-procrastinating" checked><span class="toggle-slider ts-procrastinating"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--snapping-color)">⚡ Snapping</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-snapping"><span class="toggle-slider ts-snapping"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--pleasing-color)">🤝 Pleasing</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-pleasing"><span class="toggle-slider ts-pleasing"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--doomscroll-color)">📱 Doom Scroll</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-doomscroll" checked><span class="toggle-slider ts-doomscroll"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--canceling-color)">🚪 Canceling</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-canceling"><span class="toggle-slider ts-canceling"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--motivation-color)">🪫 Low Motive</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-motivation"><span class="toggle-slider ts-motivation"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--clinginess-color)">🧲 Clinginess</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-clinginess"><span class="toggle-slider ts-clinginess"></span></label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label" style="color: var(--criticism-color)">🪞 Self-Critic</span>
+                    <label class="toggle-switch"><input type="checkbox" id="para-criticism"><span class="toggle-slider ts-criticism"></span></label>
+                </div>
+            </div>
+            <div id="para-insight" style="margin-top: 1.2rem; font-size: 0.9rem; color: var(--text-muted); min-height: 60px; line-height: 1.5; text-align: left; padding: 0.95rem; background: rgba(0,0,0,0.3); border-radius: 10px; border-left: 4px solid var(--overthinking-color); transition: all 0.3s ease;"></div>
+        </div>
+
+        <h2>Deep Dives: The Neurobiology & Clinical Science</h2>
+
+        <details open>
+            <summary>1. Cognitive Hyperactivation: Overthinking & Intolerance of Uncertainty</summary>
+            <div class="details-content">
+                <p>When the cognitive system is overwhelmed by ambiguity or perceived threat, the phenomenological experience manifests as overthinking or chronic rumination. The immediate urge is to exert absolute control over future outcomes, environments, or internal narratives. However, the true requirement is <strong>certainty</strong>.</p>
+                <p>Clinical research reveals that cognitive loops do not recur because the thoughts are inherently important or accurate. Instead, they recur because the brain has been neurologically conditioned to allocate attentional resources to them: an intrusive thought triggers emotional urgency &rarr; compulsive analyzing provides transient relief &rarr; the threat-signaling system is reinforced to produce more intrusive thoughts.</p>
+                <p>This mechanism is tethered to <strong>Intolerance of Uncertainty (IU)</strong>, a primary transdiagnostic vulnerability in GAD, MDD, and OCD. Under the Dugas model of GAD, individuals perceive not-knowing as an existential threat. The clinical intervention is <strong>deciding in the present moment ("deciding now")</strong>. Decisive micro-action provides exposure therapy to the amygdala, proving that uncertainty can be tolerated without catastrophe.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. Affective Avoidance: Procrastination as Emotion Regulation</summary>
+            <div class="details-content">
+                <p>Fuschia Sirois and Timothy Pychyl have fundamentally overturned the misconception of procrastination as a time-management deficit or moral failure. Procrastination is an <strong>emotion regulation failure</strong>: the voluntary and unnecessary delay of an intended action despite knowing it will harm the future self.</p>
+                <p>Procrastination represents an evolutionary prioritization of short-term mood repair over long-term goal pursuit. When faced with an aversive task, the brain perceives an emotional threat (anxiety, boredom, self-doubt). To protect immediate homeostasis, the individual seeks soothing through diversion.</p>
+                <p>The solution is <strong>"shrinking the start."</strong> By reducing the initial threshold of engagement to an infinitesimal micro-step (opening a document, reading one sentence), the perceived threat to emotional safety falls below the amygdala's activation threshold, bypassing the avoidance blockade.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. The Two-Minute Rule, Gateway Habits & Behavioral Activation</summary>
+            <div class="details-content">
+                <p>The Two-Minute Rule operates in two clinical and operational variations:</p>
+                <ul>
+                    <li><strong>David Allen’s Processing Rule</strong>: If an action takes under two minutes, execute it immediately. Tracking, deferring, and reviewing small administrative items carries an executive cognitive load that far outweighs execution energy.</li>
+                    <li><strong>James Clear’s Gateway Habit</strong>: Scale any intimidating habit down to a two-minute gateway (e.g., "put on running shoes" instead of "run 5 miles"). This eliminates initial resistance and casts neurological votes for identity transformation.</li>
+                </ul>
+                <p>When an individual experiences depressive lethargy, waiting for motivation is a dangerous trap. <strong>Behavioral Activation (BA)</strong> proves that <em>action precedes motivation</em>. Motivation is the neurobiological byproduct of dopaminergic engagement, not its prerequisite. By utilizing an "outside-in" scheduling protocol, small mastery actions generate momentum that dispels the depressive spiral.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. Autonomic Dysregulation & Polyvagal Escape: Doom Scrolling</summary>
+            <div class="details-content">
+                <p>Doom scrolling is the compulsive consumption of negative digital media. The conscious urge is to escape reality or numb distress, but the physiological need is <strong>autonomic nervous system regulation</strong>.</p>
+                <p>Under Stephen Porges' <strong>Polyvagal Theory</strong>, doom scrolling frequently reflects a freeze or dorsal vagal immobilization state: the individual is overwhelmed and paralyzed, yet hyper-alert to danger. Novel algorithmic content delivers intermittent micro-spikes of dopamine that temporarily buffer distress while paradoxically sustaining sympathetic arousal.</p>
+                <p>Escape exacerbates dissociation. What actually heals is an active <strong>physiological state shift</strong>: cold water splash, physiological sighs (double inhale, prolonged exhale), grounding somatic postures, or physical movement. Directly regulating the autonomic nervous system neutralizes the compulsion to scroll.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. Interpersonal Threat Responses: Snapping vs. People Pleasing (Fawn)</summary>
+            <div class="details-content">
+                <p><strong>Snapping (Defensive Attack)</strong>: When interpersonal stress exceeds the window of tolerance, the sympathetic fight response hijacks executive control. Verbal aggression is an evolutionary tactic to create physical and emotional distance. The intervention is not suppression, but an intentional <strong>temporal pause</strong> that allows the prefrontal cortex to regain regulatory control.</p>
+                <p><strong>People Pleasing (The Fawn Response)</strong>: Coined by Pete Walker, fawning is a trauma-driven defense mechanism wherein an individual appeases and merges with another's demands to avert conflict, rejection, or abandonment. However, continuous self-abandonment breeds chronic burnout and deep relational resentment.</p>
+                <p>The antidote is setting a <strong>small boundary</strong>. Incremental boundary setting retrains the nervous system to realize that relational safety does not require the erasure of the self.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. Somatic Depletion vs. Depressive Withdrawal: Canceling Plans</summary>
+            <div class="details-content">
+                <p>Canceling social plans frequently triggers severe moral guilt. Modern affective science draws a vital distinction between:</p>
+                <ul>
+                    <li><strong>Depressive Avoidance</strong>: Anxious isolation that feeds lethargy and requires Behavioral Activation to disrupt.</li>
+                    <li><strong>Authentic Systemic Depletion</strong>: Exhausted neuro-endocrine reserves that strictly require physical and sensory <strong>rest</strong>.</li>
+                </ul>
+                <p>The necessary tool is an <strong>"honest check-in."</strong> Checking somatic markers (muscle tension, heart rate, sensory overload) without moral judgment allows the individual to validate genuine depletion and recharge without the burden of guilt.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. Attachment Insecurity & Anxious Proximity Seeking: Clinginess vs. Reassurance</summary>
+            <div class="details-content">
+                <p>Attachment theory (Bowlby, Mikulincer & Shaver) highlights how perceived relational distance triggers severe hyperactivating strategies in anxiously attached individuals. The amygdala registers emotional distance with the urgency of a physical predator, driving desperate protest behaviors: compulsive texting, checking, and clingy chasing.</p>
+                <p>The tragedy of the chase is that it frequently suffocates and alienates the partner, precipitating the exact abandonment the individual fears. Because the underlying need is <strong>reassurance</strong>, the adaptive shift is abandoning the indirect chase in favor of <strong>direct communication</strong> (e.g., <em>"I'm feeling a bit disconnected today and could use some reassurance"</em>).</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. Intrapersonal Hostility: Self-Criticism & CFT Three Circle Model</summary>
+            <div class="details-content">
+                <p>Paul Gilbert's <strong>Compassion-Focused Therapy (CFT)</strong> models emotional regulation through three interacting evolutionary networks:</p>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Emotion System</th>
+                            <th>Evolutionary Function</th>
+                            <th>Neurochemical / Somatic Markers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: #ef4444;">Threat & Protection (Red)</strong></td>
+                            <td>Detect danger, survival</td>
+                            <td>Cortisol, adrenaline, amygdala activation</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #38bdf8;">Drive & Seeking (Blue)</strong></td>
+                            <td>Pursue goals, status, resources</td>
+                            <td>Dopamine, reward pathways</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #34d399;">Soothing & Affiliative (Green)</strong></td>
+                            <td>Attachment, bonding, recovery</td>
+                            <td>Oxytocin, endorphins, high Heart Rate Variability (HRV)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Self-criticism occurs when the threat system turns inward, attacking the self with shame. Using shame as fuel locks the prefrontal cortex in survival paralysis. Activating the green soothing system through a <strong>compassionate cognitive reframe</strong> restores heart rate variability and clears executive capacity for genuine learning.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. Schema Therapy & Strengthening The Healthy Adult Mode</summary>
+            <div class="details-content">
+                <p>Jeffrey Young's <strong>Schema Therapy</strong> unifies all nine behaviors into an overarching architecture of 18 Early Maladaptive Schemas across five childhood developmental domains:</p>
+                <ul>
+                    <li><strong>Disconnection & Rejection</strong>: Abandonment, Mistrust, Emotional Deprivation, Defectiveness, Social Isolation.</li>
+                    <li><strong>Impaired Autonomy</strong>: Dependence, Vulnerability to Harm, Enmeshment, Failure.</li>
+                    <li><strong>Impaired Limits</strong>: Entitlement, Insufficient Self-Control.</li>
+                    <li><strong>Other-Directedness</strong>: Subjugation, Self-Sacrifice, Approval-Seeking.</li>
+                    <li><strong>Overvigilance & Inhibition</strong>: Negativity, Emotional Inhibition, Unrelenting Standards, Punitiveness.</li>
+                </ul>
+                <p>Coping modes manifest as <strong>Surrender</strong> (fawning), <strong>Avoidance</strong> (procrastination, doom scrolling), or <strong>Overcompensation</strong> (snapping, chasing). The ultimate clinical objective is cultivating and consolidating the <strong>Healthy Adult Mode</strong>—the calm, compassionate internal executive capable of recognizing the vulnerable child, soothing the punitive critic, and directly meeting the core psychological need.</p>
+            </div>
+        </details>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Krishnakanth &bull; Life Mechanics Hub &bull; Built with Cognitive Behavioral &amp; Schema Therapy Principles</p>
+    </footer>
+
+    <script>
+        // State management
+        const ids = [
+            'overthinking', 'procrastinating', 'snapping', 'pleasing',
+            'doomscroll', 'canceling', 'motivation', 'clinginess', 'criticism'
+        ];
+
+        const colors = {
+            overthinking: '#818cf8',
+            procrastinating: '#f59e0b',
+            snapping: '#f43f5e',
+            pleasing: '#ec4899',
+            doomscroll: '#06b6d4',
+            canceling: '#8b5cf6',
+            motivation: '#64748b',
+            clinginess: '#fb923c',
+            criticism: '#ef4444'
+        };
+
+        const titles = {
+            overthinking: 'Overthinking Loop',
+            procrastinating: 'Affective Procrastination',
+            snapping: 'Interpersonal Defensive Attack',
+            pleasing: 'People Pleasing (Fawn Response)',
+            doomscroll: 'Digital Escapism & Freeze',
+            canceling: 'Somatic Depletion / Withdrawal',
+            motivation: 'Motivation Deficit / Apathy',
+            clinginess: 'Anxious Proximity Chase',
+            criticism: 'Internalized Punitive Hostility'
+        };
+
+        const needs = {
+            overthinking: 'Certainty & Cognitive Order',
+            procrastinating: 'Psychological Safety from Threat',
+            snapping: 'Physical & Emotional Boundary Space',
+            pleasing: 'Relational Safety & Connection',
+            doomscroll: 'Autonomic Nervous System Regulation',
+            canceling: 'Physiological Rest & Sensory Recovery',
+            motivation: 'Forward Momentum & Dopaminergic Mastery',
+            clinginess: 'Attachment Reassurance & Felt Security',
+            criticism: 'Compassion & Soothing-System Activation'
+        };
+
+        const helps = {
+            overthinking: 'Decide in the Present Moment ("Deciding Now")',
+            procrastinating: 'Shrink the Start (Micro-threshold Entry)',
+            snapping: 'Implement a Temporal & Somatic Pause',
+            pleasing: 'Set a Micro-Boundary without Apology',
+            doomscroll: 'Shift Physiological State (Grounding / Breath)',
+            canceling: 'Perform an Honest Somatic Check-In',
+            motivation: 'Two-Minute Rule (Action Precedes Motivation)',
+            clinginess: 'Ask Directly for Support & Reassurance',
+            criticism: 'Deploy a Compassionate Cognitive Reframe'
+        };
+
+        const frameworks = {
+            overthinking: 'Dugas GAD Model & CBT Exposure',
+            procrastinating: 'Sirois & Pychyl Emotion Regulation',
+            snapping: 'Window of Tolerance & Prefrontal Pause',
+            pleasing: 'Pete Walker Trauma Traumatology',
+            doomscroll: 'Porges Polyvagal Theory (Dorsal Freeze)',
+            canceling: 'Somatic Energy Accounting vs Avoidance',
+            motivation: 'Behavioral Activation (Outside-In)',
+            clinginess: 'Mikulincer & Shaver Attachment Theory',
+            criticism: 'Paul Gilbert CFT Three Circle Model'
+        };
+
+        const descriptions = {
+            overthinking: 'You are attempting to manufacture certainty through hyper-analysis. Intolerance of uncertainty turns thinking into a closed threat loop. Break it with decisive present-moment choice.',
+            procrastinating: 'You are not lazy; your nervous system is prioritizing short-term mood repair over long-term goals. Lower the emotional threat barrier by shrinking the initial action to an infinitesimal start.',
+            snapping: 'Stress has exceeded your window of tolerance, triggering a sympathetic defensive attack. Your system is screaming for space. A 90-second pause lets prefrontal executive control re-engage.',
+            pleasing: 'You are deploying the trauma fawn response to preempt conflict and secure relational safety through self-abandonment. Set one small, respectful boundary to honor your autonomy.',
+            doomscroll: 'You are trapped in a digital dorsal vagal freeze, numbing distress while feeding sympathetic arousal. Change your physical posture, breathe with prolonged exhalation, and ground your body.',
+            canceling: 'You want to socially retreat. Determine if this is anxiety avoidance or authentic biological depletion. If somatic reserves are drained, honor rest without guilt.',
+            motivation: 'Waiting for readiness is a cognitive trap. Action precedes motivation. Execute two minutes of the gateway habit to spark initial dopamine and create intrinsic momentum.',
+            clinginess: 'Your attachment system is hyperactivated by perceived distance, driving frantic protest behaviors that push partners away. Breathe, settle, and state your need for reassurance directly.',
+            criticism: 'Your internal threat system is attacking you with shame. Self-flagellation shuts down prefrontal resilience. Activate your soothing system through a compassionate reframe.'
+        };
+
+        const sliders = {};
+        const vals = {};
+        ids.forEach(id => {
+            sliders[id] = document.getElementById(`${id}-slider`);
+            vals[id] = document.getElementById(`${id}-val`);
+        });
+
+        const capFill = document.getElementById('cap-fill');
+        const capVal = document.getElementById('cap-val');
+        const warningMsg = document.getElementById('warning-msg');
+        const dynamicPoly = document.getElementById('dynamic-poly');
+        const insightContainer = document.getElementById('insight-container');
+        const insightTitle = document.getElementById('insight-title');
+        const insightDesc = document.getElementById('insight-desc');
+        const insightBadge = document.getElementById('insight-badge');
+        const insightFramework = document.getElementById('insight-framework');
+        const insightNeedText = document.getElementById('insight-need-text');
+        const insightHelpText = document.getElementById('insight-help-text');
+
+        const MAX_CAPACITY = 300;
+        const CENTER_X = 220;
+        const CENTER_Y = 220;
+        const MAX_RADIUS = 145;
+
+        // Initialize SVG Enneagon geometry
+        function initEnneagonSVG() {
+            const spokesGroup = document.getElementById('enneagon-spokes');
+            const labelsGroup = document.getElementById('enneagon-labels');
+            spokesGroup.innerHTML = '';
+            labelsGroup.innerHTML = '';
+
+            const ring1Points = [];
+            const ring2Points = [];
+            const ring3Points = [];
+            const ring4Points = [];
+            const bgPoints = [];
+
+            const shortLabels = [
+                'OVERTHINK 🌀', 'PROCRAST. ⏳', 'SNAPPING ⚡', 'PLEASING 🤝',
+                'DOOMSCROLL 📱', 'CANCELING 🚪', 'NO MOTIVE 🪫', 'CLINGINESS 🧲', 'SELF-CRITIC 🪞'
+            ];
+
+            for (let i = 0; i < 9; i++) {
+                const angle = -Math.PI / 2 + (i * 2 * Math.PI / 9);
+                const cos = Math.cos(angle);
+                const sin = Math.sin(angle);
+
+                ring1Points.push(`${(CENTER_X + cos * (MAX_RADIUS * 0.25)).toFixed(1)},${(CENTER_Y + sin * (MAX_RADIUS * 0.25)).toFixed(1)}`);
+                ring2Points.push(`${(CENTER_X + cos * (MAX_RADIUS * 0.5)).toFixed(1)},${(CENTER_Y + sin * (MAX_RADIUS * 0.5)).toFixed(1)}`);
+                ring3Points.push(`${(CENTER_X + cos * (MAX_RADIUS * 0.75)).toFixed(1)},${(CENTER_Y + sin * (MAX_RADIUS * 0.75)).toFixed(1)}`);
+                ring4Points.push(`${(CENTER_X + cos * MAX_RADIUS).toFixed(1)},${(CENTER_Y + sin * MAX_RADIUS).toFixed(1)}`);
+                bgPoints.push(`${(CENTER_X + cos * MAX_RADIUS).toFixed(1)},${(CENTER_Y + sin * MAX_RADIUS).toFixed(1)}`);
+
+                // Spokes
+                const spoke = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                spoke.setAttribute('x1', CENTER_X);
+                spoke.setAttribute('y1', CENTER_Y);
+                spoke.setAttribute('x2', (CENTER_X + cos * MAX_RADIUS).toFixed(1));
+                spoke.setAttribute('y2', (CENTER_Y + sin * MAX_RADIUS).toFixed(1));
+                spoke.setAttribute('stroke', 'rgba(255,255,255,0.08)');
+                spoke.setAttribute('stroke-width', '1');
+                spokesGroup.appendChild(spoke);
+
+                // Labels
+                const labelRadius = MAX_RADIUS + 24;
+                const lx = (CENTER_X + cos * labelRadius).toFixed(1);
+                const ly = (CENTER_Y + sin * labelRadius + 4).toFixed(1);
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', lx);
+                text.setAttribute('y', ly);
+                text.setAttribute('class', 'node-label');
+                text.setAttribute('fill', colors[ids[i]]);
+                text.textContent = shortLabels[i];
+                labelsGroup.appendChild(text);
+            }
+
+            document.getElementById('enneagon-ring-1').setAttribute('points', ring1Points.join(' '));
+            document.getElementById('enneagon-ring-2').setAttribute('points', ring2Points.join(' '));
+            document.getElementById('enneagon-ring-3').setAttribute('points', ring3Points.join(' '));
+            document.getElementById('enneagon-ring-4').setAttribute('points', ring4Points.join(' '));
+            document.getElementById('enneagon-bg').setAttribute('points', bgPoints.join(' '));
+        }
+
+        function calculateEnneagonPoints(values) {
+            const pts = [];
+            for (let i = 0; i < 9; i++) {
+                const angle = -Math.PI / 2 + (i * 2 * Math.PI / 9);
+                const val = Math.max(8, parseInt(values[ids[i]] || 0));
+                const r = (val / 100) * MAX_RADIUS;
+                const x = (CENTER_X + Math.cos(angle) * r).toFixed(1);
+                const y = (CENTER_Y + Math.sin(angle) * r).toFixed(1);
+                pts.push(`${x},${y}`);
+            }
+            return pts.join(' ');
+        }
+
+        function updateUI(sourceSlider = null) {
+            let total = ids.reduce((s, id) => s + parseInt(sliders[id].value), 0);
+
+            if (total > MAX_CAPACITY) {
+                let excess = total - MAX_CAPACITY;
+                warningMsg.style.opacity = '1';
+                setTimeout(() => warningMsg.style.opacity = '0', 2200);
+
+                let others = ids.slice();
+                if (sourceSlider) {
+                    const srcId = Object.keys(sliders).find(k => sliders[k] === sourceSlider);
+                    others = others.filter(k => k !== srcId);
+                }
+                others.sort((a, b) => parseInt(sliders[b].value) - parseInt(sliders[a].value));
+
+                for (let key of others) {
+                    if (excess <= 0) break;
+                    let val = parseInt(sliders[key].value);
+                    let toDrain = Math.min(val, excess);
+                    sliders[key].value = val - toDrain;
+                    excess -= toDrain;
+                }
+                total = ids.reduce((s, id) => s + parseInt(sliders[id].value), 0);
+            }
+
+            ids.forEach(id => vals[id].innerText = sliders[id].value + '%');
+            const percent = (total / MAX_CAPACITY) * 100;
+            capFill.style.width = percent + '%';
+            capVal.innerText = `${total} / ${MAX_CAPACITY}`;
+
+            if (percent > 85) {
+                capFill.style.background = 'linear-gradient(90deg, #f59e0b, #f43f5e)';
+            } else {
+                capFill.style.background = 'linear-gradient(90deg, #818cf8, #ec4899, #10b981)';
+            }
+
+            const curVals = {};
+            ids.forEach(id => curVals[id] = sliders[id].value);
+            dynamicPoly.setAttribute('points', calculateEnneagonPoints(curVals));
+
+            // Find dominant state
+            let maxId = ids.reduce((a, b) => parseInt(sliders[a].value) >= parseInt(sliders[b].value) ? a : b);
+            const domColor = colors[maxId];
+
+            dynamicPoly.setAttribute('stroke', domColor);
+            dynamicPoly.setAttribute('fill', domColor + '30');
+            insightContainer.style.borderLeftColor = domColor;
+            insightTitle.style.color = domColor;
+            insightTitle.innerText = titles[maxId];
+            insightBadge.style.color = domColor;
+            insightBadge.innerText = maxId.toUpperCase();
+            insightFramework.innerText = frameworks[maxId];
+            insightDesc.innerText = descriptions[maxId];
+            insightNeedText.innerText = needs[maxId];
+            insightHelpText.innerText = helps[maxId];
+
+            updateURLParams();
+            const out = document.getElementById('action-plan-output');
+            if (out) out.style.display = 'none';
+        }
+
+        function applyScenario(type) {
+            document.querySelectorAll('.archetypes .btn').forEach(b => b.classList.remove('active'));
+            if (type === 'overthinker') {
+                sliders.overthinking.value = 85;
+                sliders.procrastinating.value = 75;
+                sliders.criticism.value = 65;
+                sliders.snapping.value = 10;
+                sliders.pleasing.value = 15;
+                sliders.doomscroll.value = 25;
+                sliders.canceling.value = 10;
+                sliders.motivation.value = 10;
+                sliders.clinginess.value = 5;
+                updateUI(sliders.overthinking);
+            } else if (type === 'fawnfreeze') {
+                sliders.pleasing.value = 80;
+                sliders.doomscroll.value = 75;
+                sliders.canceling.value = 65;
+                sliders.overthinking.value = 20;
+                sliders.procrastinating.value = 30;
+                sliders.snapping.value = 5;
+                sliders.motivation.value = 15;
+                sliders.clinginess.value = 5;
+                sliders.criticism.value = 5;
+                updateUI(sliders.pleasing);
+            } else if (type === 'reactive') {
+                sliders.snapping.value = 80;
+                sliders.clinginess.value = 75;
+                sliders.criticism.value = 70;
+                sliders.overthinking.value = 30;
+                sliders.procrastinating.value = 15;
+                sliders.pleasing.value = 5;
+                sliders.doomscroll.value = 15;
+                sliders.canceling.value = 5;
+                sliders.motivation.value = 5;
+                updateUI(sliders.snapping);
+            } else if (type === 'healthyadult') {
+                ids.forEach(id => sliders[id].value = 15);
+                sliders.overthinking.value = 20;
+                sliders.motivation.value = 25;
+                updateUI();
+            }
+        }
+
+        function triggerRandomEvent9B() {
+            const events = [
+                {
+                    text: "Ambiguous critique from team lead via chat",
+                    d: { overthinking: 35, criticism: 30, pleasing: 20, snapping: -10, canceling: 10 },
+                    solution: "High Intolerance of Uncertainty triggered. Avoid compulsive message parsing. Write verifiable facts only: 'Leader gave feedback, no conclusion reached.' Decide on one clarification question, then disconnect."
+                },
+                {
+                    text: "Massive project deadline staring at blank screen",
+                    d: { procrastinating: 40, doomscroll: 30, motivation: 25, overthinking: 15 },
+                    solution: "Affective avoidance in progress. The emotional threat of failure triggered fight/flight. Shrink the start: write just the title and one bullet. Do it for exactly 2 minutes (Clear's gateway habit)."
+                },
+                {
+                    text: "Interrupted while on 4th consecutive hour of high-pressure work",
+                    d: { snapping: 45, canceling: 20, overthinking: 15, pleasing: -20 },
+                    solution: "Sympathetic surge exceeded window of tolerance. Your system is screaming for boundaries and space. Implement a non-negotiable 3-minute pause. Step away, drink cold water, exhale slowly before speaking."
+                },
+                {
+                    text: "Invited to a crowded Friday party after exhausting week",
+                    d: { canceling: 40, pleasing: 25, criticism: 20, doomscroll: 15 },
+                    solution: "Perform an honest somatic check-in. If body is in authentic depletion, decline gracefully with a small boundary: 'I need to recharge tonight.' Rest is not moral weakness."
+                },
+                {
+                    text: "Partner leaves message on 'read' for 3 hours",
+                    d: { clinginess: 45, overthinking: 30, criticism: 20, snapping: 15 },
+                    solution: "Attachment hyperactivation alert. Amygdala is equating distance with abandonment. Downregulate with slow 5-breath pacing. Do not send protest texts. When they respond, ask directly for reassurance without drama."
+                },
+                {
+                    text: "Accidental blunder during client presentation",
+                    d: { criticism: 50, overthinking: 30, canceling: 20, doomscroll: 20 },
+                    solution: "Internal punitive critic is firing full shame protocol. Activate CFT Soothing System. Reframe: 'This was a single operational mistake, not a characterological collapse. What is the single corrective micro-action right now?'"
+                },
+                {
+                    text: "Mindless midnight scroll turning into 1:30 AM paralysis",
+                    d: { doomscroll: 45, motivation: 30, procrastinating: 20, canceling: 15 },
+                    solution: "Dorsal vagal freeze. You cannot think your way out of digital immobilization. Physically stand up, place the device in another room, wash face with cool water, and switch physiological states immediately."
+                }
+            ];
+
+            const ev = events[Math.floor(Math.random() * events.length)];
+            ids.forEach(id => {
+                const delta = ev.d[id] || 0;
+                sliders[id].value = Math.max(0, Math.min(100, parseInt(sliders[id].value) + delta));
+            });
+            updateUI();
+
+            const out = document.getElementById('action-plan-output');
+            out.innerHTML = `<strong>🎲 Trigger: ${ev.text}</strong><br><br>💡 <strong>Healthy Adult Antidote:</strong> ${ev.solution}`;
+            out.style.borderColor = '#10b981';
+            out.style.display = 'block';
+        }
+
+        function generateActionPlan() {
+            const valsNow = {};
+            ids.forEach(id => valsNow[id] = parseInt(sliders[id].value));
+            const sorted = ids.map(id => ({ id, val: valsNow[id], color: colors[id] })).sort((a, b) => b.val - a.val);
+            const top = sorted[0];
+            const secondary = sorted[1];
+            const lowest = sorted[sorted.length - 1];
+
+            const text = `
+                <strong style="color:${top.color}; font-size:1.05rem; display:block; margin-bottom:0.4rem;">
+                    Clinical Prescription: Healthy Adult Mode
+                </strong>
+                <strong>Primary Driver (${titles[top.id]} — ${top.val}%):</strong><br>
+                Underneath the urge to <em>${descriptions[top.id].split('.')[0]}</em>, your genuine psychological need is <strong>${needs[top.id]}</strong>.<br>
+                &rarr; <strong>Immediate Antidote:</strong> ${helps[top.id]}.<br><br>
+                <strong>Secondary Stressor (${titles[secondary.id]} — ${secondary.val}%):</strong><br>
+                Address <strong>${needs[secondary.id]}</strong> through <em>${helps[secondary.id]}</em>.<br><br>
+                <em>Schema Therapy Anchor:</em> Replace the reactive coping mode with the Healthy Adult. You do not need to fight the impulse; satisfy the need directly, and the defense will dissolve.
+            `;
+
+            const out = document.getElementById('action-plan-output');
+            out.innerHTML = text;
+            out.style.borderColor = top.color;
+            out.style.display = 'block';
+        }
+
+        ids.forEach(id => sliders[id].addEventListener('input', () => updateUI(sliders[id])));
+
+        // URL Parameters handling
+        function updateURLParams() {
+            const params = new URLSearchParams();
+            ids.forEach(id => params.set(id, sliders[id].value));
+            window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            let hasParams = false;
+            ids.forEach(id => {
+                if (params.has(id)) {
+                    sliders[id].value = Math.max(0, Math.min(100, parseInt(params.get(id))));
+                    hasParams = true;
+                }
+            });
+            return hasParams;
+        }
+
+        // Paradox Switch Grid
+        const paraInputs = {};
+        ids.forEach(id => paraInputs[id] = document.getElementById(`para-${id}`));
+        const paraList = ids.map(id => paraInputs[id]);
+
+        function updateParadoxInsight() {
+            const active = ids.filter(id => paraInputs[id].checked);
+            const el = document.getElementById('para-insight');
+            let title = "", desc = "", color = "var(--text-muted)";
+
+            if (active.length === 0) {
+                title = "Total System Inactivity — Screen for Numbing";
+                color = "#94a3b8";
+                desc = "No behavioral defenses checked. If this reflects internal reality, screen for dorsal vagal collapse or detached protector shutdown rather than true peace. Check somatic markers.";
+            } else if (active.length === 1) {
+                const single = active[0];
+                title = `${titles[single]} Active`;
+                color = colors[single];
+                desc = `Core need: <strong>${needs[single]}</strong>. Prescribed clinical shift: <em>${helps[single]}</em>. Ground your system in this single intervention.`;
+            } else if (active.length === 2) {
+                const key = active.sort().join('+');
+                color = colors[active[0]];
+                if (key.includes('overthinking') && key.includes('procrastinating')) {
+                    title = "Overthinking + Procrastination: The Perfectionist Paralysis";
+                    desc = "Intolerance of uncertainty coupled with fear of negative affect. The brain is running endless simulations to avoid starting. Antidote: Make one decision and shrink the start to 120 seconds.";
+                } else if (key.includes('snapping') && key.includes('clinginess')) {
+                    title = "Snapping + Clinginess: The Anxious-Ambivalent Alarm";
+                    desc = "Simultaneous fight-and-chase. Panic over relational safety driving hostile demands. Antidote: Stop the chase, take a somatic pause, and express vulnerability directly.";
+                } else if (key.includes('pleasing') && key.includes('criticism')) {
+                    title = "People Pleasing + Self-Criticism: Internalized Shame Trapping";
+                    desc = "Subjugating valid needs to appease others while using the internal punitive critic to punish imperfection. Antidote: Self-compassion reframe plus one micro-boundary.";
+                } else if (key.includes('doomscroll') && key.includes('canceling')) {
+                    title = "Doom Scrolling + Canceling Plans: Dorsal Vagal Retreat";
+                    desc = "Immobilization and digital dissociation. Antidote: Differentiate real depletion from anxiety avoidance. If truly depleted, shut down screens and sleep.";
+                } else {
+                    title = `${active.map(s => titles[s].split(' ')[0]).join(' + ')} Active`;
+                    desc = `Co-occurring defense mechanisms. Identify which need is more acute right now: <strong>${needs[active[0]]}</strong> or <strong>${needs[active[1]]}</strong>.`;
+                }
+            } else if (active.length === 3) {
+                title = "Three Defenses Active: Acute System Strain";
+                color = "#f43f5e";
+                desc = "Holding three survival strategies simultaneously indicates severe autonomic dysregulation. Do not try to analyze all three at once. Step into ventral vagal regulation first (breath, water, physical safety).";
+            }
+
+            el.style.borderLeftColor = color;
+            el.innerHTML = `<strong style="color:${color}; display:block; margin-bottom:0.35rem; font-family:'Outfit', sans-serif;">${title}</strong>${desc}`;
+        }
+
+        paraList.forEach(inp => {
+            inp.addEventListener('change', function() {
+                if (this.checked) {
+                    const active = paraList.filter(s => s.checked);
+                    if (active.length > 3) {
+                        const others = active.filter(s => s !== this);
+                        const victim = others[Math.floor(Math.random() * others.length)];
+                        victim.checked = false;
+                    }
+                }
+                updateParadoxInsight();
+            });
+        });
+
+        // Init
+        initEnneagonSVG();
+        const hasLoaded = loadFromURL();
+        if (!hasLoaded) {
+            sliders.overthinking.value = 25;
+            sliders.procrastinating.value = 35;
+            sliders.snapping.value = 15;
+            sliders.pleasing.value = 20;
+            sliders.doomscroll.value = 40;
+            sliders.canceling.value = 15;
+            sliders.motivation.value = 30;
+            sliders.clinginess.value = 15;
+            sliders.criticism.value = 25;
+        }
+        updateUI();
+        updateParadoxInsight();
+    </script>
+</body>
+</html>

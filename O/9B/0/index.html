@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet the Need, Change the Behavior | Interactive Infographic</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            navy: '#1E1B4B',
+                            purple: '#6D28D9',
+                            teal: '#0D9488',
+                            coral: '#F97316',
+                            rose: '#E11D48',
+                            amber: '#D97706',
+                            bg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Essential Chart Container Styles for Strict Aspect Ratio & Responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .gradient-hero {
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #311042 100%);
+        }
+        .card-glow {
+            box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.1), 0 8px 10px -6px rgba(109, 40, 217, 0.1);
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased smooth-scroll">
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-white py-3 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <a href="../../index.html" class="text-xs text-slate-400 hover:text-white transition-colors bg-slate-800/80 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1">
+                    &larr; Hub
+                </a>
+                <div class="flex items-center gap-2 font-bold text-lg text-amber-400">
+                    <span class="text-2xl">🧠</span>
+                    <span>Behavior as Communication</span>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-300">
+                <a href="#overview" class="hover:text-amber-400 transition-colors">Core Matrix</a>
+                <a href="#cft-model" class="hover:text-teal-400 transition-colors">CFT Emotion Systems</a>
+                <a href="#activation" class="hover:text-orange-400 transition-colors">Behavioral Activation</a>
+                <a href="#attachment" class="hover:text-purple-400 transition-colors">Attachment Styles</a>
+                <a href="#autonomic" class="hover:text-rose-400 transition-colors">Autonomic States</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="bg-indigo-950 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-200 font-semibold px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1">
+                    <span>🧩</span> Enneagon Simulator
+                </a>
+                <a href="#explorer" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider transition-all shadow-md">
+                    Toolkit
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="gradient-hero text-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/60 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-widest mb-6">
+                <span>⚡ Affective Neuroscience & Clinical Psychology Analysis</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                Meet the Need, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400">Change the Behavior</span>
+            </h1>
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+                Maladaptive actions—from procrastination and overthinking to people pleasing and self-criticism—are not moral failures. They are survival mechanisms deployed by a dysregulated nervous system attempting to satisfy an unmet core requirement.
+            </p>
+
+            <!-- Key Metric Callouts / KPI Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8">
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-extrabold text-amber-400 mb-1">9</div>
+                    <div class="text-xs text-slate-400 font-medium uppercase">Core Behavioral Paradigms</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-extrabold text-teal-400 mb-1">3</div>
+                    <div class="text-xs text-slate-400 font-medium uppercase">CFT Emotion Regulation Circles</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-extrabold text-orange-400 mb-1">&lt; 2 min</div>
+                    <div class="text-xs text-slate-400 font-medium uppercase">Gateway Action Threshold</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-extrabold text-rose-400 mb-1">100%</div>
+                    <div class="text-xs text-slate-400 font-medium uppercase">Needs-Based Reframe</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 space-y-16 pb-20">
+
+        <!-- SECTION: The 9 Core Paradigms Overview Grid -->
+        <section id="overview" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+                    The Behavioral Communication Matrix
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Every repetitive maladaptive action consists of a surface urge (the immediate proxy desire), an underlying biological or psychological core need, and an adaptive intervention that effectively satisfies the need to permanently alter the behavior.
+                </p>
+            </div>
+
+            <!-- Interactive Filter Controls -->
+            <div class="flex flex-wrap gap-2 mb-8" id="filter-buttons">
+                <button onclick="filterMatrix('all')" class="matrix-btn active bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow">
+                    All 9 Paradigms
+                </button>
+                <button onclick="filterMatrix('cognitive')" class="matrix-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                    Cognitive & Task
+                </button>
+                <button onclick="filterMatrix('interpersonal')" class="matrix-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                    Interpersonal & Attachment
+                </button>
+                <button onclick="filterMatrix('somatic')" class="matrix-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                    Somatic & Stress
+                </button>
+            </div>
+
+            <!-- Grid of Behavioral Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="matrix-grid">
+
+                <!-- 1. Overthinking -->
+                <div class="matrix-card cognitive bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">🧠 Overthinking</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 uppercase">Cognitive</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To exert control</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Certainty</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Deciding in the present moment</span>
+                    </div>
+                </div>
+
+                <!-- 2. Procrastination -->
+                <div class="matrix-card cognitive bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">⏳ Procrastination</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 uppercase">Cognitive</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To avoid negative affect</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Psychological safety</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Initiating a tiny start</span>
+                    </div>
+                </div>
+
+                <!-- 3. Snapping -->
+                <div class="matrix-card somatic bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">⚡ Snapping</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 uppercase">Somatic/Stress</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To attack the stressor</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Physical & Emotional space</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Implementing a pause first</span>
+                    </div>
+                </div>
+
+                <!-- 4. People Pleasing -->
+                <div class="matrix-card interpersonal bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">🤝 People Pleasing</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 uppercase">Interpersonal</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To appease others</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Relational safety</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Setting a small boundary</span>
+                    </div>
+                </div>
+
+                <!-- 5. Doom Scrolling -->
+                <div class="matrix-card somatic bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">📱 Doom Scrolling</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 uppercase">Somatic/Stress</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To escape reality</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Autonomic regulation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Changing physiological state</span>
+                    </div>
+                </div>
+
+                <!-- 6. Canceling Plans -->
+                <div class="matrix-card somatic bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">🛋️ Canceling Plans</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 uppercase">Somatic/Stress</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To socially withdraw</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Rest and recovery</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Conducting an honest check-in</span>
+                    </div>
+                </div>
+
+                <!-- 7. Lack of Motivation -->
+                <div class="matrix-card cognitive bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">🛑 Lack Motivation</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 uppercase">Cognitive</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To wait for readiness</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Forward momentum</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Engaging for two minutes</span>
+                    </div>
+                </div>
+
+                <!-- 8. Clinginess -->
+                <div class="matrix-card interpersonal bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">⚓ Clinginess</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 uppercase">Interpersonal</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To chase proximity</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Emotional reassurance</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Asking directly for support</span>
+                    </div>
+                </div>
+
+                <!-- 9. Self-Criticism -->
+                <div class="matrix-card cognitive bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-amber-400 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-bold text-slate-900 text-lg flex items-center gap-2">🪞 Self-Criticism</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 uppercase">Cognitive</span>
+                        </div>
+                        <div class="space-y-2 text-sm mb-4">
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Surface Urge:</span>
+                                <span class="font-semibold text-rose-600">To use shame as fuel</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 pb-1">
+                                <span class="text-slate-500 font-medium">Core Need:</span>
+                                <span class="font-bold text-indigo-700">Self-compassion</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-900 text-white p-3 rounded-lg text-xs font-medium flex items-center justify-between">
+                        <span>Adaptive Action:</span>
+                        <span class="font-bold text-amber-300">Cognitive reframing</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 1: Compassion-Focused Therapy (CFT) Three Circle Model -->
+        <section id="cft-model" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <div class="lg:col-span-6 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold uppercase">
+                    <span>Paul Gilbert's CFT Framework</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                    Intrapersonal Hostility & The Three Circle Model
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    When we experience failure or emotional distress, self-criticism mistakenly activates our evolutionary <strong>Threat & Self-Protection System</strong>. Using shame as a motivational tool fails because internal hostility triggers cortisol release and autonomic panic, effectively shutting down prefrontal problem-solving.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    Adaptive regulation requires deliberate shift into the <strong>Soothing & Affiliative System</strong> through self-compassion and cognitive reframing. This parasympathetic state restores heart rate variability (HRV) and allows true psychological resilience.
+                </p>
+                <div class="grid grid-cols-3 gap-2 pt-2">
+                    <div class="p-3 bg-rose-50 border border-rose-200 rounded-lg text-center">
+                        <div class="font-bold text-rose-700 text-xs uppercase">Threat (Red)</div>
+                        <div class="text-xs text-slate-500 mt-1">Anger, Shame, Cortisol</div>
+                    </div>
+                    <div class="p-3 bg-sky-50 border border-sky-200 rounded-lg text-center">
+                        <div class="font-bold text-sky-700 text-xs uppercase">Drive (Blue)</div>
+                        <div class="text-xs text-slate-500 mt-1">Pursuit, Dopamine</div>
+                    </div>
+                    <div class="p-3 bg-teal-50 border border-teal-200 rounded-lg text-center">
+                        <div class="font-bold text-teal-700 text-xs uppercase">Soothing (Green)</div>
+                        <div class="text-xs text-slate-500 mt-1">Safety, Oxytocin, HRV</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Chart Container -->
+            <div class="lg:col-span-6">
+                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-center">
+                    <h3 class="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                        Neurological Activation Distribution: Self-Criticism vs. Self-Compassion
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="cftChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3 italic">
+                        Figure 1.1: Self-criticism over-indexes on threat activation, whereas compassionate reframing balances drive with the parasympathetic soothing system.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Behavioral Activation & The Momentum Engine -->
+        <section id="activation" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <!-- Visual Chart Container -->
+            <div class="lg:col-span-6 order-2 lg:order-1">
+                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-center">
+                    <h3 class="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                        Affective Trajectory: Waiting for Readiness vs. Action Precedes Motivation
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="activationChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3 italic">
+                        Figure 2.1: Passive waiting deepens affective friction. Applying the 2-minute gateway habit creates momentum that lowers distress and elevates dopamine.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-4 order-1 lg:order-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold uppercase">
+                    <span>Behavioral Activation & Emotion Regulation</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                    The Two-Minute Rule & Breaking the Emotion Gap
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Procrastination and lack of motivation are rarely time-management problems. They represent short-term affective mood repair: the brain prioritizes immediate relief from task-induced anxiety over long-term goals.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    By implementing James Clear's and David Allen's <strong>Two-Minute Gateway Habit</strong>, we reduce task friction below the amygdala's threat-detection threshold. In Behavioral Activation (BA), <em>action precedes motivation</em>. Initiating an infinitesimally small step bypasses emotional avoidance and yields immediate neurobiological momentum.
+                </p>
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                    <p class="text-xs font-semibold text-amber-900">
+                        "The intention-action gap is bridged not by sheer willpower, but by shrinking the initial step until emotional resistance drops to zero."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Attachment Security & Interpersonal Dynamics -->
+        <section id="attachment" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <div class="lg:col-span-6 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold uppercase">
+                    <span>Relational Trauma & Attachment Theory</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                    Hyperactivating Strategies vs. Direct Communication
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    When attachment threat is perceived, anxiously attached individuals engage in <strong>hyperactivating strategies</strong>—such as clinginess, chasing, and indirect protest behavior—to downregulate relational panic.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    Similarly, people pleasing functions as the <strong>fawn response</strong> to secure safety through self-abandonment. Replacing indirect protest with direct asks for reassurance, and replacing appeasement with small boundaries, fulfills the true core need for relational safety without alienating partners.
+                </p>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-3 text-xs bg-slate-100 p-2.5 rounded-lg">
+                        <span class="font-bold text-purple-700 w-24">Anxious:</span>
+                        <span class="text-slate-600">Hyperactivates (chases) to resolve panic -> Need: Reassurance</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs bg-slate-100 p-2.5 rounded-lg">
+                        <span class="font-bold text-rose-700 w-24">Avoidant:</span>
+                        <span class="text-slate-600">Deactivates (withdraws) to protect autonomy -> Need: Space</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs bg-slate-100 p-2.5 rounded-lg">
+                        <span class="font-bold text-teal-700 w-24">Secure:</span>
+                        <span class="text-slate-600">Communicates needs directly & manages co-regulation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Chart Container -->
+            <div class="lg:col-span-6">
+                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-center">
+                    <h3 class="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                        Attachment Styles: Relational Threat Reactivity & Strategy Intensity
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="attachmentChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3 italic">
+                        Figure 3.1: Anxious attachment exhibits high hyperactivation under relational ambiguity, requiring direct communication over indirect proximity-seeking.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Autonomic Dysregulation & Polyvagal States -->
+        <section id="autonomic" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <!-- Visual Chart Container -->
+            <div class="lg:col-span-6 order-2 lg:order-1">
+                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-center">
+                    <h3 class="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                        Autonomic Nervous System Arousal Across Behavioral Paradigms
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="autonomicChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3 italic">
+                        Figure 4.1: Snapping represents extreme sympathetic hyperarousal, while doom scrolling reflects dorsal vagal freeze/immobilization.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-4 order-1 lg:order-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold uppercase">
+                    <span>Polyvagal Theory & Somatic State Shifts</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                    Somatic Dysregulation: Snapping vs. Doom Scrolling
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Our actions are downstream of our physiological state. <strong>Snapping</strong> is a hyperaroused sympathetic fight response triggered when environmental demands exceed our window of tolerance; implementing a physical pause allows prefrontal executive control to re-engage.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    Conversely, <strong>Doom Scrolling</strong> often reflects a dorsal vagal freeze response—a state of passive immobilization where the brain consumes digital micro-dopamine hits to numb anxiety. Restoring regulation requires an active somatic state change (cold water, movement, grounding) rather than cognitive rationalization.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Schema Therapy Integration -->
+        <section id="schema" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+            <div class="max-w-3xl mx-auto text-center mb-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase mb-3">
+                    <span>Jeffrey Young's Schema Therapy</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                    The Schema Coping Spectrum & Healthy Adult Mode
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Early Maladaptive Schemas (EMS) trigger default coping styles when core childhood needs are unmet. These survival strategies map directly to biological threat modes: <strong>Surrender</strong> (Freeze/Fawn), <strong>Avoidance</strong> (Flight), and <strong>Overcompensation</strong> (Fight).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6">
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-center">
+                        <h3 class="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                            Categorization of Maladaptive Coping Styles
+                        </h3>
+                        <div class="chart-container">
+                            <canvas id="schemaChart"></canvas>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3 italic">
+                            Figure 5.1: The distribution of analyzed coping behaviors across Schema Therapy coping styles.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <span>🛡️ Surrender Mode (Freeze / Fawn)</span>
+                        </h4>
+                        <p class="text-xs text-slate-600">
+                            Accepts schema as truth. Manifests as <strong>People Pleasing</strong> (Subjugation) and accepting guilt when canceling plans.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <span>🏃 Avoidance Mode (Flight)</span>
+                        </h4>
+                        <p class="text-xs text-slate-600">
+                            Escapes distress. Manifests as <strong>Procrastination</strong>, <strong>Doom Scrolling</strong>, and social withdrawal.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                            <span>⚔️ Overcompensation Mode (Fight)</span>
+                        </h4>
+                        <p class="text-xs text-slate-600">
+                            Fights internal threat excessively. Manifests as <strong>Snapping</strong>, <strong>Overthinking</strong> (control), and <strong>Clinginess</strong> (chasing).
+                        </p>
+                    </div>
+                    <div class="p-4 bg-indigo-900 text-white rounded-xl">
+                        <h4 class="font-bold text-amber-300 text-sm mb-1">
+                            🌱 The Ultimate Goal: Strengthening the Healthy Adult
+                        </h4>
+                        <p class="text-xs text-slate-200">
+                            The Healthy Adult mode recognizes the unmet need of the Vulnerable Child, silences the Punitive Critic with self-compassion, and replaces automatic threat responses with targeted adaptive actions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Interactive Needs-Based Action Toolkit / Decision Wizard -->
+        <section id="explorer" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl shadow-2xl border border-slate-800 p-6 sm:p-10 text-white">
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <span class="text-amber-400 font-bold text-xs uppercase tracking-widest block mb-2">Real-Time Self-Regulation Wizard</span>
+                <h2 class="text-3xl font-extrabold mb-3">What Are You Experiencing Right Now?</h2>
+                <p class="text-slate-300 text-sm">
+                    Select your current state or surface urge to discover your immediate core need and recommended adaptive intervention.
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Select Your Current Reactive State:</label>
+                    <select id="state-select" onchange="updateToolkit()" class="w-full bg-slate-800 border border-slate-700 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-amber-400 focus:outline-none">
+                        <option value="overthinking">🧠 Overthinking & Replaying Scenarios</option>
+                        <option value="procrastinating">⏳ Delaying a Task & Feeling Guilt</option>
+                        <option value="snapping">⚡ Feeling Irritated & Ready to Snap</option>
+                        <option value="pleasing">🤝 Agreeing to Things You Dislike (People Pleasing)</option>
+                        <option value="scrolling">📱 Numbly Doom Scrolling on Your Phone</option>
+                        <option value="canceling">🛋️ Wanting to Cancel All Upcoming Plans</option>
+                        <option value="motivation">🛑 Feeling Zero Motivation to Start</option>
+                        <option value="clingy">⚓ Feeling Panicked & Wanting to Chase Someone</option>
+                        <option value="criticism">🪞 Harsh Internal Self-Criticism & Shame</option>
+                    </select>
+                </div>
+
+                <!-- Wizard Output Box -->
+                <div id="toolkit-output" class="bg-slate-800/90 border border-indigo-500/30 rounded-2xl p-6 space-y-4 card-glow transition-all">
+                    <!-- Dynamic Javascript Content Injected Here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-10 px-4 text-center text-xs">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <div class="flex justify-center items-center gap-2 font-bold text-slate-200 text-sm">
+                <span>🧠 Behavioral Change & Emotional Needs Framework</span>
+            </div>
+            <p>
+                Synthesized from cognitive behavioral therapy, schema therapy, polyvagal theory, attachment theory, and compassion-focused therapy models.
+            </p>
+            <p class="text-slate-600">
+                This infographic is for educational purposes only. For medical advice or psychological diagnosis, consult a licensed professional.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Charts & Interaction Scripts -->
+    <script>
+        // Data Structure for the Toolkit Wizard
+        const toolkitData = {
+            overthinking: {
+                title: "Overthinking & Rumination",
+                want: "To exert control over uncertain outcomes",
+                need: "Certainty & Intolerance of Uncertainty Resolution",
+                action: "Decide in the Present Moment",
+                explanation: "Cognitive hyperactivation loops persist because the brain flags uncertainty as an existential threat. Making an immediate decision short-circuits rumination and provides exposure therapy to the amygdala.",
+                step: "Pick the best available option right now and declare: 'I choose this for today.'"
+            },
+            procrastinating: {
+                title: "Procrastination",
+                want: "To avoid negative affect (anxiety, frustration, self-doubt)",
+                need: "Psychological Safety",
+                action: "Initiate a Tiny Start",
+                explanation: "Procrastination is an emotion regulation failure, choosing short-term mood repair over long-term goals. Shrinking the task bypasses threat detection in the brain.",
+                step: "Make the initial step so small it takes less than 2 minutes (e.g., just open the document)."
+            },
+            snapping: {
+                title: "Snapping & Irritability",
+                want: "To attack the immediate stressor",
+                need: "Physical & Emotional Space",
+                action: "Implement a Pause First",
+                explanation: "Snapping is a hyperaroused sympathetic fight response when demands exceed your window of tolerance. A pause allows parasympathetic re-engagement.",
+                step: "Step back physically, take 3 slow exhale-focused breaths, and state: 'I need 10 minutes before discussing this.'"
+            },
+            pleasing: {
+                title: "People Pleasing (Fawning)",
+                want: "To appease others and avoid conflict",
+                need: "Relational Safety & Autonomy",
+                action: "Set a Small Boundary",
+                explanation: "Fawning is a trauma response designed to neutralize interpersonal threat by catering to others at personal expense. True safety requires honoring your own limits.",
+                step: "Say: 'Let me check my schedule and get back to you later' instead of giving an immediate yes."
+            },
+            scrolling: {
+                title: "Doom Scrolling",
+                want: "To escape reality and numb stress",
+                need: "Autonomic Regulation",
+                action: "Change Your Physiological State",
+                explanation: "Doom scrolling reflects a dorsal vagal freeze/immobilization state seeking micro-dopamine. Cognitive logic won't break it; body-based shifts will.",
+                step: "Splash cold water on your face, stand up, or stretch vigorously for 30 seconds."
+            },
+            canceling: {
+                title: "Social Withdrawal / Canceling Plans",
+                want: "To withdraw from social obligations",
+                need: "Rest & Systemic Recovery",
+                action: "Conduct an Honest Check-In",
+                explanation: "Differentiate between depressive avoidance (which requires action) and true somatic depletion (which requires genuine rest).",
+                step: "Ask yourself: 'Am I avoiding anxiety, or is my nervous system genuinely depleted?' If depleted, rest without guilt."
+            },
+            motivation: {
+                title: "Lack of Motivation",
+                want: "To wait passively until readiness arrives",
+                need: "Forward Momentum",
+                action: "Engage for Exactly Two Minutes",
+                explanation: "Motivation is the neurobiological byproduct of action, not the prerequisite. Action precedes motivation.",
+                step: "Set a timer for 120 seconds. Commit to working only until the timer rings, then choose whether to continue."
+            },
+            clingy: {
+                title: "Clinginess & Proximity Panic",
+                want: "To chase or frantically protest distance",
+                need: "Emotional Reassurance & Felt Security",
+                action: "Ask Directly for Support",
+                explanation: "Anxious attachment triggers hyperactivating panic when ambiguity arises. Indirect chasing alienates partners; direct requests foster co-regulation.",
+                step: "Send a clear text: 'I'm feeling a bit disconnected today and would love a quick reassurance check-in when you have a moment.'"
+            },
+            criticism: {
+                title: "Self-Criticism & Harsh Judgment",
+                want: "To use shame and punishment as motivation",
+                need: "Self-Compassion & Soothing System Activation",
+                action: "Cognitive Reframing",
+                explanation: "Shame activates the internal threat system, elevating cortisol and disabling executive function. Compassion provides a secure base for growth.",
+                step: "Ask: 'What would I say to a dear friend in this exact situation?' and speak those words to yourself."
+            }
+        };
+
+        function updateToolkit() {
+            const key = document.getElementById('state-select').value;
+            const item = toolkitData[key];
+            const output = document.getElementById('toolkit-output');
+
+            output.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between border-b border-slate-700 pb-3 gap-2">
+                    <h3 class="text-xl font-bold text-amber-400">${item.title}</h3>
+                    <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-900 text-indigo-200 border border-indigo-700 uppercase">Interactive Reframe</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <span class="text-slate-400 text-xs font-semibold block uppercase">Surface Want (Proxy):</span>
+                        <span class="text-rose-400 font-semibold">${item.want}</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <span class="text-slate-400 text-xs font-semibold block uppercase">Core Psychological Need:</span>
+                        <span class="text-teal-300 font-bold">${item.need}</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 p-4 rounded-xl">
+                    <span class="text-amber-300 text-xs font-bold uppercase tracking-wider block mb-1">Recommended Adaptive Action:</span>
+                    <span class="text-lg font-extrabold text-white block">${item.action}</span>
+                    <p class="text-xs text-slate-300 mt-2 leading-relaxed">${item.explanation}</p>
+                </div>
+                <div class="bg-slate-900/80 p-3 rounded-xl border-l-4 border-teal-400 text-xs text-slate-300">
+                    <strong class="text-teal-400">Immediate Micro-Step:</strong> ${item.step}
+                </div>
+            `;
+        }
+
+        // Filter Matrix Cards
+        function filterMatrix(category) {
+            const buttons = document.querySelectorAll('.matrix-btn');
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-slate-900', 'text-white'));
+            event.target.classList.add('active', 'bg-slate-900', 'text-white');
+
+            const cards = document.querySelectorAll('.matrix-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize Chart.js Instances after DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Shared Tooltip Configuration with Multi-Line Label Handling
+            const customTooltipConfig = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+
+            // 1. CFT Radar Chart
+            const cftCtx = document.getElementById('cftChart').getContext('2d');
+            new Chart(cftCtx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        ['Threat', 'Activation'],
+                        ['Self-Protection', 'Focus'],
+                        ['Drive & Resource', 'Seeking'],
+                        ['Dopamine', 'Pursuit'],
+                        ['Parasympathetic', 'Soothing'],
+                        ['Oxytocin &', 'Safety']
+                    ],
+                    datasets: [
+                        {
+                            label: 'Self-Criticism State',
+                            data: [95, 90, 60, 40, 10, 15],
+                            backgroundColor: 'rgba(225, 29, 72, 0.2)',
+                            borderColor: '#E11D48',
+                            pointBackgroundColor: '#E11D48',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Self-Compassion State',
+                            data: [20, 25, 70, 75, 95, 90],
+                            backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                            borderColor: '#0D9488',
+                            pointBackgroundColor: '#0D9488',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E2E8F0' },
+                            grid: { color: '#E2E8F0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        tooltip: customTooltipConfig,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+
+            // 2. Behavioral Activation Line Chart
+            const actCtx = document.getElementById('activationChart').getContext('2d');
+            new Chart(actCtx, {
+                type: 'line',
+                data: {
+                    labels: ['0 min', '15 min', '30 min', '45 min', '60 min', '75 min', '90 min'],
+                    datasets: [
+                        {
+                            label: 'Waiting for Motivation (Passive Avoidance)',
+                            data: [80, 85, 90, 88, 92, 95, 90],
+                            borderColor: '#E11D48',
+                            backgroundColor: 'rgba(225, 29, 72, 0.05)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: '2-Minute Start (Behavioral Activation)',
+                            data: [80, 50, 35, 25, 20, 15, 10],
+                            borderColor: '#F97316',
+                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Psychological Friction / Distress', font: { size: 11 } },
+                            min: 0,
+                            max: 100
+                        },
+                        x: {
+                            title: { display: true, text: 'Time Elapsed', font: { size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        tooltip: customTooltipConfig,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+
+            // 3. Attachment Styles Grouped Bar Chart
+            const attCtx = document.getElementById('attachmentChart').getContext('2d');
+            new Chart(attCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Secure', 'Attachment'],
+                        ['Anxious', 'Attachment'],
+                        ['Avoidant', 'Attachment']
+                    ],
+                    datasets: [
+                        {
+                            label: 'Hyperactivation (Chasing)',
+                            data: [20, 95, 15],
+                            backgroundColor: '#6D28D9'
+                        },
+                        {
+                            label: 'Deactivation (Withdrawing)',
+                            data: [15, 10, 90],
+                            backgroundColor: '#0D9488'
+                        },
+                        {
+                            label: 'Direct Communication',
+                            data: [90, 30, 25],
+                            backgroundColor: '#D97706'
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Strategy Intensity (%)', font: { size: 11 } } }
+                    },
+                    plugins: {
+                        tooltip: customTooltipConfig,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+
+            // 4. Autonomic Nervous System Horizontal Bar Chart
+            const autCtx = document.getElementById('autonomicChart').getContext('2d');
+            new Chart(autCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Snapping', '(Fight Response)'],
+                        ['Overthinking', '(Sympathetic)'],
+                        ['Clinginess', '(Hyperarousal)'],
+                        ['Doom Scrolling', '(Dorsal Freeze)'],
+                        ['Rest & Recovery', '(Ventral Vagal)']
+                    ],
+                    datasets: [{
+                        label: 'Autonomic Arousal Level',
+                        data: [95, 85, 80, 25, 10],
+                        backgroundColor: [
+                            '#E11D48',
+                            '#F97316',
+                            '#6D28D9',
+                            '#475569',
+                            '#0D9488'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        x: { beginAtZero: true, max: 100, title: { display: true, text: 'Sympathetic Hyperarousal Index', font: { size: 11 } } }
+                    },
+                    plugins: {
+                        tooltip: customTooltipConfig,
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // 5. Schema Therapy Doughnut Chart
+            const schCtx = document.getElementById('schemaChart').getContext('2d');
+            new Chart(schCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        ['Surrender Mode', '(Freeze/Fawn)'],
+                        ['Avoidance Mode', '(Flight)'],
+                        ['Overcompensation', '(Fight)']
+                    ],
+                    datasets: [{
+                        data: [22.2, 44.4, 33.4],
+                        backgroundColor: [
+                            '#6D28D9',
+                            '#0D9488',
+                            '#E11D48'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        tooltip: customTooltipConfig,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+
+            // Initialize default toolkit wizard output
+            updateToolkit();
+        });
+    </script>
+</body>
+</html>
