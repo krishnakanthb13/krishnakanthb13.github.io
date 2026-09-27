@@ -30,13 +30,13 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/) — Memorable, Budget-Friendly, Stress-Free — pick two. The Iron Triangle of travel.
 	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/) — Fast, Comfortable, Affordable — pick two.
 	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/) — Attractive, Emotionally Mature, Replies Fast — pick two.
-	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/) — Ambitious, Present, Funny — pick two. Ideal Standards, DMN vs CEN, Recovery Process.
-	- [The Peer Trilemma](https://krishnakanthb13.github.io/O/3P/) — Funny, Reliable, Smart — pick two. Big Five, HSQ, the dumb robot & the vibe killer.
-	- [The Sartorial Trilemma](https://krishnakanthb13.github.io/O/3A/) — Look Good, Comfortable, On Time — pick two. Iron Triangle, ATUS time tax, Beauty Tax.
+	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/) — Ambitious, Present, Funny - pick two.
+	- [The Peer Trilemma](https://krishnakanthb13.github.io/O/3P/) — Funny, Reliable, Smart - pick two. Big Five, HSQ, the dumb robot & the vibe killer.
+	- [The Sartorial Trilemma](https://krishnakanthb13.github.io/O/3A/) — Look Good, Comfortable, On Time - pick two.
 	- [The Nine Behaviors](https://krishnakanthb13.github.io/O/9B/) — Overthinking, Procrastination, Snapping, People Pleasing, Doom Scrolling & more.
 		- [Simulator](https://krishnakanthb13.github.io/O/9B/)
 		- [Infographic](https://krishnakanthb13.github.io/O/9B/0/)
-	- [Breakup Healing](https://krishnakanthb13.github.io/O/BH/) — Trigger → Impulse → Body → Story → Regulate → Need: The therapist protocol for post-breakup dysregulation.
+	- [Breakup Healing](https://krishnakanthb13.github.io/O/BH/) — Trigger → Impulse → Body → Story → Regulate → Need.
 		- [Simulator](https://krishnakanthb13.github.io/O/BH/)
 		- [Infographic](https://krishnakanthb13.github.io/O/BH/0/)
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
@@ -93,12 +93,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [The Masculine Trilemma](https://krishnakanthb13.github.io/O/3M/): Nice, Handsome, and Rich — pick two (manosphere marketplace).
 	- [The 7 steps of Grief](https://krishnakanthb13.github.io/O/7B/): Confusion → Denial → Anger → Bargaining → Sadness → Depression → Acceptance.
 	- [The Wealth Trilemma](https://krishnakanthb13.github.io/O/3W/): Passive, Reliable, Low Effort — pick two (myth of passive wealth & leveraged income).
-	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/): Memorable, Budget-Friendly, Stress-Free — pick two (Iron Triangle of travel).
-	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/): Fast, Comfortable, Affordable — pick two.
-	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/): Attractive, Emotionally Mature, Replies Fast — pick two.
-	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/): Ambitious, Present, Funny — pick two (Ideal Standards, DMN vs CEN, Recovery Process).
-	- [The Peer Trilemma](https://krishnakanthb13.github.io/O/3P/): Funny, Reliable, Smart — pick two (Big Five, HSQ, Anchor/Spark/Glue & Psychological Safety).
-	- [The Sartorial Trilemma](https://krishnakanthb13.github.io/O/3A/): Look Good, Comfortable, On Time — pick two (Iron Triangle, ATUS time tax, Beauty Tax).
+	- [The Leisure Trilemma](https://krishnakanthb13.github.io/O/3V/): Memorable, Budget-Friendly, Stress-Free - pick two (Iron Triangle of travel).
+	- [The Transit Trilemma](https://krishnakanthb13.github.io/O/3T/): Fast, Comfortable, Affordable - pick two.
+	- [The Courtship Trilemma](https://krishnakanthb13.github.io/O/3R/): Attractive, Emotionally Mature, Replies Fast - pick two.
+	- [The Dating Trilemma](https://krishnakanthb13.github.io/O/3D/): Ambitious, Present, Funny - pick two (Ideal Standards, DMN vs CEN, Recovery Process).
+	- [The Peer Trilemma](https://krishnakanthb13.github.io/O/3P/): Funny, Reliable, Smart - pick two (Big Five, HSQ, Anchor/Spark/Glue & Psychological Safety).
+	- [The Sartorial Trilemma](https://krishnakanthb13.github.io/O/3A/): Look Good, Comfortable, On Time - pick two (Iron Triangle, ATUS time tax, Beauty Tax).
 	- [The Nine Behaviors](https://krishnakanthb13.github.io/O/9B/): Overthinking, Procrastination, Snapping, People Pleasing, Doom Scrolling & more — map 9 reactive impulses to their underlying core needs.
 		- [Simulator](https://krishnakanthb13.github.io/O/9B/)
 		- [Infographic](https://krishnakanthb13.github.io/O/9B/0/)

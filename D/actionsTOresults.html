@@ -715,7 +715,8 @@
           total += val;
           answered++;
           var pillar = g.getAttribute('data-pillar');
-          if(val >= maxVal){ maxVal = val; highestFriction = labels[pillar] || pillar; }
+          var label = Object.prototype.hasOwnProperty.call(labels, pillar) ? labels[pillar] : '';
+          if(val >= maxVal && label){ maxVal = val; highestFriction = label; }
         }
       });
 
@@ -741,7 +742,11 @@
       } else if(pct >= 45){
         badge.textContent = 'Moderate Friction';
         badge.style.color = '#d97706';
-        rec.innerHTML = '<strong>Primary Bottleneck:</strong> ' + highestFriction + '. Implement the corresponding daily protocol first before attempting multi-habit overhauls.';
+        rec.textContent = '';
+        var strongEl = document.createElement('strong');
+        strongEl.textContent = 'Primary Bottleneck: ';
+        rec.appendChild(strongEl);
+        rec.appendChild(document.createTextNode((highestFriction || labels.dopamine) + '. Implement the corresponding daily protocol first before attempting multi-habit overhauls.'));
       } else {
         badge.textContent = 'Severe Neural Fatigue';
         badge.style.color = '#dc2626';
