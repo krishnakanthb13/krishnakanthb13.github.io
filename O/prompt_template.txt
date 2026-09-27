@@ -50,4 +50,17 @@
 - update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
 - At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
 
+- 2E - 2 Essences (Masculine & Feminine Energy Mechanics)
+- @2E\info.txt and @2E\index.md - use this to build a index.html - refer to the other folder which start with 2E for your reference, make sure you utilize all the content from @2E\info.txt and @2E\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+- Also update the @README.md in the root git repo.
+
+---
+
+For each of these folder, i want you to build a index.html - refer to the other folder which start with 3 for your reference, make sure you utilize all the content from @2E\info.txt and @2E\index.md to build the index.html. and update @index.html with the newly created index.html
+- update @README.md as well, and make sure @life_mechanics_generator.md skill requirement is also fulfilled.
+- At the end make sure all the emojis and context is well integrated, and there are not bug or integrity issues.
+- Also update the @README.md in the root git repo.
+
 ---

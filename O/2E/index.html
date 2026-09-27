@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="The Two Essences (2E): Masculine & Feminine Energy Mechanics. Desired, Admired, Chosen vs Seen, Heard, Understood. Interactive relational polarity simulator and clinical intimacy guide.">
+    <meta name="author" content="Krishnakanth">
+    <meta name="theme-color" content="#070a14">
+    <title>The Two Essences: Masculine & Feminine Energy Mechanics (2E)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #070a14;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --masc-color: #38bdf8;
+            --masc-glow: rgba(56, 189, 248, 0.35);
+            --masc-dark: #0284c7;
+            --fem-color: #f43f5e;
+            --fem-glow: rgba(244, 63, 94, 0.35);
+            --fem-dark: #e11d48;
+            --accent-gold: #f59e0b;
+            --accent-purple: #a855f7;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(56, 189, 248, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', system-ui, -apple-system, sans-serif; }
+        
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(244, 63, 94, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                #070a14;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            overflow-x: hidden;
+        }
+
+        *:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+
+        /* TOP NAVIGATION */
+        .top-nav {
+            width: 100%;
+            max-width: 1220px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding: 0 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.active {
+            color: #fff;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(244, 63, 94, 0.2));
+            border-color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            animation: fadeInDown 0.8s ease-out;
+            width: 100%;
+            max-width: 980px;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(244, 63, 94, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5.5vw, 3.8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+        }
+
+        p.subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: var(--text-muted);
+            max-width: 820px;
+            margin: 0 auto;
+            line-height: 1.6;
+            padding: 0 1rem;
+        }
+
+        /* QUOTE HERO BLOCK */
+        .quote-box {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+            border-left: 4px solid #a855f7;
+        }
+
+        .quote-box::before {
+            content: "“";
+            position: absolute;
+            top: -10px;
+            left: 14px;
+            font-size: 3.5rem;
+            font-family: 'Lora', serif;
+            color: rgba(168, 85, 247, 0.25);
+            line-height: 1;
+        }
+
+        .quote-content {
+            font-family: 'Lora', serif;
+            font-size: clamp(0.92rem, 1.6vw, 1.04rem);
+            line-height: 1.65;
+            color: #e2e8f0;
+            font-style: italic;
+        }
+
+        .quote-content strong {
+            color: #fff;
+            font-style: normal;
+        }
+
+        .quote-author {
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        /* MAIN DASHBOARD LAYOUT */
+        .dashboard-container {
+            max-width: 1220px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: clamp(1.2rem, 3vw, 2rem);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .panel-title {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* BALANCER GRID */
+        .balancer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr 1fr;
+            gap: 1.25rem;
+            align-items: stretch;
+        }
+
+        @media (max-width: 1024px) {
+            .balancer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .center-visual-col {
+                grid-column: 1 / -1;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .balancer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PILLAR CARDS */
+        .essence-card {
+            background: rgba(10, 16, 30, 0.65);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+
+        .masc-card {
+            border-top: 4px solid var(--masc-color);
+        }
+
+        .fem-card {
+            border-top: 4px solid var(--fem-color);
+        }
+
+        .essence-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .essence-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .masc-title { color: var(--masc-color); }
+        .fem-title { color: var(--fem-color); }
+
+        .essence-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .masc-tag { background: rgba(56, 189, 248, 0.15); color: var(--masc-color); }
+        .fem-tag { background: rgba(244, 63, 94, 0.15); color: var(--fem-color); }
+
+        /* SLIDERS */
+        .sliders-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .slider-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .slider-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+            line-height: 1.35;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .masc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--masc-color);
+            box-shadow: 0 0 12px var(--masc-color);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .fem-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--fem-color);
+            box-shadow: 0 0 12px var(--fem-color);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .masc-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--masc-color);
+            box-shadow: 0 0 12px var(--masc-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .fem-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--fem-color);
+            box-shadow: 0 0 12px var(--fem-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .state-badge {
+            margin-top: auto;
+            padding: 0.65rem 0.8rem;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }
+
+        .state-badge strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.82rem;
+        }
+
+        /* CENTER VISUALIZER */
+        .center-visual-col {
+            background: rgba(8, 12, 24, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .svg-container {
+            width: 100%;
+            max-width: 340px;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .polarity-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .kpi-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .kpi-tile {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 0.55rem;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .kpi-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.2rem;
+        }
+
+        .climate-box {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.45);
+            border-left: 3px solid #a855f7;
+            font-size: 0.8rem;
+            line-height: 1.45;
+        }
+
+        .climate-title {
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* PRESET BUTTONS */
+        .preset-section {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .preset-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .preset-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 0.6rem 0.75rem;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .preset-btn span.emoji {
+            font-size: 1.1rem;
+        }
+
+        .preset-btn span.desc {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .preset-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .preset-btn.active {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.15);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+        }
+
+        /* SECTION: SEQUENTIAL INTEGRATION PATHWAY */
+        .stage-pathway {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .stage-card {
+            background: rgba(10, 16, 32, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.2rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .stage-card:hover {
+            background: rgba(15, 23, 42, 0.9);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .stage-card.active {
+            border-color: #38bdf8;
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+
+        .stage-num {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+        }
+
+        .stage-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-text {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .stage-badge-group {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .stage-badge {
+            font-size: 0.68rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        #stage-detail-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-left: 4px solid #38bdf8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* SECTION: DEMAND-WITHDRAW & GOTTMAN BIDS */
+        .gottman-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .gottman-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bids-card {
+            background: rgba(10, 16, 32, 0.65);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .meter-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .meter-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .meter-bar {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f43f5e 0%, #f59e0b 50%, #10b981 100%);
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .markers-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .interactive-cycle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .cycle-step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cycle-step:hover {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .cycle-step.active {
+            border-color: #f43f5e;
+            background: rgba(244, 63, 94, 0.12);
+        }
+
+        .cycle-step-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .cycle-step-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        #cycle-detail-display {
+            grid-column: 1 / -1;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            border-left: 3px solid #f43f5e;
+            line-height: 1.45;
+        }
+
+        /* SECTION: EFT DE-CODER */
+        .eft-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 820px) {
+            .eft-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .conflict-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .conflict-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 0.75rem 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        .conflict-btn:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .conflict-btn.active {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.15);
+        }
+
+        .conflict-phrase {
+            font-size: 0.86rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: #f8fafc;
+        }
+
+        .conflict-meta {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .eft-result-card {
+            background: rgba(10, 16, 32, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .result-block {
+            padding: 0.65rem 0.8rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.35);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .result-block strong {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .block-secondary { border-left: 3px solid #f43f5e; }
+        .block-secondary strong { color: #f43f5e; }
+
+        .block-primary { border-left: 3px solid #38bdf8; }
+        .block-primary strong { color: #38bdf8; }
+
+        .block-script { border-left: 3px solid #10b981; background: rgba(16, 185, 129, 0.08); }
+        .block-script strong { color: #10b981; }
+
+        /* DEEP DIVE RESEARCH ARTICLE SECTION */
+        .article-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 1rem auto 2.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: clamp(1.4rem, 4vw, 2.8rem);
+            font-family: 'Lora', serif;
+            color: #d4d4d8;
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .article-container h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            color: #fafafa;
+            margin: 2.2rem 0 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .article-container h2:first-child { margin-top: 0; }
+
+        .article-container h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+            color: #f4f4f5;
+            margin: 1.6rem 0 0.8rem;
+            font-weight: 700;
+        }
+
+        .article-container p { margin-bottom: 1.1rem; }
+        .article-container ul, .article-container ol { margin: 0 0 1.2rem 1.6rem; padding: 0; }
+        .article-container li { margin-bottom: 0.45rem; }
+
+        /* ACCORDIONS */
+        details {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        details[open] {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        summary {
+            padding: 1.1rem 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+            color: #38bdf8;
+        }
+
+        .details-content {
+            padding: 0 1.25rem 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 0.4rem;
+            padding-top: 1rem;
+        }
+
+        /* COMPARISON TABLES */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.85rem 1rem;
+            font-weight: 700;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #e2e8f0;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+        /* CITATIONS LIST */
+        .citations-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.45rem;
+            font-size: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            margin-top: 1rem;
+        }
+
+        .citation-item {
+            padding: 0.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .citation-item a {
+            color: #38bdf8;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .citation-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 2.5rem 1rem;
+            width: 100%;
+            max-width: 1000px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <nav class="top-nav" aria-label="Main Navigation">
+        <div class="nav-group">
+            <a href="../index.html" class="nav-btn" id="btn-nav-hub">
+                <span>🧭</span> Life Mechanics Hub
+            </a>
+            <a href="0/index.html" class="nav-btn" id="btn-nav-info">
+                <span>📊</span> Infographic Dashboard
+            </a>
+            <a href="index.md" class="nav-btn" id="btn-nav-paper">
+                <span>📄</span> Full Research Paper
+            </a>
+        </div>
+        <div class="nav-group">
+            <a href="#simulator" class="nav-btn active">⚡ Polarity Balancer</a>
+            <a href="#sequential" class="nav-btn">🔗 Sequential Integration</a>
+            <a href="#demand-withdraw" class="nav-btn">🔄 Demand-Withdraw</a>
+            <a href="#eft" class="nav-btn">🛡️ EFT Translator</a>
+            <a href="#deep-dive" class="nav-btn">📖 Essay</a>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <div class="tag-pill">
+            <span>☯️</span> Framework 2E • Life Mechanics
+        </div>
+        <h1>The Two Essences</h1>
+        <p class="subtitle">
+            Masculine & Feminine Energy Mechanics: Why the masculine craves to be <strong>Desired, Admired, and Chosen</strong>, the feminine seeks to be <strong>Seen, Heard, and Understood</strong>, and how psychological safety triggers reciprocal integration.
+        </p>
+    </header>
+
+    <!-- QUOTE BOX -->
+    <section class="quote-box" aria-label="Key Theoretical Insight">
+        <div class="quote-content">
+            "What does a man need to give a woman and a woman a man? Simple. The <strong>masculine essence and energy</strong> we want to feel <strong>desired, admired, and chosen</strong>. We want to know that you want us. We want to know that you're proud of us, and we want to know that you picked us. The <strong>feminine</strong> wants to be <strong>seen, heard, and understood</strong>. They want to feel like you understand them, you know where they're coming from, you feel their emotions, you're in it with them, you can hold that space for them... And the interesting thing is when those things get wounded, they flip. But on the front end, typically, men want to be desired, admired, and chosen. Then when we feel a degree of safety, we want to be seen, heard, and understood. And it's the inverse for a woman. Make her feel seen, make her feel heard, make her feel understood, and then let her know you desire her, she's beautiful, choose her, and you're proud of her. Simple. Inverses of each other."
+        </div>
+        <div class="quote-author">
+            <span>— Relational Polarity & Emotional Needs Mechanics</span>
+        </div>
+    </section>
+
+    <!-- DASHBOARD CONTAINER -->
+    <main class="dashboard-container">
+
+        <!-- MODULE 1: POLARITY BALANCER & SIMULATOR -->
+        <section class="glass-panel" id="simulator">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title"><span>⚡</span> Dual Essence Polarity Simulator</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                        Adjust the 3 core needs for each essence. Observe how safety thresholds dissolve defenses and generate magnetic pair-bonding polarity.
+                    </p>
+                </div>
+            </div>
+
+            <!-- BALANCER GRID -->
+            <div class="balancer-grid">
+                
+                <!-- MASCULINE COLUMN -->
+                <div class="essence-card masc-card">
+                    <div class="essence-head">
+                        <div class="essence-title masc-title">
+                            <span>🗡️</span> Masculine Needs
+                        </div>
+                        <span class="essence-tag masc-tag">Front-End Drive</span>
+                    </div>
+
+                    <div class="sliders-group">
+                        <!-- Desired -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--masc-color);">1. Desired</span>
+                                <span id="val-desired" style="color: var(--masc-color); font-weight: 700;">85%</span>
+                            </div>
+                            <p class="slider-desc">Physical longing, sexual fulfillment, proof of magnetic pull.</p>
+                            <input type="range" id="slider-desired" class="masc-slider" min="0" max="100" value="85" aria-label="Masculine need to be Desired">
+                        </div>
+
+                        <!-- Admired -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--masc-color);">2. Admired</span>
+                                <span id="val-admired" style="color: var(--masc-color); font-weight: 700;">80%</span>
+                            </div>
+                            <p class="slider-desc">Vocal pride, competence respect, buffer against Gender Role Discrepancy Strain.</p>
+                            <input type="range" id="slider-admired" class="masc-slider" min="0" max="100" value="80" aria-label="Masculine need to be Admired">
+                        </div>
+
+                        <!-- Chosen -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--masc-color);">3. Chosen</span>
+                                <span id="val-chosen" style="color: var(--masc-color); font-weight: 700;">90%</span>
+                            </div>
+                            <p class="slider-desc">Irrevocable commitment, certainty of selection, neutralizing fear of replacement.</p>
+                            <input type="range" id="slider-chosen" class="masc-slider" min="0" max="100" value="90" aria-label="Masculine need to be Chosen">
+                        </div>
+                    </div>
+
+                    <div class="state-badge" id="masc-status-badge">
+                        <strong style="color: var(--masc-color);">🛡️ Masculine State: Secure & Chosen</strong>
+                        <span id="masc-status-text">Admiration neutralizes societal shame of weakness. He feels safe to open up.</span>
+                    </div>
+                </div>
+
+                <!-- CENTER DYNAMIC VISUALIZER -->
+                <div class="center-visual-col">
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700;">Relational Magnetic Field</span>
+                        <span id="field-pulse-tag" style="font-size: 0.7rem; color: #10b981; font-weight: 600;">● Resonant</span>
+                    </div>
+
+                    <!-- SVG Dynamic Polarity Visualizer -->
+                    <div class="svg-container">
+                        <svg class="polarity-svg" viewBox="0 0 320 220" id="polaritySvg">
+                            <defs>
+                                <radialGradient id="mascGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+                                    <stop offset="60%" stop-color="#0284c7" stop-opacity="0.6" />
+                                    <stop offset="100%" stop-color="#070a14" stop-opacity="0" />
+                                </radialGradient>
+                                <radialGradient id="femGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.9" />
+                                    <stop offset="60%" stop-color="#e11d48" stop-opacity="0.6" />
+                                    <stop offset="100%" stop-color="#070a14" stop-opacity="0" />
+                                </radialGradient>
+                                <filter id="glowEffect" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="6" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+
+                            <!-- Connecting Flux Lines -->
+                            <path id="fluxLine1" d="M 70 110 Q 160 50 250 110" fill="none" stroke="rgba(168, 85, 247, 0.5)" stroke-width="2.5" stroke-dasharray="6,4" />
+                            <path id="fluxLine2" d="M 70 110 Q 160 110 250 110" fill="none" stroke="rgba(255, 255, 255, 0.6)" stroke-width="3" />
+                            <path id="fluxLine3" d="M 70 110 Q 160 170 250 110" fill="none" stroke="rgba(168, 85, 247, 0.5)" stroke-width="2.5" stroke-dasharray="6,4" />
+
+                            <!-- Core Nodes -->
+                            <!-- Masculine Pole -->
+                            <circle id="mascNodeGlow" cx="70" cy="110" r="42" fill="url(#mascGrad)" />
+                            <circle id="mascNodeCore" cx="70" cy="110" r="24" fill="#0284c7" stroke="#38bdf8" stroke-width="3" filter="url(#glowEffect)" />
+                            <text x="70" y="106" text-anchor="middle" font-size="16" fill="#fff">♂</text>
+                            <text x="70" y="122" text-anchor="middle" font-size="8" font-weight="700" fill="#bae6fd" letter-spacing="0.5">CHOSEN</text>
+
+                            <!-- Center Polarity Spark -->
+                            <circle id="centerSpark" cx="160" cy="110" r="8" fill="#a855f7" filter="url(#glowEffect)" opacity="0.8" />
+                            <text id="centerVoltageText" x="160" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#e2e8f0">POLARITY</text>
+
+                            <!-- Feminine Pole -->
+                            <circle id="femNodeGlow" cx="250" cy="110" r="42" fill="url(#femGrad)" />
+                            <circle id="femNodeCore" cx="250" cy="110" r="24" fill="#e11d48" stroke="#f43f5e" stroke-width="3" filter="url(#glowEffect)" />
+                            <text x="250" y="106" text-anchor="middle" font-size="16" fill="#fff">♀</text>
+                            <text x="250" y="122" text-anchor="middle" font-size="8" font-weight="700" fill="#fecdd3" letter-spacing="0.5">HEARD</text>
+                        </svg>
+                    </div>
+
+                    <!-- KPI METRICS -->
+                    <div class="kpi-row">
+                        <div class="kpi-tile">
+                            <div class="kpi-value" id="kpi-voltage" style="color: #a855f7;">86%</div>
+                            <div class="kpi-label">Polarity Voltage</div>
+                        </div>
+                        <div class="kpi-tile">
+                            <div class="kpi-value" id="kpi-safety" style="color: #10b981;">84%</div>
+                            <div class="kpi-label">Emotional Safety</div>
+                        </div>
+                    </div>
+
+                    <!-- CLIMATE READOUT -->
+                    <div class="climate-box" id="climate-box">
+                        <div class="climate-title" id="climate-title">
+                            <span>✨</span> High Attraction & Deep Safety
+                        </div>
+                        <div id="climate-desc" style="color: #cbd5e1;">
+                            Front-end masculine drives to be admired and feminine drives to be heard are both satisfied. High trust allows cross-essence integration.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEMININE COLUMN -->
+                <div class="essence-card fem-card">
+                    <div class="essence-head">
+                        <div class="essence-title fem-title">
+                            <span>🌸</span> Feminine Needs
+                        </div>
+                        <span class="essence-tag fem-tag">Front-End Drive</span>
+                    </div>
+
+                    <div class="sliders-group">
+                        <!-- Seen -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--fem-color);">1. Seen</span>
+                                <span id="val-seen" style="color: var(--fem-color); font-weight: 700;">85%</span>
+                            </div>
+                            <p class="slider-desc">Attuned presence, eye contact, non-judgmental witnessing beyond perfectionism.</p>
+                            <input type="range" id="slider-seen" class="fem-slider" min="0" max="100" value="85" aria-label="Feminine need to be Seen">
+                        </div>
+
+                        <!-- Heard -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--fem-color);">2. Heard</span>
+                                <span id="val-heard" style="color: var(--fem-color); font-weight: 700;">80%</span>
+                            </div>
+                            <p class="slider-desc">Listening until completely finished; zero premature logical fixing or interruption.</p>
+                            <input type="range" id="slider-heard" class="fem-slider" min="0" max="100" value="80" aria-label="Feminine need to be Heard">
+                        </div>
+
+                        <!-- Understood -->
+                        <div class="slider-item">
+                            <div class="slider-label-row">
+                                <span style="color: var(--fem-color);">3. Understood</span>
+                                <span id="val-understood" style="color: var(--fem-color); font-weight: 700;">85%</span>
+                            </div>
+                            <p class="slider-desc">Empathic mapping; validating emotional origin so she doesn't feel isolated.</p>
+                            <input type="range" id="slider-understood" class="fem-slider" min="0" max="100" value="85" aria-label="Feminine need to be Understood">
+                        </div>
+                    </div>
+
+                    <div class="state-badge" id="fem-status-badge">
+                        <strong style="color: var(--fem-color);">🌸 Feminine State: Attuned & Held</strong>
+                        <span id="fem-status-text">Being deeply heard neutralizes perfectionist shame. She relaxes into receiving love.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CLINICAL PRESETS -->
+            <div class="preset-section">
+                <div class="preset-title">⚡ Clinical Relational Archetypes (Instant Presets)</div>
+                <div class="preset-grid">
+                    <button class="preset-btn active" id="preset-harmonious" onclick="applyPreset('harmonious')">
+                        <span class="emoji">🌟</span>
+                        <span>Harmonious Polarity</span>
+                        <span class="desc">High Front-End Security</span>
+                    </button>
+                    <button class="preset-btn" id="preset-deadlock" onclick="applyPreset('deadlock')">
+                        <span class="emoji">⚔️</span>
+                        <span>Demand-Withdraw Trap</span>
+                        <span class="desc">Unseen Wife + Unadmired Hubby</span>
+                    </button>
+                    <button class="preset-btn" id="preset-wounded-m" onclick="applyPreset('wounded-m')">
+                        <span class="emoji">🩹</span>
+                        <span>Wounded Masculine Flip</span>
+                        <span class="desc">"I Just Want to Talk Feelings"</span>
+                    </button>
+                    <button class="preset-btn" id="preset-wounded-f" onclick="applyPreset('wounded-f')">
+                        <span class="emoji">🛡️</span>
+                        <span>Wounded Feminine Flip</span>
+                        <span class="desc">Armor & Control via Desirability</span>
+                    </button>
+                    <button class="preset-btn" id="preset-integrated" onclick="applyPreset('integrated')">
+                        <span class="emoji">♾️</span>
+                        <span>Fully Integrated Bond</span>
+                        <span class="desc">Sequential Crossover Achieved</span>
+                    </button>
+                    <button class="preset-btn" id="preset-starved" onclick="applyPreset('starved')">
+                        <span class="emoji">🥀</span>
+                        <span>Chronic Discrepancy</span>
+                        <span class="desc">Shame, Contempt & Flooding</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 2: SEQUENTIAL INTEGRATION PATHWAY -->
+        <section class="glass-panel" id="sequential">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title"><span>🔗</span> The Sequential Integration Pathway</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                        Why couples fail when attempting vulnerability out of order: Front-end security must precede complementary crossover.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stage-pathway">
+                <div class="stage-card active" id="stage-card-1" onclick="selectStage(1)">
+                    <div class="stage-num">Stage 1 • Foundation</div>
+                    <div class="stage-title">Front-End Security Anchor</div>
+                    <div class="stage-text">
+                        The masculine is explicitly desired and chosen; the feminine is patiently witnessed and heard. Baseline survival threat is deactivated.
+                    </div>
+                    <div class="stage-badge-group">
+                        <span class="stage-badge" style="color: #38bdf8;">Admiration Bank</span>
+                        <span class="stage-badge" style="color: #f43f5e;">Holding Space</span>
+                    </div>
+                </div>
+
+                <div class="stage-card" id="stage-card-2" onclick="selectStage(2)">
+                    <div class="stage-num">Stage 2 • Disarmament</div>
+                    <div class="stage-title">Neutralizing Gender Shame</div>
+                    <div class="stage-text">
+                        His fear of being perceived as weak (Pleck's GRDS) drops. Her crushing pressure to "do it all perfectly" is alleviated by validation.
+                    </div>
+                    <div class="stage-badge-group">
+                        <span class="stage-badge" style="color: #f59e0b;">Shame Resilience</span>
+                        <span class="stage-badge" style="color: #a855f7;">Defense Lowering</span>
+                    </div>
+                </div>
+
+                <div class="stage-card" id="stage-card-3" onclick="selectStage(3)">
+                    <div class="stage-num">Stage 3 • Reciprocity</div>
+                    <div class="stage-title">Complementary Crossover</div>
+                    <div class="stage-text">
+                        The man freely seeks to be seen and understood without shame; the woman fully receives admiration and cherishing without suspicion.
+                    </div>
+                    <div class="stage-badge-group">
+                        <span class="stage-badge" style="color: #10b981;">Mutual Intimacy</span>
+                        <span class="stage-badge" style="color: #38bdf8;">True Polarity</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="stage-detail-box">
+                <h4 id="stage-detail-title" style="font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
+                    Stage 1: Front-End Security Anchor (The Non-Negotiable Gate)
+                </h4>
+                <p id="stage-detail-desc" style="color: #cbd5e1; font-size: 0.86rem;">
+                    Before a man can comfortably process primary vulnerable emotions (fear, grief, incompetence), he must know his partner is fundamentally proud of him and desires him. If asked to "just open up" while feeling criticized or unchosen, his nervous system registers vulnerability as an existential threat of shame. Similarly, before a woman can receive compliments on her appearance or sexuality as sincere love, she must feel deeply known and heard. Compliments without listening feel transactional or objectifying.
+                </p>
+            </div>
+        </section>
+
+        <!-- MODULE 3: DEMAND-WITHDRAW & GOTTMAN BIDS ENGINE -->
+        <section class="glass-panel" id="demand-withdraw">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title"><span>🔄</span> The Demand-Withdraw & Bids Dynamic</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                        Mapping John Gottman's "Love Lab" turn-towards ratios and the Anxious-Avoidant neurological loop.
+                    </p>
+                </div>
+            </div>
+
+            <div class="gottman-grid">
+                <!-- Gottman Turning Towards Bids Calculator -->
+                <div class="bids-card">
+                    <h3 style="font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                        <span>🏛️</span> Gottman "Turn Towards" Ratio Engine
+                    </h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+                        Couples continuously make emotional "bids" for attention or validation. Gottman's 40-year longitudinal data revealed a sharp mathematical divide between masters and disasters.
+                    </p>
+
+                    <div class="meter-container">
+                        <div class="meter-header">
+                            <span>Partner Turn-Towards Rate</span>
+                            <span id="bids-rate-val" style="color: #10b981;">86% (Masters)</span>
+                        </div>
+                        <input type="range" id="bids-slider" min="20" max="95" value="86" oninput="updateBidsEngine(this.value)" aria-label="Bids turning rate">
+                        <div class="markers-row">
+                            <span>33% (Disaster Threshold)</span>
+                            <span>60% (At Risk)</span>
+                            <span>86% (Masters Baseline)</span>
+                        </div>
+                    </div>
+
+                    <div class="state-badge" id="bids-feedback">
+                        <strong style="color: #10b981;">✅ Positive Sentiment Override (PSO) Active</strong>
+                        <span id="bids-feedback-desc">
+                            At 86% turn-rate, emotional bank accounts are rich. Minor conflicts are buffered, and neutral comments are interpreted as affectionate. 6-year stability probability is >90%.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Anxious-Avoidant Cycle Interactive Step -->
+                <div class="bids-card">
+                    <h3 style="font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                        <span>🔁</span> The Demand-Withdraw Escalation Trap
+                    </h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+                        Click each quadrant to trace how an unmet feminine need triggers an unmet masculine defense in an escalating feedback loop.
+                    </p>
+
+                    <div class="interactive-cycle">
+                        <div class="cycle-step active" id="cycle-node-1" onclick="selectCycleNode(1)">
+                            <div class="cycle-step-title">1. Feeling Unseen</div>
+                            <div class="cycle-step-desc">Feminine nervous system triggers panic of emotional abandonment.</div>
+                        </div>
+
+                        <div class="cycle-step" id="cycle-node-2" onclick="selectCycleNode(2)">
+                            <div class="cycle-step-title">2. Protest Demand</div>
+                            <div class="cycle-step-desc">"You never listen to me!" Criticizing to provoke connection.</div>
+                        </div>
+
+                        <div class="cycle-step" id="cycle-node-3" onclick="selectCycleNode(3)">
+                            <div class="cycle-step-title">3. Shame Flooding</div>
+                            <div class="cycle-step-desc">Masculine hears: "You are inadequate. I do not respect or admire you."</div>
+                        </div>
+
+                        <div class="cycle-step" id="cycle-node-4" onclick="selectCycleNode(4)">
+                            <div class="cycle-step-title">4. Silent Retreat</div>
+                            <div class="cycle-step-desc">Masculine shuts down or leaves to avoid perceived failure.</div>
+                        </div>
+
+                        <div id="cycle-detail-display">
+                            <strong>Step 1: The Invisible Rupture.</strong> The feminine partner experiences a disconnection. Instead of feeling safe, her attachment system hyperactivates.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4: EFT PRIMARY VS SECONDARY EMOTION TRANSLATOR -->
+        <section class="glass-panel" id="eft">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title"><span>🛡️</span> Emotionally Focused Therapy (EFT) De-Coder</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                        Sue Johnson's clinically validated framework: Translate hostile secondary emotional armor into underlying primary attachment longings.
+                    </p>
+                </div>
+            </div>
+
+            <div class="eft-grid">
+                <!-- Conflict Selectors -->
+                <div class="conflict-list">
+                    <button class="conflict-btn active" onclick="loadEftCase(0)">
+                        <div class="conflict-phrase">"You just never f***ing listen to me!"</div>
+                        <div class="conflict-meta">Speaker: Feminine Essence • Secondary: Anger / Blame</div>
+                    </button>
+                    <button class="conflict-btn" onclick="loadEftCase(1)">
+                        <div class="conflict-phrase">"Nothing I do is ever enough for you."</div>
+                        <div class="conflict-meta">Speaker: Masculine Essence • Secondary: Resentment / Defensiveness</div>
+                    </button>
+                    <button class="conflict-btn" onclick="loadEftCase(2)">
+                        <div class="conflict-phrase">"Fine. Do whatever you want. I don't care."</div>
+                        <div class="conflict-meta">Speaker: Avoidant Partner • Secondary: Numbness / Stonewalling</div>
+                    </button>
+                    <button class="conflict-btn" onclick="loadEftCase(3)">
+                        <div class="conflict-phrase">"I just want to talk about my feelings! Why won't you talk?"</div>
+                        <div class="conflict-meta">Speaker: Wounded Masculine • Secondary: Frantic Pleading</div>
+                    </button>
+                </div>
+
+                <!-- EFT Diagnostic Card -->
+                <div class="eft-result-card" id="eft-card">
+                    <div class="result-block block-secondary">
+                        <strong>🛡️ Reactive Armor (Secondary Emotion)</strong>
+                        <span id="eft-secondary">Explosive rage, vocal criticism, accusation of partner being cold or oblivious.</span>
+                    </div>
+
+                    <div class="result-block block-primary">
+                        <strong>❤️ Vulnerable Core (Primary Emotion & Need)</strong>
+                        <span id="eft-primary">"I feel terrified of being alone in this world. When you look at your phone while I speak, I feel completely invisible and unvalued."</span>
+                    </div>
+
+                    <div class="result-block block-script">
+                        <strong>🌱 The EFT Softening Script (How to Heal)</strong>
+                        <span id="eft-script">Partner turns, makes sustained eye contact, puts phone face-down, breathes, and says: "I hear the urgency and loneliness in your voice. I am right here. Tell me what hurts."</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEEP-DIVE RESEARCH ESSAY & DOCUMENTATION -->
+        <article class="article-container" id="deep-dive">
+            <h2>The Architecture of Intimacy</h2>
+            <p style="font-size: 0.95rem; color: #a1a1aa; margin-top: -0.5rem; margin-bottom: 1.5rem; font-style: italic;">
+                Decoding Masculine & Feminine Emotional Needs in Romantic Relationships • Comprehensive Theoretical & Clinical Compendium
+            </p>
+
+            <!-- SECTION 1 -->
+            <details open>
+                <summary>1. Introduction to the Dual Paradigms of Relational Needs</summary>
+                <div class="details-content">
+                    <p>
+                        The dynamics of romantic relationships are fundamentally governed by the interplay of emotional needs, attachment systems, and the socialization of gender roles. Clinical observations, alongside empirical psychological research, consistently highlight a dichotomous yet complementary framework of relational fulfillment. Within this paradigm, the masculine essence is predominantly characterized by a profound drive to feel <strong>desired, admired, and chosen</strong>, whereas the feminine essence is defined by the imperative to be <strong>seen, heard, and understood</strong>.
+                    </p>
+                    <p>
+                        While these drives frequently align with biological sex due to evolutionary history and sociocultural conditioning, they are most accurately conceptualized as archetypal energies that exist on a spectrum within all individuals. The fulfillment of these specific emotional needs serves as the bedrock of relationship satisfaction, fostering the emotional safety required for long-term pair bonding. Conversely, their chronic deprivation reliably predicts marital dissatisfaction, the erosion of trust, and the onset of destructive demand-withdraw loops.
+                    </p>
+                </div>
+            </details>
+
+            <!-- SECTION 2 -->
+            <details>
+                <summary>2. The Masculine Imperative: Desired, Admired, and Chosen</summary>
+                <div class="details-content">
+                    <p>
+                        Dr. Willard F. Harley Jr., in his seminal research on marital dynamics, identified five primary emotional needs that predominantly surface in men. Among these, admiration and sexual fulfillment are particularly critical to the masculine psyche, acting as the primary conduits through which a man feels desired and chosen.
+                    </p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Harley's Framework</th>
+                                    <th>Masculine Focus</th>
+                                    <th>Feminine Focus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Primary Need 1</strong></td>
+                                    <td>Sexual Fulfillment</td>
+                                    <td>Affection</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Need 2</strong></td>
+                                    <td>Recreational Companionship</td>
+                                    <td>Intimate Conversation</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Need 3</strong></td>
+                                    <td>An Attractive Spouse</td>
+                                    <td>Honesty and Openness</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Need 4</strong></td>
+                                    <td>Domestic Support</td>
+                                    <td>Financial Support</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Need 5</strong></td>
+                                    <td>Admiration</td>
+                                    <td>Family Commitment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        For the masculine essence, admiration is not merely a superficial desire for praise; it is a fundamental requirement for emotional equilibrium and self-worth. When a partner recognizes and values a man's efforts, it bolsters his self-esteem and deepens his commitment. The masculine desire for sexual fulfillment is similarly psychological: it serves as proof that he is physically wanted, intoxicatingly attractive, and irrevocably chosen.
+                    </p>
+                    <p>
+                        <strong>The Gender Role Strain Paradigm (GRSP):</strong> Grounded in Joseph Pleck's research, contemporary masculine roles demand invulnerability, provision, and emotional stoicism. When a man fails to meet these contradictory standards, he suffers <em>Gender Role Discrepancy Strain (GRDS)</em>. Admiration from a romantic partner acts as a vital psychological buffer, communicating that he is sufficient and worthy.
+                    </p>
+                </div>
+            </details>
+
+            <!-- SECTION 3 -->
+            <details>
+                <summary>3. The Feminine Imperative: Seen, Heard, and Understood</summary>
+                <div class="details-content">
+                    <p>
+                        Conversely, the feminine emotional architecture prioritizes profound emotional attunement. The need for intimate conversation and affection directly mirrors the feminine drive to be seen, heard, and understood.
+                    </p>
+                    <p>
+                        <strong>The Interpersonal Process Model of Intimacy:</strong> Formulated by Reis and Shaver, intimacy is a dynamic process requiring self-disclosure followed by empathic responsiveness. For true intimacy to occur, the disclosing partner must subjectively feel that their inner reality is accurately perceived, unconditionally valued, and lovingly cared for.
+                    </p>
+                    <p>
+                        When the feminine partner cries, <em>"You just never listen to me!"</em>, it is rarely a critique of auditory faculties. It is an articulation of an intimacy rupture. The feminine requires a partner who can reliably <strong>hold space</strong>—walking alongside her in emotional distress without trying to prematurely "fix" the problem, dismiss her feelings as irrational, or offer unsolicited linear logic.
+                    </p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Shame Dynamics</th>
+                                    <th>The Masculine Experience</th>
+                                    <th>The Feminine Experience</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Core Directive</strong></td>
+                                    <td>Do not be perceived as weak.</td>
+                                    <td>Do it all perfectly without breaking.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Fears</strong></td>
+                                    <td>Failure, incompetence, being wrong, fear.</td>
+                                    <td>Not meeting conflicting expectations, exposing flaws.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Behavioral Response</strong></td>
+                                    <td>Withdrawal, shutdown, expressive suppression.</td>
+                                    <td>Flooding (anger mixed with fear), panic protest.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Source of Pressure</strong></td>
+                                    <td>Societal ideals of invulnerability and status.</td>
+                                    <td>Societal ideals of appearance, caretaking, perfection.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <!-- SECTION 4 -->
+            <details>
+                <summary>4. The Wounded Inversion & Hyde's Gender Similarities Hypothesis</summary>
+                <div class="details-content">
+                    <p>
+                        When trauma, chronic emotional neglect, or severe invalidation strike, normative relational expressions invert:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>The Wounded Masculine:</strong> A man whose childhood emotional expressions were mocked, shamed, or punished carries unresolved grief. In adulthood, he may bypass the need for admiration and exhibit an obsessive hunger to simply talk about his feelings, seeking maternal holding from his partner.
+                        </li>
+                        <li>
+                            <strong>The Wounded Feminine:</strong> A woman who was abandoned or whose emotional vulnerability was weaponized against her constructs an invulnerable, masculine-coded armor. She suppresses her desire to be known and instead seeks relationships where she is merely desired, collected, or placed on a pedestal—using desirability as an instrument of control.
+                        </li>
+                    </ul>
+                    <p>
+                        <strong>Hyde's Gender Similarities Hypothesis:</strong> Janet Shibley Hyde's landmark meta-analysis of 46 studies revealed that 78% of gender differences fall in the close-to-zero or small effect-size range. Men and women are psychologically far more alike than popular culture suggests. The "flip" that occurs under trauma confirms that both men and women possess the latent human needs for both autonomous mastery and empathetic communion.
+                    </p>
+                </div>
+            </details>
+
+            <!-- SECTION 5 -->
+            <details>
+                <summary>5. Evidence-Based Clinical Interventions: Gottman & EFT</summary>
+                <div class="details-content">
+                    <p>
+                        Restoring intimate connection requires dismantling the demand-withdraw loop through structured modalities:
+                    </p>
+                    <p>
+                        <strong>The Gottman Sound Relationship House:</strong>
+                    </p>
+                    <ol>
+                        <li><strong>Build Love Maps:</strong> Constantly update knowledge of the partner's inner psychological landscape.</li>
+                        <li><strong>Share Fondness & Admiration:</strong> Explicitly verbalize respect and appreciation to fulfill the masculine imperative.</li>
+                        <li><strong>Turn Towards Bids:</strong> Acknowledge connection bids. Masters turn towards 86% of the time vs disasters at 33%.</li>
+                        <li><strong>The Positive Perspective:</strong> Cultivate Positive Sentiment Override (PSO) to give each other the benefit of the doubt.</li>
+                        <li><strong>Manage Conflict:</strong> Accept influence, de-escalate physiological flooding, and dialogue with perpetual problems.</li>
+                        <li><strong>Make Life Dreams Come True:</strong> Support each other's existential purposes and values.</li>
+                        <li><strong>Create Shared Meaning:</strong> Build shared family rituals, legacy, and symbols of team unity.</li>
+                    </ol>
+                    <p>
+                        <strong>Sue Johnson's Emotionally Focused Therapy (EFT):</strong>
+                        Couples are guided through 3 stages: (1) De-escalation by externalizing the negative cycle as the common enemy, (2) Restructuring interactions by differentiating reactive secondary emotions from vulnerable primary fears, and (3) Consolidation to solidify secure attachment bonds.
+                    </p>
+                </div>
+            </details>
+
+            <!-- SECTION 6: CITATIONS -->
+            <details id="citations">
+                <summary>6. Key Scientific Works Cited & References</summary>
+                <div class="details-content">
+                    <div class="citations-list">
+                        <div class="citation-item"><span>[1]</span> Harley, W. F. (2011). <em>His Needs, Her Needs: Building an Affair-Proof Marriage</em>. Revell.</div>
+                        <div class="citation-item"><span>[2]</span> Pleck, J. H. (1995). The gender role strain paradigm. <em>A New Psychology of Men</em>, 11-32.</div>
+                        <div class="citation-item"><span>[3]</span> Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes: Expressive suppression and cognitive reappraisal. <em>JPSP</em>, 85(2), 348.</div>
+                        <div class="citation-item"><span>[4]</span> Reis, H. T., & Shaver, P. (1988). Intimacy as an interpersonal process. <em>Handbook of Personal Relationships</em>, 367-389.</div>
+                        <div class="citation-item"><span>[5]</span> Hyde, J. S. (2005). The gender similarities hypothesis. <em>American Psychologist</em>, 60(6), 581-592.</div>
+                        <div class="citation-item"><span>[6]</span> Christensen, A., & Heavey, C. L. (1990). Gender and social structure in the demand/withdraw pattern of marital conflict. <em>JPSP</em>, 59(1), 73-81.</div>
+                        <div class="citation-item"><span>[7]</span> Gottman, J. M., & Silver, N. (2015). <em>The Seven Principles for Making Marriage Work</em>. Harmony.</div>
+                        <div class="citation-item"><span>[8]</span> Johnson, S. M. (2019). <em>Attachment Theory in Practice: Emotionally Focused Therapy (EFT) with Individuals, Couples, and Families</em>. Guilford Press.</div>
+                        <div class="citation-item"><span>[9]</span> Levine, A., & Heller, R. (2010). <em>Attached: The New Science of Adult Attachment and How It Can Help You Find—and Keep—Love</em>. Penguin.</div>
+                        <div class="citation-item"><span>[10]</span> Brown, B. (2006). Shame resilience theory: A grounded theory study on women and shame. <em>Families in Society</em>, 87(1), 43-52.</div>
+                    </div>
+                </div>
+            </details>
+        </article>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="../index.html">🧭 Life Mechanics Hub</a>
+            <a href="0/index.html">📊 2E Infographic Dashboard</a>
+            <a href="index.md">📄 2E Research Paper</a>
+            <a href="../3F/index.html">💃 3F Feminine Trilemma</a>
+            <a href="../3M/index.html">🕴️ 3M Masculine Trilemma</a>
+            <a href="../BH/index.html">❤️‍🩹 Breakup Healing</a>
+        </div>
+        <p style="margin-top: 0.5rem;">
+            Designed & Developed by <strong>Krishnakanth</strong> • Grounded in Empirical Relationship Science, Attachment Theory & Gottman Methodology.
+        </p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // DOM ELEMENTS
+        const sliderDesired = document.getElementById('slider-desired');
+        const sliderAdmired = document.getElementById('slider-admired');
+        const sliderChosen = document.getElementById('slider-chosen');
+        const sliderSeen = document.getElementById('slider-seen');
+        const sliderHeard = document.getElementById('slider-heard');
+        const sliderUnderstood = document.getElementById('slider-understood');
+
+        const valDesired = document.getElementById('val-desired');
+        const valAdmired = document.getElementById('val-admired');
+        const valChosen = document.getElementById('val-chosen');
+        const valSeen = document.getElementById('val-seen');
+        const valHeard = document.getElementById('val-heard');
+        const valUnderstood = document.getElementById('val-understood');
+
+        const kpiVoltage = document.getElementById('kpi-voltage');
+        const kpiSafety = document.getElementById('kpi-safety');
+        const climateBox = document.getElementById('climate-box');
+        const climateTitle = document.getElementById('climate-title');
+        const climateDesc = document.getElementById('climate-desc');
+        const fieldPulseTag = document.getElementById('field-pulse-tag');
+
+        const mascStatusBadge = document.getElementById('masc-status-badge');
+        const mascStatusText = document.getElementById('masc-status-text');
+        const femStatusBadge = document.getElementById('fem-status-badge');
+        const femStatusText = document.getElementById('fem-status-text');
+
+        // SVG ELEMENTS
+        const fluxLine1 = document.getElementById('fluxLine1');
+        const fluxLine2 = document.getElementById('fluxLine2');
+        const fluxLine3 = document.getElementById('fluxLine3');
+        const centerSpark = document.getElementById('centerSpark');
+        const mascNodeGlow = document.getElementById('mascNodeGlow');
+        const femNodeGlow = document.getElementById('femNodeGlow');
+
+        // PRESETS DATA
+        const presets = {
+            harmonious: {
+                desired: 85, admired: 85, chosen: 90,
+                seen: 85, heard: 85, understood: 85,
+                title: "🌟 Harmonious Polarity (High Mutual Security)",
+                desc: "Both front-end needs are satisfied. Magnetic attraction is high, defensiveness is disarmed, and each partner feels free to reciprocate love."
+            },
+            deadlock: {
+                desired: 30, admired: 25, chosen: 40,
+                seen: 25, heard: 20, understood: 25,
+                title: "⚔️ Demand-Withdraw Deadlock",
+                desc: "Wife feels unheard and protests aggressively. Husband feels criticized and inadequate, retreating into emotional shutdown and stonewalling."
+            },
+            'wounded-m': {
+                desired: 25, admired: 30, chosen: 35,
+                seen: 95, heard: 95, understood: 90,
+                title: "🩹 Wounded Masculine Flip",
+                desc: "Due to expressive suppression trauma, the masculine flips: he bypasses admiration and desperately pleads: 'I just want to talk about my feelings!'"
+            },
+            'wounded-f': {
+                desired: 95, admired: 90, chosen: 95,
+                seen: 20, heard: 25, understood: 20,
+                title: "🛡️ Wounded Feminine Flip",
+                desc: "Trauma from emotional abandonment leads the feminine to armor up: she rejects being vulnerable/understood and seeks control solely via desirability and status."
+            },
+            integrated: {
+                desired: 90, admired: 90, chosen: 90,
+                seen: 90, heard: 90, understood: 90,
+                title: "♾️ Fully Integrated Reciprocal Bond",
+                desc: "Both partners have achieved baseline safety, transcended rigid gender shame, and freely access both autonomous pride and deep empathetic communion."
+            },
+            starved: {
+                desired: 15, admired: 15, chosen: 20,
+                seen: 15, heard: 15, understood: 15,
+                title: "🥀 Chronic Relational Starvation",
+                desc: "Severe mutual invalidation. Both nervous systems are in chronic distress contagion, with high vulnerability to contempt and dissolution."
+            }
+        };
+
+        // UPDATE SIMULATOR ENGINE
+        function updateEngine() {
+            const des = parseInt(sliderDesired.value);
+            const adm = parseInt(sliderAdmired.value);
+            const cho = parseInt(sliderChosen.value);
+            const see = parseInt(sliderSeen.value);
+            const hea = parseInt(sliderHeard.value);
+            const und = parseInt(sliderUnderstood.value);
+
+            // Update Labels
+            valDesired.textContent = des + '%';
+            valAdmired.textContent = adm + '%';
+            valChosen.textContent = cho + '%';
+            valSeen.textContent = see + '%';
+            valHeard.textContent = hea + '%';
+            valUnderstood.textContent = und + '%';
+
+            // Computations
+            const mascAvg = (des + adm + cho) / 3;
+            const femAvg = (see + hea + und) / 3;
+            const overallSafety = Math.round((mascAvg + femAvg) / 2);
+
+            // Polarity calculation: healthy polarity is high when both are secure and energy flows reciprocally
+            const polarityVoltage = Math.min(99, Math.round((mascAvg * 0.5 + femAvg * 0.5) * (1 - Math.abs(mascAvg - femAvg) / 300)));
+
+            kpiSafety.textContent = overallSafety + '%';
+            kpiVoltage.textContent = polarityVoltage + '%';
+
+            // SVG Visual Adjustments
+            const glowMasc = 20 + (mascAvg * 0.3);
+            const glowFem = 20 + (femAvg * 0.3);
+            mascNodeGlow.setAttribute('r', glowMasc);
+            femNodeGlow.setAttribute('r', glowFem);
+
+            const sparkOpacity = Math.max(0.2, polarityVoltage / 100);
+            centerSpark.setAttribute('opacity', sparkOpacity);
+            centerSpark.setAttribute('r', 5 + (polarityVoltage * 0.08));
+
+            // Dynamic Climate Analysis
+            if (mascAvg >= 70 && femAvg >= 70) {
+                climateTitle.innerHTML = '<span>✨</span> Resonant Attraction & Deep Safety';
+                climateDesc.textContent = 'Both masculine front-end drives (Chosen/Admired) and feminine drives (Seen/Heard) are richly satisfied. Emotional defenses are down; Positive Sentiment Override governs.';
+                fieldPulseTag.textContent = '● Resonant';
+                fieldPulseTag.style.color = '#10b981';
+                climateBox.style.borderLeftColor = '#10b981';
+            } else if (mascAvg < 40 && femAvg < 40) {
+                climateTitle.innerHTML = '<span>🥀</span> Relational Starvation & Defensive Armor';
+                climateDesc.textContent = 'Both partners feel chronically neglected. Masculine is in defensive withdrawal or discrepancy strain; Feminine is flooded with panic and unexpressed grief.';
+                fieldPulseTag.textContent = '● Dysregulated';
+                fieldPulseTag.style.color = '#f43f5e';
+                climateBox.style.borderLeftColor = '#f43f5e';
+            } else if (femAvg < 45 && mascAvg >= 50) {
+                climateTitle.innerHTML = '<span>⚠️</span> Anxious-Demand Vulnerability';
+                climateDesc.textContent = 'The feminine essence feels unseen and unheard, sparking protest behaviors. If unaddressed, she will escalate criticism, provoking masculine shutdown.';
+                fieldPulseTag.textContent = '● Strained';
+                fieldPulseTag.style.color = '#f59e0b';
+                climateBox.style.borderLeftColor = '#f59e0b';
+            } else if (mascAvg < 45 && femAvg >= 50) {
+                climateTitle.innerHTML = '<span>🛡️</span> Discrepancy Strain & Male Withdrawal';
+                climateDesc.textContent = 'The masculine feels criticized or un-admired. Fearing the shame of appearing weak, he retreats into stonewalling or emotional numbness to protect his ego.';
+                fieldPulseTag.textContent = '● Strained';
+                fieldPulseTag.style.color = '#38bdf8';
+                climateBox.style.borderLeftColor = '#38bdf8';
+            } else {
+                climateTitle.innerHTML = '<span>⚖️</span> Moderate Attunement in Progress';
+                climateDesc.textContent = 'Foundational needs are partially met. Regular intentional appreciation and holding space will cross the threshold into effortless magnetic intimacy.';
+                fieldPulseTag.textContent = '● Active';
+                fieldPulseTag.style.color = '#a855f7';
+                climateBox.style.borderLeftColor = '#a855f7';
+            }
+
+            // Masculine Status Readout
+            if (mascAvg >= 75) {
+                mascStatusBadge.innerHTML = '<strong style="color: var(--masc-color);">🛡️ Masculine State: Secure & Irrevocably Chosen</strong><span>Admiration neutralizes societal shame. He drops stoic armor and welcomes emotional sharing.</span>';
+            } else if (mascAvg >= 45) {
+                mascStatusBadge.innerHTML = '<strong style="color: var(--masc-color);">🛡️ Masculine State: Functionally Guarded</strong><span>Performs duties reliably but maintains moderate expressive suppression to avoid looking weak.</span>';
+            } else {
+                mascStatusBadge.innerHTML = '<strong style="color: #f43f5e;">⚠️ Masculine State: Shame-Flooded / Avoidant</strong><span>Experiencing severe discrepancy strain. Likely stonewalling, emotionally numb, or defensively hostile.</span>';
+            }
+
+            // Feminine Status Readout
+            if (femAvg >= 75) {
+                femStatusBadge.innerHTML = '<strong style="color: var(--fem-color);">🌸 Feminine State: Deeply Attuned & Held</strong><span>Being heard without judgment dissolves perfectionist pressure. She blooms in receptive affection.</span>';
+            } else if (femAvg >= 45) {
+                femStatusBadge.innerHTML = '<strong style="color: var(--fem-color);">🌸 Feminine State: Mildly Anxious / Overextended</strong><span>Bears heavy emotional labor. Occasionally feels unheard, leading to sporadic frustration.</span>';
+            } else {
+                femStatusBadge.innerHTML = '<strong style="color: #f43f5e;">⚠️ Feminine State: Panic-Flooded / Protesting</strong><span>Attachment alarm is ringing. Experiences deep loneliness, driving frantic demands or total emotional despair.</span>';
+            }
+        }
+
+        // PRESET APPLIER
+        function applyPreset(key) {
+            const p = presets[key];
+            if (!p) return;
+
+            sliderDesired.value = p.desired;
+            sliderAdmired.value = p.admired;
+            sliderChosen.value = p.chosen;
+            sliderSeen.value = p.seen;
+            sliderHeard.value = p.heard;
+            sliderUnderstood.value = p.understood;
+
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('preset-' + key);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            updateEngine();
+        }
+
+        // EVENT LISTENERS FOR SLIDERS
+        [sliderDesired, sliderAdmired, sliderChosen, sliderSeen, sliderHeard, sliderUnderstood].forEach(sl => {
+            sl.addEventListener('input', () => {
+                document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+                updateEngine();
+            });
+        });
+
+        // SEQUENTIAL INTEGRATION STAGE SELECTOR
+        const stageDetails = {
+            1: {
+                title: "Stage 1: Front-End Security Anchor (The Non-Negotiable Gate)",
+                desc: "Before a man can comfortably process primary vulnerable emotions (fear, grief, incompetence), he must know his partner is fundamentally proud of him and desires him. If asked to 'just open up' while feeling criticized or unchosen, his nervous system registers vulnerability as an existential threat of shame. Similarly, before a woman can receive compliments on her appearance or sexuality as sincere love, she must feel deeply known and heard. Compliments without listening feel transactional or objectifying."
+            },
+            2: {
+                title: "Stage 2: Disarmament of Gender Shame Triggers",
+                desc: "Joseph Pleck's Gender Role Strain Paradigm demonstrates that men live under constant terror of failing the masculine mandate ('Do not be perceived as weak'). Admiration neutralizes this terror. Simultaneously, Brené Brown's research shows women are trapped by the shame mandate ('Do it all perfectly without ever showing a flaw'). When a partner holds space without judgment, she drops the exhausting burden of performative perfection."
+            },
+            3: {
+                title: "Stage 3: The Reciprocal Crossover (Full Intimacy)",
+                desc: "Once the front-end foundation is locked, the polarity safely inverts: The masculine, feeling irrevocably chosen, happily seeks to be seen, heard, and understood in his private vulnerabilities. The feminine, feeling deeply seen and safe, radiantly welcomes feeling desired, admired as beautiful, and chosen as his queen. The two essences achieve symbiotic, non-defensive pair-bonding."
+            }
+        };
+
+        function selectStage(num) {
+            document.querySelectorAll('.stage-card').forEach((c, idx) => {
+                if (idx + 1 === num) {
+                    c.classList.add('active');
+                } else {
+                    c.classList.remove('active');
+                }
+            });
+
+            const data = stageDetails[num];
+            document.getElementById('stage-detail-title').textContent = data.title;
+            document.getElementById('stage-detail-desc').textContent = data.desc;
+        }
+
+        // GOTTMAN BIDS ENGINE UPDATE
+        function updateBidsEngine(val) {
+            const num = parseInt(val);
+            document.getElementById('bids-rate-val').textContent = num + '%';
+
+            const feedback = document.getElementById('bids-feedback');
+            const desc = document.getElementById('bids-feedback-desc');
+
+            if (num >= 80) {
+                feedback.innerHTML = '<strong style="color: #10b981;">✅ Positive Sentiment Override (PSO) Active</strong>';
+                desc.textContent = `At ${num}% turn-rate (Gottman Masters baseline: 86%), emotional bank accounts are rich. Minor conflicts are buffered, and neutral comments are interpreted affectionately. Long-term relationship stability is predicted at >90%.`;
+            } else if (num >= 50) {
+                feedback.innerHTML = '<strong style="color: #f59e0b;">⚠️ Neutral / At-Risk Equilibrium</strong>';
+                desc.textContent = `At ${num}% turn-rate, missed bids leave subtle emotional wounds. The couple is vulnerable to Negative Sentiment Override if external stress spikes.`;
+            } else {
+                feedback.innerHTML = '<strong style="color: #f43f5e;">❌ Negative Sentiment Override (NSO) Active</strong>';
+                desc.textContent = `At ${num}% turn-rate (Gottman Disaster zone: ~33%), neglected bids lead to chronic resentment. Even innocent questions are received as hostile attacks or contempt. High risk of demand-withdraw dissolution.`;
+            }
+        }
+
+        // DEMAND-WITHDRAW CYCLE SELECTOR
+        const cycleDetails = {
+            1: "Step 1: The Invisible Rupture. The feminine partner experiences a disconnection. Instead of feeling safe, her attachment system hyperactivates with fear of abandonment.",
+            2: "Step 2: Protest Demand. To force proximity, she vocalizes distress: 'You never listen to me! You only care about yourself!' This is perceived as an attack.",
+            3: "Step 3: Shame Flooding. The masculine hears an indictment of his competence: 'I am failing as a partner.' To avoid being overwhelmed by shame, his heart rate exceeds 100 BPM.",
+            4: "Step 4: Silent Retreat. To prevent physical or emotional explosion, the masculine withdraws into silence or leaves the room. This confirms her worst fears of abandonment, restarting the cycle."
+        };
+
+        function selectCycleNode(step) {
+            document.querySelectorAll('.cycle-step').forEach((node, idx) => {
+                if (idx + 1 === step) {
+                    node.classList.add('active');
+                } else {
+                    node.classList.remove('active');
+                }
+            });
+            document.getElementById('cycle-detail-display').innerHTML = `<strong>Step ${step}:</strong> ${cycleDetails[step]}`;
+        }
+
+        // EFT CASES DATA
+        const eftCases = [
+            {
+                phrase: "You just never f***ing listen to me!",
+                speaker: "Feminine Essence",
+                secondary: "Explosive rage, vocal criticism, accusation of partner being cold or oblivious.",
+                primary: "\"I feel terrified of being alone in this world. When you look at your phone while I speak, I feel completely invisible and unvalued.\"",
+                script: "Partner turns, makes sustained eye contact, puts phone face-down, breathes, and says: \"I hear the urgency and loneliness in your voice. I am right here. Tell me what hurts.\""
+            },
+            {
+                phrase: "Nothing I do is ever enough for you.",
+                speaker: "Masculine Essence",
+                secondary: "Defensive bitterness, cynical laughter, slamming doors or retreating into gaming/work.",
+                primary: "\"I am working 60 hours a week to provide and protect. When you criticize me the moment I walk through the door, I feel like an absolute failure who cannot make you happy.\"",
+                script: "Partner takes his hand, looks into his eyes and says: \"I see how hard you work for our life, and I am so proud of you. I don't want you to fix anything right now—I just miss feeling close to you.\""
+            },
+            {
+                phrase: "Fine. Do whatever you want. I don't care.",
+                speaker: "Avoidant Partner",
+                secondary: "Affective blunting, icy detachment, physical departure from the room.",
+                primary: "\"I am flooded beyond my nervous system's capacity. If I stay in this conversation, I feel like I will lose complete control and disappoint you forever.\"",
+                script: "\"I need 20 minutes to self-soothe so my heart rate returns to normal, but I promise I love you and I am coming right back to finish this calmly.\""
+            },
+            {
+                phrase: "I just want to talk about my feelings! Why won't you talk?",
+                speaker: "Wounded Masculine",
+                secondary: "Desperate pleading, emotional flooding, resentment toward traditional male stoicism.",
+                primary: "\"I spent my whole life being told real men don't cry. I have a lifetime of suppressed grief, and I desperately need to know that you won't leave me if I show you my sorrow.\"",
+                script: "Partner embraces him without judgment: \"You don't have to carry the whole world on your shoulders with me. You are completely safe to be human in my arms.\""
+            }
+        ];
+
+        function loadEftCase(idx) {
+            document.querySelectorAll('.conflict-btn').forEach((b, i) => {
+                if (i === idx) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            const item = eftCases[idx];
+            document.getElementById('eft-secondary').textContent = item.secondary;
+            document.getElementById('eft-primary').textContent = item.primary;
+            document.getElementById('eft-script').textContent = item.script;
+        }
+
+        // INITIALIZE SIMULATOR ON LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            updateEngine();
+            selectStage(1);
+            updateBidsEngine(86);
+        });
+    </script>
+</body>
+</html>

@@ -26,6 +26,9 @@ Interactive dashboards designed to visualize, analyze, and balance personal reso
 *   **[Breakup Healing (BH)](BH/)**: The therapist protocol for post-breakup dysregulation — deconstruct triggers, reactive impulses, somatic spikes, and catastrophic narratives into nervous system regulation and authentic core needs.
     - [Interactive Simulator](BH/index.html)
     - [Infographic Dashboard](BH/0/index.html)
+*   **[The Two Essences (2E)](2E/)**: Masculine & Feminine Energy Mechanics — Desired, Admired, Chosen vs Seen, Heard, Understood. Explore front-end needs, wounded inversions, the Demand-Withdraw loop, and sequential integration.
+    - [Interactive Simulator](2E/index.html)
+    - [Infographic Dashboard](2E/0/index.html)
 
 ---
 
@@ -59,6 +62,9 @@ AI-powered applications, text utilities, and gaming arenas.
 - BH - Breakup Healing - Trigger, Impulse, Body, Story, Regulate, Need
     - [Simulator](BH/index.html)
     - [Infographic](BH/0/index.html)
+- 2E - 2 Essences (Masculine & Feminine Energy Mechanics) - Desired, Admired, Chosen vs Seen, Heard, Understood
+    - [Simulator](2E/index.html)
+    - [Infographic](2E/0/index.html)
 - 9B - 9 Behaviors / Behavioral Loops - Meet the Need, Change the Behavior 
     - [Simulator](9B/index.html)
     - [Infographic](9B/0/index.html)

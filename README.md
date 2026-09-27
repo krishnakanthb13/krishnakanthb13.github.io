@@ -39,6 +39,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Breakup Healing](https://krishnakanthb13.github.io/O/BH/) — Trigger → Impulse → Body → Story → Regulate → Need.
 		- [Simulator](https://krishnakanthb13.github.io/O/BH/)
 		- [Infographic](https://krishnakanthb13.github.io/O/BH/0/)
+	- [The Two Essences](https://krishnakanthb13.github.io/O/2E/) - Masculine & Feminine Energy Mechanics. Desired, Admired, Chosen vs Seen, Heard, Understood.
+		- [Simulator](https://krishnakanthb13.github.io/O/2E/)
+		- [Infographic](https://krishnakanthb13.github.io/O/2E/0/)
 	- [Tic-Tac-Toe Arena](https://krishnakanthb13.github.io/O/TTT/) — Modern neon arena with 9 creative game modes & smart AI ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/TTT/README.md))
 	- [Humanize — Manuscript Desk](https://krishnakanthb13.github.io/O/HZ/) — AI-powered tool to rewrite stiff, robotic text into natural human rhythm.
 	- [NoteTile](https://krishnakanthb13.github.io/O/NT/) — A fast, offline-first, Progressive Web App for taking notes.
@@ -105,6 +108,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Breakup Healing](https://krishnakanthb13.github.io/O/BH/): Trigger → Impulse → Body → Story → Regulate → Need. Deconstruct triggers, somatic distress, and catastrophic stories into nervous system regulation and authentic core needs.
 		- [Simulator](https://krishnakanthb13.github.io/O/BH/)
 		- [Infographic](https://krishnakanthb13.github.io/O/BH/0/)
+	- [The Two Essences](https://krishnakanthb13.github.io/O/2E/): Masculine & Feminine Energy Mechanics — Desired, Admired, Chosen vs Seen, Heard, Understood. Explore front-end needs, wounded inversions, Gottman bids & Emotionally Focused Therapy.
+		- [Simulator](https://krishnakanthb13.github.io/O/2E/)
+		- [Infographic](https://krishnakanthb13.github.io/O/2E/0/)
 
 ---
 
