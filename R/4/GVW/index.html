@@ -1,0 +1,2979 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI & LLM Masterclass for Life Sciences & Pharma | Curriculum & Syllabus</title>
+    <meta name="description"
+        content="Comprehensive enterprise curriculum on Generative AI, Microsoft Copilot Enterprise, RAG architectures, Speech-to-Text, ETL automation, and GxP compliance for pharmaceutical organizations.">
+    <meta name="keywords"
+        content="Pharma AI, Microsoft Copilot Enterprise, RAG, Life Sciences AI, Pharma ETL, LLMOps, GxP AI, Prompt Engineering, Whisper Transcription, Word Excel PowerPoint AI">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%230284c7'/><stop offset='100%25' stop-color='%2310b981'/></linearGradient></defs><rect width='64' height='64' rx='16' fill='url(%23g)'/><path d='M18 20 C28 20, 36 44, 46 44 M46 20 C36 20, 28 44, 18 44' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' fill='none'/><circle cx='18' cy='20' r='4' fill='%23ffffff'/><circle cx='46' cy='20' r='4' fill='%23ffffff'/><circle cx='18' cy='44' r='4' fill='%23ffffff'/><circle cx='46' cy='44' r='4' fill='%23ffffff'/><circle cx='32' cy='32' r='3.5' fill='%23ffffff'/></svg>">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        :root {
+            --bg-base: #0a0f1d;
+            --bg-surface: #111827;
+            --bg-card: #151f32;
+            --bg-card-hover: #1b2842;
+            --bg-glass: rgba(17, 24, 39, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(56, 189, 248, 0.35);
+
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+
+            --primary: #0284c7;
+            --primary-glow: #38bdf8;
+            --primary-light: rgba(56, 189, 248, 0.12);
+
+            --accent-emerald: #10b981;
+            --emerald-light: rgba(16, 185, 129, 0.12);
+            --accent-violet: #8b5cf6;
+            --violet-light: rgba(139, 92, 246, 0.12);
+            --accent-amber: #f59e0b;
+            --amber-light: rgba(245, 158, 11, 0.12);
+            --accent-rose: #f43f5e;
+            --rose-light: rgba(244, 63, 94, 0.12);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.35);
+            --shadow-glow: 0 0 35px -5px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Light theme overrides */
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-color: #e2e8f0;
+            --border-hover: rgba(2, 132, 199, 0.4);
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+
+            --primary: #0284c7;
+            --primary-glow: #0284c7;
+            --primary-light: rgba(2, 132, 199, 0.08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+            --shadow-glow: 0 0 30px -5px rgba(2, 132, 199, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        code,
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header / Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: var(--bg-glass);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .navbar .container {
+            max-width: 1440px;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 70px;
+            padding: 0.6rem 0;
+            gap: 1.25rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .brand-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #0284c7, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.15;
+            white-space: nowrap;
+        }
+
+        .brand-text h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .brand-text span {
+            font-size: 0.68rem;
+            color: var(--accent-emerald);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: block;
+            margin-top: 2px;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-shrink: 1;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.45rem 0.65rem;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--primary-light);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .btn-sm {
+            padding: 0.42rem 0.8rem !important;
+            font-size: 0.8rem !important;
+            border-radius: var(--radius-sm) !important;
+        }
+
+        .btn-guide {
+            background: rgba(16, 185, 129, 0.12) !important;
+            color: var(--accent-emerald) !important;
+            border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        }
+
+        .btn-guide:hover {
+            background: var(--accent-emerald) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+        }
+
+        @media (max-width: 1280px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--primary-glow);
+            color: var(--primary-glow);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-glow);
+            border-color: var(--primary-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4.5rem 0 3.5rem;
+            position: relative;
+        }
+
+        .hero-badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-blue {
+            background: var(--primary-light);
+            color: var(--primary-glow);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .tag-green {
+            background: var(--emerald-light);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .tag-purple {
+            background: var(--violet-light);
+            color: var(--accent-violet);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .tag-amber {
+            background: var(--amber-light);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #10b981 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 860px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .meta-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .meta-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .meta-icon.blue {
+            background: var(--primary-light);
+            color: var(--primary-glow);
+        }
+
+        .meta-icon.green {
+            background: var(--emerald-light);
+            color: var(--accent-emerald);
+        }
+
+        .meta-icon.purple {
+            background: var(--violet-light);
+            color: var(--accent-violet);
+        }
+
+        .meta-icon.amber {
+            background: var(--amber-light);
+            color: var(--accent-amber);
+        }
+
+        .meta-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Search & Filter Bar */
+        .controls-bar {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 1.25rem;
+            margin: 2.5rem 0 3.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1 1 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem 0.75rem 2.6rem;
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+        }
+
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        /* Section Titles */
+        .section-header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-glow);
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 750px;
+            font-size: 0.95rem;
+        }
+
+        /* Glossary Grid (Core Concepts Demystified) */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 4rem;
+        }
+
+        .glossary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glossary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--card-accent, var(--primary));
+            opacity: 0.8;
+        }
+
+        .glossary-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .glossary-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+        }
+
+        .glossary-term {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .glossary-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+            background: var(--primary-light);
+            color: var(--primary-glow);
+        }
+
+        .glossary-definition {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.55;
+        }
+
+        .glossary-pharma-context {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .pharma-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-emerald);
+            margin-bottom: 0.2rem;
+        }
+
+        /* Modules Timeline / Accordion */
+        .modules-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 4.5rem;
+        }
+
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .module-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .module-header {
+            padding: 1.6rem 2rem;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            gap: 1.5rem;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .module-card.expanded .module-header {
+            border-bottom-color: var(--border-color);
+        }
+
+        .module-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .module-num {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--primary-light);
+            color: var(--primary-glow);
+            font-weight: 800;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .module-title-wrap h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .module-title-wrap p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .module-meta-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .module-pill {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .expand-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .module-card.expanded .expand-toggle {
+            transform: rotate(180deg);
+            color: var(--primary-glow);
+            border-color: var(--primary-glow);
+        }
+
+        .module-body {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+
+        .module-card.expanded .module-body {
+            padding: 2rem;
+            max-height: 3500px;
+        }
+
+        .module-grid-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .module-grid-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .subtopics-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .subtopic-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .subtopic-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .subtopic-head {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtopic-head i {
+            color: var(--primary-glow);
+            font-size: 0.85rem;
+        }
+
+        .subtopic-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .key-takeaway-box {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.08), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: fit-content;
+        }
+
+        .takeaway-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+        }
+
+        .takeaway-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .takeaway-list li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            line-height: 1.45;
+        }
+
+        .takeaway-list li i {
+            color: var(--accent-emerald);
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .hands-on-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
+            margin-top: 0.5rem;
+        }
+
+        .hands-on-chip h5 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hands-on-chip p {
+            font-size: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        /* Interactive Prompt Library */
+        .prompt-library {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 4.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--primary-glow);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary-glow);
+            border-color: var(--primary-glow);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .prompt-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .prompt-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .prompt-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .prompt-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .prompt-usecase {
+            font-size: 0.75rem;
+            color: var(--primary-glow);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-code-wrap {
+            position: relative;
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .prompt-code {
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .prompt-footer {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Pharma Security & Governance Matrix */
+        .security-section {
+            margin-bottom: 4.5rem;
+        }
+
+        .matrix-table-wrap {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        .matrix-table th {
+            background: var(--bg-card);
+            padding: 1.25rem 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .matrix-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .status-danger {
+            background: var(--rose-light);
+            color: var(--accent-rose);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .status-warning {
+            background: var(--amber-light);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .status-success {
+            background: var(--emerald-light);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .compliance-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .compliance-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .comp-icon {
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            margin-bottom: 0.75rem;
+        }
+
+        .compliance-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .compliance-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Seminar Formats & Scheduling */
+        .formats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4.5rem;
+        }
+
+        .format-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .format-card.featured {
+            border-color: var(--primary-glow);
+            background: linear-gradient(180deg, rgba(2, 132, 199, 0.12) 0%, var(--bg-card) 100%);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #0284c7, #10b981);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .format-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .format-duration {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .format-name {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .format-audience {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .format-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .format-features li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .format-features li i {
+            color: var(--accent-emerald);
+            font-size: 0.85rem;
+        }
+
+        /* 5-Step Pedagogy Section Styles */
+        .pedagogy-section {
+            margin-bottom: 4rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pedagogy-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .pedagogy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pedagogy-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pedagogy-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .pedagogy-step-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-light);
+            color: var(--primary-glow);
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pedagogy-time-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            background: var(--emerald-light);
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .pedagogy-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .pedagogy-card p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .pedagogy-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.85rem;
+        }
+
+        .pedagogy-card ul li {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        .pedagogy-card ul li i {
+            color: var(--primary-glow);
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+        }
+
+        .guide-cta-banner {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.15), rgba(16, 185, 129, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .guide-cta-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-cta-text p {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        /* Speaker & Contact Bar */
+        .instructor-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (max-width: 850px) {
+            .instructor-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .instructor-bio {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        @media (max-width: 600px) {
+            .instructor-bio {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .instructor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, #0284c7, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+        }
+
+        .instructor-details h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .instructor-details h5 {
+            font-size: 0.85rem;
+            color: var(--primary-glow);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .instructor-details p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            line-height: 1.5;
+        }
+
+        .instructor-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 0;
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-glow);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--accent-emerald);
+            color: var(--text-primary);
+            padding: 0.85rem 1.4rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Print Stylesheet for clean PDF Export */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                background-image: none !important;
+            }
+
+            .navbar,
+            .controls-bar,
+            .theme-toggle,
+            .nav-actions,
+            .copy-btn,
+            .expand-toggle,
+            .toast,
+            footer {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .hero {
+                padding: 1rem 0 !important;
+            }
+
+            .hero-title {
+                font-size: 24pt !important;
+                color: #000000 !important;
+            }
+
+            .gradient-text {
+                background: none !important;
+                -webkit-text-fill-color: #000000 !important;
+                color: #000000 !important;
+            }
+
+            .module-card,
+            .glossary-card,
+            .prompt-card,
+            .matrix-table-wrap,
+            .format-card,
+            .instructor-card {
+                border: 1px solid #cccccc !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                break-inside: avoid;
+                margin-bottom: 1.5rem !important;
+                box-shadow: none !important;
+            }
+
+            .module-body {
+                max-height: none !important;
+                padding: 1.5rem !important;
+                display: block !important;
+            }
+
+            .module-header {
+                background: #f4f4f4 !important;
+                border-bottom: 1px solid #ccc !important;
+            }
+
+            .tab-pane {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#top" class="nav-brand">
+                <div class="brand-badge">
+                    <i class="fa-solid fa-dna"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>PharmaAI Masterclass</h1>
+                    <span>Enterprise AI Syllabus</span>
+                </div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#pedagogy">Methodology</a></li>
+                <li><a href="#glossary">Concepts</a></li>
+                <li><a href="#modules">Syllabus</a></li>
+                <li><a href="#prompts">Prompts</a></li>
+                <li><a href="#governance">Security & GxP</a></li>
+                <li><a href="#formats">Tracks</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-sm btn-outline" title="Return to Main Consulting Portfolio">
+                    <i class="fa-solid fa-arrow-left"></i> Portfolio
+                </a>
+                <a href="README.md" target="_blank" class="btn btn-sm btn-guide" title="Facilitator & Navigation Guide (README.md)">
+                    <i class="fa-solid fa-book-open"></i> Guide
+                </a>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-outline" onclick="window.print()" title="Export or Print Syllabus as PDF">
+                    <i class="fa-solid fa-print"></i> PDF
+                </button>
+                <a href="#instructor" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-calendar-check"></i> Book Seminar
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" id="top">
+        <!-- Hero Section -->
+        <section class="hero" id="overview">
+            <div class="hero-badge-group">
+                <span class="tag tag-blue"><i class="fa-brands fa-microsoft"></i> Microsoft Copilot Enterprise</span>
+                <span class="tag tag-green"><i class="fa-solid fa-shield-halved"></i> GxP & 21 CFR Part 11</span>
+                <span class="tag tag-purple"><i class="fa-solid fa-diagram-project"></i> RAG & Audio AI</span>
+                <span class="tag tag-amber"><i class="fa-solid fa-database"></i> Local ETL Pipeline AI</span>
+            </div>
+
+            <h1 class="hero-title">
+                Generative AI & LLM Systems for <br>
+                <span class="gradient-text">Enterprise Pharmaceutical Workflows</span>
+            </h1>
+
+            <p class="hero-desc">
+                An executive, operational, and technical seminar syllabus tailored for corporate pharmaceutical teams.
+                Master Microsoft 365 Copilot Enterprise, local ETL augmentation, RAG architectures, medical speech-to-text,
+                and secure on-premise AI while safeguarding sensitive clinical trials, drug formulas, and regulatory compliance.
+            </p>
+
+            <div class="hero-meta-grid">
+                <div class="meta-card">
+                    <div class="meta-icon blue"><i class="fa-solid fa-laptop-file"></i></div>
+                    <div class="meta-info">
+                        <h4>M365 Suite Mastery</h4>
+                        <p>Prompt engineering tailored for Word (regulatory SOPs), Excel (data prep), & PowerPoint (executive decks).</p>
+                    </div>
+                </div>
+
+                <div class="meta-card">
+                    <div class="meta-icon green"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="meta-info">
+                        <h4>ETL & RAG Integration</h4>
+                        <p>Augmenting internal Python/JS ETL pipelines with structured AI JSON, vector search, and Whisper audio.</p>
+                    </div>
+                </div>
+
+                <div class="meta-card">
+                    <div class="meta-icon purple"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="meta-info">
+                        <h4>Local AI & MCP Framework</h4>
+                        <p>Air-gapped models (Ollama/vLLM), Model Context Protocol, embeddings, and enterprise API controls.</p>
+                    </div>
+                </div>
+
+                <div class="meta-card">
+                    <div class="meta-icon amber"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="meta-info">
+                        <h4>Zero Data Retention & GxP</h4>
+                        <p>Clear governance on model training boundaries, commercial data protection, and validation rules.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5-Step Training Delivery Framework -->
+        <section id="pedagogy" class="pedagogy-section">
+            <div class="section-header" style="margin-bottom: 1rem;">
+                <span class="section-subtitle">Corporate Training Methodology</span>
+                <h2 class="section-title">5-Step Delivery: Lecture &rarr; Hands-On &rarr; Q&A &rarr; Assignment &rarr; Reviews</h2>
+                <p class="section-desc">
+                    Engineered specifically for regulated pharmaceutical environments. We bridge high-level conceptual understanding with immediate software application, real-world team challenges, and strict regulatory audit verification.
+                </p>
+            </div>
+
+            <div class="pedagogy-steps-grid">
+                <!-- Step 1 -->
+                <div class="pedagogy-card">
+                    <div>
+                        <div class="pedagogy-card-header">
+                            <span class="pedagogy-step-badge">1</span>
+                            <span class="pedagogy-time-tag">25 - 30% of Time</span>
+                        </div>
+                        <h4>Conceptual Lecture & Grounding</h4>
+                        <p>Demystifying transformer mechanics, token economics, context limits, and data security boundaries with clear life-science analogies.</p>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Eliminate public model hype</li>
+                        <li><i class="fa-solid fa-check"></i> Contrast ML vs. Generative AI</li>
+                        <li><i class="fa-solid fa-check"></i> Explain next-token prediction</li>
+                    </ul>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="pedagogy-card">
+                    <div>
+                        <div class="pedagogy-card-header">
+                            <span class="pedagogy-step-badge">2</span>
+                            <span class="pedagogy-time-tag">35 - 40% of Time</span>
+                        </div>
+                        <h4>Hands-On Live Software Labs</h4>
+                        <p>Instructor demonstrates live on screen, followed by attendees executing step-by-step in M365 Copilot, Python, and local tools.</p>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Word SOP generation</li>
+                        <li><i class="fa-solid fa-check"></i> Excel clinical batch formulas</li>
+                        <li><i class="fa-solid fa-check"></i> PPT board briefing outlines</li>
+                    </ul>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="pedagogy-card">
+                    <div>
+                        <div class="pedagogy-card-header">
+                            <span class="pedagogy-step-badge">3</span>
+                            <span class="pedagogy-time-tag">15% of Time</span>
+                        </div>
+                        <h4>Socratic Q&A & Enterprise Checkpoints</h4>
+                        <p>Dedicated checkpoints to address team skepticism, proprietary data boundary questions, and edge cases in clinical workflows.</p>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Address corporate IT fears</li>
+                        <li><i class="fa-solid fa-check"></i> Test hallucination awareness</li>
+                        <li><i class="fa-solid fa-check"></i> Real-time prompt debugging</li>
+                    </ul>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="pedagogy-card">
+                    <div>
+                        <div class="pedagogy-card-header">
+                            <span class="pedagogy-step-badge">4</span>
+                            <span class="pedagogy-time-tag">15% of Time</span>
+                        </div>
+                        <h4>Applied Assignments & Challenges</h4>
+                        <p>Small breakout groups solve realistic synthetic pharma scenarios to prove autonomous problem-solving capabilities.</p>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Plain-language CSR summaries</li>
+                        <li><i class="fa-solid fa-check"></i> MedDRA symptom categorization</li>
+                        <li><i class="fa-solid fa-check"></i> Competitor FDA deck creation</li>
+                    </ul>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="pedagogy-card">
+                    <div>
+                        <div class="pedagogy-card-header">
+                            <span class="pedagogy-step-badge">5</span>
+                            <span class="pedagogy-time-tag">10% of Time</span>
+                        </div>
+                        <h4>Peer Reviews & GxP Audit Verification</h4>
+                        <p>Enforcing rigorous quality control with 21 CFR Part 11 validation checklists, prompt version logging, and qualified sign-offs.</p>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Hallucination audit score</li>
+                        <li><i class="fa-solid fa-check"></i> Data classification adherence</li>
+                        <li><i class="fa-solid fa-check"></i> Qualified human verification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Banner to Open README.md Guide -->
+            <div class="guide-cta-banner">
+                <div class="guide-cta-text">
+                    <h4><i class="fa-solid fa-book-open" style="color: var(--accent-emerald);"></i> Need Full Facilitator Details & Timed Agendas?</h4>
+                    <p>Read the complete instructor handbook in <strong>README.md</strong> covering technical prerequisites, classroom management, sample dataset prep, and evaluation rubrics.</p>
+                </div>
+                <a href="README.md" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #0284c7);">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Instructor Guide (README.md)
+                </a>
+            </div>
+        </section>
+
+        <!-- Search and Filter Bar -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="topicSearch" class="search-input"
+                    placeholder="Search topics (e.g. 'RAG', 'Excel', 'Whisper', 'Temperature', 'GxP', 'MCP')...">
+            </div>
+
+            <div class="filter-pills" id="filterPills">
+                <button class="filter-btn active" data-category="all">All Modules</button>
+                <button class="filter-btn" data-category="foundations">Foundations & Glossary</button>
+                <button class="filter-btn" data-category="copilot">M365 Copilot</button>
+                <button class="filter-btn" data-category="engineering">RAG, Audio & ETL</button>
+                <button class="filter-btn" data-category="governance">Security & Compliance</button>
+            </div>
+        </div>
+
+        <!-- Section: AI Demystified / Core Concepts Glossary -->
+        <section id="glossary">
+            <div class="section-header">
+                <span class="section-subtitle">Demystifying Enterprise AI</span>
+                <h2 class="section-title">Core Terminology & Foundations</h2>
+                <p class="section-desc">
+                    Clear, precise definitions bridging consumer hype to enterprise pharmaceutical reality.
+                </p>
+            </div>
+
+            <div class="glossary-grid" id="glossaryGrid">
+                <!-- AI -->
+                <div class="glossary-card" data-category="foundations" style="--card-accent: #0284c7;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-brain"></i> Artificial Intelligence (AI)</span>
+                            <span class="glossary-badge">Broad Field</span>
+                        </div>
+                        <p class="glossary-definition">
+                            Computational systems capable of performing tasks typically requiring human intelligence, including pattern recognition, reasoning, document synthesis, and statistical inference.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Distinguishing statistical ML (e.g. molecular solubility predictions) from modern Generative AI (clinical report drafting and literature synthesis).
+                    </div>
+                </div>
+
+                <!-- LLM -->
+                <div class="glossary-card" data-category="foundations" style="--card-accent: #38bdf8;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-microchip"></i> Large Language Models (LLM)</span>
+                            <span class="glossary-badge">Neural Architecture</span>
+                        </div>
+                        <p class="glossary-definition">
+                            Deep transformer models trained on massive corpora to predict subsequent tokens. They possess broad language understanding, world knowledge, and translation/synthesis abilities.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Understanding GPT-4o, Claude 3.5, and Llama 3 as general reasoning engines rather than static relational databases.
+                    </div>
+                </div>
+
+                <!-- RAG -->
+                <div class="glossary-card" data-category="engineering" style="--card-accent: #10b981;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-database"></i> RAG (Retrieval-Augmented Gen)</span>
+                            <span class="glossary-badge">Essential Architecture</span>
+                        </div>
+                        <p class="glossary-definition">
+                            A framework that retrieves proprietary private documents from an indexed knowledge base before prompting an LLM to generate answers grounded strictly in retrieved context.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Querying internal Standard Operating Procedures (SOPs), Clinical Study Reports (CSRs), and FDA guidance without hallucination.
+                    </div>
+                </div>
+
+                <!-- Chatbots vs Assistants vs Agents -->
+                <div class="glossary-card" data-category="foundations" style="--card-accent: #8b5cf6;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-robot"></i> Assistants vs Agents vs Workflows</span>
+                            <span class="glossary-badge">Spectrum of Autonomy</span>
+                        </div>
+                        <p class="glossary-definition">
+                            <strong>Chatbots</strong> converse. <strong>Assistants</strong> summarize & suggest. <strong>Agents</strong> take multi-step tool actions. <strong>Workflows</strong> follow deterministic orchestration with AI nodes.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Why regulated GxP environments favor deterministic <em>AI workflows</em> over unbounded autonomous agents.
+                    </div>
+                </div>
+
+                <!-- Prompt & Context Engineering -->
+                <div class="glossary-card" data-category="copilot" style="--card-accent: #f59e0b;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-terminal"></i> Prompt vs Context Engineering</span>
+                            <span class="glossary-badge">Human-AI Interface</span>
+                        </div>
+                        <p class="glossary-definition">
+                            <strong>Prompt Engineering:</strong> Crafting phrasing, roles, and instructions. <strong>Context Engineering:</strong> Dynamically assembling relevant document chunks, system constraints, metadata, and schemas into the limited context window.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Injecting relevant Pharmacovigilance criteria and ICH guidelines directly into the prompt payload.
+                    </div>
+                </div>
+
+                <!-- Tokens, Embeddings & Vectors -->
+                <div class="glossary-card" data-category="engineering" style="--card-accent: #06b6d4;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-cubes"></i> Tokens & Vector Embeddings</span>
+                            <span class="glossary-badge">Mathematical Basis</span>
+                        </div>
+                        <p class="glossary-definition">
+                            <strong>Tokens:</strong> Sub-word chunks (~0.75 words). <strong>Embeddings:</strong> High-dimensional numerical arrays capturing semantic meaning so similar medical terms sit close together in geometric space.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Enabling semantic search where a search for "renal impairment" retrieves documents describing "kidney disease" or "decreased eGFR".
+                    </div>
+                </div>
+
+                <!-- Temperature & Hyperparameters -->
+                <div class="glossary-card" data-category="foundations" style="--card-accent: #f43f5e;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-sliders"></i> Temperature & Hyperparameters</span>
+                            <span class="glossary-badge">Inference Controls</span>
+                        </div>
+                        <p class="glossary-definition">
+                            Controls the randomness of next-token selection. Low temperature (0.0 - 0.2) enforces deterministic, analytical adherence. Higher temperature (0.7 - 1.0) introduces creative variability.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Always set temperature = 0.0 for regulatory data extraction and adverse event classification to guarantee reproducibility.
+                    </div>
+                </div>
+
+                <!-- MCP (Model Context Protocol) -->
+                <div class="glossary-card" data-category="engineering" style="--card-accent: #14b8a6;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-plug"></i> MCP (Model Context Protocol)</span>
+                            <span class="glossary-badge">Open Standard</span>
+                        </div>
+                        <p class="glossary-definition">
+                            An open protocol allowing LLMs and AI assistants to securely connect to external data sources, local databases, and enterprise file servers through standardized, permissioned interfaces.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Connecting Copilot or internal assistants directly to local ETL databases without exposing credentials or unverified API keys.
+                    </div>
+                </div>
+
+                <!-- Fine-tuning vs RAG vs In-Context -->
+                <div class="glossary-card" data-category="engineering" style="--card-accent: #a855f7;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-code-fork"></i> Fine-Tuning vs RAG</span>
+                            <span class="glossary-badge">Customization Strategy</span>
+                        </div>
+                        <p class="glossary-definition">
+                            <strong>Fine-Tuning:</strong> Updates internal weights to learn specific syntax/tone (costly, stale). <strong>RAG:</strong> Grounds base model with live external facts without updating weights (fast, source-traceable).
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        95% of pharma use-cases require RAG (traceable audit trails & immediate updates), not model weight fine-tuning.
+                    </div>
+                </div>
+
+                <!-- Local & Private AI -->
+                <div class="glossary-card" data-category="governance" style="--card-accent: #22c55e;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-server"></i> Local & Air-Gapped AI</span>
+                            <span class="glossary-badge">Zero Cloud Egress</span>
+                        </div>
+                        <p class="glossary-definition">
+                            Running open-weights models (Llama-3, Mistral, BioMistral) directly on local GPU servers (Ollama, vLLM) entirely inside the corporate intranet without outbound internet traffic.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Analyzing pre-patent molecular structures, drug synthesis pathways, and unblinded clinical trial patient data.
+                    </div>
+                </div>
+
+                <!-- LLMOps & Observability -->
+                <div class="glossary-card" data-category="engineering" style="--card-accent: #eab308;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-chart-line"></i> LLMOps & Quality Guardrails</span>
+                            <span class="glossary-badge">Production LifeCycle</span>
+                        </div>
+                        <p class="glossary-definition">
+                            The operational discipline of evaluating, deploying, monitoring, and tracing LLM pipelines for latency, token costs, hallucination rates, and drift over time.
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Validation testing and version control required under 21 CFR Part 11 software lifecycle regulations.
+                    </div>
+                </div>
+
+                <!-- Multimodal AI -->
+                <div class="glossary-card" data-category="foundations" style="--card-accent: #ec4899;">
+                    <div>
+                        <div class="glossary-header">
+                            <span class="glossary-term"><i class="fa-solid fa-photo-film"></i> Multimodal AI & Audio</span>
+                            <span class="glossary-badge">Cross-Domain</span>
+                        </div>
+                        <p class="glossary-definition">
+                            Models processing and cross-correlating text, image, tabular, and audio data simultaneously (e.g. OCR on scanned batch records, Whisper audio transcription of doctor interviews).
+                        </p>
+                    </div>
+                    <div class="glossary-pharma-context">
+                        <span class="pharma-label">Pharma Context:</span>
+                        Digitizing historical paper lab logs, pathology slide summaries, and medical advisory board audio transcripts.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Curriculum Modules -->
+        <section id="modules">
+            <div class="section-header">
+                <span class="section-subtitle">Structured Seminar Syllabus</span>
+                <h2 class="section-title">The 6 Core Curriculum Modules</h2>
+                <p class="section-desc">
+                    A comprehensive, modular roadmap designed for business leaders, laboratory scientists, data engineers, and regulatory analysts. Click any module to explore granular lecture topics, hands-on labs, and pharma use cases.
+                </p>
+            </div>
+
+            <div class="modules-wrapper">
+                <!-- Module 1 -->
+                <div class="module-card expanded" data-category="foundations">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">01</div>
+                            <div class="module-title-wrap">
+                                <h3>Foundations of AI & Generative Language Models</h3>
+                                <p>From transformer mechanics to prompt & context engineering fundamentals</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 2.5 Hours</span>
+                            <span class="module-pill tag-blue">All Audiences</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> What is AI, Machine Learning, and Generative AI?</div>
+                                    <p class="subtopic-desc">Clarifying the paradigm shift from rule-based and predictive classifiers to generative foundation models. Demystifying next-token prediction and probabilistic text synthesis.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Anatomy of an LLM: Context Window, Tokens & Attention</div>
+                                    <p class="subtopic-desc">Understanding context limits (128k - 1M tokens), how memory and attention mechanisms work, and why "needle in a haystack" recall degradation occurs in massive inputs.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Chatbots vs. Assistants vs. Automated Workflows</div>
+                                    <p class="subtopic-desc">Moving beyond basic chat interfaces into structured, headless, and repeatable automated pipelines that execute daily pharma reporting tasks.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Prompt Engineering vs. Context Engineering</div>
+                                    <p class="subtopic-desc">Role prompting, few-shot demonstration framing, chain-of-thought (CoT) reasoning, negative constraints, and structured output schemas (JSON/XML).</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Executive Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Clear mental model of why LLMs hallucinate and how to eliminate it mathematically.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Understanding why prompting alone is not enough for regulated enterprise reporting.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> How to calculate token costs and context budgets across corporate workflows.</li>
+                                </ul>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Live prompt comparison: Demonstrating deterministic clinical abstract extraction with zero temperature and structured JSON outputs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="module-card" data-category="engineering">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">02</div>
+                            <div class="module-title-wrap">
+                                <h3>Technical Mechanics: Embeddings, Vectors, Hyperparameters & MCP</h3>
+                                <p>Under the hood: Vector spaces, similarity search, Model Context Protocol, and local models</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 3.0 Hours</span>
+                            <span class="module-pill tag-purple">Technical Track</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Embeddings & High-Dimensional Semantic Search</div>
+                                    <p class="subtopic-desc">How mathematical text vectors capture bio-medical semantic relationships. Cosine similarity, Euclidean distance, and hybrid search combining BM25 keyword matching with dense vectors.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Vector Databases: Architecture & Indexing</div>
+                                    <p class="subtopic-desc">How enterprise vector stores (Azure AI Search, Qdrant, Chroma, PGVector) index millions of scientific publications, clinical trial records, and patent filings using HNSW algorithms.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Hyperparameter Tuning: Temperature, Top_P, Frequency Penalties</div>
+                                    <p class="subtopic-desc">Setting temperature to 0.0 for auditing, regulatory tables, and data extraction vs. 0.6 for brainstorming slide titles. Deep dive into repetition penalties and system prompt grounding.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> MCP (Model Context Protocol) & Secure Tool Calling</div>
+                                    <p class="subtopic-desc">Anthropic's open standard for connecting AI clients to local files, databases, and enterprise APIs. Building safe read-only MCP bridges into laboratory information systems (LIMS).</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Local AI Deployment (Ollama, vLLM, GGUF/AWQ Quantization)</div>
+                                    <p class="subtopic-desc">Setting up local, air-gapped inference servers inside the pharma corporate firewall. Memory sizing (VRAM requirements, 4-bit/8-bit quantization) for open weights models like Llama 3 and Mistral.</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Engineering Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Ability to architect scalable vector retrieval pipelines without vendor lock-in.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Mastery of local offline model execution for confidential chemical IPs.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Understanding the MCP specification to replace custom fragile API wrappers.</li>
+                                </ul>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Spinning up a local Ollama instance on an enterprise workstation and running vector queries on a confidential research paper.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="module-card" data-category="engineering">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">03</div>
+                            <div class="module-title-wrap">
+                                <h3>Enterprise RAG & Speech-to-Text Transcription Systems</h3>
+                                <p>Building verified search over internal SOPs, clinical protocols, and audio streams</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 3.0 Hours</span>
+                            <span class="module-pill tag-green">Technical & Operations</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> RAG Lifecycle for Life Sciences</div>
+                                    <p class="subtopic-desc">Document ingestion (parsing complex clinical trial PDFs, tables, and headers), intelligent chunking (parent-child, markdown-aware, recursive), embedding generation, and metadata tagging (drug name, phase, date).</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Advanced Retrieval: Re-Ranking, Hybrid Search & Citation Grounding</div>
+                                    <p class="subtopic-desc">Why basic vector search fails on pharma acronyms. Deploying Cross-Encoder re-rankers (Cohere, BGE) and enforcing mandatory source citation page numbers for 100% auditability.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Audio Intelligence & Medical Speech-to-Text (Whisper)</div>
+                                    <p class="subtopic-desc">OpenAI Whisper architectures (Tiny, Base, Large-v3) deployed locally. Handling clinical terminology, drug brand names, speaker diarization (identifying speaker 1 vs speaker 2), and background lab noise.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> End-to-End Audio Ingestion Pipeline</div>
+                                    <p class="subtopic-desc">Audio file -> Local Whisper transcription -> PII de-identification -> LLM clinical meeting summary -> Action item extraction into Microsoft Planner / Jira.</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Operational Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> End-to-end blueprint for building an internal "Chat with SOPs" system.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Automated transcription pipeline saving 5+ hours weekly per clinical team.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Mitigation strategies for medical acronym hallucinations in audio models.</li>
+                                </ul>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Live audio transcription of a simulated clinical trial investigator meeting, extracting Adverse Drug Reaction (ADR) bullet points into a structured memo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="module-card" data-category="copilot">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">04</div>
+                            <div class="module-title-wrap">
+                                <h3>Microsoft Copilot Enterprise & Office Power-Workflows</h3>
+                                <p>Unlocking Microsoft Word, Excel, and PowerPoint for pharma daily operations</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 2.5 Hours</span>
+                            <span class="module-pill tag-blue">All Staff & Power Users</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Microsoft Copilot Enterprise Architecture</div>
+                                    <p class="subtopic-desc">How Microsoft Graph grounding works. Understanding Commercial Data Protection: why prompts stay within the enterprise tenant, never leak into public models, and are isolated across user access permissions.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Word Mastery: Regulatory & Scientific Writing</div>
+                                    <p class="subtopic-desc">Drafting Clinical Study Report (CSR) sections, translating technical jargon into plain-language summaries (PLS) for patient leaflets, reformatting text into strict ICH-GCP templates, and comparing revisions.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Excel Mastery: Clinical Data Prep & Formulas</div>
+                                    <p class="subtopic-desc">Prompting Copilot in Excel to generate nested XLOOKUP/INDEX-MATCH formulas, parse dirty patient demographic strings, detect batch number anomalies, and summarize clinical trial adverse event rates.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> PowerPoint Mastery: Executive & Scientific Decks</div>
+                                    <p class="subtopic-desc">Converting 40-page regulatory review PDFs into crisp 8-slide executive decks. Structuring trial efficacy visualizations, generating speaker notes, and ensuring on-brand pharma styling.</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Productivity Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> 50%+ reduction in initial draft time for SOPs and regulatory summary memos.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Instant formula debugging and exploratory data analysis in Excel.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Rapid executive deck generation with accurate scientific talking points.</li>
+                                </ul>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Live session transforming raw clinical trial Excel rows into a clean summary table, drafting a Word regulatory memo, and generating a 4-slide executive briefing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="module-card" data-category="engineering">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">05</div>
+                            <div class="module-title-wrap">
+                                <h3>ETL Pipeline Augmentation & Automation (Python, JS, Node)</h3>
+                                <p>Infusing AI reasoning into locally developed pharma batch pipelines</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 2.5 Hours</span>
+                            <span class="module-pill tag-purple">Engineering Track</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Modernizing Traditional ETL with LLM Nodes</div>
+                                    <p class="subtopic-desc">Where regex and rule engines fail: using LLMs inside ETL pipelines for fuzzy entity resolution, physician handwritten note normalization, and messy lab unit conversions.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Structured Outputs with Python & Pydantic</div>
+                                    <p class="subtopic-desc">Guaranteeing 100% parseable JSON schema compliance using instructor and OpenAI/Azure structured output mode. Ensuring downstream SQL pipelines never crash from malformed responses.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Adverse Event & MedDRA Classification Automation</div>
+                                    <p class="subtopic-desc">Automating mapping of patient unstructured adverse incident logs to standardized Medical Dictionary for Regulatory Activities (MedDRA) SOC/PT codes with confidence scoring.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> JavaScript / Office Scripts & Webhook Automation</div>
+                                    <p class="subtopic-desc">Writing TypeScript/JavaScript Office Scripts in Excel to trigger automated REST calls to Azure OpenAI or internal microservices, enabling one-click data enrichment.</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Engineering Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> High-throughput asynchronous batch processing scripts in Python.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Zero schema breakdown in ETL pipelines via Pydantic validators.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Automated rate limiting, exponential backoff, and fallback models.</li>
+                                </div>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Writing a Python script that ingests a CSV of 100 unstructured patient doctor notes, maps them to standard MedDRA categories, and outputs validated JSON for SQL insertion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="module-card" data-category="governance">
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-meta-left">
+                            <div class="module-num">06</div>
+                            <div class="module-title-wrap">
+                                <h3>Enterprise Governance, Security, Data Retention & GxP Compliance</h3>
+                                <p>Navigating restricted pharma environments: What can be shared, zero-retention & audit trails</p>
+                            </div>
+                        </div>
+                        <div class="module-meta-right">
+                            <span class="module-pill"><i class="fa-regular fa-clock"></i> 2.0 Hours</span>
+                            <span class="module-pill tag-green">Critical Governance</span>
+                            <div class="expand-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-grid-content">
+                            <ul class="subtopics-list">
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> The "Is My Data Used for Training?" Reality</div>
+                                    <p class="subtopic-desc">The critical difference between consumer ChatGPT and Microsoft Copilot Enterprise / Azure OpenAI. Explaining Zero Data Retention (ZDR), customer tenant isolation, and legal guarantees that proprietary data is never used to train base models.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Data Classification Matrix: What Can & Cannot Be Shared</div>
+                                    <p class="subtopic-desc">Clear guidelines for staff: Tier 1 (Public Literature & Generic Text) vs. Tier 2 (Internal SOPs in Copilot Enterprise) vs. Tier 3 (Proprietary Molecular SMILES & Patient PHI - Air-Gapped Local Only).</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> GxP & 21 CFR Part 11 Validation for AI Systems</div>
+                                    <p class="subtopic-desc">Computerized System Validation (CSV) requirements. Managing probabilistic outputs in deterministic validation frameworks: Human-in-the-Loop (HITL) mandatory sign-offs, seed logging, and versioned audit logs.</p>
+                                </li>
+                                <li class="subtopic-item">
+                                    <div class="subtopic-head"><i class="fa-solid fa-check"></i> Hallucination Mitigation & Citation Verification</div>
+                                    <p class="subtopic-desc">Implementing the "Trust but Verify" workflow. Prompt constraints forbidding external knowledge assumptions, strict page/paragraph citation enforcement, and automated fact-checking checks.</p>
+                                </li>
+                            </ul>
+                            <div class="key-takeaway-box">
+                                <div class="takeaway-title"><i class="fa-solid fa-bullseye"></i> Governance Takeaways & Outcomes</div>
+                                <ul class="takeaway-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Complete peace of mind on intellectual property protection and IP leakage.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> A defensible AI governance policy aligned with FDA/EMA digital health guidance.</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Clear employee SOP on acceptable AI usage and data classifications.</li>
+                                </ul>
+                                <div class="hands-on-chip">
+                                    <h5><i class="fa-solid fa-flask"></i> Interactive Lab</h5>
+                                    <p>Auditing a simulated AI output against 21 CFR Part 11 requirements: documenting prompt version, model version, temperature, and qualified human reviewer electronic sign-off.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Prompt Library -->
+        <section id="prompts">
+            <div class="section-header">
+                <span class="section-subtitle">Battle-Tested Templates</span>
+                <h2 class="section-title">Pharma Copilot & Automation Prompt Bank</h2>
+                <p class="section-desc">
+                    Ready-to-use, enterprise-grade prompts engineered specifically for pharmaceutical workflows in Word, Excel, PowerPoint, and Python ETL pipelines. Click copy to test in your workflow.
+                </p>
+            </div>
+
+            <div class="prompt-library">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab('wordTab', this)">
+                        <i class="fa-solid fa-file-word"></i> Microsoft Word (SOPs & CSR)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('excelTab', this)">
+                        <i class="fa-solid fa-file-excel"></i> Microsoft Excel (Clinical Data & Formulas)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('pptTab', this)">
+                        <i class="fa-solid fa-file-powerpoint"></i> Microsoft PowerPoint (Executive Decks)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('pythonTab', this)">
+                        <i class="fa-brands fa-python"></i> Python & ETL Pipelines
+                    </button>
+                </div>
+
+                <!-- Word Tab -->
+                <div class="tab-pane active" id="wordTab">
+                    <!-- Prompt 1 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">SOP Drafting from Technical Protocol</span>
+                                <span class="tag tag-blue">Word Copilot</span>
+                            </div>
+                            <div class="prompt-usecase">Standard Operating Procedure generation adhering to GxP formatting</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">You are an expert pharmaceutical quality assurance and regulatory affairs specialist. 
+
+Based strictly on the attached laboratory test protocol [insert document], draft a Standard Operating Procedure (SOP) following GxP standards.
+
+Include the following standardized sections:
+1. PURPOSE & SCOPE
+2. REGULATORY REFERENCES (ICH Q2(R1), 21 CFR Part 211)
+3. RESPONSIBILITIES & ROLES
+4. REAGENTS, STANDARDS & EQUIPMENT SPECIFICATIONS
+5. STEP-BY-STEP PROCEDURE (imperative voice, sequential numbering)
+6. QUALITY CONTROL CRITERIA & ACCEPTANCE LIMITS
+7. DEVIATION & OUT-OF-SPECIFICATION (OOS) REPORTING PROTOCOL
+8. REVISION HISTORY TABLE
+
+Constraints:
+- Maintain an unambiguous, authoritative tone.
+- Do not assume missing numerical thresholds; if a parameter is not in the source, insert [PARAMETER TO BE SPECIFIED BY QA].
+- Do not add information from outside the provided protocol.</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Uses strict structural constraints and prevents hallucination of critical safety tolerances with explicit placeholder rules.
+                        </div>
+                    </div>
+
+                    <!-- Prompt 2 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Plain-Language Summary (PLS) for Patients</span>
+                                <span class="tag tag-green">Patient Communication</span>
+                            </div>
+                            <div class="prompt-usecase">Converting dense Clinical Study Report (CSR) into 6th-grade readable summary</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">Act as a medical communicator specializing in health literacy.
+
+Read the attached Clinical Study Report (CSR) summary section for Phase III Trial [Trial_ID]. Translate this scientific text into a Plain Language Summary (PLS) intended for trial participants and the general public.
+
+Guidelines:
+- Target a 6th to 8th grade reading level (Flesch-Kincaid grade level ≤ 8).
+- Replace medical terminology with clear everyday equivalents (e.g., replace 'hypertension' with 'high blood pressure', 'adverse event' with 'side effect', 'myocardial infarction' with 'heart attack').
+- Organize with clear subheadings:
+  * Why was this study done?
+  * What treatments were compared?
+  * What were the main findings?
+  * What side effects did patients experience?
+- Clearly state that patients should consult their physician before changing any medication.</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Enforces readability metrics and medical safety disclaimers required by EMA/FDA patient disclosure rules.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Excel Tab -->
+                <div class="tab-pane" id="excelTab">
+                    <!-- Prompt 1 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Clinical Batch Anomaly & Outlier Identification</span>
+                                <span class="tag tag-green">Excel Copilot</span>
+                            </div>
+                            <div class="prompt-usecase">Formula synthesis and conditional outlier detection in stability testing</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">Analyze the stability testing data in Columns A through H:
+- Column A: Batch Number
+- Column B: Storage Condition (e.g., 25°C/60% RH, 40°C/75% RH)
+- Column C: Time Point (Months: 0, 3, 6, 9, 12)
+- Column D: Active Pharmaceutical Ingredient (API) Assay % (Specification: 95.0% - 105.0%)
+- Column E: Total Degradation Impurities % (Specification: NMT 1.5%)
+
+Tasks:
+1. Provide an Excel formula for Column F that flags "OUT OF SPEC (OOS)" if Assay < 95.0% or > 105.0%, or if Impurities > 1.5%. Otherwise output "PASS".
+2. Write a formula to calculate the degradation rate (slope of impurities vs time) for each batch.
+3. Suggest conditional formatting rules to highlight accelerating degradation before it breaches OOS limits.</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Explicit column mapping allows Copilot to produce robust, copy-pasteable formulas without guesswork.
+                        </div>
+                    </div>
+
+                    <!-- Prompt 2 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Patient Cohort Demographic Normalization</span>
+                                <span class="tag tag-blue">ETL Prep in Excel</span>
+                            </div>
+                            <div class="prompt-usecase">Standardizing messy clinical site feeds before database ingestion</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">In Column C, I have messy clinical site demographic entries that mix age and gender (e.g., "54 yr M", "Female, 62", "M - 41 years old", "Age: 29 / F").
+
+Provide formulas or Power Query steps to:
+1. Extract numerical AGE into Column D as an integer.
+2. Standardize GENDER into Column E strictly as either "M", "F", or "UNKNOWN".
+3. Provide a data validation formula for Column F that flags rows where Age is outside the protocol inclusion criteria (18 to 75 years inclusive).</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Transforms semi-structured text into strict relational data ready for downstream ETL ingestion.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PPT Tab -->
+                <div class="tab-pane" id="pptTab">
+                    <!-- Prompt 1 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Clinical Trial Endpoint Executive Briefing</span>
+                                <span class="tag tag-amber">PowerPoint Copilot</span>
+                            </div>
+                            <div class="prompt-usecase">Converting dense 50-page clinical trial dossier into a 6-slide board presentation</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">Using the attached Phase IIb Efficacy Summary for Compound [XYZ-101], generate an outline for a high-impact 6-slide executive presentation for the Senior Scientific Advisory Board.
+
+Structure each slide with:
+- Slide Title (action-oriented, e.g. "Primary Endpoint Met with Statistically Significant Efficacy")
+- Visual Concept (describe recommended chart: Kaplan-Meier curve, waterfall plot, or 3-column metric cards)
+- 3 Bullet Points (succinct, bold key metric first, max 15 words per bullet)
+- Speaker Talking Points (2-3 sentences providing regulatory and clinical context)
+
+Slides required:
+Slide 1: Study Design & Patient Demographics (n=450)
+Slide 2: Primary Efficacy Endpoint (p-value, hazard ratio, 95% CI)
+Slide 3: Secondary Biomarker Outcomes
+Slide 4: Safety & Tolerability Profile (treatment-emergent adverse events)
+Slide 5: Competitive Landscape & Differentiation
+Slide 6: Phase III Recommendation & Regulatory Timeline</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Enforces visual layout recommendations and concise executive bullet rules rather than wall-of-text slides.
+                        </div>
+                    </div>
+
+                    <!-- Prompt 2 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Commercial Brand Strategy & Competitor Launch</span>
+                                <span class="tag tag-purple">Commercial Pharma</span>
+                            </div>
+                            <div class="prompt-usecase">Summarizing competitor clinical data and market impact into visual slides</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">Create a 4-slide competitive intelligence briefing based on the newly published FDA approval package for [Competitor Drug Name].
+
+Focus on:
+1. Mechanism of Action (MoA) Comparison vs our in-house molecule.
+2. Dosing Convenience & Administration Routes (Oral QD vs SC Bi-weekly).
+3. Boxed Warnings or Special Monitoring Requirements.
+4. Opportunities for our medical affairs positioning.
+
+Make each slide clean, professional, and suitable for commercial sales and medical science liaisons (MSLs).</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Directly bridges medical affairs science with executive commercial strategy.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Python Tab -->
+                <div class="tab-pane" id="pythonTab">
+                    <!-- Prompt 1 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Pydantic Schema for Adverse Event Classification</span>
+                                <span class="tag tag-purple">Python ETL Pipeline</span>
+                            </div>
+                            <div class="prompt-usecase">Guaranteed structured JSON schema mode for pharma data pipeline integration</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">import json
+from pydantic import BaseModel, Field
+from typing import List, Optional, Literal
+from openai import AzureOpenAI
+
+# Strict Pharma Adverse Event Schema
+class AdverseEvent(BaseModel):
+    verbatim_text: str = Field(description="Exact symptom phrase from patient record")
+    meddra_preferred_term: str = Field(description="Standardized MedDRA PT classification")
+    severity: Literal["MILD", "MODERATE", "SEVERE", "LIFE_THREATENING"]
+    causality_assessment: Literal["UNRELATED", "POSSIBLE", "PROBABLE", "DEFINITE"]
+    action_taken_with_drug: Literal["DOSE_NOT_CHANGED", "DOSE_REDUCED", "DRUG_INTERRUPTED", "DRUG_WITHDRAWN"]
+    serious_criteria: bool = Field(description="Meets regulatory seriousness criteria (death, hospitalization, disability)")
+    confidence_score: float = Field(ge=0.0, le=1.0, description="Model certainty score")
+
+class PatientSafetyExtraction(BaseModel):
+    patient_id: str
+    events: List[AdverseEvent]
+    requires_immediate_safety_officer_review: bool
+
+# Azure OpenAI call with structured output (temperature=0.0)
+client = AzureOpenAI(azure_endpoint="https://pharma-internal.openai.azure.com/", api_version="2024-08-01-preview")
+
+def extract_safety_data(doctor_note: str) -> PatientSafetyExtraction:
+    completion = client.beta.chat.completions.parse(
+        model="gpt-4o-enterprise",
+        temperature=0.0, # Zero temperature for deterministic extraction
+        messages=[
+            {"role": "system", "content": "You are a Pharmacovigilance safety officer. Extract all adverse reactions strictly according to ICH E2A guidelines."},
+            {"role": "user", "content": doctor_note}
+        ],
+        response_format=PatientSafetyExtraction
+    )
+    return completion.choices[0].message.parsed</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Uses Pydantic to guarantee that the LLM output conforms to the exact database schema, eliminating pipeline crashes.
+                        </div>
+                    </div>
+
+                    <!-- Prompt 2 -->
+                    <div class="prompt-card">
+                        <div>
+                            <div class="prompt-card-header">
+                                <span class="prompt-card-title">Whisper Audio Transcription & Diarization Script</span>
+                                <span class="tag tag-green">Speech-to-Text Pipeline</span>
+                            </div>
+                            <div class="prompt-usecase">Local offline processing of medical board audio with Whisper & PII scrubbing</div>
+                            <div class="prompt-code-wrap">
+                                <button class="copy-btn" onclick="copyPrompt(this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre class="prompt-code">import whisper
+import re
+
+# Load local Whisper model (completely offline / no cloud egress)
+print("Loading Whisper model on local GPU/CPU...")
+model = whisper.load_model("large-v3", device="cuda")
+
+def transcribe_clinical_audio(audio_filepath: str):
+    # Prompt biasing with pharmaceutical domain vocabulary to reduce transcription error
+    initial_pharma_prompt = "Clinical trial, investigator meeting, pharmacokinetic, pharmacodynamic, MedDRA, AUC, Cmax, placebo-controlled."
+    
+    result = model.transcribe(
+        audio_filepath,
+        initial_prompt=initial_pharma_prompt,
+        language="en",
+        temperature=0.0, # Deterministic transcription
+        verbose=False
+    )
+    
+    raw_transcript = result["text"]
+    
+    # Scrub PII: Simple regex sanitizer for Patient MRNs and telephone numbers
+    scrubbed_transcript = re.sub(r'\b\d{3}-\d{2}-\d{4}\b', '[SSN-REDACTED]', raw_transcript)
+    scrubbed_transcript = re.sub(r'MRN:\s*\d+', 'MRN:[REDACTED]', scrubbed_transcript)
+    
+    return {
+        "text": scrubbed_transcript,
+        "segments": result["segments"]
+    }</pre>
+                            </div>
+                        </div>
+                        <div class="prompt-footer">
+                            <i class="fa-solid fa-info-circle"></i> Why it works: Uses initial_prompt vocabulary priming to prevent Whisper from mishearing complex drug and pharmacological terms.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Security, Governance & Compliance -->
+        <section class="security-section" id="governance">
+            <div class="section-header">
+                <span class="section-subtitle">Risk Mitigation & Compliance</span>
+                <h2 class="section-title">Enterprise Security, Data Boundaries & GxP</h2>
+                <p class="section-desc">
+                    Essential guidelines answering: What can be shared? Where does data go? Is data used to train public models? And how do we satisfy regulatory audits?
+                </p>
+            </div>
+
+            <!-- Matrix Table -->
+            <div class="matrix-table-wrap">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Data Classification Level</th>
+                            <th>Example Pharma Data Assets</th>
+                            <th>Public Consumer AI (ChatGPT/Gemini Free)</th>
+                            <th>Microsoft Copilot Enterprise (M365)</th>
+                            <th>Private / Air-Gapped Local AI (Ollama/vLLM)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Tier 1: Public / Generic</strong>
+                            </td>
+                            <td>Published PubMed papers, FDA guidance documents, public patents, generic meeting summaries.</td>
+                            <td><span class="status-badge status-warning"><i class="fa-solid fa-triangle-exclamation"></i> Allowed (No IP)</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-check"></i> Recommended</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-check"></i> Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Tier 2: Confidential Corporate</strong>
+                            </td>
+                            <td>Standard Operating Procedures (SOPs), internal training, non-confidential department memos, general financial reports.</td>
+                            <td><span class="status-badge status-danger"><i class="fa-solid fa-ban"></i> STRICTLY PROHIBITED</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-check"></i> Protected by Tenant Boundary</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-check"></i> Fully Secured</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Tier 3: Clinical & Patient Data (PHI/PII)</strong>
+                            </td>
+                            <td>Patient medical notes, adverse event filings with identifiers, unblinded clinical trial patient logs.</td>
+                            <td><span class="status-badge status-danger"><i class="fa-solid fa-ban"></i> STRICTLY PROHIBITED</span></td>
+                            <td><span class="status-badge status-warning"><i class="fa-solid fa-lock"></i> De-identified Only (HIPAA/GDPR)</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-shield-halved"></i> Recommended (Air-Gapped)</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Tier 4: Core Intellectual Property</strong>
+                            </td>
+                            <td>Unpublished chemical synthesis pathways, molecular SMILES, upcoming patent claims, trade secrets.</td>
+                            <td><span class="status-badge status-danger"><i class="fa-solid fa-ban"></i> STRICTLY PROHIBITED</span></td>
+                            <td><span class="status-badge status-warning"><i class="fa-solid fa-shield-cat"></i> Executive Clearance Required</span></td>
+                            <td><span class="status-badge status-success"><i class="fa-solid fa-server"></i> Mandatory (Zero Egress)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Compliance Principles Grid -->
+            <div class="compliance-grid">
+                <div class="compliance-card">
+                    <div class="comp-icon"><i class="fa-solid fa-database"></i></div>
+                    <h4>Model Training & Retention Truths</h4>
+                    <p>
+                        In Microsoft Copilot Enterprise and Azure OpenAI with enterprise agreements, customer prompts, completions, and documents are <strong>never used to train foundation models</strong>. Zero Data Retention (ZDR) agreements ensure data is processed in memory and not logged on third-party servers.
+                    </p>
+                </div>
+
+                <div class="compliance-card">
+                    <div class="comp-icon"><i class="fa-solid fa-file-signature"></i></div>
+                    <h4>21 CFR Part 11 & GxP Validation</h4>
+                    <p>
+                        Automated AI systems in GxP cannot act as final unreviewed signatories. Every AI-assisted regulatory document requires an audit trail documenting the prompt version, model version, and an explicit Human-in-the-Loop (HITL) qualified review signature.
+                    </p>
+                </div>
+
+                <div class="compliance-card">
+                    <div class="comp-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h4>Hallucination Defenses in Pharma</h4>
+                    <p>
+                        Implement deterministic safeguards: enforce temperature=0.0, use negative prompting ("If not found in context, state UNKNOWN"), require page-level citations for every quantitative claim, and run automated cross-referencing validation scripts.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Seminar Delivery Formats -->
+        <section id="formats">
+            <div class="section-header">
+                <span class="section-subtitle">Flexible Training Structures</span>
+                <h2 class="section-title">Seminar & Lecture Delivery Options</h2>
+                <p class="section-desc">
+                    Choose the format that aligns with your organization's timeline, from high-level leadership overviews to multi-day technical workshops.
+                </p>
+            </div>
+
+            <div class="formats-grid">
+                <!-- Half Day -->
+                <div class="format-card">
+                    <div>
+                        <div class="format-duration">Executive Half-Day (4 Hours)</div>
+                        <h3 class="format-name">Executive & Leadership Primer</h3>
+                        <p class="format-audience">For Directors, VPs, Quality Heads, and Department Leads.</p>
+                        <ul class="format-features">
+                            <li><i class="fa-solid fa-check"></i> High-level Generative AI & LLM landscape</li>
+                            <li><i class="fa-solid fa-check"></i> Copilot Enterprise ROI & capability limits</li>
+                            <li><i class="fa-solid fa-check"></i> Intellectual property & data privacy risks</li>
+                            <li><i class="fa-solid fa-check"></i> GxP regulatory compliance roadmap</li>
+                            <li><i class="fa-solid fa-check"></i> Executive Q&A & strategic prioritization</li>
+                        </ul>
+                    </div>
+                    <a href="#instructor" class="btn btn-outline" style="width: 100%; justify-content: center;">Inquire for Executive Primer</a>
+                </div>
+
+                <!-- Full Day (Featured) -->
+                <div class="format-card featured">
+                    <span class="featured-badge">Most Popular</span>
+                    <div>
+                        <div class="format-duration">Full-Day Intensive (8 Hours)</div>
+                        <h3 class="format-name">Comprehensive Corporate Seminar</h3>
+                        <p class="format-audience">For Cross-Functional Pharma Teams, Analysts, & Power Users.</p>
+                        <ul class="format-features">
+                            <li><i class="fa-solid fa-check"></i> Everything in the Executive Primer</li>
+                            <li><i class="fa-solid fa-check"></i> Deep dive into Word, Excel, & PPT Copilot</li>
+                            <li><i class="fa-solid fa-check"></i> RAG architecture & internal SOP searching</li>
+                            <li><i class="fa-solid fa-check"></i> Speech-to-text (Whisper) for meetings</li>
+                            <li><i class="fa-solid fa-check"></i> Hands-on prompt engineering workshop</li>
+                            <li><i class="fa-solid fa-check"></i> "What Can Be Shared" governance checklist</li>
+                        </ul>
+                    </div>
+                    <a href="#instructor" class="btn btn-primary" style="width: 100%; justify-content: center;">Book Full-Day Seminar</a>
+                </div>
+
+                <!-- 2-Day Deep Dive -->
+                <div class="format-card">
+                    <div>
+                        <div class="format-duration">2-Day Bootcamp (16 Hours)</div>
+                        <h3 class="format-name">Technical & Engineering Deep Dive</h3>
+                        <p class="format-audience">For Data Engineers, IT Architects, ETL Developers, & Bioinformaticians.</p>
+                        <ul class="format-features">
+                            <li><i class="fa-solid fa-check"></i> Modules 1 through 6 complete coverage</li>
+                            <li><i class="fa-solid fa-check"></i> Python ETL pipeline augmentation with Pydantic</li>
+                            <li><i class="fa-solid fa-check"></i> Local AI setup with Ollama and vLLM</li>
+                            <li><i class="fa-solid fa-check"></i> Model Context Protocol (MCP) tool integration</li>
+                            <li><i class="fa-solid fa-check"></i> End-to-end RAG pipeline building lab</li>
+                            <li><i class="fa-solid fa-check"></i> 21 CFR Part 11 software validation artifacts</li>
+                        </ul>
+                    </div>
+                    <a href="#instructor" class="btn btn-outline" style="width: 100%; justify-content: center;">Inquire for 2-Day Bootcamp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructor Profile / Booking Section -->
+        <section id="instructor">
+            <div class="instructor-card">
+                <div class="instructor-bio">
+                    <div class="instructor-avatar">
+                        KK
+                    </div>
+                    <div class="instructor-details">
+                        <h3>Krishna Kanth B</h3>
+                        <h5>AI Consultant, Solutions Architect & Corporate Educator</h5>
+                        <p>
+                            Specializing in enterprise AI adoption, Retrieval-Augmented Generation (RAG), workflow automation, and custom LLM systems for regulated industries. Empowering corporate teams to bridge modern language models with everyday business tools safely and effectively.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="instructor-actions">
+                    <a href="mailto:krishnakanthb13@gmail.com?subject=Inquiry:%20Pharma%20AI%20Corporate%20Seminar" class="btn btn-primary">
+                        <i class="fa-solid fa-envelope"></i> Request Seminar Proposal
+                    </a>
+                    <a href="https://www.linkedin.com/in/bkrishnakanth/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+                    </a>
+                    <a href="../index.html" class="btn btn-outline">
+                        <i class="fa-solid fa-arrow-left"></i> View Main Consulting Portfolio
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div>
+                <p>&copy; 2026 Krishna Kanth B. Enterprise Pharma AI Masterclass & Curriculum.</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                    Designed for restricted pharmaceutical environments, Microsoft Copilot Enterprise, RAG architectures, and GxP compliance.
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html"><i class="fa-solid fa-arrow-left"></i> Main Portfolio</a>
+                <a href="#overview">Overview</a>
+                <a href="#pedagogy">5-Step Delivery</a>
+                <a href="#glossary">Glossary</a>
+                <a href="#modules">Syllabus</a>
+                <a href="#prompts">Prompts</a>
+                <a href="#governance">Security</a>
+                <a href="README.md" target="_blank"><i class="fa-solid fa-book-open"></i> Guide (README.md)</a>
+                <a href="javascript:window.print()"><i class="fa-solid fa-print"></i> Print</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-emerald);"></i>
+        <span id="toastMessage">Prompt copied to clipboard!</span>
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        // Theme toggle logic
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check stored theme
+        const savedTheme = localStorage.getItem('pharma_theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('pharma_theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggle.innerHTML = theme === 'dark' 
+                ? '<i class="fa-solid fa-sun"></i>' 
+                : '<i class="fa-solid fa-moon"></i>';
+        }
+
+        // Module accordion toggle
+        function toggleModule(headerElement) {
+            const card = headerElement.closest('.module-card');
+            card.classList.toggle('expanded');
+        }
+
+        // Tab switcher for prompt library
+        function switchTab(tabId, btnElement) {
+            // Remove active from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+            // Activate clicked
+            btnElement.classList.add('active');
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.classList.add('active');
+            }
+        }
+
+        // Copy prompt functionality with Toast feedback
+        function copyPrompt(buttonElement) {
+            const codeBlock = buttonElement.parentElement.querySelector('.prompt-code');
+            if (!codeBlock) return;
+
+            const textToCopy = codeBlock.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast("Prompt copied to clipboard!");
+                const originalHtml = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                buttonElement.style.background = 'var(--accent-emerald)';
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHtml;
+                    buttonElement.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                showToast("Failed to copy prompt.");
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Category filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.getAttribute('data-category');
+                filterContent(category, searchInput.value.toLowerCase());
+            });
+        });
+
+        // Search input
+        const searchInput = document.getElementById('topicSearch');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-category');
+            filterContent(activeFilter, query);
+        });
+
+        function filterContent(category, query) {
+            // Filter modules
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach(card => {
+                const cardCat = card.getAttribute('data-category') || 'all';
+                const cardText = card.innerText.toLowerCase();
+
+                const matchesCat = (category === 'all' || cardCat === category);
+                const matchesQuery = !query || cardText.includes(query);
+
+                if (matchesCat && matchesQuery) {
+                    card.style.display = '';
+                    if (query) {
+                        card.classList.add('expanded');
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Filter glossary
+            const glossaryCards = document.querySelectorAll('.glossary-card');
+            glossaryCards.forEach(card => {
+                const cardCat = card.getAttribute('data-category') || 'all';
+                const cardText = card.innerText.toLowerCase();
+
+                const matchesCat = (category === 'all' || cardCat === category);
+                const matchesQuery = !query || cardText.includes(query);
+
+                if (matchesCat && matchesQuery) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
