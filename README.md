@@ -4,20 +4,22 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 
 ## 1. Folder Structure and Information
 
-- **0**: High Level Data Links
-- **1**: Next Level (1) Data Links
+- **0**: [High Level Data Links](https://krishnakanthb13.github.io/0/Main.html)
+- **1**: [Next Level (1) Data Links](https://krishnakanthb13.github.io/1/Python.html)
 - **assets/**
   - **audio**: Contains Audio used in the Web pages
   - **images**: Contains Images used in the Web pages
   - **css**: Contains CSS Scripts used in the Web pages
   - **js**: Contains Java Scripts used in the Web pages
   - **other data**: Contains random Data
-- **A**: Amplenote Data
+- **A**: [Amplenote Data](https://krishnakanthb13.github.io/A/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
-- **F**: Anki Flashcards Repo
-- **H**: Personal Horoscope Data
-- **L**: Charm School & Flirt Engine — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
-- **O**: Other Random Things
+	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
+		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
+- **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
+- **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
+- **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
+- **O**: [Other Random Things](https://krishnakanthb13.github.io/O/)
 	- [Online Tools](https://krishnakanthb13.github.io/O/VTT/) — VTT Text Extractor Pro 
 	- [Transcript Studio for YouTube](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/O/YT/README.md) — browser extension & CLI
 	- [Life Mechanics Hub](https://krishnakanthb13.github.io/O/) — Interactive Frameworks to Map Finite Resources, Visualize Trade-Offs
@@ -52,8 +54,6 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 ## 2. Files Information
-
----
 
 - **Main Files**:
 	- [Online Résumé](https://krishnakanthb13.github.io/): Main File for Online Résumé.
@@ -150,6 +150,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Dump (D):** ([overview](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools, unified light/dark/system theme)
+	- [Actions → Results](https://krishnakanthb13.github.io/D/actionsTOresults.html): 5 science-backed actions that rewire your brain — energy, focus, confidence, self-respect & purpose.
 	- [Meta Muse & Meta Spark](https://krishnakanthb13.github.io/D/meta-muse-spark.html): Meta Model API & Spark AR — models, pricing calculator, playground & SDKs.
 	- [DeepSeek API](https://krishnakanthb13.github.io/D/deepseek.html): V4-Flash and V4-Pro models — 1M context, thinking mode, OpenAI & Anthropic compatible.
 	- [LongCat-2.0-Preview](https://krishnakanthb13.github.io/D/longcat.html): Agentic reasoning model — lightweight, tool-native, open.
@@ -165,6 +166,13 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [OpenCode Go Dashboard](https://krishnakanthb13.github.io/D/opencode-go/): Live models & usage dashboard.
 	- [SQL Query Anatomy](https://krishnakanthb13.github.io/D/structured-query-language/): Interactive visual guide breaking down SQL clauses & execution order.
 	- [Clock](https://krishnakanthb13.github.io/D/clock.html): A themed analog + digital clock.
+
+---
+
+- **Ground Zero — Knowledge Vault (D/0):** ([overview](https://krishnakanthb13.github.io/D/0/) — living knowledge vault pairing deep-dive research essays with interactive visualizations)
+	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
 
 ---
 

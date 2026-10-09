@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowing vs. Accepting: The Epistemology and Somatics of Surrender</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155',
+                            accentCyan: '#06b6d4',
+                            accentRose: '#f43f5e',
+                            accentAmber: '#f59e0b',
+                            accentEmerald: '#10b981',
+                            accentPurple: '#a855f7',
+                            textLight: '#f8fafc',
+                            textMuted: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Embedded CSS strictly for responsive chart container enforcement */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<!--
+    SELECTED PALETTE: "Vibrant Dark Slate & Electric Accents"
+    HEX Codes:
+    - Background: #0f172a (Dark Slate)
+    - Card BG: #1e293b (Slate Card)
+    - Text Main: #f8fafc (Ice White)
+    - Text Muted: #94a3b8 (Slate Muted)
+    - Knowing Accent (Intellectual): #06b6d4 (Electric Cyan)
+    - Resistance Accent (Dissonance): #f43f5e (Vibrant Rose)
+    - Cost Accent (Surrender): #f59e0b (Amber Gold)
+    - Acceptance Accent (Somatic/Embodied): #10b981 (Emerald Green)
+    - Wisdom Accent: #a855f7 (Electric Purple)
+
+    MERGED STRUCTURE PLAN (combines the former dark infographic + light interactive variant):
+    1. Hero / Key Core Thesis:
+       - Visual metrics callout comparing cheap/reversible Knowing with costly/embodied Accepting.
+       - Quotation banner establishing the fundamental asymmetry.
+    2. Section 1: The Epistemological Asymmetry (Radar Chart + Interactive Axis Inspector)
+       - Dual-layer Radar chart measuring Knowing vs. Accepting across 6 structural axes.
+       - Clickable phenomenon inspector: Cognitive Dissonance, Mental Rehearsal Loop, Knowing-Doing Gap.
+    3. Section 2: The Tyranny of Visceral Drives (Bar Chart + Hot-Cold Empathy Gap Simulator)
+       - Horizontal Bar chart of average realization-to-acceptance delay across 5 life domains.
+       - Interactive slider simulator: adjust visceral arousal, watch System 2 control decay.
+    4. Section 3: Thermodynamics of Agency (Dual Doughnut Charts + Energy Re-allocation Calculator)
+       - Comparative Doughnut Charts: Pre-Acceptance vs Post-Acceptance energy allocation.
+       - Calculator estimating annual hours wasted in cognitive resistance.
+    5. Section 4: The Somatic Protocol (Interactive 5-Stage Pipeline + Somatic Technique Cards)
+       - Step-through pipeline from Cold Realization to Committed Action.
+       - DBT Willing Hands/Half-Smile, Gendlin's Felt Sense, EFT Memory Reconsolidation.
+    6. Section 5: Cross-Disciplinary Epistemology Matrix (Filterable Matrix + Self-Diagnostic Quiz)
+       - Filterable table across CBT, ACT, DBT, Advaita Vedanta, Buddhist Epistemology.
+       - 3-question diagnostic evaluating whether the user is "Knowing" or "Accepting".
+
+    VISUALIZATION & COMPLIANCE:
+    - Radar Chart (Chart.js / Canvas): Dual Profile Comparison -> NO SVG.
+    - Horizontal Bar Chart (Chart.js / Canvas): Temporal Latency by Domain -> NO SVG.
+    - Dual Doughnut Charts (Chart.js / Canvas): Energy Allocation Shift -> NO SVG.
+    - Empathy Gap Simulator (HTML Range Input + Dynamic DOM Readouts) -> NO SVG.
+    - Somatic Pipeline Flow (Structured Tailwind Grid + Interactive JS Steps) -> NO SVG / NO MERMAID.
+    - Filterable Epistemology Matrix (Styled HTML Table + Dynamic JS Filter) -> NO SVG.
+    - Interactive Diagnostic Quiz (Vanilla JS Questionnaire + Results Engine) -> NO SVG.
+
+    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+-->
+<body class="bg-brand-dark text-brand-textLight font-sans antialiased min-h-screen">
+
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <a href="../" class="text-brand-textMuted hover:text-brand-accentCyan transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-brand-card border border-brand-border" title="Return to Knowledge Vault">← D/0 Vault</a>
+                <span class="text-2xl">🧠</span>
+                <span class="text-xl font-bold tracking-tight text-brand-textLight">Knowing <span class="text-brand-accentCyan">vs.</span> Accepting</span>
+            </div>
+            <nav class="hidden lg:flex space-x-6 text-sm font-medium text-brand-textMuted">
+                <a href="#overview" class="hover:text-brand-accentCyan transition-colors">Overview</a>
+                <a href="#asymmetry" class="hover:text-brand-accentCyan transition-colors">Dimensional Profile</a>
+                <a href="#empathy-gap" class="hover:text-brand-accentCyan transition-colors">Empathy Gap &amp; Delay</a>
+                <a href="#energy" class="hover:text-brand-accentCyan transition-colors">Energy Dynamics</a>
+                <a href="#somatic" class="hover:text-brand-accentCyan transition-colors">Somatic Protocols</a>
+                <a href="#frameworks" class="hover:text-brand-accentCyan transition-colors">Frameworks &amp; Quiz</a>
+            </nav>
+            <div class="flex items-center gap-2">
+                <a href="readme.md" class="px-3 py-1.5 text-xs font-semibold text-brand-textLight bg-brand-card hover:border-brand-accentCyan border border-brand-border rounded-lg transition-all" title="Read the full research essay">
+                    📝 Full Report
+                </a>
+                <a href="#diagnostic-quiz" class="px-3.5 py-1.5 text-xs font-bold text-white bg-brand-accentEmerald hover:bg-emerald-700 rounded-lg transition-all shadow-sm">
+                    Self-Diagnostic Quiz
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- HERO SECTION -->
+        <section id="overview" class="text-center space-y-6 pt-4">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-accentCyan/10 border border-brand-accentCyan/30 text-brand-accentCyan text-xs uppercase tracking-widest font-semibold">
+                <span>Epistemology &amp; Somatic Psychology</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-textLight tracking-tight max-w-4xl mx-auto leading-tight">
+                The Epistemology &amp; Somatics of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accentCyan via-brand-accentAmber to-brand-accentEmerald">Surrender</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-brand-textMuted max-w-3xl mx-auto font-light leading-relaxed">
+                Bridging the profound chasm between intellectual comprehension ("knowing in the head") and embodied reality ("accepting in the nervous system").
+            </p>
+
+            <!-- Key Thesis Highlight Banner -->
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 text-left shadow-xl max-w-4xl mx-auto relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-brand-accentCyan to-brand-accentEmerald"></div>
+                <blockquote class="text-base sm:text-lg text-slate-200 font-medium italic leading-relaxed">
+                    "Knowing is a fact in the head. Accepting is that fact in the body, in the decisions, in what you stop arguing with. You can know a thing is over and still rehearse the conversation that would have changed it... Knowing needs evidence; acceptance needs surrender."
+                </blockquote>
+            </div>
+
+            <!-- Key Metric Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto pt-4">
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-xs font-semibold text-brand-accentCyan uppercase tracking-wider">Acquisition Cost</div>
+                    <div class="text-3xl font-extrabold text-brand-textLight">Cheap</div>
+                    <div class="text-xs text-brand-textMuted">Picked up from a single sentence</div>
+                </div>
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-xs font-semibold text-brand-accentAmber uppercase tracking-wider">Acceptance Cost</div>
+                    <div class="text-3xl font-extrabold text-brand-accentAmber">High</div>
+                    <div class="text-xs text-brand-textMuted">A hope, a self-image, or a future</div>
+                </div>
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-xs font-semibold text-brand-accentRose uppercase tracking-wider">Average Delay</div>
+                    <div class="text-3xl font-extrabold text-brand-accentRose">6–24+ Mo</div>
+                    <div class="text-xs text-brand-textMuted">Time lag between fact &amp; surrender</div>
+                </div>
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-xs font-semibold text-brand-accentEmerald uppercase tracking-wider">Primary Outcome</div>
+                    <div class="text-3xl font-extrabold text-brand-accentEmerald">Liberation</div>
+                    <div class="text-xs text-brand-textMuted">Redirecting energy to what's open</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: DIMENSIONAL PROFILE (RADAR CHART + AXIS INSPECTOR) -->
+        <section id="asymmetry" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-6">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight flex items-center gap-2">
+                    <span>⚡</span> 1. The Structural Asymmetry: Head vs. Body
+                </h2>
+                <p class="text-brand-textMuted mt-2 leading-relaxed">
+                    Why does perfect information fail to change behavior? Intellectual insight resides in the prefrontal cortex ("Reasonable Mind"), operating on logic and evidence. Embodied acceptance requires rewriting implicit emotional memories stored deep within the nervous system and body.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Chart Container -->
+                <div class="lg:col-span-6 flex flex-col items-center justify-center">
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <!-- Interactive Axis Inspector -->
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-brand-textMuted">Click a Phenomenon to Inspect</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="inspectAxis('dissonance')" class="axis-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/60 hover:bg-slate-800 transition-colors border border-brand-border text-brand-textMuted">
+                            Cognitive Dissonance
+                        </button>
+                        <button onclick="inspectAxis('rehearsal')" class="axis-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/60 hover:bg-slate-800 transition-colors border border-brand-border text-brand-textMuted">
+                            Mental Rehearsal Loop
+                        </button>
+                        <button onclick="inspectAxis('gap')" class="axis-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900/60 hover:bg-slate-800 transition-colors border border-brand-border text-brand-textMuted">
+                            Knowing-Doing Gap
+                        </button>
+                    </div>
+
+                    <div id="inspectorDisplay" class="p-5 rounded-xl bg-slate-900/60 border border-brand-border space-y-3 min-h-[160px]">
+                        <div id="inspectorTitle" class="font-bold text-brand-accentCyan text-base flex items-center gap-2">
+                            <span>🧠</span> Cognitive Dissonance
+                        </div>
+                        <p id="inspectorText" class="text-xs sm:text-sm text-brand-textMuted leading-relaxed">
+                            Arises when an individual holds perfect facts in the head while their emotional attachments act against them. The mind attempts to reduce this uncomfortable friction through arguments rather than somatic surrender.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-accentAmber/10 border border-brand-accentAmber/30">
+                        <p class="text-xs text-brand-textLight font-medium">
+                            <strong class="text-brand-accentAmber">Core Takeaway:</strong> Knowing requires evidence to build a logical case; Acceptance requires abandoning the debate entirely.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: VISCERAL DRIVES, TIME LAG & HOT-COLD EMPATHY GAP SIMULATOR -->
+        <section id="empathy-gap" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-8">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight flex items-center gap-2">
+                    <span>⏳</span> 2. The Tyranny of Visceral Drives &amp; The Time Lag
+                </h2>
+                <p class="text-brand-textMuted mt-2 leading-relaxed">
+                    Acceptance arrives late because individuals systematically overestimate their rational self-control in "cold" states while underestimating visceral drives in "hot" states (Loewenstein's Empathy Gap). Adjust the simulator to watch high arousal degrade System 2 control and cause behavior that acts directly against known facts.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Bar Chart: Delay by Domain -->
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="text-base font-bold text-brand-textLight">Time Latency: Realization to Acceptance (Months)</h3>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                    <p class="text-xs text-brand-textMuted italic text-center">
+                        Data reflects average psychological latency across personal, professional, and existential boundaries.
+                    </p>
+                </div>
+
+                <!-- Interactive Hot-Cold Empathy Gap Simulator -->
+                <div class="lg:col-span-6 bg-slate-900/60 border border-brand-border rounded-xl p-6 space-y-5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-bold text-brand-textLight flex items-center gap-2">
+                            <span>🔥</span> Interactive Empathy Gap Simulator
+                        </h3>
+                        <span id="arousalBadge" class="text-xs px-2.5 py-1 rounded-full bg-brand-accentCyan/10 text-brand-accentCyan font-bold uppercase">
+                            Cold State (0%)
+                        </span>
+                    </div>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Adjust the emotional distress slider below to observe how high visceral arousal degrades System 2 rational control and causes individuals to act directly against known facts.
+                    </p>
+
+                    <!-- Slider Input -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold text-brand-textMuted">
+                            <span>Cold (Calm &amp; Rational)</span>
+                            <span>Hot (Panicked / Grieving)</span>
+                        </div>
+                        <input id="arousalSlider" type="range" min="0" max="100" value="10" oninput="updateEmpathySimulator(this.value)" class="w-full accent-brand-accentRose cursor-pointer h-2 bg-slate-700 rounded-lg">
+                    </div>
+
+                    <!-- Dynamic Simulator Readouts -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="p-3 bg-brand-dark border border-brand-border rounded-lg text-center">
+                            <div class="text-xs text-brand-textMuted font-medium">System 2 Control</div>
+                            <div id="rationalityValue" class="text-2xl font-extrabold text-brand-accentCyan">90%</div>
+                        </div>
+                        <div class="p-3 bg-brand-dark border border-brand-border rounded-lg text-center">
+                            <div class="text-xs text-brand-textMuted font-medium">Visceral Drive Override</div>
+                            <div id="visceralValue" class="text-2xl font-extrabold text-brand-accentRose">10%</div>
+                        </div>
+                    </div>
+
+                    <div id="behavioralPrediction" class="p-3 bg-brand-dark border border-brand-border rounded-lg text-xs text-brand-textMuted leading-relaxed font-medium">
+                        <strong>Predicted State:</strong> You are calm. You can easily state facts, acknowledge limits, and outline logical plans.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ENERGY DYNAMICS & AGENCY RE-ALLOCATION CALCULATOR -->
+        <section id="energy" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-8">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight flex items-center gap-2">
+                    <span>💡</span> 3. Thermodynamics of Agency: Energy Allocation
+                </h2>
+                <p class="text-brand-textMuted mt-2 leading-relaxed">
+                    Acceptance is neither approval nor fatalistic resignation. It is the strategic withdrawal of cognitive and emotional energy from an unwinnable war against immutable facts, redirecting vital capacity to possibilities that remain open.
+                </p>
+            </div>
+
+            <!-- Doughnut Charts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-slate-900/60 border border-brand-border rounded-xl p-5 text-center space-y-3">
+                    <h3 class="text-sm font-bold text-brand-accentRose flex items-center justify-center gap-2">
+                        <span>🔒</span> State of Resistance (Knowing Without Accepting)
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="doughnutPre"></canvas>
+                    </div>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Profound energy leakage into mental rehearsal, "what-if" arguments, somatic tension, and cognitive dissonance. Agency is paralyzed.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/60 border border-brand-border rounded-xl p-5 text-center space-y-3">
+                    <h3 class="text-sm font-bold text-brand-accentEmerald flex items-center justify-center gap-2">
+                        <span>🔓</span> State of Radical Acceptance (Embodied Surrender)
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="doughnutPost"></canvas>
+                    </div>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Futile cognitive resistance ceases. Liberated psychological energy is channeled directly into values-based committed action and restorative peace.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive Energy Wattage Calculator -->
+            <div class="bg-brand-accentEmerald/10 border border-brand-accentEmerald/30 rounded-xl p-6 space-y-4">
+                <h3 class="text-base font-bold text-brand-accentEmerald flex items-center gap-2">
+                    <span>🧮</span> Interactive Cognitive Energy Re-allocation Tool
+                </h3>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    Estimate how many hours per week you spend mentally rehearsing past arguments or resisting an unchangeable reality:
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <input id="rehearsalHours" type="number" min="1" max="50" value="12" oninput="calculateEnergyReclamation(this.value)" class="w-full sm:w-32 px-3 py-2 border border-brand-border rounded-lg text-center font-bold text-brand-textLight bg-brand-dark">
+                    <span class="text-xs font-semibold text-brand-textMuted">Hours spent in mental rehearsal per week</span>
+                </div>
+
+                <div id="energyResult" class="p-4 bg-brand-dark border border-brand-accentEmerald/30 rounded-lg text-xs sm:text-sm text-brand-textMuted space-y-1">
+                    <p><strong>Energy Reclamation Potential:</strong> You are currently expending approximately <strong>624 hours per year</strong> in cognitive resistance.</p>
+                    <p class="text-brand-accentEmerald font-bold">Surrendering this single battle liberates equivalent mental bandwidth to master a major new skill, rebuild a career, or cultivate deep relationships.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOMATIC PROTOCOLS & EXPERIENTIAL STEP-THROUGH -->
+        <section id="somatic" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-8">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight flex items-center gap-2">
+                    <span>🕊️</span> 4. The Somatic Protocol: From Head to Body
+                </h2>
+                <p class="text-brand-textMuted mt-2 leading-relaxed">
+                    Because logic cannot argue the nervous system into surrender, physical and experiential protocols are required. Click through the five-stage pipeline to trace the transition from cold realization to somatic integration.
+                </p>
+            </div>
+
+            <!-- Interactive 5-Stage Pipeline (NO SVG, NO MERMAID) -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <button onclick="selectStep(1)" id="stepBtn-1" class="step-card p-4 rounded-xl border text-left space-y-2 bg-emerald-500/10 border-brand-accentEmerald shadow-sm">
+                    <div class="text-xs font-extrabold text-brand-accentCyan">STEP 01</div>
+                    <div class="text-sm font-bold text-brand-textLight">Cold Realization</div>
+                    <div class="text-xs text-brand-textMuted">Data acquired in head</div>
+                </button>
+                <button onclick="selectStep(2)" id="stepBtn-2" class="step-card p-4 rounded-xl border text-left space-y-2 bg-slate-900 border-brand-border">
+                    <div class="text-xs font-extrabold text-brand-accentRose">STEP 02</div>
+                    <div class="text-sm font-bold text-brand-textLight">Mental Rehearsal</div>
+                    <div class="text-xs text-brand-textMuted">Arguing with reality</div>
+                </button>
+                <button onclick="selectStep(3)" id="stepBtn-3" class="step-card p-4 rounded-xl border text-left space-y-2 bg-slate-900 border-brand-border">
+                    <div class="text-xs font-extrabold text-brand-accentAmber">STEP 03</div>
+                    <div class="text-sm font-bold text-brand-textLight">Grieving Hope</div>
+                    <div class="text-xs text-brand-textMuted">Paying the cost</div>
+                </button>
+                <button onclick="selectStep(4)" id="stepBtn-4" class="step-card p-4 rounded-xl border text-left space-y-2 bg-slate-900 border-brand-border">
+                    <div class="text-xs font-extrabold text-brand-accentPurple">STEP 04</div>
+                    <div class="text-sm font-bold text-brand-textLight">Somatic Shift</div>
+                    <div class="text-xs text-brand-textMuted">Body posture release</div>
+                </button>
+                <button onclick="selectStep(5)" id="stepBtn-5" class="step-card p-4 rounded-xl border text-left space-y-2 bg-slate-900 border-brand-border">
+                    <div class="text-xs font-extrabold text-brand-accentEmerald">STEP 05</div>
+                    <div class="text-sm font-bold text-brand-textLight">Committed Action</div>
+                    <div class="text-xs text-brand-textMuted">Rebuilding open space</div>
+                </button>
+            </div>
+
+            <!-- Dynamic Step Detail Display -->
+            <div id="stepDetailDisplay" class="p-6 rounded-xl bg-slate-900/60 border border-brand-border space-y-3">
+                <div id="stepTitle" class="text-base font-bold text-brand-accentCyan flex items-center gap-2">
+                    <span>🧠</span> Step 1: Cold Realization (Prefrontal Cortex)
+                </div>
+                <p id="stepDescription" class="text-xs sm:text-sm text-brand-textMuted leading-relaxed">
+                    The facts of the situation are recognized intellectually. Information is cheap and easily acquired. However, the body remains unintegrated, and no behavioral shift has occurred yet.
+                </p>
+            </div>
+
+            <!-- Gendlin's Focusing Guide & DBT Protocols -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                <div class="bg-slate-900/60 border border-brand-border p-5 rounded-xl space-y-2">
+                    <div class="text-brand-accentPurple text-xl">🖐️</div>
+                    <h4 class="text-sm font-bold text-brand-textLight">DBT Willing Hands &amp; Half-Smile</h4>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Uncrossing arms, turning palms up, and relaxing facial muscles directly interrupts the brain's fight-or-flight loop, compelling the mind to mirror the body's posture of surrender.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 border border-brand-border p-5 rounded-xl space-y-2">
+                    <div class="text-brand-accentCyan text-xl">🧘</div>
+                    <h4 class="text-sm font-bold text-brand-textLight">Gendlin's Felt Sense</h4>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Focusing on the murky, somatic sensation of unaccepted reality until a "felt shift" occurs—a sudden physical release signaling physiological integration.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 border border-brand-border p-5 rounded-xl space-y-2">
+                    <div class="text-brand-accentEmerald text-xl">❤️</div>
+                    <h4 class="text-sm font-bold text-brand-textLight">EFT Memory Reconsolidation</h4>
+                    <p class="text-xs text-brand-textMuted leading-relaxed">
+                        Activating implicit emotional memories in a safe therapeutic context to experience disconfirming visceral safety, permanently overwriting resistance.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: CROSS-DISCIPLINARY EPISTEMOLOGY MATRIX & SELF-DIAGNOSTIC QUIZ -->
+        <section id="frameworks" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-8">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight flex items-center gap-2">
+                    <span>📚</span> 5. Frameworks &amp; Self-Diagnostic Quiz
+                </h2>
+                <p class="text-brand-textMuted mt-2 leading-relaxed">
+                    Compare how Western therapeutic modalities and Eastern contemplative traditions conceptualize the divide between cognitive insight and embodied liberation—then test your own alignment.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-brand-textMuted uppercase">Filter:</span>
+                <button onclick="filterMatrix('all', this)" class="matrix-filter-btn px-3 py-1 rounded-md text-xs font-bold bg-brand-accentEmerald text-white">All</button>
+                <button onclick="filterMatrix('western', this)" class="matrix-filter-btn px-3 py-1 rounded-md text-xs font-bold bg-slate-900 text-brand-textMuted hover:bg-slate-800">Western Psychotherapy</button>
+                <button onclick="filterMatrix('eastern', this)" class="matrix-filter-btn px-3 py-1 rounded-md text-xs font-bold bg-slate-900 text-brand-textMuted hover:bg-slate-800">Eastern Philosophy</button>
+            </div>
+
+            <!-- Matrix Table -->
+            <div class="overflow-x-auto rounded-xl border border-brand-border">
+                <table class="w-full text-left text-xs sm:text-sm text-brand-textMuted">
+                    <thead class="bg-slate-800 text-brand-textLight uppercase tracking-wider text-xs border-b border-brand-border">
+                        <tr>
+                            <th class="p-4 font-bold">Framework / Tradition</th>
+                            <th class="p-4 font-bold text-brand-accentCyan">Concept of "Knowing"</th>
+                            <th class="p-4 font-bold text-brand-accentEmerald">Concept of "Accepting"</th>
+                            <th class="p-4 font-bold">Primary Practice</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matrixBody" class="divide-y divide-brand-border bg-brand-dark font-light">
+                        <!-- Populated dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- INTERACTIVE DIAGNOSTIC QUIZ -->
+            <div id="diagnostic-quiz" class="bg-slate-900/60 border border-brand-border rounded-xl p-6 space-y-6 pt-6">
+                <div class="border-b border-brand-border pb-4">
+                    <h3 class="text-lg font-bold text-brand-textLight flex items-center gap-2">
+                        <span>🧩</span> Self-Diagnostic: Are You "Knowing" or "Accepting"?
+                    </h3>
+                    <p class="text-xs text-brand-textMuted mt-1">
+                        Think of a difficult current situation (e.g., an ended relationship, a career setback, or a physical limitation) and answer these 3 quick questions:
+                    </p>
+                </div>
+
+                <form id="quizForm" class="space-y-4 text-xs sm:text-sm text-brand-textLight">
+                    <div class="space-y-2">
+                        <label class="font-bold block">1. Do you frequently rehearse past conversations or alternative outcomes in your mind?</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q1" value="knowing" class="accent-brand-accentRose" checked> Yes, constantly (Head state)
+                            </label>
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q1" value="accepting" class="accent-brand-accentEmerald"> No, I have stopped arguing (Body state)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="font-bold block">2. How does your body feel when you bring this situation to mind?</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q2" value="knowing" class="accent-brand-accentRose" checked> Tense, tight chest/stomach, restless
+                            </label>
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q2" value="accepting" class="accent-brand-accentEmerald"> Calm, neutral, or sad but open
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="font-bold block">3. Have you altered your practical, daily decisions based on this reality?</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q3" value="knowing" class="accent-brand-accentRose" checked> No, I still plan as if it isn't true
+                            </label>
+                            <label class="flex items-center gap-1.5 cursor-pointer">
+                                <input type="radio" name="q3" value="accepting" class="accent-brand-accentEmerald"> Yes, my actions fully align with the facts
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="evaluateQuiz()" class="px-5 py-2.5 bg-brand-textLight hover:bg-slate-300 text-brand-dark font-bold rounded-lg transition-colors text-xs">
+                        Evaluate My Alignment
+                    </button>
+                </form>
+
+                <div id="quizResult" class="hidden p-4 rounded-lg bg-brand-dark border border-brand-border space-y-2 text-xs sm:text-sm">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-border bg-slate-950 py-8 text-center text-xs text-brand-textMuted mt-12">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-medium text-brand-textLight">Knowing vs. Accepting: Interactive Epistemological Framework</p>
+            <p>Synthesizing Cognitive Psychology, Somatic Psychotherapy, and Contemplative Philosophy.</p>
+            <p class="pt-2">
+                <a href="readme.md" class="text-brand-accentCyan hover:underline">📝 Read The Full Report (Essay)</a> &nbsp;•&nbsp; 
+                <a href="../" class="text-brand-accentCyan hover:underline">← Back to D/0 Vault</a> &nbsp;•&nbsp;
+                <a href="../../" class="text-brand-accentCyan hover:underline">The Dump</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic & Chart Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Chart.js Global Theme
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.font.family = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+
+            // 1. RADAR CHART (Dimensional Profiles)
+            const radarCtx = document.getElementById('radarChart').getContext('2d');
+            const radarLabels = [
+                'Acquisition Speed',
+                'Reversibility Rate',
+                ['Energy', 'Consumption'],
+                ['Behavioral', 'Impact'],
+                ['Somatic', 'Integration'],
+                ['Surrender Cost']
+            ];
+
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: radarLabels,
+                    datasets: [
+                        {
+                            label: 'Intellectual Knowing',
+                            data: [95, 90, 20, 30, 15, 10],
+                            borderColor: '#06b6d4',
+                            backgroundColor: 'rgba(6, 182, 212, 0.25)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#06b6d4'
+                        },
+                        {
+                            label: 'Somatic Acceptance',
+                            data: [15, 10, 85, 95, 95, 90],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.25)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#10b981'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#334155' },
+                            grid: { color: '#334155' },
+                            pointLabels: {
+                                color: '#f8fafc',
+                                font: { size: 11, weight: 'bold' }
+                            },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#f8fafc', font: { size: 12 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. HORIZONTAL BAR CHART (Time Lag across Domains)
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            const barLabels = [
+                ['Physical Limits', '& Burnout'],
+                ['Career Realignment'],
+                ['Relationship', 'Endings'],
+                ['Grief & Major Loss'],
+                ['Existential Limits']
+            ];
+
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: barLabels,
+                    datasets: [{
+                        label: 'Avg Time Lag (Months) from Realization to Acceptance',
+                        data: [4, 7, 11, 18, 24],
+                        backgroundColor: ['#06b6d4', '#f59e0b', '#f43f5e', '#a855f7', '#10b981'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: '#334155' },
+                            ticks: { color: '#94a3b8' },
+                            title: { display: true, text: 'Months Elapsed', color: '#f8fafc' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#f8fafc', font: { size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. DOUGHNUT CHARTS (Energy Allocation)
+            const doughnutPreCtx = document.getElementById('doughnutPre').getContext('2d');
+            const doughnutPostCtx = document.getElementById('doughnutPost').getContext('2d');
+            const doughnutLabels = [
+                ['Mental Rehearsal', '& Arguments'],
+                ['Cognitive Friction', '& Dissonance'],
+                ['Values-Based', 'Action'],
+                ['Somatic Integration', '& Peace']
+            ];
+
+            // Pre-Acceptance Chart
+            new Chart(doughnutPreCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: doughnutLabels,
+                    datasets: [{
+                        data: [50, 30, 10, 10],
+                        backgroundColor: ['#f43f5e', '#f59e0b', '#06b6d4', '#10b981'],
+                        borderWidth: 2,
+                        borderColor: '#1e293b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f8fafc', font: { size: 10 }, boxWidth: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Post-Acceptance Chart
+            new Chart(doughnutPostCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: doughnutLabels,
+                    datasets: [{
+                        data: [5, 5, 60, 30],
+                        backgroundColor: ['#f43f5e', '#f59e0b', '#06b6d4', '#10b981'],
+                        borderWidth: 2,
+                        borderColor: '#1e293b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f8fafc', font: { size: 10 }, boxWidth: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Populate Matrix
+            renderMatrix('all');
+        });
+
+        // Interactive Axis Inspector
+        function inspectAxis(type) {
+            const displayTitle = document.getElementById('inspectorTitle');
+            const displayText = document.getElementById('inspectorText');
+
+            if (type === 'dissonance') {
+                displayTitle.innerHTML = '<span>🧠</span> Cognitive Dissonance';
+                displayText.innerText = 'Arises when an individual holds perfect facts in the head while their emotional attachments act against them. The mind attempts to reduce this uncomfortable friction through arguments rather than somatic surrender.';
+            } else if (type === 'rehearsal') {
+                displayTitle.innerHTML = '<span>🔄</span> Mental Rehearsal Loop';
+                displayText.innerText = 'Rehearsing past conversations ("If I had only said X...") is a defense mechanism. It creates a pseudo-feeling of agency, keeping options "open" in the mind so the individual can avoid grieving the finality of reality.';
+            } else if (type === 'gap') {
+                displayTitle.innerHTML = '<span>⚡</span> The Knowing-Doing Gap';
+                displayText.innerText = 'Popularized by Pfeffer & Sutton, this gap reflects the divergence between knowing what to do and physically executing it. Knowing is structurally cheap; doing requires dismantling a familiar status quo.';
+            }
+        }
+
+        // Empathy Gap Simulator Update
+        function updateEmpathySimulator(val) {
+            const badge = document.getElementById('arousalBadge');
+            const ratVal = document.getElementById('rationalityValue');
+            const visVal = document.getElementById('visceralValue');
+            const prediction = document.getElementById('behavioralPrediction');
+
+            const rationality = Math.max(5, 100 - val);
+            const visceral = val;
+
+            ratVal.innerText = rationality + '%';
+            visVal.innerText = visceral + '%';
+
+            if (val < 30) {
+                badge.innerText = 'Cold State (' + val + '%)';
+                badge.className = 'text-xs px-2.5 py-1 rounded-full bg-brand-accentCyan/10 text-brand-accentCyan font-bold uppercase';
+                prediction.innerHTML = '<strong>Predicted State:</strong> Cold & Rational. You easily acknowledge facts, state limits, and plan structured actions.';
+            } else if (val < 70) {
+                badge.innerText = 'Moderate Distress (' + val + '%)';
+                badge.className = 'text-xs px-2.5 py-1 rounded-full bg-brand-accentAmber/10 text-brand-accentAmber font-bold uppercase';
+                prediction.innerHTML = '<strong>Predicted State:</strong> Emerging Dissonance. Visceral urges compete with executive logic. Mental rehearsal loops begin.';
+            } else {
+                badge.innerText = 'Hot State (' + val + '%)';
+                badge.className = 'text-xs px-2.5 py-1 rounded-full bg-brand-accentRose/10 text-brand-accentRose font-bold uppercase';
+                prediction.innerHTML = '<strong>Predicted State:</strong> Visceral Override! System 1 fast-brain dominates. You panic-text, break boundaries, or act in direct contradiction to known facts.';
+            }
+        }
+
+        // Energy Calculator
+        function calculateEnergyReclamation(hours) {
+            const annualHours = Math.round(hours * 52);
+            const resultDiv = document.getElementById('energyResult');
+            resultDiv.innerHTML = `
+                <p><strong>Energy Reclamation Potential:</strong> You are currently expending approximately <strong>${annualHours} hours per year</strong> in cognitive resistance.</p>
+                <p class="text-brand-accentEmerald font-bold">Surrendering this single battle liberates equivalent mental bandwidth to master a major new skill, rebuild a career, or cultivate deep relationships.</p>
+            `;
+        }
+
+        // Somatic Step Inspector
+        const stepData = {
+            1: {
+                title: '🧠 Step 1: Cold Realization (Prefrontal Cortex)',
+                text: 'The facts of the situation are recognized intellectually. Information is cheap and easily acquired. However, the body remains unintegrated, and no behavioral shift has occurred yet.',
+                color: 'text-brand-accentCyan'
+            },
+            2: {
+                title: '🔄 Step 2: Mental Rehearsal & Resistance',
+                text: 'Cognitive dissonance peaks. The mind engages in counterfactual arguments ("What if...", "If only...") to shield the ego and protect a cherished self-image.',
+                color: 'text-brand-accentRose'
+            },
+            3: {
+                title: '💔 Step 3: Grieving the Future',
+                text: 'Facing the price of surrender. The individual actively mourns the lost expectation, the shattered identity, or the unfulfilled version of the future.',
+                color: 'text-brand-accentAmber'
+            },
+            4: {
+                title: '🕊️ Step 4: Somatic Shift (Body Integration)',
+                text: 'Using physical protocols (DBT Willing Hands, Half-Smile, Gendlin Felt Sense) to signal physiological safety to the nervous system, allowing the fight-or-flight loop to collapse.',
+                color: 'text-brand-accentPurple'
+            },
+            5: {
+                title: '🌱 Step 5: Committed Action',
+                text: 'Energy is fully liberated. Strategic re-navigation begins in the space that remains open, building values-aligned decisions on top of reality.',
+                color: 'text-brand-accentEmerald'
+            }
+        };
+
+        function selectStep(stepNum) {
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById('stepBtn-' + i);
+                if (i === stepNum) {
+                    btn.className = 'step-card p-4 rounded-xl border text-left space-y-2 bg-emerald-500/10 border-brand-accentEmerald shadow-sm';
+                } else {
+                    btn.className = 'step-card p-4 rounded-xl border text-left space-y-2 bg-slate-900 border-brand-border';
+                }
+            }
+
+            const data = stepData[stepNum];
+            const display = document.getElementById('stepDetailDisplay');
+            display.innerHTML = `
+                <div class="text-base font-bold ${data.color} flex items-center gap-2">${data.title}</div>
+                <p class="text-xs sm:text-sm text-brand-textMuted leading-relaxed">${data.text}</p>
+            `;
+        }
+
+        // Matrix Data & Filter
+        const matrixData = [
+            { category: 'western', framework: 'Cognitive Behavioral (CBT)', knowing: 'Intellectual Insight (Rational belief)', accepting: 'Cognitive Restructuring', practice: 'Challenging thought distortions with empirical evidence' },
+            { category: 'western', framework: 'Acceptance & Commitment (ACT)', knowing: 'Literal belief in thought content', accepting: 'Psychological Flexibility / Defusion', practice: 'Ceasing the fight against pain; Committed values action' },
+            { category: 'western', framework: 'Dialectical Behavior (DBT)', knowing: 'Reasonable Mind (Logic & facts)', accepting: 'Radical Acceptance / Wise Mind', practice: 'Willing Hands, Half-Smile, Turning the Mind' },
+            { category: 'eastern', framework: 'Advaita Vedanta', knowing: 'Paroksha Jnana (Indirect knowledge)', accepting: 'Aparoksha Anubhuti (Direct realization)', practice: 'Sravana (Hearing) → Manana (Reflection) → Nididhyasana (Assimilation)' },
+            { category: 'eastern', framework: 'Buddhist Epistemology', knowing: 'Suta-maya panna (Wisdom by hearing)', accepting: 'Bhavana-maya panna (Experiential wisdom)', practice: 'Vipassana (Direct somatic contemplation of impermanence)' }
+        ];
+
+        function renderMatrix(filter) {
+            const body = document.getElementById('matrixBody');
+            body.innerHTML = '';
+
+            const filtered = filter === 'all' ? matrixData : matrixData.filter(d => d.category === filter);
+
+            filtered.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition-colors border-b border-brand-border';
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-brand-textLight">${row.framework}</td>
+                    <td class="p-4 text-brand-accentCyan">${row.knowing}</td>
+                    <td class="p-4 text-brand-accentEmerald font-medium">${row.accepting}</td>
+                    <td class="p-4">${row.practice}</td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        function filterMatrix(type, btn) {
+            renderMatrix(type);
+            const btns = document.querySelectorAll('.matrix-filter-btn');
+            btns.forEach(b => {
+                b.className = 'matrix-filter-btn px-3 py-1 rounded-md text-xs font-bold bg-slate-900 text-brand-textMuted hover:bg-slate-800';
+            });
+            btn.className = 'matrix-filter-btn px-3 py-1 rounded-md text-xs font-bold bg-brand-accentEmerald text-white';
+        }
+
+        // Self-Diagnostic Quiz Evaluation
+        function evaluateQuiz() {
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q2 = document.querySelector('input[name="q2"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+
+            let knowingScore = 0;
+            if (q1 === 'knowing') knowingScore++;
+            if (q2 === 'knowing') knowingScore++;
+            if (q3 === 'knowing') knowingScore++;
+
+            const resultBox = document.getElementById('quizResult');
+            resultBox.classList.remove('hidden');
+
+            if (knowingScore >= 2) {
+                resultBox.className = 'p-4 rounded-lg bg-brand-accentRose/10 border border-brand-accentRose/30 space-y-2 text-xs sm:text-sm';
+                resultBox.innerHTML = `
+                    <div class="font-bold text-brand-accentRose text-base flex items-center gap-2">
+                        <span>🧠</span> Diagnostic Assessment: Trapped in Intellectual "Knowing"
+                    </div>
+                    <p class="text-brand-textMuted leading-relaxed">
+                        You currently hold the facts of this situation in your head, but your body and decision-making are still resisting. You are expending energy arguing with what is already true.
+                    </p>
+                    <p class="font-bold text-brand-textLight">Prescribed Somatic Protocol:</p>
+                    <ul class="list-disc list-inside text-brand-textMuted space-y-1">
+                        <li>Practice <strong class="text-brand-textLight">DBT Willing Hands</strong>: Turn palms up to interrupt the fight posture.</li>
+                        <li>Engage in <strong class="text-brand-textLight">Gendlin's Focusing</strong>: Locate the physical tension in your chest/gut and acknowledge it without debate.</li>
+                        <li>Cease mental rehearsal: Notice when you say "If only..." and gently pivot to "What is open now?"</li>
+                    </ul>
+                `;
+            } else {
+                resultBox.className = 'p-4 rounded-lg bg-brand-accentEmerald/10 border border-brand-accentEmerald/30 space-y-2 text-xs sm:text-sm';
+                resultBox.innerHTML = `
+                    <div class="font-bold text-brand-accentEmerald text-base flex items-center gap-2">
+                        <span>🕊️</span> Diagnostic Assessment: Embodied "Acceptance" Achieved
+                    </div>
+                    <p class="text-brand-textMuted leading-relaxed">
+                        You have translated the facts from your head into your body and decisions. You no longer waste energy arguing with reality.
+                    </p>
+                    <p class="font-bold text-brand-textLight">Next Horizon:</p>
+                    <p class="text-brand-textMuted">Focus 100% of your liberated cognitive wattage on <strong class="text-brand-textLight">ACT Committed Action</strong>—building new values-aligned goals in the space that remains open.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D/0 — Knowledge Vault</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155',
+                            accentCyan: '#06b6d4',
+                            accentAmber: '#f59e0b',
+                            accentEmerald: '#10b981',
+                            accentPurple: '#a855f7',
+                            accentRose: '#f43f5e',
+                            textLight: '#f8fafc',
+                            textMuted: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-brand-textLight font-sans antialiased min-h-screen">
+
+<!-- ================================================================
+     🤖 AI MAINTENANCE SECTION — FOR AI AGENTS ONLY (hidden from readers)
+     ----------------------------------------------------------------
+     This vault is auto-indexed by AI. Whenever a new topic folder is
+     added to D/0/, rebuild this index by following these steps exactly:
+
+     1. SCAN: List every subfolder of D/0/ (ignore hidden/dot folders).
+        Inside each subfolder, list every *.html and *.md file.
+        Never treat this root index.html / readme.md as a topic.
+
+     2. EXTRACT, per subfolder:
+        - DISPLAY NAME: Title-case the folder name, e.g.
+          "knowing_vs_accepting" → "Knowing vs. Accepting".
+        - SUMMARY: the first paragraph of that folder's readme.md.
+        - FILES: classify each file in the folder:
+            • readme.md   → label "The Full Report", icon 📝,
+                            desc "long-form essay with cited sources"
+            • index.html  → label "Interactive Infographic", icon 🧠,
+                            desc from its <title> + interactive features
+                            (simulators, calculators, quizzes, etc.)
+            • N.html      → label "Interactive Variant N", icon ☀️,
+                            desc from its <title> + features
+
+     3. REBUILD the #topics section of THIS file:
+        - Replace everything between the marker comments
+              "TOPIC CARD: ..." (opening marker)
+          and
+              "/TOPIC CARD" (closing marker)
+          with one <article> card per folder, reusing the existing card
+          structure exactly (gradient bar → folder link + theme badge →
+          summary <p> → grid of file-card links).
+        - Set the file-card grid columns to the file count
+          (sm:grid-cols-2 for 2 files, sm:grid-cols-3 for 3, etc.).
+        - Update hero counters: "Topic Earned" = subfolder count,
+          "Files Indexed" = total .html + .md files across subfolders.
+
+     4. REBUILD the root readme.md "Vault Contents" section the same way:
+        one "### 📁 [DisplayName](./folder/)" heading per folder with its
+        summary, plus a bullet per file with a relative link and the raw
+        filename in parentheses.
+
+     5. VERIFY before finishing: every link resolves to a real file, no
+        folder is missing, and no links point to deleted files.
+
+     NOTE: Never nest comment syntax inside this block. Always refer to
+     the marker comments by their quoted names only, never write the
+     actual comment delimiters inside a comment.
+     ================================================================ -->
+
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <a href="../" class="text-brand-textMuted hover:text-brand-accentCyan transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-brand-card border border-brand-border" title="Return to The Dump">← Dump</a>
+                <span class="text-2xl">📚</span>
+                <span class="text-xl font-bold tracking-tight text-brand-textLight">D/0 <span class="text-brand-accentCyan">Knowledge Vault</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-brand-textMuted">
+                <a href="#topics" class="hover:text-brand-accentCyan transition-colors">Topics</a>
+                <a href="#about" class="hover:text-brand-accentCyan transition-colors">About</a>
+                <a href="../../" class="hover:text-brand-accentCyan transition-colors text-xs">Portfolio Home ↗</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <!-- HERO -->
+        <section id="overview" class="text-center space-y-5 pt-4">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-accentCyan/10 border border-brand-accentCyan/30 text-brand-accentCyan text-xs uppercase tracking-widest font-semibold">
+                <span>Living Knowledge Vault</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-brand-textLight tracking-tight max-w-3xl mx-auto leading-tight">
+                Knowledge, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accentCyan via-brand-accentAmber to-brand-accentEmerald">Earned &amp; Indexed</span>
+            </h1>
+            <p class="text-lg text-brand-textMuted max-w-2xl mx-auto font-light leading-relaxed">
+                A growing vault of deep-dive topics. Each folder holds a long-form essay alongside interactive visualizations—knowledge that can be read, explored, and navigated.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-2">
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-3xl font-extrabold text-brand-accentCyan">1</div>
+                    <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Topic Earned</div>
+                </div>
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-3xl font-extrabold text-brand-accentAmber">2</div>
+                    <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Files Indexed</div>
+                </div>
+                <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
+                    <div class="text-3xl font-extrabold text-brand-accentEmerald">∞</div>
+                    <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">More Coming</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOPICS -->
+        <section id="topics" class="space-y-8">
+            <div class="flex items-center gap-3">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight">Vault Topics</h2>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-brand-card border border-brand-border text-brand-textMuted font-semibold">sorted by folder</span>
+            </div>
+
+            <!-- ===================== TOPIC CARD: knowing_vs_accepting ===================== -->
+            <!-- New topics: copy this article block, update the display name, summary, and file links. -->
+            <article class="bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl">
+                <div class="h-1.5 w-full bg-gradient-to-r from-brand-accentCyan via-brand-accentAmber to-brand-accentEmerald"></div>
+                <div class="p-6 sm:p-8 space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <h3 class="text-xl sm:text-2xl font-bold text-brand-textLight">
+                            <a href="./knowing_vs_accepting/" class="hover:text-brand-accentCyan transition-colors">🧠 Knowing vs. Accepting</a>
+                        </h3>
+                        <span class="text-xs px-3 py-1 rounded-full bg-brand-accentCyan/10 border border-brand-accentCyan/30 text-brand-accentCyan font-semibold uppercase tracking-wider">Epistemology &amp; Somatics</span>
+                    </div>
+                    <p class="text-brand-textMuted leading-relaxed max-w-3xl">
+                        <strong class="text-brand-textLight">The Epistemology and Somatics of Surrender.</strong> Why intellectual knowing fails to change behavior—and why acceptance is the costly, embodied act of translating a fact into the nervous system. Synthesizes cognitive psychology (hot-cold empathy gap, cognitive dissonance), somatic psychotherapy (EFT, Gendlin's Focusing, DBT Radical Acceptance), and contemplative epistemologies (Advaita Vedanta, Buddhist wisdom stages).
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="./knowing_vs_accepting/readme.md" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentEmerald transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">📝</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentEmerald">Markdown</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentEmerald transition-colors">The Full Report</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>readme.md</code> — long-form essay with cited sources.</div>
+                        </a>
+                        <a href="./knowing_vs_accepting/index.html" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentCyan transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">🧠</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentCyan">Interactive</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentCyan transition-colors">Interactive Infographic</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>index.html</code> — charts, empathy-gap simulator, energy calculator, somatic pipeline, filterable matrix &amp; diagnostic quiz.</div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            <!-- ===================== /TOPIC CARD ===================== -->
+
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-3">
+            <h2 class="text-xl font-bold text-brand-textLight">📖 Why This Vault Exists</h2>
+            <p class="text-brand-textMuted text-sm leading-relaxed max-w-3xl">
+                Knowledge picked up from a sentence is cheap and reversible—it stays in the head. This vault exists to convert earned knowledge into a durable, navigable structure: every topic is written out as an essay (the report) and rendered as an interactive page (the experience). Knowing needs evidence; a vault needs surrendering the chaos of unorganized notes into one indexed place.
+            </p>
+            <p class="text-brand-textMuted text-sm leading-relaxed max-w-3xl">
+                <strong class="text-brand-textLight">Conventions:</strong> each subfolder is one topic. <code class="text-brand-accentCyan">readme.md</code> is the written report, <code class="text-brand-accentCyan">index.html</code> is the primary visualization, and numbered <code class="text-brand-accentCyan">0.html, 1.html…</code> files are companion variants. This page links every HTML and Markdown file in every subfolder—when a new topic is earned, add a card above and a section to <a href="./readme.md" class="text-brand-accentCyan underline hover:text-brand-accentEmerald">Readme</a>.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-border bg-slate-950 py-8 text-center text-xs text-brand-textMuted mt-12">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="font-medium text-brand-textLight">D/0 Knowledge Vault — Index</p>
+            <p>Each folder: an essay + interactive visualizations. Links point to every <code>.html</code> and <code>.md</code> file in all subfolders.</p>
+            <p class="pt-2">
+                <a href="../" class="text-brand-accentCyan hover:underline">← Back to The Dump</a> &nbsp;•&nbsp; 
+                <a href="../../" class="text-brand-accentCyan hover:underline">Portfolio Home</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
