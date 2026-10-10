@@ -37,45 +37,72 @@
      🤖 AI MAINTENANCE SECTION — FOR AI AGENTS ONLY (hidden from readers)
      ----------------------------------------------------------------
      This vault is auto-indexed by AI. Whenever a new topic folder is
-     added to D/0/, rebuild this index by following these steps exactly:
+     added to D/0/, repeat this exact runbook, end to end:
 
-     1. SCAN: List every subfolder of D/0/ (ignore hidden/dot folders).
-        Inside each subfolder, list every *.html and *.md file.
-        Never treat this root index.html / readme.md as a topic.
+     STEP 0 — PREP THE NEW FOLDER (D/0/<new_folder>/):
+         - Confirm it contains readme.md (the essay) and index.html
+           (the interactive page). Numbered variants (0.html, 1.html,
+           …) only if they actually exist.
+         - FAVICON: if the folder's index.html has no favicon, add a
+           "link rel=icon" line right after its title tag. Copy the
+           favicon line from this file's head and restyle it to match
+           the page's own palette (one emoji or one colored character).
 
-     2. EXTRACT, per subfolder:
-        - DISPLAY NAME: Title-case the folder name, e.g.
-          "knowing_vs_accepting" → "Knowing vs. Accepting".
-        - SUMMARY: the first paragraph of that folder's readme.md.
-        - FILES: classify each file in the folder:
-            • readme.md   → label "The Full Report", icon 📝,
-                            desc "long-form essay with cited sources"
-            • index.html  → label "Interactive Infographic", icon 🧠,
-                            desc from its <title> + interactive features
-                            (simulators, calculators, quizzes, etc.)
-            • N.html      → label "Interactive Variant N", icon ☀️,
-                            desc from its <title> + features
+     STEP 1 — SCAN: List every subfolder of D/0/ (ignore hidden/dot
+         folders). Inside each subfolder, list every *.html and *.md
+         file. Never treat this root index.html / readme.md as a topic.
 
-     3. REBUILD the #topics section of THIS file:
-        - Replace everything between the marker comments
-              "TOPIC CARD: ..." (opening marker)
-          and
-              "/TOPIC CARD" (closing marker)
-          with one <article> card per folder, reusing the existing card
-          structure exactly (gradient bar → folder link + theme badge →
-          summary <p> → grid of file-card links).
-        - Set the file-card grid columns to the file count
-          (sm:grid-cols-2 for 2 files, sm:grid-cols-3 for 3, etc.).
-        - Update hero counters: "Topic Earned" = subfolder count,
-          "Files Indexed" = total .html + .md files across subfolders.
+     STEP 2 — EXTRACT, per subfolder:
+         - DISPLAY NAME: Title-case the folder name, e.g.
+           "knowing_vs_accepting" → "Knowing vs. Accepting",
+           "fear_n_courage" → "Fear & Courage".
+         - SUMMARY: the first paragraph of that folder's readme.md.
+         - THEME BADGE: a 2-4 word label for the card header, e.g.
+           "Epistemology & Somatics", "Rhetoric & Neurobiology".
+         - FILES: classify each file in the folder:
+             • readme.md   → label "The Full Report", icon 📝,
+                             desc "long-form essay with N cited sources"
+             • index.html  → label "Interactive Infographic", icon 🧠,
+                             desc from its <title> + interactive features
+                             (simulators, calculators, quizzes, etc.)
+             • N.html      → label "Interactive Variant N", icon ☀️,
+                             desc from its <title> + features
 
-     4. REBUILD the root readme.md "Vault Contents" section the same way:
-        one "### 📁 [DisplayName](./folder/)" heading per folder with its
-        summary, plus a bullet per file with a relative link and the raw
-        filename in parentheses.
+     STEP 3 — REBUILD the #topics section of THIS file:
+         - Replace everything between the marker comments
+               "TOPIC CARD: ..." (opening marker)
+           and
+               "/TOPIC CARD" (closing marker)
+           with one <article> card per folder, reusing the existing card
+           structure exactly (gradient bar → folder link + theme badge →
+           summary <p> → grid of file-card links).
+         - Give each card a distinct gradient (e.g. accentCyan/Amber/
+           Emerald, accentRose/Amber/Purple) with matching badge and
+           hover colors.
+         - Set the file-card grid columns to the file count
+           (sm:grid-cols-2 for 2 files, sm:grid-cols-3 for 3, etc.).
+         - Update hero counters: "Topic Earned" = subfolder count,
+           "Files Indexed" = total .html + .md files across subfolders.
 
-     5. VERIFY before finishing: every link resolves to a real file, no
-        folder is missing, and no links point to deleted files.
+     STEP 4 — REBUILD the D/0 readme.md "Vault Contents" section the
+         same way: one "### 📁 [DisplayName](./folder/)" heading per
+         folder with its summary, plus a bullet per file with a relative
+         link and the raw filename in parentheses.
+
+     STEP 5 — UPDATE THE PARENT REPO readme.md
+         (krishnakanthb13.github.io/readme.md) in BOTH places:
+         - Folder-structure tree, section "1. Folder Structure and
+           Information", under the "0: Ground Zero" bullet: add one
+           tab-indented line per topic, e.g.
+               - [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — <short subtitle>
+         - "Ground Zero — Knowledge Vault (D/0)" section: add one
+           3-line block per topic (topic line, then tab-indented
+           "Interactive Infographic" and "The Full Report" bullets),
+           all with absolute URLs.
+
+     STEP 6 — VERIFY before finishing: every link resolves to a real
+         file, no folder is missing, counters match the real file
+         count, and no links point to deleted files.
 
      NOTE: Never nest comment syntax inside this block. Always refer to
      the marker comments by their quoted names only, never write the
@@ -113,11 +140,11 @@
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-2">
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
-                    <div class="text-3xl font-extrabold text-brand-accentCyan">1</div>
+                    <div class="text-3xl font-extrabold text-brand-accentCyan">2</div>
                     <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Topic Earned</div>
                 </div>
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
-                    <div class="text-3xl font-extrabold text-brand-accentAmber">2</div>
+                    <div class="text-3xl font-extrabold text-brand-accentAmber">4</div>
                     <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Files Indexed</div>
                 </div>
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
@@ -133,6 +160,41 @@
                 <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight">Vault Topics</h2>
                 <span class="text-xs px-2.5 py-1 rounded-full bg-brand-card border border-brand-border text-brand-textMuted font-semibold">sorted by folder</span>
             </div>
+
+            <!-- ===================== TOPIC CARD: fear_n_courage ===================== -->
+            <article class="bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl">
+                <div class="h-1.5 w-full bg-gradient-to-r from-brand-accentRose via-brand-accentAmber to-brand-accentPurple"></div>
+                <div class="p-6 sm:p-8 space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <h3 class="text-xl sm:text-2xl font-bold text-brand-textLight">
+                            <a href="./fear_n_courage/" class="hover:text-brand-accentPurple transition-colors">⚔️ Fear &amp; Courage</a>
+                        </h3>
+                        <span class="text-xs px-3 py-1 rounded-full bg-brand-accentPurple/10 border border-brand-accentPurple/30 text-brand-accentPurple font-semibold uppercase tracking-wider">Rhetoric &amp; Neurobiology</span>
+                    </div>
+                    <p class="text-brand-textMuted leading-relaxed max-w-3xl">
+                        <strong class="text-brand-textLight">The Architecture of Courage.</strong> How language, punctuation, and neurobiology mediate fear—a single comma becomes "a pause and a permission," affect labeling inhibits the amygdala, and ACT/DBT dismantle experiential avoidance. Synthesizes literary phenomenology, Adorno's philosophy of punctuation, affective neuroscience (Damasio, Lieberman), and third-wave CBT (ACT Hexaflex, DBT Radical Acceptance).
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="./fear_n_courage/readme.md" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentEmerald transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">📝</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentEmerald">Markdown</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentEmerald transition-colors">The Full Report</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>readme.md</code> — long-form essay with 60 cited sources.</div>
+                        </a>
+                        <a href="./fear_n_courage/index.html" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentPurple transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">🧠</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentPurple">Interactive</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentPurple transition-colors">Interactive Infographic</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>index.html</code> — comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex, DBT suffering calculator &amp; courage toolkit.</div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            <!-- ===================== /TOPIC CARD ===================== -->
 
             <!-- ===================== TOPIC CARD: knowing_vs_accepting ===================== -->
             <!-- New topics: copy this article block, update the display name, summary, and file links. -->

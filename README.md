@@ -15,6 +15,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **A**: [Amplenote Data](https://krishnakanthb13.github.io/A/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
+		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
@@ -170,6 +171,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Ground Zero — Knowledge Vault (D/0):** ([overview](https://krishnakanthb13.github.io/D/0/) — living knowledge vault pairing deep-dive research essays with interactive visualizations)
+	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
