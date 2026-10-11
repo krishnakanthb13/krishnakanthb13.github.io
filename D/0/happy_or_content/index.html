@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Psychology of Enough | Happiness vs. Contentment Research SPA</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Harmony (Warm Neutral Stone Background, Sage Emerald, Amber Gold, Deep Slate, Rose Crimson) -->
+<!-- Application Structure Plan: The single-page interactive application is organized into five thematic and functional modules: 
+  1. Executive Context & Paradigm Shift: Establishes the core problem (the happiness trap) and key findings with interactive metrics.
+  2. The Conceptual & Temporal Divergence: Comparative matrix of Happiness vs. Contentment and a dynamic Chart.js time-series modeling transient hedonic spikes versus baseline stability.
+  3. Neurobiology & Evolutionary Systems: Deep dive into Berridge's Wanting vs. Liking neural circuits and Paul Gilbert's CFT Three-System Model (Threat, Drive, Soothing) featuring an Interactive Emotion Balance Simulator.
+  4. Global Evidence & Empirical Data: Visualizing Gallup World Poll / WHR data on global harmony, peace of mind, and demographic balance distributions using interactive charts.
+  5. Practical Framework & Self-Audit Tools: An interactive Contingency Dismantler, self-reflective Contentment Quotient Assessment, and clinical ACT/CFT actionable pathways.
+This structure guides the user from theoretical conceptualization to biological mechanisms, global empirical proof, and finally personal application. -->
+<!-- Visualization & Content Choices: 
+  - Hedonic Spikes vs. Baseline Stability -> Line Chart (Chart.js) -> Compare short-term excitement spikes against sustained baseline -> Canvas Chart.
+  - Neural Circuit Activation ("Wanting" vs. "Liking") -> Grouped Bar Chart (Chart.js) -> Distinguish Dopamine (seeking) vs. Opioids (savoring) -> Canvas Chart.
+  - Evolutionary Emotion Regulation (CFT 3-Systems) -> Dynamic Radar & Doughnut Chart (Chart.js) + Sliders -> Real-time simulation of biological balance & psychological risk -> Canvas Chart with dynamic JS state logic.
+  - Global Well-Being Metrics (Gallup/WHR) -> Horizontal Stacked Bar Chart (Chart.js) -> Display proportions of global harmony, content, and peace of mind -> Canvas Chart.
+  - Interactive Contingency Audit Tool & Self-Assessment -> Dynamic JS State DOM Manipulation -> Deconstruct "I will be happy when..." traps and calculate Contentment Quotient -> Styled HTML/CSS components.
+  CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<body class="bg-stone-50 text-stone-800 font-sans leading-relaxed selection:bg-emerald-100 selection:text-emerald-900">
+
+    <header class="sticky top-0 z-50 bg-stone-50/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">🌿</span>
+                <div>
+                    <h1 class="font-bold text-lg text-stone-900 leading-tight">The Psychology of Enough</h1>
+                    <p class="text-xs text-stone-500">Reevaluating Happiness in Favor of Contentment</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-stone-600">
+                <a href="#dichotomy" class="hover:text-emerald-700 transition-colors">Core Dichotomy</a>
+                <a href="#neurobiology" class="hover:text-emerald-700 transition-colors">Neurobiology & Evolution</a>
+                <a href="#global-data" class="hover:text-emerald-700 transition-colors">Global Data</a>
+                <a href="#paradox" class="hover:text-emerald-700 transition-colors">Happiness Paradox</a>
+                <a href="#tools" class="hover:text-emerald-700 transition-colors">Audit & Tools</a>
+            </nav>
+            <a href="#tools" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-full transition-all shadow-sm">
+                Self-Audit
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <section class="bg-gradient-to-br from-stone-100 via-emerald-50/40 to-stone-100 rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm">
+            <div class="max-w-3xl">
+                <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                    Research Synthesis & Interactive Exploration
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mb-4">
+                    Why the Relentless Pursuit of Happiness Backfires—and How Contentment Restores Wholeness
+                </h2>
+                <p class="text-stone-600 text-base sm:text-lg mb-6">
+                    Modern cultural narratives urge individuals to constantly ask, <em>"What am I going to do to be happy?"</em> Yet empirical affective science, neurobiology, and evolutionary psychology demonstrate that this achievement-oriented mindset triggers systemic disappointment, loneliness, and burnout. Contentment—the profound realization of having <strong>enough</strong>—offers a biologically aligned model for sustainable human flourishing.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-stone-200">
+                    <div class="bg-white p-3 rounded-xl border border-stone-200 text-center">
+                        <div class="text-2xl font-bold text-amber-600">13%+</div>
+                        <div class="text-xs text-stone-500 mt-1">Well-being drop when hyper-focusing on happiness</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-stone-200 text-center">
+                        <div class="text-2xl font-bold text-emerald-700">80%</div>
+                        <div class="text-xs text-stone-500 mt-1">Global population feeling harmony with others</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-stone-200 text-center">
+                        <div class="text-2xl font-bold text-blue-600">2 Circuits</div>
+                        <div class="text-xs text-stone-500 mt-1">Distinct systems for "Wanting" vs "Liking"</div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-stone-200 text-center">
+                        <div class="text-2xl font-bold text-teal-700">71%</div>
+                        <div class="text-xs text-stone-500 mt-1">Report feeling deeply content globally</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dichotomy" class="space-y-6">
+            <div class="border-b border-stone-200 pb-4">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase">Section 1</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">The Conceptual Divergence: Happiness vs. Contentment</h2>
+                <p class="text-stone-600 text-sm sm:text-base mt-2">
+                    This section contrasts transient, high-arousal happiness with stable, low-arousal contentment. While happiness is contingent upon external events and goals, contentment (from Latin <em>contentus</em>: "held together" or "whole") is an unconditional internal baseline that can coexist even during challenging life circumstances.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-stone-900 text-lg">Interactive Dimension Matrix</h3>
+                            <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Click row to filter insights</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-stone-200 text-xs uppercase text-stone-500 bg-stone-50">
+                                        <th class="py-3 px-3">Dimension</th>
+                                        <th class="py-3 px-3 text-amber-700">Happiness</th>
+                                        <th class="py-3 px-3 text-emerald-800">Contentment</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-100">
+                                    <tr class="hover:bg-amber-50/50 cursor-pointer transition-colors" onclick="updateDichotomyDetail('origin')">
+                                        <td class="py-3 px-3 font-semibold text-stone-700">Locus of Origin</td>
+                                        <td class="py-3 px-3 text-amber-800">External (Events, Status, Goals)</td>
+                                        <td class="py-3 px-3 text-emerald-800 font-medium">Internal (Sourced from Within)</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-50/50 cursor-pointer transition-colors" onclick="updateDichotomyDetail('duration')">
+                                        <td class="py-3 px-3 font-semibold text-stone-700">Temporal Duration</td>
+                                        <td class="py-3 px-3 text-amber-800">Short-term, Fleeting, Episodic</td>
+                                        <td class="py-3 px-3 text-emerald-800 font-medium">Long-term, Enduring Baseline</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-50/50 cursor-pointer transition-colors" onclick="updateDichotomyDetail('arousal')">
+                                        <td class="py-3 px-3 font-semibold text-stone-700">Arousal Level</td>
+                                        <td class="py-3 px-3 text-amber-800">High-Arousal (Elation, Joy, Thrill)</td>
+                                        <td class="py-3 px-3 text-emerald-800 font-medium">Low-Arousal (Calm, Peace, Ease)</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-50/50 cursor-pointer transition-colors" onclick="updateDichotomyDetail('strategy')">
+                                        <td class="py-3 px-3 font-semibold text-stone-700">Psychological Strategy</td>
+                                        <td class="py-3 px-3 text-amber-800">The "More Strategy" (Acquisition)</td>
+                                        <td class="py-3 px-3 text-emerald-800 font-medium">The "Enough Strategy" (Wholeness)</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-50/50 cursor-pointer transition-colors" onclick="updateDichotomyDetail('coexistence')">
+                                        <td class="py-3 px-3 font-semibold text-stone-700">Affective Coexistence</td>
+                                        <td class="py-3 px-3 text-amber-800">Mutually exclusive with sadness</td>
+                                        <td class="py-3 px-3 text-emerald-800 font-medium">Coexists with full emotional spectrum</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="dichotomy-detail-box" class="bg-emerald-50/60 rounded-2xl p-5 border border-emerald-200">
+                        <h4 id="detail-title" class="font-bold text-emerald-900 text-base mb-1">Select a dimension above</h4>
+                        <p id="detail-desc" class="text-emerald-800 text-sm">
+                            Click on any row in the comparison matrix to explore deep affective mechanics, cross-cultural definitions (such as Bhutanese <em>chokkshay</em>), and therapeutic distinctions between contentment and complacency.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-stone-900 text-base">Temporal Dynamics Simulation</h3>
+                            <span class="text-xs bg-stone-100 text-stone-600 px-2 py-0.5 rounded">30-Day Affective Model</span>
+                        </div>
+                        <p class="text-xs text-stone-500 mb-4">
+                            Simulating emotional levels over time: Notice how happiness pursuits result in volatile spikes followed by rapid hedonic adaptation, whereas contentment maintains a resilient baseline.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="dichotomyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="setTemporalScenario('achievement')" class="flex-1 py-1.5 px-3 text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-medium transition-colors">
+                            Scenario: Major Goal Achieved
+                        </button>
+                        <button onclick="setTemporalScenario('setback')" class="flex-1 py-1.5 px-3 text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-medium transition-colors">
+                            Scenario: External Setback
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="neurobiology" class="space-y-6">
+            <div class="border-b border-stone-200 pb-4">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase">Section 2</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Neurobiology & Evolutionary Systems</h2>
+                <p class="text-stone-600 text-sm sm:text-base mt-2">
+                    Understanding why the pursuit of happiness leads to perpetual dissatisfaction requires examining brain architecture. Kent Berridge's affective neuroscience uncouples <strong>"Wanting"</strong> (dopaminergic incentive salience) from <strong>"Liking"</strong> (opioid-mediated pleasure). Concurrently, Paul Gilbert's Evolutionary Three-System Model shows how modern culture hyper-stimulates Drive while starving the Soothing System.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                        <h3 class="font-bold text-stone-900 text-base">Berridge's Neurochemical Uncoupling</h3>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full">Dopamine vs. Opioids</span>
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Dopamine is not the "pleasure chemical"; it drives anticipation, seeking, and craving ("Wanting"). True hedonic enjoyment ("Liking") is produced by tiny, fragile hedonic hotspots mediated by opioids and endocannabinoids.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="neuroChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                            <span class="text-xs font-bold text-amber-900 block">Dopaminergic "Wanting"</span>
+                            <span class="text-xs text-amber-800 mt-1 block">VTA & Nucleus Accumbens core. High arousal, endless ambition, easily sensitized.</span>
+                        </div>
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <span class="text-xs font-bold text-emerald-900 block">Opioid "Liking"</span>
+                            <span class="text-xs text-emerald-800 mt-1 block">Nucleus Accumbens shell & Ventral Pallidum hotspots. Savoring, peace, completion.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                            <h3 class="font-bold text-stone-900 text-base">Paul Gilbert's CFT Three-System Balance</h3>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full">Interactive Simulator</span>
+                        </div>
+                        <p class="text-xs text-stone-600 mt-2 mb-4">
+                            Adjust the sliders below to simulate how modern lifestyles shift evolutionary emotion regulation pathways, or select a preset scenario:
+                        </p>
+
+                        <div class="flex gap-2 mb-4">
+                            <button onclick="applySystemPreset('striver')" class="px-2.5 py-1 text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-md font-medium transition-colors">
+                                Corporate Striver
+                            </button>
+                            <button onclick="applySystemPreset('burnout')" class="px-2.5 py-1 text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-md font-medium transition-colors">
+                                Burnout Mode
+                            </button>
+                            <button onclick="applySystemPreset('contentment')" class="px-2.5 py-1 text-xs bg-emerald-100 hover:bg-emerald-200 text-emerald-800 rounded-md font-medium transition-colors">
+                                Cultivated Contentment
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-rose-700">Threat System (Adrenaline / Cortisol)</span>
+                                    <span id="threatVal" class="text-rose-700">65%</span>
+                                </div>
+                                <input type="range" id="threatSlider" min="0" max="100" value="65" class="w-full accent-rose-600" oninput="updateSystemSimulation()">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-blue-700">Drive System (Dopamine / Seeking)</span>
+                                    <span id="driveVal" class="text-blue-700">85%</span>
+                                </div>
+                                <input type="range" id="driveSlider" min="0" max="100" value="85" class="w-full accent-blue-600" oninput="updateSystemSimulation()">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-emerald-700">Soothing System (Oxytocin / Opiates)</span>
+                                    <span id="soothingVal" class="text-emerald-700">20%</span>
+                                </div>
+                                <input type="range" id="soothingSlider" min="0" max="100" value="20" class="w-full accent-emerald-600" oninput="updateSystemSimulation()">
+                            </div>
+                        </div>
+
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="systemChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="systemDiagnostic" class="p-3 bg-stone-100 rounded-xl border border-stone-200 text-xs text-stone-700 mt-2">
+                        <strong>Diagnostic State:</strong> High Threat & Drive with depleted Soothing. High risk of exhaustion, chronic anxiety, and hedonic fatigue.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="paradox" class="space-y-6">
+            <div class="border-b border-stone-200 pb-4">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase">Section 3</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">The Paradoxical Effects of Valuing Happiness</h2>
+                <p class="text-stone-600 text-sm sm:text-base mt-2">
+                    Empirical studies by Iris Mauss and colleagues reveal a striking paradox: explicitly valuing happiness sets unattainable emotional standards, resulting in self-monitoring, acute disappointment, heightened loneliness, and clinical vulnerability to depression.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg">
+                        1
+                    </div>
+                    <h3 class="font-bold text-stone-900 text-base">The Low-Stress Disappointment Paradox</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Under low-stress conditions—when individuals have every reason to feel good—those who highly value happiness report <strong>lower life satisfaction</strong> and <strong>higher depressive symptoms</strong>. They continuously evaluate: <em>"Am I as happy as I should be?"</em>
+                    </p>
+                    <div class="bg-amber-50 p-2.5 rounded-lg border border-amber-200 text-xs text-amber-900 font-medium">
+                        Meta-Emotion: Feeling bad about not feeling good enough.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-lg">
+                        2
+                    </div>
+                    <h3 class="font-bold text-stone-900 text-base">Interpersonal Disconnection & Loneliness</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Western happiness is defined individually. Explicitly pursuing individual positive emotion draws cognitive focus inward, damaging social empathy. Research shows daily happiness valuation strongly correlates with daily operational loneliness.
+                    </p>
+                    <div class="bg-rose-50 p-2.5 rounded-lg border border-rose-200 text-xs text-rose-900 font-medium">
+                        Social Erosion: Inward self-optimization isolates from social bonds.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-stone-200 text-stone-800 flex items-center justify-center font-bold text-lg">
+                        3
+                    </div>
+                    <h3 class="font-bold text-stone-900 text-base">Clinical Risk & Depressive Vulnerability</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        In clinical extensions, extreme valuation of happiness represents a significant risk factor for Major Depressive Disorder (MDD). Measuring internal states against unrealistic cultural ideals creates chronic feelings of perceived deficiency.
+                    </p>
+                    <div class="bg-stone-100 p-2.5 rounded-lg border border-stone-300 text-xs text-stone-800 font-medium">
+                        Clinical Vulnerability: Unattainable metrics amplify depressive cycles.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="global-data" class="space-y-6">
+            <div class="border-b border-stone-200 pb-4">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase">Section 4</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Global Perspectives & WHR Data (Beyond WEIRD)</h2>
+                <p class="text-stone-600 text-sm sm:text-base mt-2">
+                    Historical psychological research relied heavily on WEIRD (Western, Educated, Industrialized, Rich, Democratic) populations. The Global Wellbeing Initiative (Gallup & Wellbeing for Planet Earth Foundation) incorporated metrics of balance, harmony, and peace of mind into the World Happiness Report.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                        <h3 class="font-bold text-stone-900 text-base">Gallup World Poll Findings (Global Averages)</h3>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-1 rounded-full">140+ Countries</span>
+                    </div>
+                    <p class="text-xs text-stone-600">
+                        The majority of people worldwide prefer a calm, balanced life over an exciting, high-arousal life, contradicting Western assumptions:
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="globalChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-stone-100 rounded-2xl p-6 border border-stone-200 space-y-3">
+                        <h3 class="font-bold text-stone-900 text-lg">Key Global Findings</h3>
+                        <ul class="space-y-2.5 text-xs text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✓</span>
+                                <span><strong>80% Globally:</strong> Feel in harmony with others in their immediate community.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✓</span>
+                                <span><strong>71% Globally:</strong> Experience a steady sense of inner contentment with life.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✓</span>
+                                <span><strong>61% Globally:</strong> Maintain peace of mind even during severe life hardships.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✓</span>
+                                <span><strong>Age Variance:</strong> Perceived balance increases with age (78% for ages 70-79 vs. 66% for youth 18-24).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-900 text-white rounded-2xl p-6 space-y-2">
+                        <h4 class="font-bold text-sm text-emerald-200">The Peace of Mind Scale (PoMS)</h4>
+                        <p class="text-xs text-emerald-100 leading-relaxed">
+                            Formalized by Lee et al., PoMS measures internal harmony separate from high-arousal happiness. World Happiness Report data confirms peace and balance provide a unique, independent pathway to subjective well-being.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="space-y-6">
+            <div class="border-b border-stone-200 pb-4">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase">Section 5</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Practical Framework & Self-Audit Tools</h2>
+                <p class="text-stone-600 text-sm sm:text-base mt-2">
+                    Transitioning from the exhausting "More Strategy" to the sustainable "Enough Strategy" requires actionable clinical approaches derived from Acceptance & Commitment Therapy (ACT) and Compassion-Focused Therapy (CFT).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <div class="border-b border-stone-100 pb-3">
+                        <h3 class="font-bold text-stone-900 text-base">Tool 1: Interactive Contingency Dismantler</h3>
+                        <p class="text-xs text-stone-500 mt-1">Select a common conditional happiness mindset to deconstruct its neurobiological trap:</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-stone-700 block">Select Contingent Statement ("I'll be happy when..."):</label>
+                        <select id="contingencySelect" onchange="dismantleContingency()" class="w-full text-xs bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 font-medium focus:ring-2 focus:ring-emerald-500 outline-none">
+                            <option value="career">"When I get my next big promotion / job title..."</option>
+                            <option value="financial">"When I reach a specific bank account balance..."</option>
+                            <option value="body">"When I attain my ideal physique / body weight..."</option>
+                            <option value="relationship">"When I secure the ideal romantic partner / status..."</option>
+                        </select>
+                    </div>
+
+                    <div id="contingencyResult" class="space-y-3 pt-2">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <div class="border-b border-stone-100 pb-3 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-stone-900 text-base">Tool 2: Contentment Quotient Assessment</h3>
+                            <p class="text-xs text-stone-500 mt-1">Evaluate your orientation toward "Enough" vs "More":</p>
+                        </div>
+                        <span id="scoreBadge" class="text-xs font-bold px-2.5 py-1 bg-stone-100 text-stone-700 rounded-full">Score: --</span>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-stone-700 font-medium mb-1">1. How often do you audit your mood asking "Am I happy right now?"</label>
+                            <select id="q1" onchange="calculateScore()" class="w-full bg-stone-50 border border-stone-200 rounded p-1.5 text-stone-800">
+                                <option value="1">Constantly throughout the day (High Pursuit)</option>
+                                <option value="2">Occasionally during stressful times</option>
+                                <option value="3">Rarely; I focus on present tasks (Contentment Orientated)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-stone-700 font-medium mb-1">2. When bad weather, setbacks, or sadness occur, how do you react?</label>
+                            <select id="q2" onchange="calculateScore()" class="w-full bg-stone-50 border border-stone-200 rounded p-1.5 text-stone-800">
+                                <option value="1">I feel like I failed and urgently try to force positivity</option>
+                                <option value="2">I feel frustrated but wait for it to pass</option>
+                                <option value="3">I accept it as transient baseline emotional weather</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-stone-700 font-medium mb-1">3. When experiencing a desire/urge (shopping, checking phone, achievement):</label>
+                            <select id="q3" onchange="calculateScore()" class="w-full bg-stone-50 border border-stone-200 rounded p-1.5 text-stone-800">
+                                <option value="1">I immediately follow the craving ("Wanting")</option>
+                                <option value="2">I hesitate but usually give in</option>
+                                <option value="3">I pause to audit whether it yields true satisfaction ("Liking")</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="assessmentResult" class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-700">
+                        Complete the 3 questions above to receive your personalized psychological orientation report.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-900 text-stone-100 rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="max-w-2xl">
+                    <h3 class="text-xl font-bold text-white mb-2">The 4-Step Clinical Action Plan for Contentment</h3>
+                    <p class="text-xs sm:text-sm text-stone-300">
+                        Evidence-based therapeutic techniques from ACT and CFT to recalibrate neurobiological reward systems:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <span class="text-emerald-400 font-bold text-xs uppercase block">Step 1 • Radical Acceptance</span>
+                        <h4 class="font-bold text-sm text-white">Dismantle the Happiness Trap</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            Stop treating emotional discomfort as a threat. Observe transient internal states without compulsory urges to fix them.
+                        </p>
+                    </div>
+
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <span class="text-amber-400 font-bold text-xs uppercase block">Step 2 • Cognitive Uncoupling</span>
+                        <h4 class="font-bold text-sm text-white">Audit Contingencies</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            Map "When X happens..." statements. Unchain foundational self-worth from unpredictable future goals.
+                        </p>
+                    </div>
+
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <span class="text-teal-400 font-bold text-xs uppercase block">Step 3 • CFT Training</span>
+                        <h4 class="font-bold text-sm text-white">Activate Soothing System</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            Practice soothing rhythm breathing and self-compassion imagery to release oxytocin and quiet threat pathways.
+                        </p>
+                    </div>
+
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <span class="text-blue-400 font-bold text-xs uppercase block">Step 4 • Behavioral Pause</span>
+                        <h4 class="font-bold text-sm text-white">Pause Dopamine Loops</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            Audit urges ("Wanting") before acting. Redirect behavior toward present-moment savoring ("Liking").
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs text-stone-600 font-medium">
+                The Psychology of Enough: Reevaluating Happiness in Favor of Contentment
+            </p>
+            <p class="text-xs text-stone-400">
+                Synthesized from Affective Neuroscience (Berridge), Evolutionary Psychology (Gilbert), Positive Psychology (Mauss), and Global Gallup Data (WHR).
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const dichotomyDetails = {
+            origin: {
+                title: "Locus of Origin: Internal vs. External",
+                desc: "Happiness is reactive to external stimuli (promotions, purchases, compliments). Contentment originates internally; derived from the Latin 'contentus' ('held together'), it signifies feeling whole and complete regardless of outside turbulence."
+            },
+            duration: {
+                title: "Temporal Duration: Fleeting vs. Enduring",
+                desc: "Happiness produces rapid hedonic adaptation—the emotional high returns quickly to baseline. Contentment functions as a resilient foundation that resists external volatility and life fluctuations."
+            },
+            arousal: {
+                title: "Arousal Level: High-Arousal vs. Low-Arousal",
+                desc: "Happiness is characterized by high-arousal affect (excitement, elation, thrill) which depletes physiological energy. Contentment is low-arousal (calmness, equanimity, ease), activating the parasympathetic soothing system."
+            },
+            strategy: {
+                title: "Psychological Strategy: 'More' vs. 'Enough'",
+                desc: "Happiness relies on the 'More Strategy'—continuous acquisition and striving. Contentment relies on the 'Enough Strategy' (Bhutanese 'chokkshay'), recognizing present completeness without requiring external addition."
+            },
+            coexistence: {
+                title: "Affective Coexistence: Exclusive vs. Inclusive",
+                desc: "Happiness is mutually exclusive with negative emotions (you cannot feel elation while grieving). Contentment is a foundational house; you can experience acute grief or setbacks while maintaining underlying contentment."
+            }
+        };
+
+        function updateDichotomyDetail(key) {
+            const detail = dichotomyDetails[key];
+            if (detail) {
+                document.getElementById('detail-title').innerText = detail.title;
+                document.getElementById('detail-desc').innerText = detail.desc;
+            }
+        }
+
+        let dichotomyChart;
+        function initDichotomyChart() {
+            const ctx = document.getElementById('dichotomyChart').getContext('2d');
+            dichotomyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 15}, (_, i) => `Day ${i+1}`),
+                    datasets: [
+                        {
+                            label: 'Happiness Pursuit (High Arousal)',
+                            data: [30, 85, 35, 25, 90, 40, 30, 20, 80, 30, 25, 95, 35, 20, 30],
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Contentment Baseline (Low Arousal)',
+                            data: [70, 72, 68, 71, 73, 70, 69, 68, 72, 71, 70, 72, 69, 68, 71],
+                            borderColor: '#047857',
+                            backgroundColor: 'rgba(4, 120, 87, 0.05)',
+                            borderWidth: 2.5,
+                            tension: 0.2,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Affective Rating (0-100)', font: { size: 10 } }
+                        },
+                        x: {
+                            title: { display: true, text: 'Time Continuum', font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        function setTemporalScenario(type) {
+            if (type === 'achievement') {
+                dichotomyChart.data.datasets[0].data = [30, 95, 60, 35, 30, 25, 30, 85, 45, 30, 25, 30, 90, 40, 30];
+                dichotomyChart.data.datasets[1].data = [70, 75, 73, 72, 71, 70, 71, 74, 72, 71, 70, 71, 73, 71, 70];
+            } else if (type === 'setback') {
+                dichotomyChart.data.datasets[0].data = [40, 20, 10, 15, 60, 30, 20, 10, 15, 50, 25, 15, 20, 30, 35];
+                dichotomyChart.data.datasets[1].data = [70, 62, 58, 60, 65, 68, 67, 60, 62, 66, 68, 65, 67, 69, 70];
+            }
+            dichotomyChart.update();
+        }
+
+        let neuroChart;
+        function initNeuroChart() {
+            const ctx = document.getElementById('neuroChart').getContext('2d');
+            neuroChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Anticipation / Goal Phase', 'Consumption / Arrival Phase', 'Post-Event Baseline'],
+                    datasets: [
+                        {
+                            label: 'Dopamine ("Wanting" System)',
+                            data: [95, 25, 15],
+                            backgroundColor: '#f59e0b'
+                        },
+                        {
+                            label: 'Opioid / Endocannabinoid ("Liking" System)',
+                            data: [15, 85, 70],
+                            backgroundColor: '#10b981'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Neural Circuit Activation Level (%)', font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        let systemChart;
+        function initSystemChart() {
+            const ctx = document.getElementById('systemChart').getContext('2d');
+            systemChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Threat System', 'Drive System', 'Soothing System'],
+                    datasets: [{
+                        data: [65, 85, 20],
+                        backgroundColor: ['#e11d48', '#2563eb', '#059669'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function updateSystemSimulation() {
+            const t = parseInt(document.getElementById('threatSlider').value);
+            const d = parseInt(document.getElementById('driveSlider').value);
+            const s = parseInt(document.getElementById('soothingSlider').value);
+
+            document.getElementById('threatVal').innerText = t + '%';
+            document.getElementById('driveVal').innerText = d + '%';
+            document.getElementById('soothingVal').innerText = s + '%';
+
+            systemChart.data.datasets[0].data = [t, d, s];
+            systemChart.update();
+
+            const diag = document.getElementById('systemDiagnostic');
+            if (s >= 50 && t <= 40 && d <= 60) {
+                diag.className = "p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900";
+                diag.innerHTML = "<strong>Diagnostic State: Equanimous Contentment.</strong> High Soothing system activity successfully down-regulates Threat and keeps Drive in balanced, non-addictive alignment.";
+            } else if (d > 70 && s < 30) {
+                diag.className = "p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900";
+                diag.innerHTML = "<strong>Diagnostic State: High Drive / Dopamine Rush.</strong> Vulnerable to the Happiness Trap. Continuous resource seeking without hedonic rest leads to burnout.";
+            } else if (t > 60) {
+                diag.className = "p-3 bg-rose-50 rounded-xl border border-rose-200 text-xs text-rose-900";
+                diag.innerHTML = "<strong>Diagnostic State: Chronic Threat Activation.</strong> Elevated stress/cortisol. Attempting to use Drive to fix Threat creates severe emotional exhaustion.";
+            } else {
+                diag.className = "p-3 bg-stone-100 rounded-xl border border-stone-200 text-xs text-stone-700";
+                diag.innerHTML = "<strong>Diagnostic State: Mixed Regulation.</strong> Moderate balance. Elevating the Soothing system (oxytocin) will improve baseline resilience.";
+            }
+        }
+
+        function applySystemPreset(preset) {
+            if (preset === 'striver') {
+                document.getElementById('threatSlider').value = 65;
+                document.getElementById('driveSlider').value = 90;
+                document.getElementById('soothingSlider').value = 15;
+            } else if (preset === 'burnout') {
+                document.getElementById('threatSlider').value = 85;
+                document.getElementById('driveSlider').value = 75;
+                document.getElementById('soothingSlider').value = 10;
+            } else if (preset === 'contentment') {
+                document.getElementById('threatSlider').value = 25;
+                document.getElementById('driveSlider').value = 45;
+                document.getElementById('soothingSlider').value = 80;
+            }
+            updateSystemSimulation();
+        }
+
+        let globalChart;
+        function initGlobalChart() {
+            const ctx = document.getElementById('globalChart').getContext('2d');
+            globalChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Feel Harmony with Others',
+                        'Report Feeling Content',
+                        'Prefer Calm over Exciting Life',
+                        'Inner Peace in Difficult Times'
+                    ],
+                    datasets: [{
+                        label: '% Global Agreement (Gallup / WHR Data)',
+                        data: [80, 71, 68, 61],
+                        backgroundColor: ['#047857', '#059669', '#10b981', '#34d399']
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Percentage of Global Population (%)', font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        const contingencyData = {
+            career: {
+                trap: "Dopamine Incentive Salience Trap: A promotion triggers a temporary surge in 'Wanting', but upon achievement, hedonic adaptation quickly resets baseline expectations.",
+                cft: "Drive System Overdrive: Treats career status as an evolutionary necessity to avoid threat of inferiority.",
+                shift: "The Enough Strategy: Focus on present intrinsic mastery and craftsmanship rather than external title acquisition."
+            },
+            financial: {
+                trap: "Moving Target Paradox: Financial benchmarks continually escalate once reached because dopamine rewards the pursuit, not the stationary balance.",
+                cft: "Threat System Hijack: Financial insecurity fears continuously block the Soothing system.",
+                shift: "The Enough Strategy: Establish clear 'sufficiency metrics' and practice gratitude for current resources."
+            },
+            body: {
+                trap: "Self-Monitoring Audit Trap: Hyper-focusing on physical metrics causes meta-disappointment whenever actual state deviates from ideal standards.",
+                cft: "Threat/Shame System Activation: Driven by social comparison and perceived status vulnerability.",
+                shift: "The Enough Strategy: Embrace somatic acceptance and functional appreciation of the present body."
+            },
+            relationship: {
+                trap: "External Dependency Trap: Placing well-being entirely on a partner creates interpersonal anxiety and conditional affection.",
+                cft: "Insecure Attachment Drive: Seeking external validation to temporarily calm an unsoothed threat system.",
+                shift: "The Enough Strategy: Cultivate internal self-compassion to enter relationships from a position of personal wholeness."
+            }
+        };
+
+        function dismantleContingency() {
+            const val = document.getElementById('contingencySelect').value;
+            const data = contingencyData[val];
+            const res = document.getElementById('contingencyResult');
+
+            res.innerHTML = `
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-1">
+                    <span class="text-xs font-bold text-amber-900 block">⚡ Neurobiological Craving Trap</span>
+                    <p class="text-xs text-amber-800">${data.trap}</p>
+                </div>
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
+                    <span class="text-xs font-bold text-rose-900 block">🛡️ Evolutionary System Trigger</span>
+                    <p class="text-xs text-rose-800">${data.cft}</p>
+                </div>
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+                    <span class="text-xs font-bold text-emerald-900 block">🌿 Re-framed "Enough Strategy" Shift</span>
+                    <p class="text-xs text-emerald-800 font-medium">${data.shift}</p>
+                </div>
+            `;
+        }
+
+        function calculateScore() {
+            const q1 = parseInt(document.getElementById('q1').value);
+            const q2 = parseInt(document.getElementById('q2').value);
+            const q3 = parseInt(document.getElementById('q3').value);
+
+            const total = q1 + q2 + q3;
+            const badge = document.getElementById('scoreBadge');
+            const res = document.getElementById('assessmentResult');
+
+            if (total === 9) {
+                badge.className = "text-xs font-bold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full";
+                badge.innerText = "Score: High Contentment (9/9)";
+                res.className = "p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900";
+                res.innerHTML = "<strong>Optimal Wholeness:</strong> You exhibit strong reliance on the 'Enough Strategy'. Your soothing system effectively regulates threat and drive pathways.";
+            } else if (total >= 6) {
+                badge.className = "text-xs font-bold px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full";
+                badge.innerText = `Score: Moderate Balance (${total}/9)`;
+                res.className = "p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900";
+                res.innerHTML = "<strong>Balanced Striving:</strong> You periodically enter the Happiness Trap during high-stress moments. Focus on pausing dopaminergic cravings before acting.";
+            } else {
+                badge.className = "text-xs font-bold px-2.5 py-1 bg-rose-100 text-rose-800 rounded-full";
+                badge.innerText = `Score: Happiness Trap Risk (${total}/9)`;
+                res.className = "p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900";
+                res.innerHTML = "<strong>High Pursuit Exhaustion:</strong> Your well-being is highly contingent on external outcomes. Incorporate Compassionate Mind Training (CFT) and ACT radical acceptance.";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDichotomyChart();
+            initNeuroChart();
+            initSystemChart();
+            initGlobalChart();
+            dismantleContingency();
+            calculateScore();
+            updateDichotomyDetail('origin');
+        });
+    </script>
+</body>
+</html>

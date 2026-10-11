@@ -83,6 +83,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Happy or Content](./happy_or_content/)
+**The Psychology of Enough** — why the relentless cultural pursuit of happiness backfires, and why contentment—the unconditional, low-arousal sense of wholeness—offers a more sustainable model for human flourishing. Synthesizes affective science (the paradoxical effects of valuing happiness), Berridge's wanting/liking affective neuroscience, Gilbert's Compassion-Focused Therapy three-system model, and Global Wellbeing Initiative / World Happiness Report data.
+
+- 📝 [The Full Report](./happy_or_content/readme.md) — the long-form essay with 45 cited sources. (`readme.md`)
+- 🌿 [Interactive Infographic](./happy_or_content/index.html) — the complete warm-themed interactive page: comparative dimension matrix, 30-day hedonic temporal dynamics simulation, Berridge's wanting-vs-liking neural circuit chart, CFT three-system balance simulator, Gallup global well-being charts, contingency dismantler, and a contentment quotient assessment. (`index.html`)
+
+---
+
 ### 📁 [Knowing vs. Accepting](./knowing_vs_accepting/)
 **The Epistemology and Somatics of Surrender** — why intellectual "knowing" routinely fails to change behavior, and why acceptance is the costly, embodied act of translating a fact into the nervous system. Synthesizes cognitive psychology (hot-cold empathy gap, cognitive dissonance, knowing-doing gap), somatic psychotherapy (EFT, Gendlin's Focusing, DBT Radical Acceptance), and contemplative epistemologies (Advaita Vedanta's *Paroksha → Aparoksha*, Buddhism's three stages of wisdom).
 

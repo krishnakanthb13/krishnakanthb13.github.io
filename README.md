@@ -16,6 +16,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
+		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
@@ -174,6 +175,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
+	- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/): The Psychology of Enough — why the pursuit of happiness paradoxically backfires and how contentment restores wholeness.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/happy_or_content/): Dimension matrix, hedonic time-series simulator, wanting-vs-liking chart, CFT three-system simulator & contentment quotient assessment.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/happy_or_content/readme.md): Long-form research essay with 45 cited sources.
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
