@@ -75,6 +75,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ## Vault Contents
 
+### 📁 [Counter-Dependency Paradox](./counter_dependency_paradox/)
+**The Architecture of the Isolated Self** — why extreme self-reliance is often a rigid, compulsive defense mechanism rather than resilience: the individuals who appear to require absolutely no one are consistently the ones who harbor the most acute terror of interpersonal connection. Synthesizes the Weinhold developmental model, attachment theory (Bowlby, Ainsworth), Polyvagal Theory (Porges), Internal Family Systems (Schwartz), Schema Therapy (Young), and Feeney's empirical dependency paradox.
+
+- 📝 [The Full Report](./counter_dependency_paradox/readme.md) — the long-form essay with 63 cited sources. (`readme.md`)
+- 🛡️ [Interactive Infographic](./counter_dependency_paradox/index.html) — the complete indigo-themed interactive page: Weinhold 4-stage developmental explorer, pursuer-distancer loop simulator, codependency vs. counter-dependency and NPD differential matrices, "upper" addictions showcase, polyvagal nervous-system explorer, alexithymia somatic map, Feeney dependency-paradox chart, and a 6-question self-reflection screener. (`index.html`)
+
+---
+
 ### 📁 [Fear & Courage](./fear_n_courage/)
 **The Architecture of Courage** — a cognitive, rhetorical, and clinical analysis of fear, acceptance, and the punctuation of emotion: how a single comma becomes "a pause and a permission," how affect labeling inhibits the amygdala, and how ACT and DBT dismantle experiential avoidance. Synthesizes literary phenomenology, Adorno's philosophy of punctuation, affective neuroscience (Damasio, Lieberman), and third-wave cognitive-behavioral paradigms.
 

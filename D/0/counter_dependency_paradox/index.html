@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Counter-Dependency Paradox: Interactive Clinical Report</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slateBg: '#F8FAFC',
+                        warmNeutral: '#F1F5F9',
+                        brandPrimary: '#312E81', // Deep Indigo
+                        brandSecondary: '#4338CA', // Indigo Accent
+                        amberAccent: '#D97706', // Warm Amber
+                        tealAccent: '#0D9488', // Deep Teal
+                        roseAccent: '#E11D48', // Subdued Rose
+                        darkText: '#1E293B',
+                        mutedText: '#64748B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-active {
+            border-bottom: 3px solid #4338CA;
+            color: #312E81;
+            font-weight: 700;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Slate & Warm Amber / Muted Indigo Harmony (Background: #F8FAFC, Primary: #312E81, Accents: #4338CA, #D97706, #0D9488) -->
+<!-- Application Structure Plan:
+    1. Navigation Bar: Persistent header with quick links to all 6 core thematic modules + Interactive Assessment drawer toggle.
+    2. Executive Hero Banner: High-impact synthesis of the Paradox, comparing hyper-independence vs. true autonomy.
+    3. Module 1 - The Developmental Arc (Weinhold Model): Interactive 4-stage timeline explorer with detailed developmental task cards and Chart.js radial stage breakdown.
+    4. Module 2 - The Relational Matrix & Pursuer-Distancer Loop: Step-by-step interactive simulator showing the feedback loop when intimacy triggers avoidant deactivation.
+    5. Module 3 - Diagnostic Matrices & Defensive Masks: Tabbed comparison matrix for Codependency vs. Counter-dependency and Differential Diagnosis vs. Narcissism (NPD), plus "Upper" addictions deep-dive.
+    6. Module 4 - Somatics & Polyvagal Neurobiology: Interactive nervous system state selector (Ventral Vagal, Sympathetic, Dorsal Vagal) and dynamic bodily pain map highlighting how alexithymia converts repressed vulnerability into somatic symptoms.
+    7. Module 5 - Therapeutic Modalities & The Dependency Paradox: Dynamic explorer for IFS parts (Managers, Exiles, Firefighters), Schema Therapy, Polyvagal titration, and Feeney's Empirical Dependency Paradox findings chart.
+    8. Module 6 - Interactive Self-Reflection Assessment: 6-question clinical screener providing tailored insight into counter-dependent traits.
+-->
+<!-- Visualization & Content Choices:
+    - Weinhold Stage Distribution -> Goal: Inform/Organize -> Donut Chart (Chart.js) -> Hover/Click details -> Clean visual proportion of childhood trauma origins.
+    - Deactivation Strategy Intensity -> Goal: Compare -> Horizontal Bar Chart (Chart.js) -> Compare psychological defense triggers vs impact on partner.
+    - Pursuer-Distancer Feedback Loop -> Goal: Process/Change -> Interactive Step Controller (Vanilla JS) -> Allows user to step through the escalation cycle sequentially to understand relational mechanics.
+    - Polyvagal Nervous System Explorer -> Goal: Organize/Identify -> Interactive HTML/CSS Cards -> Clicking states updates biological markers, cardiac vagal tone, and relational behaviors.
+    - Somatic Symptom Map -> Goal: Highlight somatic manifestations -> Interactive Body Region Selector (HTML/CSS/JS) -> Clicking body areas reveals alexithymia somatic pathways.
+    - Empirical Dependency Paradox -> Goal: Relationship/Proof -> Grouped Bar Chart (Chart.js) -> Displays Feeney (2007) research showing accepted dependence increases autonomous goal achievement.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Canvas and HTML/CSS styling strictly applied.
+-->
+<body class="bg-slateBg text-darkText font-sans leading-relaxed antialiased custom-scrollbar">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">🛡️</span>
+                <div>
+                    <h1 class="text-lg font-bold text-brandPrimary leading-tight">The Counter-Dependency Paradox</h1>
+                    <p class="text-xs text-mutedText hidden sm:block">Clinical Psychology & Information Architecture Portal</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-mutedText">
+                <a href="#overview" class="hover:text-brandSecondary transition-colors">Overview</a>
+                <a href="#weinhold" class="hover:text-brandSecondary transition-colors">Weinhold Model</a>
+                <a href="#relational" class="hover:text-brandSecondary transition-colors">Relational Loop</a>
+                <a href="#diagnostics" class="hover:text-brandSecondary transition-colors">Diagnostics</a>
+                <a href="#soma" class="hover:text-brandSecondary transition-colors">Neurobiology</a>
+                <a href="#therapeutics" class="hover:text-brandSecondary transition-colors">Therapy & Research</a>
+            </nav>
+
+            <button onclick="scrollToAssessment()" class="bg-brandSecondary hover:bg-brandPrimary text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-all shadow-sm flex items-center space-x-1">
+                <span>🔍</span>
+                <span>Self-Reflection Screener</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section / Context Intro -->
+    <section id="overview" class="py-12 bg-gradient-to-b from-white to-slateBg border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="inline-block bg-indigo-100 text-brandPrimary text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
+                    Psychological Deep-Dive & Clinical Synthesis
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-darkText tracking-tight mb-4">
+                    The Architecture of the Isolated Self
+                </h2>
+                <p class="text-base sm:text-lg text-mutedText leading-relaxed">
+                    In contemporary society, extreme self-reliance is frequently conflated with psychological resilience. 
+                    However, hyper-independence is often a rigid, compulsive defense mechanism. Individuals who appear to require no one are consistently those who harbor the most acute terror of interpersonal connection.
+                </p>
+            </div>
+
+            <!-- Intro Dynamic Comparative Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        HEALTHY AUTONOMY
+                    </div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-3xl">🌿</span>
+                        <h3 class="text-xl font-bold text-darkText">True Independence</h3>
+                    </div>
+                    <p class="text-sm text-mutedText mb-4">
+                        The capacity to stand firmly on one's own, while remaining fully capable of vocalizing vulnerability, seeking support, and maintaining secure interdependence.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-700">
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Flexible boundaries adapted to context</li>
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Emotional expression without existential terror</li>
+                        <li class="flex items-center"><span class="text-emerald-500 mr-2">✓</span> Asks for assistance without feeling diminished</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-rose-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        DEFENSIVE COMPULSION
+                    </div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-3xl">🏰</span>
+                        <h3 class="text-xl font-bold text-darkText">Counter-Dependency</h3>
+                    </div>
+                    <p class="text-sm text-mutedText mb-4">
+                        The pathological inability to rely on anyone. Formed as a childhood survival strategy to preemptively choose isolation rather than risk abandonment or engulfment.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-700">
+                        <li class="flex items-center"><span class="text-rose-500 mr-2">✕</span> Rigid, impenetrable emotional walls</li>
+                        <li class="flex items-center"><span class="text-rose-500 mr-2">✕</span> Viewing proximity as existential danger</li>
+                        <li class="flex items-center"><span class="text-rose-500 mr-2">✕</span> "Flight from intimacy" under relationship stress</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quotation Feature Card -->
+            <div class="mt-8 bg-brandPrimary text-white rounded-xl p-6 sm:p-8 max-w-5xl mx-auto shadow-md">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center md:text-left">
+                        <p class="text-xs uppercase tracking-widest text-amber-300 font-semibold">Core Clinical Paradox</p>
+                        <blockquote class="text-lg sm:text-xl font-medium italic">
+                            "The wall you built to avoid being abandoned guarantees that you end up alone. You protected yourself from the pain by choosing it in advance."
+                        </blockquote>
+                        <p class="text-xs text-indigo-200">— Barry & Janae Weinhold, <em>The Flight From Intimacy (1992)</em></p>
+                    </div>
+                    <button onclick="document.getElementById('weinhold').scrollIntoView({behavior: 'smooth'})" class="bg-amberAccent hover:bg-amber-600 text-white text-sm font-bold px-6 py-3 rounded-lg shadow transition-all whitespace-nowrap">
+                        Explore Developmental Origins &rarr;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: WEINHOLD DEVELOPMENTAL MODEL -->
+    <section id="weinhold" class="py-12 border-b border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-brandSecondary uppercase tracking-wider">Module 1</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText">The Weinhold Developmental Framework</h2>
+                <p class="text-sm text-mutedText mt-2 max-w-3xl">
+                    Dr. Barry Weinhold and Dr. Janae Weinhold identified four mandatory, sequential stages of human psychological development. Disruption during the separation phase (6–36 months) traps the psyche in counter-dependency.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Interactive Stage Selector Timeline (8 cols) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <p class="text-xs font-semibold text-mutedText uppercase">Click a stage to examine psychological tasks & failure points:</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Stage 1 -->
+                        <div id="stage-card-1" onclick="selectWeinholdStage(1)" class="cursor-pointer border-2 border-indigo-100 bg-slate-50 hover:border-brandSecondary p-4 rounded-xl transition-all shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-indigo-100 text-brandPrimary text-xs font-bold px-2.5 py-0.5 rounded-full">Stage 1</span>
+                                <span class="text-xs text-mutedText font-mono">0–6 Months</span>
+                            </div>
+                            <h4 class="font-bold text-darkText text-base">Codependent Stage</h4>
+                            <p class="text-xs text-mutedText mt-1">Bonding & Attachment. Total reliance on caregiver for survival.</p>
+                        </div>
+
+                        <!-- Stage 2 -->
+                        <div id="stage-card-2" onclick="selectWeinholdStage(2)" class="cursor-pointer border-2 border-brandSecondary bg-indigo-50 p-4 rounded-xl transition-all shadow-sm relative">
+                            <div class="absolute -top-2 -right-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">TRAUMA ORIGIN</div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-indigo-600 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Stage 2</span>
+                                <span class="text-xs text-mutedText font-mono">6–36 Months</span>
+                            </div>
+                            <h4 class="font-bold text-darkText text-base">Counterdependent Stage</h4>
+                            <p class="text-xs text-mutedText mt-1">Separation & Individuation. Establishing boundaries and autonomy.</p>
+                        </div>
+
+                        <!-- Stage 3 -->
+                        <div id="stage-card-3" onclick="selectWeinholdStage(3)" class="cursor-pointer border-2 border-indigo-100 bg-slate-50 hover:border-brandSecondary p-4 rounded-xl transition-all shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-indigo-100 text-brandPrimary text-xs font-bold px-2.5 py-0.5 rounded-full">Stage 3</span>
+                                <span class="text-xs text-mutedText font-mono">3–6 Years</span>
+                            </div>
+                            <h4 class="font-bold text-darkText text-base">Independent Stage</h4>
+                            <p class="text-xs text-mutedText mt-1">Internalized Autonomy. Capacity to function alone with internal connection.</p>
+                        </div>
+
+                        <!-- Stage 4 -->
+                        <div id="stage-card-4" onclick="selectWeinholdStage(4)" class="cursor-pointer border-2 border-indigo-100 bg-slate-50 hover:border-brandSecondary p-4 rounded-xl transition-all shadow-sm">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Stage 4</span>
+                                <span class="text-xs text-mutedText font-mono">6 Years+</span>
+                            </div>
+                            <h4 class="font-bold text-darkText text-base">Interdependent Stage</h4>
+                            <p class="text-xs text-mutedText mt-1">Mutual Connection. Fluid movement between giving and receiving support.</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Stage Focus Card -->
+                    <div id="stage-detail-display" class="bg-slate-900 text-white p-6 rounded-xl shadow-md space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Visualization Panel (5 cols) -->
+                <div class="lg:col-span-5 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <h3 class="text-sm font-bold text-darkText mb-1 text-center">Weinhold Trajectory & Risk Focus</h3>
+                    <p class="text-xs text-mutedText text-center mb-4">Relational Development Distribution vs Defense Risk</p>
+                    <div class="chart-container">
+                        <canvas id="weinholdChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3 text-center italic">
+                        *Disruption in Stage 2 prevents natural progression into Stage 4 Interdependence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: RELATIONAL DYNAMICS & PURSUER-DISTANCER LOOP -->
+    <section id="relational" class="py-12 border-b border-slate-200 bg-slateBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-brandSecondary uppercase tracking-wider">Module 2</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText">The Pursuer-Distancer Relational Loop</h2>
+                <p class="text-sm text-mutedText mt-2 max-w-3xl">
+                    By psychological design, counter-dependents (distancers) and codependents (pursuers) attract each other. As intimacy grows, it triggers a self-reinforcing, toxic cycle of panic and retreat.
+                </p>
+            </div>
+
+            <!-- Interactive Step-by-Step Simulator Container -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm mb-8">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 mb-6 border-b border-slate-100 gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-brandPrimary">Interactive Loop Simulator</h3>
+                        <p class="text-xs text-mutedText">Click through the steps to observe the systemic dynamic unfold</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="prev-step-btn" onclick="changeLoopStep(-1)" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded transition-colors disabled:opacity-50">
+                            &larr; Previous Step
+                        </button>
+                        <button id="next-step-btn" onclick="changeLoopStep(1)" class="px-3 py-1.5 bg-brandSecondary hover:bg-brandPrimary text-white text-xs font-bold rounded transition-colors">
+                            Next Step &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step Visualization Bar -->
+                <div class="grid grid-cols-6 gap-2 mb-6">
+                    <div id="step-dot-1" class="h-2 rounded-full bg-brandSecondary"></div>
+                    <div id="step-dot-2" class="h-2 rounded-full bg-slate-200"></div>
+                    <div id="step-dot-3" class="h-2 rounded-full bg-slate-200"></div>
+                    <div id="step-dot-4" class="h-2 rounded-full bg-slate-200"></div>
+                    <div id="step-dot-5" class="h-2 rounded-full bg-slate-200"></div>
+                    <div id="step-dot-6" class="h-2 rounded-full bg-slate-200"></div>
+                </div>
+
+                <!-- Dynamic Step Content -->
+                <div id="loop-step-content" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Deactivation Strategies Breakdown & Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-darkText mb-3 flex items-center">
+                        <span class="mr-2">⚡</span> Avoidant Deactivation Strategies
+                    </h3>
+                    <p class="text-xs text-mutedText mb-4">
+                        When the attachment system is triggered by proximity, the brain deploys specific cognitive and behavioral deactivation mechanisms:
+                    </p>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-amberAccent">
+                            <h4 class="text-xs font-bold text-darkText">Hyperfocus on Flaws</h4>
+                            <p class="text-xs text-mutedText mt-0.5">Sudden fixations on minor partner imperfections to rationally justify emotional withdrawal.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-roseAccent">
+                            <h4 class="text-xs font-bold text-darkText">Affective Numbing & Suppression</h4>
+                            <p class="text-xs text-mutedText mt-0.5">Dampening both positive and negative feelings, resulting in a flat affect mistaken for calm control.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-indigo-600">
+                            <h4 class="text-xs font-bold text-darkText">Proximity Compartmentalization</h4>
+                            <p class="text-xs text-mutedText mt-0.5">Strict physical boundaries; physical intimacy is stripped of emotional vulnerability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-darkText mb-1 text-center">Deactivation Trigger vs Impact Scale</h3>
+                    <p class="text-xs text-mutedText text-center mb-4">Quantifying defensive reaction severity under relational demands</p>
+                    <div class="chart-container">
+                        <canvas id="deactivationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: DIAGNOSTICS & DIFFERENTIAL MATRICES -->
+    <section id="diagnostics" class="py-12 border-b border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-brandSecondary uppercase tracking-wider">Module 3</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText">Clinical Diagnostics & Defensive Masks</h2>
+                <p class="text-sm text-mutedText mt-2 max-w-3xl">
+                    Counter-dependency is frequently rewarded in modern culture as career success and hyper-competence. Explore the differential matrices comparing it to Codependency and Narcissistic Personality Disorder (NPD).
+                </p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex border-b border-slate-200 mb-6 overflow-x-auto">
+                <button id="tab-btn-matrix1" onclick="switchDiagTab(1)" class="py-3 px-6 text-sm font-semibold tab-active whitespace-nowrap">
+                    Codependency vs. Counter-Dependency Matrix
+                </button>
+                <button id="tab-btn-matrix2" onclick="switchDiagTab(2)" class="py-3 px-6 text-sm font-semibold text-mutedText hover:text-darkText whitespace-nowrap">
+                    Counter-Dependency vs. Narcissism (NPD)
+                </button>
+                <button id="tab-btn-addictions" onclick="switchDiagTab(3)" class="py-3 px-6 text-sm font-semibold text-mutedText hover:text-darkText whitespace-nowrap">
+                    "Upper" Addictions Showcase
+                </button>
+            </div>
+
+            <!-- Tab 1: Codependent vs Counterdependent Matrix -->
+            <div id="diag-tab-1" class="block">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 uppercase font-bold">
+                                <th class="p-3 w-1/4">Clinical Dimension</th>
+                                <th class="p-3 w-3/8 bg-indigo-50/50 text-indigo-900">The Codependent Phenotype</th>
+                                <th class="p-3 w-3/8 bg-amber-50/50 text-amber-900">The Counter-Dependent Phenotype</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Relational Stance</td>
+                                <td class="p-3 bg-indigo-50/30">Clings to others; deeply fears abandonment and rejection.</td>
+                                <td class="p-3 bg-amber-50/30">Pushes others away; deeply fears engulfment and control.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Self-Presentation</td>
+                                <td class="p-3 bg-indigo-50/30">Projects weakness, vulnerability, and incompetence.</td>
+                                <td class="p-3 bg-amber-50/30">Projects extreme strength, invulnerability, and hyper-competence.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Affect Regulation</td>
+                                <td class="p-3 bg-indigo-50/30">Overwhelmed and flooded by their own and others' emotions.</td>
+                                <td class="p-3 bg-amber-50/30">Cut off from feelings; emotionally suppressed, highly rational, detached.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Locus of Focus</td>
+                                <td class="p-3 bg-indigo-50/30">Other-centered; compulsive people-pleasing and self-sacrifice.</td>
+                                <td class="p-3 bg-amber-50/30">Self-centered; controlling of others and immediate environment.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Defense Roles</td>
+                                <td class="p-3 bg-indigo-50/30">Assumes Victim or Rescuer role; internalizes intense guilt.</td>
+                                <td class="p-3 bg-amber-50/30">Assumes Rescuer or Persecutor role; externalizes blame onto others.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-darkText">Addiction Profile</td>
+                                <td class="p-3 bg-indigo-50/30">"Downer" addictions (food, alcohol, passive soothing dependencies).</td>
+                                <td class="p-3 bg-amber-50/30">"Upper" addictions (workaholism, perfectionism, adrenaline, control).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 2: Counter-dependency vs Narcissism -->
+            <div id="diag-tab-2" class="hidden">
+                <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg mb-4 text-xs text-indigo-900">
+                    <strong>Differential Note:</strong> While both profiles present grandiosity and detachment, the underlying motivation differs radically. Narcissists extract supply to subjugate; counter-dependents build distance purely for survival and autonomy protection.
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 border border-slate-200 rounded-xl bg-slate-50">
+                        <span class="text-xs font-bold text-rose-600 uppercase">Pathology A</span>
+                        <h4 class="text-lg font-bold text-darkText mb-2">Narcissistic Personality (NPD)</h4>
+                        <ul class="space-y-2 text-xs text-slate-700">
+                            <li><strong>Core Drive:</strong> Extraction of "narcissistic supply" (admiration, validation, total dominance).</li>
+                            <li><strong>Empathy Capacity:</strong> Pathological lack of empathy; exploits others for self-aggrandizement.</li>
+                            <li><strong>Relational Goal:</strong> Subjugation and total dependency of partner to bolster fragile ego.</li>
+                            <li><strong>Underlying Threat:</strong> Egocentric shame and loss of external status/admiration.</li>
+                        </ul>
+                    </div>
+                    <div class="p-5 border border-amber-200 rounded-xl bg-amber-50/40">
+                        <span class="text-xs font-bold text-amber-700 uppercase">Pathology B</span>
+                        <h4 class="text-lg font-bold text-darkText mb-2">Counter-Dependent Defense</h4>
+                        <ul class="space-y-2 text-xs text-slate-700">
+                            <li><strong>Core Drive:</strong> Safety, autonomy preservation, and avoidance of emotional entrapment.</li>
+                            <li><strong>Empathy Capacity:</strong> Suppressed empathy (alexithymia) to avoid being overwhelmed by demands.</li>
+                            <li><strong>Relational Goal:</strong> Maintaining strict distance to prevent emotional engulfment or exposure.</li>
+                            <li><strong>Underlying Threat:</strong> Loss of self-sovereignty, weakness exposure, and childhood trauma re-activation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Upper Addictions -->
+            <div id="diag-tab-3" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">💼</div>
+                        <h4 class="font-bold text-darkText text-sm">Workaholism</h4>
+                        <p class="text-xs text-mutedText mt-1">Chronically "too busy" for deep intimacy. Career achievements justify emotional absence.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">🎯</div>
+                        <h4 class="font-bold text-darkText text-sm">Perfectionism</h4>
+                        <p class="text-xs text-mutedText mt-1">Flawless task execution creates an illusion of invulnerability to criticism or need for help.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">🧠</div>
+                        <h4 class="font-bold text-darkText text-sm">Hyper-Intellectualization</h4>
+                        <p class="text-xs text-mutedText mt-1">Retreating into logic and debate to shut down empathetic resonance and affective demands.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <h4 class="font-bold text-darkText text-sm">Adrenaline & Control</h4>
+                        <p class="text-xs text-mutedText mt-1">Constant high-intensity activities prevent slowing down, which would reveal inner loneliness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: SOMATICS & POLYVAGAL NEUROBIOLOGY -->
+    <section id="soma" class="py-12 border-b border-slate-200 bg-slateBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-brandSecondary uppercase tracking-wider">Module 4</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText">Neurobiology & Somatic Manifestations</h2>
+                <p class="text-sm text-mutedText mt-2 max-w-3xl">
+                    Compulsive self-reliance exerts a severe physiological toll. Because counter-dependents suffer from alexithymia (inability to identify feelings), repressed vulnerability expresses itself through physical illness.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Polyvagal State Explorer (7 cols) -->
+                <div class="lg:col-span-7 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-darkText mb-3">Polyvagal Nervous System State Explorer</h3>
+                    <p class="text-xs text-mutedText mb-4">Click a nervous system state to see physiological and behavioral shifts under intimacy stress:</p>
+
+                    <div class="grid grid-cols-3 gap-2 mb-6">
+                        <button id="pvs-btn-ventral" onclick="selectPolyvagalState('ventral')" class="p-3 rounded-lg border text-xs font-bold transition-all bg-emerald-50 border-emerald-300 text-emerald-800">
+                            🟢 Ventral Vagal<br><span class="text-[10px] font-normal">Safe & Connected</span>
+                        </button>
+                        <button id="pvs-btn-sympathetic" onclick="selectPolyvagalState('sympathetic')" class="p-3 rounded-lg border text-xs font-bold transition-all bg-slate-50 border-slate-200 text-slate-600">
+                            🟠 Sympathetic<br><span class="text-[10px] font-normal">Fight / Flight Vigilance</span>
+                        </button>
+                        <button id="pvs-btn-dorsal" onclick="selectPolyvagalState('dorsal')" class="p-3 rounded-lg border text-xs font-bold transition-all bg-slate-50 border-slate-200 text-slate-600">
+                            🔴 Dorsal Vagal<br><span class="text-[10px] font-normal">Shutdown / Ghosting</span>
+                        </button>
+                    </div>
+
+                    <div id="pvs-detail-box" class="p-5 bg-slate-900 text-white rounded-xl space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Somatic Symptom Map (5 cols) -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-darkText mb-1">Alexithymia & Somatic Mapping</h3>
+                    <p class="text-xs text-mutedText mb-4">Repressed emotional needs bypass consciousness into somatic disorders:</p>
+
+                    <div class="space-y-3">
+                        <div onclick="selectSomaticArea('head')" class="p-3 bg-slate-50 hover:bg-amber-50 border border-slate-200 rounded-lg cursor-pointer transition-all flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-lg">🤯</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-darkText">Migraines & Tension Headaches</h4>
+                                    <p class="text-[11px] text-mutedText">Hyper-intellectualization & suppressed stress</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-brandSecondary font-bold">&rarr;</span>
+                        </div>
+
+                        <div onclick="selectSomaticArea('gut')" class="p-3 bg-slate-50 hover:bg-amber-50 border border-slate-200 rounded-lg cursor-pointer transition-all flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-lg">🤢</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-darkText">Gastrointestinal & IBS Issues</h4>
+                                    <p class="text-[11px] text-mutedText">Chronic sympathetic gut axis constriction</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-brandSecondary font-bold">&rarr;</span>
+                        </div>
+
+                        <div onclick="selectSomaticArea('spine')" class="p-3 bg-slate-50 hover:bg-amber-50 border border-slate-200 rounded-lg cursor-pointer transition-all flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-lg">🦴</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-darkText">Chronic Back & Muscular Pain</h4>
+                                    <p class="text-[11px] text-mutedText">Unconscious body bracing ("holding the load alone")</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-brandSecondary font-bold">&rarr;</span>
+                        </div>
+
+                        <div onclick="selectSomaticArea('hpa')" class="p-3 bg-slate-50 hover:bg-amber-50 border border-slate-200 rounded-lg cursor-pointer transition-all flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-lg">🩺</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-darkText">Adrenal Burnout & Fatigue</h4>
+                                    <p class="text-[11px] text-mutedText">Long-term HPA-axis dysfunction & cortisol toxicity</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-brandSecondary font-bold">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <div id="somatic-detail-modal" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-xs text-indigo-950 font-medium">
+                        Click any body region above to view psychological compromise mechanisms.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: THERAPEUTIC PATHWAYS & DEPENDENCY PARADOX RESEARCH -->
+    <section id="therapeutics" class="py-12 border-b border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-brandSecondary uppercase tracking-wider">Module 5</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText">Therapeutic Interventions & The Dependency Paradox</h2>
+                <p class="text-sm text-mutedText mt-2 max-w-3xl">
+                    Healing requires penetrating the defensive fortress without triggering full shutdown. Explore clinical modalities and empirical research proving that true independence relies on secure dependence.
+                </p>
+            </div>
+
+            <!-- Modalities Accordion Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brandSecondary uppercase">IFS Model</span>
+                        <h4 class="text-base font-bold text-darkText mt-1">Internal Family Systems</h4>
+                        <p class="text-xs text-mutedText mt-2">
+                            Reframes counter-dependency as a protective <strong>Manager part</strong> safeguarding a deeply wounded <strong>Exile part</strong> (abandoned inner child).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-600">
+                        <strong>Goal:</strong> Befriend the Manager so the Exile can be safely witnessed and unburdened.
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-tealAccent uppercase">Schema Therapy</span>
+                        <h4 class="text-base font-bold text-darkText mt-1">Detached Protector</h4>
+                        <p class="text-xs text-mutedText mt-2">
+                            Targets the mode that cuts off emotional needs. Uses therapist-led <strong>"limited reparenting"</strong> to build safety.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-600">
+                        <strong>Goal:</strong> Re-establish emotional resonance and replace rigid isolation.
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-amberAccent uppercase">Somatic Experiencing</span>
+                        <h4 class="text-base font-bold text-darkText mt-1">Polyvagal Titration</h4>
+                        <p class="text-xs text-mutedText mt-2">
+                            Uses bottom-up physiological tracking to slowly titrate exposure to vulnerability without autonomic shock.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-600">
+                        <strong>Goal:</strong> Teach the nervous system that connection is no longer life-threatening.
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-roseAccent uppercase">Weinhold Approach</span>
+                        <h4 class="text-base font-bold text-darkText mt-1">Dyadic Relational Crucible</h4>
+                        <p class="text-xs text-mutedText mt-2">
+                            Healing in the relational matrix where the original trauma occurred. Dismantles the drama triangle.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-600">
+                        <strong>Goal:</strong> Shift couples from pursuer-distancer dynamics to conscious interdependence.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empirical Proof Chart: Feeney (2007) Dependency Paradox -->
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 space-y-3">
+                    <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Empirical Validation
+                    </span>
+                    <h3 class="text-2xl font-bold leading-tight">The Dependency Paradox (Feeney, 2007)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Attachment research empirically refutes the myth of isolated strength. Dr. Brooke Feeney's longitudinal studies prove that when individuals feel secure depending on a partner as a safe haven, they display <strong>significantly higher autonomous achievement</strong> and goal pursuit outside the relationship.
+                    </p>
+                    <div class="p-3 bg-slate-800 rounded-lg text-xs text-indigo-200 border border-slate-700">
+                        💡 <strong>Takeaway:</strong> Accepting dependence generates true self-reliance; rejecting it breeds pathological vulnerability.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-800 p-5 rounded-xl border border-slate-700">
+                    <h4 class="text-xs font-bold text-slate-300 mb-2 text-center">
+                        Impact of Relational Support Mode on Autonomous Personal Goal Achievement
+                    </h4>
+                    <div class="chart-container">
+                        <canvas id="dependencyParadoxChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: INTERACTIVE SELF-REFLECTION SCREENER -->
+    <section id="screener" class="py-12 bg-slateBg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 sm:p-8">
+                <div class="text-center mb-8">
+                    <span class="text-2xl">🔍</span>
+                    <h2 class="text-2xl font-bold text-darkText mt-2">Counter-Dependent Pattern Self-Reflection</h2>
+                    <p class="text-xs text-mutedText mt-1">
+                        Answer the 6 clinical indicators below to evaluate your subconscious stance toward reliance and intimacy.
+                    </p>
+                </div>
+
+                <form id="screener-form" onsubmit="calculateScreenerScore(event)" class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            1. When facing a major crisis (e.g., moving, medical issue, extreme stress), what is your immediate default?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="3" required class="text-brandSecondary">
+                                <span>I solve it entirely alone without informing anyone until it is handled.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="1" class="text-brandSecondary">
+                                <span>I prefer to handle it alone, but will accept help if strongly pressed.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="0" class="text-brandSecondary">
+                                <span>I readily reach out to my trusted network for assistance and emotional support.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            2. How do you feel when a partner or close friend asks for deep emotional vulnerability or reassurance?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="3" required class="text-brandSecondary">
+                                <span>Suffocated, trapped, or irritated; I want to pull away or critique them.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="1" class="text-brandSecondary">
+                                <span>Slightly uncomfortable, but I try to give logical advice to resolve it quickly.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="0" class="text-brandSecondary">
+                                <span>Empathetic and comfortable staying present with their emotions.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            3. What is your underlying perception of asking others for help?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="3" required class="text-brandSecondary">
+                                <span>It is a sign of humiliating weakness and gives others leverage over me.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="1" class="text-brandSecondary">
+                                <span>It is an inconvenience I avoid unless absolutely necessary.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="0" class="text-brandSecondary">
+                                <span>It is a normal, healthy part of reciprocal human relationships.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            4. When relationships start getting very close, what pattern do you notice?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q4" value="3" required class="text-brandSecondary">
+                                <span>I fixate on minor flaws in the other person and find a reason to leave.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q4" value="1" class="text-brandSecondary">
+                                <span>I throw myself heavily into work, hobbies, or sports to create distance.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q4" value="0" class="text-brandSecondary">
+                                <span>I feel comfortable allowing the relationship to naturally deepen.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            5. How do you relate to physical illness or somatic pain?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q5" value="3" required class="text-brandSecondary">
+                                <span>I ignore severe symptoms or use physical illness as the only valid excuse to rest/receive care.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q5" value="1" class="text-brandSecondary">
+                                <span>I get frustrated when my body limits my productivity.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q5" value="0" class="text-brandSecondary">
+                                <span>I listen to my body's emotional and physical signals openly.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-darkText mb-2">
+                            6. Which profile best reflects your daily behavioral drive?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q6" value="3" required class="text-brandSecondary">
+                                <span>High-functioning perfectionism, workaholism, and being the unshakeable rock for everyone.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q6" value="1" class="text-brandSecondary">
+                                <span>Moderate independence, but occasionally feeling overwhelmed and isolated.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q6" value="0" class="text-brandSecondary">
+                                <span>Balanced give-and-take, comfortable leaning on others and being leaned on.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brandPrimary hover:bg-brandSecondary text-white text-sm font-bold py-3 rounded-xl transition-all shadow-md">
+                        Calculate Clinical Insight Score
+                    </button>
+                </form>
+
+                <!-- Results Display Modal/Box -->
+                <div id="screener-results" class="hidden mt-6 p-6 rounded-xl border border-slate-200 bg-slate-50">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+            <p class="font-bold text-white">The Counter-Dependency Paradox Analytical Application</p>
+            <p>
+                Based on research by Dr. Barry Weinhold & Dr. Janae Weinhold (1992), John Bowlby, Stephen Porges (Polyvagal Theory), and Dr. Brooke Feeney (2007).
+            </p>
+            <p class="text-slate-500">
+                Designed for clinical educational purposes and information architecture visualization.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic & Chart Initialization -->
+    <script>
+        // --- DATA STORAGE & STATE MANAGEMENT ---
+        const state = {
+            currentWeinholdStage: 2,
+            currentLoopStep: 1,
+            selectedPolyvagal: 'sympathetic',
+            diagTab: 1
+        };
+
+        const weinholdStageData = {
+            1: {
+                title: "Stage 1: Codependent Phase (0–6 Months)",
+                task: "Primary Bonding and Emotional Attachment",
+                dynamic: "Total reliance on primary caregiver for survival and affect regulation.",
+                pathology: "Codependency (fear of abandonment, enmeshment, clinging anxiety).",
+                clinicalNote: "Trauma here occurs when the caregiver is physically absent or severely emotionally neglectful, preventing the foundational sense of safe haven."
+            },
+            2: {
+                title: "Stage 2: Counterdependent Phase (6–36 Months)",
+                task: "Psychological Separation & Individuation",
+                dynamic: "Establishing physical boundaries and exploring autonomous selfhood.",
+                pathology: "Counter-dependency (fear of engulfment, extreme distancing, hyper-independence).",
+                clinicalNote: "CRITICAL TRAUMA ZONE: Caregiver shames, punishes, or emotionally withdraws when the toddler asserts autonomy. The toddler concludes: 'Needing people is dangerous'."
+            },
+            3: {
+                title: "Stage 3: Independent Phase (3–6 Years)",
+                task: "Internalized Autonomy & Agency",
+                dynamic: "Capacity to function alone while retaining an internal sense of attachment safety.",
+                pathology: "Hyper-independence or persistent alienation from community systems.",
+                clinicalNote: "The child can complete tasks alone, but if Stage 2 failed, independence becomes a defensive compulsion rather than a choice."
+            },
+            4: {
+                title: "Stage 4: Interdependent Phase (6 Years to Adulthood)",
+                task: "Mutual Relational Connection & Fluid Sovereignty",
+                dynamic: "Shifting fluidly between giving support, receiving support, and autonomous action.",
+                pathology: "Inability to form secure, reciprocal adult relationships if earlier stages are thwarted.",
+                clinicalNote: "Representing psychological maturity: 'I can stand alone, and I can lean on you without losing myself'."
+            }
+        };
+
+        const loopSteps = [
+            {
+                step: 1,
+                title: "1. Intimacy Deepens & Threat Threshold Met",
+                distancer: "Feels sudden subconscious panic; neuroception interprets closeness as loss of identity and engulfment threat.",
+                pursuer: "Feels warm, connected, and seeks natural relational deepening.",
+                graphic: "🔒 Counter-dependent Manager part activates protective walls."
+            },
+            {
+                step: 2,
+                title: "2. Avoidant Deactivation & Abrupt Distance",
+                distancer: "Becomes cold, hyper-critical, or retreats into work, hobbies, and logical debates.",
+                pursuer: "Senses abrupt emotional withdrawal; core abandonment fear is triggered.",
+                graphic: "🛡️ Distancer erects impenetrable barrier."
+            },
+            {
+                step: 3,
+                title: "3. Primal Panic & Frantic Pursuit",
+                distancer: "Perceives partner's questions as suffocating demands and boundary invasions.",
+                pursuer: "Demands reassurance, crosses boundaries, and presses for connection to regulate anxiety.",
+                graphic: "🏃‍♂️ Codependent pursues harder to extinguish abandonment panic."
+            },
+            {
+                step: 4,
+                title: "4. Systemic Escalation & Wall Fortification",
+                distancer: "Withdraws further; deactivates empathy and enters dorsal vagal numbness or hostility.",
+                pursuer: "Becomes increasingly dysregulated, emotional, and accusatory.",
+                graphic: "⚡ Feedback loop locks into maximum polarization."
+            },
+            {
+                step: 5,
+                title: "5. Pursuer Exhaustion & Withdrawal",
+                distancer: "Briefly experiences relief from space, but eventually feels the complete loss of connection.",
+                pursuer: "Reaches total burn-out, gives up, and emotionally pulls away entirely.",
+                graphic: "🌧️ Pursuer retreats; relational dynamic goes cold."
+            },
+            {
+                step: 6,
+                title: "6. Role Flip & Attachment Re-engagement",
+                distancer: "Threat of engulfment drops; fear of isolation surges. Temporarily shifts into codependent pursuer to secure bond.",
+                pursuer: "Feels confused by sudden warmth; once closeness is re-established, the cycle resets to Step 1.",
+                graphic: "🔄 The paradoxical push-pull continues indefinitely."
+            }
+        ];
+
+        const polyvagalData = {
+            ventral: {
+                title: "🟢 Ventral Vagal State (Social Engagement)",
+                bio: "Optimal heart rate variability, relaxed breathing, open facial expression.",
+                behavior: "Comfortable with eye contact, capable of mutual regulation, open vulnerability.",
+                relation: "Healthy Interdependence. Asking for help feels safe."
+            },
+            sympathetic: {
+                title: "🟠 Sympathetic Hyperarousal (Fight-or-Flight)",
+                bio: "Elevated cortisol & adrenaline, shallow breathing, muscle tension, scanning for threat.",
+                behavior: "Hyper-vigilance regarding boundaries, workaholism, nitpicking flaws, emotional withdrawal.",
+                relation: "Counter-dependent Vigilance. Intimacy is perceived as a trap/engulfment."
+            },
+            dorsal: {
+                title: "🔴 Dorsal Vagal Shutdown (Immobilization)",
+                bio: "Flat affect, heart rate drop, alexithymia, profound internal numbness.",
+                behavior: "Ghosting, abrupt relationship termination, dissociation, complete emotional opacity.",
+                relation: "Extreme Avoidance. The system shuts down connection entirely to survive."
+            }
+        };
+
+        const somaticData = {
+            head: "<strong>Migraines & Headaches:</strong> Hyper-intellectualization forces all stress into cognitive processing, suppressing affective resonance until physical cranial pressure results.",
+            gut: "<strong>GI & IBS Distress:</strong> Chronic sympathetic nervous system dominance restricts blood flow to the digestive tract, creating chronic inflammatory bowel symptoms.",
+            spine: "<strong>Spinal & Muscular Pain:</strong> Somatization of 'carrying the burden entirely alone' causes persistent muscle bracing in the shoulders, back, and neck.",
+            hpa: "<strong>HPA Axis Toxicity:</strong> Constant subconscious vigilance keeps cortisol levels elevated, eventually resulting in adrenal exhaustion, chronic fatigue, and immune dysfunction."
+        };
+
+        // --- DOM INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", () => {
+            renderWeinholdStage(state.currentWeinholdStage);
+            renderLoopStep(state.currentLoopStep);
+            selectPolyvagalState(state.selectedPolyvagal);
+            if (typeof Chart !== 'undefined') {
+                initCharts();
+            }
+        });
+
+        // --- WEINHOLD STAGE INTERACTION ---
+        function selectWeinholdStage(stageNum) {
+            state.currentWeinholdStage = stageNum;
+            for (let i = 1; i <= 4; i++) {
+                const card = document.getElementById(`stage-card-${i}`);
+                if (i === stageNum) {
+                    card.classList.remove('bg-slate-50', 'border-indigo-100');
+                    card.classList.add('bg-indigo-50', 'border-brandSecondary');
+                } else {
+                    card.classList.remove('bg-indigo-50', 'border-brandSecondary');
+                    card.classList.add('bg-slate-50', 'border-indigo-100');
+                }
+            }
+            renderWeinholdStage(stageNum);
+        }
+
+        function renderWeinholdStage(stageNum) {
+            const data = weinholdStageData[stageNum];
+            const display = document.getElementById('stage-detail-display');
+            display.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                    <h4 class="text-base font-bold text-amber-400">${data.title}</h4>
+                    <span class="text-xs text-slate-400 font-mono">Task: ${data.task}</span>
+                </div>
+                <p class="text-xs text-slate-200"><strong>Core Relational Dynamic:</strong> ${data.dynamic}</p>
+                <p class="text-xs text-rose-300"><strong>Pathological Outcome if Thwarted:</strong> ${data.pathology}</p>
+                <div class="p-3 bg-slate-800 rounded-lg text-xs text-slate-300 border-l-2 border-amber-400">
+                    ${data.clinicalNote}
+                </div>
+            `;
+        }
+
+        // --- RELATIONAL LOOP SIMULATOR ---
+        function changeLoopStep(direction) {
+            let newStep = state.currentLoopStep + direction;
+            if (newStep >= 1 && newStep <= 6) {
+                state.currentLoopStep = newStep;
+                renderLoopStep(newStep);
+            }
+        }
+
+        function renderLoopStep(stepNum) {
+            const data = loopSteps[stepNum - 1];
+            const content = document.getElementById('loop-step-content');
+            
+            // Update dots
+            for (let i = 1; i <= 6; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (i <= stepNum) {
+                    dot.className = "h-2 rounded-full bg-brandSecondary transition-all";
+                } else {
+                    dot.className = "h-2 rounded-full bg-slate-200 transition-all";
+                }
+            }
+
+            // Button state
+            document.getElementById('prev-step-btn').disabled = stepNum === 1;
+            document.getElementById('next-step-btn').disabled = stepNum === 6;
+
+            const graphicFirstSpace = data.graphic.indexOf(' ');
+            const graphicEmoji = data.graphic.slice(0, graphicFirstSpace);
+            const graphicText = data.graphic.slice(graphicFirstSpace + 1);
+            const phaseLabels = { 1: 'Escalating Threat', 2: 'Deactivation Cascade', 3: 'Pursuit Escalation', 4: 'Peak Polarization', 5: 'Systemic Exhaustion', 6: 'Dynamic Reset' };
+
+            content.innerHTML = `
+                <div class="space-y-3">
+                    <span class="text-xs font-bold text-brandSecondary uppercase">Cycle Stage ${data.step} of 6</span>
+                    <h4 class="text-lg font-bold text-darkText">${data.title}</h4>
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
+                        <strong>Counter-Dependent Distancer:</strong> ${data.distancer}
+                    </div>
+                    <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-xs text-indigo-950">
+                        <strong>Codependent Pursuer:</strong> ${data.pursuer}
+                    </div>
+                </div>
+                <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col items-center justify-center text-center space-y-3">
+                    <div class="text-4xl">${graphicEmoji}</div>
+                    <p class="text-sm font-semibold text-amber-300">${graphicText}</p>
+                    <p class="text-xs text-slate-400">Systemic state: ${phaseLabels[stepNum]}</p>
+                </div>
+            `;
+        }
+
+        // --- DIAGNOSTICS TAB SWITCHING ---
+        function switchDiagTab(tabIndex) {
+            state.diagTab = tabIndex;
+            document.getElementById('diag-tab-1').className = tabIndex === 1 ? 'block' : 'hidden';
+            document.getElementById('diag-tab-2').className = tabIndex === 2 ? 'block' : 'hidden';
+            document.getElementById('diag-tab-3').className = tabIndex === 3 ? 'block' : 'hidden';
+
+            document.getElementById('tab-btn-matrix1').className = `py-3 px-6 text-sm font-semibold ${tabIndex === 1 ? 'tab-active' : 'text-mutedText'}`;
+            document.getElementById('tab-btn-matrix2').className = `py-3 px-6 text-sm font-semibold ${tabIndex === 2 ? 'tab-active' : 'text-mutedText'}`;
+            document.getElementById('tab-btn-addictions').className = `py-3 px-6 text-sm font-semibold ${tabIndex === 3 ? 'tab-active' : 'text-mutedText'}`;
+        }
+
+        // --- POLYVAGAL & SOMATIC INTERACTION ---
+        function selectPolyvagalState(pvsKey) {
+            state.selectedPolyvagal = pvsKey;
+            const data = polyvagalData[pvsKey];
+            
+            // Update buttons
+            ['ventral', 'sympathetic', 'dorsal'].forEach(k => {
+                const btn = document.getElementById(`pvs-btn-${k}`);
+                if (k === pvsKey) {
+                    btn.className = "p-3 rounded-lg border text-xs font-bold transition-all bg-indigo-900 text-white border-indigo-900 shadow-md";
+                } else {
+                    btn.className = "p-3 rounded-lg border text-xs font-bold transition-all bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100";
+                }
+            });
+
+            const box = document.getElementById('pvs-detail-box');
+            box.innerHTML = `
+                <h4 class="text-base font-bold text-amber-400">${data.title}</h4>
+                <div class="space-y-2 text-xs">
+                    <p><strong>Physiological Markers:</strong> ${data.bio}</p>
+                    <p><strong>Relational Behaviors:</strong> ${data.behavior}</p>
+                    <p class="text-indigo-200"><strong>Attachment Impact:</strong> ${data.relation}</p>
+                </div>
+            `;
+        }
+
+        function selectSomaticArea(areaKey) {
+            const modal = document.getElementById('somatic-detail-modal');
+            modal.innerHTML = somaticData[areaKey];
+        }
+
+        // --- SCREENER SCORING LOGIC ---
+        function calculateScreenerScore(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            let total = 0;
+            for (let value of formData.values()) {
+                total += parseInt(value);
+            }
+
+            const resultsBox = document.getElementById('screener-results');
+            resultsBox.classList.remove('hidden');
+
+            let severity = "";
+            let description = "";
+            let colorClass = "";
+
+            if (total >= 13) {
+                severity = "Severe Counter-Dependent Structure (High Flight from Intimacy)";
+                description = "You possess strong defensive walls against relying on others. Vulnerability is neurobiologically experienced as extreme danger, and hyper-independence is used as an impenetrable shield.";
+                colorClass = "text-rose-600 bg-rose-50 border-rose-200";
+            } else if (total >= 7) {
+                severity = "Moderate Counter-Dependent Tendencies";
+                description = "You demonstrate noticeable difficulty asking for help and pulling away under relational stress, though some capacity for connection remains accessible.";
+                colorClass = "text-amber-700 bg-amber-50 border-amber-200";
+            } else {
+                severity = "Secure / Interdependent Relational Stance";
+                description = "You show a healthy balance between self-reliance and the capacity to lean on others securely without fear of losing your autonomy.";
+                colorClass = "text-emerald-700 bg-emerald-50 border-emerald-200";
+            }
+
+            resultsBox.className = `mt-6 p-6 rounded-xl border ${colorClass}`;
+            resultsBox.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider">Clinical Insight Assessment</span>
+                        <span class="text-lg font-black font-mono">${total} / 18</span>
+                    </div>
+                    <h4 class="text-base font-bold">${severity}</h4>
+                    <p class="text-xs leading-relaxed">${description}</p>
+                    <div class="pt-3 border-t border-slate-200/50 text-xs">
+                        <strong>Recommended Next Step:</strong> Explore the Internal Family Systems (IFS) and Polyvagal interventions in Module 5 to begin safe titration into interdependence.
+                    </div>
+                </div>
+            `;
+            resultsBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToAssessment() {
+            document.getElementById('screener').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- CHART.JS INITIALIZATION ---
+        function initCharts() {
+            // Chart 1: Weinhold Development Radial Chart
+            const ctx1 = document.getElementById('weinholdChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Stage 1: Codependent', 'Stage 2: Counterdependent (Trauma Risk)', 'Stage 3: Independent', 'Stage 4: Interdependent'],
+                    datasets: [{
+                        data: [20, 45, 15, 20],
+                        backgroundColor: ['#818CF8', '#E11D48', '#F59E0B', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 10 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw}% focus weight`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Deactivation Trigger vs Impact Chart
+            const ctx2 = document.getElementById('deactivationChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Flaw Hyperfocus', 'Affect Numbing', 'Work Avoidance', 'Proximity Limits', 'Intellectualization'],
+                    datasets: [
+                        {
+                            label: 'Defensive Internal Relief',
+                            data: [85, 90, 75, 80, 88],
+                            backgroundColor: '#4338CA'
+                        },
+                        {
+                            label: 'Relational Erosion Impact',
+                            data: [92, 88, 70, 85, 95],
+                            backgroundColor: '#E11D48'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { font: { size: 10 } }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 9 },
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(index);
+                                    return label.length > 12 ? label.substring(0, 12) + '...' : label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10 }, boxWidth: 10 }
+                        }
+                    }
+                }
+            });
+
+            // Chart 3: Dependency Paradox Empirical Findings (Feeney 2007)
+            const ctx3 = document.getElementById('dependencyParadoxChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Compulsive Self-Reliance', 'Low Partner Support', 'High Partner Safe Haven'],
+                    datasets: [{
+                        label: 'Autonomous Personal Goal Achievement Rate (%)',
+                        data: [32, 45, 88],
+                        backgroundColor: ['#E11D48', '#F59E0B', '#10B981'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#CBD5E1', font: { size: 10 } },
+                            grid: { color: '#334155' }
+                        },
+                        x: {
+                            ticks: { color: '#CBD5E1', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Achievement Score: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

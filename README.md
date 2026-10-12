@@ -15,6 +15,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **A**: [Amplenote Data](https://krishnakanthb13.github.io/A/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
+		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
@@ -173,6 +174,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Ground Zero — Knowledge Vault (D/0):** ([overview](https://krishnakanthb13.github.io/D/0/) — living knowledge vault pairing deep-dive research essays with interactive visualizations)
+	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.
 	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
