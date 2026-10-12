@@ -99,4 +99,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Receiving Paradox](./receiving_paradox/)
+**The Caregiver's Dilemma** — why those who dedicate their lives to caring for others experience profound distress, guilt, and counter-dependent resistance when care is reciprocated—a pattern spanning personal intimacy and professional leadership, driving chronic over-functioning, micromanagement, and systemic burnout. Synthesizes attachment theory (Bowlby), Bowen family systems theory, and Schema Therapy (Young).
+
+- 📝 [The Full Report](./receiving_paradox/readme.md) — the long-form essay with 69 cited sources. (`readme.md`)
+- 🤲 [Interactive Infographic](./receiving_paradox/index.html) — the complete warm-themed interactive page: theoretical triad explorer (Attachment, Bowen Systems, Schema Therapy), five-stage reciprocity-crisis sequence tracker, relational focus radar chart, burnout-vs-autonomy trajectory chart, schema mode switcher, and a therapeutic pathways blueprint. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*

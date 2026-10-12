@@ -18,6 +18,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
+		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
@@ -181,6 +182,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
+	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
 
 ---
 

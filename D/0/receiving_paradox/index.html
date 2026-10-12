@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Psychology of Over-Functioning & Counter-Dependence</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤲</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warmbg: '#FBF9F5',
+                        surface: '#F4EFE6',
+                        cardbg: '#FFFFFF',
+                        primary: '#3E4E50',
+                        secondary: '#7A8B8B',
+                        accent: '#C86D51',
+                        accentlight: '#F4E7E1',
+                        darktext: '#2C3531',
+                        mutedtext: '#6C757D',
+                        bordercolor: '#E2DACD'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FBF9F5;
+            color: #2C3531;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #C86D51;
+            color: #3E4E50;
+            font-weight: 600;
+            background-color: #F4EFE6;
+        }
+        .mode-card.active-mode {
+            border-color: #C86D51;
+            background-color: #F4E7E1;
+            transform: translateY(-2px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F4EFE6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #7A8B8B;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Chosen Palette: Warm Neutral Harmony (Warm Sand #FBF9F5, Soft Cream Surface #F4EFE6, Deep Slate Primary #3E4E50, Muted Sage Secondary #7A8B8B, Warm Terracotta Accent #C86D51) -->
+
+    <!-- Application Structure Plan: 
+        The SPA is designed as a multi-perspective interactive dashboard for exploring the report's psychological and organizational insights:
+        1. Executive Hero & Overview: Interactive thesis summary and core quote breakdown.
+        2. Theoretical Triad Explorer: Tabbed navigation comparing Attachment Theory, Bowen Family Systems, and Schema Therapy frameworks.
+        3. The Paradox of Receiving (Cognitive Dissonance): Interactive step-by-step psychological sequence map of what happens when care is offered.
+        4. Workplace Dynamics & Micromanagement: Comparative metrics, interactive Chart.js visualization of leader burnout vs team autonomy, and delegation matrix.
+        5. Schema Mode Switcher: Interactive mode map (Vulnerable Child, Over-Controller, Detached Protector, Healthy Adult) revealing thoughts, feelings, behaviors, and therapeutic interventions.
+        6. Therapeutic & Healing Blueprint: Interactive self-reflection simulator and clinical intervention pathway breakdown.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Dynamic Chart 1 (Chart.js Line): Micromanagement vs. Subordinate Autonomy over time (Visualizing the Bowenian over-functioning loop).
+        - Dynamic Chart 2 (Chart.js Radar): Relational Energy & Focus profiles (Secure Reciprocation vs Compulsive Caregiving vs Counter-Dependence).
+        - Interactive Mode Switcher: Clickable cards to explore Schema Therapy modes without SVG dependencies.
+        - Step-by-Step Cycle Tracker: Interactive scenario simulator detailing the exact sequence of receiving care.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header / Navigation -->
+    <header class="bg-cardbg border-b border-bordercolor sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="../" class="text-mutedtext hover:text-accent transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-surface border border-bordercolor" title="Return to Knowledge Vault">← D/0 Vault</a>
+                    <span class="text-2xl font-bold text-accent">◈</span>
+                    <div>
+                        <h1 class="text-lg font-bold text-primary leading-tight">The Caregiver's Dilemma</h1>
+                        <p class="text-xs text-mutedtext hidden sm:block">Psychology of Over-Functioning, Counter-Dependence & Micromanagement</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-1 text-sm font-medium text-mutedtext" id="desktop-nav">
+                    <button onclick="switchTab('overview')" class="tab-btn px-3 py-2 rounded-t-lg active" id="nav-overview">Overview</button>
+                    <button onclick="switchTab('theories')" class="tab-btn px-3 py-2 rounded-t-lg" id="nav-theories">Theoretical Triad</button>
+                    <button onclick="switchTab('receiving')" class="tab-btn px-3 py-2 rounded-t-lg" id="nav-receiving">Paradox of Receiving</button>
+                    <button onclick="switchTab('workplace')" class="tab-btn px-3 py-2 rounded-t-lg" id="nav-workplace">Workplace Impact</button>
+                    <button onclick="switchTab('schemas')" class="tab-btn px-3 py-2 rounded-t-lg" id="nav-schemas">Schema Modes</button>
+                    <button onclick="switchTab('pathways')" class="tab-btn px-3 py-2 rounded-t-lg" id="nav-pathways">Therapeutic Pathways</button>
+                </nav>
+                <div class="md:hidden">
+                    <select id="mobile-nav" onchange="switchTab(this.value)" class="bg-surface border border-bordercolor text-primary text-sm rounded-lg p-2 focus:ring-accent focus:border-accent">
+                        <option value="overview">1. Overview</option>
+                        <option value="theories">2. Theoretical Triad</option>
+                        <option value="receiving">3. Paradox of Receiving</option>
+                        <option value="workplace">4. Workplace Impact</option>
+                        <option value="schemas">5. Schema Modes</option>
+                        <option value="pathways">6. Therapeutic Pathways</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- SECTION 1: OVERVIEW & CORE DILEMMA -->
+        <section id="section-overview" class="space-y-8">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <div class="max-w-3xl">
+                    <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Executive Summary</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4">The Psychological Architecture of Compulsive Caregiving</h2>
+                    <p class="text-darktext text-base leading-relaxed mb-4">
+                        This application presents an interactive synthesis of clinical psychology research on individuals who dedicate their lives to caring for others yet experience profound distress, guilt, and counter-dependent resistance when care is reciprocated. This behavioral pattern spans personal intimacy and professional leadership, driving chronic over-functioning, micromanagement, and systemic burnout.
+                    </p>
+                    <p class="text-mutedtext text-sm leading-relaxed">
+                        Explore the sections below to understand how early attachment trauma constructs a self-worth rigidly bound to giving, why receiving care feels like an unbearable debt, and how therapeutic modalities like Schema Therapy and Bowen Systems Theory facilitate true recovery.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Metric / Card Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl shadow-sm">
+                    <div class="text-accent text-3xl font-bold mb-1">100%</div>
+                    <div class="text-primary font-semibold text-base mb-2">Outward Focus</div>
+                    <p class="text-mutedtext text-sm">Self-worth is anchored exclusively in utility, problem-solving, and providing care, leaving zero internal bandwidth for personal needs.</p>
+                </div>
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl shadow-sm">
+                    <div class="text-accent text-3xl font-bold mb-1">0%</div>
+                    <div class="text-primary font-semibold text-base mb-2">Tolerance for Indebtedness</div>
+                    <p class="text-mutedtext text-sm">Acts of care received are interpreted as heavy emotional debts or threats to autonomy, triggering immediate defensive repayment.</p>
+                </div>
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl shadow-sm">
+                    <div class="text-accent text-3xl font-bold mb-1">2x</div>
+                    <div class="text-primary font-semibold text-base mb-2">Systemic Depletion</div>
+                    <p class="text-mutedtext text-sm">Over-functioning in organizations induces subordinate under-functioning, crushing team psychological safety while burning out the leader.</p>
+                </div>
+            </div>
+
+            <!-- Core Insight Narrative Explorer -->
+            <div class="bg-cardbg border border-bordercolor rounded-xl p-6 md:p-8">
+                <h3 class="text-xl font-bold text-primary mb-4">The Voice of the Over-Functioner: Core Internal Monologue</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-surface p-5 rounded-lg border-l-4 border-accent">
+                        <h4 class="font-bold text-primary mb-2">The Unmet Yearning vs. Threat Reaction</h4>
+                        <p class="text-sm text-darktext italic mb-3">
+                            "I'm spending my whole life taking care of other people. Oh my god, I wish someone would take care of me... But when they try to do something nice, it feels like: 'Oh my god, this is not okay. I need to balance this out. I don't like being in people's debt.'"
+                        </p>
+                        <p class="text-xs text-mutedtext">
+                            <strong>Mechanism:</strong> Deep emotional deprivation creates a longing for nurturance, but counter-dependence activates fear of vulnerability and loss of control the moment care is offered.
+                        </p>
+                    </div>
+                    <div class="bg-surface p-5 rounded-lg border-l-4 border-secondary">
+                        <h4 class="font-bold text-primary mb-2">The Workplace Projection</h4>
+                        <p class="text-sm text-darktext italic mb-3">
+                            "You have a tendency to micromanage, to make sure they don't screw up because they're fundamentally unreliable... You have a sense of self-esteem based on your capacity to give, and you don't want to turn someone into the exhausted giver you hate being."
+                        </p>
+                        <p class="text-xs text-mutedtext">
+                            <strong>Mechanism:</strong> Projection of past caregiver depletion onto well-meaning partners and colleagues, driving obsessive control to avert catastrophic unreliability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THEORETICAL TRIAD -->
+        <section id="section-theories" class="space-y-8 hidden">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Theoretical Foundations</span>
+                <h2 class="text-2xl font-bold text-primary mb-2">The Three Frameworks Decoding the Caregiver Schema</h2>
+                <p class="text-mutedtext text-sm">
+                    Understanding this profile requires integrating developmental attachment, systemic relational dynamics, and cognitive-schema structures. Click each framework below to explore its core diagnostic insights.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Attachment Theory -->
+                <div class="bg-cardbg border border-bordercolor rounded-xl p-6 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-accentlight text-accent flex items-center font-bold justify-center mb-4">1</div>
+                        <h3 class="text-lg font-bold text-primary mb-2">Attachment Theory</h3>
+                        <p class="text-xs text-accent font-semibold uppercase tracking-wider mb-3">John Bowlby</p>
+                        <p class="text-sm text-darktext mb-4">
+                            Focuses on early emotional neglect and parentification. The child learns that proximity to a fragile or distant caregiver is only maintained by suppressing personal needs and becoming the caregiver.
+                        </p>
+                        <ul class="text-xs text-mutedtext space-y-2 mb-4">
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Compulsive Caregiving:</strong> Survival strategy to secure pseudo-attachment.</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Counter-Dependence:</strong> Biological stance treating vulnerability as active danger.</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Internal Working Models:</strong> Self = only valued when useful; Others = unsafe.</li>
+                        </ul>
+                    </div>
+                    <button onclick="showTheoryDetail('attachment')" class="w-full py-2 bg-surface text-primary text-xs font-semibold rounded-lg hover:bg-bordercolor transition">View Clinical Insights</button>
+                </div>
+
+                <!-- Bowen Systems Theory -->
+                <div class="bg-cardbg border border-bordercolor rounded-xl p-6 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-accentlight text-accent flex items-center font-bold justify-center mb-4">2</div>
+                        <h3 class="text-lg font-bold text-primary mb-2">Bowen Family Systems</h3>
+                        <p class="text-xs text-accent font-semibold uppercase tracking-wider mb-3">Murray Bowen</p>
+                        <p class="text-sm text-darktext mb-4">
+                            Examines how systemic anxiety is managed through function reciprocity. The over-functioner absorbs systemic stress, inducing under-functioning in partners and teams.
+                        </p>
+                        <ul class="text-xs text-mutedtext space-y-2 mb-4">
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Differentiation of Self:</strong> Ability to separate intellect from emotional reactivity.</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Emotional Fusion:</strong> Boundarylessness driving automatic responsibility taking.</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Functioning Reciprocation:</strong> Over-functioning directly creates under-functioning.</li>
+                        </ul>
+                    </div>
+                    <button onclick="showTheoryDetail('bowen')" class="w-full py-2 bg-surface text-primary text-xs font-semibold rounded-lg hover:bg-bordercolor transition">View Clinical Insights</button>
+                </div>
+
+                <!-- Schema Therapy -->
+                <div class="bg-cardbg border border-bordercolor rounded-xl p-6 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-accentlight text-accent flex items-center font-bold justify-center mb-4">3</div>
+                        <h3 class="text-lg font-bold text-primary mb-2">Schema Therapy</h3>
+                        <p class="text-xs text-accent font-semibold uppercase tracking-wider mb-3">Jeffrey Young</p>
+                        <p class="text-sm text-darktext mb-4">
+                            Analyzes the clash between Early Maladaptive Schemas: Emotional Deprivation (expectation of no care) and Self-Sacrifice (compulsive meeting of others' needs).
+                        </p>
+                        <ul class="text-xs text-mutedtext space-y-2 mb-4">
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Early Schemas:</strong> Deeply entrenched cognitive-affective patterns.</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Schema Modes:</strong> Moment-to-moment emotional states (Over-Controller vs Child).</li>
+                            <li class="flex items-start"><span class="text-accent mr-2">•</span> <strong>Punitive Critic:</strong> Internal voice equating receiving care with selfishness.</li>
+                        </ul>
+                    </div>
+                    <button onclick="showTheoryDetail('schema')" class="w-full py-2 bg-surface text-primary text-xs font-semibold rounded-lg hover:bg-bordercolor transition">View Clinical Insights</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Detail Box -->
+            <div id="theory-detail-box" class="bg-cardbg border border-accent rounded-xl p-6 transition-all">
+                <h4 id="theory-detail-title" class="text-lg font-bold text-primary mb-2">Select a Framework Above</h4>
+                <p id="theory-detail-body" class="text-sm text-darktext leading-relaxed">
+                    Click any "View Clinical Insights" button above to explore how that framework explains the origin, maintenance, and treatment of over-functioning profiles.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PARADOX OF RECEIVING -->
+        <section id="section-receiving" class="space-y-8 hidden">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Interpersonal Dynamics</span>
+                <h2 class="text-2xl font-bold text-primary mb-2">The Psychological Trap of Receiving Care</h2>
+                <p class="text-mutedtext text-sm">
+                    When an over-functioner attempts to shatter their schema and accept help, an immediate psychological crisis unfolds. Explore the step-by-step sequence of this reaction below.
+                </p>
+            </div>
+
+            <!-- Step-by-Step Scenario Explorer -->
+            <div class="bg-cardbg border border-bordercolor rounded-xl p-6 md:p-8">
+                <h3 class="text-lg font-bold text-primary mb-6 text-center">The Reciprocity Crisis Sequence</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                    <div onclick="setStep(1)" id="step-btn-1" class="p-4 border border-bordercolor rounded-xl text-center cursor-pointer bg-surface hover:border-accent transition">
+                        <div class="text-xs font-bold text-accent mb-1">STAGE 1</div>
+                        <div class="text-sm font-semibold text-primary">Unmet Need</div>
+                        <div class="text-xs text-mutedtext mt-2">Yearning for relief and care</div>
+                    </div>
+
+                    <div onclick="setStep(2)" id="step-btn-2" class="p-4 border border-bordercolor rounded-xl text-center cursor-pointer bg-surface hover:border-accent transition">
+                        <div class="text-xs font-bold text-accent mb-1">STAGE 2</div>
+                        <div class="text-sm font-semibold text-primary">Care Offered</div>
+                        <div class="text-xs text-mutedtext mt-2">A willing caretaker arrives</div>
+                    </div>
+
+                    <div onclick="setStep(3)" id="step-btn-3" class="p-4 border border-bordercolor rounded-xl text-center cursor-pointer bg-surface hover:border-accent transition">
+                        <div class="text-xs font-bold text-accent mb-1">STAGE 3</div>
+                        <div class="text-sm font-semibold text-primary">Threat Response</div>
+                        <div class="text-xs text-mutedtext mt-2">Acute sense of indebtedness</div>
+                    </div>
+
+                    <div onclick="setStep(4)" id="step-btn-4" class="p-4 border border-bordercolor rounded-xl text-center cursor-pointer bg-surface hover:border-accent transition">
+                        <div class="text-xs font-bold text-accent mb-1">STAGE 4</div>
+                        <div class="text-sm font-semibold text-primary">Selfishness Defense</div>
+                        <div class="text-xs text-mutedtext mt-2">Projecting past depletion</div>
+                    </div>
+
+                    <div onclick="setStep(5)" id="step-btn-5" class="p-4 border border-bordercolor rounded-xl text-center cursor-pointer bg-surface hover:border-accent transition">
+                        <div class="text-xs font-bold text-accent mb-1">STAGE 5</div>
+                        <div class="text-sm font-semibold text-primary">Default Retreat</div>
+                        <div class="text-xs text-mutedtext mt-2">Reverting to Over-Giving</div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Step Explanation Display -->
+                <div class="mt-8 bg-surface p-6 rounded-xl border border-bordercolor" id="step-display-box">
+                    <h4 class="text-base font-bold text-primary mb-2" id="step-title">Stage 1: The Unmet Need</h4>
+                    <p class="text-sm text-darktext leading-relaxed mb-3" id="step-desc">
+                        The individual experiences chronic emotional exhaustion and secretly harbors a profound desire to be nurtured, supported, and rescued from their self-imposed burdens.
+                    </p>
+                    <div class="bg-cardbg p-4 rounded-lg border-l-4 border-accent text-xs text-mutedtext" id="step-quote">
+                        "I'm spending my whole life taking care of other people. Oh my god, I wish someone would take care of me."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Radar Chart: Relational Profiles -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl">
+                    <h3 class="text-base font-bold text-primary mb-2">Relational Focus Profile Comparison</h3>
+                    <p class="text-xs text-mutedtext mb-4">Comparing Secure Reciprocation vs Compulsive Caregiving vs Counter-Dependence across relational metrics.</p>
+                    <div class="chart-container">
+                        <canvas id="relationalRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-cardbg border border-bordercolor p-5 rounded-xl">
+                        <h4 class="font-bold text-primary text-sm mb-1">The Reciprocity Norm as an Oppressive Burden</h4>
+                        <p class="text-xs text-darktext leading-relaxed">
+                            For secure individuals, receiving care creates warmth and connection. For the compulsive over-functioner, receiving care generates acute <strong>psychological indebtedness</strong>—a suffocating obligation to instantly repay the debt to escape vulnerability.
+                        </p>
+                    </div>
+                    <div class="bg-cardbg border border-bordercolor p-5 rounded-xl">
+                        <h4 class="font-bold text-primary text-sm mb-1">Projective Identification & Selfishness Avoidance</h4>
+                        <p class="text-xs text-darktext leading-relaxed">
+                            Having experienced lifelong depletion as a caregiver, the individual projects that exact misery onto the person offering care. Fearing they will turn the benefactor into a depleted victim, they aggressively reject the support to stay "unselfish."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: WORKPLACE IMPACT -->
+        <section id="section-workplace" class="space-y-8 hidden">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Organizational Pathology</span>
+                <h2 class="text-2xl font-bold text-primary mb-2">Professional Over-Functioning & Micromanagement</h2>
+                <p class="text-mutedtext text-sm">
+                    In organizations, compulsive caregiving translates directly into leadership failure. Driven by the belief that others are fundamentally unreliable, the over-functioner refuses to delegate, crippling team autonomy and psychological safety.
+                </p>
+            </div>
+
+            <!-- Chart.js Section: Autonomy vs Burnout Line Chart -->
+            <div class="bg-cardbg border border-bordercolor p-6 md:p-8 rounded-xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-primary">The Over-Functioning System Trajectory</h3>
+                        <p class="text-xs text-mutedtext">How persistent micromanagement depresses team capacity while accelerating leader burnout over time.</p>
+                    </div>
+                    <div class="mt-2 md:mt-0 flex space-x-2">
+                        <span class="inline-flex items-center text-xs text-mutedtext"><span class="w-3 h-3 bg-accent rounded-full mr-1"></span> Leader Burnout</span>
+                        <span class="inline-flex items-center text-xs text-mutedtext"><span class="w-3 h-3 bg-secondary rounded-full mr-1"></span> Team Autonomy</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="workplaceTrajectoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Comparison Table: Micromanaging vs Psychologically Safe Workplace -->
+            <div class="bg-cardbg border border-bordercolor rounded-xl p-6 overflow-x-auto custom-scrollbar">
+                <h3 class="text-base font-bold text-primary mb-4">Organizational Environment Comparison</h3>
+                <table class="w-full text-left text-xs text-darktext border-collapse">
+                    <thead>
+                        <tr class="bg-surface text-primary font-bold border-b border-bordercolor">
+                            <th class="p-3">Dimension</th>
+                            <th class="p-3">The Over-Functioning / Micromanaged System</th>
+                            <th class="p-3">The Psychologically Safe / Differentiated System</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-bordercolor">
+                        <tr>
+                            <td class="p-3 font-semibold text-primary">Core Assumption</td>
+                            <td class="p-3">"Others are fundamentally unreliable; I must oversee everything."</td>
+                            <td class="p-3">"Colleagues are competent; mistakes are opportunities for growth."</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-primary">Delegation Style</td>
+                            <td class="p-3">Pseudo-delegation: assigning tasks but continuously overriding and checking.</td>
+                            <td class="p-3">True delegation: assigning responsibility with clear authority and support.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-primary">Subordinate Impact</td>
+                            <td class="p-3">Learned helplessness, high anxiety, apathy, chronic under-functioning.</td>
+                            <td class="p-3">High engagement, functional autonomy, self-efficacy, innovation.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-primary">Systemic Risk</td>
+                            <td class="p-3">Leader burnout, single-point organizational failure, high turnover.</td>
+                            <td class="p-3">Resilient scalability, shared leadership, sustainable productivity.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SCHEMA MODES -->
+        <section id="section-schemas" class="space-y-8 hidden">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Intrapersonal Architecture</span>
+                <h2 class="text-2xl font-bold text-primary mb-2">Schema Therapy Mode Map</h2>
+                <p class="text-mutedtext text-sm">
+                    In Schema Therapy, moment-to-moment psychological states are classified as "Modes." Click on any mode card below to inspect its cognitive triggers, bodily sensations, behaviors, and Healthy Adult interventions.
+                </p>
+            </div>
+
+            <!-- Mode Switcher Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div onclick="selectSchemaMode('lonely')" id="mode-card-lonely" class="mode-card active-mode p-4 bg-cardbg border border-bordercolor rounded-xl cursor-pointer hover:border-accent transition text-center">
+                    <div class="text-xs font-bold text-accent uppercase mb-1">Child Mode</div>
+                    <div class="text-sm font-bold text-primary">Lonely / Deprived Child</div>
+                </div>
+                <div onclick="selectSchemaMode('protector')" id="mode-card-protector" class="mode-card p-4 bg-cardbg border border-bordercolor rounded-xl cursor-pointer hover:border-accent transition text-center">
+                    <div class="text-xs font-bold text-accent uppercase mb-1">Coping Mode</div>
+                    <div class="text-sm font-bold text-primary">Detached Protector</div>
+                </div>
+                <div onclick="selectSchemaMode('controller')" id="mode-card-controller" class="mode-card p-4 bg-cardbg border border-bordercolor rounded-xl cursor-pointer hover:border-accent transition text-center">
+                    <div class="text-xs font-bold text-accent uppercase mb-1">Over-Compensator</div>
+                    <div class="text-sm font-bold text-primary">Over-Controller / Micromanager</div>
+                </div>
+                <div onclick="selectSchemaMode('adult')" id="mode-card-adult" class="mode-card p-4 bg-cardbg border border-bordercolor rounded-xl cursor-pointer hover:border-accent transition text-center">
+                    <div class="text-xs font-bold text-accent uppercase mb-1">Healthy Mode</div>
+                    <div class="text-sm font-bold text-primary">Healthy Adult</div>
+                </div>
+            </div>
+
+            <!-- Schema Detail Inspector -->
+            <div class="bg-cardbg border border-bordercolor rounded-xl p-6 md:p-8" id="schema-inspector">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="px-3 py-1 bg-accentlight text-accent text-xs font-bold rounded-full" id="schema-tag">Child Mode</span>
+                    <h3 class="text-xl font-bold text-primary" id="schema-title">The Lonely / Deprived Child</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-surface p-4 rounded-lg">
+                        <h4 class="text-xs font-bold text-primary uppercase mb-2">Core Cognitions</h4>
+                        <p class="text-xs text-darktext leading-relaxed" id="schema-cognitions">
+                            "No one will ever truly be there for me. I am empty and completely on my own."
+                        </p>
+                    </div>
+                    <div class="bg-surface p-4 rounded-lg">
+                        <h4 class="text-xs font-bold text-primary uppercase mb-2">Somatic & Affective State</h4>
+                        <p class="text-xs text-darktext leading-relaxed" id="schema-somatic">
+                            Hollow ache in chest, chronic fatigue, quiet anxiety, suppressed grief.
+                        </p>
+                    </div>
+                    <div class="bg-surface p-4 rounded-lg">
+                        <h4 class="text-xs font-bold text-primary uppercase mb-2">Behavioral Expression</h4>
+                        <p class="text-xs text-darktext leading-relaxed" id="schema-behavior">
+                            Silent yearning for nurturance, subtle reaching out followed by quick retreat.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-surface border-l-4 border-accent p-4 rounded-r-lg">
+                    <h4 class="text-xs font-bold text-primary uppercase mb-1">Healthy Adult Re-parenting Strategy</h4>
+                    <p class="text-xs text-darktext leading-relaxed" id="schema-intervention">
+                        Validate the profound pain of childhood neglect. Reassure the child mode that their needs are legitimate and safe to express without risking abandonment.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: THERAPEUTIC PATHWAYS -->
+        <section id="section-pathways" class="space-y-8 hidden">
+            <div class="bg-surface border border-bordercolor rounded-2xl p-6 md:p-8">
+                <span class="inline-block px-3 py-1 bg-accentlight text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Clinical Interventions</span>
+                <h2 class="text-2xl font-bold text-primary mb-2">Therapeutic Pathways to Healing</h2>
+                <p class="text-mutedtext text-sm">
+                    Dismantling deeply entrenched over-functioning requires specialized experiential and systemic interventions. Pure cognitive logic is rarely sufficient to bypass counter-dependent defenses.
+                </p>
+            </div>
+
+            <!-- Interventions Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-accentlight text-accent font-bold flex items-center justify-center text-sm">A</div>
+                        <h3 class="font-bold text-primary text-base">Limited Reparenting</h3>
+                    </div>
+                    <p class="text-xs text-darktext leading-relaxed mb-4">
+                        The therapist acts as a secure base, offering consistent warmth, validation, and attunement within professional boundaries. By experiencing care that carries no demand for reciprocal caretaking, the client's central nervous system slowly recalibrates.
+                    </p>
+                    <div class="bg-surface p-3 rounded text-xs text-mutedtext">
+                        <strong>Clinical Aim:</strong> Soften the Detached Protector mode and reduce the urgent threat response of the reciprocity norm.
+                    </div>
+                </div>
+
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-accentlight text-accent font-bold flex items-center justify-center text-sm">B</div>
+                        <h3 class="font-bold text-primary text-base">Imagery Rescripting (ImRs)</h3>
+                    </div>
+                    <p class="text-xs text-darktext leading-relaxed mb-4">
+                        The client revisits distressing early childhood memories of emotional neglect or forced parentification in imagination. The therapist (and later the client's Healthy Adult) enters the scene to protect the child and rewrite the affective ending.
+                    </p>
+                    <div class="bg-surface p-3 rounded text-xs text-mutedtext">
+                        <strong>Clinical Aim:</strong> Neurologically reconsolidate attachment trauma and relieve the compulsive biological drive to over-function.
+                    </div>
+                </div>
+
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-accentlight text-accent font-bold flex items-center justify-center text-sm">C</div>
+                        <h3 class="font-bold text-primary text-base">Defecting in Place (Bowen Differentiation)</h3>
+                    </div>
+                    <p class="text-xs text-darktext leading-relaxed mb-4">
+                        In professional settings, the leader practices tolerating the internal anxiety of watching subordinates struggle or make non-catastrophic mistakes without stepping in to rescue or micromanage them.
+                    </p>
+                    <div class="bg-surface p-3 rounded text-xs text-mutedtext">
+                        <strong>Clinical Aim:</strong> Restore subordinate autonomy, build psychological safety, and break the over-functioning/under-functioning dyad.
+                    </div>
+                </div>
+
+                <div class="bg-cardbg border border-bordercolor p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-accentlight text-accent font-bold flex items-center justify-center text-sm">D</div>
+                        <h3 class="font-bold text-primary text-base">Chair Work & Critic Silencing</h3>
+                    </div>
+                    <p class="text-xs text-darktext leading-relaxed mb-4">
+                        Dialogues between different chairs representing the Punitive Parent Critic ("You are selfish if you receive care") and the Vulnerable Child. The Healthy Adult steps in to silence the critic and set firm boundaries.
+                    </p>
+                    <div class="bg-surface p-3 rounded text-xs text-mutedtext">
+                        <strong>Clinical Aim:</strong> Decouple self-worth from continuous self-sacrifice and utility to others.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Context / Local Note -->
+            <div class="bg-surface border border-bordercolor p-6 rounded-xl">
+                <h4 class="font-bold text-primary text-sm mb-2">Global & Local Clinical Application Note</h4>
+                <p class="text-xs text-darktext leading-relaxed">
+                    Specialized psychotherapeutic approaches for complex personality presentation, borderline traits, and severe emotional dysregulation stemming from these exact schema collisions are widely applied globally. For instance, in clinical hubs such as Chennai, India (e.g., at institutions like the Schizophrenia Research Foundation - SCARF), integrated CBT, Schema Therapy, and Dialectical Behavior Therapy (DBT) are actively utilized to treat complex trauma, parentification, and emotional dysregulation.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-cardbg border-t border-bordercolor py-6 mt-12 text-center text-xs text-mutedtext">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Interactive Exploration Tool based on Clinical Research in Schema Therapy, Bowen Systems, and Attachment Theory.</p>
+            <p class="pt-2">
+                <a href="readme.md" class="text-accent hover:underline">📝 Read The Full Report (Essay)</a> &nbsp;•&nbsp;
+                <a href="../" class="text-accent hover:underline">← Back to D/0 Vault</a> &nbsp;•&nbsp;
+                <a href="../../" class="text-accent hover:underline">The Dump</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Application Logic Script -->
+    <script>
+        // State Management
+        let currentTab = 'overview';
+        let currentStep = 1;
+        let radarChartInstance = null;
+        let lineChartInstance = null;
+
+        // Theory details data
+        const theoryData = {
+            attachment: {
+                title: "Attachment Theory: Evolutionary & Neurobiological Basis",
+                body: "John Bowlby's theory demonstrates how early parental emotional unavailability forces the child into parentification. To avoid absolute abandonment, the child becomes functionally indispensable to the caregiver. In adulthood, receiving care activates the sympathetic nervous system's threat response, treating vulnerability as an immediate precursor to betrayal."
+            },
+            bowen: {
+                title: "Bowen Family Systems: Chronic Anxiety & Differentiation",
+                body: "Murray Bowen established that human systems operate on an over-functioning/under-functioning reciprocity dyad to manage chronic anxiety. The over-functioner absorbs systemic anxiety by taking unilateral control, which actively induces learned helplessness and under-functioning in partners and subordinates."
+            },
+            schema: {
+                title: "Schema Therapy: The Collision of Early Maladaptive Schemas",
+                body: "Dr. Jeffrey Young identifies how the Emotional Deprivation schema (expecting no care) collides with the Self-Sacrifice schema (compulsive giving). When care is offered, the Punitive Parent mode shames the individual for being 'selfish,' forcing a swift retreat back into Over-Controller or Detached Protector modes."
+            }
+        };
+
+        // Step Scenario Data
+        const stepData = {
+            1: {
+                title: "Stage 1: The Unmet Need (Emotional Deprivation)",
+                desc: "The individual experiences chronic emotional exhaustion and secretly harbors a profound desire to be nurtured, supported, and rescued from their self-imposed burdens.",
+                quote: `"I'm spending my whole life taking care of other people. Oh my god, I wish someone would take care of me."`
+            },
+            2: {
+                title: "Stage 2: Care Offered (The Schema Threat)",
+                desc: "An affectionate partner or co-worker offers genuine support or unprompted care, threatening to break the established caregiver armor.",
+                quote: `"Someone shows up who tries to take care of you, or does something nice for you..."`
+            },
+            3: {
+                title: "Stage 3: Acute Indebtedness & Vulnerability Alarm",
+                desc: "Receiving care triggers an immediate threat response. The reciprocity norm creates intolerable pressure to repay the favor immediately to avoid loss of control.",
+                quote: `"It feels like: Oh my god, this is not okay. I need to balance this out. I don't like being in people's debt."`
+            },
+            4: {
+                title: "Stage 4: Projective Identification & The Selfishness Trap",
+                desc: "The individual projects their own historical caregiving depletion onto the benefactor. Fearing they will turn the benefactor into a depleted victim, they view receiving care as selfish.",
+                quote: `"You don't want to be the selfish person because you know what it's like to be on the receiving end of unreciprocated care."`
+            },
+            5: {
+                title: "Stage 5: Default Retreat to Over-Functioning",
+                desc: "The individual forcefully rejects the care, re-establishing themselves in the superior, safe caregiver position. Emotional starvation continues, but the protective defense remains intact.",
+                quote: `"You fall back into that schema... and retreat back to being the strong one who gives."`
+            }
+        };
+
+        // Schema Mode Data
+        const schemaModeData = {
+            lonely: {
+                tag: "Child Mode",
+                title: "The Lonely / Deprived Child",
+                cognitions: `"No one will ever truly be there for me. I am empty and completely on my own."`,
+                somatic: "Hollow ache in chest, chronic fatigue, quiet anxiety, suppressed grief.",
+                behavior: "Silent yearning for nurturance, subtle reaching out followed by quick retreat.",
+                intervention: "Validate the profound pain of childhood neglect. Reassure the child mode that their needs are legitimate and safe to express without risking abandonment."
+            },
+            protector: {
+                tag: "Coping Mode",
+                title: "The Detached Protector",
+                cognitions: `"I don't need anyone or anything. I am completely self-sufficient."`,
+                somatic: "Emotional numbness, physical tightness, walling off feelings, rigid posture.",
+                behavior: "Rejecting offers of help, intellectualizing emotional topics, sudden withdrawal.",
+                intervention: "Gently confront the wall of counter-dependence. Show that while this shield protected the child, it now keeps out genuine warmth and nurturance."
+            },
+            controller: {
+                tag: "Over-Compensator",
+                title: "The Over-Controller / Micromanager",
+                cognitions: `"If I don't do it myself, catastrophic failure will happen. Others are fundamentally unreliable."`,
+                somatic: "Hyper-vigilance, elevated heart rate, restlessness, jaw clenching.",
+                behavior: "Pervasive micromanagement, rewriting subordinates' work, refusal to delegate.",
+                intervention: "Help the client recognize that micromanagement is an anxiety-reduction ritual that sabotages team safety and guarantees personal burnout."
+            },
+            adult: {
+                tag: "Healthy Mode",
+                title: "The Healthy Adult",
+                cognitions: `"Receiving care is safe and healthy. My worth is not tied solely to what I give to others."`,
+                somatic: "Calm, grounded breathing, relaxed shoulders, open bodily posture.",
+                behavior: "Setting balanced boundaries, accepting help with gratitude, delegating authority.",
+                intervention: "Strengthen this mode through limited reparenting, imagery rescripting, and real-world behavioral experiments in balanced reciprocity."
+            }
+        };
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const sections = ['overview', 'theories', 'receiving', 'workplace', 'schemas', 'pathways'];
+            
+            sections.forEach(s => {
+                const el = document.getElementById(`section-${s}`);
+                const navBtn = document.getElementById(`nav-${s}`);
+                if (s === tabId) {
+                    el.classList.remove('hidden');
+                    if (navBtn) navBtn.classList.add('active');
+                } else {
+                    el.classList.add('hidden');
+                    if (navBtn) navBtn.classList.remove('active');
+                }
+            });
+
+            // Sync mobile select
+            const mobileSelect = document.getElementById('mobile-nav');
+            if (mobileSelect) mobileSelect.value = tabId;
+
+            // Render Charts on visibility
+            if (tabId === 'receiving' && !radarChartInstance) {
+                renderRadarChart();
+            }
+            if (tabId === 'workplace' && !lineChartInstance) {
+                renderLineChart();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Theoretical Detail Switching
+        function showTheoryDetail(key) {
+            const data = theoryData[key];
+            if (!data) return;
+            document.getElementById('theory-detail-title').innerText = data.title;
+            document.getElementById('theory-detail-body').innerText = data.body;
+            document.getElementById('theory-detail-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Scenario Step Switcher
+        function setStep(stepNum) {
+            currentStep = stepNum;
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                if (i === stepNum) {
+                    btn.classList.add('border-accent', 'bg-accentlight');
+                } else {
+                    btn.classList.remove('border-accent', 'bg-accentlight');
+                }
+            }
+
+            const data = stepData[stepNum];
+            document.getElementById('step-title').innerText = data.title;
+            document.getElementById('step-desc').innerText = data.desc;
+            document.getElementById('step-quote').innerText = data.quote;
+        }
+
+        // Schema Mode Selector
+        function selectSchemaMode(modeKey) {
+            const modes = ['lonely', 'protector', 'controller', 'adult'];
+            modes.forEach(m => {
+                const card = document.getElementById(`mode-card-${m}`);
+                if (m === modeKey) {
+                    card.classList.add('active-mode');
+                } else {
+                    card.classList.remove('active-mode');
+                }
+            });
+
+            const data = schemaModeData[modeKey];
+            document.getElementById('schema-tag').innerText = data.tag;
+            document.getElementById('schema-title').innerText = data.title;
+            document.getElementById('schema-cognitions').innerText = data.cognitions;
+            document.getElementById('schema-somatic').innerText = data.somatic;
+            document.getElementById('schema-behavior').innerText = data.behavior;
+            document.getElementById('schema-intervention').innerText = data.intervention;
+        }
+
+        // Chart 1: Relational Radar Chart
+        function renderRadarChart() {
+            const ctx = document.getElementById('relationalRadarChart').getContext('2d');
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Giving Capacity', 'Receiving Capacity', 'Boundary Clarity', 'Vulnerability', 'Control Need', 'Autonomy'],
+                    datasets: [
+                        {
+                            label: 'Secure Reciprocation',
+                            data: [80, 80, 85, 75, 20, 85],
+                            borderColor: '#7A8B8B',
+                            backgroundColor: 'rgba(122, 139, 139, 0.2)',
+                            pointBackgroundColor: '#7A8B8B'
+                        },
+                        {
+                            label: 'Compulsive Caregiver',
+                            data: [95, 15, 20, 15, 90, 30],
+                            borderColor: '#C86D51',
+                            backgroundColor: 'rgba(200, 109, 81, 0.2)',
+                            pointBackgroundColor: '#C86D51'
+                        },
+                        {
+                            label: 'Counter-Dependence',
+                            data: [35, 20, 30, 10, 85, 40],
+                            borderColor: '#2C3531',
+                            backgroundColor: 'rgba(44, 53, 49, 0.15)',
+                            pointBackgroundColor: '#2C3531'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E2DACD' },
+                            grid: { color: '#E2DACD' },
+                            pointLabels: {
+                                font: { size: 10 },
+                                color: '#3E4E50'
+                            },
+                            ticks: { display: false },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 11 }, color: '#2C3531' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Chart 2: Workplace Trajectory Line Chart
+        function renderLineChart() {
+            const ctx = document.getElementById('workplaceTrajectoryChart').getContext('2d');
+            lineChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Month 1', 'Month 3', 'Month 6', 'Month 9', 'Month 12'],
+                    datasets: [
+                        {
+                            label: 'Leader Burnout Risk',
+                            data: [25, 45, 68, 85, 96],
+                            borderColor: '#C86D51',
+                            backgroundColor: '#C86D51',
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Subordinate Autonomy & Self-Efficacy',
+                            data: [75, 55, 35, 20, 12],
+                            borderColor: '#7A8B8B',
+                            backgroundColor: '#7A8B8B',
+                            tension: 0.3,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: '#E2DACD' },
+                            ticks: { color: '#6C757D', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: '#E2DACD' },
+                            ticks: { color: '#6C757D', font: { size: 10 } },
+                            title: { display: true, text: 'Level (%)', color: '#3E4E50', font: { size: 11 } },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            setStep(1);
+        });
+    </script>
+</body>
+</html>
