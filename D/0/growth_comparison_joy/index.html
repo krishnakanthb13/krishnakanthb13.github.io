@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architecture of Evaluation | Growth Without Unhealthy Comparison</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        teal: {
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            50: '#f0fdf4',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        amber: {
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        serif: ['Georgia', 'Cambria', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans leading-relaxed antialiased min-h-screen flex flex-col">
+
+<!-- Chosen Palette: Warm Neutral Harmony (Stone background, Slate text, Teal accents, Amber indicators) -->
+<!-- Application Structure Plan: The SPA is structured into seven thematic interactive modules designed to guide the user from deconstructing the myth of comparison to mastering practical psychological reframing tools. Rather than a linear text dump, the architecture uses interactive toggle cards, a CBT thought-reframing simulator, 2x2 matrix explorers, dynamic Chart.js visualizations, and paradigm switcher tables. This structure empowers users to actively experiment with shifting their comparative lens from 'Verdict' to 'Data' and from 'Norm-Referenced' to 'Ipsative/Criterion' assessment. -->
+<!-- Visualization & Content Choices: 
+1. Historical Etymology -> Proliferation Chart & Interactive Timeline -> Goal: Deconstruct myth -> Chart.js Bar Chart & Interactive Cards -> No SVG/Mermaid.
+2. Developmental Shift -> Age-based Sensitivity Line Chart -> Goal: Demonstrate cognitive shift at age 7 -> Chart.js Line Chart -> No SVG/Mermaid.
+3. Selective Accessibility Model -> Interactive Assimilation vs Contrast Simulator -> Goal: Show how belief in attainability splits inspiration vs envy -> HTML/JS Interactive Cards -> No SVG/Mermaid.
+4. Assessment Paradigms -> Interactive Assessment Matrix & Lens Switcher -> Goal: Compare Norm vs Criterion vs Ipsative -> Dynamic HTML/JS Table & Switcher -> No SVG/Mermaid.
+5. Motivational Goals -> 2x2 Achievement Goal Radar Chart -> Goal: Illustrate psychological outcomes of Mastery vs Performance -> Chart.js Radar/Bar -> No SVG/Mermaid.
+6. Cognitive Reframer -> Interactive CBT 5-Step Reframing Tool -> Goal: Active learning & practical application -> Dynamic Vanilla JS Step-by-Step Form -> No SVG/Mermaid.
+7. Stoic Framework -> Interactive 3 Disciplines Cards & Philosophy Comparison -> Goal: Contextualize philosophical resilience -> HTML/Tailwind Grid + JS expanders -> No SVG/Mermaid.
+-->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-stone-900 text-stone-100 shadow-lg border-b border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-teal-400 font-bold text-xl tracking-tight">📐 The Architecture of Evaluation</span>
+                </div>
+                <nav class="hidden md:flex space-x-1 lg:space-x-3 text-xs lg:text-sm font-medium">
+                    <a href="#etymology" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">Etymology</a>
+                    <a href="#development" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">Development</a>
+                    <a href="#psychology" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">Social Comparison</a>
+                    <a href="#paradigms" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">Assessment Paradigms</a>
+                    <a href="#motivation" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">2x2 Matrix</a>
+                    <a href="#reframer" class="px-2 py-1 rounded hover:bg-stone-800 text-teal-400 transition font-semibold">Interactive Reframer</a>
+                    <a href="#stoicism" class="px-2 py-1 rounded hover:bg-stone-800 hover:text-teal-400 transition">Stoic Resilience</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- Hero Section -->
+        <section class="text-center py-10 px-6 rounded-3xl bg-gradient-to-br from-stone-900 via-stone-800 to-teal-950 text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+                <span class="inline-block px-3 py-1 bg-teal-900/60 text-teal-300 text-xs font-semibold tracking-wider uppercase rounded-full border border-teal-700/50">Psychological Insights & Interactive Exploration</span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold font-serif tracking-tight text-stone-100 leading-tight">
+                    "Comparison is the Thief of Joy" — <br class="hidden sm:inline"/>Or Is It Just the Wrong Ruler?
+                </h1>
+                <p class="text-base sm:text-lg text-stone-300 font-light max-w-3xl mx-auto">
+                    Human growth demands measurement. Joy is not destroyed by comparison itself, but by comparing our internal unedited reality to external curated highlight reels. Shift your comparative lens from a <strong class="text-teal-300">verdict on worth</strong> to <strong class="text-teal-300">data for development</strong>.
+                </p>
+                
+                <!-- Key Metric / Core Concept Summary Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 text-left">
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700/60">
+                        <div class="text-xs uppercase text-teal-400 font-bold mb-1">Paradigm 1</div>
+                        <div class="text-lg font-semibold text-white">Norm-Referenced</div>
+                        <p class="text-xs text-stone-400 mt-1">Measuring against peers creates zero-sum anxiety and highlight-reel distortion.</p>
+                    </div>
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700/60">
+                        <div class="text-xs uppercase text-amber-400 font-bold mb-1">Paradigm 2</div>
+                        <div class="text-lg font-semibold text-white">Criterion-Referenced</div>
+                        <p class="text-xs text-stone-400 mt-1">Measuring against objective standards strips away ego and establishes clear benchmarks.</p>
+                    </div>
+                    <div class="bg-stone-800/80 p-4 rounded-xl border border-teal-500/40">
+                        <div class="text-xs uppercase text-teal-300 font-bold mb-1">Paradigm 3</div>
+                        <div class="text-lg font-semibold text-white">Ipsative Assessment</div>
+                        <p class="text-xs text-stone-400 mt-1">Measuring against past self guarantees identical starting points, constraints, and pace.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: Etymology & Misattribution -->
+        <section id="etymology" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-teal-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">1. Historical Etymology & The Misattribution Paradox</h2>
+                <p class="text-stone-600 text-sm mt-1">Understanding how a modern internet misattribution reveals our collective anxiety regarding social evaluation.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-card space-y-4">
+                <p class="text-stone-700">
+                    The quote <em>"Comparison is the thief of joy"</em> is widely and erroneously attributed to Theodore Roosevelt. However, exhaustive archival research confirms Roosevelt never pen or uttered the phrase. Online attribution to Roosevelt only emerged around **2012**—nearly a century after his death—and was subsequently republished in over 130 books.
+                </p>
+                <p class="text-stone-700 text-sm">
+                    The idea of various states acting as a "thief of joy" evolved over 150 years through poetry and print, moving from <em>Time</em> (1855), to <em>Age</em> (1881), <em>Worry</em> (1915), and <em>Anticipation</em> (1918) before settling on <em>Comparison</em> in 2004.
+                </p>
+            </div>
+
+            <!-- Historical Interactive Timeline & Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-bold text-stone-900 border-b pb-2">Evolutionary Timeline</h3>
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="p-2.5 rounded bg-stone-50 border-l-2 border-stone-400">
+                            <span class="font-bold text-stone-900">1855: Park Benjamin</span> — <em>"Time is a thief of joys."</em>
+                        </div>
+                        <div class="p-2.5 rounded bg-stone-50 border-l-2 border-stone-400">
+                            <span class="font-bold text-stone-900">1881: Wilfrid Scawen Blunt</span> — <em>"O Age, thou art the very thief of joy."</em>
+                        </div>
+                        <div class="p-2.5 rounded bg-stone-50 border-l-2 border-amber-500">
+                            <span class="font-bold text-stone-900">1915: San Antonio Light</span> — Described <em>Worry</em> as a thief of joy.
+                        </div>
+                        <div class="p-2.5 rounded bg-stone-50 border-l-2 border-teal-600">
+                            <span class="font-bold text-stone-900">2004: Curt Cloninger</span> — First exact print match: <em>"Comparison is the thief of joy."</em>
+                        </div>
+                        <div class="p-2.5 rounded bg-teal-50 border-l-2 border-teal-700 text-teal-900 font-medium">
+                            <span class="font-bold">2012–Present</span> — Rapid viral misattribution to Theodore Roosevelt across 130+ books.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-base font-bold text-stone-900 mb-2 text-center">Book Attributions to Theodore Roosevelt (2000–2024)</h3>
+                    <div class="chart-container">
+                        <canvas id="etymologyChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-stone-500 mt-2">Data illustrates the sudden exponential growth of the quote's false attribution following modern web digitization.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Developmental Ontogeny -->
+        <section id="development" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-amber-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">2. The Developmental Shift: From Curiosity to Self-Worth</h2>
+                <p class="text-stone-600 text-sm mt-1">Exploratory analysis of how children process comparative data before and after age 7.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                <p class="text-stone-700">
+                    Psychological aversion to comparison is <strong>not innate</strong>; it is acquired through developmental milestones and social conditioning. In 1980, researcher Diane Ruble demonstrated that five-year-olds observe peer achievements purely as objective informational data without evaluating their own personal self-esteem.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    <div class="p-4 bg-teal-50/60 rounded-xl border border-teal-200">
+                        <h4 class="font-bold text-teal-900 flex items-center gap-2">
+                            <span>🎈</span> Age 5: Informational Assimilation
+                        </h4>
+                        <p class="text-xs text-teal-800 mt-2 leading-relaxed">
+                            A kindergarten show-and-tell session: One child presents a jar of sand; another presents a horse photo. Children absorb this with pure curiosity. Comparative thought is informational: <em>"I want to find a big crab too."</em> No judgment of inherent worth is rendered.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-amber-50/60 rounded-xl border border-amber-200">
+                        <h4 class="font-bold text-amber-900 flex items-center gap-2">
+                            <span>⚡</span> Age 7+: Evaluative Shift
+                        </h4>
+                        <p class="text-xs text-amber-800 mt-2 leading-relaxed">
+                            Neurological maturation and social feedback lock comparison directly into self-esteem. External comments about what is affordable or what one is "built for" calcify into limiting beliefs. Comparison shifts from <em>"What can I learn?"</em> to <em>"Am I adequate?"</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart: Age Sensitivity to Social Comparison -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                <h3 class="text-base font-bold text-stone-900 mb-1 text-center">Developmental Sensitivity of Self-Esteem to Social Comparison</h3>
+                <p class="text-xs text-stone-500 mb-4 text-center">Tracking the psychological vulnerability to peer performance metrics across developmental stages.</p>
+                <div class="chart-container">
+                    <canvas id="developmentChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Social Comparison & SAM -->
+        <section id="psychology" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">3. Social Comparison Theory & The Highlight Reel Paradox</h2>
+                <p class="text-stone-600 text-sm mt-1">Festinger's axes, Mussweiler's Selective Accessibility Model (SAM), and the split between Benign and Malicious Envy.</p>
+            </div>
+
+            <!-- SAM Interactive Simulator / Concept Visualizer -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-bold text-stone-900">Selective Accessibility Model (Mussweiler)</h3>
+                    <p class="text-stone-700 text-sm leading-relaxed">
+                        When observing a high-performing peer, your mind automatically tests one of two hypotheses based on whether you believe improvement is <strong>attainable</strong>:
+                    </p>
+
+                    <div id="samTargetBox" class="p-4 rounded-xl bg-stone-100 border transition-all duration-300">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-sm text-stone-800">Target Scenario: Peer builds a major tech product in 1 month</span>
+                            <span id="attainabilityBadge" class="text-xs px-2 py-0.5 rounded font-semibold bg-teal-200 text-teal-800">Perceived Attainable</span>
+                        </div>
+                        <p id="samDescription" class="text-xs text-stone-600">
+                            "I have access to learning tools, time, and growth capacity."
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button onclick="setSAMState(true)" class="flex-1 py-2 px-3 text-xs font-bold rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition">Test Similarity (High Attainability)</button>
+                        <button onclick="setSAMState(false)" class="flex-1 py-2 px-3 text-xs font-bold rounded-lg bg-stone-700 text-white hover:bg-stone-800 transition">Test Dissimilarity (Low Attainability)</button>
+                    </div>
+
+                    <div id="samOutcomeCard" class="p-4 rounded-xl bg-teal-50 border border-teal-200 text-teal-900 text-xs space-y-2">
+                        <div class="font-bold text-sm text-teal-800">Resulting Cognitive Mechanism: Assimilation Effect</div>
+                        <p>Selective activation of shared capabilities occurs. The target's success acts as vicarious reinforcement.</p>
+                        <div class="font-semibold text-teal-700">Emotional Valence: Inspiration / Benign Envy ("How can I learn that?")</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-bold text-stone-900">The Highlight Reel Asymmetry</h3>
+                    <p class="text-stone-700 text-sm leading-relaxed">
+                        Comparing your internal messy draft to someone else's polished public output creates a profound psychometric flaw:
+                    </p>
+                    
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-red-50 rounded-lg border border-red-200 text-red-900">
+                            <strong class="block text-sm mb-1">Your Rough Draft (Internal)</strong>
+                            Includes unseen anxieties, slow iteration, doubts, environmental turbulence, luck factors, and biological constraints.
+                        </div>
+                        <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-emerald-900">
+                            <strong class="block text-sm mb-1">Peer's Highlight Reel (External)</strong>
+                            Exhibits the sleek final product, masking undisclosed advantages, fortunate timing, hidden assistance, and unrecorded initial failures.
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-stone-100 rounded-lg border border-stone-300 text-stone-700 text-xs">
+                        <strong>Krill et al. (2016) Study Insight:</strong> In a sample of 11,516 professionals, 45.7% suffered severe depressive symptoms directly fueled by continuous comparison to peers' curated success metrics while isolated in their own struggles.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Assessment Paradigms -->
+        <section id="paradigms" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-teal-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">4. The Three Assessment Paradigms (The Ruler Switch)</h2>
+                <p class="text-stone-600 text-sm mt-1">Glaser (1963) & Horst (1950): Changing the evaluative baseline changes the psychological impact.</p>
+            </div>
+
+            <!-- Paradigm Switcher Component -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <div class="flex flex-wrap gap-2 justify-center border-b pb-4">
+                    <button id="btnNorm" onclick="switchParadigm('norm')" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-stone-100 text-stone-700 hover:bg-stone-200">
+                        Norm-Referenced (Interpersonal Rank)
+                    </button>
+                    <button id="btnCriterion" onclick="switchParadigm('criterion')" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-stone-100 text-stone-700 hover:bg-stone-200">
+                        Criterion-Referenced (Objective Benchmark)
+                    </button>
+                    <button id="btnIpsative" onclick="switchParadigm('ipsative')" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-teal-600 text-white shadow">
+                        Ipsative Assessment (Past Self Baseline)
+                    </button>
+                </div>
+
+                <div id="paradigmDisplay" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Dynamic Javascript Content -->
+                </div>
+
+                <!-- Temporal Self-Appraisal (TSA) Theory Box -->
+                <div class="p-4 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-700 space-y-2">
+                    <h4 class="font-bold text-stone-900 text-sm">Temporal Self-Appraisal (TSA) Theory (Wilson & Ross, 2001)</h4>
+                    <p class="leading-relaxed">
+                        TSA theory demonstrates that individuals naturally manipulate <em>subjective temporal distance</em> to protect present self-esteem. We psychologically distance past failures (treating former selves as "remote chumps") while pulling past successes close to bock in their warmth. Comparing current capabilities against past limitations is a vital restorative mechanism for healthy cognitive function.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Motivational Architecture -->
+        <section id="motivation" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">5. Motivational Frameworks: 2x2 Matrix & SDT</h2>
+                <p class="text-stone-600 text-sm mt-1">Elliot & McGregor (2001) Achievement Goal Framework & Self-Determination Theory (Deci & Ryan).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Interactive 2x2 Achievement Goal Explorer -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-bold text-stone-900">2x2 Achievement Goal Matrix Explorer</h3>
+                    <p class="text-xs text-stone-600">Click a cell to inspect its psychological impact on task absorption, flow, and anxiety:</p>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <button onclick="selectGoal('mastery-approach')" id="cell-mastery-approach" class="p-3 rounded-xl border-2 text-left transition border-teal-600 bg-teal-50/80">
+                            <span class="block font-bold text-teal-900">Mastery-Approach</span>
+                            <span class="text-[11px] text-teal-700">Focus: Task mastery & learning</span>
+                        </button>
+                        <button onclick="selectGoal('mastery-avoidance')" id="cell-mastery-avoidance" class="p-3 rounded-xl border-2 text-left transition border-stone-200 bg-stone-50 hover:bg-stone-100">
+                            <span class="block font-bold text-stone-900">Mastery-Avoidance</span>
+                            <span class="text-[11px] text-stone-600">Focus: Avoiding skill loss</span>
+                        </button>
+                        <button onclick="selectGoal('performance-approach')" id="cell-performance-approach" class="p-3 rounded-xl border-2 text-left transition border-stone-200 bg-stone-50 hover:bg-stone-100">
+                            <span class="block font-bold text-stone-900">Performance-Approach</span>
+                            <span class="text-[11px] text-stone-600">Focus: Outperforming peers</span>
+                        </button>
+                        <button onclick="selectGoal('performance-avoidance')" id="cell-performance-avoidance" class="p-3 rounded-xl border-2 text-left transition border-stone-200 bg-stone-50 hover:bg-stone-100">
+                            <span class="block font-bold text-stone-900">Performance-Avoidance</span>
+                            <span class="text-[11px] text-stone-600">Focus: Avoiding looking foolish</span>
+                        </button>
+                    </div>
+
+                    <div id="goalDetailPanel" class="p-4 rounded-xl bg-teal-50 border border-teal-200 text-xs text-teal-900 space-y-2">
+                        <div class="font-bold text-sm text-teal-900">Mastery-Approach (Optimal State)</div>
+                        <p class="leading-relaxed">The individual strives purely to master the task. High correlation with intrinsic motivation, deep cognitive absorption, and non-self-conscious "flow" state.</p>
+                        <div class="text-[11px] font-semibold text-teal-800">Impact on Comparison: Comparison is strictly informational; gap is an exciting territory for learning.</div>
+                    </div>
+                </div>
+
+                <!-- Radar Chart Visualizing Outcomes -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-base font-bold text-stone-900 mb-1 text-center">Psychological Profile across Goal Orientations</h3>
+                    <p class="text-xs text-stone-500 mb-2 text-center">Measuring Intrinsic Motivation, Anxiety, and Susceptibility to Ego Threats.</p>
+                    <div class="chart-container">
+                        <canvas id="motivationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Determination Theory (SDT) Triad -->
+            <div class="bg-stone-900 text-stone-100 p-6 rounded-2xl shadow-md space-y-4">
+                <h3 class="text-lg font-bold font-serif text-teal-300">Self-Determination Theory (SDT) Integration</h3>
+                <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                    Deci & Ryan's SDT dictates that human flourishing requires satisfying three universal needs. When social comparison turns normative, it weaponizes external standards and thwarts these needs:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
+                    <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700">
+                        <span class="font-bold text-teal-400 block mb-1">1. Autonomy</span>
+                        Behaviors are internally regulated. Normative comparison creates <em>introjected regulation</em>—acting out of guilt or contingent self-esteem.
+                    </div>
+                    <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700">
+                        <span class="font-bold text-teal-400 block mb-1">2. Competence</span>
+                        Feeling effective. Informational comparison provides clear tactical feedback; normative comparison threatens sense of agency.
+                    </div>
+                    <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700">
+                        <span class="font-bold text-teal-400 block mb-1">3. Relatedness</span>
+                        Authentic belonging. Viewing peers as competitors converts community into an arena of zero-sum friction.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Interactive Reframer & CBT Simulator -->
+        <section id="reframer" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-teal-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">6. Practical Application: Information vs. Verdict Reframer</h2>
+                <p class="text-stone-600 text-sm mt-1">CBT 5-Step Thought Reframing Simulator & Diagnostic Signal Checklist.</p>
+            </div>
+
+            <!-- CBT Interactive Simulator -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border-2 border-teal-500/30 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-stone-900 font-serif">CBT Cognitive Reframing Engine</h3>
+                    <p class="text-xs text-stone-600 mt-1">Convert toxic comparative verdicts ("What am I worth?") into constructive informational data ("What can I learn?").</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 space-y-3">
+                        <label class="block text-xs font-bold text-stone-700 uppercase">Select or Enter a Comparative Trigger:</label>
+                        <select id="triggerPreset" onchange="loadPresetTrigger()" class="w-full p-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg focus:ring-2 focus:ring-teal-500">
+                            <option value="tech">"A peer launched a stunning app in 1 month; I'm way behind."</option>
+                            <option value="career">"My former classmate was promoted to VP while I'm stuck."</option>
+                            <option value="creative">"An artist younger than me posted an incredible portfolio."</option>
+                            <option value="fitness">"Someone at my gym lifts twice my weight with ease."</option>
+                        </select>
+
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-2">
+                            <div class="font-bold text-stone-800">Automatic Verdict (Toxic Lens)</div>
+                            <p id="verdictText" class="text-red-700 font-medium italic">"I am failing, lack natural talent, and will never reach this level."</p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-4">
+                        <div class="text-xs font-bold uppercase text-teal-700">The 5-Step Reframing Pipeline</div>
+
+                        <div id="cbtStepsContainer" class="space-y-2 text-xs">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <button onclick="generateReframedOutput()" class="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg text-xs transition shadow">
+                            Generate Informational Action Plan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Final Reframed Box -->
+                <div id="reframedResultBox" class="p-4 rounded-xl bg-teal-50 border border-teal-300 text-xs space-y-2 hidden">
+                    <span class="text-xs uppercase font-bold text-teal-800 block">Reframed Informational Insight:</span>
+                    <p id="reframedResultText" class="text-stone-800 font-medium text-sm leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- Diagnostic Signal Checklist -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-3">
+                    <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                        <span>✅</span> Informational Comparison (Adaptive Signal)
+                    </h4>
+                    <ul class="text-xs text-stone-600 space-y-2 list-disc pl-4">
+                        <li>Leaves you feeling curious, energized, or motivated.</li>
+                        <li>Triggers an urge to <strong>open your editor / start working</strong>.</li>
+                        <li>Views the target's success as empirical proof of concept.</li>
+                        <li>Extracts tactical methodology from results.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-red-200 shadow-sm space-y-3">
+                    <h4 class="font-bold text-red-900 text-sm flex items-center gap-2">
+                        <span>❌</span> Verdict Comparison (Corrosive Signal)
+                    </h4>
+                    <ul class="text-xs text-stone-600 space-y-2 list-disc pl-4">
+                        <li>Leaves you feeling deflated, anxious, or resentful.</li>
+                        <li>Triggers an urge to <strong>close your editor / abandon task</strong>.</li>
+                        <li>Interprets another's outcome as an existential judgment.</li>
+                        <li>Focuses on personal deficiency rather than process.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Philosophical Resilience (Stoicism) -->
+        <section id="stoicism" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-amber-600 pl-4">
+                <h2 class="text-2xl font-bold font-serif text-stone-900">7. Philosophical Resilience: The Stoic Framework</h2>
+                <p class="text-stone-600 text-sm mt-1">Epictetus, Seneca, and Marcus Aurelius on internalizing control and neutralizing comparative envy.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+                    <div class="text-xs font-bold text-amber-700 uppercase">Epictetus</div>
+                    <h3 class="font-serif font-bold text-stone-900 text-base">The Dichotomy of Control</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Born into slavery, Epictetus emphasized that external rankings and peer accomplishments fall outside our direct control. Peace is preserved by caring exclusively for internal intention and effort.
+                    </p>
+                    <div class="p-2 bg-stone-50 text-[11px] text-stone-700 italic border-l-2 border-stone-400">
+                        "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has."
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+                    <div class="text-xs font-bold text-amber-700 uppercase">Seneca</div>
+                    <h3 class="font-serif font-bold text-stone-900 text-base">Imagined Suffering</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Wealthy statesman navigating imperial volatility, Seneca warned that comparing our status to others creates artificial poverty.
+                    </p>
+                    <div class="p-2 bg-stone-50 text-[11px] text-stone-700 italic border-l-2 border-stone-400">
+                        "We suffer more often in imagination than in reality."
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+                    <div class="text-xs font-bold text-amber-700 uppercase">Marcus Aurelius</div>
+                    <h3 class="font-serif font-bold text-stone-900 text-base">Internal Sanctuary</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Roman Emperor holding absolute power, Marcus utilized private self-appraisal (*Meditations*) to align actions with internal virtue rather than court accolades.
+                    </p>
+                    <div class="p-2 bg-stone-50 text-[11px] text-stone-700 italic border-l-2 border-stone-400">
+                        "Look within. Within is the fountain of good, and it will ever bubble up, if thou wilt ever dig."
+                    </div>
+                </div>
+            </div>
+
+            <!-- The 3 Stoic Disciplines Matrix -->
+            <div class="bg-stone-900 text-stone-100 p-6 rounded-2xl space-y-4">
+                <h3 class="text-lg font-bold font-serif text-amber-400">Operationalizing the Three Stoic Disciplines</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-3 bg-stone-800 rounded-xl border border-stone-700">
+                        <strong class="text-white block mb-1">1. Discipline of Desire</strong>
+                        Align desire only with internal effort. Immunizes against malicious envy generated by external acquisitions.
+                    </div>
+                    <div class="p-3 bg-stone-800 rounded-xl border border-stone-700">
+                        <strong class="text-white block mb-1">2. Discipline of Action</strong>
+                        Focus entirely on craftsmanship and virtue (Ipsative progress), divorcing value from social rank.
+                    </div>
+                    <div class="p-3 bg-stone-800 rounded-xl border border-stone-700">
+                        <strong class="text-white block mb-1">3. Discipline of Assent</strong>
+                        Intercept automatic judgments. When seeing a peer's launch, strip value judgment: "They launched X; I am currently working on Y."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary & Synthesis Section -->
+        <section class="bg-gradient-to-r from-teal-900 to-stone-900 text-white p-8 rounded-3xl shadow-xl space-y-4 text-center">
+            <h2 class="text-2xl font-bold font-serif">Synthesis: Calibrating Your Comparative Ruler</h2>
+            <p class="text-xs sm:text-sm text-stone-300 max-w-3xl mx-auto leading-relaxed">
+                Comparison is not inherently a thief. When calibrated as <strong>information</strong>, anchored in <strong>ipsative baseline</strong> (your past self), and referenced against <strong>objective criteria</strong>, comparison becomes the precise compass by which human potential is navigated.
+            </p>
+            <div class="pt-2">
+                <a href="#reframer" class="inline-block px-6 py-3 bg-teal-500 hover:bg-teal-400 text-stone-950 font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-lg">
+                    Practice Reframing Now
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-500 text-xs py-8 border-t border-stone-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>The Architecture of Evaluation — Psychological & Analytical SPA</p>
+            <p class="text-stone-600">Based on research in Social Comparison Theory, SAM, Temporal Self-Appraisal, and Self-Determination Theory.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. ETYMOLOGY CHART ---
+        const etymologyCtx = document.getElementById('etymologyChart').getContext('2d');
+        new Chart(etymologyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pre-2004', '2004-2011', '2012-2015', '2016-2019', '2020-2024'],
+                datasets: [{
+                    label: 'Published Books Attributing Quote to T. Roosevelt',
+                    data: [0, 2, 28, 54, 132],
+                    backgroundColor: ['#d6d3d1', '#94a3b8', '#38bdf8', '#0d9488', '#0f766e'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` Attributed Books: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9' },
+                        ticks: { color: '#64748b', font: { size: 10 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b', font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // --- 2. DEVELOPMENTAL CHART ---
+        const devCtx = document.getElementById('developmentChart').getContext('2d');
+        new Chart(devCtx, {
+            type: 'line',
+            data: {
+                labels: ['Age 3', 'Age 5 (Ruble)', 'Age 7 (Shift)', 'Age 10', 'Age 15 (Adolescence)', 'Age 20 (College)'],
+                datasets: [
+                    {
+                        label: 'Self-Esteem Sensitivity to Social Ranking',
+                        data: [10, 15, 65, 80, 95, 88],
+                        borderColor: '#d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'Pure Informational Curiosity',
+                        data: [90, 85, 45, 30, 20, 35],
+                        borderColor: '#0d9488',
+                        backgroundColor: 'transparent',
+                        borderDash: [5, 5],
+                        tension: 0.3,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12 } }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Psychological Weight (%)', font: { size: 11 } },
+                        min: 0,
+                        max: 100,
+                        grid: { color: '#f1f5f9' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // --- 3. SELECTIVE ACCESSIBILITY MODEL SIMULATOR ---
+        function setSAMState(isAttainable) {
+            const badge = document.getElementById('attainabilityBadge');
+            const desc = document.getElementById('samDescription');
+            const outcome = document.getElementById('samOutcomeCard');
+
+            if (isAttainable) {
+                badge.className = "text-xs px-2 py-0.5 rounded font-semibold bg-teal-200 text-teal-800";
+                badge.innerText = "Perceived Attainable";
+                desc.innerText = '"I have access to learning tools, time, and neuroplastic growth capacity."';
+                outcome.className = "p-4 rounded-xl bg-teal-50 border border-teal-200 text-teal-900 text-xs space-y-2";
+                outcome.innerHTML = `
+                    <div class="font-bold text-sm text-teal-800">Resulting Cognitive Mechanism: Assimilation Effect</div>
+                    <p>Selective activation of shared capabilities occurs. The target's success acts as vicarious reinforcement.</p>
+                    <div class="font-semibold text-teal-700">Emotional Valence: Inspiration / Benign Envy ("How can I learn that?")</div>
+                `;
+            } else {
+                badge.className = "text-xs px-2 py-0.5 rounded font-semibold bg-stone-300 text-stone-800";
+                badge.innerText = "Perceived Unattainable / Fixed";
+                desc.innerText = '"My opportunity window has closed or my ability is immutably fixed."';
+                outcome.className = "p-4 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs space-y-2";
+                outcome.innerHTML = `
+                    <div class="font-bold text-sm text-red-800">Resulting Cognitive Mechanism: Contrast Effect</div>
+                    <p>Selective activation of personal inadequacies and gaps occurs. The standard shifts away from your self-evaluation.</p>
+                    <div class="font-semibold text-red-700">Emotional Valence: Deflation / Malicious Envy ("Pull the target down")</div>
+                `;
+            }
+        }
+
+        // --- 4. PARADIGM SWITCHER DATA ---
+        const paradigmData = {
+            norm: {
+                title: "Norm-Referenced Assessment",
+                focus: "Interpersonal Rank & Social Distribution Curve",
+                question: '"How do I rank against others?"',
+                impact: "High risk of ego threat. Generates zero-sum competitive anxiety where peer success feels like personal failure.",
+                color: "border-red-300 bg-red-50/50 text-red-950"
+            },
+            criterion: {
+                title: "Criterion-Referenced Assessment",
+                focus: "Objective Benchmark & Absolute Mastery Standard",
+                question: '"Has the specific objective benchmark been met?"',
+                impact: "Strips ego away. Standard is mechanical (e.g., Does code compile?). Highlights clear gaps for systematic improvement.",
+                color: "border-amber-300 bg-amber-50/50 text-amber-950"
+            },
+            ipsative: {
+                title: "Ipsative Assessment (Recommended)",
+                focus: "Past-Self Longitudinal Baseline",
+                question: '"Have I improved relative to my past self?"',
+                impact: "Highly motivational. Guarantees identical constraints, pace, and starting conditions. Rewards every incremental step.",
+                color: "border-teal-400 bg-teal-50 text-teal-950"
+            }
+        };
+
+        function switchParadigm(key) {
+            ['norm', 'criterion', 'ipsative'].forEach(p => {
+                const btn = document.getElementById('btn' + p.charAt(0).toUpperCase() + p.slice(1));
+                if (p === key) {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-teal-600 text-white shadow";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-stone-100 text-stone-700 hover:bg-stone-200";
+                }
+            });
+
+            const p = paradigmData[key];
+            const display = document.getElementById('paradigmDisplay');
+            display.innerHTML = `
+                <div class="md:col-span-3 p-5 rounded-2xl border-2 ${p.color} transition-all space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold font-serif text-lg">${p.title}</h4>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-white/80 font-semibold shadow-sm">${p.focus}</span>
+                    </div>
+                    <div class="text-base font-semibold italic text-stone-800">${p.question}</div>
+                    <p class="text-xs leading-relaxed opacity-90">${p.impact}</p>
+                </div>
+            `;
+        }
+
+        // Initialize default paradigm view
+        switchParadigm('ipsative');
+
+        // --- 5. 2x2 ACHIEVEMENT GOAL MATRIX LOGIC ---
+        const goalData = {
+            'mastery-approach': {
+                title: "Mastery-Approach (Optimal Growth)",
+                desc: "Focused on attaining task-based or intrapersonal competence. Linked to highest intrinsic motivation, non-self-conscious absorption, and flow.",
+                radarData: [95, 15, 20, 90]
+            },
+            'mastery-avoidance': {
+                title: "Mastery-Avoidance",
+                desc: "Focused on avoiding skill decay or stagnation relative to past performance. Common in aging experts or perfectionists.",
+                radarData: [60, 50, 45, 55]
+            },
+            'performance-approach': {
+                title: "Performance-Approach",
+                desc: "Focused on outperforming peers. Can yield high short-term output but leaves subject highly vulnerable to ego threats.",
+                radarData: [70, 75, 85, 40]
+            },
+            'performance-avoidance': {
+                title: "Performance-Avoidance (Most Maladaptive)",
+                desc: "Focused on avoiding looking inferior to peers. Strongly correlated with test anxiety, procrastination, and disengagement.",
+                radarData: [15, 95, 95, 10]
+            }
+        };
+
+        let motivationChart;
+
+        function initMotivationChart() {
+            const ctx = document.getElementById('motivationChart').getContext('2d');
+            motivationChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Intrinsic Motivation', 'Anxiety & Stress', 'Ego Threat Vulnerability', 'Flow State Likelihood'],
+                    datasets: [{
+                        label: 'Mastery-Approach Profile',
+                        data: [95, 15, 20, 90],
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        borderColor: '#0d9488',
+                        pointBackgroundColor: '#0d9488'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function selectGoal(key) {
+            Object.keys(goalData).forEach(k => {
+                const cell = document.getElementById('cell-' + k);
+                if (k === key) {
+                    cell.className = "p-3 rounded-xl border-2 text-left transition border-teal-600 bg-teal-50/80 shadow-sm";
+                } else {
+                    cell.className = "p-3 rounded-xl border-2 text-left transition border-stone-200 bg-stone-50 hover:bg-stone-100";
+                }
+            });
+
+            const g = goalData[key];
+            const panel = document.getElementById('goalDetailPanel');
+            panel.innerHTML = `
+                <div class="font-bold text-sm text-teal-900">${g.title}</div>
+                <p class="leading-relaxed">${g.desc}</p>
+            `;
+
+            motivationChart.data.datasets[0].label = g.title + ' Profile';
+            motivationChart.data.datasets[0].data = g.radarData;
+            motivationChart.update();
+        }
+
+        initMotivationChart();
+
+        // --- 6. CBT REFRAMING PRESETS & ENGINE ---
+        const presets = {
+            tech: {
+                verdict: '"I am failing, lack natural talent, and will never reach this level."',
+                steps: [
+                    { label: "1. Trigger Identification", val: "Peer built a full product in 1 month." },
+                    { label: "2. Emotional Reaction", val: "Anxiety & inadequacy (Verdict mindset)." },
+                    { label: "3. Dissect Invisible Variables", val: "Unseen advantages: prior templates, team assist, fortuitous timing." },
+                    { label: "4. Isolate Informational Data", val: "Proof of concept: The feature set can be built rapidly." },
+                    { label: "5. Ipsative Action Step", val: "Analyze their architectural decisions to optimize my current roadmap." }
+                ],
+                reframed: "This peer's launch provides empirical proof that this feature scope is viable. I will study their methodology to refine my own timeline without comparing starting points."
+            },
+            career: {
+                verdict: '"My career is stagnating while everyone else moves ahead fast."',
+                steps: [
+                    { label: "1. Trigger Identification", val: "Classmate promoted to Vice President." },
+                    { label: "2. Emotional Reaction", val: "Resentment & existential self-doubt." },
+                    { label: "3. Dissect Invisible Variables", val: "Different company growth rates, network leverage, trade-offs made." },
+                    { label: "4. Isolate Informational Data", val: "Proof that leadership demand exists in this sector." },
+                    { label: "5. Ipsative Action Step", val: "Compare my current skill catalog against my baseline from 12 months ago." }
+                ],
+                reframed: "Their promotion demonstrates market demand for leadership skills. I am tracking my own 12-month skill acquisition trajectory to prepare for my next internal review."
+            },
+            creative: {
+                verdict: '"I shouldn\'t bother creating art when younger talent is this superior."',
+                steps: [
+                    { label: "1. Trigger Identification", val: "Younger artist publishes breathtaking portfolio." },
+                    { label: "2. Emotional Reaction", val: "Creative paralysis & deflation." },
+                    { label: "3. Dissect Invisible Variables", val: "Thousands of hours of specialized focus, different stylistic influences." },
+                    { label: "4. Isolate Informational Data", val: "Inspirational lighting and composition techniques." },
+                    { label: "5. Ipsative Action Step", val: "Incorporate one new shading technique into my next sketch." }
+                ],
+                reframed: "Their portfolio showcases incredible lighting techniques. I will use their work as a visual reference to practice a new shading method on my current piece."
+            },
+            fitness: {
+                verdict: '"My progress is embarrassing compared to others at this gym."',
+                steps: [
+                    { label: "1. Trigger Identification", val: "Gym partner lifts double my weight effortlessly." },
+                    { label: "2. Emotional Reaction", val: "Ego threat & embarrassment." },
+                    { label: "3. Dissect Invisible Variables", val: "Limb leverage, training history, body weight, recovery routines." },
+                    { label: "4. Isolate Informational Data", val: "Proof of human physical adaptation under consistency." },
+                    { label: "5. Ipsative Action Step", val: "Log today's lifting weight against my training journal from 3 months ago." }
+                ],
+                reframed: "Their strength demonstrates what consistent training yields. My logbook shows I am up 15 lbs from 3 months ago; my current baseline is succeeding."
+            }
+        };
+
+        function loadPresetTrigger() {
+            const key = document.getElementById('triggerPreset').value;
+            const p = presets[key];
+
+            document.getElementById('verdictText').innerText = p.verdict;
+
+            const container = document.getElementById('cbtStepsContainer');
+            container.innerHTML = p.steps.map(s => `
+                <div class="p-2.5 bg-white rounded-lg border border-stone-200">
+                    <span class="font-bold text-teal-800 block">${s.label}</span>
+                    <span class="text-stone-700">${s.val}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('reframedResultBox').classList.add('hidden');
+        }
+
+        function generateReframedOutput() {
+            const key = document.getElementById('triggerPreset').value;
+            const p = presets[key];
+
+            const box = document.getElementById('reframedResultBox');
+            const text = document.getElementById('reframedResultText');
+
+            text.innerText = p.reframed;
+            box.classList.remove('hidden');
+        }
+
+        // Initialize default preset
+        loadPresetTrigger();
+    </script>
+</body>
+</html>

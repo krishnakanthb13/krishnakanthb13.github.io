@@ -21,6 +21,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 			- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
+		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
@@ -193,6 +194,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
+	- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): The Architecture of Evaluation — why comparison isn't the thief of joy, the ruler is.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): Etymology chart, SAM simulator, paradigm switcher, 2x2 motivation matrix, CBT reframing engine.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/readme.md): Long-form research essay with 96 cited sources.
 
 ---
 

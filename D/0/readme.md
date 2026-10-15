@@ -123,4 +123,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Growth & Comparison Joy](./growth_comparison_joy/)
+**The Architecture of Evaluation** — why comparison itself isn't the thief of joy—the ruler is. This analysis explores Social Comparison Theory, Temporal Self-Appraisal Theory, Achievement Goal Frameworks, and Self-Determination Theory, showing how to shift from norm-referenced verdicts to ipsative and criterion-referenced growth metrics for sustainable motivation.
+
+- 📝 [The Full Report](./growth_comparison_joy/readme.md) — long-form essay with 96 cited sources. (`readme.md`)
+- 📐 [Interactive Infographic](./growth_comparison_joy/index.html) — interactive SPA: etymology chart, developmental shift visualization, Selective Accessibility Model simulator, paradigm switcher (Norm/Criterion/Ipsative), 2x2 achievement goal matrix with radar chart, and CBT 5-step reframing engine with practical tools. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*
