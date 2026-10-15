@@ -83,11 +83,27 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Empathy & Discernment](./empathy_n_discernment/)
+**Understanding vs. Judging** — a neurobiological and clinical framework exploring the tension between empathy and discernment. Synthesizes the Opposing Domains Hypothesis (DMN/TPN reciprocal inhibition), DBT Wise Mind, Schema Therapy modes, and Pennebaker's expressive writing research to navigate the balance between understanding and protective judgment.
+
+- 📝 [The Full Report](./empathy_n_discernment/readme.md) — the long-form essay with 56 cited sources. (`readme.md`)
+- ⚖️ [Interactive Infographic](./empathy_n_discernment/index.html) — the complete warm-themed interactive page: neural network reciprocal inhibition simulator, DBT mind states explorer, interpersonal conflict scenario tester, Schema Therapy modes matrix, Pennebaker journaling lab with cognitive word analyzer, three-stage evolutionary arc, and a self-reflection discernment checklist. (`index.html`)
+
+---
+
 ### 📁 [Fear & Courage](./fear_n_courage/)
 **The Architecture of Courage** — a cognitive, rhetorical, and clinical analysis of fear, acceptance, and the punctuation of emotion: how a single comma becomes "a pause and a permission," how affect labeling inhibits the amygdala, and how ACT and DBT dismantle experiential avoidance. Synthesizes literary phenomenology, Adorno's philosophy of punctuation, affective neuroscience (Damasio, Lieberman), and third-wave cognitive-behavioral paradigms.
 
 - 📝 [The Full Report](./fear_n_courage/readme.md) — the long-form essay with 60 cited sources. (`readme.md`)
 - ☀️ [Interactive Infographic](./fear_n_courage/index.html) — the complete light-themed interactive page: comma cadence lab, archetype evolution radar, Adorno punctuation instrument, fMRI affect-labeling simulator, ACT hexaflex grid, DBT radical-acceptance calculator, and a practical courage toolkit. (`index.html`)
+
+---
+
+### 📁 [Growth & Comparison Joy](./growth_comparison_joy/)
+**The Architecture of Evaluation** — why comparison itself isn't the thief of joy—the ruler is. This analysis explores Social Comparison Theory, Temporal Self-Appraisal Theory, Achievement Goal Frameworks, and Self-Determination Theory, showing how to shift from norm-referenced verdicts to ipsative and criterion-referenced growth metrics for sustainable motivation.
+
+- 📝 [The Full Report](./growth_comparison_joy/readme.md) — long-form essay with 96 cited sources. (`readme.md`)
+- 📐 [Interactive Infographic](./growth_comparison_joy/index.html) — interactive SPA: etymology chart, developmental shift visualization, Selective Accessibility Model simulator, paradigm switcher (Norm/Criterion/Ipsative), 2x2 achievement goal matrix with radar chart, and CBT 5-step reframing engine with practical tools. (`index.html`)
 
 ---
 
@@ -112,22 +128,6 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 - 📝 [The Full Report](./receiving_paradox/readme.md) — the long-form essay with 69 cited sources. (`readme.md`)
 - 🤲 [Interactive Infographic](./receiving_paradox/index.html) — the complete warm-themed interactive page: theoretical triad explorer (Attachment, Bowen Systems, Schema Therapy), five-stage reciprocity-crisis sequence tracker, relational focus radar chart, burnout-vs-autonomy trajectory chart, schema mode switcher, and a therapeutic pathways blueprint. (`index.html`)
-
----
-
-### 📁 [Empathy & Discernment](./empathy_n_discernment/)
-**Understanding vs. Judging** — a neurobiological and clinical framework exploring the tension between empathy and discernment. Synthesizes the Opposing Domains Hypothesis (DMN/TPN reciprocal inhibition), DBT Wise Mind, Schema Therapy modes, and Pennebaker's expressive writing research to navigate the balance between understanding and protective judgment.
-
-- 📝 [The Full Report](./empathy_n_discernment/readme.md) — the long-form essay with 56 cited sources. (`readme.md`)
-- ⚖️ [Interactive Infographic](./empathy_n_discernment/index.html) — the complete warm-themed interactive page: neural network reciprocal inhibition simulator, DBT mind states explorer, interpersonal conflict scenario tester, Schema Therapy modes matrix, Pennebaker journaling lab with cognitive word analyzer, three-stage evolutionary arc, and a self-reflection discernment checklist. (`index.html`)
-
----
-
-### 📁 [Growth & Comparison Joy](./growth_comparison_joy/)
-**The Architecture of Evaluation** — why comparison itself isn't the thief of joy—the ruler is. This analysis explores Social Comparison Theory, Temporal Self-Appraisal Theory, Achievement Goal Frameworks, and Self-Determination Theory, showing how to shift from norm-referenced verdicts to ipsative and criterion-referenced growth metrics for sustainable motivation.
-
-- 📝 [The Full Report](./growth_comparison_joy/readme.md) — long-form essay with 96 cited sources. (`readme.md`)
-- 📐 [Interactive Infographic](./growth_comparison_joy/index.html) — interactive SPA: etymology chart, developmental shift visualization, Selective Accessibility Model simulator, paradigm switcher (Norm/Criterion/Ipsative), 2x2 achievement goal matrix with radar chart, and CBT 5-step reframing engine with practical tools. (`index.html`)
 
 ---
 

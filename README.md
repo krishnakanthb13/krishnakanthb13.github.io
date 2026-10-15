@@ -16,12 +16,12 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
+		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
+		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
-			- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
-		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
@@ -179,24 +179,24 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.
+	- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Understanding vs. Judging — a neurobiological and clinical framework exploring the tension between empathy and discernment.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Neural balance simulator, DBT mind states explorer, scenario tester, Pennebaker journaling lab, evolutionary arc & self-diagnostic checklist.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/readme.md): Long-form research essay with 56 cited sources.
 	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
+	- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): The Architecture of Evaluation — why comparison isn't the thief of joy, the ruler is.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): Etymology chart, SAM simulator, paradigm switcher, 2x2 motivation matrix, CBT reframing engine.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/readme.md): Long-form research essay with 96 cited sources.
 	- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/): The Psychology of Enough — why the pursuit of happiness paradoxically backfires and how contentment restores wholeness.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/happy_or_content/): Dimension matrix, hedonic time-series simulator, wanting-vs-liking chart, CFT three-system simulator & contentment quotient assessment.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/happy_or_content/readme.md): Long-form research essay with 45 cited sources.
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
-	- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Understanding vs. Judging — a neurobiological and clinical framework exploring the tension between empathy and discernment.
-		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Neural balance simulator, DBT mind states explorer, scenario tester, Pennebaker journaling lab, evolutionary arc & self-diagnostic checklist.
-		- [The Full Report](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/readme.md): Long-form research essay with 56 cited sources.
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
-	- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): The Architecture of Evaluation — why comparison isn't the thief of joy, the ruler is.
-		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): Etymology chart, SAM simulator, paradigm switcher, 2x2 motivation matrix, CBT reframing engine.
-		- [The Full Report](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/readme.md): Long-form research essay with 96 cited sources.
 
 ---
 
