@@ -115,4 +115,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Empathy & Discernment](./empathy_n_discernment/)
+**Understanding vs. Judging** — a neurobiological and clinical framework exploring the tension between empathy and discernment. Synthesizes the Opposing Domains Hypothesis (DMN/TPN reciprocal inhibition), DBT Wise Mind, Schema Therapy modes, and Pennebaker's expressive writing research to navigate the balance between understanding and protective judgment.
+
+- 📝 [The Full Report](./empathy_n_discernment/readme.md) — the long-form essay with 56 cited sources. (`readme.md`)
+- ⚖️ [Interactive Infographic](./empathy_n_discernment/index.html) — the complete warm-themed interactive page: neural network reciprocal inhibition simulator, DBT mind states explorer, interpersonal conflict scenario tester, Schema Therapy modes matrix, Pennebaker journaling lab with cognitive word analyzer, three-stage evolutionary arc, and a self-reflection discernment checklist. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*

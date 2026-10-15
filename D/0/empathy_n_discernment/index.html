@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy & Discernment Balance: Neurocognitive Framework</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#fdfbf7',
+                        sand: '#f5f0e6',
+                        warmgray: '#e6e1d6',
+                        dmn: {
+                            light: '#ffe4e6',
+                            DEFAULT: '#e11d48',
+                            dark: '#9f1239'
+                        },
+                        tpn: {
+                            light: '#e0f2fe',
+                            DEFAULT: '#0284c7',
+                            dark: '#075985'
+                        },
+                        wise: {
+                            light: '#d1fae5',
+                            DEFAULT: '#059669',
+                            dark: '#065f46'
+                        },
+                        charcoal: '#1e293b'
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Cambria', 'serif'],
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 340px;
+            }
+        }
+        /* Custom Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f0e6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100">
+
+    <!-- Chosen Palette: Warm Harmony (Sand/Cream neutral background #fdfbf7, Slate #1e293b for primary text & analytical TPN, Crimson/Rose #e11d48 for empathic DMN, Emerald #059669 for Wise Mind integration, Amber #d97706 for highlight accents) -->
+
+    <!-- Application Structure Plan:
+        1. Top Navigation Bar: Seamless jump points across all 6 core content modules + interactive status indicator.
+        2. Hero & Executive Summary: Introduces the central dilemma ("Understanding vs. Judging"), reciprocal inhibition, and thesis statement.
+        3. Module 1: The Neurobiology of Reciprocal Inhibition (DMN vs TPN interactive activation slider + Chart.js neural load visualizer).
+        4. Module 2: The Pathology of Unchecked Understanding (Unmitigated Communion & Empathic Distress vs Rational Compassion comparison matrix).
+        5. Module 3: Dialectical Spectrum & Schema Modes (Interactive step-slider for DBT Mind States and Schema Protector Modes).
+        6. Module 4: Expressive Writing & Journaling Studio (Interactive Pennebaker cognitive word transform simulator for post-traumatic growth).
+        7. Module 5: The 3-Stage Evolutionary Arc & Interactive Self-Assessment (Progressive journey from Naive Hyper-Empathy to Wise Integration).
+        8. Footer: Summary of research foundations & clinical references.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Opposing Neural Networks -> Chart.js Horizontal Bar Chart dynamically driven by a reciprocity slider to visually prove anti-correlation.
+        - DBT Mind States -> Interactive 3-way toggle altering cognitive stances, neural correlates, and risk profiles.
+        - Schema Protector Modes -> Filterable card matrix categorizing flight/fight/healthy adult responses.
+        - Pennebaker Journaling Lab -> Text parser demo showing transformation of raw emotional text into rule-based boundary logic using cognitive words ("because", "realize", "therefore").
+        - NO SVG elements used. NO Mermaid JS used. Visual elements rely on Tailwind HTML structures, CSS accents, Unicode symbols, and Canvas charts.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-warmgray/60 px-4 lg:px-8 py-3 transition-all">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">⚖️</span>
+                <div>
+                    <h1 class="font-serif font-bold text-lg sm:text-xl text-charcoal leading-tight">Empathy & Discernment</h1>
+                    <p class="text-xs text-slate-500">Neurocognitive & Psychological Framework</p>
+                </div>
+            </div>
+            
+            <nav class="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs font-medium text-slate-600">
+                <a href="#neurobiology" class="px-2.5 py-1.5 rounded-lg hover:bg-sand transition-colors">1. Neurobiology</a>
+                <a href="#pathology" class="px-2.5 py-1.5 rounded-lg hover:bg-sand transition-colors">2. Empathic Risks</a>
+                <a href="#dbt-schema" class="px-2.5 py-1.5 rounded-lg hover:bg-sand transition-colors">3. DBT & Schema</a>
+                <a href="#journaling" class="px-2.5 py-1.5 rounded-lg hover:bg-sand transition-colors">4. Journaling Lab</a>
+                <a href="#evolution" class="px-2.5 py-1.5 rounded-lg hover:bg-sand transition-colors">5. Evolutionary Arc</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- HERO SECTION -->
+        <section class="bg-gradient-to-br from-sand via-cream to-amber-50/40 rounded-3xl p-6 sm:p-10 border border-warmgray/80 shadow-sm relative overflow-hidden">
+            <div class="max-w-3xl space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 text-xs font-semibold">
+                    <span>🧠 Neurocognitive & Clinical Synthesis</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-charcoal leading-snug">
+                    Understanding vs. Judging: Navigating the Neurobiological Paradox
+                </h2>
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                    Humans frequently experience a painful cognitive cycle: a prolonged phase of hyper-empathic understanding leading to emotional exploitation, followed by a abrupt shift into harsh judgment and emotional detachment. This interactive platform explores why your brain cannot easily empathize and judge simultaneously—and how to cultivate sustainable <strong class="text-wise-dark font-semibold">Wise Mind Discernment</strong>.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+                    <div class="p-3.5 bg-white/80 rounded-xl border border-warmgray/60 shadow-2xs">
+                        <div class="text-xs font-bold text-dmn uppercase tracking-wider">The Understanding Brain</div>
+                        <div class="text-sm font-semibold text-charcoal mt-0.5">Default Mode Network</div>
+                        <div class="text-xs text-slate-500 mt-1">Social narrative, emotional resonance, empathy & connection.</div>
+                    </div>
+                    <div class="p-3.5 bg-white/80 rounded-xl border border-warmgray/60 shadow-2xs">
+                        <div class="text-xs font-bold text-tpn uppercase tracking-wider">The Judging Brain</div>
+                        <div class="text-sm font-semibold text-charcoal mt-0.5">Task Positive Network</div>
+                        <div class="text-xs text-slate-500 mt-1">Analytical logic, rule enforcement, boundary protection.</div>
+                    </div>
+                    <div class="p-3.5 bg-white/80 rounded-xl border border-warmgray/60 shadow-2xs">
+                        <div class="text-xs font-bold text-wise uppercase tracking-wider">The Integration</div>
+                        <div class="text-sm font-semibold text-charcoal mt-0.5">Wise Mind Oscillation</div>
+                        <div class="text-xs text-slate-500 mt-1">Flexible rapid switching between empathy & boundary logic.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 1: NEUROBIOLOGY & OPPOSING DOMAINS -->
+        <section id="neurobiology" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-tpn pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-tpn">Module 01</span>
+                <h3 class="text-2xl font-serif font-bold text-charcoal">The Neurobiology of Reciprocal Inhibition</h3>
+                <p class="text-sm text-slate-600 mt-1">
+                    According to the <em>Opposing Domains Hypothesis</em> (Anthony Jack et al.), social-emotional empathy and analytical evaluation are subserved by mutually exclusive neural networks. When one network fires up, it biologically suppresses the other.
+                </p>
+            </div>
+
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-5 rounded-2xl border border-warmgray/60 text-sm leading-relaxed text-slate-700">
+                <p>
+                    <strong>Why you can't run both parallel at full capacity:</strong> The brain employs a mechanism of <em>reciprocal inhibition</em> (anti-correlation). When you are deeply engaged in understanding an aggressor's trauma (activating the Default Mode Network), your capacity to calculate risk and enforce rules (governed by the Task Positive Network) is physiologically down-regulated. Switching to judgment requires treating variables as cold data, which temporarily demands deactivating emotional resonance.
+                </p>
+            </div>
+
+            <!-- Interactive Neural Balance Simulator -->
+            <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-xs space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-warmgray/40 pb-4">
+                    <div>
+                        <h4 class="font-bold text-charcoal text-base">Neural Network Reciprocal Inhibition Simulator</h4>
+                        <p class="text-xs text-slate-500">Drag the slider to shift cognitive allocation and observe neural suppression in real time.</p>
+                    </div>
+                    <div id="statusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200 self-start md:self-auto">
+                        <span>● Mode: Pure Understanding (Hyper-DMN)</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 max-w-2xl mx-auto">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span class="text-dmn">100% Empathic Understanding (DMN)</span>
+                        <span class="text-slate-400">Balanced Oscillation</span>
+                        <span class="text-tpn">100% Analytical Judgment (TPN)</span>
+                    </div>
+                    <input id="neuralSlider" type="range" min="0" max="100" value="15" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                    <div class="flex justify-between text-2xs text-slate-500">
+                        <span>vmPFC / PCC / TPJ Active</span>
+                        <span>Wise Mind Switch</span>
+                        <span>dlPFC / Parietal Active</span>
+                    </div>
+                </div>
+
+                <!-- Chart & Info Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+                    <!-- Chart Column -->
+                    <div class="lg:col-span-7 flex flex-col items-center">
+                        <div class="chart-container">
+                            <canvas id="neuralChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Output Column -->
+                    <div class="lg:col-span-5 space-y-4 bg-sand/40 p-5 rounded-xl border border-warmgray/60">
+                        <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Current Cognitive State Analysis</h5>
+                        
+                        <div id="simTitle" class="text-base font-bold text-charcoal">Hyper-Empathic Resonance</div>
+                        
+                        <div class="space-y-2 text-xs text-slate-700">
+                            <div>
+                                <strong class="text-slate-900">Active Brain Regions:</strong>
+                                <p id="simRegions" class="text-slate-600 mt-0.5">Ventromedial prefrontal cortex (vmPFC), Temporo-parietal junction (TPJ).</p>
+                            </div>
+                            <div>
+                                <strong class="text-slate-900">Behavioral Stance:</strong>
+                                <p id="simBehavior" class="text-slate-600 mt-0.5">Searching for context, minimizing transgressions, absorbing emotional chaos.</p>
+                            </div>
+                            <div>
+                                <strong class="text-slate-900">Primary Vulnerability:</strong>
+                                <p id="simRisk" class="text-rose-700 font-medium mt-0.5">Extreme vulnerability to boundary erasure, gaslighting, and empathic distress.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-warmgray/80 text-2xs text-slate-600">
+                            <span class="font-bold text-amber-700">💡 Clinical Insight:</span>
+                            <span id="simInsight">To set an effective boundary, you must deliberately suppress DMN emotional mirroring long enough for the dlPFC (TPN) to evaluate facts objectively.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opposing Feature Table -->
+                <div class="overflow-x-auto pt-2">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-sand/60 text-slate-700 border-b border-warmgray/80">
+                                <th class="p-2.5 font-bold">Feature</th>
+                                <th class="p-2.5 font-bold text-dmn">Default Mode Network (DMN)</th>
+                                <th class="p-2.5 font-bold text-tpn">Task Positive Network (TPN)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-warmgray/40 text-slate-600">
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-800">Cognitive Stance</td>
+                                <td class="p-2.5">Empathic, social, humanizing, narrative-driven</td>
+                                <td class="p-2.5">Analytical, empirical, mechanical, objective</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-800">Interpersonal Mode</td>
+                                <td class="p-2.5">"Understanding" (Emotionally engaged)</td>
+                                <td class="p-2.5">"Judging" (Emotionally detached)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-800">Primary Neural Nodes</td>
+                                <td class="p-2.5">Ventromedial PFC, Posterior Cingulate, TPJ</td>
+                                <td class="p-2.5">Dorsolateral PFC, Parietal cortex regions</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-800">Utility in Conflict</td>
+                                <td class="p-2.5">De-escalation, connection, forgiveness</td>
+                                <td class="p-2.5">Boundary setting, pattern recognition, self-protection</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 2: PATHOLOGY OF UNCHECKED UNDERSTANDING -->
+        <section id="pathology" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-dmn pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-dmn">Module 02</span>
+                <h3 class="text-2xl font-serif font-bold text-charcoal">The Pathology of Unchecked Understanding</h3>
+                <p class="text-sm text-slate-600 mt-1">
+                    When understanding operates without the regulatory boundaries of analytical judgment, empathy transforms into self-erasure and psychological burnout.
+                </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-warmgray/60 text-sm leading-relaxed text-slate-700">
+                <p>
+                    <strong>Empathic Distress vs. Rational Compassion:</strong> As neuroscientist Tania Singer demonstrated, <em>empathy</em> mirrors the exact suffering of others (activating pain networks like the anterior insula), leading to severe burnout and helplessness. In contrast, <em>Rational Compassion</em> (advocated by Paul Bloom) utilizes logical reasoning to help others while maintaining protective boundary distance.
+                </p>
+            </div>
+
+            <!-- Matrix Comparison & Interactive Scenario -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Card 1: Unmitigated Communion -->
+                <div class="bg-white rounded-2xl p-5 border border-warmgray/80 shadow-2xs space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-block px-2.5 py-1 rounded bg-rose-100 text-rose-800 text-2xs font-bold uppercase">Maladaptive Trait</div>
+                        <h4 class="font-serif font-bold text-base text-charcoal">Unmitigated Communion</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            An extreme focus on others to the complete exclusion of the self. The individual prioritizes the aggressor's narrative while ignoring repeated betrayals and boundary violations.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-1.5 pt-2 border-t border-warmgray/40">
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <span>Chronic caretaking & self-neglect</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <span>High risk of depression & exploitation</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <span>Inability to say "no" or judge harm</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Empathic Distress -->
+                <div class="bg-white rounded-2xl p-5 border border-warmgray/80 shadow-2xs space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-block px-2.5 py-1 rounded bg-amber-100 text-amber-800 text-2xs font-bold uppercase">Affective Overload</div>
+                        <h4 class="font-serif font-bold text-base text-charcoal">Empathic Distress</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Direct emotional contagion. Sharing the anger, chaos, or grief of others activates the anterior cingulate cortex, forcing the body into an exhausting threat response.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-1.5 pt-2 border-t border-warmgray/40">
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-amber-500 font-bold">•</span>
+                            <span>Mirrors negative affect directly</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-amber-500 font-bold">•</span>
+                            <span>Leads to severe emotional burnout</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-amber-500 font-bold">•</span>
+                            <span>Forces abrupt emotional withdrawal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Rational Compassion -->
+                <div class="bg-white rounded-2xl p-5 border border-warmgray/80 shadow-2xs space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-block px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-2xs font-bold uppercase">Adaptive Health</div>
+                        <h4 class="font-serif font-bold text-base text-charcoal">Rational Compassion</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            A deliberate, TPN-supported stance of care. It provides support based on objective evaluation, rules, and boundaries without absorbing the emotional toxic waste.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-1.5 pt-2 border-t border-warmgray/40">
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <span>Activates striatal reward networks</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <span>Sustains long-term resilience</span>
+                        </li>
+                        <li class="flex items-start gap-1.5">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <span>Enforces firm, protective limits</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Scenario Tester -->
+            <div class="bg-sand/30 rounded-2xl p-6 border border-warmgray/80 space-y-4">
+                <h4 class="font-bold text-charcoal text-sm uppercase tracking-wider">Interactive Interpersonal Conflict Tester</h4>
+                <p class="text-xs text-slate-600">Select a cognitive response strategy to a recurring toxic transgression:</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <button onclick="testScenario('empathy')" id="btn-empathy" class="p-3 bg-white rounded-xl border border-warmgray/80 hover:border-dmn text-left transition-all shadow-2xs">
+                        <div class="font-bold text-xs text-dmn">1. Pure Empathy Mode</div>
+                        <div class="text-2xs text-slate-500 mt-0.5">"They had a tough childhood; I must understand their pain."</div>
+                    </button>
+                    <button onclick="testScenario('judgment')" id="btn-judgment" class="p-3 bg-white rounded-xl border border-warmgray/80 hover:border-tpn text-left transition-all shadow-2xs">
+                        <div class="font-bold text-xs text-tpn">2. Pure Detached Judgment</div>
+                        <div class="text-2xs text-slate-500 mt-0.5">"They are toxic. I cut them off forever with zero emotion."</div>
+                    </button>
+                    <button onclick="testScenario('wise')" id="btn-wise" class="p-3 bg-white rounded-xl border border-warmgray/80 hover:border-wise text-left transition-all shadow-2xs">
+                        <div class="font-bold text-xs text-wise">3. Wise Mind Discernment</div>
+                        <div class="text-2xs text-slate-500 mt-0.5">"I understand their trauma, but their actions violate my boundaries."</div>
+                    </button>
+                </div>
+
+                <div id="scenarioOutput" class="p-4 bg-white rounded-xl border border-warmgray/80 text-xs text-slate-700 leading-relaxed">
+                    <em>Click a response button above to simulate psychological and behavioral outcomes.</em>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 3: DBT SPECTRUM & SCHEMA MODES -->
+        <section id="dbt-schema" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-wise pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-wise">Module 03</span>
+                <h3 class="text-2xl font-serif font-bold text-charcoal">DBT Dialectical Spectrum & Schema Protector Modes</h3>
+                <p class="text-sm text-slate-600 mt-1">
+                    Therapeutic frameworks like Dialectical Behavior Therapy (DBT) and Schema Therapy offer explicit pathways to bridge the gap between pure emotion and rigid logic.
+                </p>
+            </div>
+
+            <!-- Intro text -->
+            <div class="bg-white p-5 rounded-2xl border border-warmgray/60 text-sm leading-relaxed text-slate-700">
+                <p>
+                    <strong>Wise Mind & The Healthy Adult:</strong> In DBT (Marsha Linehan), mental functioning ranges from <em>Emotion Mind</em> (reactive empathy) to <em>Reasonable Mind</em> (cold facts). The ideal integration is <strong>Wise Mind</strong>. In Schema Therapy, when an individual is hurt in Vulnerable Child mode, they often overcorrect into a <em>Detached Protector</em> mode (a hyper-judgmental machine). The <strong>Healthy Adult</strong> mode validates feelings while enforcing boundary limits.
+                </p>
+            </div>
+
+            <!-- DBT Mind States Interactive Explorer -->
+            <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-xs space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-warmgray/40 pb-3">
+                    <h4 class="font-bold text-charcoal text-base">DBT States of Mind Explorer</h4>
+                    <span class="text-xs text-slate-500">Toggle between mind states to view psychological characteristics</span>
+                </div>
+
+                <!-- Step buttons -->
+                <div class="grid grid-cols-3 gap-2 p-1 bg-sand/50 rounded-xl border border-warmgray/60">
+                    <button onclick="setDbtState('emotion')" id="dbt-btn-emotion" class="py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-dmn shadow-2xs">
+                        1. Emotion Mind
+                    </button>
+                    <button onclick="setDbtState('wise')" id="dbt-btn-wise" class="py-2 px-3 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-wise">
+                        2. Wise Mind ✨
+                    </button>
+                    <button onclick="setDbtState('reasonable')" id="dbt-btn-reasonable" class="py-2 px-3 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-tpn">
+                        3. Reasonable Mind
+                    </button>
+                </div>
+
+                <!-- Dynamic Content Display -->
+                <div id="dbtDisplay" class="p-5 rounded-xl bg-sand/30 border border-warmgray/60 space-y-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Schema Modes Filter Grid -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-charcoal text-base">Schema Therapy Modes in Conflict Recovery</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Vulnerable Child -->
+                    <div class="bg-white p-4 rounded-xl border border-warmgray/80 space-y-2">
+                        <span class="text-2xs font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">Child Mode</span>
+                        <h5 class="font-bold text-sm text-charcoal">Vulnerable Child</h5>
+                        <p class="text-xs text-slate-600">Pure understanding and desire for connection. Exposed to raw emotional trauma and boundary violations.</p>
+                        <div class="text-2xs text-rose-700 font-medium pt-2 border-t border-warmgray/40">Risk: Severe Empathic Distress</div>
+                    </div>
+
+                    <!-- Detached Protector -->
+                    <div class="bg-white p-4 rounded-xl border border-warmgray/80 space-y-2">
+                        <span class="text-2xs font-bold px-2 py-0.5 rounded bg-sky-100 text-sky-800">Flight Defense</span>
+                        <h5 class="font-bold text-sm text-charcoal">Detached Protector</h5>
+                        <p class="text-xs text-slate-600">Shuts down DMN entirely. Functions "like a machine," viewing the world through cold, hyper-judgmental cynicism.</p>
+                        <div class="text-2xs text-sky-700 font-medium pt-2 border-t border-warmgray/40">Risk: Isolation & Loneliness</div>
+                    </div>
+
+                    <!-- Angry Protector -->
+                    <div class="bg-white p-4 rounded-xl border border-warmgray/80 space-y-2">
+                        <span class="text-2xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Fight Defense</span>
+                        <h5 class="font-bold text-sm text-charcoal">Angry Protector</h5>
+                        <p class="text-xs text-slate-600">Builds a "wall of hostility." Attacks and judges preemptively to prevent anyone from getting close enough to hurt.</p>
+                        <div class="text-2xs text-amber-700 font-medium pt-2 border-t border-warmgray/40">Risk: Hostile Escalation</div>
+                    </div>
+
+                    <!-- Healthy Adult -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-wise/60 space-y-2 shadow-2xs">
+                        <span class="text-2xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Healthy Integration</span>
+                        <h5 class="font-bold text-sm text-charcoal">Healthy Adult Mode</h5>
+                        <p class="text-xs text-slate-600">Nurtures the Vulnerable Child (understanding) while firmly stopping toxic behavior and enforcing boundaries (judging).</p>
+                        <div class="text-2xs text-emerald-700 font-medium pt-2 border-t border-warmgray/40">Outcome: Sustainable Protection</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4: EXPRESSIVE WRITING & JOURNALING LAB -->
+        <section id="journaling" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-amber-600 pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Module 04</span>
+                <h3 class="text-2xl font-serif font-bold text-charcoal">Journaling & Expressive Writing Laboratory</h3>
+                <p class="text-sm text-slate-600 mt-1">
+                    Dr. James Pennebaker’s research demonstrates that converting raw emotional trauma into structured linguistic narratives builds the cognitive bridge between empathy and protective rules.
+                </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-warmgray/60 text-sm leading-relaxed text-slate-700">
+                <p>
+                    <strong>The Pennebaker Mechanism:</strong> Unprocessed emotional trauma remains trapped in limbic and DMN loops. Expressive writing forces the brain to use <em>Cognitive Words</em> (e.g., <em>"because," "realize," "therefore," "understand"</em>). This linguistic processing activates the analytical prefrontal cortex (TPN), abstracting a universal protective rule from emotional pain and fostering <strong>Post-Traumatic Growth</strong>.
+                </p>
+            </div>
+
+            <!-- Interactive Journal Converter -->
+            <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-xs space-y-6">
+                <div class="border-b border-warmgray/40 pb-3">
+                    <h4 class="font-bold text-charcoal text-base">Cognitive Integration & Rule Abstraction Studio</h4>
+                    <p class="text-xs text-slate-500">Transform raw emotional distress into an abstracted boundary rule using Pennebaker's cognitive framework.</p>
+                </div>
+
+                <!-- Sample Presets -->
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-slate-600">Select a sample emotional entry or write below:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="loadPreset(1)" class="text-xs px-3 py-1.5 bg-sand/60 hover:bg-sand rounded-lg border border-warmgray/60 text-slate-700 font-medium transition-colors">
+                            Preset A: "Betrayed after endless empathy"
+                        </button>
+                        <button onclick="loadPreset(2)" class="text-xs px-3 py-1.5 bg-sand/60 hover:bg-sand rounded-lg border border-warmgray/60 text-slate-700 font-medium transition-colors">
+                            Preset B: "Mocked when vulnerable"
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input area -->
+                <div class="space-y-2">
+                    <label for="journalInput" class="block text-xs font-bold text-slate-700">Raw Emotional Entry (DMN Limbic Input):</label>
+                    <textarea id="journalInput" rows="3" class="w-full p-3 rounded-xl border border-warmgray/80 text-xs text-charcoal focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 outline-none" placeholder="Type your raw emotional thoughts here..."></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="analyzeJournal()" class="px-5 py-2 bg-charcoal hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center gap-2">
+                        <span>⚡ Process through TPN Analytical Filter</span>
+                    </button>
+                </div>
+
+                <!-- Analysis Results Output -->
+                <div id="journalOutput" class="hidden p-5 rounded-xl bg-sand/30 border border-warmgray/80 space-y-4">
+                    <div class="flex items-center justify-between border-b border-warmgray/60 pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Pennebaker Cognitive Analysis</span>
+                        <span id="cognitiveWordCount" class="text-2xs font-semibold px-2 py-0.5 bg-amber-100 text-amber-900 rounded">0 Cognitive Causal Words Identified</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-slate-700">Structured Narrative (Highlighted Words):</span>
+                            <div id="highlightedText" class="p-3 bg-white rounded-lg border border-warmgray/60 text-xs text-slate-700 leading-relaxed min-h-[70px]"></div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-wise-dark">Extracted Boundary Rule (Post-Traumatic Growth):</span>
+                            <div id="extractedRule" class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-xs text-emerald-900 font-medium leading-relaxed min-h-[70px]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 5: EVOLUTIONARY ARC & SELF-DIAGNOSTIC -->
+        <section id="evolution" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-700">Module 05</span>
+                <h3 class="text-2xl font-serif font-bold text-charcoal">The Evolutionary Arc: Naiveté to Integrated Wisdom</h3>
+                <p class="text-sm text-slate-600 mt-1">
+                    The progression from endless understanding to protective judgment, and finally to integrated Wise Mind discernment, is a natural developmental path.
+                </p>
+            </div>
+
+            <!-- 3 Stage Timeline Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <!-- Stage 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-2xs space-y-4 relative">
+                    <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-800 font-bold flex items-center justify-center text-xs">1</div>
+                    <div>
+                        <span class="text-2xs font-bold uppercase text-dmn">Stage 01</span>
+                        <h4 class="font-serif font-bold text-base text-charcoal">The Naive State (Hyper-DMN)</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Approaching the world with boundary-less empathy. Trying to contextualize every harmful action leads to Unmitigated Communion.
+                    </p>
+                    <div class="p-3 bg-rose-50/60 rounded-xl border border-rose-100 text-2xs text-rose-900 space-y-1">
+                        <strong>Outcome:</strong> Exhaustion, betrayal, being "stabbed and mocked," severe empathic distress.
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-2xs space-y-4 relative">
+                    <div class="w-8 h-8 rounded-full bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-xs">2</div>
+                    <div>
+                        <span class="text-2xs font-bold uppercase text-tpn">Stage 02</span>
+                        <h4 class="font-serif font-bold text-base text-charcoal">The Defensive Shift (Hyper-TPN)</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Pain acts as a catalyst. The brain forcibly suppresses DMN empathy to activate TPN judgment. Adopting Detached Protector mode.
+                    </p>
+                    <div class="p-3 bg-sky-50/60 rounded-xl border border-sky-100 text-2xs text-sky-900 space-y-1">
+                        <strong>Outcome:</strong> Extracting protective rules, feeling "smarter," but experiencing cold isolation.
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-wise/60 shadow-2xs space-y-4 relative">
+                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">3</div>
+                    <div>
+                        <span class="text-2xs font-bold uppercase text-wise">Stage 03</span>
+                        <h4 class="font-serif font-bold text-base text-charcoal">Integrated Wise Mind</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Executive control allows rapid, flexible switching between networks. Understanding human context while holding firm boundaries.
+                    </p>
+                    <div class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100 text-2xs text-emerald-900 space-y-1">
+                        <strong>Outcome:</strong> Rational compassion, emotional safety, sustainable interpersonal wisdom.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self Reflection Assessment Checklist -->
+            <div class="bg-white rounded-2xl p-6 border border-warmgray/80 shadow-xs space-y-4">
+                <h4 class="font-bold text-charcoal text-base">Self-Reflection Discernment Checklist</h4>
+                <p class="text-xs text-slate-500">Check the indicators below that apply to your current interpersonal stance:</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                    <label class="flex items-start gap-2.5 p-3 rounded-xl border border-warmgray/60 hover:bg-sand/30 cursor-pointer transition-colors">
+                        <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 check-item">
+                        <span>I repeatedly excuse harmful actions because I understand the person's traumatic past.</span>
+                    </label>
+                    <label class="flex items-start gap-2.5 p-3 rounded-xl border border-warmgray/60 hover:bg-sand/30 cursor-pointer transition-colors">
+                        <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 check-item">
+                        <span>I feel exhausted, burned out, or anxious after interacting with specific individuals.</span>
+                    </label>
+                    <label class="flex items-start gap-2.5 p-3 rounded-xl border border-warmgray/60 hover:bg-sand/30 cursor-pointer transition-colors">
+                        <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 check-item">
+                        <span>I have recently cut off my empathy entirely to protect myself, feeling cold and detached.</span>
+                    </label>
+                    <label class="flex items-start gap-2.5 p-3 rounded-xl border border-warmgray/60 hover:bg-sand/30 cursor-pointer transition-colors">
+                        <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 check-item">
+                        <span>I can acknowledge someone's suffering while simultaneously enforcing strict boundary rules.</span>
+                    </label>
+                </div>
+
+                <div id="checklistResult" class="p-4 bg-sand/40 rounded-xl text-xs font-medium text-slate-700">
+                    Select checkboxes above to view your current primary mode orientation.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-slate-300 py-10 mt-16 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-700 pb-6">
+                <div>
+                    <h3 class="font-serif font-bold text-base text-white">Empathy & Discernment Research Synthesis</h3>
+                    <p class="text-slate-400 mt-0.5">Based on cognitive neuroscience, Schema Therapy, Pennebaker journaling, and Dialectical Behavior Therapy.</p>
+                </div>
+                <div class="text-2xs text-slate-400">
+                    Clinical references: SCARF Chennai • Chennai Minds • BM Hospital • Dr. Anthony Jack • Dr. Tania Singer
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between text-2xs text-slate-500 gap-2">
+                <p>© 2026 Interactive Neurocognitive Report. Designed for deep learning and self-regulation.</p>
+                <p>Single HTML Application • Zero External Graphic Dependencies</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global State Management
+        let neuralChart = null;
+
+        // Neural Reciprocal Inhibition Chart Data
+        const neuralData = {
+            0: { title: "Pure Understanding (Hyper-DMN)", dmn: 98, tpn: 2, regions: "vmPFC, TPJ, Posterior Cingulate", behavior: "Searching for context, forgiving transgressions, ignoring red flags.", risk: "Extreme vulnerability to exploitation & empathic distress.", insight: "When DMN activation is maxed out, your brain physically suppresses TPN analytical evaluation." },
+            15: { title: "Empathic Dominance", dmn: 85, tpn: 15, regions: "vmPFC, Temporo-parietal junction", behavior: "High narrative resonance with minor logical hesitation.", risk: "Prone to unmitigated communion & caretaking burnout.", insight: "The 'understanding nerve' is active, but subtle red flags are starting to register." },
+            50: { title: "Wise Mind Dynamic Oscillation", dmn: 50, tpn: 50, regions: "Executive Frontoparietal Control Network", behavior: "Simultaneous context awareness and strict boundary enforcement.", risk: "Requires conscious effort; high therapeutic integration.", insight: "You acknowledge their emotional reality while holding firm, protective behavioral limits." },
+            85: { title: "Analytical Judgment Dominance", dmn: 15, tpn: 85, regions: "dlPFC, Parietal Cortex", behavior: "Pattern recognition, extracting protective rules, boundary lockdown.", risk: "Potential detachment, cold stance, cynical social stance.", insight: "TPN is actively suppressing DMN emotional resonance to keep you safe." },
+            100: { title: "Pure Detached Judgment (Hyper-TPN)", dmn: 2, tpn: 98, regions: "Dorsolateral PFC, Parietal regions", behavior: "Treating interpersonal interactions strictly as mechanical data.", risk: "Emotional severance, severe isolation, Detached Protector mode.", insight: "The 'judgmental nerve' has completely taken over to prevent emotional pain." }
+        };
+
+        // Initialize Chart.js
+        function initChart() {
+            const ctx = document.getElementById('neuralChart').getContext('2d');
+            neuralChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Default Mode Network (Understanding)', 'Task Positive Network (Judging)'],
+                    datasets: [{
+                        label: 'Neural Activation Level (%)',
+                        data: [85, 15],
+                        backgroundColor: ['#e11d48', '#0284c7'],
+                        borderRadius: 8,
+                        barThickness: 28
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + '%'; },
+                                color: '#64748b',
+                                font: { size: 10 }
+                            },
+                            grid: { color: '#e2e8f0' }
+                        },
+                        y: {
+                            ticks: { color: '#1e293b', font: { weight: 'bold', size: 11 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Simulator based on slider
+        function updateNeuralSim(val) {
+            // Find closest key
+            const keys = [0, 15, 50, 85, 100];
+            let closest = keys.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
+            const data = neuralData[closest];
+
+            // Interpolate values for chart smoothness
+            const dmnVal = 100 - val;
+            const tpnVal = parseInt(val);
+
+            if (neuralChart) {
+                neuralChart.data.datasets[0].data = [dmnVal, tpnVal];
+                neuralChart.update();
+            }
+
+            // Update Text Content
+            document.getElementById('simTitle').innerText = data.title;
+            document.getElementById('simRegions').innerText = data.regions;
+            document.getElementById('simBehavior').innerText = data.behavior;
+            document.getElementById('simRisk').innerText = data.risk;
+            document.getElementById('simInsight').innerText = data.insight;
+
+            // Update Badge
+            const badge = document.getElementById('statusBadge');
+            if (val < 35) {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200 self-start md:self-auto";
+                badge.innerHTML = "<span>● Mode: Understanding Dominant (DMN)</span>";
+            } else if (val > 65) {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200 self-start md:self-auto";
+                badge.innerHTML = "<span>● Mode: Judgment Dominant (TPN)</span>";
+            } else {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 self-start md:self-auto";
+                badge.innerHTML = "<span>● Mode: Wise Mind Oscillation ✨</span>";
+            }
+        }
+
+        // Module 2 Scenario Tester
+        function testScenario(mode) {
+            const out = document.getElementById('scenarioOutput');
+            if (mode === 'empathy') {
+                out.innerHTML = `<strong class="text-dmn">Pure Empathy Outcome:</strong> You contextualize their transgression and forgive them without enforcing consequences. <strong>Neurocognitive Result:</strong> Your DMN remains active while TPN rule-enforcement is suppressed. You experience initial relief followed by repeated boundary violations and severe <em>Empathic Distress</em>.`;
+            } else if (mode === 'judgment') {
+                out.innerHTML = `<strong class="text-tpn">Pure Judgment Outcome:</strong> You label the person toxic and completely sever contact with zero emotional processing. <strong>Neurocognitive Result:</strong> TPN dominates while DMN social resonance is completely shut off. You activate the <em>Detached Protector</em> mode. You are safe from betrayal, but feel isolated and cynical.`;
+            } else {
+                out.innerHTML = `<strong class="text-wise">Wise Mind Outcome:</strong> "I understand their pain and trauma, BUT their behavior is unacceptable and I must protect myself." <strong>Neurocognitive Result:</strong> Flexible oscillation between DMN and TPN. You maintain empathy without sacrificing boundary enforcement.`;
+            }
+        }
+
+        // Module 3 DBT Explorer State
+        const dbtStates = {
+            emotion: {
+                title: "Emotion Mind (Understanding Extreme)",
+                drive: "Connection, empathy, immediate feeling response.",
+                neural: "High Default Mode Network (DMN) & Limbic System activation.",
+                behavior: "Behavior is driven entirely by current emotional resonance. Ignores statistical facts or recurring patterns of betrayal.",
+                risk: "Unmitigated communion, vulnerability to gaslighting, burnout."
+            },
+            wise: {
+                title: "Wise Mind (Dialectical Integration) ✨",
+                drive: "Value-based action, intuitive knowing, sustainable protection.",
+                neural: "Flexible oscillation between DMN (social context) and TPN (logical boundaries).",
+                behavior: "Acknowledges emotional truth ('I feel care for them') while holding factual boundary logic ('Their behavior is destructive').",
+                risk: "Requires intentional mindfulness and executive effort."
+            },
+            reasonable: {
+                title: "Reasonable Mind (Judging Extreme)",
+                drive: "Analysis, protection, empirical facts, rule calculation.",
+                neural: "High Task Positive Network (TPN) & Prefrontal Cortex activation.",
+                behavior: "Evaluates situations purely as mechanical data points. Solves problems logically but lacks warm emotional connection.",
+                risk: "Cold emotional detachment, cynicism, loss of social intimacy."
+            }
+        };
+
+        function setDbtState(stateKey) {
+            const data = dbtStates[stateKey];
+            const display = document.getElementById('dbtDisplay');
+
+            // Reset button styles
+            document.getElementById('dbt-btn-emotion').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-dmn";
+            document.getElementById('dbt-btn-wise').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-wise";
+            document.getElementById('dbt-btn-reasonable').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-tpn";
+
+            if(stateKey === 'emotion') {
+                document.getElementById('dbt-btn-emotion').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-dmn shadow-2xs";
+            } else if(stateKey === 'wise') {
+                document.getElementById('dbt-btn-wise').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-wise shadow-2xs";
+            } else {
+                document.getElementById('dbt-btn-reasonable').className = "py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-tpn shadow-2xs";
+            }
+
+            display.innerHTML = `
+                <div class="space-y-3">
+                    <h5 class="font-serif font-bold text-base text-charcoal">${data.title}</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-700">
+                        <div class="p-3 bg-white rounded-lg border border-warmgray/60">
+                            <strong>Primary Drive:</strong> ${data.drive}
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-warmgray/60">
+                            <strong>Neural Substrate:</strong> ${data.neural}
+                        </div>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border border-warmgray/60 text-xs text-slate-700">
+                        <strong>Behavioral Expression:</strong> ${data.behavior}
+                    </div>
+                    <div class="text-2xs font-bold text-slate-500 uppercase tracking-wider">
+                        Risk Factor / Vulnerability: <span class="text-rose-700">${data.risk}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Module 4 Presets and Pennebaker Analyzer
+        function loadPreset(num) {
+            const input = document.getElementById('journalInput');
+            if(num === 1) {
+                input.value = "I kept giving them chances because I understood their childhood trauma. But then they stabbed and mocked me again. I realize that my endless empathy was actually allowing them to hurt me, and therefore I must set a strict boundary.";
+            } else {
+                input.value = "When I shared my vulnerability, they made fun of me. I felt broken. But now I understand that their mocking comes from their own insecurity, and because of this, I realize I cannot trust them with my personal feelings.";
+            }
+        }
+
+        function analyzeJournal() {
+            const text = document.getElementById('journalInput').value;
+            const output = document.getElementById('journalOutput');
+            if (!text.trim()) return;
+
+            // List of Pennebaker cognitive causal words
+            const cognitiveWords = ["because", "realize", "realized", "understand", "understood", "therefore", "reason", "because of", "so that", "conclude", "leads to", "meaning"];
+
+            let words = text.split(/\s+/);
+            let count = 0;
+
+            let highlighted = words.map(word => {
+                let cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
+                if (cognitiveWords.includes(cleanWord)) {
+                    count++;
+                    return `<mark class="bg-amber-200 text-amber-900 px-1 rounded font-bold">${word}</mark>`;
+                }
+                return word;
+            }).join(" ");
+
+            document.getElementById('cognitiveWordCount').innerText = `${count} Cognitive Words Found`;
+            document.getElementById('highlightedText').innerHTML = highlighted;
+
+            // Extracted Rule logic
+            let rule = "If someone repeatedly mocks my vulnerability despite my understanding stance, I will categorize their action as unsafe and restrict their access to my emotional life.";
+            if(count === 0) {
+                rule = "Add cognitive causal words like 'because', 'realize', or 'therefore' to force your brain to abstract a protective rule from this experience.";
+            }
+
+            document.getElementById('extractedRule').innerText = rule;
+            output.classList.remove('hidden');
+        }
+
+        // Self Diagnostic Checklist Logic
+        function updateChecklist() {
+            const checked = document.querySelectorAll('.check-item:checked').length;
+            const result = document.getElementById('checklistResult');
+
+            if (checked === 0) {
+                result.innerText = "Select checkboxes above to view your current primary mode orientation.";
+            } else if (checked <= 2) {
+                result.innerHTML = `<span class="text-dmn font-bold">Primary Stance: High Empathic Exposure / Unmitigated Communion.</span> Consider utilizing TPN analytical exercises (expressive writing) to strengthen boundaries.`;
+            } else if (checked === 3) {
+                result.innerHTML = `<span class="text-tpn font-bold">Primary Stance: Defensive Judgment / Detached Protector Mode.</span> You have activated judgment to protect yourself, but watch out for emotional isolation.`;
+            } else {
+                result.innerHTML = `<span class="text-wise font-bold">Primary Stance: Developing Wise Mind Discernment ✨.</span> You are actively balancing empathic context with structured boundary logic.`;
+            }
+        }
+
+        // Initialize on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            setDbtState('emotion');
+
+            // Event listener for neural slider
+            const slider = document.getElementById('neuralSlider');
+            slider.addEventListener('input', (e) => {
+                updateNeuralSim(e.target.value);
+            });
+
+            // Initial trigger
+            updateNeuralSim(15);
+        });
+    </script>
+</body>
+</html>
