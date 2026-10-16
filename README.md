@@ -15,6 +15,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **A**: [Amplenote Data](https://krishnakanthb13.github.io/A/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
+		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) — The Architecture of the Spiral
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
@@ -176,6 +177,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Ground Zero — Knowledge Vault (D/0):** ([overview](https://krishnakanthb13.github.io/D/0/) — living knowledge vault pairing deep-dive research essays with interactive visualizations)
+	- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): The Architecture of the Spiral — why systemic collapse rarely stems from a flawed premise; a bubble is a good idea that outgrows its own evidence.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): Five-phase spiral stepper, Deneubourg bifurcation model, information-cascade simulator, asymmetric pheromone-decay chart, cross-domain matrix, diagnostic wizard & friction-control lab.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/bubble_n_idea/readme.md): Long-form research essay with 41 cited sources.
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.

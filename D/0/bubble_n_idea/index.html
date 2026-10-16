@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architecture of the Spiral: Emergent Pathologies</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐜</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: {
+                            50: '#FDFBF7',
+                            100: '#FBF9F5',
+                            200: '#F3EFE6',
+                            300: '#E7E0D3',
+                            800: '#2C2825',
+                            900: '#1C1917'
+                        },
+                        terracotta: {
+                            50: '#FAEFE9',
+                            500: '#C85A32',
+                            600: '#B04B26',
+                            700: '#8E381A'
+                        },
+                        rust: {
+                            50: '#FDF3E3',
+                            500: '#D97706',
+                            600: '#B45309'
+                        },
+                        sage: {
+                            600: '#059669',
+                            700: '#047857'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['System-UI', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Strict Chart Container Constraint */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3EFE6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D7CCC0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C85A32;
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Sand & Earthy Terracotta (Background: #FBF9F5, Secondary BG: #F3EFE6, Primary Accent: #C85A32 (Terracotta), Secondary Accent: #D97706 (Amber/Rust), Text/Dark: #1C1917, Soft Border: #E7E0D3) -->
+<!-- Application Structure Plan: The SPA is structured into six thematic interactive modules: 
+  1) Universal Morphology (Core Thesis & Key Metrics), 
+  2) The 5-Phase Anatomy (Interactive Stepper & Parallel Dynamic Chart comparing Bubbles and Ant Mills), 
+  3) Interactive Mechanics & Math Lab (Deneubourg Model curve generator, Pheromone Decay timeline, and Information Cascade Simulator), 
+  4) Cross-Domain Matrix (Comparative deep dives into Biology, Financial Markets, ACO Algorithms, and AI Model Collapse), 
+  5) Diagnostic Test Tool (Interactive diagnostic wizard to evaluate if any market/tech/idea has outgrown its evidence), and 
+  6) Antidotes & Systemic Friction Lab (Interactive parameters for quorum, evaporation, and external anchors). This structure converts theoretical content into hands-on exploration. -->
+<!-- Visualization & Content Choices: 
+  - Deneubourg Pheromone Choice Model -> Non-linear decision curve -> Interactive parameter controls -> Dynamic Chart.js Line Plot.
+  - Phase Trajectory Comparison -> Price/Pheromone vs Fundamental Utility across 5 phases -> Phase Stepper interaction -> Chart.js Multi-line Chart.
+  - Pheromone Decay vs Repellent -> Temporal decay curve -> Interactive decay slider -> Chart.js Time-series Line Chart.
+  - Information Cascade Simulator -> Sequential decision-making -> Interactive actor clicker with private vs public signals -> Dynamic DOM step cascade.
+  - Diagnostic Practical Test -> Assessment of real or custom scenarios -> Interactive 5-step questionnaire -> Real-time metric score and diagnosis output.
+  - ALL visual graphs use Chart.js Canvas. NO SVG or Mermaid JS used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<body class="bg-sand-100 text-sand-900 font-sans leading-relaxed selection:bg-terracotta-500 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-sand-50/90 backdrop-blur-md border-b border-sand-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Brand row (full title, always visible) -->
+            <div class="min-h-16 py-2 flex items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 min-w-0">
+                    <span class="flex-shrink-0 text-2xl font-bold text-terracotta-500 font-mono">◯</span>
+                    <span class="font-bold text-base sm:text-lg tracking-tight leading-tight text-sand-900">THE ARCHITECTURE OF THE SPIRAL</span>
+                </div>
+                <div class="lg:hidden flex-shrink-0">
+                    <button id="mobile-menu-btn" class="p-2 text-sand-800 hover:text-terracotta-500 focus:outline-none">
+                        <span class="text-xl font-bold">☰</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Desktop navigation on its own line -->
+            <nav class="hidden lg:flex items-center gap-x-1 xl:gap-x-2 pb-3 whitespace-nowrap text-[11px] xl:text-xs font-medium uppercase tracking-wide text-sand-800">
+                <a href="#overview" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">01. Overview</a>
+                <a href="#phases" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">02. 5-Phase Anatomy</a>
+                <a href="#simulations" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">03. Mechanics Lab</a>
+                <a href="#domains" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">04. Cross-Domain Matrix</a>
+                <a href="#diagnostic" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">05. Diagnostic Tool</a>
+                <a href="#antidotes" class="whitespace-nowrap px-2 py-1 rounded hover:text-terracotta-500 transition-colors">06. Antidotes & Friction</a>
+            </nav>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-sand-200 border-b border-sand-300 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
+            <a href="#overview" class="block py-1 hover:text-terracotta-500">01. Overview</a>
+            <a href="#phases" class="block py-1 hover:text-terracotta-500">02. 5-Phase Anatomy</a>
+            <a href="#simulations" class="block py-1 hover:text-terracotta-500">03. Mechanics Lab</a>
+            <a href="#domains" class="block py-1 hover:text-terracotta-500">04. Cross-Domain Matrix</a>
+            <a href="#diagnostic" class="block py-1 hover:text-terracotta-500">05. Diagnostic Tool</a>
+            <a href="#antidotes" class="block py-1 hover:text-terracotta-500">06. Antidotes & Friction</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- SECTION 1: OVERVIEW & UNIVERSAL MORPHOLOGY -->
+        <section id="overview" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 01 / Theoretical Foundation</p>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-sand-900 mb-2">Emergent Pathologies in Closed-Loop Systems</h1>
+                <p class="text-sand-800 text-base sm:text-lg max-w-4xl">
+                    This module presents the fundamental thesis: systemic collapse across biology, economics, and artificial intelligence rarely stems from fundamentally flawed premises. Instead, it is the result of a highly successful, optimized heuristic operating without external corrective feedback. Here you will explore the overarching theoretical architecture that links biological "ant mills" to financial asset bubbles and algorithmic trapping.
+                </p>
+            </div>
+
+            <!-- Key Insight Callout Banner -->
+            <div class="bg-sand-200 rounded-xl p-6 border border-sand-300 shadow-sm mb-8">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-terracotta-500 text-white">CORE PRINCIPLE</span>
+                        <h2 class="text-xl font-bold text-sand-900">"A bubble is not a bad idea gone wrong; it is a good idea that outgrows its own evidence."</h2>
+                        <p class="text-sm text-sand-800">The wreckage lies entirely in the overextended excess, not in the original fundamental premise.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="#diagnostic" class="inline-flex items-center justify-center px-4 py-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-medium text-sm rounded-lg transition-colors shadow-sm">
+                            Test a Case Study &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantitative Baseline Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-sand-50 p-5 rounded-xl border border-sand-300 shadow-sm hover:border-terracotta-500 transition-colors">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-sand-800 mb-1">Biological Inertia</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-terracotta-500 font-mono">105M Yrs</div>
+                    <p class="text-xs text-sand-800 mt-2">Monophyletic origin of army ant syndrome; obligate reliance on collective action.</p>
+                </div>
+                <div class="bg-sand-50 p-5 rounded-xl border border-sand-300 shadow-sm hover:border-terracotta-500 transition-colors">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-sand-800 mb-1">Beebe's Ant Mill</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-rust-500 font-mono">1,200 Ft</div>
+                    <p class="text-xs text-sand-800 mt-2">Circumference of a single 1921 Guyanese ant mill; lasted 2 days until collective death.</p>
+                </div>
+                <div class="bg-sand-50 p-5 rounded-xl border border-sand-300 shadow-sm hover:border-terracotta-500 transition-colors">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-sand-800 mb-1">Pheromone Decay</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-sand-900 font-mono">33 Min</div>
+                    <p class="text-xs text-sand-800 mt-2">Attractive trail decay window; bypassed when ants loop, creating runaway reinforcement.</p>
+                </div>
+                <div class="bg-sand-50 p-5 rounded-xl border border-sand-300 shadow-sm hover:border-terracotta-500 transition-colors">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-sand-800 mb-1">Information Cascade</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-sage-600 font-mono">Step 3</div>
+                    <p class="text-xs text-sand-800 mt-2">The exact sequential decision step where private signals are permanently discarded.</p>
+                </div>
+            </div>
+
+            <!-- Conceptual Framework Pillars -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300">
+                    <div class="text-terracotta-500 font-mono text-xl font-bold mb-2">01 / VALID PREMISE</div>
+                    <h3 class="font-bold text-lg mb-2 text-sand-900">1. Grounded in Real Utility</h3>
+                    <p class="text-sm text-sand-800">
+                        Whether tracking trail pheromones to prey, investing in railway infrastructure, or utilizing LLM language processing, early participants achieve genuine, high-reward outcomes.
+                    </p>
+                </div>
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300">
+                    <div class="text-rust-500 font-mono text-xl font-bold mb-2">02 / SIGNAL DECOUPLING</div>
+                    <h3 class="font-bold text-lg mb-2 text-sand-900">2. Loss of Information Provenance</h3>
+                    <p class="text-sm text-sand-800">
+                        The signal (asset price or chemical concentration) strips away its context. Subsequent actors respond solely to signal strength rather than underlying utility or cash flow.
+                    </p>
+                </div>
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300">
+                    <div class="text-sand-900 font-mono text-xl font-bold mb-2">03 / UNCHECKED FEEDBACK</div>
+                    <h3 class="font-bold text-lg mb-2 text-sand-900">3. Extrapolation & Crash</h3>
+                    <p class="text-sm text-sand-800">
+                        Mimetic extrapolation replaces analysis. The loop tightens until physical exhaustion or economic capital limits force a violent, sudden correction.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: THE 5-PHASE ANATOMY OF SYSTEMIC OVEREXTENSION -->
+        <section id="phases" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 02 / Lifecycle Analysis</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-sand-900 mb-2">The Five Phases of the Spiral</h2>
+                <p class="text-sand-800 text-base max-w-4xl">
+                    Every overextended system transitions through five distinct phases: from grounded economic utility to complete loss of signal provenance, and finally to structural reset. Use the phase selector below to inspect how biological army ant behavior, financial market dynamics (Minsky framework), and algorithmic AI systems evolve in tandem across each stage.
+                </p>
+            </div>
+
+            <!-- Phase Stepper Control -->
+            <div class="grid grid-cols-5 gap-2 mb-6">
+                <button onclick="setPhase(1)" id="phase-btn-1" class="phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-terracotta-500 text-white font-bold text-xs sm:text-sm text-center shadow-sm transition-all">
+                    Phase 1<span class="hidden sm:inline"><br>The Idea is Real</span>
+                </button>
+                <button onclick="setPhase(2)" id="phase-btn-2" class="phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-sand-50 text-sand-800 hover:border-terracotta-500 font-bold text-xs sm:text-sm text-center transition-all">
+                    Phase 2<span class="hidden sm:inline"><br>Early Validation</span>
+                </button>
+                <button onclick="setPhase(3)" id="phase-btn-3" class="phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-sand-50 text-sand-800 hover:border-terracotta-500 font-bold text-xs sm:text-sm text-center transition-all">
+                    Phase 3<span class="hidden sm:inline"><br>Detachment</span>
+                </button>
+                <button onclick="setPhase(4)" id="phase-btn-4" class="phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-sand-50 text-sand-800 hover:border-terracotta-500 font-bold text-xs sm:text-sm text-center transition-all">
+                    Phase 4<span class="hidden sm:inline"><br>Extrapolation</span>
+                </button>
+                <button onclick="setPhase(5)" id="phase-btn-5" class="phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-sand-50 text-sand-800 hover:border-terracotta-500 font-bold text-xs sm:text-sm text-center transition-all">
+                    Phase 5<span class="hidden sm:inline"><br>Correction</span>
+                </button>
+            </div>
+
+            <!-- Layout: Interactive Details Panel + Dynamic Trajectory Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Dynamic Phase Details Display -->
+                <div class="lg:col-span-6 bg-sand-50 rounded-xl p-6 border border-sand-300 space-y-4">
+                    <div class="flex items-center justify-between border-b border-sand-300 pb-3">
+                        <span id="phase-badge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-terracotta-500 text-white">Phase 1 / 5</span>
+                        <span id="phase-core-shift" class="text-xs font-mono font-bold text-rust-600">Optimal Utility Phase</span>
+                    </div>
+
+                    <h3 id="phase-title" class="text-xl font-bold text-sand-900">Phase 1: The Idea is Real</h3>
+                    <p id="phase-desc" class="text-sm text-sand-800">
+                        A fundamental innovation or biological adaptation offers genuine utility. The underlying thesis holds up under empirical scrutiny and operates within intended parameters.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="p-3 bg-sand-200 rounded-lg">
+                            <span class="text-xs font-bold uppercase text-terracotta-600 block mb-1">📈 Financial Markets (Minsky)</span>
+                            <p id="phase-finance" class="text-xs text-sand-900">
+                                Fundamental technological shock (e.g. railways, internet). Capital is deployed under <strong>Hedge Financing</strong> where cash flows cover interest & principal.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-sand-200 rounded-lg">
+                            <span class="text-xs font-bold uppercase text-rust-600 block mb-1">🐜 Biological Substrate (Army Ants)</span>
+                            <p id="phase-ant" class="text-xs text-sand-900">
+                                Swarm foraging via volatile chemical trails efficiently strip-mines prey from jungle floor. High return of nutritional payload to bivouac.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-sand-200 rounded-lg">
+                            <span class="text-xs font-bold uppercase text-sand-800 block mb-1">🤖 Computational & AI Systems</span>
+                            <p id="phase-ai" class="text-xs text-sand-900">
+                                Recommendation engine presents accurate content based on explicit user intent; ACO algorithm finds global shortest paths across networks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase Trajectory Chart Canvas Container -->
+                <div class="lg:col-span-6 bg-sand-50 rounded-xl p-6 border border-sand-300 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm text-sand-900 mb-1">System Trajectory: Perceived Signal vs Real Utility</h3>
+                        <p class="text-xs text-sand-800 mb-4">Notice how Signal Strength (Price / Pheromone) exponentially diverges from True Utility as the system transitions into Phase 3 & 4.</p>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="phaseTrajectoryChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: INTERACTIVE MECHANICS & SIMULATION LAB -->
+        <section id="simulations" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 03 / Interactive Simulations</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-sand-900 mb-2">The Mathematical Mechanics of Lock-In</h2>
+                <p class="text-sand-800 text-base max-w-4xl">
+                    Systemic lock-in is driven by non-linear decision functions and asymmetric signal decay. Use the interactive simulators below to test how slight shifts in non-linearity ($a$) trigger abrupt lock-ins, how information cascades destroy private data, and how decay parameters dictate system memory.
+                </p>
+            </div>
+
+            <!-- Simulation Sub-tabs -->
+            <div class="flex border-b border-sand-300 space-x-4 mb-6 overflow-x-auto">
+                <button onclick="switchSimTab('deneubourg')" id="sim-tab-deneubourg" class="flex-shrink-0 whitespace-nowrap py-2 px-4 font-bold text-sm border-b-2 border-terracotta-500 text-terracotta-500">
+                    1. Deneubourg Non-linear Model
+                </button>
+                <button onclick="switchSimTab('cascade')" id="sim-tab-cascade" class="flex-shrink-0 whitespace-nowrap py-2 px-4 font-bold text-sm text-sand-800 hover:text-terracotta-500">
+                    2. Information Cascade Simulator
+                </button>
+                <button onclick="switchSimTab('decay')" id="sim-tab-decay" class="flex-shrink-0 whitespace-nowrap py-2 px-4 font-bold text-sm text-sand-800 hover:text-terracotta-500">
+                    3. Asymmetric Signal Decay
+                </button>
+            </div>
+
+            <!-- SUB-TAB 1: DENEUBOURG MODEL -->
+            <div id="sim-content-deneubourg" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 bg-sand-50 p-6 rounded-xl border border-sand-300 space-y-4">
+                        <h3 class="font-bold text-base text-sand-900">Deneubourg Bifurcation Equation</h3>
+                        <div class="p-3 bg-sand-200 rounded-md font-mono text-xs text-sand-900 text-center overflow-x-auto">
+                            P_L = (h + L)^a / [ (h + L)^a + (h + R)^a ]
+                        </div>
+                        <p class="text-xs text-sand-800">
+                            Adjust the non-linearity exponent (<span class="font-mono font-bold text-terracotta-500">a</span>) and baseline exploration (<span class="font-mono font-bold text-rust-500">h</span>) to observe how quickly choice probability $P_L$ locks onto Path $L$ when signal $L$ slightly exceeds $R$.
+                        </p>
+
+                        <!-- Sliders -->
+                        <div class="space-y-4 pt-2">
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span>Non-linearity Exponent (a): <span id="val-a" class="text-terracotta-500 font-mono">2.0</span></span>
+                                    <span class="text-sand-800">1.0 = Linear, &gt;2.0 = Strong Loop</span>
+                                </div>
+                                <input type="range" id="slider-a" min="0.5" max="4.0" step="0.1" value="2.0" oninput="updateDeneubourgChart()" class="w-full accent-terracotta-500">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span>Base Exploration Constant (h): <span id="val-h" class="text-rust-500 font-mono">5.0</span></span>
+                                    <span class="text-sand-800">Higher = More Exploration</span>
+                                </div>
+                                <input type="range" id="slider-h" min="0.5" max="20.0" step="0.5" value="5.0" oninput="updateDeneubourgChart()" class="w-full accent-rust-500">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span>Fixed Signal Right Path (R): <span class="font-mono">10.0</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="deneubourg-status" class="p-3 rounded-lg bg-sand-200 text-xs font-medium text-sand-900">
+                            Status: <span class="text-terracotta-600 font-bold">Standard Positive Feedback</span> (Moderate Sensitivity).
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-sand-50 p-6 rounded-xl border border-sand-300">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-sand-800 mb-2">Probability Curve: P_L vs Path L Signal Strength</h4>
+                        <div class="chart-container">
+                            <canvas id="deneubourgChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 2: INFORMATION CASCADE SIMULATOR -->
+            <div id="sim-content-cascade" class="hidden space-y-6">
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300">
+                    <div class="max-w-3xl mb-6">
+                        <h3 class="font-bold text-lg text-sand-900 mb-1">Sequential Decision Cascade (Banerjee / BHW Model)</h3>
+                        <p class="text-xs text-sand-800">
+                            Simulate how rational actors discard their private signal. Each actor has a private signal (66% accuracy) but observes preceding public choices. Click "Step Next Actor" to watch a cascade freeze independent thought.
+                        </p>
+                    </div>
+
+                    <!-- Simulator Control Panel -->
+                    <div class="flex flex-wrap items-center gap-4 mb-6">
+                        <button onclick="resetCascadeSim()" class="px-4 py-2 bg-sand-800 hover:bg-sand-900 text-white text-xs font-bold rounded-lg transition-colors">
+                            🔄 Reset Simulation
+                        </button>
+                        <button onclick="stepCascadeSim()" class="px-4 py-2 bg-terracotta-500 hover:bg-terracotta-600 text-white text-xs font-bold rounded-lg transition-colors">
+                            ▶ Step Next Actor (Actor <span id="cascade-actor-num">1</span>)
+                        </button>
+                        <button onclick="runAutoCascade()" class="px-4 py-2 bg-rust-500 hover:bg-rust-600 text-white text-xs font-bold rounded-lg transition-colors">
+                            ⚡ Run Full Sequence (10 Actors)
+                        </button>
+                    </div>
+
+                    <!-- Actor Steps Vis Canvas / HTML Cards -->
+                    <div id="cascade-actors-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+
+                    <!-- Cascade Diagnostics Output -->
+                    <div class="p-4 bg-sand-200 rounded-xl border border-sand-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-sand-800">Cascade Status:</span>
+                            <div id="cascade-summary" class="text-sm font-bold text-sand-900">No decisions made yet. Click step to start.</div>
+                        </div>
+                        <div id="cascade-badge" class="px-3 py-1 bg-sand-300 text-sand-800 text-xs font-bold rounded-full">
+                            State: Neutral
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 3: ASYMMETRIC DECAY SIMULATOR -->
+            <div id="sim-content-decay" class="hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 bg-sand-50 p-6 rounded-xl border border-sand-300 space-y-4">
+                        <h3 class="font-bold text-base text-sand-900">Decay Parameters & System Memory</h3>
+                        <p class="text-xs text-sand-800">
+                            Army ants utilize two distinct signals: fast-decaying attractive pheromone (33-min half-life) to track active utility, and slow-decaying repellent (78-min half-life) to block exhausted routes.
+                        </p>
+                        <p class="text-xs text-sand-800">
+                            When ants enter a loop, they refresh attractive pheromone faster than it can decay, bypassing the 33-minute memory wipe.
+                        </p>
+                        <div class="p-3 bg-sand-200 rounded-lg space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span>Attractive Decay Rate (ρ_att):</span>
+                                <span class="font-mono font-bold text-terracotta-500">33 mins</span>
+                            </div>
+                            <div class="flex justify-between text-xs">
+                                <span>Repellent Decay Rate (ρ_rep):</span>
+                                <span class="font-mono font-bold text-rust-500">78 mins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-sand-50 p-6 rounded-xl border border-sand-300">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-sand-800 mb-2">Signal Concentration Over Time (Minutes)</h4>
+                        <div class="chart-container">
+                            <canvas id="decayChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 4: CROSS-DOMAIN COMPARATIVE MATRIX -->
+        <section id="domains" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 04 / Universal Pathology</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-sand-900 mb-2">Cross-Domain Comparison Matrix</h2>
+                <p class="text-sand-800 text-base max-w-4xl">
+                    Compare how the exact same structural pathology—an effective heuristic stripped of external information provenance—plays out across biology, finance, metaheuristic optimization, and modern AI algorithms. Select any row to inspect deep domain insights.
+                </p>
+            </div>
+
+            <!-- Interactive Table -->
+            <div class="bg-sand-50 rounded-xl border border-sand-300 overflow-x-auto shadow-sm">
+                <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-sand-200 border-b border-sand-300 text-sand-900 uppercase font-bold text-xs tracking-wider">
+                            <th class="p-4">Domain / System</th>
+                            <th class="p-4">Fundamental Thesis</th>
+                            <th class="p-4">The Pheromone / Signal</th>
+                            <th class="p-4">Loss of Provenance</th>
+                            <th class="p-4">Fatal Lock-in Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-sand-300 text-sand-800">
+                        <tr class="hover:bg-sand-200/50 transition-colors cursor-pointer" onclick="showDomainModal('ant')">
+                            <td class="p-4 font-bold text-terracotta-600 flex items-center space-x-2">
+                                <span>🐜 Biological Swarm</span>
+                            </td>
+                            <td class="p-4">Collective foraging yields efficient mass prey capture.</td>
+                            <td class="p-4 font-mono">Volatile chemical trail</td>
+                            <td class="p-4">Ant cannot tell if chemical was laid by returning forager or looping mate.</td>
+                            <td class="p-4 font-bold text-sand-900">Ant Mill (Death Spiral) until exhaustion.</td>
+                        </tr>
+                        <tr class="hover:bg-sand-200/50 transition-colors cursor-pointer" onclick="showDomainModal('finance')">
+                            <td class="p-4 font-bold text-rust-600 flex items-center space-x-2">
+                                <span>📈 Financial Markets</span>
+                            </td>
+                            <td class="p-4">Transformative innovation creates high productive yield.</td>
+                            <td class="p-4 font-mono">Asset price momentum</td>
+                            <td class="p-4">Price rises attract capital betting on rewards rather than cash flow.</td>
+                            <td class="p-4 font-bold text-sand-900">Minsky Ponzi collapse / Market Crash.</td>
+                        </tr>
+                        <tr class="hover:bg-sand-200/50 transition-colors cursor-pointer" onclick="showDomainModal('aco')">
+                            <td class="p-4 font-bold text-sage-600 flex items-center space-x-2">
+                                <span>💻 Optimization (ACO)</span>
+                            </td>
+                            <td class="p-4">Probabilistic agent paths solve NP-hard TSP problems.</td>
+                            <td class="p-4 font-mono">Virtual pheromone matrix</td>
+                            <td class="p-4">Early sub-optimal paths get heavily reinforced before full space is explored.</td>
+                            <td class="p-4 font-bold text-sand-900">Premature Convergence to Local Optima.</td>
+                        </tr>
+                        <tr class="hover:bg-sand-200/50 transition-colors cursor-pointer" onclick="showDomainModal('ai')">
+                            <td class="p-4 font-bold text-sand-900 flex items-center space-x-2">
+                                <span>🤖 AI & Recommenders</span>
+                            </td>
+                            <td class="p-4">Serve engaging content to maximize platform utility.</td>
+                            <td class="p-4 font-mono">User engagement clickstream</td>
+                            <td class="p-4">Algorithm trains on its own past recommendations & synthetic LLM data.</td>
+                            <td class="p-4 font-bold text-sand-900">Model Collapse & Radicalization Echo Chambers.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 text-xs text-sand-800 text-right">
+                * Click any row to view full historical examples and mathematical governing traits.
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: DIAGNOSTIC TEST TOOL -->
+        <section id="diagnostic" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 05 / Practical Diagnostic</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-sand-900 mb-2">The "Outgrown Evidence" Practical Test</h2>
+                <p class="text-sand-800 text-base max-w-4xl">
+                    "Is this idea still being applied where it objectively works, or is it being applied simply because it worked somewhere else?" Use this interactive diagnostic wizard to evaluate any current trend, corporate strategy, or asset market. Select a pre-loaded case study or evaluate your own custom scenario.
+                </p>
+            </div>
+
+            <!-- Diagnostic Card Container -->
+            <div class="bg-sand-50 rounded-xl p-6 sm:p-8 border border-sand-300 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Input / Questionnaire Column -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-sand-800 mb-2">Select a Case Study or Custom Entry</label>
+                        <select id="diag-preset" onchange="loadDiagPreset()" class="w-full p-2.5 bg-sand-200 border border-sand-300 rounded-lg text-sm font-bold text-sand-900 focus:ring-2 focus:ring-terracotta-500 outline-none">
+                            <option value="custom">-- Custom Scenario Assessment --</option>
+                            <option value="dotcom">1999 Dot-Com Boom ("Every company is an internet company")</option>
+                            <option value="subprime">2006 Subprime Mortgage Securitization ("Housing only goes up")</option>
+                            <option value="ai-hype">Modern AI Hype Cycle ("Add AI to every product")</option>
+                            <option value="ant-mill">Guyanese Army Ant Column (Beebe 1921)</option>
+                        </select>
+                    </div>
+
+                    <!-- 5 Questionnaire Criteria -->
+                    <div class="space-y-4 pt-2">
+                        <div class="p-3 bg-sand-200/60 rounded-lg">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-sand-900">1. Original Utility Grounding</span>
+                                <span id="q1-val" class="text-xs font-mono font-bold text-terracotta-500">High (5/5)</span>
+                            </div>
+                            <p class="text-xs text-sand-800 mb-2">Was the initial premise proven objectively true in its original domain?</p>
+                            <input type="range" id="q1-range" min="1" max="5" value="5" oninput="calculateDiagScore()" class="w-full accent-terracotta-500">
+                        </div>
+
+                        <div class="p-3 bg-sand-200/60 rounded-lg">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-sand-900">2. Reward-Driven Capital/Behavior</span>
+                                <span id="q2-val" class="text-xs font-mono font-bold text-rust-500">Moderate (3/5)</span>
+                            </div>
+                            <p class="text-xs text-sand-800 mb-2">Are participants entering to capture rewards/momentum rather than fundamental utility?</p>
+                            <input type="range" id="q2-range" min="1" max="5" value="3" oninput="calculateDiagScore()" class="w-full accent-rust-500">
+                        </div>
+
+                        <div class="p-3 bg-sand-200/60 rounded-lg">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-sand-900">3. Signal Detachment (Provenance Loss)</span>
+                                <span id="q3-val" class="text-xs font-mono font-bold text-sand-900">Low (1/5)</span>
+                            </div>
+                            <p class="text-xs text-sand-800 mb-2">Is the signal (price/clicks/pheromones) decoupled from actual cash flow or prey?</p>
+                            <input type="range" id="q3-range" min="1" max="5" value="1" oninput="calculateDiagScore()" class="w-full accent-sand-800">
+                        </div>
+
+                        <div class="p-3 bg-sand-200/60 rounded-lg">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-sand-900">4. Mimetic Extrapolation</span>
+                                <span id="q4-val" class="text-xs font-mono font-bold text-sand-900">Low (1/5)</span>
+                            </div>
+                            <p class="text-xs text-sand-800 mb-2">Is the premise being applied in contexts where it was never tested or proven?</p>
+                            <input type="range" id="q4-range" min="1" max="5" value="1" oninput="calculateDiagScore()" class="w-full accent-sand-800">
+                        </div>
+
+                        <div class="p-3 bg-sand-200/60 rounded-lg">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-sand-900">5. Absence of Friction/External Anchor</span>
+                                <span id="q5-val" class="text-xs font-mono font-bold text-sand-900">Low (1/5)</span>
+                            </div>
+                            <p class="text-xs text-sand-800 mb-2">Does the system lack timestamps (`SinceExternal`) or independent dissent mechanisms?</p>
+                            <input type="range" id="q5-range" min="1" max="5" value="1" oninput="calculateDiagScore()" class="w-full accent-sand-800">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagnosis Output Column -->
+                <div class="lg:col-span-5 flex flex-col justify-between bg-sand-200 p-6 rounded-xl border border-sand-300">
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-sand-800">Diagnostic Verdict</span>
+                        
+                        <div class="text-center py-4">
+                            <div id="diag-score-num" class="text-5xl font-extrabold text-sage-600 font-mono mb-2">24%</div>
+                            <div id="diag-verdict-title" class="text-lg font-bold text-sand-900">Healthy & Productive Optimization</div>
+                        </div>
+
+                        <div class="p-4 bg-sand-50 rounded-lg border border-sand-300 text-xs text-sand-800 space-y-2">
+                            <span class="font-bold text-sand-900 block border-b border-sand-300 pb-1">Systemic Analysis:</span>
+                            <p id="diag-verdict-text">
+                                The idea is currently operating within evidence-based boundaries. Signal strength reflects true utility, and participants are evaluating fundamentals rather than purely mimetic price action.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-sand-300">
+                        <div class="text-xs font-bold text-sand-900 mb-1">Key Diagnostic Question:</div>
+                        <p class="text-xs text-sand-800 italic">
+                            "When evaluating this asset or strategy, ask: Are new adopters buying/joining because the core utility solves a problem, or because early adopters got rich?"
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SECTION 6: BREAKING THE SPIRAL (ANTIDOTES & FRICTION LAB) -->
+        <section id="antidotes" class="scroll-mt-20 lg:scroll-mt-32">
+            <!-- Section Introductory Paragraph -->
+            <div class="mb-8 border-l-4 border-terracotta-500 pl-4 py-1">
+                <p class="text-xs uppercase font-bold tracking-widest text-terracotta-500 mb-1">Section 06 / Systemic Interventions</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-sand-900 mb-2">Breaking the Spiral: Systemic Friction & External Anchors</h2>
+                <p class="text-sand-800 text-base max-w-4xl">
+                    If closed feedback loops inevitably lead to catastrophic lock-in, the only antidote is the deliberate introduction of structural friction and external, non-correlated signals. Adjust the interactive safety protocols below to see how systemic risk is mitigated.
+                </p>
+            </div>
+
+            <!-- Interventions Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                
+                <!-- Intervention Card 1 -->
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300 space-y-3">
+                    <div class="w-8 h-8 rounded-full bg-terracotta-500 text-white flex items-center justify-center font-bold text-sm">
+                        1
+                    </div>
+                    <h3 class="font-bold text-lg text-sand-900">Evaporation & Decay (ρ)</h3>
+                    <p class="text-xs text-sand-800">
+                        In ACO algorithms and market pricing, old signals must forcibly evaporate over time. Without explicit memory decay ($\rho$), early sub-optimal paths permanently dominate.
+                    </p>
+                    <div class="p-2.5 bg-sand-200 rounded text-xs font-mono text-sand-900">
+                        Antidote: Enforce 33-min chemical decay or algorithmic memory caps.
+                    </div>
+                </div>
+
+                <!-- Intervention Card 2 -->
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300 space-y-3">
+                    <div class="w-8 h-8 rounded-full bg-rust-500 text-white flex items-center justify-center font-bold text-sm">
+                        2
+                    </div>
+                    <h3 class="font-bold text-lg text-sand-900">Quorum Thresholds</h3>
+                    <p class="text-xs text-sand-800">
+                        Social insects require a minimum quorum threshold of independent confirmations before committing the entire colony. Single signals are prevented from triggering instant cascades.
+                    </p>
+                    <div class="p-2.5 bg-sand-200 rounded text-xs font-mono text-sand-900">
+                        Antidote: Mandatory multi-signal validation before capital deployment.
+                    </div>
+                </div>
+
+                <!-- Intervention Card 3 -->
+                <div class="bg-sand-50 p-6 rounded-xl border border-sand-300 space-y-3">
+                    <div class="w-8 h-8 rounded-full bg-sage-600 text-white flex items-center justify-center font-bold text-sm">
+                        3
+                    </div>
+                    <h3 class="font-bold text-lg text-sand-900">`SinceExternal` Timestamp</h3>
+                    <p class="text-xs text-sand-800">
+                        AI protocols modeling ant colony functions require a parameter tracking when data was introduced from <em>outside</em> the loop. Internal signal strength alone cannot detect rings.
+                    </p>
+                    <div class="p-2.5 bg-sand-200 rounded text-xs font-mono text-sand-900">
+                        Antidote: Mandatory grounding in real-world, non-synthetic data.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Interactive Friction Simulator Controls -->
+            <div class="bg-sand-50 p-6 sm:p-8 rounded-xl border border-sand-300 shadow-sm">
+                <h3 class="font-bold text-base text-sand-900 mb-2">Interactive Friction Control Lab</h3>
+                <p class="text-xs text-sand-800 mb-6">Toggle systemic safety measures to observe the immediate reduction in Spiral/Collapse Probability.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    
+                    <div class="space-y-4">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="fric-decay" onchange="updateFrictionLab()" checked class="w-4 h-4 accent-terracotta-500">
+                            <span class="text-xs font-bold text-sand-900">Enforce Signal Evaporation Rate (ρ)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="fric-quorum" onchange="updateFrictionLab()" class="w-4 h-4 accent-rust-500">
+                            <span class="text-xs font-bold text-sand-900">Require Quorum Confirmation (&gt;3 signals)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="fric-external" onchange="updateFrictionLab()" class="w-4 h-4 accent-sage-600">
+                            <span class="text-xs font-bold text-sand-900">Inject External Ground Truth Anchor (`SinceExternal`)</span>
+                        </label>
+                    </div>
+
+                    <div class="md:col-span-2 bg-sand-200 p-6 rounded-xl border border-sand-300 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="space-y-1 text-center sm:text-left">
+                            <span class="text-xs font-bold uppercase tracking-wider text-sand-800">Calculated System Risk</span>
+                            <div id="fric-risk-label" class="text-2xl font-extrabold text-rust-600">MODERATE RISK (45%)</div>
+                            <p id="fric-risk-desc" class="text-xs text-sand-800">Evaporation active, but missing external anchors and quorum thresholds.</p>
+                        </div>
+                        <div class="w-32 h-32 relative flex items-center justify-center">
+                            <div id="fric-risk-circle" class="w-28 h-28 rounded-full border-8 border-rust-500 flex items-center justify-center font-mono font-extrabold text-xl text-sand-900 transition-all">
+                                45%
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Cross-Domain Detail Modal -->
+    <div id="domain-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="domain-modal-title">
+        <div class="absolute inset-0 bg-sand-900/60 backdrop-blur-sm" onclick="closeDomainModal()"></div>
+        <div class="relative bg-sand-50 rounded-2xl border border-sand-300 shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8">
+            <button onclick="closeDomainModal()" class="absolute top-4 right-4 text-sand-800 hover:text-terracotta-500 text-2xl font-bold leading-none" aria-label="Close">&times;</button>
+            <span id="domain-modal-tag" class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-terracotta-500 text-white mb-3">Cross-Domain Insight</span>
+            <h3 id="domain-modal-title" class="text-xl font-bold text-sand-900 mb-3"></h3>
+            <div id="domain-modal-body" class="text-sm text-sand-800 space-y-2"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sand-200 border-t border-sand-300 mt-20 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs font-mono text-sand-800">
+                THE ARCHITECTURE OF THE SPIRAL — Emergent Pathologies in Biological, Economic, and Computational Systems
+            </p>
+            <p class="text-xs text-sand-800">
+                Synthesis derived from William Beebe (1921), T.C. Schneirla (1944), Abhijit Banerjee (1992), Hyman Minsky, and Marco Dorigo (1992).
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // --- GLOBAL STATE ---
+        let currentPhase = 1;
+        let deneubourgChartInstance = null;
+        let phaseTrajectoryChartInstance = null;
+        let decayChartInstance = null;
+
+        // Cascade Sim State
+        let cascadeStep = 0;
+        let cascadeData = [];
+
+        // Preset Diagnostic Scenarios
+        const diagPresets = {
+            'custom': [5, 3, 1, 1, 1],
+            'dotcom': [5, 5, 5, 5, 4],
+            'subprime': [4, 5, 5, 5, 5],
+            'ai-hype': [5, 4, 3, 4, 3],
+            'ant-mill': [5, 5, 5, 5, 5]
+        };
+
+        // Phase Details Content Matrix
+        const phaseContent = {
+            1: {
+                badge: "Phase 1 / 5",
+                shift: "Optimal Utility Phase",
+                title: "Phase 1: The Idea is Real",
+                desc: "A fundamental innovation or biological adaptation offers genuine utility. The underlying thesis holds up under empirical scrutiny and operates within intended parameters.",
+                finance: "Fundamental technological shock (e.g. railways, internet). Capital is deployed under Hedge Financing where cash flows cover interest & principal.",
+                ant: "Swarm foraging via volatile chemical trails efficiently strip-mines prey from jungle floor. High return of nutritional payload to bivouac.",
+                ai: "Recommendation engine presents accurate content based on explicit user intent; ACO algorithm finds global shortest paths across networks."
+            },
+            2: {
+                badge: "Phase 2 / 5",
+                shift: "Positive Feedback Amplification",
+                title: "Phase 2: Early Validation",
+                desc: "Early adopters secure high, visible returns. Success validates the thesis, attracting secondary capital and swarm traffic into the proven vector.",
+                finance: "Asset prices rise steadily. Conservative investors enter. Transition toward Speculative Financing (cash flows cover interest, rolling over principal).",
+                ant: "Foragers discover rich prey patch. Chemical trails are heavily reinforced with short-lived attractive pheromones, directing bulk colony flow.",
+                ai: "Engine reinforces clicked content categories; ACO artificial ants rapidly converge on initial shortest candidate paths."
+            },
+            3: {
+                badge: "Phase 3 / 5",
+                shift: "Loss of Information Provenance",
+                title: "Phase 3: Signal Detachment",
+                desc: "The metric of success (asset price momentum or chemical trail strength) completely decouples from underlying fundamental utility or prey.",
+                finance: "Capital enters purely to bet on price appreciation rather than cash flow. Questions shift from 'Is this useful?' to 'Will someone pay more tomorrow?'",
+                ant: "A foraging column loses its leading edge. Ants follow the chemical trail purely because it is strong, not because it leads to food.",
+                ai: "Algorithms begin optimizing for engagement metrics/clicks over user utility; LLMs begin ingesting early synthetic web outputs."
+            },
+            4: {
+                badge: "Phase 4 / 5",
+                shift: "Mimetic Error Aggregation",
+                title: "Phase 4: Extrapolation replacing Analysis",
+                desc: "Information cascades dominate. Independent analysis is abandoned as actors blindly follow preceding public actions into contexts where the thesis was never true.",
+                finance: "Minsky Ponzi Financing phase. Cash flows cover neither principal nor interest. The thesis is stretched ('every company is a dot-com').",
+                ant: "Head of the separated column intersects its own tail. The trail strength increases exponentially as ants walk in an endless, closed loop.",
+                ai: "Model collapse occurs in LLMs trained on synthetic data; recommendation engines lock users into radicalization echo chambers."
+            },
+            5: {
+                badge: "Phase 5 / 5",
+                shift: "Forceful Systemic Reset",
+                title: "Phase 5: The Correction",
+                desc: "Physical or economic reality reasserts itself. Capital flows cease or biological limits are reached, initiating a sudden, violent correction.",
+                finance: "Minsky Moment: Debtors are forced to sell assets, triggering liquidity collapse. Asset prices crash while original core utility (railways/internet) survives.",
+                ant: "Biological exhaustion overrides pheromone trail. Ants physically collapse and die after days of milling, ending the closed feedback loop.",
+                ai: "Algorithmic stagnation or synthetic model degradation requires manual parameter resets, evaporation caps, or external data injection."
+            }
+        };
+
+        // Initialize on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            initPhaseChart();
+            initDeneubourgChart();
+            initDecayChart();
+            resetCascadeSim();
+            calculateDiagScore();
+            updateFrictionLab();
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+
+            // Collapse the mobile menu after choosing a section
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+
+            // Close the domain modal with the Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeDomainModal();
+            });
+        });
+
+        // --- SECTION 2: PHASE STEPPER LOGIC ---
+        function setPhase(p) {
+            currentPhase = p;
+            
+            // Update buttons
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`phase-btn-${i}`);
+                if (i === p) {
+                    btn.className = "phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-terracotta-500 text-white font-bold text-xs sm:text-sm text-center shadow-sm transition-all";
+                } else {
+                    btn.className = "phase-btn py-3 px-2 rounded-lg border border-sand-300 bg-sand-50 text-sand-800 hover:border-terracotta-500 font-bold text-xs sm:text-sm text-center transition-all";
+                }
+            }
+
+            // Update details
+            const data = phaseContent[p];
+            document.getElementById('phase-badge').innerText = data.badge;
+            document.getElementById('phase-core-shift').innerText = data.shift;
+            document.getElementById('phase-title').innerText = data.title;
+            document.getElementById('phase-desc').innerText = data.desc;
+            document.getElementById('phase-finance').innerHTML = data.finance;
+            document.getElementById('phase-ant').innerHTML = data.ant;
+            document.getElementById('phase-ai').innerHTML = data.ai;
+
+            // Highlight chart dataset point
+            if (phaseTrajectoryChartInstance) {
+                phaseTrajectoryChartInstance.data.datasets[0].pointRadius = [1, 2, 3, 4, 5].map(x => x === p ? 8 : 4);
+                phaseTrajectoryChartInstance.update();
+            }
+        }
+
+        function initPhaseChart() {
+            const ctx = document.getElementById('phaseTrajectoryChart').getContext('2d');
+            phaseTrajectoryChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Phase 1: Real Idea', 'Phase 2: Validation', 'Phase 3: Detachment', 'Phase 4: Extrapolation', 'Phase 5: Reset'],
+                    datasets: [
+                        {
+                            label: 'Signal Intensity (Price / Pheromone)',
+                            data: [15, 35, 75, 140, 20],
+                            borderColor: '#C85A32',
+                            backgroundColor: 'rgba(200, 90, 50, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: [8, 4, 4, 4, 4],
+                            pointBackgroundColor: '#C85A32'
+                        },
+                        {
+                            label: 'Fundamental Economic / Biological Utility',
+                            data: [15, 25, 30, 32, 30],
+                            borderColor: '#059669',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.1,
+                            pointRadius: 3,
+                            pointBackgroundColor: '#059669'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Magnitude / Signal Strength', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- SECTION 3: SIMULATION LAB LOGIC ---
+        function switchSimTab(tab) {
+            document.getElementById('sim-content-deneubourg').classList.add('hidden');
+            document.getElementById('sim-content-cascade').classList.add('hidden');
+            document.getElementById('sim-content-decay').classList.add('hidden');
+
+            const inactiveTabClass = "flex-shrink-0 whitespace-nowrap py-2 px-4 font-bold text-sm text-sand-800 hover:text-terracotta-500";
+            const activeTabClass = "flex-shrink-0 whitespace-nowrap py-2 px-4 font-bold text-sm border-b-2 border-terracotta-500 text-terracotta-500";
+
+            document.getElementById('sim-tab-deneubourg').className = inactiveTabClass;
+            document.getElementById('sim-tab-cascade').className = inactiveTabClass;
+            document.getElementById('sim-tab-decay').className = inactiveTabClass;
+
+            if (tab === 'deneubourg') {
+                document.getElementById('sim-content-deneubourg').classList.remove('hidden');
+                document.getElementById('sim-tab-deneubourg').className = activeTabClass;
+            } else if (tab === 'cascade') {
+                document.getElementById('sim-content-cascade').classList.remove('hidden');
+                document.getElementById('sim-tab-cascade').className = activeTabClass;
+            } else if (tab === 'decay') {
+                document.getElementById('sim-content-decay').classList.remove('hidden');
+                document.getElementById('sim-tab-decay').className = activeTabClass;
+            }
+        }
+
+        function initDeneubourgChart() {
+            const ctx = document.getElementById('deneubourgChart').getContext('2d');
+            
+            const labels = [];
+            for (let L = 0; L <= 30; L += 1) {
+                labels.push(L);
+            }
+
+            deneubourgChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Probability Choice Path L (P_L)',
+                        data: calculateDeneubourgPoints(2.0, 5.0, 10.0),
+                        borderColor: '#C85A32',
+                        backgroundColor: 'rgba(200, 90, 50, 0.1)',
+                        fill: true,
+                        borderWidth: 3,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Signal Strength on Left Path (L) [Right Path R = 10]', font: { size: 10 } } },
+                        y: { min: 0, max: 1.0, title: { display: true, text: 'Probability P_L (0.0 to 1.0)', font: { size: 10 } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function calculateDeneubourgPoints(a, h, R) {
+            const points = [];
+            for (let L = 0; L <= 30; L += 1) {
+                const num = Math.pow(h + L, a);
+                const den = Math.pow(h + L, a) + Math.pow(h + R, a);
+                points.push((num / den).toFixed(3));
+            }
+            return points;
+        }
+
+        function updateDeneubourgChart() {
+            const a = parseFloat(document.getElementById('slider-a').value);
+            const h = parseFloat(document.getElementById('slider-h').value);
+            
+            document.getElementById('val-a').innerText = a.toFixed(1);
+            document.getElementById('val-h').innerText = h.toFixed(1);
+
+            const points = calculateDeneubourgPoints(a, h, 10.0);
+            if (deneubourgChartInstance) {
+                deneubourgChartInstance.data.datasets[0].data = points;
+                deneubourgChartInstance.update();
+            }
+
+            const statusEl = document.getElementById('deneubourg-status');
+            if (a >= 2.5) {
+                statusEl.innerHTML = `Status: <span class="text-terracotta-600 font-bold">HYPER-SENSITIVE LOCK-IN</span> (Extremely steep bifurcation; path L instantly monopolizes traffic).`;
+            } else if (a <= 1.2) {
+                statusEl.innerHTML = `Status: <span class="text-sage-600 font-bold">NEAR-LINEAR EXPLORATION</span> (Swarm retains high flexibility, avoiding premature traps).`;
+            } else {
+                statusEl.innerHTML = `Status: <span class="text-rust-600 font-bold">STANDARD POSITIVE FEEDBACK</span> (Balanced exploitation and exploration).`;
+            }
+        }
+
+        // --- INFORMATION CASCADE SIMULATOR LOGIC ---
+        function resetCascadeSim() {
+            cascadeStep = 0;
+            cascadeData = [];
+            document.getElementById('cascade-actor-num').innerText = "1";
+            document.getElementById('cascade-summary').innerText = "No decisions made yet. Click step to start.";
+            document.getElementById('cascade-badge').innerText = "State: Neutral";
+            document.getElementById('cascade-badge').className = "px-3 py-1 bg-sand-300 text-sand-800 text-xs font-bold rounded-full";
+            renderCascadeGrid();
+        }
+
+        function stepCascadeSim() {
+            if (cascadeStep >= 10) return;
+            cascadeStep++;
+
+            // Actor 1: Private Signal + -> Invests
+            // Actor 2: Private Signal - -> Cancels with Actor 1 -> Toss/Follows -> Invests
+            // Actor 3+: Private Signal - -> Public Signal (2 Investments) > Private Signal -> DISCARDS Private Signal -> Invests
+            let privateSignal = (cascadeStep === 2 || cascadeStep >= 3) ? 'REJECT (-)' : 'INVEST (+)';
+            let publicObserved = cascadeData.filter(d => d.action === 'INVEST').length;
+            let action = 'INVEST';
+            let reasoning = '';
+
+            if (cascadeStep === 1) {
+                action = 'INVEST';
+                reasoning = 'Follows positive private signal.';
+            } else if (cascadeStep === 2) {
+                action = 'INVEST';
+                reasoning = 'Private signal NEGATIVE, but cancels Actor 1. Follows trend tie-breaker.';
+            } else {
+                action = 'INVEST';
+                reasoning = `Private signal NEGATIVE, but observed ${publicObserved} previous INVESTS. Discards private data! CASCADE LOCKED.`;
+            }
+
+            cascadeData.push({
+                actor: cascadeStep,
+                privateSignal: privateSignal,
+                action: action,
+                reasoning: reasoning,
+                isCascade: cascadeStep >= 3
+            });
+
+            document.getElementById('cascade-actor-num').innerText = Math.min(cascadeStep + 1, 10);
+            renderCascadeGrid();
+            updateCascadeSummary();
+        }
+
+        function runAutoCascade() {
+            resetCascadeSim();
+            for (let i = 0; i < 10; i++) {
+                stepCascadeSim();
+            }
+        }
+
+        function renderCascadeGrid() {
+            const grid = document.getElementById('cascade-actors-grid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const item = cascadeData.find(d => d.actor === i);
+                const card = document.createElement('div');
+                
+                if (item) {
+                    const isCascade = item.isCascade;
+                    card.className = `p-3 rounded-lg border text-xs font-sans flex flex-col justify-between ${isCascade ? 'bg-terracotta-50 border-terracotta-500 text-sand-900' : 'bg-sand-200 border-sand-300 text-sand-900'}`;
+                    card.innerHTML = `
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Actor #${i}</span>
+                            <span class="${isCascade ? 'text-terracotta-600 font-extrabold' : 'text-sand-800'}">${item.action}</span>
+                        </div>
+                        <div class="text-[10px] text-sand-800 mb-1">Private: <span class="font-mono font-bold">${item.privateSignal}</span></div>
+                        <div class="text-[10px] leading-tight text-sand-800">${item.reasoning}</div>
+                    `;
+                } else {
+                    card.className = "p-3 rounded-lg border border-dashed border-sand-300 bg-sand-100 text-sand-800 text-xs flex items-center justify-center";
+                    card.innerHTML = `<span class="text-sand-800 font-mono">Actor #${i} (Pending)</span>`;
+                }
+                grid.appendChild(card);
+            }
+        }
+
+        function updateCascadeSummary() {
+            const summaryEl = document.getElementById('cascade-summary');
+            const badgeEl = document.getElementById('cascade-badge');
+
+            if (cascadeStep >= 3) {
+                summaryEl.innerHTML = `<span class="text-terracotta-600 font-bold">FULL INFORMATION CASCADE ACTIVE.</span> Actors 3 through ${cascadeStep} are discarding all private negative signals to follow the herd.`;
+                badgeEl.innerText = "State: Irreversible Cascade";
+                badgeEl.className = "px-3 py-1 bg-terracotta-500 text-white text-xs font-bold rounded-full shadow-sm";
+            } else if (cascadeStep > 0) {
+                summaryEl.innerText = `Actor ${cascadeStep} completed decision. Herd momentum building...`;
+                badgeEl.innerText = "State: Early Validation";
+                badgeEl.className = "px-3 py-1 bg-rust-500 text-white text-xs font-bold rounded-full";
+            }
+        }
+
+        // --- DECAY CHART LOGIC ---
+        function initDecayChart() {
+            const ctx = document.getElementById('decayChart').getContext('2d');
+            const times = [];
+            const attractive = [];
+            const repellent = [];
+
+            for (let t = 0; t <= 120; t += 5) {
+                times.push(`${t}m`);
+                // Halflife 33 min vs 78 min
+                attractive.push((100 * Math.pow(0.5, t / 33)).toFixed(1));
+                repellent.push((100 * Math.pow(0.5, t / 78)).toFixed(1));
+            }
+
+            decayChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: times,
+                    datasets: [
+                        {
+                            label: 'Attractive Pheromone (33-min half-life)',
+                            data: attractive,
+                            borderColor: '#C85A32',
+                            borderWidth: 2,
+                            fill: false
+                        },
+                        {
+                            label: 'Repellent "No-Entry" Signal (78-min half-life)',
+                            data: repellent,
+                            borderColor: '#D97706',
+                            borderWidth: 2,
+                            borderDash: [4, 4],
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { title: { display: true, text: '% Signal Concentration Remaining', font: { size: 10 } } },
+                        x: { title: { display: true, text: 'Elapsed Time (Minutes)', font: { size: 10 } } }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        // --- SECTION 5: DIAGNOSTIC WIZARD LOGIC ---
+        function loadDiagPreset() {
+            const key = document.getElementById('diag-preset').value;
+            const vals = diagPresets[key];
+            if (vals) {
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById(`q${i}-range`).value = vals[i - 1];
+                }
+                calculateDiagScore();
+            }
+        }
+
+        function calculateDiagScore() {
+            const q1 = parseInt(document.getElementById('q1-range').value);
+            const q2 = parseInt(document.getElementById('q2-range').value);
+            const q3 = parseInt(document.getElementById('q3-range').value);
+            const q4 = parseInt(document.getElementById('q4-range').value);
+            const q5 = parseInt(document.getElementById('q5-range').value);
+
+            // Update range UI labels
+            document.getElementById('q1-val').innerText = `${q1}/5`;
+            document.getElementById('q2-val').innerText = `${q2}/5`;
+            document.getElementById('q3-val').innerText = `${q3}/5`;
+            document.getElementById('q4-val').innerText = `${q4}/5`;
+            document.getElementById('q5-val').innerText = `${q5}/5`;
+
+            // Score formula: Overextension Risk = (q2 + q3 + q4 + q5) / 20 * 100
+            const risk = Math.round(((q2 + q3 + q4 + q5) / 20) * 100);
+
+            const scoreEl = document.getElementById('diag-score-num');
+            const titleEl = document.getElementById('diag-verdict-title');
+            const textEl = document.getElementById('diag-verdict-text');
+
+            scoreEl.innerText = `${risk}%`;
+
+            if (risk >= 75) {
+                scoreEl.className = "text-5xl font-extrabold text-terracotta-500 font-mono mb-2";
+                titleEl.innerText = "CRITICAL WARNING: Fatal Closed Spiral / Bubble";
+                textEl.innerText = "The idea has completely outgrown its evidence. Signal provenance is lost, extrapolation has replaced analysis, and participants are operating purely on mimetic momentum. A severe, violent correction is imminent.";
+            } else if (risk >= 45) {
+                scoreEl.className = "text-5xl font-extrabold text-rust-500 font-mono mb-2";
+                titleEl.innerText = "MODERATE OVEREXTENSION: Speculative Detachment";
+                textEl.innerText = "The core thesis remains valid, but capital/attention is starting to chase rewards rather than underlying utility. Monitor closely for mimetic expansion into unproven contexts.";
+            } else {
+                scoreEl.className = "text-5xl font-extrabold text-sage-600 font-mono mb-2";
+                titleEl.innerText = "HEALTHY & EVIDENCE-BASED OPTIMIZATION";
+                textEl.innerText = "The idea is currently operating within evidence-based boundaries. Signal strength reflects true utility, and participants are evaluating fundamentals rather than purely mimetic price action.";
+            }
+        }
+
+        // --- SECTION 6: FRICTION LAB LOGIC ---
+        function updateFrictionLab() {
+            const decay = document.getElementById('fric-decay').checked;
+            const quorum = document.getElementById('fric-quorum').checked;
+            const external = document.getElementById('fric-external').checked;
+
+            let risk = 85; // Base unanchored risk
+            if (decay) risk -= 25;
+            if (quorum) risk -= 25;
+            if (external) risk -= 30;
+
+            risk = Math.max(5, risk);
+
+            const labelEl = document.getElementById('fric-risk-label');
+            const descEl = document.getElementById('fric-risk-desc');
+            const circleEl = document.getElementById('fric-risk-circle');
+
+            circleEl.innerText = `${risk}%`;
+
+            if (risk <= 20) {
+                labelEl.innerText = "LOW SPIRAL RISK (" + risk + "%)";
+                labelEl.className = "text-2xl font-extrabold text-sage-600";
+                circleEl.className = "w-28 h-28 rounded-full border-8 border-sage-600 flex items-center justify-center font-mono font-extrabold text-xl text-sand-900 transition-all";
+                descEl.innerText = "Fully anchored system. High structural friction prevents catastrophic lock-in.";
+            } else if (risk <= 50) {
+                labelEl.innerText = "MODERATE RISK (" + risk + "%)";
+                labelEl.className = "text-2xl font-extrabold text-rust-500";
+                circleEl.className = "w-28 h-28 rounded-full border-8 border-rust-500 flex items-center justify-center font-mono font-extrabold text-xl text-sand-900 transition-all";
+                descEl.innerText = "Partial safeguards active. System is resilient but susceptible under extreme volume.";
+            } else {
+                labelEl.innerText = "HIGH SYSTEMIC RISK (" + risk + "%)";
+                labelEl.className = "text-2xl font-extrabold text-terracotta-500";
+                circleEl.className = "w-28 h-28 rounded-full border-8 border-terracotta-500 flex items-center justify-center font-mono font-extrabold text-xl text-sand-900 transition-all";
+                descEl.innerText = "Unchecked positive feedback! High probability of ant mill or financial bubble.";
+            }
+        }
+
+        // --- MODAL DETAILED INSIGHTS FOR CROSS-DOMAIN MATRIX ---
+        const domainInsights = {
+            'ant': {
+                tag: '🐜 Biological Swarm',
+                title: 'Army Ant Syndrome (Eciton burchellii)',
+                points: [
+                    'Monophyletic divergence roughly 105 million years ago, coinciding with the breakup of Gondwana.',
+                    'Obligate traits: Nomadism, dichthadiigyne (wingless) queens, and blind swarm foraging.',
+                    'Beebe Observation (1921): a 1,200 ft circular mill; the colony marched for two days until exhaustion.',
+                    'Lesson: Workers lack the capacity for independent navigation; survival is outsourced entirely to trail pheromones.'
+                ]
+            },
+            'finance': {
+                tag: '📈 Financial Markets',
+                title: 'Financial Instability Hypothesis (Hyman Minsky)',
+                points: [
+                    'Progression: Hedge Financing → Speculative Financing → Ponzi Financing.',
+                    'Key cases: Railway Mania (1840s) and the Dot-Com Bubble (1990s).',
+                    'Information Cascade: investors discard private research when observing preceding stock price gains.',
+                    'Lesson: Stability breeds destabilization; price becomes its own validation.'
+                ]
+            },
+            'aco': {
+                tag: '💻 Optimization (ACO)',
+                title: 'Ant Colony Optimization & Premature Convergence',
+                points: [
+                    'Formalized by Marco Dorigo (1992) for NP-hard problems such as the Traveling Salesman Problem.',
+                    'Pathology: early artificial ants discover a sub-optimal path and lay virtual pheromone; subsequent agents lock onto it.',
+                    'Remedy: enforce pheromone evaporation (ρ) and Max-Min Ant System (MMAS) clamping to preserve exploration.'
+                ]
+            },
+            'ai': {
+                tag: '🤖 AI & Recommenders',
+                title: 'AI Engagement Loops & Model Collapse',
+                points: [
+                    'Social-media recommender: the algorithm serves provocative content, the user clicks, and the system infers high utility—tightening the filter bubble.',
+                    'Model Collapse: LLMs fine-tuned on synthetic AI text recursively lose minority distribution data until collapsing into nonsense.',
+                    "Remedy: introduce a 'SinceExternal' parameter to verify real-world, non-synthetic data provenance."
+                ]
+            }
+        };
+
+        function showDomainModal(domain) {
+            const data = domainInsights[domain];
+            if (!data) return;
+
+            document.getElementById('domain-modal-tag').innerText = data.tag;
+            document.getElementById('domain-modal-title').innerText = data.title;
+            document.getElementById('domain-modal-body').innerHTML = data.points
+                .map(p => `<div class="flex gap-2"><span class="text-terracotta-500 font-bold">&bull;</span><span>${p}</span></div>`)
+                .join('');
+
+            document.getElementById('domain-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDomainModal() {
+            document.getElementById('domain-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

@@ -75,6 +75,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ## Vault Contents
 
+### 📁 [Bubble & Idea](./bubble_n_idea/)
+**The Architecture of the Spiral** — why systemic collapse rarely stems from a flawed premise: a bubble is a good idea that outgrows its own evidence. Maps the army ant "death spiral" (Beebe's 1,200-ft Guyanese mill, 1921) onto financial bubbles through information cascades and Minsky's Financial Instability Hypothesis, then extends the same closed-loop pathology to Ant Colony Optimization, recommender echo chambers, and AI model collapse.
+
+- 📝 [The Full Report](./bubble_n_idea/readme.md) — the long-form essay with 41 cited sources. (`readme.md`)
+- 🐜 [Interactive Infographic](./bubble_n_idea/index.html) — the complete warm sand & terracotta interactive page: interactive 5-phase spiral stepper with signal-vs-utility trajectory chart, Deneubourg bifurcation model, sequential information-cascade simulator, asymmetric pheromone-decay chart, clickable cross-domain comparison matrix, 5-criteria "outgrown evidence" diagnostic wizard, and a friction-control lab. (`index.html`)
+
+---
+
 ### 📁 [Counter-Dependency Paradox](./counter_dependency_paradox/)
 **The Architecture of the Isolated Self** — why extreme self-reliance is often a rigid, compulsive defense mechanism rather than resilience: the individuals who appear to require absolutely no one are consistently the ones who harbor the most acute terror of interpersonal connection. Synthesizes the Weinhold developmental model, attachment theory (Bowlby, Ainsworth), Polyvagal Theory (Porges), Internal Family Systems (Schwartz), Schema Therapy (Young), and Feeney's empirical dependency paradox.
 
