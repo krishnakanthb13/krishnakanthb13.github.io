@@ -83,6 +83,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Confidence & Competence](./confidence_n_competence/)
+**The Metacognitive Paradox** — why the least skilled are so often the most certain, and why the viral "Mount Stupid" curve is internet folklore rather than psychometric data. Weighs Kruger & Dunning's 1999 dual-burden hypothesis against the statistical backlash (autocorrelation, regression to the mean, task-difficulty reversal, homoscedasticity), then traces the effect across WEIRD vs. East Asian self-enhancement and its cognitive mirror, Impostor Syndrome.
+
+- 📝 [The Full Report](./confidence_n_competence/readme.md) — the long-form essay with 60 cited sources. (`readme.md`)
+- 🎯 [Interactive Infographic](./confidence_n_competence/index.html) — the complete warm-neutral, academic-indigo interactive page: Meme-vs-1999 curve toggle, 1999 quartile bar chart with study selector, random-noise autocorrelation simulator, Dunning-Kruger vs. Impostor metacognitive spectrum slider, cultural self-enhancement panel, domain-hazard tabs (medicine, aviation, generative AI), and a syllogism calibration test. (`index.html`)
+
+---
+
 ### 📁 [Counter-Dependency Paradox](./counter_dependency_paradox/)
 **The Architecture of the Isolated Self** — why extreme self-reliance is often a rigid, compulsive defense mechanism rather than resilience: the individuals who appear to require absolutely no one are consistently the ones who harbor the most acute terror of interpersonal connection. Synthesizes the Weinhold developmental model, attachment theory (Bowlby, Ainsworth), Polyvagal Theory (Porges), Internal Family Systems (Schwartz), Schema Therapy (Young), and Feeney's empirical dependency paradox.
 

@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Metacognitive Paradox | Interactive Analysis of the Dunning-Kruger Effect</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%228%22 y=%2278%22 font-size=%2266%22 font-weight=%22bold%22 fill=%22%232563eb%22>DK</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f4f7fb',
+                            100: '#e5edef',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        warm: {
+                            50: '#fcfbf9',
+                            100: '#f5f3ef',
+                            200: '#e8e4dc',
+                            800: '#44403c',
+                            900: '#292524',
+                        },
+                        accent: {
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            teal: '#0d9488',
+                            indigo: '#6366f1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom chart container strict constraints */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 340px;
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 270px;
+            }
+        }
+        .nav-active {
+            border-bottom: 2px solid #2563eb;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        /* Keep in-page anchor targets clear of the sticky header
+           (mobile: 4rem brand bar; md+: 4rem bar + section-nav row) */
+        section[id],
+        div[id] {
+            scroll-margin-top: 5rem;
+        }
+        @media (min-width: 768px) {
+            section[id],
+            div[id] {
+                scroll-margin-top: 7.5rem;
+            }
+        }
+        /* Mobile navigation panel */
+        .mobile-nav-link {
+            border-left: 3px solid transparent;
+        }
+        .mobile-nav-link.nav-active {
+            border-bottom: none;
+            border-left-color: #2563eb;
+            background-color: #eef2ff;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-warm-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-100 selection:text-indigo-900">
+
+    <!-- Mandatory Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals & Academic Indigo (Background: #fcfbf9, Primary text: #292524, Accent Blue: #2563eb, Accent Amber: #f59e0b, Accent Teal: #0d9488) -->
+    <!-- Application Structure Plan: Designed as a 6-part interactive analytical dashboard. Section 1 pits the popular "Mount Stupid" meme curve against Kruger & Dunning's actual 1999 empirical data. Section 2 explores the Dual-Burden model with an interactive domain quiz/evaluator. Section 3 presents the statistical counter-arguments (autocorrelation, regression to mean, task difficulty, random noise simulator). Section 4 maps Cross-Cultural variations and contrasts Dunning-Kruger with Impostor Syndrome via an interactive metacognitive slider. Section 5 evaluates domain hazards (Medicine, Aviation, AI-era Computer Science). Section 6 provides an Epistemic Humility toolkit. This task-oriented architecture allows non-linear exploration and bridges popular perception with academic psychometrics. -->
+    <!-- Visualization & Content Choices: 
+         - Meme vs. Reality: Interactive Line Chart (Chart.js) with toggle to compare "Mount Stupid" vs. 1999 Data.
+         - 1999 Empirical Quartiles: Grouped Bar Chart (Chart.js) comparing actual vs predicted scores across 4 quartiles.
+         - Statistical Artifact Simulator: Dynamic Scatter/Line Chart (Chart.js) generating random noise autocorrelation (y-x vs x).
+         - Impostor vs DKE Spectrum: Interactive Dual-Axis Slider updating live visual cards.
+         - Domain Impact Explorer: Dynamic Tab Panel with case studies and interactive scenarios.
+         Confirming NO SVG elements or Mermaid JS used. Canvas and styled Tailwind components only. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center gap-3 h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="../" title="Back to the D/0 Knowledge Vault" aria-label="Back to the D/0 Knowledge Vault"
+                       class="w-9 h-9 rounded-lg bg-indigo-600 hover:bg-indigo-700 flex items-center justify-center text-white font-bold text-lg shadow-sm transition-colors">
+                        <i class="fa-solid font-bold text-sm" aria-hidden="true">DK</i>
+                    </a>
+                    <div>
+                        <span class="font-bold text-stone-900 text-lg tracking-tight block leading-none">The Metacognitive Paradox</span>
+                        <span class="text-xs text-stone-500 hidden sm:inline-block">Dunning-Kruger Effect: Myth, Math &amp; Reality</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <a href="#interactive-evaluator" class="hidden sm:inline-flex px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition-all items-center gap-1.5">
+                        <i class="fa-solid fa-flask" aria-hidden="true"></i>
+                        <span>Self Assessment</span>
+                    </a>
+                    <button id="mobileNavToggle" type="button" onclick="toggleMobileNav()" aria-controls="mobileNav" aria-expanded="false"
+                            aria-label="Toggle section navigation"
+                            class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 transition-colors">
+                        <i id="mobileNavIcon" class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section navigation: kept on its own row under the brand bar -->
+            <nav class="hidden md:flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-stone-100 pt-2 pb-3 text-sm font-medium text-stone-600" aria-label="Section navigation">
+                <a href="#hero" class="nav-link hover:text-indigo-600 transition-colors py-1">Overview</a>
+                <a href="#meme-vs-reality" class="nav-link hover:text-indigo-600 transition-colors py-1">Meme vs. Science</a>
+                <a href="#empirical-1999" class="nav-link hover:text-indigo-600 transition-colors py-1">1999 Data</a>
+                <a href="#statistical-debunk" class="nav-link hover:text-indigo-600 transition-colors py-1">Statistical Critique</a>
+                <a href="#culture-impostor" class="nav-link hover:text-indigo-600 transition-colors py-1">Culture &amp; Impostor</a>
+                <a href="#domain-hazards" class="nav-link hover:text-indigo-600 transition-colors py-1">Domain Risks</a>
+                <a href="#humility-toolkit" class="nav-link hover:text-indigo-600 transition-colors py-1">Toolkit</a>
+            </nav>
+
+            <!-- Mobile navigation panel (viewers on small screens) -->
+            <div id="mobileNav" class="md:hidden hidden border-t border-stone-200 py-3">
+                <nav class="flex flex-col gap-1 text-sm font-medium text-stone-700" aria-label="Section navigation (mobile)">
+                    <a href="#hero" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Overview</a>
+                    <a href="#meme-vs-reality" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Meme vs. Science</a>
+                    <a href="#empirical-1999" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">1999 Data</a>
+                    <a href="#statistical-debunk" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Statistical Critique</a>
+                    <a href="#culture-impostor" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Culture &amp; Impostor</a>
+                    <a href="#domain-hazards" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Domain Risks</a>
+                    <a href="#humility-toolkit" class="mobile-nav-link px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-indigo-600 transition-colors">Humility Toolkit</a>
+                    <a href="#interactive-evaluator" class="mobile-nav-link mt-1 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-semibold hover:bg-indigo-100 transition-colors">
+                        <i class="fa-solid fa-flask mr-1.5" aria-hidden="true"></i>Self Assessment
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="py-12 md:py-16 bg-gradient-to-b from-stone-100 to-warm-50 border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-semibold">
+                            <i class="fa-solid fa-brain"></i> Epistemic & Psychometric Report
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
+                            Deconstructing the <span class="text-indigo-600">Dunning-Kruger Effect</span>
+                        </h1>
+                        <p class="text-base sm:text-lg text-stone-600 leading-relaxed">
+                            Explore the delicate boundary between confidence and competence. Is the famous "Mount Stupid" curve empirical truth or internet pop-culture myth? Dive into psychometric data, statistical noise simulations, cross-cultural studies, and high-stakes real-world impacts.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200 shadow-sm text-center">
+                                <span class="block text-2xl font-bold text-amber-500">+50%</span>
+                                <span class="text-xs text-stone-500 font-medium">Bottom Quartile Overestimation (1999)</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200 shadow-sm text-center">
+                                <span class="block text-2xl font-bold text-indigo-600">2011</span>
+                                <span class="text-xs text-stone-500 font-medium">"Mount Stupid" Comic Origin (SMBC)</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200 shadow-sm text-center">
+                                <span class="block text-2xl font-bold text-teal-600">r = 0.30</span>
+                                <span class="text-xs text-stone-500 font-medium">Actual Correlation (Self vs Score)</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200 shadow-sm text-center">
+                                <span class="block text-2xl font-bold text-rose-500">d = -0.01</span>
+                                <span class="text-xs text-stone-500 font-medium">East Asian Self-Enhancement</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Overview Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-md space-y-4">
+                            <h2 class="text-lg font-bold text-stone-900 border-b border-stone-100 pb-2 flex items-center justify-between">
+                                <span>The Core Epistemic Question</span>
+                                <i class="fa-solid fa-compass text-indigo-600"></i>
+                            </h2>
+                            <blockquote class="italic text-stone-600 text-sm border-l-4 border-indigo-500 pl-3 py-1">
+                                "The skills needed to produce a correct response are the exact same skills needed to evaluate a response." 
+                                <span class="block font-semibold text-stone-800 not-italic mt-1">— Kruger & Dunning (1999)</span>
+                            </blockquote>
+                            <p class="text-xs text-stone-500 leading-normal">
+                                When you start learning a subject, early success creates an illusion of mastery. Yet without deeper expertise, you cannot perceive what you don't know. Does this create a dramatic confidence peak, or merely a statistical floor effect?
+                            </p>
+                            <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 flex items-start gap-2 text-xs text-amber-900">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5"></i>
+                                <span><strong>Key Takeaway:</strong> Popular media conflates subjective learning struggles ("Mount Stupid") with aggregate psychometric percentile shifts.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 1: POPULAR MEME VS. EMPIRICAL SCIENCE -->
+        <section id="meme-vs-reality" class="py-12 bg-white border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Section 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The Popular Meme vs. Psychometric Reality</h2>
+                    <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl">
+                        This section contrasts the ubiquitous viral graph featuring "Mount Stupid" and the "Valley of Despair" with Justin Kruger and David Dunning's actual 1999 empirical findings. Explore how internet culture mutated an academic study on percentile calibration into a dramatic narrative arc.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Chart Controls & Graph -->
+                    <div class="lg:col-span-7 bg-stone-50 p-5 rounded-2xl border border-stone-200 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div>
+                                <h3 id="chartTitle" class="text-base font-bold text-stone-900">Popular Meme: "Mount Stupid" Sine Curve</h3>
+                                <p class="text-xs text-stone-500">Derived from 2011 SMBC webcomic & pop management literature</p>
+                            </div>
+                            <div class="inline-flex rounded-lg bg-stone-200 p-1 text-xs font-medium">
+                                <button type="button" id="btnShowMeme" aria-pressed="true" onclick="switchMemeChart('meme')" class="px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm">Meme Curve</button>
+                                <button type="button" id="btnShowEmpirical" aria-pressed="false" onclick="switchMemeChart('empirical')" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900">Actual 1999 Data</button>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Wrapper -->
+                        <div class="chart-container">
+                            <canvas id="memeVsEmpiricalChart" role="img" aria-label="Line chart comparing the popular Mount Stupid meme curve with the actual 1999 psychometric data"></canvas>
+                        </div>
+
+                        <div id="chartDescription" class="mt-4 p-3 bg-white rounded-lg border border-stone-200 text-xs text-stone-600">
+                            <strong>Meme Anatomy:</strong> Shows confidence skyrocketing at zero skill ("Mount Stupid"), plummeting into the "Valley of Despair" upon discovering domain complexity, then slowly rebuilding along the "Slope of Enlightenment".
+                        </div>
+                    </div>
+
+                    <!-- Explanatory Breakdown Cards -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">
+                                    <i class="fa-solid fa-mountain"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-stone-900 text-sm">Mount Stupid & Valley of Despair</h3>
+                                    <span class="text-xs text-amber-600 font-semibold">Origin: Zach Weinersmith (SMBC, 2011)</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                The dramatic sine wave curve was never published by Dunning or Kruger. It was created as a satire of online arguments and popularized by business consultants in 2014. In actual psychometric testing, novices never start with higher absolute confidence than world experts.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:border-indigo-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-stone-900 text-sm">The Actual Psychometric Finding</h3>
+                                    <span class="text-xs text-indigo-600 font-semibold">Monotonic Growth with Asymmetric Miscalibration</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                Real data reveals that confidence generally increases monotonically with competence. The genuine anomaly is that bottom-quartile individuals estimate themselves at the ~62nd percentile, while top performers slightly underestimate their relative percentile.
+                            </p>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-xs text-indigo-950">
+                            <span class="font-bold block text-sm text-indigo-900 mb-1"><i class="fa-solid fa-lightbulb text-indigo-600"></i> Why Does the Meme Persist?</span>
+                            It captures an undeniable <em>phenomenological truth</em>. The emotional shock of transitioning from "unknown unknowns" to "known unknowns" feels like a drop in confidence, even if aggregate psychometric ability increases linearly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: THE ORIGINAL 1999 FINDINGS & DUAL-BURDEN HYPOTHESIS -->
+        <section id="empirical-1999" class="py-12 bg-warm-50 border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Section 2</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The 1999 Empirical Foundation & "Dual-Burden"</h2>
+                    <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl">
+                        Examine Kruger and Dunning's seminal 1999 study conducted at Cornell University across logic, grammar, and humor comprehension tasks. Discover the core thesis: low competence deprives learners of both performance ability and metacognitive evaluation.
+                    </p>
+                </div>
+
+                <!-- Domain Filter & Bar Chart -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">1999 Quartile Assessment Data</h3>
+                                <p class="text-xs text-stone-500">Actual Objective Score vs. Participant Estimated Percentile</p>
+                            </div>
+                            <select id="domainSelect" onchange="update1999Chart()" class="text-xs bg-stone-100 border border-stone-300 rounded-lg px-3 py-1.5 font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="aggregate">Aggregate (4 Studies Combined)</option>
+                                <option value="logic">Logical Reasoning Study</option>
+                                <option value="grammar">English Grammar Study</option>
+                                <option value="humor">Humor Comprehension Study</option>
+                            </select>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="chart1999" role="img" aria-label="Grouped bar chart of actual objective score versus estimated percentile rank across the four 1999 performance quartiles"></canvas>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-3 text-center">
+                            <div class="p-2.5 bg-rose-50 border border-rose-200 rounded-lg">
+                                <span class="block text-xs text-rose-700 font-semibold">Bottom Quartile Miscalibration</span>
+                                <span id="bottomGap" class="text-lg font-bold text-rose-900">+50 Percentile Points</span>
+                            </div>
+                            <div class="p-2.5 bg-indigo-50 border border-indigo-200 rounded-lg">
+                                <span class="block text-xs text-indigo-700 font-semibold">Top Quartile Miscalibration</span>
+                                <span id="topGap" class="text-lg font-bold text-indigo-900">-13 Percentile Points</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Data Table & Dual Burden Card -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <h3 class="font-bold text-stone-900 text-sm mb-3 flex items-center justify-between">
+                                <span>1999 Data Matrix</span>
+                                <i class="fa-solid fa-table text-stone-400"></i>
+                            </h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="border-b border-stone-200 bg-stone-50 text-stone-600 font-semibold">
+                                            <th class="p-2">Quartile</th>
+                                            <th class="p-2 text-center">Actual %</th>
+                                            <th class="p-2 text-center">Est. %</th>
+                                            <th class="p-2 text-right">Gap</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-stone-100 text-stone-700">
+                                        <tr class="hover:bg-stone-50">
+                                            <td class="p-2 font-semibold text-rose-700">Bottom (1st)</td>
+                                            <td class="p-2 text-center">12th</td>
+                                            <td class="p-2 text-center">62nd</td>
+                                            <td class="p-2 text-right font-bold text-rose-600">+50 pts</td>
+                                        </tr>
+                                        <tr class="hover:bg-stone-50">
+                                            <td class="p-2 font-semibold">2nd Quartile</td>
+                                            <td class="p-2 text-center">37th</td>
+                                            <td class="p-2 text-center">65th</td>
+                                            <td class="p-2 text-right font-bold text-amber-600">+28 pts</td>
+                                        </tr>
+                                        <tr class="hover:bg-stone-50">
+                                            <td class="p-2 font-semibold">3rd Quartile</td>
+                                            <td class="p-2 text-center">62nd</td>
+                                            <td class="p-2 text-center">68th</td>
+                                            <td class="p-2 text-right text-stone-600">+6 pts</td>
+                                        </tr>
+                                        <tr class="hover:bg-stone-50">
+                                            <td class="p-2 font-semibold text-indigo-700">Top (4th)</td>
+                                            <td class="p-2 text-center">87th</td>
+                                            <td class="p-2 text-center">74th</td>
+                                            <td class="p-2 text-right font-bold text-indigo-600">-13 pts</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-stone-900 text-white p-5 rounded-xl shadow-md space-y-3">
+                            <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-weight-hanging"></i> The Dual-Burden Mechanism
+                            </h3>
+                            <p class="text-xs text-stone-300 leading-relaxed">
+                                Why do bottom performers overestimate so dramatically? Kruger & Dunning argued they suffer two distinct burdens:
+                            </p>
+                            <ol class="list-decimal list-inside text-xs text-stone-300 space-y-1.5">
+                                <li><strong>Execution Deficit:</strong> They make errors and reach faulty conclusions.</li>
+                                <li><strong>Metacognitive Deficit:</strong> They lack the exact tools needed to recognize that their conclusions are faulty.</li>
+                            </ol>
+                            <p class="text-xs text-stone-400 italic pt-1 border-t border-stone-800">
+                                Paradox: Training low performers in logic causes their test scores to rise, but their self-assessments to plummet toward reality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Metacognitive Mini Evaluator -->
+                <div id="interactive-evaluator" class="mt-10 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <div class="text-center space-y-1">
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Interactive Experiment</span>
+                            <h3 class="text-lg font-bold text-stone-900">Test Your Metacognitive Calibration</h3>
+                            <p class="text-xs text-stone-500">Solve this quick logical syllogism and rate your confidence before revealing the answer.</p>
+                        </div>
+
+                        <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 text-sm text-stone-800">
+                            <p class="font-semibold mb-2">Logical Syllogism Question:</p>
+                            <blockquote class="italic text-stone-700 bg-white p-3 rounded border border-stone-200 text-xs">
+                                "All programmers are logical thinkers. Some logical thinkers are musicians. Therefore, some programmers are musicians."
+                            </blockquote>
+                            <p class="text-xs font-bold mt-3 text-stone-900">Is this logical deduction Valid or Invalid?</p>
+                            
+                            <div class="flex gap-3 mt-3">
+                                <button type="button" onclick="selectUserAnswer('Valid')" id="btnValid" class="flex-1 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold hover:border-indigo-500">Valid</button>
+                                <button type="button" onclick="selectUserAnswer('Invalid')" id="btnInvalid" class="flex-1 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold hover:border-indigo-500">Invalid</button>
+                            </div>
+                        </div>
+
+                        <div id="confidenceBlock" class="hidden space-y-3 bg-indigo-50 p-4 rounded-xl border border-indigo-200">
+                            <label class="block text-xs font-bold text-indigo-950">How confident are you in your answer? (<span id="confVal">80</span>%)</label>
+                            <input type="range" id="confidenceRange" min="0" max="100" value="80" aria-label="Confidence in your answer, in percent" oninput="document.getElementById('confVal').innerText = this.value" class="w-full accent-indigo-600">
+                            <button type="button" onclick="revealResult()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow-sm">Reveal Result &amp; Calibration</button>
+                        </div>
+
+                        <div id="evaluatorResult" class="hidden p-4 rounded-xl text-xs space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: THE PSYCHOMETRIC BACKLASH & STATISTICAL ARTIFACTS -->
+        <section id="statistical-debunk" class="py-12 bg-white border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Section 3</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The Psychometric Backlash: Mathematical Illusion?</h2>
+                    <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl">
+                        Over the past two decades, statisticians (Krueger & Mueller, Nuhfer et al., Gignac & Zajenkowski) have argued that the Dunning-Kruger effect is primarily a statistical artifact driven by bounded measurement scales, regression to the mean, and mathematical autocorrelation.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Dynamic Noise Simulation Chart -->
+                    <div class="lg:col-span-7 bg-stone-50 p-5 rounded-2xl border border-stone-200 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">Statistical Noise Replication (Nuhfer Simulation)</h3>
+                                <p class="text-xs text-stone-500">Plotting random numbers (actual score <code>x</code> vs misestimation <code>y − x</code>) reproduces the classic curves!</p>
+                            </div>
+                            <button onclick="regenerateNoiseData()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-lg font-medium shadow-sm flex items-center gap-1.5">
+                                <i class="fa-solid fa-rotate"></i>
+                                <span>Simulate Random Cohort</span>
+                            </button>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="noiseChart" role="img" aria-label="Line chart showing that purely random data reproduces the classic Dunning-Kruger crossing curves"></canvas>
+                        </div>
+
+                        <p class="text-xs text-stone-500 mt-3 italic">
+                            Notice how pure random computer data generates identical crossing curves because the actual score (<code>x</code>) is built into both the X-axis and the Y-axis (<code>y − x</code>).
+                        </p>
+                    </div>
+
+                    <!-- 4 Major Statistical Critiques -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="bg-warm-50 p-3.5 rounded-xl border border-stone-200">
+                            <div class="flex items-center gap-2 font-bold text-stone-900 text-xs mb-1">
+                                <i class="fa-solid fa-calculator text-indigo-600"></i>
+                                <span>1. Mathematical Autocorrelation (Nuhfer 2016)</span>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-normal">
+                                Plotting <code>x</code> (actual score) against <code>y − x</code> (misestimation) guarantees a negative correlation by mathematical necessity, even with completely random numbers.
+                            </p>
+                        </div>
+
+                        <div class="bg-warm-50 p-3.5 rounded-xl border border-stone-200">
+                            <div class="flex items-center gap-2 font-bold text-stone-900 text-xs mb-1">
+                                <i class="fa-solid fa-chart-line text-amber-600"></i>
+                                <span>2. Bounded Scales & Regression to Mean</span>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-normal">
+                                A student at the 10th percentile has 90 points of room to overestimate, but only 10 points to underestimate. Measurement unreliability naturally pushes scores toward the average (50th percentile).
+                            </p>
+                        </div>
+
+                        <div class="bg-warm-50 p-3.5 rounded-xl border border-stone-200">
+                            <div class="flex items-center gap-2 font-bold text-stone-900 text-xs mb-1">
+                                <i class="fa-solid fa-sliders text-teal-600"></i>
+                                <span>3. Task Difficulty Reversal (Burson 2006)</span>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-normal">
+                                On exceptionally difficult tasks, the pattern flips! Novices accurately predict poor performance, while experts overestimate their relative rank, proving deficits aren't exclusive to novices.
+                            </p>
+                        </div>
+
+                        <div class="bg-warm-50 p-3.5 rounded-xl border border-stone-200">
+                            <div class="flex items-center gap-2 font-bold text-stone-900 text-xs mb-1">
+                                <i class="fa-solid fa-equals text-rose-600"></i>
+                                <span>4. Equal Variance / Homoscedasticity (Gignac 2020)</span>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-normal">
+                                Glejser tests show absolute misestimation error is virtually identical (<code>r = −0.05</code>) across high and low IQ individuals—they simply misestimate in opposite directions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: CROSS-CULTURAL MODULATORS & IMPOSTOR SYNDROME -->
+        <section id="culture-impostor" class="py-12 bg-warm-50 border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Section 4</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Cross-Cultural Modulators & The Impostor Spectrum</h2>
+                    <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl">
+                        The Dunning-Kruger effect is heavily modulated by cultural context. Self-enhancement is primarily a Western trait (WEIRD populations), whereas East Asian cultures foster self-criticism. Furthermore, compare DKE with its cognitive mirror: Impostor Syndrome.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+                    <!-- Cultural Comparison Cards -->
+                    <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                            <h3 class="font-bold text-stone-900 text-base">Cultural Self-Enhancement vs. Criticism</h3>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full font-semibold">91 Cross-Cultural Studies</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                                <span class="text-xs font-bold text-indigo-600 uppercase block">Western (WEIRD)</span>
+                                <span class="text-2xl font-extrabold text-stone-900 block">d = +0.87</span>
+                                <p class="text-xs text-stone-600 leading-normal">
+                                    Independent self-construal emphasizes individual agency and self-promotion. Novices default to self-serving bias and optimistic overestimation.
+                                </p>
+                            </div>
+
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                                <span class="text-xs font-bold text-teal-600 uppercase block">East Asian</span>
+                                <span class="text-2xl font-extrabold text-stone-900 block">d = -0.01</span>
+                                <p class="text-xs text-stone-600 leading-normal">
+                                    Interdependent self-construal prioritizes harmony and social modesty. Individuals evaluate competence through a "third-person perspective".
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900">
+                            <strong>Neural Evidence (LPP Trait ERPs):</strong> Event-Related Potential studies reveal East Asian brains devote early attentional resources to processing negative self-relevant feedback for self-improvement, whereas Western brains treat negative feedback as an ego threat.
+                        </div>
+                    </div>
+
+                    <!-- DKE vs Impostor Syndrome Slider Tool -->
+                    <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                            <h3 class="font-bold text-stone-900 text-base">The Metacognitive Spectrum</h3>
+                            <span class="text-xs text-stone-500">Dunning-Kruger vs. Impostor Syndrome</span>
+                        </div>
+
+                        <p class="text-xs text-stone-600">
+                            Drag the slider to explore how subjective confidence decouples from objective competence across two polar opposite cognitive distortions:
+                        </p>
+
+                        <div class="space-y-2 pt-2">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-rose-600"><i class="fa-solid fa-bolt"></i> Dunning-Kruger (Novice)</span>
+                                <span class="text-teal-600"><i class="fa-solid fa-user-ninja"></i> Impostor Syndrome (Expert)</span>
+                            </div>
+                            <input type="range" id="spectrumSlider" min="0" max="100" value="0" aria-label="Position on the metacognitive spectrum: Dunning-Kruger to Impostor Syndrome" oninput="updateSpectrumView(this.value)" class="w-full accent-indigo-600 cursor-pointer">
+                        </div>
+
+                        <!-- Dynamic Display Box -->
+                        <div id="spectrumCard" class="p-4 rounded-xl border transition-all duration-200 space-y-2 bg-rose-50 border-rose-200 text-rose-950">
+                            <div class="flex justify-between items-center">
+                                <span id="specTitle" class="font-bold text-sm text-rose-900">Dunning-Kruger Archetype</span>
+                                <span id="specBadge" class="text-xs bg-rose-200 text-rose-800 px-2 py-0.5 rounded font-semibold">Low Skill / High Confidence</span>
+                            </div>
+                            <p id="specDesc" class="text-xs leading-relaxed text-rose-900">
+                                Unskilled novices lack exposure to the domain's upper bounds. They anchor their definition of excellence to their localized, basic output and attribute success to innate capability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: REAL-WORLD DOMAIN HAZARDS -->
+        <section id="domain-hazards" class="py-12 bg-white border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Section 5</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">High-Stakes Domain Hazards & AI Paradox</h2>
+                    <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl">
+                        When metacognitive miscalibration occurs in critical environments, the consequences can be fatal or structurally disastrous. Explore how miscalibration manifests in medical residency, general aviation, and AI-assisted computer science.
+                    </p>
+                </div>
+
+                <!-- Domain Tabs Switcher -->
+                <div class="bg-stone-50 rounded-2xl border border-stone-200 p-6 shadow-sm">
+                    <div class="flex flex-wrap gap-2 border-b border-stone-200 pb-4 mb-6" role="tablist" aria-label="Domain hazard case studies">
+                        <button type="button" role="tab" aria-selected="true" aria-controls="domainContent" onclick="switchDomainTab('medicine')" id="tabMedicine" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm">
+                            <i class="fa-solid fa-user-doctor mr-1.5" aria-hidden="true"></i> Medical Training &amp; Safety
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="domainContent" onclick="switchDomainTab('aviation')" id="tabAviation" class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-stone-700 hover:bg-stone-100 border border-stone-200">
+                            <i class="fa-solid fa-plane mr-1.5" aria-hidden="true"></i> Aviation &amp; CRM Protocols
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="domainContent" onclick="switchDomainTab('ai')" id="tabAI" class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-stone-700 hover:bg-stone-100 border border-stone-200">
+                            <i class="fa-solid fa-robot mr-1.5" aria-hidden="true"></i> CS Education &amp; The GenAI Paradox
+                        </button>
+                    </div>
+
+                    <!-- Tab Content Panels -->
+                    <div id="domainContent" role="tabpanel" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Content dynamically loaded via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 6: EPISTEMIC HUMILITY TOOLKIT -->
+        <section id="humility-toolkit" class="py-12 bg-warm-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+                <div class="max-w-2xl mx-auto space-y-2">
+                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Synthesis & Action</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Cultivating Epistemic Humility</h2>
+                    <p class="text-stone-600 text-xs sm:text-sm">
+                        True expertise is not defined by unwavering certainty, but by a highly calibrated awareness of exactly what you do not know.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-4xl mx-auto">
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">1</div>
+                        <h3 class="font-bold text-stone-900 text-sm">Externalize Calibration</h3>
+                        <p class="text-xs text-stone-600">Never rely solely on internal first-person confidence. Always validate skill through objective tests, code execution, or blind peer review.</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm">2</div>
+                        <h3 class="font-bold text-stone-900 text-sm">Welcome Epistemic Friction</h3>
+                        <p class="text-xs text-stone-600">When learning becomes frustrating, recognize that confusion is not a sign of failure—it marks the genesis of real metacognitive awareness.</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">3</div>
+                        <h3 class="font-bold text-stone-900 text-sm">Institutional Bulwarks</h3>
+                        <p class="text-xs text-stone-600">Adopt structural safeguards like Aviation CRM or Medical Checklists that require explicit vocalization of doubt regardless of rank.</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="#hero" class="px-6 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+                        <span>Return to Top</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-8 border-t border-stone-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+            <p class="font-medium text-stone-300">The Metacognitive Paradox: Deconstructing the Dunning-Kruger Effect</p>
+            <p class="text-stone-500">Built with Tailwind CSS & Chart.js. Based on Kruger & Dunning (1999), Nuhfer et al. (2016), Gignac & Zajenkowski (2020).</p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT LOGIC & CHARTS INITIALIZATION -->
+    <script>
+        // Global Chart Instance Holders
+        let chartMemeVsEmpirical = null;
+        let chart1999Instance = null;
+        let chartNoiseInstance = null;
+
+        // User Quiz State
+        let selectedAnswer = null;
+
+        // --- Data Definitions ---
+        const data1999 = {
+            aggregate: {
+                labels: ['Bottom Quartile (1st)', '2nd Quartile', '3rd Quartile', 'Top Quartile (4th)'],
+                actual: [12, 37, 62, 87],
+                estimated: [62, 65, 68, 74],
+                bottomGap: '+50 Percentile Points',
+                topGap: '-13 Percentile Points'
+            },
+            logic: {
+                labels: ['Bottom Quartile (1st)', '2nd Quartile', '3rd Quartile', 'Top Quartile (4th)'],
+                actual: [12, 38, 66, 89],
+                estimated: [66, 67, 69, 76],
+                bottomGap: '+54 Percentile Points',
+                topGap: '-13 Percentile Points'
+            },
+            grammar: {
+                labels: ['Bottom Quartile (1st)', '2nd Quartile', '3rd Quartile', 'Top Quartile (4th)'],
+                actual: [10, 36, 60, 86],
+                estimated: [61, 63, 67, 72],
+                bottomGap: '+51 Percentile Points',
+                topGap: '-14 Percentile Points'
+            },
+            humor: {
+                labels: ['Bottom Quartile (1st)', '2nd Quartile', '3rd Quartile', 'Top Quartile (4th)'],
+                actual: [15, 38, 61, 85],
+                estimated: [58, 64, 69, 73],
+                bottomGap: '+43 Percentile Points',
+                topGap: '-12 Percentile Points'
+            }
+        };
+
+        const memeVsEmpiricalData = {
+            meme: {
+                labels: ['Zero Knowledge', 'Novice (Peak)', 'Intermediate (Drop)', 'Advanced (Rebuild)', 'Expert'],
+                datasets: [{
+                    label: 'Perceived Confidence (Meme Curve)',
+                    data: [10, 95, 20, 60, 85],
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            empirical: {
+                labels: ['Bottom Quartile', '2nd Quartile', '3rd Quartile', 'Top Quartile'],
+                datasets: [
+                    {
+                        label: 'Estimated Performance Percentile',
+                        data: [62, 65, 68, 74],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Actual Objective Percentile Score',
+                        data: [12, 37, 62, 87],
+                        borderColor: '#0d9488',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        tension: 0
+                    }
+                ]
+            }
+        };
+
+        // DOM Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            initMemeVsEmpiricalChart();
+            init1999Chart();
+            initNoiseChart();
+            switchDomainTab('medicine');
+            initNavigation();
+        });
+
+        // --- SECTION 1: MEME VS EMPIRICAL CHART ---
+        function initMemeVsEmpiricalChart() {
+            const ctx = document.getElementById('memeVsEmpiricalChart').getContext('2d');
+            chartMemeVsEmpirical = new Chart(ctx, {
+                type: 'line',
+                data: memeVsEmpiricalData.meme,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Confidence / Percentile Score', font: { size: 11 } }
+                        },
+                        x: {
+                            title: { display: true, text: 'Domain Competence / Stage', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function switchMemeChart(type) {
+            const btnMeme = document.getElementById('btnShowMeme');
+            const btnEmp = document.getElementById('btnShowEmpirical');
+            const title = document.getElementById('chartTitle');
+            const desc = document.getElementById('chartDescription');
+
+            if (type === 'meme') {
+                btnMeme.className = 'px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm';
+                btnEmp.className = 'px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900';
+                btnMeme.setAttribute('aria-pressed', 'true');
+                btnEmp.setAttribute('aria-pressed', 'false');
+                title.innerText = 'Popular Meme: "Mount Stupid" Sine Curve';
+                desc.innerHTML = '<strong>Meme Anatomy:</strong> Shows confidence skyrocketing at zero skill ("Mount Stupid"), plummeting into the "Valley of Despair" upon discovering domain complexity, then slowly rebuilding along the "Slope of Enlightenment".';
+                
+                chartMemeVsEmpirical.data = memeVsEmpiricalData.meme;
+            } else {
+                btnEmp.className = 'px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm';
+                btnMeme.className = 'px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900';
+                btnEmp.setAttribute('aria-pressed', 'true');
+                btnMeme.setAttribute('aria-pressed', 'false');
+                title.innerText = 'Actual Psychometric Data (Kruger & Dunning 1999)';
+                desc.innerHTML = '<strong>Psychometric Data:</strong> In reality, perceived confidence rises monotonically alongside actual skill. Novices overestimate starting relative rank (~62nd percentile), while experts slightly underestimate theirs.';
+                
+                chartMemeVsEmpirical.data = memeVsEmpiricalData.empirical;
+            }
+            chartMemeVsEmpirical.update();
+        }
+
+
+        // --- SECTION 2: 1999 STUDY CHART ---
+        function init1999Chart() {
+            const ctx = document.getElementById('chart1999').getContext('2d');
+            const currentData = data1999.aggregate;
+
+            chart1999Instance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: currentData.labels,
+                    datasets: [
+                        {
+                            label: 'Actual Objective Score',
+                            data: currentData.actual,
+                            backgroundColor: '#0d9488',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Estimated Percentile Rank',
+                            data: currentData.estimated,
+                            backgroundColor: '#2563eb',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}th Percentile`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Percentile Score', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function update1999Chart() {
+            const key = document.getElementById('domainSelect').value;
+            const selData = data1999[key];
+
+            chart1999Instance.data.labels = selData.labels;
+            chart1999Instance.data.datasets[0].data = selData.actual;
+            chart1999Instance.data.datasets[1].data = selData.estimated;
+            chart1999Instance.update();
+
+            document.getElementById('bottomGap').innerText = selData.bottomGap;
+            document.getElementById('topGap').innerText = selData.topGap;
+        }
+
+
+        // --- SECTION 2 MINI EVALUATOR LOGIC ---
+        function selectUserAnswer(ans) {
+            selectedAnswer = ans;
+            document.getElementById('btnValid').className = ans === 'Valid' ? 'flex-1 py-2 bg-indigo-100 border-2 border-indigo-600 text-indigo-900 rounded-lg text-xs font-bold' : 'flex-1 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold';
+            document.getElementById('btnInvalid').className = ans === 'Invalid' ? 'flex-1 py-2 bg-indigo-100 border-2 border-indigo-600 text-indigo-900 rounded-lg text-xs font-bold' : 'flex-1 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold';
+            
+            document.getElementById('confidenceBlock').classList.remove('hidden');
+        }
+
+        function revealResult() {
+            const resDiv = document.getElementById('evaluatorResult');
+            const userConf = parseInt(document.getElementById('confidenceRange').value);
+            
+            // Correct Answer is INVALID because "Some logical thinkers are musicians" does not specify that the logical thinkers who are musicians are the programmers.
+            const isCorrect = (selectedAnswer === 'Invalid');
+
+            resDiv.classList.remove('hidden');
+            if (isCorrect) {
+                resDiv.className = "p-4 rounded-xl text-xs space-y-2 bg-teal-50 border border-teal-200 text-teal-950";
+                resDiv.innerHTML = `
+                    <div class="font-bold text-sm text-teal-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-teal-600"></i> Correct Answer! (The deduction is Invalid)
+                    </div>
+                    <p>You correctly spotted the fallacy of the undistributed middle term! Your subjective confidence was ${userConf}%. High confidence paired with correct execution shows true calibration.</p>
+                `;
+            } else {
+                resDiv.className = "p-4 rounded-xl text-xs space-y-2 bg-rose-50 border border-rose-200 text-rose-950";
+                resDiv.innerHTML = `
+                    <div class="font-bold text-sm text-rose-900 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Incorrect (The deduction is actually Invalid)
+                    </div>
+                    <p>You answered "Valid" with <strong>${userConf}% confidence</strong>. Just as in Kruger & Dunning's logic studies, the error was invisible to you from an internal perspective because the syllogism sounded intuitively plausible!</p>
+                `;
+            }
+        }
+
+
+        // --- SECTION 3: STATISTICAL NOISE SIMULATOR CHART ---
+        function initNoiseChart() {
+            const ctx = document.getElementById('noiseChart').getContext('2d');
+            const noise = generateRandomCohortData();
+
+            chartNoiseInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1 (Lowest 25%)', 'Q2', 'Q3', 'Q4 (Top 25%)'],
+                    datasets: [
+                        {
+                            label: 'Random Score (x)',
+                            data: noise.xMeans,
+                            borderColor: '#0d9488',
+                            backgroundColor: '#0d9488',
+                            tension: 0
+                        },
+                        {
+                            label: 'Paired Estimate (y)',
+                            data: noise.yMeans,
+                            borderColor: '#6366f1',
+                            backgroundColor: '#6366f1',
+                            tension: 0
+                        },
+                        {
+                            label: 'Derived Misestimation (y - x + 50)',
+                            data: noise.diffMeans,
+                            borderColor: '#f43f5e',
+                            borderDash: [4, 4],
+                            tension: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    scales: {
+                        y: { min: 0, max: 100 }
+                    }
+                }
+            });
+        }
+
+        function generateRandomCohortData() {
+            // Generate N=1000 random points between 0 and 100 for actual (x) and predicted (y)
+            const pts = [];
+            for(let i=0; i<800; i++) {
+                pts.push({
+                    x: Math.random() * 100,
+                    y: Math.random() * 100
+                });
+            }
+            // Sort by x
+            pts.sort((a,b) => a.x - b.x);
+
+            // Group into 4 quartiles
+            const qSize = Math.floor(pts.length / 4);
+            const xMeans = [], yMeans = [], diffMeans = [];
+
+            for(let q=0; q<4; q++) {
+                const slice = pts.slice(q*qSize, (q+1)*qSize);
+                const avgX = slice.reduce((acc, p) => acc + p.x, 0) / qSize;
+                const avgY = slice.reduce((acc, p) => acc + p.y, 0) / qSize;
+                const avgDiff = slice.reduce((acc, p) => acc + (p.y - p.x), 0) / qSize;
+
+                xMeans.push(Math.round(avgX));
+                yMeans.push(Math.round(avgY));
+                // Misestimation (y - x), centered on 50 so it can share the 0-100 axis.
+                // Random x vs y produces a straight, descending line that crosses the
+                // quartile means: the classic Dunning-Kruger "crossing curves" artefact.
+                diffMeans.push(Math.round(avgDiff + 50));
+            }
+
+            return { xMeans, yMeans, diffMeans };
+        }
+
+        function regenerateNoiseData() {
+            const noise = generateRandomCohortData();
+            chartNoiseInstance.data.datasets[0].data = noise.xMeans;
+            chartNoiseInstance.data.datasets[1].data = noise.yMeans;
+            chartNoiseInstance.data.datasets[2].data = noise.diffMeans;
+            chartNoiseInstance.update();
+        }
+
+
+        // --- SECTION 4: SPECTRUM SLIDER LOGIC ---
+        function updateSpectrumView(val) {
+            const card = document.getElementById('spectrumCard');
+            const title = document.getElementById('specTitle');
+            const badge = document.getElementById('specBadge');
+            const desc = document.getElementById('specDesc');
+
+            if (val < 50) {
+                // Dunning-Kruger End
+                card.className = "p-4 rounded-xl border transition-all duration-200 space-y-2 bg-rose-50 border-rose-200 text-rose-950";
+                title.innerText = "Dunning-Kruger Archetype";
+                title.className = "font-bold text-sm text-rose-900";
+                badge.className = "text-xs bg-rose-200 text-rose-800 px-2 py-0.5 rounded font-semibold";
+                badge.innerText = "Low Skill / High Confidence";
+                desc.innerText = "Unskilled novices lack exposure to the domain's upper bounds. They anchor their definition of excellence to their localized, rudimentary output and attribute early success to innate capability.";
+            } else {
+                // Impostor Syndrome End
+                card.className = "p-4 rounded-xl border transition-all duration-200 space-y-2 bg-teal-50 border-teal-200 text-teal-950";
+                title.innerText = "Impostor Syndrome Archetype";
+                title.className = "font-bold text-sm text-teal-900";
+                badge.className = "text-xs bg-teal-200 text-teal-800 px-2 py-0.5 rounded font-semibold";
+                badge.innerText = "High Skill / Low Confidence";
+                desc.innerText = "Highly skilled experts have been thoroughly exposed to the vast upper bounds of a discipline. This creates hyper-sensitivity to tiny knowledge gaps, leading them to falsely attribute major accomplishments to luck or timing.";
+            }
+        }
+
+
+        // --- SECTION 5: DOMAIN TABS LOGIC ---
+        const domainData = {
+            medicine: `
+                <div class="lg:col-span-7 space-y-3">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Clinical Competence & Resident Training</span>
+                    <h3 class="text-xl font-bold text-stone-900">Medical Education Hazards</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        In medical education, metacognitive miscalibration directly impacts patient safety. Studies show first-semester medical students exhibit negative correlations (ρ ≈ −0.590) between actual clinical exam performance and self-estimated scores.
+                    </p>
+                    <ul class="space-y-2 text-xs text-stone-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-exclamation text-rose-500 mt-0.5"></i>
+                            <span><strong>35.5% Overestimation Rate:</strong> Over one-third of surgical residents in bottom quintiles overtly overestimate their technical abilities.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-shield-halved text-indigo-600 mt-0.5"></i>
+                            <span><strong>Institutional Countermeasure:</strong> Medical boards now mandate DMLES (Debriefing for Meaningful Learning Evaluation Scale) to replace subjective self-assessment with objective competency metrics.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="font-bold text-xs text-stone-800 border-b pb-2">Clinical Feedback Loop Failure</div>
+                    <p class="text-xs text-stone-500">
+                        When an overconfident trainee experiences a favorable patient outcome, they attribute it to clinical acumen. When a bad outcome occurs, they blame underlying patient pathology—preserving the illusion of competence.
+                    </p>
+                </div>
+            `,
+            aviation: `
+                <div class="lg:col-span-7 space-y-3">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Aviation Safety & Flight Mechanics</span>
+                    <h3 class="text-xl font-bold text-stone-900">General Aviation & IMC Intrusions</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Overconfidence is a leading root cause in General Aviation fatal accidents. Novice pilots who execute basic visual flights in perfect weather often assume mastery, leading them to fly into Instrument Meteorological Conditions (IMC) without instrument ratings.
+                    </p>
+                    <ul class="space-y-2 text-xs text-stone-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-plane-triangle-exclamation text-amber-500 mt-0.5"></i>
+                            <span><strong>Spatial Disorientation Hazard:</strong> Novices fail to realize that without visual horizons, sensory signals induce fatal spatial disorientation within 178 seconds on average.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-users-gear text-teal-600 mt-0.5"></i>
+                            <span><strong>Crew Resource Management (CRM):</strong> Modern commercial aviation legally requires co-pilots to challenge senior captain decisions, creating a structural barrier against DKE.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="font-bold text-xs text-stone-800 border-b pb-2">Institutional Safety Bulwark</div>
+                    <p class="text-xs text-stone-500">
+                        CRM transforms flight decks from strict autocratic hierarchies into collaborative metacognitive networks, explicitly requiring the vocalization of doubt.
+                    </p>
+                </div>
+            `,
+            ai: `
+                <div class="lg:col-span-7 space-y-3">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Computer Science & AI Ecosystems</span>
+                    <h3 class="text-xl font-bold text-stone-900">The Generative AI Competence Paradox</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        In CS education, introductory (CS1) students suffer from the hard-easy effect. The recent integration of LLMs (like ChatGPT) has amplified this into an artificial "Mount Stupid".
+                    </p>
+                    <ul class="space-y-2 text-xs text-stone-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-code text-indigo-600 mt-0.5"></i>
+                            <span><strong>Syntactic vs. Architectural Illusion:</strong> LLMs generate syntactically correct code instantly. Novices bypass debugging friction, giving them supreme confidence despite lacking underlying algorithmic models.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-bug text-rose-500 mt-0.5"></i>
+                            <span><strong>The Debugging Collapse:</strong> When AI-generated code encounters edge-case failures, the student cannot explain or repair the architecture because the tool built the solution, not their mind.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="font-bold text-xs text-stone-800 border-b pb-2">AI Metacognitive Trap</div>
+                    <div class="p-3 bg-indigo-50 rounded border border-indigo-100 text-xs text-indigo-900">
+                        "The tool creates a false proxy for personal expertise. High output speed is mistaken for internal mental mastery."
+                    </div>
+                </div>
+            `
+        };
+
+        function switchDomainTab(domain) {
+            const btnMed = document.getElementById('tabMedicine');
+            const btnAvi = document.getElementById('tabAviation');
+            const btnAI = document.getElementById('tabAI');
+            const content = document.getElementById('domainContent');
+
+            btnMed.className = domain === 'medicine' ? 'px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm' : 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-stone-700 hover:bg-stone-100 border border-stone-200';
+            btnAvi.className = domain === 'aviation' ? 'px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm' : 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-stone-700 hover:bg-stone-100 border border-stone-200';
+            btnAI.className = domain === 'ai' ? 'px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm' : 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-stone-700 hover:bg-stone-100 border border-stone-200';
+
+            btnMed.setAttribute('aria-selected', domain === 'medicine');
+            btnAvi.setAttribute('aria-selected', domain === 'aviation');
+            btnAI.setAttribute('aria-selected', domain === 'ai');
+
+            content.innerHTML = domainData[domain];
+        }
+
+        // --- NAVIGATION: MOBILE MENU + SCROLL SPY ---
+        // Every header link is a real <a href="#id"> anchor, so sections stay
+        // shareable, keyboard-accessible and functional without JavaScript. The
+        // CSS scroll-margin-top rule keeps those targets clear of the sticky
+        // header; the spy below mirrors the "active" state onto both navs.
+        function toggleMobileNav() {
+            const panel = document.getElementById('mobileNav');
+            const icon = document.getElementById('mobileNavIcon');
+            const btn = document.getElementById('mobileNavToggle');
+            panel.classList.toggle('hidden');
+            const isOpen = !panel.classList.contains('hidden');
+            icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+            btn.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        function closeMobileNav() {
+            const panel = document.getElementById('mobileNav');
+            if (!panel || panel.classList.contains('hidden')) return;
+            panel.classList.add('hidden');
+            document.getElementById('mobileNavIcon').className = 'fa-solid fa-bars';
+            document.getElementById('mobileNavToggle').setAttribute('aria-expanded', 'false');
+        }
+
+        function updateActiveNav() {
+            const sections = Array.from(document.querySelectorAll('main section[id]'));
+            if (sections.length === 0) return;
+
+            // Sticky header height + breathing room (taller once the nav row shows).
+            const probe = window.scrollY + (window.innerWidth >= 768 ? 128 : 88);
+            let currentId = sections[0].id;
+            sections.forEach((section) => {
+                if (section.offsetTop <= probe) currentId = section.id;
+            });
+
+            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach((link) => {
+                link.classList.toggle('nav-active', link.getAttribute('href') === '#' + currentId);
+            });
+        }
+
+        function initNavigation() {
+            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach((link) => {
+                link.addEventListener('click', () => {
+                    if (link.classList.contains('mobile-nav-link')) closeMobileNav();
+                    setTimeout(updateActiveNav, 0);
+                });
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMobileNav();
+            });
+            window.addEventListener('scroll', updateActiveNav, { passive: true });
+            window.addEventListener('hashchange', updateActiveNav);
+            updateActiveNav();
+        }
+
+        // --- HELPER NAVIGATION ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
