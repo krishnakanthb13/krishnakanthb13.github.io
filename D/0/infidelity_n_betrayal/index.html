@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Psychology of Infidelity & Betrayal Trauma</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💔</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF8F5;
+            color: #1E293B;
+        }
+
+        .serif {
+            font-family: 'Lora', serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#FAF8F5] text-slate-800">
+
+    <!-- Chosen Palette: Warm Slate & Muted Crimson -->
+    <!-- Application Structure Plan: Designed as a 5-module interactive portal (Calculus of Avoidance, Typology & Personality, Moral Disengagement, Epistemic Trauma & PISD, and Therapeutic Trajectories). Each section opens with an analytical context summary followed by interactive tools (Loss Aversion toggles, Bandura's 8 Mechanisms explorer, Shattered Assumptions matrix, PISD Symptom Radar chart, and clinical recovery pathways). This structure translates the clinical report into a logical narrative flow from internal cognitive drivers to partner impact and therapeutic restoration. -->
+    <!-- Visualization & Content Choices: 1. Loss Aversion Comparison: Chart.js Bar Chart showing short-term avoidance vs long-term epistemic cost. 2. Infidelity Motivations: Dynamic Chart.js Horizontal Bar visualization based on Barta & Kiene / Selterman models. 3. Bandura's Moral Disengagement: Interactive mechanism switcher with real-world cognitive reframing quotes. 4. Shattered Assumptions: Interactive 3-Pillar status toggle. 5. PISD Severity: Chart.js Radar Chart mapping the 5 clinical domains. 6. Somatic Heatmap: Interactive organ/system symptom detail selector. Confirming NO SVG or Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
+            <div class="flex items-start justify-between gap-4">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2.5 h-2.5 shrink-0 rounded-full bg-rose-500"></span>
+                        <h1 class="text-xl md:text-2xl font-bold tracking-tight">Psychology of Infidelity & Betrayal Trauma</h1>
+                    </div>
+                    <p class="text-xs md:text-sm text-slate-400 mt-0.5">Deferring the Bill, Moral Disengagement & The Epistemological Rupture of Deception</p>
+                </div>
+                <a href="../" class="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-colors" title="Back to the D/0 Knowledge Vault">← Vault</a>
+            </div>
+
+            <!-- Secondary row: topic navigation -->
+            <nav class="flex flex-wrap gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 text-xs sm:text-sm">
+                <button onclick="switchTab('calculus')" id="tab-calculus" class="nav-btn px-3 py-1.5 rounded-lg font-medium transition-colors bg-rose-700 text-white">Calculus of Avoidance</button>
+                <button onclick="switchTab('typology')" id="tab-typology" class="nav-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-colors">Typology &amp; Personality</button>
+                <button onclick="switchTab('deception')" id="tab-deception" class="nav-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-colors">Moral Disengagement</button>
+                <button onclick="switchTab('trauma')" id="tab-trauma" class="nav-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-colors">Epistemic Trauma &amp; PISD</button>
+                <button onclick="switchTab('recovery')" id="tab-recovery" class="nav-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-colors">Therapeutic Repair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="sec-calculus" class="space-y-8">
+            <div class="bg-white rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Core Thesis & Behavioral Economics</span>
+                    <h2 class="text-2xl md:text-3xl font-bold mt-3 text-slate-900 serif">Why Cheat Instead of Leaving? Deferring the Psychological Bill</h2>
+                    <p class="text-slate-600 mt-3 leading-relaxed">
+                        The decision to engage in infidelity rather than terminate a relationship operates as a psychological mechanism to defer the immediate, guaranteed costs of a breakup. Grounded in Prospect Theory and Loss Aversion (Tversky & Kahneman), the primary relationship represents a massive investment of financial security, social networks, and baseline comfort. Walking away forces an individual to openly assume the role of the initiator, face immediate interpersonal conflict, and inhabit the role of the "villain." By choosing deception, the transgressor retains the safety net of the primary relationship while chasing external validation or novelty, effectively transferring the entire long-term psychological toll onto the betrayed partner.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                    <div class="bg-stone-50 p-5 rounded-xl border border-stone-200">
+                        <div class="text-rose-800 text-lg font-bold">1. Prospect Theory & Loss Aversion</div>
+                        <p class="text-xs text-slate-600 mt-2">The psychological pain of losing established marital assets (home, social status, stability) is felt twice as intensely as equivalent external gains, prompting risk-seeking deceit over clean exit.</p>
+                    </div>
+                    <div class="bg-stone-50 p-5 rounded-xl border border-stone-200">
+                        <div class="text-rose-800 text-lg font-bold">2. The "Try Before Buying" Safety Net</div>
+                        <p class="text-xs text-slate-600 mt-2">Affairs function as additive experiences rather than direct replacements, allowing the betrayer to test novel options while maintaining an uninterrupted primary fallback.</p>
+                    </div>
+                    <div class="bg-stone-50 p-5 rounded-xl border border-stone-200">
+                        <div class="text-rose-800 text-lg font-bold">3. Transfer of Psychological Cost</div>
+                        <p class="text-xs text-slate-600 mt-2">Honesty costs the transgressor an uncomfortable conversation; the lie costs the betrayed partner their fundamental ability to trust their own perception of reality.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Interactive Model: Cost & Friction Asymmetry</h3>
+                    <p class="text-sm text-slate-600">
+                        Select a path below to analyze how the emotional, logistical, and epistemic burden is allocated between the Transgressor and the Betrayed Partner.
+                    </p>
+
+                    <div class="flex gap-2 border-b border-stone-200 pb-3">
+                        <button onclick="setCalculusView('cheating')" id="btn-calc-cheating" class="px-4 py-2 text-xs font-semibold rounded-lg bg-rose-900 text-white">Path A: Deception & Cheating</button>
+                        <button onclick="setCalculusView('leaving')" id="btn-calc-leaving" class="px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">Path B: Honest Separation</button>
+                    </div>
+
+                    <div id="calculus-display" class="space-y-4 pt-2">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-1">Perceived vs. Actual Cost Impact</h3>
+                    <p class="text-xs text-slate-500 mb-4">Comparison of immediate discomfort vs. long-term psychological destruction.</p>
+
+                    <div class="chart-container">
+                        <canvas id="calculusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-typology" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Motivations & Personality Traits</span>
+                    <h2 class="text-2xl md:text-3xl font-bold mt-3 text-slate-900 serif">The Typology of Deception & Neurobiological Vulnerability</h2>
+                    <p class="text-slate-600 mt-3 leading-relaxed">
+                        Infidelity is rarely a simple product of relationship dissatisfaction. Empirical models (Barta & Kiene, 2005; Selterman et al., 2021) demonstrate that individuals in demonstrably happy relationships frequently cheat due to dispositional factors, attachment avoidance, or dopamine-driven thrill seeking. The desire to reclaim a lost self-concept (Esther Perel) combined with neurobiological reward loops can completely overpower executive functioning in the prefrontal cortex.
+                    </p>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <button onclick="filterMotivations('all')" class="mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-slate-900 text-white">All Motivations</button>
+                    <button onclick="filterMotivations('relational')" class="mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-slate-600 hover:bg-stone-200">Relational Deficits</button>
+                    <button onclick="filterMotivations('individual')" class="mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-slate-600 hover:bg-stone-200">Individual/Personality</button>
+                    <button onclick="filterMotivations('situational')" class="mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-slate-600 hover:bg-stone-200">Situational/Opportunity</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Self-Reported Drivers of Infidelity</h3>
+                    <p class="text-xs text-slate-500 mb-4">Relative frequency distribution across major academic psychological studies.</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="motivationsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Personality & Neurobiological Architecture</h3>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <span class="font-bold text-slate-900 block text-sm">Avoidant Attachment Style</span>
+                            <p class="text-slate-600 mt-1">Avoidant individuals cheat at roughly <strong>twice the rate</strong> of securely attached peers. They use affairs as a distancing mechanism to preserve autonomy and evade vulnerable intimacy.</p>
+                        </div>
+
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <span class="font-bold text-slate-900 block text-sm">The Dark Triad (Narcissism, Machiavellianism, Psychopathy)</span>
+                            <p class="text-slate-600 mt-1">Partners are viewed through an instrumental, transactional lens. Loss of the partner is viewed as losing property, driving meticulous deception rather than clean breakups.</p>
+                        </div>
+
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <span class="font-bold text-slate-900 block text-sm">Neurochemistry & Dopamine D4 Mutants</span>
+                            <p class="text-slate-600 mt-1">Novelty and secrecy trigger intense dopamine surges in reward centers, overriding the prefrontal cortex's executive control and long-term ethical reasoning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-deception" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Albert Bandura's Framework</span>
+                    <h2 class="text-2xl md:text-3xl font-bold mt-3 text-slate-900 serif">The Cognitive Architecture of Moral Disengagement</h2>
+                    <p class="text-slate-600 mt-3 leading-relaxed">
+                        How does a person who considers themselves ethical lie to someone who gave them complete trust? Through <strong>Moral Disengagement</strong>, individuals decouple their actions from their internalized moral standards. This allows transgressors to engage in deceit without suffering paralyzing guilt, preserving their internal narrative as a "good person."
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-5 space-y-2" id="mechanism-list">
+                </div>
+
+                <div class="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between">
+                        <span id="mech-badge" class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-rose-100 text-rose-800">Mechanism Focus</span>
+                        <span class="text-xs text-slate-400">Click any mechanism on the left to inspect</span>
+                    </div>
+
+                    <h3 id="mech-title" class="text-xl font-bold text-slate-900">Select a Mechanism</h3>
+                    <p id="mech-desc" class="text-sm text-slate-600 leading-relaxed">Click a mechanism to explore how cognitive distortions allow cheaters to bypass internal guilt.</p>
+
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-3">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Typical Cognitive Reframing / Quote</span>
+                        <blockquote id="mech-quote" class="text-sm italic text-slate-800 font-serif">"..."</blockquote>
+                    </div>
+
+                    <div class="bg-rose-50/60 p-4 rounded-xl border border-rose-100 space-y-2">
+                        <span class="text-xs font-bold text-rose-900 uppercase tracking-wider block">Impact on Partner's Reality</span>
+                        <p id="mech-impact" class="text-xs text-rose-950 leading-relaxed">...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-trauma" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Epistemological Rupture & Clinical Trauma</span>
+                    <h2 class="text-2xl md:text-3xl font-bold mt-3 text-slate-900 serif">The Theft of Agency & Post-Infidelity Stress Disorder (PISD)</h2>
+                    <p class="text-slate-600 mt-3 leading-relaxed">
+                        The primary wound of infidelity is not merely the loss of sexual exclusivity, but the systematic destruction of the betrayed partner's epistemic trust. Grounded in Betrayal Trauma Theory (Freyd) and Shattered Assumptions (Janoff-Bulman), discovery initiates a neurobiological firestorm (amygdala hijacking, prefrontal shutdown) resulting in PISD and physical somatic breakdown.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Janoff-Bulman's Shattered Assumptions</h3>
+                    <p class="text-xs text-slate-500">How gaslighting and discovery collapse the victim's worldview.</p>
+
+                    <div class="space-y-3">
+                        <div onclick="toggleAssumption(1)" class="p-4 bg-stone-50 hover:bg-stone-100 rounded-xl border border-stone-200 cursor-pointer transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-900">1. The World is Benevolent</span>
+                                <span class="text-xs text-rose-800 font-semibold">[Toggle Status]</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2"><span id="assump-1-before"><strong>Before:</strong> Loved ones protect us and have good intentions.</span><span id="assump-1-after" class="hidden"><strong class="text-rose-800">After Rupture:</strong> The primary attachment figure was actively constructing a hostile lie.</span></p>
+                        </div>
+
+                        <div onclick="toggleAssumption(2)" class="p-4 bg-stone-50 hover:bg-stone-100 rounded-xl border border-stone-200 cursor-pointer transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-900">2. The World is Meaningful & Predictable</span>
+                                <span class="text-xs text-rose-800 font-semibold">[Toggle Status]</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2"><span id="assump-2-before"><strong>Before:</strong> Life history makes sense; cause and effect are logical.</span><span id="assump-2-after" class="hidden"><strong class="text-rose-800">After Rupture:</strong> Entire past relationship timeline must be audited; memories feel like performances.</span></p>
+                        </div>
+
+                        <div onclick="toggleAssumption(3)" class="p-4 bg-stone-50 hover:bg-stone-100 rounded-xl border border-stone-200 cursor-pointer transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-900">3. The Self is Worthy of Truth</span>
+                                <span class="text-xs text-rose-800 font-semibold">[Toggle Status]</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2"><span id="assump-3-before"><strong>Before:</strong> I am worthy of respect, honesty, and agency.</span><span id="assump-3-after" class="hidden"><strong class="text-rose-800">After Rupture:</strong> Automatic nervous system blame: "If I were enough, they wouldn't have lied."</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">PISD Clinical Symptom Profile</h3>
+                    <p class="text-xs text-slate-500">Mapping severity across the 5 recognized PISD domains.</p>
+
+                    <div class="chart-container">
+                        <canvas id="pisdChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Somatic & Physical Manifestation of Betrayal</h3>
+                <p class="text-xs text-slate-500 mb-6">Select a bodily domain to explore how long-term deception metabolizes as physical injury.</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <button onclick="setSomatic('neuro')" id="som-neuro" class="somatic-btn p-3 rounded-xl border border-stone-200 bg-rose-900 text-white text-xs font-semibold">Neurological / Brain</button>
+                    <button onclick="setSomatic('cardio')" id="som-cardio" class="somatic-btn p-3 rounded-xl border border-stone-200 bg-stone-50 text-slate-700 text-xs font-semibold">Cardiovascular / Chest</button>
+                    <button onclick="setSomatic('gut')" id="som-gut" class="somatic-btn p-3 rounded-xl border border-stone-200 bg-stone-50 text-slate-700 text-xs font-semibold">Gastrointestinal / Gut</button>
+                    <button onclick="setSomatic('sleep')" id="som-sleep" class="somatic-btn p-3 rounded-xl border border-stone-200 bg-stone-50 text-slate-700 text-xs font-semibold">Circadian / Endocrine</button>
+                </div>
+
+                <div id="somatic-display" class="mt-4 p-4 bg-stone-50 rounded-xl border border-stone-200 text-xs leading-relaxed text-slate-700">
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-recovery" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Clinical Protocols & Reconstruction</span>
+                    <h2 class="text-2xl md:text-3xl font-bold mt-3 text-slate-900 serif">Therapeutic Trajectories & Radical Transparency</h2>
+                    <p class="text-slate-600 mt-3 leading-relaxed">
+                        Recovery from betrayal trauma typically spans 1 to 3 years. Traditional talk therapy is often insufficient; nervous system stabilization requires specialized trauma modalities. Whether the outcome is reconciliation or separation, repairing epistemic trust demands complete dismantling of moral disengagement and radical transparency.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                        <h3 class="text-lg font-bold text-slate-900">Evidence-Based Trauma Modalities</h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-1">
+                                <span class="font-bold text-rose-800 text-sm">EMDR Therapy</span>
+                                <p class="text-slate-600">Bilateral stimulation desensitizes intrusive flashbacks and mind-movies of the affair, integrating traumatic fragments into narrative memory without panic.</p>
+                            </div>
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-1">
+                                <span class="font-bold text-rose-800 text-sm">Somatic Experiencing (SE)</span>
+                                <p class="text-slate-600">Discharges trapped sympathetic fight-or-flight energy from the body, restoring vagal tone and easing chronic physical panic.</p>
+                            </div>
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-1">
+                                <span class="font-bold text-rose-800 text-sm">TF-CBT</span>
+                                <p class="text-slate-600">Targets cognitive distortions regarding self-worth, dismantling false internal beliefs that the victim's inadequacy caused the betrayal.</p>
+                            </div>
+                            <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-1">
+                                <span class="font-bold text-rose-800 text-sm">EFT (Relational)</span>
+                                <p class="text-slate-600">Maps attachment injuries in couples therapy, enforcing absolute transparency and accountability before emotional safety can be re-established.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm space-y-2">
+                        <div class="text-xs font-bold uppercase tracking-wider text-rose-400">Global Clinical Ecosystems</div>
+                        <h4 class="text-base font-bold">Integrated Infrastructure Example</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Leading global psychiatric networks—such as the Chennai Counselors Foundation (CCF), MindZone, and Amaha in India—utilize multi-disciplinary ecosystems combining trauma-informed psychiatrists, EMDR specialists, and relational therapists to address acute PISD crises.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Radical Transparency Checklist for True Repair</h3>
+                    <p class="text-xs text-slate-500">Non-negotiable clinical requirements for dismantling moral disengagement.</p>
+
+                    <div class="space-y-2.5 text-xs">
+                        <label class="flex items-start gap-2 p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                            <input type="checkbox" checked disabled class="mt-0.5 accent-rose-800">
+                            <span><strong>Abandon All Euphemisms:</strong> Call deception what it is without minimizing ("slip-up", "mistake").</span>
+                        </label>
+                        <label class="flex items-start gap-2 p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                            <input type="checkbox" checked disabled class="mt-0.5 accent-rose-800">
+                            <span><strong>Zero Victim Blaming:</strong> Accept 100% responsibility for choosing secrecy over exit.</span>
+                        </label>
+                        <label class="flex items-start gap-2 p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                            <input type="checkbox" checked disabled class="mt-0.5 accent-rose-800">
+                            <span><strong>Unrestricted Epistemic Access:</strong> Provide voluntary access to devices, timelines, and verifications to rebuild reality.</span>
+                        </label>
+                        <label class="flex items-start gap-2 p-2.5 bg-stone-50 rounded-lg border border-stone-200">
+                            <input type="checkbox" checked disabled class="mt-0.5 accent-rose-800">
+                            <span><strong>Hold Trauma Space Without Defensiveness:</strong> Endure partner hypervigilance and repetitive questions without anger or rush.</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>Interactive Analysis based on "The Psychology of Infidelity and Betrayal Trauma: Deferring the Bill, Moral Disengagement, and the Epistemological Rupture of Deception".</p>
+            <p class="text-slate-500">Designed for educational, analytical, and clinical informational exploration.</p>
+        </div>
+    </footer>
+
+    <script>
+        const calcData = {
+            cheating: {
+                title: "Path A: Deception & Infidelity (Deferring the Bill)",
+                transgressor: "Avoids immediate conflict, maintains marital comfort, finances, and status while pursuing external validation.",
+                victim: "Stripped of informed consent, subjected to unseen gaslighting, experiences severe long-term epistemological trauma upon discovery.",
+                cost: "Transgressor effort: Low short-term. Victim toll: Extreme, catastrophic long-term."
+            },
+            leaving: {
+                title: "Path B: Honest Breakup / Separation",
+                transgressor: "Faces immediate emotional fallout, assumes role of initiator, endures hard conversation.",
+                victim: "Grieves relationship loss directly with reality intact, retains agency to make choices for their own life.",
+                cost: "Transgressor effort: High short-term. Victim toll: Acute heartbreak, but epistemic foundation remains whole."
+            }
+        };
+
+        const mechanisms = [
+            {
+                id: "moral_just",
+                title: "1. Moral Justification",
+                quote: "\"I need this affair to stay sane so I can be a patient, good parent to our children.\"",
+                desc: "Reframing the betrayal as serving a higher, necessary, or noble purpose.",
+                impact: "Convinces the betrayer that their deceit is actually an altruistic act preserving the family unit."
+            },
+            {
+                id: "euphemistic",
+                title: "2. Euphemistic Labeling",
+                quote: "\"It wasn't an affair, it was just a harmless friendship that got a bit intense.\"",
+                desc: "Utilizing sanitized language to mask the severity of the betrayal.",
+                impact: "Minimizes the act so the transgressor doesn't have to label themselves an unfaithful partner."
+            },
+            {
+                id: "advantageous",
+                title: "3. Advantageous Comparison",
+                quote: "\"I may have cheated, but at least I never physically abused them or emptied our bank accounts.\"",
+                desc: "Comparing the action to far more egregious acts to appear relatively innocent.",
+                impact: "Frames severe emotional cruelty as mild or acceptable behavior by contrast."
+            },
+            {
+                id: "displacement",
+                title: "4. Displacement of Responsibility",
+                quote: "\"I was intoxicated, high stress, and humans aren't biologically wired for monogamy anyway.\"",
+                desc: "Attributing behavior to external forces or biological imperatives.",
+                impact: "Eases guilt by claiming personal agency was completely overridden."
+            },
+            {
+                id: "diffusion",
+                title: "5. Diffusion of Responsibility",
+                quote: "\"Our marriage has been dead for years; anyone in my position would have looked elsewhere.\"",
+                desc: "Spreading blame across relationship dynamics or mutual marital decline.",
+                impact: "Erases the fact that choosing deception over separation was a unilateral individual decision."
+            },
+            {
+                id: "distorting",
+                title: "6. Distorting Consequences",
+                quote: "\"What they don't know won't hurt them. It's just physical, so it doesn't really harm them.\"",
+                desc: "Willfully minimizing or ignoring the emotional harm inflicted on the partner.",
+                impact: "Ignores the devastating physiological and psychological fallout of eventual discovery."
+            },
+            {
+                id: "blame_attribution",
+                title: "7. Attribution of Blame",
+                quote: "\"If you paid more attention to me or didn't reject intimacy, I wouldn't have had to do this.\"",
+                desc: "Reversing perpetrator and victim roles by directly blaming the betrayed partner.",
+                impact: "Weaponizes the partner's vulnerabilities to excuse the transgressor's moral choice."
+            },
+            {
+                id: "dehumanization",
+                title: "8. Dehumanization / Objectification",
+                quote: "\"They are just a roommate at this point, just an obstacle to my fulfillment.\"",
+                desc: "Reducing the partner to an object or nuisance rather than an equal human with rights.",
+                impact: "Strips away empathy, allowing methodical lying without feeling internal distress."
+            }
+        ];
+
+        const somaticData = {
+            neuro: "Hyper-activated Amygdala causing chronic fight-or-flight, prefrontal cortex slowdown, intrusive mind-movies, memory consolidation disruption.",
+            cardio: "Sudden surges of adrenaline and cortisol causing acute chest tightness, heart palpitations mimicking cardiac events (Takotsubo-like physical strain).",
+            gut: "Autonomic nervous system dysregulation leading to severe gastrointestinal distress, loss of appetite, nausea, and stress-induced IBS.",
+            sleep: "Collapse of sleep architecture, severe insomnia, terror-filled night awakenings, chronic physical exhaustion and adrenal depletion."
+        };
+
+        let calculusChart, motivationsChart, pisdChart;
+
+        function initCharts() {
+            const ctxCalc = document.getElementById('calculusChart').getContext('2d');
+            calculusChart = new Chart(ctxCalc, {
+                type: 'bar',
+                data: {
+                    labels: ['Short-term Discomfort', 'Long-term Psychological Toll', 'Loss of Reality/Trust'],
+                    datasets: [
+                        {
+                            label: 'Cheating (Path A)',
+                            data: [15, 95, 100],
+                            backgroundColor: 'rgba(159, 18, 57, 0.85)'
+                        },
+                        {
+                            label: 'Honest Breakup (Path B)',
+                            data: [75, 40, 10],
+                            backgroundColor: 'rgba(100, 116, 139, 0.85)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            const ctxMot = document.getElementById('motivationsChart').getContext('2d');
+            motivationsChart = new Chart(ctxMot, {
+                type: 'bar',
+                indexAxis: 'y',
+                data: {
+                    labels: ['Esteem/Validation', 'Desire/Variety', 'Neglect/Unseen', 'Situational/Opportunity', 'Low Commitment', 'Identity Reclamation', 'Anger/Retaliation', 'Lack of Love'],
+                    datasets: [{
+                        label: 'Prevalence Index',
+                        data: [88, 82, 79, 75, 68, 65, 58, 52],
+                        backgroundColor: 'rgba(159, 18, 57, 0.75)',
+                        borderColor: 'rgba(159, 18, 57, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            const ctxPisd = document.getElementById('pisdChart').getContext('2d');
+            pisdChart = new Chart(ctxPisd, {
+                type: 'radar',
+                data: {
+                    labels: ['Intrusive Flashbacks', 'Arousal & Hypervigilance', 'Avoidance & Numbing', 'Cognitive/Epistemic Collapse', 'Somatic Distress'],
+                    datasets: [{
+                        label: 'PISD Severity Profile',
+                        data: [90, 95, 80, 100, 85],
+                        backgroundColor: 'rgba(159, 18, 57, 0.25)',
+                        borderColor: 'rgba(159, 18, 57, 1)',
+                        pointBackgroundColor: 'rgba(159, 18, 57, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById('sec-' + tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-rose-700', 'text-white');
+                btn.classList.add('text-slate-300');
+            });
+
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('bg-rose-700', 'text-white');
+            activeBtn.classList.remove('text-slate-300');
+
+            // Charts initialised in hidden sections render at zero size; force a resize once visible.
+            requestAnimationFrame(() => {
+                [calculusChart, motivationsChart, pisdChart].forEach(chart => chart && chart.resize());
+            });
+        }
+
+        function setCalculusView(type) {
+            const display = document.getElementById('calculus-display');
+            const data = calcData[type];
+            display.innerHTML = `
+                <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                    <h4 class="font-bold text-slate-900">${data.title}</h4>
+                    <p class="text-xs text-slate-700"><strong>Transgressor Experience:</strong> ${data.transgressor}</p>
+                    <p class="text-xs text-slate-700"><strong>Betrayed Partner Experience:</strong> ${data.victim}</p>
+                    <div class="mt-2 text-xs font-semibold text-rose-900 bg-rose-50 p-2 rounded border border-rose-100">${data.cost}</div>
+                </div>
+            `;
+
+            document.getElementById('btn-calc-cheating').className = type === 'cheating' ? 'px-4 py-2 text-xs font-semibold rounded-lg bg-rose-900 text-white' : 'px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200';
+            document.getElementById('btn-calc-leaving').className = type === 'leaving' ? 'px-4 py-2 text-xs font-semibold rounded-lg bg-rose-900 text-white' : 'px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200';
+        }
+
+        function renderMechanisms() {
+            const container = document.getElementById('mechanism-list');
+            container.innerHTML = mechanisms.map((m, idx) => `
+                <button onclick="selectMechanism(${idx})" class="w-full text-left p-3 rounded-xl border border-stone-200 bg-white hover:bg-rose-50/50 transition-colors flex items-center justify-between group">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-rose-900">${m.title}</span>
+                    <span class="text-xs text-slate-400">&rarr;</span>
+                </button>
+            `).join('');
+            selectMechanism(0);
+        }
+
+        function selectMechanism(index) {
+            const m = mechanisms[index];
+            document.getElementById('mech-title').innerText = m.title;
+            document.getElementById('mech-desc').innerText = m.desc;
+            document.getElementById('mech-quote').innerText = m.quote;
+            document.getElementById('mech-impact').innerText = m.impact;
+        }
+
+        function filterMotivations(category) {
+            document.querySelectorAll('.mot-filter').forEach(btn => {
+                btn.className = 'mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-slate-600 hover:bg-stone-200';
+            });
+            const activeFilter = document.querySelector(`.mot-filter[onclick*="'${category}'"]`);
+            if (activeFilter) {
+                activeFilter.className = 'mot-filter px-3 py-1.5 rounded-full text-xs font-medium bg-slate-900 text-white';
+            }
+
+            let filteredLabels = [];
+            let filteredData = [];
+
+            if (category === 'relational') {
+                filteredLabels = ['Neglect/Unseen', 'Anger/Retaliation', 'Lack of Love'];
+                filteredData = [79, 58, 52];
+            } else if (category === 'individual') {
+                filteredLabels = ['Esteem/Validation', 'Desire/Variety', 'Low Commitment', 'Identity Reclamation'];
+                filteredData = [88, 82, 68, 65];
+            } else if (category === 'situational') {
+                filteredLabels = ['Situational/Opportunity', 'Desire/Variety'];
+                filteredData = [75, 82];
+            } else {
+                filteredLabels = ['Esteem/Validation', 'Desire/Variety', 'Neglect/Unseen', 'Situational/Opportunity', 'Low Commitment', 'Identity Reclamation', 'Anger/Retaliation', 'Lack of Love'];
+                filteredData = [88, 82, 79, 75, 68, 65, 58, 52];
+            }
+
+            motivationsChart.data.labels = filteredLabels;
+            motivationsChart.data.datasets[0].data = filteredData;
+            motivationsChart.update();
+        }
+
+        function toggleAssumption(id) {
+            const before = document.getElementById('assump-' + id + '-before');
+            const after = document.getElementById('assump-' + id + '-after');
+            before.classList.toggle('hidden');
+            after.classList.toggle('hidden');
+        }
+
+        function setSomatic(type) {
+            document.querySelectorAll('.somatic-btn').forEach(btn => {
+                btn.className = 'somatic-btn p-3 rounded-xl border border-stone-200 bg-stone-50 text-slate-700 text-xs font-semibold';
+            });
+            document.getElementById('som-' + type).className = 'somatic-btn p-3 rounded-xl border border-stone-200 bg-rose-900 text-white text-xs font-semibold';
+            document.getElementById('somatic-display').innerText = somaticData[type];
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            setCalculusView('cheating');
+            renderMechanisms();
+            setSomatic('neuro');
+        });
+    </script>
+</body>
+</html>

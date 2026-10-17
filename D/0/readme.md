@@ -131,6 +131,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Infidelity & Betrayal](./infidelity_n_betrayal/)
+**The Epistemology of Deception** — why cheating operates as a psychological mechanism to defer the guaranteed costs of a breakup rather than an act of passion. Grounded in Prospect Theory and loss aversion, the affair preserves the comfort, stability, and emotional infrastructure of the primary relationship while the transgressor avoids ever having to inhabit the role of "the villain"—transferring the entire psychological toll onto the betrayed partner. Synthesizes the calculus of avoidance (the "try before buying" safety net), Bandura's eight mechanisms of moral disengagement, attachment avoidance and the Dark Triad, dopamine-driven override of prefrontal control, Freyd's betrayal trauma and Janoff-Bulman's shattered assumptions, the onset of Post-Infidelity Stress Disorder (PISD), and the trauma-integration modalities (EMDR, Somatic Experiencing, TF-CBT, EFT) plus the radical-transparency requirements for true repair.
+
+- 📝 [The Full Report](./infidelity_n_betrayal/readme.md) — the long-form essay with 44 cited sources. (`readme.md`)
+- 💔 [Interactive Infographic](./infidelity_n_betrayal/index.html) — the complete warm slate & muted crimson interactive page: a five-module tabbed portal spanning the calculus of avoidance, typology & personality, moral disengagement, epistemic trauma & PISD, and therapeutic repair—with a cost & friction asymmetry bar chart, self-reported drivers filter, Bandura's eight-mechanism explorer, Janoff-Bulman shattered-assumptions toggle, PISD severity radar, somatic domain map, and a radical-transparency repair checklist. (`index.html`)
+
+---
+
 ### 📁 [Knowing vs. Accepting](./knowing_vs_accepting/)
 **The Epistemology and Somatics of Surrender** — why intellectual "knowing" routinely fails to change behavior, and why acceptance is the costly, embodied act of translating a fact into the nervous system. Synthesizes cognitive psychology (hot-cold empathy gap, cognitive dissonance, knowing-doing gap), somatic psychotherapy (EFT, Gendlin's Focusing, DBT Radical Acceptance), and contemplative epistemologies (Advaita Vedanta's *Paroksha → Aparoksha*, Buddhism's three stages of wisdom).
 

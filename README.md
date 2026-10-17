@@ -22,6 +22,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
+		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
@@ -200,6 +201,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/): The Psychology of Enough — why the pursuit of happiness paradoxically backfires and how contentment restores wholeness.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/happy_or_content/): Dimension matrix, hedonic time-series simulator, wanting-vs-liking chart, CFT three-system simulator & contentment quotient assessment.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/happy_or_content/readme.md): Long-form research essay with 45 cited sources.
+	- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): The Epistemology of Deception — why cheating defers the guaranteed cost of leaving and how sustained deception shatters the betrayed partner's sense of reality.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): Cost & friction asymmetry chart, motivation filter, Bandura moral-disengagement explorer, shattered-assumptions toggle, PISD severity radar, somatic map & radical-transparency checklist.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/readme.md): Long-form research essay with 44 cited sources.
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
