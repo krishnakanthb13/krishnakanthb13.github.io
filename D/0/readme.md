@@ -131,6 +131,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Neuroplasticity & Procrastination](./neuroplasticity_n_procrastination/)
+**The Neuroscience of Action and Avoidance** — deconstructs the high-stakes productivity rhetoric ("skip one day and you wire your brain for avoidance," "only a karmic reckoning of willpower works") against empirical neuroscience: habit formation is asymptotic (median 66 days, Lally 2010), procrastination is an amygdala-driven emotional-regulation failure rather than a character flaw, and sleep is a mechanical prerequisite for prefrontal control. Synthesizes experience-dependent neuroplasticity, Schlüter et al.'s 2018 amygdala/dACC imaging, Schultz's reward prediction error, Loewenstein's hot-cold empathy gap, and Inzlicht's process model of self-control.
+
+- 📝 [The Full Report](./neuroplasticity_n_procrastination/readme.md) — the long-form essay with 64 cited sources. (`readme.md`)
+- ⚡ [Interactive Infographic](./neuroplasticity_n_procrastination/index.html) — the complete light, slate-and-indigo interactive page: rhetoric-vs-empirical-neurobiology matrix, Lally 2010 habit-kinetics simulator with 21-day-myth overlay, brain-architecture explorer (amygdala, dACC, PFC, DLS, vmPFC), Schultz dopamine reward-prediction-error lab, future-self hot-cold empathy-gap analyzer, prefrontal rest matrix, and a minimal-rehearsal micro-action generator. (`index.html`)
+
+---
+
 ### 📁 [Receiving Paradox](./receiving_paradox/)
 **The Caregiver's Dilemma** — why those who dedicate their lives to caring for others experience profound distress, guilt, and counter-dependent resistance when care is reciprocated—a pattern spanning personal intimacy and professional leadership, driving chronic over-functioning, micromanagement, and systemic burnout. Synthesizes attachment theory (Bowlby), Bowen family systems theory, and Schema Therapy (Young).
 

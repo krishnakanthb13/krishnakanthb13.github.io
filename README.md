@@ -22,6 +22,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
+		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
@@ -198,6 +199,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.
+	- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): The Neuroscience of Action and Avoidance — why skipping a day doesn't rewire the brain, procrastination is emotional regulation not willpower, and rest is a prerequisite for prefrontal control.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): Rhetoric-vs-empirics matrix, Lally habit-kinetics simulator, brain-architecture explorer, dopamine RPE lab, future-self empathy-gap analyzer & micro-action rehearsal generator.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/readme.md): Long-form research essay with 64 cited sources.
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.

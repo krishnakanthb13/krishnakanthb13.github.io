@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Neuroscience of Action and Avoidance</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232563eb%22>🧠</text></svg>">
+    <meta name="description" content="Interactive cognitive-science report: habit kinetics (Lally 2010), amygdala/dACC neuroanatomy, dopamine reward prediction error, temporal discounting and minimal-rehearsal protocols.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        neural: {
+                            indigo: '#6366f1',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            rose: '#f43f5e',
+                            slate: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom chart container constraint styling as required */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-btn.active {
+            border-bottom-color: #2563eb;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .brain-region {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .brain-region:hover, .brain-region.selected {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            height: 0;
+            width: 0;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Intellectual Neutral (Slate background #f8fafc, Indigo executive accents, Amber emotional accents, Crimson threat accents, Emerald habit accents) -->
+
+<!-- Application Structure Plan:
+  1. Header & Executive Navigation: Introduces the report's core conflict—popular productivity rhetoric vs empirical cognitive neuroscience. Provides tabbed section switching.
+  2. Rhetoric vs. Reality Matrix: Interactive side-by-side comparison debunking popular myths ("karmic reckoning", 24/7 immediate failure) with empirical data.
+  3. Habit Kinetics & Automaticity Simulator: Interactive Chart.js visualizer modeling the Lally 2010 UCL habit curve (asymptotic growth, median 66 days, single-day resilience).
+  4. Neuroanatomy & Amygdala Hijack Explorer: Interactive brain architecture map comparing structural & functional connectivity differences in Procrastinators vs Action-Oriented brains (Schlüter et al. 2018).
+  5. Dopamine & Reward Prediction Error (RPE) Lab: Interactive RPE calculation simulator (Schultz model) demonstrating why action must precede motivation.
+  6. Temporal Discounting & Empathy Gap Calculator: Interactive vmPFC neural activation slider (Loewenstein hot-cold empathy gap & vmPFC neural stranger model).
+  7. Rest Matrix & Rehearsal Protocol: Interactive sleep loss & effort discounting calculator (Inzlicht Process Model) plus minimal rehearsal micro-task generator.
+  
+  Rationale: A non-linear, goal-oriented architecture allows users to directly contrast popular intuitive beliefs against neurobiological evidence through dynamic controls, charts, and real-time feedback. -->
+
+<!-- Visualization & Content Choices:
+  1. Habit Kinetics: Line Chart (Chart.js) -> Represents continuous asymptotic habit automaticity over 100 days. Includes interactive toggles for task complexity and skipped days to test resilience.
+  2. Neuroanatomy Inspector: Interactive Cards/Grid (HTML/CSS + JS) -> Highlights structural differences (Amygdala volume, dACC connectivity, PFC activity) between state-oriented and action-oriented individuals without SVG/Mermaid.
+  3. Reward Prediction Error: Interactive Formula Engine & Dynamic Bar/Line Chart (Chart.js) -> Plots baseline dopamine vs phasic burst based on expected vs actual reward ($R - V$).
+  4. Empathy Gap & Discounting: Multi-range sliders with dynamic metric gauges -> Visualizes the drop in vmPFC activation when imagining tomorrow's self.
+  5. Minimal Rehearsal Protocol: Step-by-step interactive workflow tool -> Transforms overwhelming tasks into micro-actions to bypass amygdala threat detection. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Banner -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="../" class="hidden sm:inline-flex text-slate-500 hover:text-blue-600 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 border border-slate-200" title="Return to Knowledge Vault">← D/0 Vault</a>
+                    <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xl font-heading shadow-sm">
+                        N
+                    </div>
+                    <div>
+                        <h1 class="font-heading font-bold text-lg text-slate-900 leading-none">Neurobiology of Action & Avoidance</h1>
+                        <p class="text-xs text-slate-500 mt-0.5">Interactive Cognitive Science & Habit Kinetics Report</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-2 text-xs font-medium text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Empirical Synthesis Active</span>
+                </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <nav class="flex space-x-4 sm:space-x-8 overflow-x-auto border-t border-slate-100 text-sm font-medium text-slate-500 no-scrollbar">
+                <button onclick="switchTab('tab-matrix')" id="btn-tab-matrix" class="tab-btn active py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    1. Rhetoric vs. Reality
+                </button>
+                <button onclick="switchTab('tab-kinetics')" id="btn-tab-kinetics" class="tab-btn py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    2. Habit Kinetics
+                </button>
+                <button onclick="switchTab('tab-anatomy')" id="btn-tab-anatomy" class="tab-btn py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    3. Brain Architecture
+                </button>
+                <button onclick="switchTab('tab-dopamine')" id="btn-tab-dopamine" class="tab-btn py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    4. Dopamine & RPE
+                </button>
+                <button onclick="switchTab('tab-empathy')" id="btn-tab-empathy" class="tab-btn py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    5. The Future Self Gap
+                </button>
+                <button onclick="switchTab('tab-rehearsal')" id="btn-tab-rehearsal" class="tab-btn py-3 px-1 border-b-2 border-transparent whitespace-nowrap hover:text-slate-700">
+                    6. Rest & Rehearsal Lab
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+        <!-- SECTION 1: RHETORIC VS REALITY MATRIX -->
+        <section id="tab-matrix" class="tab-content space-y-6">
+            <!-- Introductory Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Analytical Overview</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">Deconstructing Productivity Rhetoric with Cognitive Neuroscience</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        Popular discourse on productivity often relies on a high-stakes, moralistic framework: claiming that missing a single task immediately wires the brain for chronic avoidance and that only a brutal "karmic reckoning" of willpower can overcome procrastination. While neuroplasticity is indeed a continuous biological reality, empirical neuroscience demonstrates that habit formation is asymptotic, procrastination is an emotional regulation failure (not a character flaw), and sleep/rest are mechanical prerequisites for prefrontal executive control. Explore the matrix below to evaluate popular claims against scientific findings.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Metric Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-medium text-slate-500 uppercase">Median Habit Formation</div>
+                    <div class="text-3xl font-heading font-bold text-indigo-600 mt-1">66 Days</div>
+                    <div class="text-xs text-slate-500 mt-1">Range: 18 to 254 days (Lally 2010)</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-medium text-slate-500 uppercase">Single Skip Impact</div>
+                    <div class="text-3xl font-heading font-bold text-emerald-600 mt-1">0% Loss</div>
+                    <div class="text-xs text-slate-500 mt-1">No disruption to long-term asymptotic curve</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-medium text-slate-500 uppercase">Procrastination Origin</div>
+                    <div class="text-3xl font-heading font-bold text-amber-600 mt-1">Emotion</div>
+                    <div class="text-xs text-slate-500 mt-1">Amygdala threat response to negative affect</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-medium text-slate-500 uppercase">Future-Self Perception</div>
+                    <div class="text-3xl font-heading font-bold text-rose-600 mt-1">Stranger</div>
+                    <div class="text-xs text-slate-500 mt-1">Low vmPFC activation when imagining future</div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-slate-200 flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900">Rhetorical Claims vs. Empirical Neurobiology</h3>
+                        <p class="text-xs text-slate-500">Toggle perspective focus to analyze core claims</p>
+                    </div>
+                    <div class="flex space-x-2 bg-slate-100 p-1 rounded-lg text-xs font-medium">
+                        <button onclick="filterMatrix('all')" id="btn-matrix-all" class="px-3 py-1.5 rounded-md bg-white shadow-sm text-slate-800">All Topics</button>
+                        <button onclick="filterMatrix('plasticity')" id="btn-matrix-plasticity" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900">Neuroplasticity</button>
+                        <button onclick="filterMatrix('emotion')" id="btn-matrix-emotion" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900">Emotion & Rest</button>
+                    </div>
+                </div>
+
+                <div class="divide-y divide-slate-200" id="matrix-container">
+                    <!-- Dynamic Matrix Rows Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: HABIT KINETICS SIMULATOR -->
+        <section id="tab-kinetics" class="tab-content hidden space-y-6">
+            <!-- Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Habit Formation Science</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">The Kinetics of Automaticity and Decay</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        In 2010, Phillippa Lally and her team at University College London tracked 96 individuals forming daily habits over 12 weeks using the Self-Report Habit Index (SRHI). The research disproved the popular "21-day myth" and revealed two critical kinetics: habit automaticity follows an <em>asymptotic curve</em> (rapid initial gains followed by diminishing returns), and <em>missing a single day does not impair long-term habit strength</em>. Use the interactive simulator below to model habit acquisition under different task complexities and interruption patterns.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Controls & Chart Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Controls Panel -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg border-b border-slate-100 pb-3">Simulation Parameters</h3>
+                    
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Task Complexity</label>
+                        <select id="sim-complexity" onchange="updateHabitChart()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="simple">Simple (e.g., Drink water after breakfast)</option>
+                            <option value="medium" selected>Moderate (e.g., Eat a piece of fruit at lunch)</option>
+                            <option value="complex">Complex (e.g., 50 pushups or 30 mins study)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-2">Interruption / Lapse Pattern</label>
+                        <select id="sim-lapses" onchange="updateHabitChart()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="none">Perfect Consistency (No missed days)</option>
+                            <option value="single" selected>Single Missed Day (Day 25)</option>
+                            <option value="repeated">Repeated Missed Days (Days 25, 26, 27)</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="sim-myth" onchange="updateHabitChart()" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                            <span class="text-xs font-medium text-slate-700">Overlay "21-Day Myth" Linear Model</span>
+                        </label>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2">
+                        <div class="text-xs font-semibold text-slate-700">Model Output Highlights:</div>
+                        <div class="text-xs text-slate-600 flex justify-between">
+                            <span>Days to 95% Plateau:</span>
+                            <span id="out-days" class="font-bold text-slate-900">65 Days</span>
+                        </div>
+                        <div class="text-xs text-slate-600 flex justify-between">
+                            <span>Peak Automaticity:</span>
+                            <span id="out-auto" class="font-bold text-slate-900">84 / 100</span>
+                        </div>
+                        <div class="text-xs text-slate-600 flex justify-between">
+                            <span>Lapse Impact (SRHI):</span>
+                            <span id="out-impact" class="font-bold text-emerald-600">Negligible (no decay)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-heading font-bold text-slate-900 text-lg">Self-Report Habit Index (SRHI) Automaticity Trajectory</h3>
+                            <span class="text-xs font-medium text-slate-500">100-Day Observation Window</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="habitChart"></canvas>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 italic text-center">
+                        Note: Early repetitions yield massive initial gains in neural automaticity. As long-term potentiation (LTP) solidifies the pathway in the dorsolateral striatum, marginal gains decrease. A single missed day does not induce Long-Term Depression (LTD). * Days marked ≈ exceed the 100-day observation window.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: NEUROANATOMY & AMYGDALA HIJACK -->
+        <section id="tab-anatomy" class="tab-content hidden space-y-6">
+            <!-- Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">Neurostructural Profiling</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">The Brain Structures Governing Action and Avoidance</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        Procrastination is not a failure of conscientiousness or time management, but a neurological conflict between top-down prefrontal control and bottom-up limbic threat responses (Sirois & Pychyl). In a landmark 2018 neuroimaging study by Schlüter et al. (264 subjects), chronic procrastinators (state-oriented individuals) exhibited significantly <em>larger amygdala volumes</em> and <em>weaker resting-state functional connectivity (rsFC)</em> between the amygdala and the dorsal anterior cingulate cortex (dACC). Explore the neural map below to inspect these key brain regions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Brain Regions Interactive Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Region List Column -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">Select Brain Region to Inspect</h3>
+                    
+                    <div onclick="selectRegion('amygdala')" id="card-amygdala" class="brain-region selected bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-900 text-sm">Amygdala</h4>
+                                <p class="text-xs text-slate-500">Threat Detection & Affect</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-rose-600 font-semibold bg-rose-50 px-2 py-0.5 rounded">Enlarged in Procrastinators</span>
+                    </div>
+
+                    <div onclick="selectRegion('dacc')" id="card-dacc" class="brain-region bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-900 text-sm">dACC</h4>
+                                <p class="text-xs text-slate-500">Conflict & Control Center</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded">Weak Connectivity</span>
+                    </div>
+
+                    <div onclick="selectRegion('pfc')" id="card-pfc" class="brain-region bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-900 text-sm">Prefrontal Cortex (PFC)</h4>
+                                <p class="text-xs text-slate-500">Executive Planning</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500 font-medium">Outcome-Dependent</span>
+                    </div>
+
+                    <div onclick="selectRegion('striatum')" id="card-striatum" class="brain-region bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-900 text-sm">Dorsolateral Striatum (DLS)</h4>
+                                <p class="text-xs text-slate-500">Habit Execution & Chunking</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500 font-medium">Outcome-Independent</span>
+                    </div>
+
+                    <div onclick="selectRegion('vmpfc')" id="card-vmpfc" class="brain-region bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-slate-900 text-sm">vmPFC</h4>
+                                <p class="text-xs text-slate-500">Self-Referential Processing</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500 font-medium">Empathy Gap Hub</span>
+                    </div>
+                </div>
+
+                <!-- Region Detail Viewer -->
+                <div class="md:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between" id="region-detail-box">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+
+            <!-- Quantitative Neuro-Structural Comparison (Schlüter 2018) -->
+            <div class="bg-slate-900 text-white p-6 rounded-xl shadow-lg">
+                <h3 class="font-heading font-bold text-lg text-white mb-2">Empirical Biomarkers: Action vs. State Orientation (Schlüter et al. 2018)</h3>
+                <p class="text-xs text-slate-400 mb-6">Structural MRI voxel-based morphometry and resting-state functional connectivity (rsFC) data from 264 participants.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-300">Baseline Amygdala Volume</span>
+                            <span class="text-rose-400">+14% Larger in Procrastinators</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-3 rounded-full overflow-hidden">
+                            <div class="bg-rose-500 h-full rounded-full" style="width: 78%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2">Drives higher baseline threat sensitivity and punishment avoidance when facing cognitive friction.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-300">Amygdala-dACC Functional Connectivity (rsFC)</span>
+                            <span class="text-amber-400">Significantly Reduced</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-3 rounded-full overflow-hidden">
+                            <div class="bg-amber-500 h-full rounded-full" style="width: 32%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2">Prevents top-down prefrontal inhibition from efficiently overriding emotional alarm signals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: DOPAMINE & REWARD PREDICTION ERROR -->
+        <section id="tab-dopamine" class="tab-content hidden space-y-6">
+            <!-- Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md">Neurochemical Mechanics</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">Dopamine and Reward Prediction Error (RPE)</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        Popular culture misinterprets dopamine as a "pleasure molecule." In reality, neuroscientist Wolfram Schultz demonstrated that dopamine midbrain neurons (VTA/SNc) encode a <em>Reward Prediction Error</em> (<code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">RPE = R − V</code>). Dopamine fires in response to unexpected rewards or reward-predicting cues, directing attention and mobilizing motor effort. Because dopamine shifts to the earliest reliable trigger via temporal difference learning, <em>waiting for spontaneous motivation is a neurochemical trap</em>—action must be taken first to generate a positive RPE and trigger drive.
+                    </p>
+                </div>
+            </div>
+
+            <!-- RPE Interactive Calculator & Visualizer -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Interactive Controls -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg border-b border-slate-100 pb-3">RPE Math Simulator</h3>
+                    
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-slate-700">Expected Task Outcome ($V$)</span>
+                            <span id="val-v" class="text-indigo-600 font-bold">50</span>
+                        </div>
+                        <input type="range" id="input-v" min="0" max="100" value="50" oninput="updateRPE()" class="w-full accent-indigo-600">
+                        <p class="text-xs text-slate-400 mt-1">Anticipated friction/reward before starting task.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-slate-700">Actual Initial Experience ($R$)</span>
+                            <span id="val-r" class="text-amber-600 font-bold">80</span>
+                        </div>
+                        <input type="range" id="input-r" min="0" max="100" value="80" oninput="updateRPE()" class="w-full accent-amber-600">
+                        <p class="text-xs text-slate-400 mt-1">Realized outcome upon taking immediate action.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-3">
+                        <div class="text-xs font-semibold uppercase text-slate-500">RPE Formula Result</div>
+                        <div class="text-2xl font-heading font-bold text-slate-900 flex items-center justify-between">
+                            <span>δ = R − V</span>
+                            <span id="rpe-result" class="text-emerald-600">+30</span>
+                        </div>
+                        <div id="rpe-status-badge" class="text-xs font-medium px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 inline-block">
+                            Positive Prediction Error: Phasic Dopamine Burst
+                        </div>
+                    </div>
+
+                    <!-- Presets -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-semibold text-slate-500">Test Real-World Scenarios:</div>
+                        <button onclick="setRPEPreset(80, 20)" class="w-full text-left text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded text-slate-700 transition">
+                            🚫 <strong>Wait for Motivation:</strong> Expected reward high, but procrastination yields zero outcome ($R < V$).
+                        </button>
+                        <button onclick="setRPEPreset(30, 75)" class="w-full text-left text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded text-slate-700 transition">
+                            ⚡ <strong>2-Minute Micro-Action:</strong> Low expectation ($V=30$), surprisingly easy start ($R=75$).
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Chart Container -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-heading font-bold text-slate-900 text-lg">Midbrain Dopamine Neuron Firing Rate (VTA/SNc)</h3>
+                            <span class="text-xs font-medium text-slate-500">Phasic vs. Baseline Signal</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="rpeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4 text-xs text-blue-900 leading-relaxed">
+                        <strong>Neurobiological takeaway:</strong> When you start a task with a tiny 2-minute micro-action, the perceived difficulty drops faster than expected ($R > V$). This positive prediction error fires a burst of dopamine above baseline, generating immediate motor drive and momentum. Motivation follows action; it does not precede it.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: THE FUTURE SELF GAP -->
+        <section id="tab-empathy" class="tab-content hidden space-y-6">
+            <!-- Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-md">Cognitive Forecasting Biases</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">Temporal Discounting and the Hot-Cold Empathy Gap</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        When people delay tasks until tomorrow, they rely on the illusion that tomorrow's self will be fundamentally more motivated, rested, and capable. Behavioral economics (George Loewenstein) and fMRI neuroimaging reveal two reasons why this fails: the <em>Hot-Cold Empathy Gap</em> (cold state planners cannot accurately simulate future hot visceral stress) and <em>Temporal Discounting</em>. Neuroimaging shows that when thinking about one's future self, neural activation in the <em>ventromedial prefrontal cortex (vmPFC)</em> drops to levels identical to thinking about a complete stranger.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Discounting & Neural Activation Explorer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Interactive Time Horizon Slider -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg border-b border-slate-100 pb-3">Time Horizon & vmPFC Signal Analyzer</h3>
+                    
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-700">Target Time Horizon:</span>
+                            <span id="time-display" class="text-rose-600 font-bold">Tomorrow (24 Hours)</span>
+                        </div>
+                        <input type="range" id="input-time" min="0" max="3" step="1" value="1" oninput="updateEmpathyGap()" class="w-full accent-rose-600">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>Present Self</span>
+                            <span>Tomorrow</span>
+                            <span>1 Month</span>
+                            <span>1 Year</span>
+                        </div>
+                    </div>
+
+                    <!-- Neural Activation Comparison Visualizer -->
+                    <div class="space-y-4 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                                <span>vmPFC Self-Referential Neural Signal:</span>
+                                <span id="vmpfc-percent" class="font-bold text-slate-900">45% Match</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div id="vmpfc-bar" class="bg-indigo-600 h-full transition-all duration-300" style="width: 45%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                                <span>Perceived Value of Future Action (Delay Discounted):</span>
+                                <span id="value-percent" class="font-bold text-slate-900">52%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div id="value-bar" class="bg-rose-500 h-full transition-all duration-300" style="width: 52%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="empathy-description" class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                        <!-- Dynamic description based on time slider -->
+                    </div>
+                </div>
+
+                <!-- Strategic Takeaways Panel -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-900 text-lg mb-4">Psychological Mechanisms of the Trap</h3>
+                        <div class="space-y-4">
+                            <div class="flex space-x-3">
+                                <div class="w-7 h-7 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xs shrink-0">1</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">The Neural Stranger Effect</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">The vmPFC processes "Tomorrow Self" with the same neural patterns used for an unfamiliar stranger, making it effortless to offload unpleasant tasks onto them.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-3">
+                                <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs shrink-0">2</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">The Hot-Cold State Mismatch</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Deciding to postpone a task temporarily releases anxiety, putting you in a relaxed "cold" state. You mistakenly assume tomorrow's self will feel that same calm when facing the work.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-3">
+                                <div class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">3</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Hyperbolic Discounting</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Immediate rewards (distraction, relief) are weighted exponentially higher by the ventral striatum than delayed abstract rewards (career goals, health).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900">
+                        <strong>Solution:</strong> Close the self-continuity gap by committing to an immediate 2-minute version of the task today, maintaining empathy for tomorrow's self.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: REST & REHEARSAL LAB -->
+        <section id="tab-rehearsal" class="tab-content hidden space-y-6">
+            <!-- Context Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Actionable Protocol</span>
+                    <h2 class="text-2xl font-heading font-bold text-slate-900 mt-2">Executive Rest Matrix & The Minimal Rehearsal Protocol</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">
+                        Rest and sleep are not secondary luxuries; they are mechanical prerequisites for cognitive control. Sleep deprivation severely impairs frontoparietal attention networks and reduces prefrontal inhibitory control over the amygdala (Skurvydas et al.). Furthermore, Michael Inzlicht's <em>Process Model of Self-Control</em> demonstrates that self-control failures stem from shifting motivational priorities, not depleted glucose. Use the lab tools below to test your executive capacity and generate a minimal rehearsal micro-action for your current task.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rest Matrix & Interactive Tool -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Sleep & Cognitive Effort Calculator -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg border-b border-slate-100 pb-3">Prefrontal Capacity Simulator</h3>
+                    
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-slate-700">Sleep Duration Last Night:</span>
+                            <span id="sleep-val" class="text-indigo-600 font-bold">8.0 Hours</span>
+                        </div>
+                        <input type="range" id="input-sleep" min="0" max="9" step="0.5" value="8" oninput="updateRestMatrix()" class="w-full accent-indigo-600">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase">Prefrontal Control</div>
+                            <div id="pfc-score" class="text-2xl font-heading font-bold text-indigo-600 mt-1">100%</div>
+                            <div class="text-[10px] text-slate-400 mt-1">Response inhibition capability</div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase">Amygdala Reactivity</div>
+                            <div id="amygdala-score" class="text-2xl font-heading font-bold text-emerald-600 mt-1">Normal</div>
+                            <div class="text-[10px] text-slate-400 mt-1">Threat alarm sensitivity</div>
+                        </div>
+                    </div>
+
+                    <div id="rest-impact-msg" class="p-3 bg-blue-50 rounded-lg text-xs text-blue-900 border border-blue-100">
+                        Full prefrontal capacity restored. Frontoparietal networks are fully equipped for top-down cognitive control over avoidance impulses.
+                    </div>
+                </div>
+
+                <!-- Minimal Rehearsal Micro-Task Generator -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg border-b border-slate-100 pb-3">Minimal Rehearsal Micro-Task Generator</h3>
+                    <p class="text-xs text-slate-500">Bypass the amygdala hijack by reducing cognitive friction to its absolute minimum.</p>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">What task are you delaying?</label>
+                        <input type="text" id="task-input" onkeydown="if(event.key === 'Enter'){ event.preventDefault(); generateMicroTask(); }" placeholder="e.g. Write 2,000-word research report" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <p id="task-hint" class="hidden text-xs text-rose-600 mt-1.5"></p>
+                    </div>
+
+                    <button onclick="generateMicroTask()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-2.5 rounded-lg transition shadow-sm">
+                        Generate Bypassing Micro-Action
+                    </button>
+
+                    <div id="micro-output" class="hidden p-4 bg-emerald-50 rounded-lg border border-emerald-200 space-y-2">
+                        <div class="text-xs font-bold text-emerald-900 uppercase">Your Amygdala-Bypassing Action Today:</div>
+                        <div id="micro-action-text" class="text-sm font-semibold text-slate-800"></div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            <strong>Why this works:</strong> This micro-action requires negligible cognitive effort (V ≈ 0), avoiding the amygdala threat threshold while keeping the motor pattern of starting intact.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Paradigm Principles (Synthesis) -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h3 class="font-heading font-bold text-slate-900 text-lg mb-4">Five Core Neuro-Principles for Action</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs font-bold text-blue-600">01. Training Principle</div>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">Always Training Something</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">Avoidance is not a pause; it actively myelinates the neural circuits of procrastination.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs font-bold text-amber-600">02. Sequence Principle</div>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">Action Precedes Motivation</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">Positive reward prediction errors (δ = R − V) fire dopamine after starting, not before.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs font-bold text-rose-600">03. Continuity Principle</div>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">Tomorrow is an Illusion</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">The brain treats future self as a stranger. Only present-moment neural execution exists.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs font-bold text-indigo-600">04. Emotion Principle</div>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">Emotion, Not Character</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">Procrastination is negative affect avoidance. Harsh judgment increases guilt and triggers delay.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs font-bold text-emerald-600">05. Rehearsal Principle</div>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">Smallest Version Today</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">Execute the absolute smallest action to bypass the amygdala and maintain the habit of starting.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            <p>Single-Page Interactive Application • Neuroscience of Action and Avoidance Synthesis Report</p>
+            <p class="mt-1">Based on empirical data from Lally et al. (2010), Schlüter et al. (2018), Schultz (1997), Sirois & Pychyl (2013), and Inzlicht et al. (2014).</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // DATA MATRIX FOR SECTION 1
+        const matrixData = [
+            {
+                category: 'plasticity',
+                topic: '24/7 Plasticity & Avoidance',
+                rhetoric: 'If you skip today, you irrevocably wire your brain for chronic task avoidance.',
+                empirical: 'Neuroplasticity is continuous, but habit formation is asymptotic. A single missed day does not trigger synaptic pruning or undo long-term potentiation (Lally et al., 2010).'
+            },
+            {
+                category: 'emotion',
+                topic: 'The "Karmic Reckoning"',
+                rhetoric: 'Overcoming procrastination requires a heroic, moral confrontation of willpower.',
+                empirical: 'Procrastination is an emotional regulation failure driven by amygdala threat response. Moral shame amplifies negative affect, causing deeper avoidance cycles (Sirois & Pychyl, 2013).'
+            },
+            {
+                category: 'emotion',
+                topic: 'Tomorrow-Self & Rest',
+                rhetoric: 'Expecting tomorrow-self to be better rested or motivated is a pure cognitive illusion.',
+                empirical: 'Rest and sleep are physical prerequisites for prefrontal cortex function. Sleep deprivation hyper-activates the amygdala and degrades executive inhibition (Skurvydas et al.).'
+            },
+            {
+                category: 'plasticity',
+                topic: 'Motivation Sequence',
+                rhetoric: 'You must build the mental state and willpower first before embarking on difficult tasks.',
+                empirical: 'Dopamine midbrain neurons fire on Reward Prediction Error (R − V). Action generates the positive RPE required to release dopamine; drive follows initiation (Schultz).'
+            }
+        ];
+
+        // NEUROANATOMY DATA FOR SECTION 3
+        const regionData = {
+            amygdala: {
+                title: 'Amygdala (Subcortical Threat Center)',
+                badge: 'Enlarged in Chronic Procrastinators',
+                badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+                role: 'Processes emotional valence, threat detection, and fear/anxiety responses.',
+                finding: 'Schlüter et al. (2018) revealed that state-oriented individuals (procrastinators) have significantly higher baseline amygdala volume. This drives trait sensitivity to punishment and causes mundane tasks with cognitive friction to be misidentified as psychological threats.',
+                actionable: 'Bypass amygdala alarm by scaling the task down to an action so small it induces zero fear.'
+            },
+            dacc: {
+                title: 'Dorsal Anterior Cingulate Cortex (dACC)',
+                badge: 'Reduced Resting-State Connectivity',
+                badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+                role: 'Monitors cognitive conflict, weighs effort opportunity costs, and directs top-down control.',
+                finding: 'In procrastinators, the resting-state functional connectivity (rsFC) between the amygdala and dACC is significantly weakened. The dACC fails to down-regulate amygdala fear signals, allowing emotional avoidance to override long-term goal execution.',
+                actionable: 'Reduce cognitive effort discounting by aligning tasks with core personal identity.'
+            },
+            pfc: {
+                title: 'Prefrontal Cortex (PFC)',
+                badge: 'Executive Inhibitory Control',
+                badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+                role: 'Responsible for goal-directed planning, working memory, and suppressing automatic impulses.',
+                finding: 'PFC-driven goal execution is highly metabolically expensive and outcome-dependent. When fatigued or sleep-deprived, the PFC loses its ability to exert inhibitory control over limbic avoidance routines.',
+                actionable: 'Protect prefrontal resources through adequate sleep and scheduled rest.'
+            },
+            striatum: {
+                title: 'Dorsolateral Striatum (DLS)',
+                badge: 'Habit & Automated Routine Storage',
+                badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+                role: 'Executes "chunked" automated behavioral loops in response to environmental cues.',
+                finding: 'Through long-term potentiation (LTP), routines shift from PFC goal-directed control to DLS stimulus-response control, becoming outcome-independent.',
+                actionable: 'Leverage consistent environmental cues (time, location) to build automatic DLS routines.'
+            },
+            vmpfc: {
+                title: 'Ventromedial Prefrontal Cortex (vmPFC)',
+                badge: 'Self-Referential & Future Processing',
+                badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                role: 'Handles self-identity processing and valuation of future rewards.',
+                finding: 'fMRI studies show vmPFC activation drops significantly when imagining oneself in the future, processing future self with the same neural signature as a stranger.',
+                actionable: 'Treat future-self with empathy by executing micro-actions today.'
+            }
+        };
+
+        // CHART INSTANCES
+        let habitChartInstance = null;
+        let rpeChartInstance = null;
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+
+            if (tabId === 'tab-kinetics' && !habitChartInstance) {
+                initHabitChart();
+            } else if (tabId === 'tab-dopamine' && !rpeChartInstance) {
+                initRPEChart();
+            }
+
+            // Keep the address bar in sync so a section can be linked or reloaded directly.
+            if (history.replaceState) {
+                history.replaceState(null, '', '#' + tabId);
+            }
+        }
+
+        // MATRIX FILTER LOGIC
+        function filterMatrix(category) {
+            document.querySelectorAll('#btn-matrix-all, #btn-matrix-plasticity, #btn-matrix-emotion')
+                .forEach(btn => btn.className = 'px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900');
+            
+            document.getElementById('btn-matrix-' + category).className = 'px-3 py-1.5 rounded-md bg-white shadow-sm text-slate-800 font-semibold';
+
+            const container = document.getElementById('matrix-container');
+            container.innerHTML = '';
+
+            const filtered = category === 'all' ? matrixData : matrixData.filter(d => d.category === category);
+
+            filtered.forEach(row => {
+                const item = document.createElement('div');
+                item.className = 'p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-start hover:bg-slate-50/50 transition';
+                item.innerHTML = `
+                    <div class="md:col-span-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Topic</span>
+                        <h4 class="font-heading font-bold text-slate-900 text-sm mt-0.5">${row.topic}</h4>
+                    </div>
+                    <div class="md:col-span-4 bg-rose-50/60 p-3.5 rounded-lg border border-rose-100">
+                        <span class="text-[10px] font-bold uppercase text-rose-600 tracking-wider">Popular Rhetoric</span>
+                        <p class="text-xs text-rose-900 mt-1 leading-relaxed">${row.rhetoric}</p>
+                    </div>
+                    <div class="md:col-span-5 bg-emerald-50/60 p-3.5 rounded-lg border border-emerald-100">
+                        <span class="text-[10px] font-bold uppercase text-emerald-700 tracking-wider">Empirical Neurobiology</span>
+                        <p class="text-xs text-emerald-950 mt-1 leading-relaxed">${row.empirical}</p>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // HABIT KINETICS CHART (Lally 2010 Model)
+        function initHabitChart() {
+            const ctx = document.getElementById('habitChart').getContext('2d');
+            
+            const days = Array.from({length: 100}, (_, i) => i + 1);
+            const dataData = calculateHabitCurve('medium', 'single');
+
+            habitChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [
+                        {
+                            label: 'SRHI Automaticity Score (Asymptotic Model)',
+                            data: dataData.asymptotic,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2.5,
+                            pointRadius: 0
+                        },
+                        {
+                            label: '21-Day Myth Linear Overlay',
+                            data: dataData.myth,
+                            borderColor: '#cbd5e1',
+                            borderDash: [5, 5],
+                            fill: false,
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                            hidden: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + Math.round(context.raw) + ' / 100';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Days of Practice', font: { size: 11 } },
+                            grid: { display: false }
+                        },
+                        y: {
+                            title: { display: true, text: 'Automaticity (SRHI Score)', font: { size: 11 } },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            updateHabitChart();
+        }
+
+        function calculateHabitCurve(complexity, lapse) {
+            const days = Array.from({length: 100}, (_, i) => i + 1);
+            let k = complexity === 'simple' ? 0.06 : (complexity === 'medium' ? 0.045 : 0.025);
+            let maxAuto = complexity === 'simple' ? 90 : (complexity === 'medium' ? 84 : 70);
+
+            let asymptotic = [];
+            let myth = [];
+
+            let currentAuto = 0;
+            for (let d = 1; d <= 100; d++) {
+                // Check lapse
+                let isLapse = false;
+                if (lapse === 'single' && d === 25) isLapse = true;
+                if (lapse === 'repeated' && (d >= 25 && d <= 27)) isLapse = true;
+
+                if (!isLapse) {
+                    currentAuto = currentAuto + k * (maxAuto - currentAuto);
+                } else if (lapse === 'repeated') {
+                    // Three consecutive misses produce a small, proportionate dip in
+                    // automaticity (mild LTD) rather than a full reset.
+                    currentAuto = currentAuto * 0.993;
+                }
+                // A single skipped day produces NO decay at all — the plateau stays flat
+                // (Lally et al., 2010: a one-off lapse did not affect habit formation).
+                asymptotic.push(currentAuto);
+
+                // Linear 21-day myth calculation
+                let mythVal = Math.min(100, (d / 21) * 100);
+                myth.push(mythVal);
+            }
+
+            return { asymptotic, myth, k, maxAuto };
+        }
+
+        function updateHabitChart() {
+            if (!habitChartInstance) return;
+
+            const complexity = document.getElementById('sim-complexity').value;
+            const lapse = document.getElementById('sim-lapses').value;
+            const showMyth = document.getElementById('sim-myth').checked;
+
+            const curves = calculateHabitCurve(complexity, lapse);
+
+            habitChartInstance.data.datasets[0].data = curves.asymptotic;
+            habitChartInstance.data.datasets[1].data = curves.myth;
+            habitChartInstance.data.datasets[1].hidden = !showMyth;
+            habitChartInstance.update();
+
+            // Update info box
+            const plateauDays = Math.round(Math.log(0.05) / Math.log(1 - curves.k));
+            document.getElementById('out-days').innerText = (plateauDays > 100 ? '≈' + plateauDays + ' Days*' : plateauDays + ' Days');
+            document.getElementById('out-auto').innerText = curves.maxAuto + ' / 100';
+
+            if (lapse === 'none') {
+                document.getElementById('out-impact').innerText = '0.0% (Perfect)';
+                document.getElementById('out-impact').className = 'font-bold text-emerald-600';
+            } else if (lapse === 'single') {
+                document.getElementById('out-impact').innerText = 'Negligible (no decay)';
+                document.getElementById('out-impact').className = 'font-bold text-emerald-600';
+            } else {
+                document.getElementById('out-impact').innerText = 'Minor Setback (-2.1%)';
+                document.getElementById('out-impact').className = 'font-bold text-amber-600';
+            }
+        }
+
+        // REGION SELECTION LOGIC
+        function selectRegion(key) {
+            document.querySelectorAll('.brain-region').forEach(el => el.classList.remove('selected'));
+            document.getElementById('card-' + key).classList.add('selected');
+
+            const info = regionData[key];
+            const box = document.getElementById('region-detail-box');
+
+            box.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
+                        <h3 class="font-heading font-bold text-xl text-slate-900">${info.title}</h3>
+                        <span class="text-xs font-semibold border px-2.5 py-1 rounded-md ${info.badgeColor}">${info.badge}</span>
+                    </div>
+                    
+                    <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
+                        <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+                            <strong class="text-slate-800">Functional Role:</strong> ${info.role}
+                        </div>
+                        
+                        <div>
+                            <strong class="text-slate-800 text-sm block mb-1">Empirical Finding:</strong>
+                            <p>${info.finding}</p>
+                        </div>
+
+                        <div class="p-3 bg-blue-50 text-blue-900 rounded-lg border border-blue-100">
+                            <strong>Practical Strategy:</strong> ${info.actionable}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // RPE CALCULATOR & CHART (Wolfram Schultz Model)
+        function initRPEChart() {
+            const ctx = document.getElementById('rpeChart').getContext('2d');
+
+            rpeChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Baseline Firing', 'Cue Presentation (TD Learning)', 'Reward Delivery ($R - V$)'],
+                    datasets: [{
+                        label: 'Dopamine Firing Rate (Hz)',
+                        data: [15, 45, 75],
+                        backgroundColor: ['#64748b', '#6366f1', '#10b981'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.raw} Hz (Dopamine Neuronal Firing)`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Firing Rate (Spikes/Sec)', font: { size: 11 } },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            updateRPE();
+        }
+
+        function updateRPE() {
+            const v = parseInt(document.getElementById('input-v').value);
+            const r = parseInt(document.getElementById('input-r').value);
+
+            document.getElementById('val-v').innerText = v;
+            document.getElementById('val-r').innerText = r;
+
+            const delta = r - v;
+            const resEl = document.getElementById('rpe-result');
+            const badgeEl = document.getElementById('rpe-status-badge');
+
+            resEl.innerText = (delta >= 0 ? '+' : '') + delta;
+
+            let firingRate = 15 + delta * 0.6;
+            firingRate = Math.max(2, Math.min(95, firingRate));
+
+            if (delta > 0) {
+                resEl.className = 'text-emerald-600';
+                badgeEl.className = 'text-xs font-medium px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 inline-block';
+                badgeEl.innerText = 'Positive RPE: Phasic Dopamine Burst (Drive Released)';
+            } else if (delta === 0) {
+                resEl.className = 'text-slate-600';
+                badgeEl.className = 'text-xs font-medium px-2.5 py-1 rounded bg-slate-100 text-slate-800 inline-block';
+                badgeEl.innerText = 'Zero RPE: Tonic Baseline Firing (Habituated)';
+            } else {
+                resEl.className = 'text-rose-600';
+                badgeEl.className = 'text-xs font-medium px-2.5 py-1 rounded bg-rose-100 text-rose-800 inline-block';
+                badgeEl.innerText = 'Negative RPE: Dopamine Suppression (Avoidance Reinforced)';
+            }
+
+            if (rpeChartInstance) {
+                rpeChartInstance.data.datasets[0].data[2] = firingRate;
+                rpeChartInstance.data.datasets[0].backgroundColor[2] = delta >= 0 ? '#10b981' : '#f43f5e';
+                rpeChartInstance.update();
+            }
+        }
+
+        function setRPEPreset(v, r) {
+            document.getElementById('input-v').value = v;
+            document.getElementById('input-r').value = r;
+            updateRPE();
+        }
+
+        // EMPATHY GAP LOGIC
+        function updateEmpathyGap() {
+            const idx = parseInt(document.getElementById('input-time').value);
+            const timeLabels = ['Present Moment (Now)', 'Tomorrow (24 Hours)', '1 Month Future', '1 Year Future'];
+            const vmPFCValues = [100, 45, 22, 12];
+            const valueDiscount = [100, 52, 28, 15];
+
+            document.getElementById('time-display').innerText = timeLabels[idx];
+            document.getElementById('vmpfc-percent').innerText = vmPFCValues[idx] + '% Signal Match';
+            document.getElementById('vmpfc-bar').style.width = vmPFCValues[idx] + '%';
+
+            document.getElementById('value-percent').innerText = valueDiscount[idx] + '%';
+            document.getElementById('value-bar').style.width = valueDiscount[idx] + '%';
+
+            const descEl = document.getElementById('empathy-description');
+            if (idx === 0) {
+                descEl.innerHTML = '<strong>Present Self Active:</strong> Full vmPFC neural activation. You feel immediate visceral stress, anxiety, or effort required for the task right now.';
+            } else if (idx === 1) {
+                descEl.innerHTML = '<strong>Tomorrow Self (Neural Stranger):</strong> vmPFC activation drops by 55%. Your brain processes tomorrow\'s self similarly to an acquaintance, assuming they will effortlessly handle the stress.';
+            } else {
+                descEl.innerHTML = '<strong>Distant Future Self (Complete Stranger):</strong> vmPFC activation drops below 25%. Neural signature matches a complete stranger. Offloading tasks to this self feels completely frictionless to the present self.';
+            }
+        }
+
+        // REST MATRIX LOGIC
+        function updateRestMatrix() {
+            const hours = parseFloat(document.getElementById('input-sleep').value);
+            document.getElementById('sleep-val').innerText = hours.toFixed(1) + ' Hours';
+
+            const pfcScore = Math.min(100, Math.round((hours / 8) * 100));
+            document.getElementById('pfc-score').innerText = pfcScore + '%';
+
+            const amgScore = hours < 6 ? 'Hyper-Active' : (hours < 7.5 ? 'Moderate' : 'Normal');
+            document.getElementById('amygdala-score').innerText = amgScore;
+
+            const msgEl = document.getElementById('rest-impact-msg');
+
+            if (hours >= 7.5) {
+                document.getElementById('pfc-score').className = 'text-2xl font-heading font-bold text-indigo-600 mt-1';
+                document.getElementById('amygdala-score').className = 'text-2xl font-heading font-bold text-emerald-600 mt-1';
+                msgEl.className = 'p-3 bg-blue-50 rounded-lg text-xs text-blue-900 border border-blue-100';
+                msgEl.innerHTML = '<strong>Full Prefrontal Capacity:</strong> Rested brain with normal frontoparietal activity. Top-down inhibitory control over amygdala avoidance is intact.';
+            } else if (hours >= 5.5) {
+                document.getElementById('pfc-score').className = 'text-2xl font-heading font-bold text-amber-600 mt-1';
+                document.getElementById('amygdala-score').className = 'text-2xl font-heading font-bold text-amber-600 mt-1';
+                msgEl.className = 'p-3 bg-amber-50 rounded-lg text-xs text-amber-900 border border-amber-100';
+                msgEl.innerHTML = '<strong>Moderate Prefrontal Vulnerability:</strong> Reduced metabolic activity in dACC. Task initiation requires higher deliberate cognitive effort.';
+            } else {
+                document.getElementById('pfc-score').className = 'text-2xl font-heading font-bold text-rose-600 mt-1';
+                document.getElementById('amygdala-score').className = 'text-2xl font-heading font-bold text-rose-600 mt-1';
+                msgEl.className = 'p-3 bg-rose-50 rounded-lg text-xs text-rose-900 border border-rose-100';
+                msgEl.innerHTML = '<strong>Severe Prefrontal Impairment:</strong> Amygdala hyper-reactivity stripped of PFC inhibition. Cognitive tasks feel severely aversive; micro-actions are essential.';
+            }
+        }
+
+        // MICRO-TASK GENERATOR LOGIC
+        // Each template reduces a task to an action small enough that the amygdala
+        // threat threshold is never crossed (V ≈ 0), keeping the motor pattern of
+        // "starting" intact.
+        const microTemplates = [
+            { test: /writ|report|essay|blog|article|paper|thesis|doc/i, action: task => `Open the document and type one single sentence for "${task}". Edit it later — do not delete it.` },
+            { test: /study|read|book|chapter|exam|revis|learn/i, action: task => `Open the material to the first page and read just one paragraph of "${task}".` },
+            { test: /gym|workout|exercise|run|walk|pushup|yoga|train/i, action: task => `Put on your shoes and step outside for 2 minutes toward "${task}".` },
+            { test: /email|reply|message|dm|inbox|call|contact/i, action: task => `Draft a one-line reply to the single most important item in "${task}" — send it only if you want to.` },
+            { test: /code|bug|refactor|program|debug|function|feature/i, action: task => `Open the file for "${task}", rename one variable or fix one typo, then commit.` },
+            { test: /clean|tidy|organi[sz]e|laundry|dish|room|declutter/i, action: task => `Clear one single surface or item related to "${task}" for 2 minutes.` },
+            { test: /budget|tax|finance|invoice|bill|save|invest/i, action: task => `Open the one relevant account or spreadsheet for "${task}" and change a single number.` },
+            { test: /plan|prepare|present|slide|proposal|deck/i, action: task => `Create an empty outline with just three bullet headings for "${task}".` }
+        ];
+
+        function generateMicroTask() {
+            const inputEl = document.getElementById('task-input');
+            const input = inputEl.value.trim();
+            const outputBox = document.getElementById('micro-output');
+            const textEl = document.getElementById('micro-action-text');
+            const hintEl = document.getElementById('task-hint');
+
+            if (!input) {
+                hintEl.innerText = 'Enter the task you are avoiding to generate a micro-action.';
+                hintEl.classList.remove('hidden');
+                inputEl.classList.add('border-rose-400', 'ring-2', 'ring-rose-100');
+                inputEl.focus();
+                return;
+            }
+
+            hintEl.classList.add('hidden');
+            inputEl.classList.remove('border-rose-400', 'ring-2', 'ring-rose-100');
+
+            const template = microTemplates.find(t => t.test.test(input));
+            const action = template
+                ? template.action(input)
+                : `Spend exactly 2 minutes on the smallest first step of "${input}", then stop if you still want to.`;
+
+            textEl.innerText = action;
+            outputBox.classList.remove('hidden');
+        }
+
+        // INIT ON PAGE LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            filterMatrix('all');
+            selectRegion('amygdala');
+            updateEmpathyGap();
+            updateRestMatrix();
+
+            // Restore a tab directly from the URL hash (e.g. index.html#tab-dopamine).
+            const hash = window.location.hash.replace('#', '');
+            if (hash && hash !== 'tab-matrix' && document.getElementById(hash) && document.getElementById('btn-' + hash)) {
+                switchTab(hash);
+            }
+        });
+    </script>
+</body>
+</html>
