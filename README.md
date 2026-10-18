@@ -23,6 +23,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
+		- [Identity Habit Formation](https://krishnakanthb13.github.io/D/0/identity_habit_formation/) — The Architecture of Self-Transformation
 		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
@@ -206,6 +207,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/): The Psychology of Enough — why the pursuit of happiness paradoxically backfires and how contentment restores wholeness.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/happy_or_content/): Dimension matrix, hedonic time-series simulator, wanting-vs-liking chart, CFT three-system simulator & contentment quotient assessment.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/happy_or_content/readme.md): Long-form research essay with 45 cited sources.
+	- [Identity Habit Formation](https://krishnakanthb13.github.io/D/0/identity_habit_formation/): The Architecture of Self-Transformation — why grafting future-self habits onto a present-self identity guarantees relapse, and how to reverse-engineer identity through future-self continuity, self-perception, basal-ganglia automaticity and statistical outlier reframing.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/identity_habit_formation/): Outcome-vs-identity paradigm comparison, fMRI temporal-discounting chart, identity-evidence vote accumulator, Identity-Based Motivation friction panel, Lally 66-day automaticity curve, If-Then protocol builder, 100-day outlier matrix & personalized blueprint workbench.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/identity_habit_formation/readme.md): Long-form research essay with 47 cited sources.
 	- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): The Epistemology of Deception — why cheating defers the guaranteed cost of leaving and how sustained deception shatters the betrayed partner's sense of reality.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): Cost & friction asymmetry chart, motivation filter, Bandura moral-disengagement explorer, shattered-assumptions toggle, PISD severity radar, somatic map & radical-transparency checklist.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/readme.md): Long-form research essay with 44 cited sources.

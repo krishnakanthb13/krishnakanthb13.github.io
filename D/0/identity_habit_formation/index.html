@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architecture of Self-Transformation | Reverse Engineering Identity</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230f766e%22>🧠</text></svg>">
+    <meta name="description" content="Interactive identity-based habit formation report: future-self continuity and temporal discounting, Bem's self-perception theory, Oyserman's identity-based motivation, prefrontal-to-basal-ganglia automaticity, implementation intentions, and the 86/14 outlier model.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        warm: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        accent: {
+                            amber: '#d97706',
+                            rose: '#e11d48',
+                            indigo: '#4f46e5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-warm-50 text-warm-900 font-sans antialiased leading-relaxed selection:bg-brand-100 selection:text-brand-900">
+
+    <!-- Chosen Palette: Warm Neutral Harmony (Warm Stone-50 background, Deep Warm Grey text, Teal-700 primary accents, Amber secondary highlights) -->
+    <!-- Application Structure Plan:
+         1. Executive Navigation Bar: Clean header with section jumps to ensure effortless exploration.
+         2. Hero & Core Paradigm Shift: Interactive contrast between "Outcome-First (Willpower)" vs. "Identity-First (Reverse Engineered)" models.
+         3. Module 1: Neuropsychology of the Future Self: vmPFC neural distance breakdown, interactive Temporal Discounting Chart, and empirical intervention matrix.
+         4. Module 2: Identity Construction & Evidence Accumulation: Bem's Self-Perception Theory, Oyserman's IBM simulator, and an interactive "Identity Vote" accumulator.
+         5. Module 3: Neural Habit Loop & Automaticity Engine: The PFC to Basal Ganglia (DMS -> DLS) pathway, dynamic automaticity curve chart based on Lally's 66-day model.
+         6. Module 4: Environmental Design & Protocol Builder: Outcome vs. Identity choice architecture matrix, and an interactive "If-Then Protocol Builder" (Gollwitzer's implementation intentions).
+         7. Module 5: Failure Resilience & Statistical Reframing: Interactive 100-Day Identity Matrix (86/14 rule simulator), demonstrating how slip-ups are statistical outliers and neutralizing Marlatt's Abstinence Violation Effect (AVE).
+         8. Module 6: Reverse Engineering Interactive Blueprint: Personalized workbench generating a custom identity strategy summary based on user inputs.
+    -->
+    <!-- Visualization & Content Choices:
+         - Paradigm Shift: HTML/CSS side-by-side interactive toggles (Clear, non-SVG comparative UI).
+         - Temporal Discounting: Chart.js Line Chart (Canvas) showing value decay over time across low vs high future-self continuity.
+         - Automaticity Curve: Chart.js Line Chart (Canvas) modeling PFC effort vs Basal Ganglia automaticity over 66 days.
+         - 86/14 Outlier Visualizer: Interactive 100-cell HTML grid + Chart.js Doughnut chart to visually prove dominant identity preservation during slip-ups.
+         - Protocol Builder & Workbench: Interactive JS form logic updating DOM dynamically.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visuals rely on Tailwind CSS layout elements, HTML Canvas (Chart.js), and CSS indicators.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-warm-50/95 backdrop-blur-md border-b border-warm-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: Brand -->
+            <div class="h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🧠</span>
+                    <span class="font-bold text-lg text-warm-900 tracking-tight">Identity Architecture</span>
+                </div>
+                <a href="../" class="text-xs font-semibold text-warm-800 bg-white border border-warm-200 px-3 py-1.5 rounded-lg hover:text-brand-700 hover:border-brand-200 transition-colors" title="Back to the Knowledge Vault">← Vault</a>
+            </div>
+            <!-- Row 2: Section navigation (its own row; scrolls horizontally on small screens) -->
+            <nav class="pb-2 -mx-1 overflow-x-auto custom-scrollbar" aria-label="Section navigation">
+                <div class="flex items-center gap-1 text-sm font-semibold text-warm-800 min-w-max px-1">
+                    <a href="#paradigm" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Paradigm Shift</a>
+                    <a href="#neuropsych" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Future Self</a>
+                    <a href="#identity" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Identity Shift</a>
+                    <a href="#neurobiology" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Habit Loop</a>
+                    <a href="#protocols" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Protocols</a>
+                    <a href="#outliers" class="px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-50 hover:text-brand-700 transition-colors">Outlier Framing</a>
+                    <a href="#workbench" class="bg-brand-700 text-white px-3 py-1.5 rounded-lg whitespace-nowrap hover:bg-brand-800 transition-colors">Blueprint App</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- Hero Banner -->
+        <section class="text-center max-w-4xl mx-auto pt-6 pb-4">
+            <div class="inline-flex items-center space-x-2 bg-brand-50 border border-brand-100 text-brand-800 text-xs sm:text-sm font-semibold px-3.5 py-1.5 rounded-full mb-4">
+                <span>⚡ Reverse Engineering Human Behavioral Engineering</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-warm-900 tracking-tight leading-tight">
+                The Architecture of Self-Transformation
+            </h1>
+            <p class="mt-4 text-base sm:text-lg text-warm-800 max-w-2xl mx-auto">
+                Decoupling habits from outcome-driven willpower and anchoring them directly into the neurobiology of identity.
+            </p>
+        </section>
+
+        <!-- PARADIGM SHIFT SECTION -->
+        <section id="paradigm" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Structural Foundation</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">Outcome-Based vs. Identity-Based Transformation</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        The fundamental failure of standard goal setting lies in attempting to perform actions of a disparate future identity while maintaining the self-schema of your present identity. This creates cognitive dissonance that continuously drags you back to your baseline.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <!-- Flawed Traditional Model -->
+                    <div class="bg-red-50/60 border border-red-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-red-700 bg-red-100 px-2.5 py-1 rounded">Traditional Flawed Model</span>
+                                <span class="text-xl">⚠️</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-warm-900 mb-2">Outcome-First Driven</h3>
+                            <p class="text-xs sm:text-sm text-warm-800 mb-4">
+                                Attempting to change behavior by brute force through goals, forcing actions that feel alien to who you believe you are.
+                            </p>
+                            <div class="space-y-2 text-xs sm:text-sm font-medium">
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-red-200 text-red-900">
+                                    <strong>Step 1: Focus on Goal:</strong> "I want to wake up at 5:00 AM every day."
+                                </div>
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-red-200 text-red-900">
+                                    <strong>Step 2: Force Action:</strong> Night owl forces waking early via raw willpower.
+                                </div>
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-red-200 text-red-900">
+                                    <strong>Result: Friction & Regression:</strong> Brain treats action as performative, causing inevitable relapse.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-red-200 text-xs text-red-700 font-medium">
+                            Status: High cognitive friction, rapid executive depletion.
+                        </div>
+                    </div>
+
+                    <!-- Reverse Engineered Identity Model -->
+                    <div class="bg-brand-50/60 border border-brand-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-800 bg-brand-100 px-2.5 py-1 rounded">Reverse-Engineered Architecture</span>
+                                <span class="text-xl">🎯</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-warm-900 mb-2">Identity-First Driven</h3>
+                            <p class="text-xs sm:text-sm text-warm-800 mb-4">
+                                Adopting the self-concept of the target identity first. Actions then become natural expressions of that identity.
+                            </p>
+                            <div class="space-y-2 text-xs sm:text-sm font-medium">
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-brand-200 text-brand-900">
+                                    <strong>Step 1: Embody Identity:</strong> "I am a morning person today."
+                                </div>
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-brand-200 text-brand-900">
+                                    <strong>Step 2: Eliminate Choice:</strong> "Someone like me naturally gets up now."
+                                </div>
+                                <div class="bg-white/80 p-2.5 rounded-lg border border-brand-200 text-brand-900">
+                                    <strong>Result: Automatic Alignment:</strong> Actions reinforce self-schema; lapses are mere statistical outliers.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-brand-200 text-xs text-brand-800 font-medium">
+                            Status: Neural congruence, minimal prefrontal cognitive load.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 1: NEUROPSYCHOLOGY OF THE FUTURE SELF -->
+        <section id="neuropsych" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Module 1: Neurobiological Foundations</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">The Neuropsychology of the Future Self</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        fMRI studies reveal that the brain processes the "future self" in the same neural regions as a <em>stranger</em>. When ventromedial prefrontal cortex (vmPFC) activation drops, <strong>temporal discounting</strong> surges, sabotaging long-term goals for immediate rewards.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Text & Explanation -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-warm-100 p-4 rounded-xl border border-warm-200">
+                            <h4 class="font-bold text-sm text-warm-900 flex items-center gap-2">
+                                <span>🧬</span> Neural Dissimilarity in vmPFC
+                            </h4>
+                            <p class="text-xs sm:text-sm text-warm-800 mt-1">
+                                Thinking of yourself today activates robust vmPFC & rACC patterns. Thinking of yourself 10 years from now causes vmPFC activation to plummet to levels identical to thinking about a stranger.
+                            </p>
+                        </div>
+                        <div class="bg-warm-100 p-4 rounded-xl border border-warm-200">
+                            <h4 class="font-bold text-sm text-warm-900 flex items-center gap-2">
+                                <span>📉</span> Hyperbolic Temporal Discounting
+                            </h4>
+                            <p class="text-xs sm:text-sm text-warm-800 mt-1">
+                                The higher the neural distance between your present and future self, the more heavily your brain discounts future health, wealth, and identity rewards.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-brand-50 border border-brand-200 rounded-lg text-xs text-brand-900 font-medium">
+                            💡 <strong>Key Takeaway:</strong> To transform habits, you must collapse this neural distance through vivid continuity interventions.
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="lg:col-span-7 bg-warm-50 p-4 rounded-xl border border-warm-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xs font-bold text-warm-800 uppercase tracking-wider">Perceived Value of Future Reward Over Time</h4>
+                            <span class="text-xs text-warm-800 bg-white px-2 py-0.5 rounded border border-warm-200">fMRI Discounting Model</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="temporalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continuity Interventions Table -->
+                <div class="mt-8 border-t border-warm-200 pt-6">
+                    <h3 class="text-lg font-bold text-warm-900 mb-4">Validated Interventions to Collapse Neural Distance</h3>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs sm:text-sm text-warm-800">
+                            <thead class="bg-warm-100 text-warm-900 font-semibold border-b border-warm-200">
+                                <tr>
+                                    <th class="p-3 rounded-tl-lg">Intervention Methodology</th>
+                                    <th class="p-3">Mechanism of Action</th>
+                                    <th class="p-3 rounded-tr-lg">Demonstrated Empirical Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-warm-200">
+                                <tr class="hover:bg-warm-50">
+                                    <td class="p-3 font-semibold text-brand-800">Age-Progressed Renderings</td>
+                                    <td class="p-3">Digital age-progression visual stimuli trigger immediate emotional salience.</td>
+                                    <td class="p-3 text-warm-900 font-medium">+30% to +33% increase in long-term savings allocations.</td>
+                                </tr>
+                                <tr class="hover:bg-warm-50">
+                                    <td class="p-3 font-semibold text-brand-800">Bilateral Letter Writing</td>
+                                    <td class="p-3">Constructs concrete theory of mind with future self as a real stakeholder.</td>
+                                    <td class="p-3 text-warm-900 font-medium">19% reduction in processed foods; 23% reduction in ultra-processed purchases.</td>
+                                </tr>
+                                <tr class="hover:bg-warm-50">
+                                    <td class="p-3 font-semibold text-brand-800">Temporal Landmarks</td>
+                                    <td class="p-3">Psychological fresh-start effect dates create cognitive break with past identity.</td>
+                                    <td class="p-3 text-warm-900 font-medium">Amplifies efficacy of habit initiation by aligning with identity shifts.</td>
+                                </tr>
+                                <tr class="hover:bg-warm-50">
+                                    <td class="p-3 font-semibold text-brand-800">Values Continuity Audit</td>
+                                    <td class="p-3">Reflects on core values that remain stable across time horizons.</td>
+                                    <td class="p-3 text-warm-900 font-medium">2.3x higher likelihood of long-term health behavior maintenance.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 2: IDENTITY CONSTRUCTION MECHANICS -->
+        <section id="identity" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Module 2: Psychological Mechanics</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">Identity Construction & Self-Perception</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        According to Daryl Bem's <strong>Self-Perception Theory</strong>, the brain is an inference machine. It observes your external actions and infers who you are. Every habit execution is a "vote" for an identity.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Interactive Identity Evidence Counter -->
+                    <div class="bg-warm-50 p-6 rounded-xl border border-warm-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-warm-900 text-base">Identity Evidence Accumulator</h3>
+                                <span class="text-xs bg-brand-100 text-brand-800 px-2 py-0.5 rounded font-semibold">Self-Perception Machine</span>
+                            </div>
+                            <p class="text-xs text-warm-800 mb-4">
+                                Click "Cast Vote" to simulate accumulating behavioral evidence. Notice how the brain's internal narrative shifts as empirical evidence accumulates.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold text-warm-800 mb-1">
+                                        <span>Identity Status: <span id="identityLabel" class="text-brand-700">Aspirational / Struggling</span></span>
+                                        <span id="voteCount">0 / 20 Votes</span>
+                                    </div>
+                                    <div class="w-full bg-warm-200 h-3 rounded-full overflow-hidden">
+                                        <div id="voteProgress" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+
+                                <div id="narrativeBox" class="p-3 bg-white border border-warm-200 rounded-lg text-xs sm:text-sm text-warm-800 font-mono">
+                                    "I am trying to force myself to wake up, but I am still inherently a night owl..."
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex space-x-3">
+                            <button id="addVoteBtn" class="flex-1 bg-brand-700 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 rounded-lg hover:bg-brand-800 transition-colors shadow-sm">
+                                + Cast Behavioral Vote
+                            </button>
+                            <button id="resetVotesBtn" class="bg-warm-200 text-warm-800 text-xs font-semibold py-2.5 px-3 rounded-lg hover:bg-warm-300 transition-colors">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Oyserman's Identity-Based Motivation (IBM) -->
+                    <div class="bg-warm-50 p-6 rounded-xl border border-warm-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-warm-900 text-base">Identity-Based Motivation (IBM)</h3>
+                                <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Oyserman Framework</span>
+                            </div>
+                            <p class="text-xs text-warm-800 mb-4">
+                                When encountering behavioral friction or difficulty, the active identity determines how the brain interprets the struggle:
+                            </p>
+
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded-lg border border-red-200">
+                                    <div class="text-xs font-bold text-red-700 mb-1">❌ Identity-Incongruent Framing</div>
+                                    <div class="text-xs text-warm-800">
+                                        Friction = <em>"This is not who I am; this is impossible for me."</em> → Immediate disengagement.
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-brand-200">
+                                    <div class="text-xs font-bold text-brand-700 mb-1">✅ Identity-Congruent Framing</div>
+                                    <div class="text-xs text-warm-800">
+                                        Friction = <em>"This is important; this is what someone like me works through."</em> → Heightened engagement.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-warm-100 rounded-lg border border-warm-200 text-xs text-warm-800">
+                            <strong>Note on Imposter Syndrome:</strong> Experiencing feelings of fraudulence during early identity shifts is simply cognitive dissonance while behavioral evidence is accumulating.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 3: NEURAL HABIT LOOP & AUTOMATICITY ENGINE -->
+        <section id="neurobiology" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Module 3: Neurobiology of Automaticity</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">From Prefrontal Cortex to Basal Ganglia</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        Willpower relies on the fragile Prefrontal Cortex (PFC), which suffers rapid metabolic fatigue. True identity habits shift control to the <strong>Dorsolateral Striatum (DLS)</strong> in the Basal Ganglia via neural chunking.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Neural Stages Cards -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="p-3 rounded-xl border border-warm-200 bg-white">
+                            <div class="flex items-center justify-between text-xs font-bold text-warm-900 mb-1">
+                                <span>1. Initiation (PFC)</span>
+                                <span class="text-red-600 bg-red-50 px-2 py-0.5 rounded">High Friction</span>
+                            </div>
+                            <p class="text-xs text-warm-800">Goal-directed, conscious deliberation. High risk of failure due to decision fatigue.</p>
+                        </div>
+                        <div class="p-3 rounded-xl border border-warm-200 bg-white">
+                            <div class="flex items-center justify-between text-xs font-bold text-warm-900 mb-1">
+                                <span>2. Learning (DMS)</span>
+                                <span class="text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Action-Outcome</span>
+                            </div>
+                            <p class="text-xs text-warm-800">Dorsomedial Striatum learns associations between environmental cues and rewards.</p>
+                        </div>
+                        <div class="p-3 rounded-xl border border-warm-200 bg-white">
+                            <div class="flex items-center justify-between text-xs font-bold text-warm-900 mb-1">
+                                <span>3. Stability (DLS)</span>
+                                <span class="text-brand-600 bg-brand-50 px-2 py-0.5 rounded">Stimulus-Response</span>
+                            </div>
+                            <p class="text-xs text-warm-800">Control migrates to Dorsolateral Striatum. Behavior fires automatically upon context cue.</p>
+                        </div>
+                        <div class="p-3 rounded-xl border border-warm-200 bg-white">
+                            <div class="flex items-center justify-between text-xs font-bold text-warm-900 mb-1">
+                                <span>4. Automaticity (Basal Ganglia)</span>
+                                <span class="text-brand-800 bg-brand-100 px-2 py-0.5 rounded">Identity Embedded</span>
+                            </div>
+                            <p class="text-xs text-warm-800">Cortico-basal ganglia loops disinhibit thalamus. Bypasses executive dysfunction entirely.</p>
+                        </div>
+                    </div>
+
+                    <!-- Automaticity Chart Container -->
+                    <div class="lg:col-span-7 bg-warm-50 p-4 rounded-xl border border-warm-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xs font-bold text-warm-800 uppercase tracking-wider">Neural Transition & Automaticity Over Time (Lally 66-Day Model)</h4>
+                            <span class="text-xs text-brand-800 font-semibold">Mean: 66 Days</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="automaticityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4: STRATEGIC CHOICE ARCHITECTURE & PROTOCOLS -->
+        <section id="protocols" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Module 4: Environmental Design & Implementation</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">Choice Architecture & If-Then Protocols</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        Removing decisions protects the fragile prefrontal cortex. Combine environmental choice architecture with Peter Gollwitzer's <strong>Implementation Intentions</strong> (d = 0.65 effect size) to pre-load responses to friction.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Environmental Choice Architecture Comparison -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-warm-900">Environmental Choice Architecture</h3>
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="p-3.5 bg-warm-50 rounded-xl border border-warm-200">
+                                <div class="font-bold text-warm-900 mb-1 flex items-center gap-2">
+                                    <span>🏃</span> Exercise / Fitness Identity
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mt-2 text-xs">
+                                    <div class="bg-red-50 p-2 rounded text-red-900 border border-red-100">
+                                        <strong>Outcome:</strong> Negotiating at 6:00 AM whether to go to the gym.
+                                    </div>
+                                    <div class="bg-brand-50 p-2 rounded text-brand-900 border border-brand-100">
+                                        <strong>Identity Architecture:</strong> Laying clothes out in path of sight; packing bag night before.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-warm-50 rounded-xl border border-warm-200">
+                                <div class="font-bold text-warm-900 mb-1 flex items-center gap-2">
+                                    <span>💻</span> Focused Entrepreneur / Writer
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mt-2 text-xs">
+                                    <div class="bg-red-50 p-2 rounded text-red-900 border border-red-100">
+                                        <strong>Outcome:</strong> Trying to resist social media while document is open.
+                                    </div>
+                                    <div class="bg-brand-50 p-2 rounded text-brand-900 border border-brand-100">
+                                        <strong>Identity Architecture:</strong> Site blockers on; isolated browser profile; clean workspace.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive If-Then Protocol Generator -->
+                    <div class="bg-warm-50 p-6 rounded-xl border border-warm-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-warm-900 text-base">If-Then Protocol Builder</h3>
+                                <span class="text-xs bg-brand-100 text-brand-800 px-2 py-0.5 rounded font-semibold">Gollwitzer Override</span>
+                            </div>
+                            <p class="text-xs text-warm-800 mb-4">
+                                Formulate explicit pre-loaded triggers to automate execution when executive function is compromised.
+                            </p>
+
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-warm-800 mb-1">IF (Anticipated Trigger / Friction):</label>
+                                    <select id="ifTrigger" class="w-full text-xs p-2.5 rounded-lg border border-warm-300 bg-white text-warm-900 font-medium focus:ring-2 focus:ring-brand-600 focus:outline-none">
+                                        <option value="I feel the urge to procrastinate on writing">I feel the urge to procrastinate on writing</option>
+                                        <option value="the alarm rings at 5:30 AM and I want to hit snooze">the alarm rings at 5:30 AM and I want to hit snooze</option>
+                                        <option value="I experience acute fatigue after work">I experience acute fatigue after work</option>
+                                        <option value="I feel overwhelmed by a complex project">I feel overwhelmed by a complex project</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-warm-800 mb-1">THEN (Automated Identity Protocol):</label>
+                                    <select id="thenAction" class="w-full text-xs p-2.5 rounded-lg border border-warm-300 bg-white text-warm-900 font-medium focus:ring-2 focus:ring-brand-600 focus:outline-none">
+                                        <option value="I will open the document and write for exactly 5 minutes.">I will open the document and write for exactly 5 minutes.</option>
+                                        <option value="I put my feet directly on the floor without negotiating.">I put my feet directly on the floor without negotiating.</option>
+                                        <option value="I put on my workout clothes immediately before sitting down.">I put on my workout clothes immediately before sitting down.</option>
+                                        <option value="I break the first micro-task into a 2-minute step.">I break the first micro-task into a 2-minute step.</option>
+                                    </select>
+                                </div>
+
+                                <div class="pt-2">
+                                    <div class="p-3 bg-white border border-brand-200 rounded-lg">
+                                        <span class="text-xs font-bold text-brand-800 block mb-1">Generated Protocol:</span>
+                                        <p id="protocolResult" class="text-xs text-warm-900 font-semibold italic">
+                                            "IF I feel the urge to procrastinate on writing, THEN I will open the document and write for exactly 5 minutes."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-xs text-warm-800 bg-warm-100 p-2.5 rounded border border-warm-200">
+                            <strong>Neuro-Mechanism:</strong> Pre-loading this decision bypasses the prefrontal cortex during periods of ego depletion.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 5: FAILURE RESILIENCE & STATISTICAL REFRAMING -->
+        <section id="outliers" class="scroll-mt-32">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-bold text-brand-700 tracking-wider uppercase">Module 5: Neutralizing Regression</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-warm-900 mt-1">Outlier Reframing & The 86/14 Identity Model</h2>
+                    <p class="mt-2 text-warm-800 text-sm sm:text-base">
+                        The <strong>Abstinence Violation Effect (AVE)</strong> occurs when a single lapse causes an internal attribution ("I am a failure"), prompting complete identity collapse. Identity is defined by aggregate evidence—not absolute perfection.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Interactive 100-Day Grid Simulator -->
+                    <div class="lg:col-span-7 bg-warm-50 p-6 rounded-xl border border-warm-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="font-bold text-warm-900 text-sm sm:text-base">100-Day Identity Matrix</h3>
+                                <p class="text-xs text-warm-800">Click any day cell to simulate a lapse or successful execution.</p>
+                            </div>
+                            <div class="text-right">
+                                <span id="matrixSuccessRate" class="text-lg font-extrabold text-brand-700">86%</span>
+                                <span class="block text-[10px] text-warm-800 uppercase font-semibold">Identity Dominance</span>
+                            </div>
+                        </div>
+
+                        <!-- 100 Cell Grid -->
+                        <div id="gridContainer" class="grid grid-cols-10 gap-1.5 p-2 bg-white rounded-lg border border-warm-200 max-w-md mx-auto">
+                            <!-- JS populated -->
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-between text-xs text-warm-800 pt-2 border-t border-warm-200">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 bg-brand-600 rounded-sm"></span>
+                                <span>Successful Vote (86)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 bg-red-400 rounded-sm"></span>
+                                <span>Statistical Outlier (14)</span>
+                            </div>
+                            <button id="resetGridBtn" class="text-xs text-brand-700 font-semibold hover:underline">Reset Default</button>
+                        </div>
+                    </div>
+
+                    <!-- Chart & AVE Explanation -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="chart-container" style="height: 220px;">
+                            <canvas id="outlierDonutChart"></canvas>
+                        </div>
+
+                        <div class="bg-warm-100 p-4 rounded-xl border border-warm-200 text-xs space-y-2">
+                            <h4 class="font-bold text-warm-900 text-sm">Mathematical Truth of Identity</h4>
+                            <p class="text-warm-800">
+                                Waking up early 86 out of 100 times empirically establishes the identity of a morning person. The 14 missed days are mathematically defined as <strong>statistical outliers</strong>—not an identity regression.
+                            </p>
+                            <div class="p-2 bg-white rounded border border-warm-200 text-red-900 font-medium">
+                                🛡️ <strong>Defeating AVE:</strong> Reframing lapses as outliers neutralizes guilt and prevents regression to prior self-schemas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 6: REVERSE ENGINEERING BLUEPRINT APPLICATOR -->
+        <section id="workbench" class="scroll-mt-32">
+            <div class="bg-brand-900 text-white rounded-2xl p-6 sm:p-10 shadow-xl">
+                <div class="max-w-3xl mb-8">
+                    <span class="text-xs font-bold text-brand-100 tracking-wider uppercase">Module 6: Action Engine</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-1">Personal Identity Architecture Blueprint</h2>
+                    <p class="mt-2 text-brand-100 text-sm sm:text-base">
+                        Configure your target identity below to generate an immediate, reverse-engineered action plan built on neurobiological alignment.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Form Controls -->
+                    <div class="lg:col-span-6 space-y-4 text-warm-900">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-100 mb-1 uppercase">1. Target Future Identity:</label>
+                            <input type="text" id="bpIdentity" value="Disciplined Author & Morning Creator" class="w-full text-xs sm:text-sm p-3 rounded-lg border-0 bg-white font-semibold focus:ring-2 focus:ring-brand-600 focus:outline-none" placeholder="e.g. Elite Athlete, Morning Person, Prolific Builder">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-100 mb-1 uppercase">2. Daily Core Habit (Identity Vote):</label>
+                            <input type="text" id="bpHabit" value="Writing 500 words at 6:00 AM" class="w-full text-xs sm:text-sm p-3 rounded-lg border-0 bg-white font-semibold focus:ring-2 focus:ring-brand-600 focus:outline-none" placeholder="e.g. 30-min morning workout">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-100 mb-1 uppercase">3. Environmental Choice Architecture (Decision Removal):</label>
+                            <input type="text" id="bpEnvironment" value="Laptop opened to text document; phone placed in living room overnight." class="w-full text-xs sm:text-sm p-3 rounded-lg border-0 bg-white font-semibold focus:ring-2 focus:ring-brand-600 focus:outline-none" placeholder="e.g. Layout clothes; remove junk food">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-100 mb-1 uppercase">4. If-Then Protocol (Friction Override):</label>
+                            <input type="text" id="bpIfThen" value="IF I feel brain fog, THEN I write for just 5 minutes without editing." class="w-full text-xs sm:text-sm p-3 rounded-lg border-0 bg-white font-semibold focus:ring-2 focus:ring-brand-600 focus:outline-none" placeholder="e.g. IF urge to skip, THEN 5 minutes only">
+                        </div>
+                    </div>
+
+                    <!-- Generated Summary Card -->
+                    <div class="lg:col-span-6 bg-brand-800/80 border border-brand-700 p-6 rounded-xl flex flex-col justify-between text-white">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-brand-700 pb-3 mb-4">
+                                <h3 class="font-bold text-lg text-brand-50 flex items-center gap-2">
+                                    <span>📜</span> Your Architecture Summary
+                                </h3>
+                                <span class="text-xs bg-brand-600 text-white px-2.5 py-1 rounded font-mono">NEURAL READY</span>
+                            </div>
+
+                            <div class="space-y-3 text-xs sm:text-sm text-brand-100">
+                                <p>
+                                    <strong>Identity Declaration:</strong> <br>
+                                    <span id="summaryIdentity" class="text-white font-bold text-base">"I am a Disciplined Author & Morning Creator."</span>
+                                </p>
+                                <p>
+                                    <strong>Primary Behavioral Vote:</strong> <br>
+                                    <span id="summaryHabit" class="text-amber-300 font-semibold">Writing 500 words at 6:00 AM</span>
+                                </p>
+                                <p>
+                                    <strong>Pre-Computed Environment:</strong> <br>
+                                    <span id="summaryEnv" class="text-white">Laptop opened to text document; phone placed in living room overnight.</span>
+                                </p>
+                                <p>
+                                    <strong>Neural Fallback Protocol:</strong> <br>
+                                    <span id="summaryIfThen" class="text-teal-200 italic">IF I feel brain fog, THEN I write for just 5 minutes without editing.</span>
+                                </p>
+                                <p>
+                                    <strong>Outlier Protection Rule:</strong> <br>
+                                    <span class="text-white">Any missed executions are statistical outliers on my identity, not regressions to my past self.</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-brand-700 flex justify-end">
+                            <button onclick="window.print()" class="bg-white text-brand-900 font-bold text-xs py-2.5 px-4 rounded-lg hover:bg-brand-50 transition-colors shadow-md flex items-center gap-2">
+                                <span>🖨️</span> Export Strategy Blueprint
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-warm-100 border-t border-warm-200 py-8 mt-16 text-center text-xs text-warm-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold text-warm-900">The Architecture of Self-Transformation SPA</p>
+            <p class="mt-1">Synthesizing Neuroscience, Behavioral Economics, and Cognitive Psychology into Interactive Systems.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // 1. CHART.JS: Temporal Discounting
+        const ctxTemporal = document.getElementById('temporalChart').getContext('2d');
+        const temporalChart = new Chart(ctxTemporal, {
+            type: 'line',
+            data: {
+                labels: ['Present Day', '1 Year', '3 Years', '5 Years', '10 Years'],
+                datasets: [
+                    {
+                        label: 'Low Future Self Continuity (Stranger Neural Processing)',
+                        data: [100, 45, 22, 12, 5],
+                        borderColor: '#e11d48',
+                        backgroundColor: 'rgba(225, 29, 72, 0.05)',
+                        borderWidth: 2.5,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'High Future Self Continuity (Collapsed Neural Distance)',
+                        data: [100, 82, 70, 62, 55],
+                        borderColor: '#0f766e',
+                        backgroundColor: 'rgba(15, 118, 110, 0.05)',
+                        borderWidth: 2.5,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 10, family: 'Plus Jakarta Sans' },
+                            boxWidth: 12
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y + '% Perceived Value';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Subjective Reward Value (%)', font: { size: 10 } },
+                        min: 0,
+                        max: 100
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. CHART.JS: Automaticity Curve (Lally 66-day)
+        const ctxAuto = document.getElementById('automaticityChart').getContext('2d');
+        const automaticityChart = new Chart(ctxAuto, {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 15', 'Day 30', 'Day 45', 'Day 66', 'Day 90', 'Day 120'],
+                datasets: [
+                    {
+                        label: 'Basal Ganglia DLS Activity (Automaticity)',
+                        data: [5, 28, 52, 71, 88, 92, 95],
+                        borderColor: '#0f766e',
+                        backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Prefrontal Cortex (PFC Effort / Willpower)',
+                        data: [95, 75, 50, 32, 15, 10, 8],
+                        borderColor: '#d97706',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 10, family: 'Plus Jakarta Sans' }, boxWidth: 12 }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Relative Activation Level (%)', font: { size: 10 } },
+                        min: 0,
+                        max: 100
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 3. MODULE 2: Interactive Evidence Vote Counter
+        let currentVotes = 0;
+        const maxVotes = 20;
+        const addVoteBtn = document.getElementById('addVoteBtn');
+        const resetVotesBtn = document.getElementById('resetVotesBtn');
+        const voteCountEl = document.getElementById('voteCount');
+        const voteProgressEl = document.getElementById('voteProgress');
+        const identityLabelEl = document.getElementById('identityLabel');
+        const narrativeBoxEl = document.getElementById('narrativeBox');
+
+        const narratives = [
+            '"I am trying to force myself to wake up, but I am still inherently a night owl..."',
+            '"I woke up early once, but it feels performative and forced."',
+            '"I have accumulated a few consistent mornings. The friction is lessening."',
+            '"My brain is noticing a pattern: I consistently execute morning routines."',
+            '"Identity Shift Complete: I don\'t decide whether to wake up early; I am a morning person."'
+        ];
+
+        addVoteBtn.addEventListener('click', () => {
+            if (currentVotes < maxVotes) {
+                currentVotes += 2;
+                updateVoteUI();
+            }
+        });
+
+        resetVotesBtn.addEventListener('click', () => {
+            currentVotes = 0;
+            updateVoteUI();
+        });
+
+        // Sync the UI with the initial state on load (narrative + status label)
+        updateVoteUI();
+
+        function updateVoteUI() {
+            voteCountEl.textContent = `${currentVotes} / ${maxVotes} Votes`;
+            const pct = (currentVotes / maxVotes) * 100;
+            voteProgressEl.style.width = `${pct}%`;
+
+            if (currentVotes === 0) {
+                identityLabelEl.textContent = "Aspirational / Struggling";
+                identityLabelEl.className = "text-red-600";
+                narrativeBoxEl.textContent = narratives[0];
+            } else if (currentVotes <= 6) {
+                identityLabelEl.textContent = "Accumulating Evidence";
+                identityLabelEl.className = "text-amber-600";
+                narrativeBoxEl.textContent = narratives[1];
+            } else if (currentVotes <= 12) {
+                identityLabelEl.textContent = "Cognitive Shift In Progress";
+                identityLabelEl.className = "text-brand-600";
+                narrativeBoxEl.textContent = narratives[2];
+            } else if (currentVotes <= 18) {
+                identityLabelEl.textContent = "Strong Identity Alignment";
+                identityLabelEl.className = "text-brand-700 font-bold";
+                narrativeBoxEl.textContent = narratives[3];
+            } else {
+                identityLabelEl.textContent = "EMBODIED IDENTITY";
+                identityLabelEl.className = "text-brand-800 font-extrabold uppercase";
+                narrativeBoxEl.textContent = narratives[4];
+            }
+        }
+
+        // 4. MODULE 4: If-Then Protocol Builder
+        const ifTriggerSelect = document.getElementById('ifTrigger');
+        const thenActionSelect = document.getElementById('thenAction');
+        const protocolResult = document.getElementById('protocolResult');
+
+        function updateProtocol() {
+            protocolResult.textContent = `"IF ${ifTriggerSelect.value}, THEN ${thenActionSelect.value}"`;
+        }
+        ifTriggerSelect.addEventListener('change', updateProtocol);
+        thenActionSelect.addEventListener('change', updateProtocol);
+
+        // 5. MODULE 5: 100-Day Grid Simulator & Outlier Donut Chart
+        const gridContainer = document.getElementById('gridContainer');
+        const matrixSuccessRateEl = document.getElementById('matrixSuccessRate');
+        const resetGridBtn = document.getElementById('resetGridBtn');
+        let gridStates = Array(100).fill(true);
+        
+        // Default 14 random lapses
+        const defaultOutliers = [4, 12, 19, 27, 35, 42, 51, 60, 68, 74, 81, 88, 93, 97];
+        defaultOutliers.forEach(idx => gridStates[idx] = false);
+
+        function renderGrid() {
+            gridContainer.innerHTML = '';
+            let successCount = 0;
+
+            gridStates.forEach((isSuccess, idx) => {
+                if (isSuccess) successCount++;
+                const cell = document.createElement('div');
+                cell.className = `w-full aspect-square rounded-sm cursor-pointer transition-transform hover:scale-110 ${
+                    isSuccess ? 'bg-brand-600' : 'bg-red-400'
+                }`;
+                cell.title = `Day ${idx + 1}: ${isSuccess ? 'Identity Vote Executed' : 'Statistical Outlier (Lapse)'}`;
+                cell.addEventListener('click', () => {
+                    gridStates[idx] = !gridStates[idx];
+                    renderGrid();
+                });
+                gridContainer.appendChild(cell);
+            });
+
+            const pct = Math.round((successCount / 100) * 100);
+            matrixSuccessRateEl.textContent = `${pct}%`;
+            updateDonutChart(successCount, 100 - successCount);
+        }
+
+        resetGridBtn.addEventListener('click', () => {
+            gridStates = Array(100).fill(true);
+            defaultOutliers.forEach(idx => gridStates[idx] = false);
+            renderGrid();
+        });
+
+        // Donut Chart Initialization
+        const ctxDonut = document.getElementById('outlierDonutChart').getContext('2d');
+        const outlierDonutChart = new Chart(ctxDonut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Identity Dominant Votes', 'Statistical Outliers (Lapses)'],
+                datasets: [{
+                    data: [86, 14],
+                    backgroundColor: ['#0f766e', '#f87171'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 10, family: 'Plus Jakarta Sans' }, boxWidth: 10 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        function updateDonutChart(success, fail) {
+            outlierDonutChart.data.datasets[0].data = [success, fail];
+            outlierDonutChart.update();
+        }
+
+        renderGrid();
+
+        // 6. MODULE 6: Interactive Workbench Dynamic Binding
+        const bpIdentity = document.getElementById('bpIdentity');
+        const bpHabit = document.getElementById('bpHabit');
+        const bpEnvironment = document.getElementById('bpEnvironment');
+        const bpIfThen = document.getElementById('bpIfThen');
+
+        const summaryIdentity = document.getElementById('summaryIdentity');
+        const summaryHabit = document.getElementById('summaryHabit');
+        const summaryEnv = document.getElementById('summaryEnv');
+        const summaryIfThen = document.getElementById('summaryIfThen');
+
+        function updateBlueprint() {
+            summaryIdentity.textContent = `"${bpIdentity.value || 'Target Identity'}"`;
+            summaryHabit.textContent = bpHabit.value || 'Core Habit';
+            summaryEnv.textContent = bpEnvironment.value || 'Environmental Design';
+            summaryIfThen.textContent = bpIfThen.value || 'If-Then Fallback Protocol';
+        }
+
+        bpIdentity.addEventListener('input', updateBlueprint);
+        bpHabit.addEventListener('input', updateBlueprint);
+        bpEnvironment.addEventListener('input', updateBlueprint);
+        bpIfThen.addEventListener('input', updateBlueprint);
+    </script>
+</body>
+</html>

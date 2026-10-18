@@ -139,6 +139,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Identity Habit Formation](./identity_habit_formation/)
+**The Architecture of Self-Transformation** — why behavior decoupled from identity is processed by the brain as a temporary deviation rather than an intrinsic trait, and why grafting a disciplined future self's habits onto an undisciplined present self guarantees relapse. Reverse-engineers the full change sequence: collapsing the neural distance to the future self (vmPFC, age-progression, vivid visualization), Bem's self-perception theory and Oyserman's identity-based motivation turning behavior into belief, offloading control from the fragile prefrontal cortex to the basal-ganglia habit loop, pre-loading If-Then implementation intentions and choice architecture, and reframing lapses as statistical outliers rather than identity regressions.
+
+- 📝 [The Full Report](./identity_habit_formation/readme.md) — the long-form essay with 47 cited sources. (`readme.md`)
+- 🔁 [Interactive Infographic](./identity_habit_formation/index.html) — the complete warm-neutral, teal-themed interactive page: outcome-vs-identity paradigm comparison, fMRI temporal-discounting chart, identity-evidence vote accumulator, Oyserman Identity-Based Motivation friction-framing panel, Lally 66-day automaticity curve, If-Then protocol builder, clickable 100-day outlier matrix, and a personalized blueprint workbench. (`index.html`)
+
+---
+
 ### 📁 [Infidelity & Betrayal](./infidelity_n_betrayal/)
 **The Epistemology of Deception** — why cheating operates as a psychological mechanism to defer the guaranteed costs of a breakup rather than an act of passion. Grounded in Prospect Theory and loss aversion, the affair preserves the comfort, stability, and emotional infrastructure of the primary relationship while the transgressor avoids ever having to inhabit the role of "the villain"—transferring the entire psychological toll onto the betrayed partner. Synthesizes the calculus of avoidance (the "try before buying" safety net), Bandura's eight mechanisms of moral disengagement, attachment avoidance and the Dark Triad, dopamine-driven override of prefrontal control, Freyd's betrayal trauma and Janoff-Bulman's shattered assumptions, the onset of Post-Infidelity Stress Disorder (PISD), and the trauma-integration modalities (EMDR, Somatic Experiencing, TF-CBT, EFT) plus the radical-transparency requirements for true repair.
 
