@@ -26,6 +26,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
+		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
@@ -214,6 +215,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): The Neuroscience of Action and Avoidance — why skipping a day doesn't rewire the brain, procrastination is emotional regulation not willpower, and rest is a prerequisite for prefrontal control.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): Rhetoric-vs-empirics matrix, Lally habit-kinetics simulator, brain-architecture explorer, dopamine RPE lab, future-self empathy-gap analyzer & micro-action rehearsal generator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/readme.md): Long-form research essay with 64 cited sources.
+	- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/): The Psychology of Moral Motivation — why the same person is gracious to a stranger in an elevator yet hostile at home, and how performative niceness differs from boundary-backed character.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/): Three-stage elevator simulator with moral-licensing telemetry, archetype radar comparison, visibility-vs-private-effort licensing lab, moral-identity quadrant scatter, HEXACO boundary panels, canvas brain-network map & six-item self-assessment.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/readme.md): Long-form research essay with 104 cited sources.
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.

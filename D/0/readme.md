@@ -171,4 +171,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Nice Ego vs. Good Character](./nice_ego_vs_good_character/)
+**The Psychology of Moral Motivation** — why the same person can press a stranger's elevator button with a warm smile and then snap at their partner minutes later. Separates ego-driven niceness (transactional, externally validated, prone to moral licensing) from character-driven goodness (internalized identity, firm boundaries, praise-independent), synthesizing moral licensing and Tirole's cheap signaling, communal narcissism, Aquino & Reed's moral identity quadrants, HEXACO Honesty-Humility, the Jungian persona and shadow, Batson's empathy-altruism hypothesis, neurobiology (ventral striatum vs. TPJ/insula), and Kantian and Aristotelian ethics.
+
+- 📝 [The Full Report](./nice_ego_vs_good_character/readme.md) — the long-form essay with 104 cited sources. (`readme.md`)
+- 🎭 [Interactive Infographic](./nice_ego_vs_good_character/index.html) — the complete warm-sand & indigo interactive page: three-stage elevator simulator with real-time moral-licensing telemetry, archetype radar comparison, visibility-vs-private-effort licensing lab, Aquino & Reed moral-identity quadrant scatter, HEXACO boundary panels, interactive canvas brain-network map, and a six-item moral-motivation self-assessment. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*
