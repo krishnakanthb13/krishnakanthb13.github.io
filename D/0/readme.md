@@ -99,6 +99,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Effort Paradox](./effort_paradox/)
+**The Rationalist Fallacy in Human Bonding** — why the human brain devalues what comes free while obsessing over what costs effort. Synthesizes cognitive dissonance and the severity-of-initiation paradigm (Aronson & Mills 1959), the Ben Franklin effect (Jecker & Landy 1969), the Gain-Loss theory of attraction (Aronson & Linder 1965), Walster's selectively-hard-to-get findings, the IKEA effect, and Inzlicht's neurocomputational model of effort valuation—then maps the pathology of the hyper-giver who robs a partner of the cognitive friction required to synthesize attachment.
+
+- 📝 [The Full Report](./effort_paradox/readme.md) — the long-form essay with 27 cited sources. (`readme.md`)
+- ⛰️ [Interactive Infographic](./effort_paradox/index.html) — the complete warm-ivory, academic-blue interactive page: relational investment simulator (cognitive dissonance, perceived value, entitlement risk), four classic-study charts (Aronson & Mills 1959, Jecker & Landy 1969, Aronson & Linder 1965, Walster et al. 1973), a 5-question over-functioning audit, and a three-condition boundary-conditions framework. (`index.html`)
+
+---
+
 ### 📁 [Empathy & Discernment](./empathy_n_discernment/)
 **Understanding vs. Judging** — a neurobiological and clinical framework exploring the tension between empathy and discernment. Synthesizes the Opposing Domains Hypothesis (DMN/TPN reciprocal inhibition), DBT Wise Mind, Schema Therapy modes, and Pennebaker's expressive writing research to navigate the balance between understanding and protective judgment.
 

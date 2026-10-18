@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Effort Paradox: Psychology of Interpersonal Investment</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7fa',
+                            100: '#e4e8f0',
+                            200: '#cbd4e1',
+                            500: '#4361ee',
+                            600: '#3a56d4',
+                            700: '#2b42b1',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        },
+                        accent: {
+                            rose: '#e11d48',
+                            amber: '#d97706',
+                            emerald: '#059669',
+                            indigo: '#4f46e5'
+                        },
+                        paper: '#faf9f6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Embedded custom chart styling for precise layout constraint */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-paper text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- Chosen Palette: Warm Neutral Ivory Background (#faf9f6) with Deep Slate Blue Primary (#0f172a), Academic Blue Accent (#4361ee), Soft Amber (#d97706), and Rose Alerts (#e11d48). -->
+
+    <!-- Application Structure Plan: 
+         The SPA is organized into five complementary interactive modules designed for analytical exploration rather than linear reading:
+         1. Executive Overview & Thesis Core: Introduces the core paradox (Rational Fallacy vs Human Psychology) with dynamic status indicators and quick-toggle paradigms.
+         2. Interactive Investment Simulator: A interactive model allowing users to adjust giver/receiver effort, availability, and initiation friction to observe real-time predicted values for Dissonance, Perceived Value, and Relational Equity using Chart.js.
+         3. Classic Empirical Studies Lab: Tabbed access to interactive visualizations and deep dives into the four key foundational experiments (Aronson & Mills 1959, Jecker & Landy 1969, Aronson & Linder 1965, Walster et al. 1973).
+         4. Relational Dynamics Matrix & Over-Functioning Diagnostic: Interactive comparative card deck and a 5-question self-assessment tool evaluating relationship risk metrics.
+         5. Boundary Conditions & Strategic Framework: Actionable guidelines outlining when effort fails (Completion, Volition, Paradox of Force) with interactive expanders.
+         This structure was chosen to allow users to move fluidly between theoretical foundation, empirical evidence, and practical real-world scenario testing. -->
+
+    <!-- Visualization & Content Choices:
+         - Dynamic Simulator (Effort vs Value): Line chart (Chart.js) -> Shows non-linear relationship between friction and valuation -> User adjusts sliders -> Proves optimal 'Goldilocks' investment zone.
+         - Severity of Initiation Study (Aronson & Mills 1959): Bar chart (Chart.js) -> Compares control, mild, severe groups on discussion attraction ratings -> Proves cognitive dissonance synthesis.
+         - Ben Franklin Effect (Jecker & Landy 1969): Horizontal bar chart (Chart.js) -> Demonstrates how performing a favor increases liking of requester over control -> Proves giver attachment.
+         - Gain-Loss Theory (Aronson & Linder 1965): Line/Bar chart (Chart.js) -> Displays liking scores across 4 evaluation sequences (Neg-Pos vs Pos-Pos) -> Highlights the power of contrast.
+         - Selectively Hard to Get (Walster 1973): Polar/Radar or comparative bar chart -> Easy vs Hard vs Selectively Hard -> Demonstrates scarcity optimization.
+         - NO SVG / NO MERMAID used. All graphics leverage Canvas HTML5 (Chart.js) or styled HTML/CSS structures. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- TOP NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: brand + primary actions -->
+            <div class="h-16 flex items-center justify-between gap-3">
+                <div class="flex items-center space-x-3 min-w-0">
+                    <a href="../" class="text-slate-400 hover:text-brand-600 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 border border-slate-200 whitespace-nowrap" title="Back to the D/0 Knowledge Vault">← Vault</a>
+                    <span class="text-lg sm:text-2xl font-bold tracking-tight text-brand-900 whitespace-nowrap">🧠 The Effort Paradox</span>
+                    <span class="hidden lg:inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 whitespace-nowrap">
+                        Interpersonal Psychology Lab
+                    </span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="./readme.md" class="hidden sm:inline-block text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 border border-brand-200 px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition whitespace-nowrap">
+                        Read Essay
+                    </a>
+                    <a href="#simulator" class="bg-brand-600 hover:bg-brand-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition whitespace-nowrap">
+                        Test Scenario
+                    </a>
+                </div>
+            </div>
+            <!-- Row 2: section navigation (own row, scrolls horizontally on small screens) -->
+            <nav class="flex items-center gap-1 overflow-x-auto border-t border-slate-100 py-2 text-sm font-medium text-slate-600 custom-scrollbar">
+                <button type="button" onclick="scrollToSection('overview')" class="px-3 py-1.5 rounded-md hover:text-brand-600 hover:bg-slate-50 transition whitespace-nowrap">Overview</button>
+                <button type="button" onclick="scrollToSection('simulator')" class="px-3 py-1.5 rounded-md hover:text-brand-600 hover:bg-slate-50 transition whitespace-nowrap">Investment Simulator</button>
+                <button type="button" onclick="scrollToSection('studies')" class="px-3 py-1.5 rounded-md hover:text-brand-600 hover:bg-slate-50 transition whitespace-nowrap">Empirical Studies</button>
+                <button type="button" onclick="scrollToSection('diagnostics')" class="px-3 py-1.5 rounded-md hover:text-brand-600 hover:bg-slate-50 transition whitespace-nowrap">Diagnostic Tool</button>
+                <button type="button" onclick="scrollToSection('framework')" class="px-3 py-1.5 rounded-md hover:text-brand-600 hover:bg-slate-50 transition whitespace-nowrap">Boundaries &amp; Insights</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- SECTION 1: EXECUTIVE OVERVIEW -->
+        <section id="overview" class="space-y-8 scroll-mt-28">
+            <!-- Section Introductory Paragraph -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold">
+                    <span>⚡ Key Synthesis</span>
+                    <span>•</span>
+                    <span>Cognitive Science & Relational Valuation</span>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-900 tracking-tight font-serif leading-tight">
+                            Why Humans Devalue What Comes Free—And Obsess Over What Costs Effort
+                        </h1>
+                        <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+                            The classic rational-choice model suggests we should cherish partners who make our lives effortless. Yet cognitive neuroscience and social psychology reveal the exact opposite: value is synthesized through cognitive friction, personal sacrifice, and behavioral justification. When you absorb 100% of the labor in a relationship, you deprive the other person of the neuro-cognitive mechanisms required to synthesize lasting affection and respect.
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-500">
+                            <div class="flex items-center space-x-1">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                                <span>Cognitive Dissonance</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-amber"></span>
+                                <span>Ben Franklin Effect</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-rose"></span>
+                                <span>Gain-Loss Contrast</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-emerald"></span>
+                                <span>Selective Scarcity</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="text-xs uppercase font-bold tracking-wider text-slate-400">The Paradox Comparison</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3.5 rounded-lg border border-rose-100 shadow-sm flex items-start space-x-3">
+                                <span class="text-xl">🚨</span>
+                                <div class="text-xs">
+                                    <span class="font-bold text-slate-800 block">The Hyper-Accommodator (100% Giver)</span>
+                                    <span class="text-slate-500">Cancels plans, replies instantly, solves all problems. Result: Breeds entitlement, loss of respect, devaluation.</span>
+                                </div>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-lg border border-emerald-100 shadow-sm flex items-start space-x-3">
+                                <span class="text-xl">⚖️</span>
+                                <div class="text-xs">
+                                    <span class="font-bold text-slate-800 block">The Discerning Partner (Selective Friction)</span>
+                                    <span class="text-slate-500">Maintains boundaries, invites reciprocal favor, selective availability. Result: Triggers effort justification & deep psychological attachment.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantitative Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ben Franklin Shift</div>
+                    <div class="text-2xl font-bold text-brand-900">+38.4%</div>
+                    <p class="text-xs text-slate-500">Increase in liking when someone is asked to <span class="font-semibold text-slate-700">do a favor</span> vs receiving a favor.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Severity of Initiation</div>
+                    <div class="text-2xl font-bold text-brand-900">19.5 / 24</div>
+                    <p class="text-xs text-slate-500">Attraction score after severe initiation vs <span class="font-semibold text-slate-700">13.8 / 24</span> for effortless entry.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Gain-Loss Contrast Peak</div>
+                    <div class="text-2xl font-bold text-accent-emerald">+7.72 Rating</div>
+                    <p class="text-xs text-slate-500">Winning over a cold critic generates significantly higher attachment than constant praise.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Scarcity Premium</div>
+                    <div class="text-2xl font-bold text-accent-amber">Selective > Easy</div>
+                    <p class="text-xs text-slate-500">Selective availability creates maximum desirability without triggering defensive reactance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INTERACTIVE INVESTMENT SIMULATOR -->
+        <section id="simulator" class="space-y-6 scroll-mt-28">
+            <!-- Section Introductory Paragraph -->
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-brand-900 font-serif">Interactive Relational Investment Simulator</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    This interactive simulator allows you to model how changes in behavioral effort, availability, and required friction impact a partner's neuro-cognitive synthesis of relational value. Adjust the sliders below to see how effort justification, cognitive dissonance, and perceived value adjust dynamically.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <!-- Controls Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2">
+                        🎛️ Adjust Relationship Dynamics
+                    </h3>
+
+                    <!-- Slider 1: Your Investment (Over-functioning) -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-semibold">
+                            <label for="giverEffort" class="text-slate-700">Your Investment & Accommodation Level</label>
+                            <span id="giverEffortVal" class="text-brand-600 font-bold">85%</span>
+                        </div>
+                        <input type="range" id="giverEffort" min="10" max="100" value="85" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600">
+                        <p class="text-[11px] text-slate-400">High values = replying instantly, cancelling plans, solving all problems for them.</p>
+                    </div>
+
+                    <!-- Slider 2: Partner Investment Required (Friction) -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-semibold">
+                            <label for="receiverFriction" class="text-slate-700">Required Effort / Investment From Partner</label>
+                            <span id="receiverFrictionVal" class="text-brand-600 font-bold">15%</span>
+                        </div>
+                        <input type="range" id="receiverFriction" min="0" max="100" value="15" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600">
+                        <p class="text-[11px] text-slate-400">High values = asking for favors, setting boundaries, requiring emotional/physical effort.</p>
+                    </div>
+
+                    <!-- Dropdown: Availability Strategy -->
+                    <div class="space-y-2">
+                        <label for="scarcityMode" class="text-xs font-semibold text-slate-700 block">Availability & Selectivity Pattern</label>
+                        <select id="scarcityMode" class="w-full text-xs font-medium p-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <option value="easy">Uniformly Available (Always ready, zero boundaries)</option>
+                            <option value="selective" selected>Selectively Available (High standards, warm to them specifically)</option>
+                            <option value="hard">Uniformly Aloof (Extremely distant to everyone)</option>
+                        </select>
+                        <p class="text-[11px] text-slate-400">Controls contrast signaling and reward responsiveness in partner's brain.</p>
+                    </div>
+
+                    <!-- Calculated Output Status Box -->
+                    <div id="simulationFeedback" class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs space-y-1">
+                        <div class="font-bold text-rose-900 flex items-center space-x-1">
+                            <span>⚠️ Dynamic Alert:</span>
+                            <span id="alertTitle">High Devaluation &amp; Entitlement Risk</span>
+                        </div>
+                        <p id="alertBody" class="text-rose-800 leading-relaxed">
+                            You are doing most of the relational work (85%) while asking for little investment (15%). Lacking cognitive friction, your partner's brain devalues your presence and treats effort as baseline expectation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Simulation Visualization Chart Column -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-sm font-bold text-slate-800">Predicted Neuro-Cognitive Dynamics</h3>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-1 rounded">Live Simulation Model</span>
+                        </div>
+                        <!-- Standard Chart Container Wrapper -->
+                        <div class="chart-container">
+                            <canvas id="simulatorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-3 gap-2 text-center text-xs">
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="text-slate-400 block text-[10px]">Dissonance Score</span>
+                            <span id="dissonanceMetric" class="font-bold text-slate-800 text-sm">21 / 100</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="text-slate-400 block text-[10px]">Attachment Depth</span>
+                            <span id="attachmentMetric" class="font-bold text-slate-800 text-sm">5 / 100</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="text-slate-400 block text-[10px]">Entitlement Risk</span>
+                            <span id="entitlementMetric" class="font-bold text-accent-rose text-sm">88 / 100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CLASSIC EMPIRICAL STUDIES LAB -->
+        <section id="studies" class="space-y-6 scroll-mt-28">
+            <!-- Section Introductory Paragraph -->
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-brand-900 font-serif">Empirical Foundations Lab</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Explore the landmark social psychology experiments that proved the Effort Paradox. Click through the tabs to review raw experimental findings, control groups, and statistical outcomes directly from the source research literature.
+                </p>
+            </div>
+
+            <!-- Tab Buttons Navigation -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
+                <button onclick="switchStudyTab('aronson1959')" id="tab-aronson1959" class="study-tab-btn active px-4 py-2.5 rounded-lg text-xs font-semibold bg-brand-900 text-white shadow-sm transition">
+                    1. Aronson & Mills (1959)<br><span class="font-normal opacity-80">Severity of Initiation</span>
+                </button>
+                <button onclick="switchStudyTab('jecker1969')" id="tab-jecker1969" class="study-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">
+                    2. Jecker & Landy (1969)<br><span class="font-normal opacity-80">Ben Franklin Effect</span>
+                </button>
+                <button onclick="switchStudyTab('aronson1965')" id="tab-aronson1965" class="study-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">
+                    3. Aronson & Linder (1965)<br><span class="font-normal opacity-80">Gain-Loss Theory</span>
+                </button>
+                <button onclick="switchStudyTab('walster1973')" id="tab-walster1973" class="study-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">
+                    4. Walster et al. (1973)<br><span class="font-normal opacity-80">Selective Hard-to-Get</span>
+                </button>
+            </div>
+
+            <!-- TAB CONTENT CONTAINER -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                
+                <!-- STUDY TAB 1: ARONSON & MILLS (1959) -->
+                <div id="study-aronson1959" class="study-content-block space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="inline-block px-2.5 py-1 bg-brand-50 text-brand-800 text-xs font-bold rounded">
+                                Experiment #1: Cognitive Dissonance Synthesis
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                                Severity of Initiation Paradigm (Aronson & Mills, 1959)
+                            </h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Female students underwent either a <span class="font-semibold text-slate-800">Severe Initiation</span> (reading obscene texts aloud), a <span class="font-semibold text-slate-800">Mild Initiation</span>, or <span class="font-semibold text-slate-800">No Initiation</span> to join a discussion group. All participants were then played an intentionally dull, tedious group recording about invertebrate mating habits.
+                            </p>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                                <span class="font-bold text-slate-800 block">Psychological Mechanism:</span>
+                                <p class="text-slate-600">
+                                    Participants who suffered embarrassments experienced dissonance between "I suffered to get in" and "This group is boring." To resolve this internal tension, their brain re-rated the group as highly interesting (19.5/24).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <div class="chart-container">
+                                <canvas id="aronsonMillsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDY TAB 2: JECKER & LANDY (1969) -->
+                <div id="study-jecker1969" class="study-content-block hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="inline-block px-2.5 py-1 bg-amber-50 text-amber-800 text-xs font-bold rounded">
+                                Experiment #2: Asymmetry in Altruism
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                                The Ben Franklin Effect (Jecker & Landy, 1969)
+                            </h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Participants won money in a research contest. Later, either the <span class="font-semibold text-slate-800">Experimenter requested a personal favor</span> (return money due to running out of personal funds), a <span class="font-semibold text-slate-800">Secretary requested a departmental favor</span>, or <span class="font-semibold text-slate-800">No favor was asked</span> (Control).
+                            </p>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                                <span class="font-bold text-slate-800 block">Key Takeaway for Relationships:</span>
+                                <p class="text-slate-600">
+                                    Doing a favor for someone fundamentally increases your affection for <em>them</em> (Self-Perception Theory & Dissonance). Hyper-givers who do everything for a partner deprive the partner of doing favors, preventing affection from forming.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <div class="chart-container">
+                                <canvas id="benFranklinChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDY TAB 3: ARONSON & LINDER (1965) -->
+                <div id="study-aronson1965" class="study-content-block hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-800 text-xs font-bold rounded">
+                                Experiment #3: Contrast & Approval Dynamics
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                                Gain-Loss Theory of Attraction (Aronson & Linder, 1965)
+                            </h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Subjects listened to a peer evaluate them across 7 sequential interactions under four conditions: Constant Positive, Constant Negative, Positive-to-Negative (Loss), and <span class="font-semibold text-slate-800">Negative-to-Positive (Gain)</span>.
+                            </p>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                                <span class="font-bold text-slate-800 block">The Contrast Effect:</span>
+                                <p class="text-slate-600">
+                                    Winning over a critic (Gain condition) produced significantly higher attraction (+7.72) than constant, unconditional praise (+6.42). Constant givers become "sure things" with zero dopamine contrast.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <div class="chart-container">
+                                <canvas id="gainLossChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDY TAB 4: WALSTER ET AL. (1973) -->
+                <div id="study-walster1973" class="study-content-block hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-800 text-xs font-bold rounded">
+                                Experiment #4: Scarcity & Mate Selection
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                                The "Selectively Hard-to-Get" Paradigm (Walster et al., 1973)
+                            </h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Tested six experimental variations comparing uniformly easy, uniformly aloof, and <span class="font-semibold text-slate-800">selectively hard-to-get</span> partners (difficult for others to win over, but responsive to the subject).
+                            </p>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                                <span class="font-bold text-slate-800 block">Scarcity Optimization:</span>
+                                <p class="text-slate-600">
+                                    Being uniformly hard-to-get created cold hostility. Being uniformly easy created devaluation. Selectively hard-to-get combined scarcity signaling with personal reward, producing maximum desirability.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <div class="chart-container">
+                                <canvas id="walsterChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: DIAGNOSTIC TOOL & OVER-FUNCTIONING ASSESSMENT -->
+        <section id="diagnostics" class="space-y-6 scroll-mt-28">
+            <!-- Section Introductory Paragraph -->
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-brand-900 font-serif">Relational Risk & Over-Functioning Assessment</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Evaluate your current interpersonal habits against empirical effort parameters. Take this quick 5-question self-diagnostic to assess whether you are robbing your partner of the opportunity to invest.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Questionnaire Column -->
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
+                        📋 5-Minute Interpersonal Investment Audit
+                    </h3>
+
+                    <form id="quizForm" class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-800 block">1. When plans change or conflict arises, who usually adapts?</label>
+                            <div class="space-y-1">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q1" value="2" class="accent-brand-600">
+                                    <span>I immediately alter my schedule to accommodate them.</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q1" value="1" class="accent-brand-600">
+                                    <span>We take turns negotiating adjustments evenly.</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q1" value="0" class="accent-brand-600">
+                                    <span>I hold my boundaries and require them to meet me halfway.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-800 block">2. How do you handle favor requests and task delegation?</label>
+                            <div class="space-y-1">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q2" value="2" class="accent-brand-600">
+                                    <span>I solve all their problems before they even ask (100% service).</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q2" value="0" class="accent-brand-600">
+                                    <span>I strategically ask them for small favors to engage their investment.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-800 block">3. Communication & Availability responsiveness:</label>
+                            <div class="space-y-1">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q3" value="2" class="accent-brand-600">
+                                    <span>Instant response always, regardless of my busy schedule.</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q3" value="0" class="accent-brand-600">
+                                    <span>Selectively available; I reply when focused work is finished.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-800 block">4. Initiate emotional check-ins, planning, and logistics:</label>
+                            <div class="space-y-1">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q4" value="2" class="accent-brand-600">
+                                    <span>I initiate >80% of calls, dates, and relationship conversations.</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q4" value="0" class="accent-brand-600">
+                                    <span>I leave space for them to reach out and initiate planning.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-800 block">5. Expression of praise and validation:</label>
+                            <div class="space-y-1">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q5" value="2" class="accent-brand-600">
+                                    <span>Constant, unconditional praise regardless of their behavior.</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 p-2 rounded hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200">
+                                    <input type="radio" name="q5" value="0" class="accent-brand-600">
+                                    <span>Earned validation; high standards with genuine appreciation when earned.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="calculateQuiz()" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition">
+                            Calculate Over-Functioning Risk
+                        </button>
+                        <p id="quizWarning" class="hidden text-xs font-semibold text-rose-600 text-center" role="alert"></p>
+                    </form>
+                </div>
+
+                <!-- Result Score Display Column -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+                    <div id="quizResultBox" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4 text-center my-auto">
+                        <span class="text-4xl">⚖️</span>
+                        <h4 class="text-lg font-bold text-slate-900 font-serif">Diagnostic Score</h4>
+                        <div class="text-3xl font-extrabold text-brand-600" id="quizScoreText">-- / 10</div>
+                        <p class="text-xs text-slate-500 leading-relaxed" id="quizAnalysisText">
+                            Complete the 5 questions on the left to measure your interpersonal effort bias and risk of being under-valued.
+                        </p>
+                    </div>
+
+                    <!-- Comparison Reference Card -->
+                    <div class="bg-slate-900 text-white p-6 rounded-2xl space-y-3">
+                        <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">The "IKEA Effect" in Dyads</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Research by Norton, Mochon, & Ariely (2012) showed consumers place disproportionately high value on products they assemble themselves. A relationship provided 100% pre-assembled carries no personal investment or ownership cost—making it fragile and easy to abandon.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: BOUNDARY CONDITIONS & FRAMEWORK -->
+        <section id="framework" class="space-y-6 scroll-mt-28">
+            <!-- Section Introductory Paragraph -->
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-brand-900 font-serif">Critical Boundary Conditions & Implementation</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Effort justification is not a mandate for toxic behavior or unrequited suffering. Cognitive science outlines three non-negotiable boundary conditions required for effort to synthesize genuine attraction rather than burnout or hostility.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Boundary 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm">1</div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif">The Completion Boundary</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Effort increases valuation <strong>only when the task reaches successful completion</strong>. In Norton's IKEA studies, if built objects were subsequently destroyed or left incomplete, value plummeted. Demanding effort without rewarding connection causes severe emotional burnout.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 text-[11px] font-semibold text-rose-600">
+                        Rule: Pain without payoff destroys value.
+                    </div>
+                </div>
+
+                <!-- Boundary 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">2</div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif">Mandate of Volition</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            For cognitive dissonance to trigger affection, the partner's investment must feel <strong>entirely voluntary</strong>. Coerced effort or manipulative guilt causes psychological reactance—a defensive state driving hostility and resentment instead of attraction.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 text-[11px] font-semibold text-amber-600">
+                        Rule: Effort must be invited, never extorted.
+                    </div>
+                </div>
+
+                <!-- Boundary 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">3</div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif">The Paradox of Force</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Intentional, forceful effort applied to autonomic emotional states (forcing yourself to fall asleep, forcing someone to love you) almost universally fails. True relational equity requires stepping back to let natural psychological mechanisms operate.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 text-[11px] font-semibold text-emerald-600">
+                        Rule: Stop doing all the heavy lifting.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Action Plan Summary -->
+            <div class="bg-brand-900 text-white rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg">
+                <h3 class="text-xl font-bold font-serif text-white">
+                    Core Actionable Takeaway: The Reciprocity Equilibrium
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Relationships are not financial transactions where hyper-giving guarantees equal love. They are co-constructed psychological structures. To build deep respect and genuine attraction:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-amber-400 block">1. Cease Over-Functioning</span>
+                        <p class="text-slate-300">Stop solving non-urgent problems unprompted. Allow silence and space to exist.</p>
+                    </div>
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-amber-400 block">2. Invoke Ben Franklin Effect</span>
+                        <p class="text-slate-300">Ask your partner for small, meaningful favors. Let them experience giving to you.</p>
+                    </div>
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1">
+                        <span class="font-bold text-amber-400 block">3. Practice Selective Availability</span>
+                        <p class="text-slate-300">Maintain rich personal boundaries. Be warm when together, but never uniformly cheap.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-semibold text-slate-300">The Effort Paradox Interactive Analysis Application</p>
+            <p class="text-slate-500">Based on psychological research in Cognitive Dissonance (Festinger, Aronson & Mills), Ben Franklin Effect (Jecker & Landy), Gain-Loss Theory (Aronson & Linder), and Scarcity Heuristics (Walster et al.).</p>
+            <p class="pt-2">
+                <a href="./readme.md" class="text-amber-400 hover:text-amber-300 underline">The Full Report</a> &nbsp;•&nbsp;
+                <a href="../" class="text-amber-400 hover:text-amber-300 underline">← Back to the Knowledge Vault</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & CHART INITIALIZATION -->
+    <script>
+        // Global Smooth Scroll Helper
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Global Chart Instances Reference
+        let simulatorChartInstance = null;
+        let aronsonMillsChartInstance = null;
+        let benFranklinChartInstance = null;
+        let gainLossChartInstance = null;
+        let walsterChartInstance = null;
+
+        // --- 1. SIMULATOR LOGIC & CHART ---
+        function updateSimulator() {
+            const giverEffort = parseInt(document.getElementById('giverEffort').value);
+            const receiverFriction = parseInt(document.getElementById('receiverFriction').value);
+            const scarcityMode = document.getElementById('scarcityMode').value;
+
+            // Update Text Labels
+            document.getElementById('giverEffortVal').innerText = giverEffort + '%';
+            document.getElementById('receiverFrictionVal').innerText = receiverFriction + '%';
+
+            // Algorithmic Calculations
+            // Cognitive Dissonance generated in partner's brain = Receiver Friction * Scarcity Multiplier
+            let scarcityMult = scarcityMode === 'selective' ? 1.4 : (scarcityMode === 'hard' ? 0.9 : 0.5);
+            let dissonanceScore = Math.min(100, Math.round(receiverFriction * scarcityMult));
+
+            // Perceived Relational Value = Dissonance Score + (Gain Contrast Premium) - (Over-functioning Penalty)
+            let overFunctionPenalty = Math.max(0, (giverEffort - 50) * 0.8);
+            let perceivedValue = Math.max(10, Math.min(100, Math.round((dissonanceScore * 0.85) + 30 - overFunctionPenalty)));
+
+            // Entitlement Risk = High Giver Effort combined with Low Receiver Friction
+            let entitlementRisk = Math.min(100, Math.round((giverEffort * 0.7) + Math.max(0, (50 - receiverFriction) * 0.8)));
+
+            // Attachment Depth Score = Weighted equilibrium
+            let attachmentDepth = Math.max(5, Math.min(100, Math.round((perceivedValue * 0.6) + (dissonanceScore * 0.4) - (entitlementRisk * 0.3))));
+
+            // Update UI Metrics
+            document.getElementById('dissonanceMetric').innerText = dissonanceScore + ' / 100';
+            document.getElementById('attachmentMetric').innerText = attachmentDepth + ' / 100';
+            document.getElementById('entitlementMetric').innerText = entitlementRisk + ' / 100';
+
+            // Dynamic Alert Content
+            const alertTitle = document.getElementById('alertTitle');
+            const alertBody = document.getElementById('alertBody');
+            const alertBox = document.getElementById('simulationFeedback');
+
+            if (giverEffort > 70 && receiverFriction < 30) {
+                alertBox.className = "p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs space-y-1";
+                alertTitle.innerText = "High Devaluation & Entitlement Risk";
+                alertTitle.className = "text-rose-900 font-bold";
+                alertBody.innerText = "You are doing most of the relational work (" + giverEffort + "%) while asking for little investment (" + receiverFriction + "%). Lacking cognitive friction, your partner's brain devalues your presence and treats effort as baseline expectation.";
+            } else if (receiverFriction >= 40 && scarcityMode === 'selective') {
+                alertBox.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs space-y-1";
+                alertTitle.innerText = "Optimal Investment & Friction Zone";
+                alertTitle.className = "text-emerald-900 font-bold";
+                alertBody.innerText = "Balanced effort allows your partner to experience cognitive dissonance reduction through their own behavioral investments. Selective availability amplifies perceived value without triggering burnout.";
+            } else {
+                alertBox.className = "p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1";
+                alertTitle.innerText = "Sub-Optimal Dynamic Detected";
+                alertTitle.className = "text-amber-900 font-bold";
+                alertBody.innerText = "Adjust sliders to find the sweet spot where partner effort triggers investment without exceeding the completion boundary.";
+            }
+
+            // Update Simulator Chart Data
+            if (simulatorChartInstance) {
+                simulatorChartInstance.data.datasets[0].data = [giverEffort, receiverFriction, dissonanceScore, perceivedValue, entitlementRisk];
+                simulatorChartInstance.update();
+            }
+        }
+
+        function initSimulatorChart() {
+            const ctx = document.getElementById('simulatorChart').getContext('2d');
+            simulatorChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Your Effort', 'Partner Effort', 'Cognitive Dissonance', 'Perceived Value', 'Entitlement Risk'],
+                    datasets: [{
+                        label: 'Dynamic Metric Level (%)',
+                        data: [85, 15, 22, 34, 88],
+                        backgroundColor: [
+                            '#4361ee',
+                            '#059669',
+                            '#d97706',
+                            '#4f46e5',
+                            '#e11d48'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + '%'; }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(val);
+                                    return label.length > 14 ? label.substr(0, 14) + '...' : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- 2. EMPIRICAL STUDY CHARTS ---
+        function initAronsonMillsChart() {
+            const ctx = document.getElementById('aronsonMillsChart').getContext('2d');
+            aronsonMillsChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Control Group', 'Mild Initiation', 'Severe Initiation'],
+                    datasets: [{
+                        label: 'Discussion Attraction Rating (0 - 24)',
+                        data: [13.8, 14.6, 19.5],
+                        backgroundColor: ['#cbd5e1', '#94a3b8', '#4361ee'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Aronson & Mills (1959): Initiation Severity vs Attraction'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 24,
+                            title: { display: true, text: 'Attraction Score (Max 24)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initBenFranklinChart() {
+            const ctx = document.getElementById('benFranklinChart').getContext('2d');
+            benFranklinChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Control (No Favor)', 'Institutional Request', 'Personal Favor Request'],
+                    datasets: [{
+                        label: 'Liking Score for Requestor',
+                        data: [4.41, 4.35, 6.10],
+                        backgroundColor: ['#cbd5e1', '#94a3b8', '#d97706'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Jecker & Landy (1969): Ben Franklin Favor Effect'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: { display: true, text: 'Evaluation Score (1 - 10)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initGainLossChart() {
+            const ctx = document.getElementById('gainLossChart').getContext('2d');
+            gainLossChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pos -> Neg (Loss)', 'Neg -> Neg (Constant Critic)', 'Pos -> Pos (Constant Praise)', 'Neg -> Pos (Gain)'],
+                    datasets: [{
+                        label: 'Final Attraction Rating',
+                        data: [0.87, 2.52, 6.42, 7.72],
+                        backgroundColor: ['#e11d48', '#94a3b8', '#4361ee', '#059669'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Aronson & Linder (1965): Gain-Loss Contrast Ratings'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: { display: true, text: 'Liking Scale (-10 to +10)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initWalsterChart() {
+            const ctx = document.getElementById('walsterChart').getContext('2d');
+            walsterChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Uniformly Easy', 'Uniformly Hard', 'Selectively Hard-to-Get'],
+                    datasets: [{
+                        label: 'Desirability Score',
+                        data: [3.2, 2.8, 8.6],
+                        backgroundColor: ['#cbd5e1', '#e11d48', '#4f46e5'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Walster et al. (1973): Scarcity & Mate Selection'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: { display: true, text: 'Subject Desirability Index' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- TAB SWITCHING LOGIC ---
+        function switchStudyTab(studyId) {
+            // Hide all tab contents
+            const blocks = document.querySelectorAll('.study-content-block');
+            blocks.forEach(b => b.classList.add('hidden'));
+
+            // Deactivate all buttons
+            const btns = document.querySelectorAll('.study-tab-btn');
+            btns.forEach(b => {
+                b.className = 'study-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200';
+            });
+
+            // Activate selected tab & content
+            document.getElementById('study-' + studyId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + studyId);
+            activeBtn.className = 'study-tab-btn active px-4 py-2.5 rounded-lg text-xs font-semibold bg-brand-900 text-white shadow-sm transition';
+        }
+
+        // --- 3. DIAGNOSTIC QUIZ LOGIC ---
+        function calculateQuiz() {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+            let answered = 0;
+
+            const q1 = form.querySelector('input[name="q1"]:checked');
+            const q2 = form.querySelector('input[name="q2"]:checked');
+            const q3 = form.querySelector('input[name="q3"]:checked');
+            const q4 = form.querySelector('input[name="q4"]:checked');
+            const q5 = form.querySelector('input[name="q5"]:checked');
+
+            if (q1) { score += parseInt(q1.value); answered++; }
+            if (q2) { score += parseInt(q2.value); answered++; }
+            if (q3) { score += parseInt(q3.value); answered++; }
+            if (q4) { score += parseInt(q4.value); answered++; }
+            if (q5) { score += parseInt(q5.value); answered++; }
+
+            if (answered < 5) {
+                const warning = document.getElementById('quizWarning');
+                warning.innerText = "Please answer all 5 questions to view your complete diagnostic score.";
+                warning.classList.remove('hidden');
+                return;
+            }
+            document.getElementById('quizWarning').classList.add('hidden');
+
+            const scoreDisplay = document.getElementById('quizScoreText');
+            const analysisDisplay = document.getElementById('quizAnalysisText');
+
+            scoreDisplay.innerText = score + " / 10";
+
+            if (score >= 7) {
+                scoreDisplay.className = "text-3xl font-extrabold text-rose-600";
+                analysisDisplay.innerHTML = "<strong>Severe Over-Functioning Detected:</strong> You are absorbing almost all relational labor, which deprives your partner of the friction needed to trigger effort justification. High risk of devaluation.";
+            } else if (score >= 4) {
+                scoreDisplay.className = "text-3xl font-extrabold text-amber-600";
+                analysisDisplay.innerHTML = "<strong>Moderate Accommodation Bias:</strong> You occasionally over-function. Introducing small favor requests (Ben Franklin effect) and maintaining tighter boundaries will strengthen relational respect.";
+            } else {
+                scoreDisplay.className = "text-3xl font-extrabold text-emerald-600";
+                analysisDisplay.innerHTML = "<strong>Optimal Reciprocity Balance:</strong> You allow your partner to invest labor and emotional energy, maintaining high cognitive perceived value without triggering burnout.";
+            }
+        }
+
+        // --- WINDOW LOAD INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Attach Event Listeners to Simulator Controls
+            document.getElementById('giverEffort').addEventListener('input', updateSimulator);
+            document.getElementById('receiverFriction').addEventListener('input', updateSimulator);
+            document.getElementById('scarcityMode').addEventListener('change', updateSimulator);
+
+            // Initialize Canvas Charts
+            initSimulatorChart();
+            initAronsonMillsChart();
+            initBenFranklinChart();
+            initGainLossChart();
+            initWalsterChart();
+
+            // Run initial simulation calculation
+            updateSimulator();
+        });
+    </script>
+</body>
+</html>
