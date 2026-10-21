@@ -29,6 +29,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
+		- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/) — The Modern Paradigm of Absurdity
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
@@ -225,6 +226,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
+	- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/): The Modern Paradigm of Absurdity — from the trickster king who chained Death to Camus's absurd hero and Ariely's measured cost of meaningless labor.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/sisyphus/): Five-tab SPA with transgression stepper, character matrix, contrapasso table, Camus-vs-Sartre framework, three-responses explorer, Hour of Consciousness toggle, Ariely Bionicle & reservation-wage charts, workplace motivation simulator & alignment quiz.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/sisyphus/readme.md): Long-form research essay with 51 cited sources.
 
 ---
 

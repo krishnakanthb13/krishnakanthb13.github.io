@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sisyphean Condition | Myth, Philosophy & Behavioral Economics</title>
+    <meta name="description" content="An interdisciplinary interactive exploration of Sisyphus: classical mythology, Camus's Absurdism, and Dan Ariely's behavioral-economics experiments on meaningless labor.">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏔️</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            50: '#fbf9f5',
+                            100: '#f5f0e6',
+                            200: '#e6dcce',
+                            300: '#d4c3b0',
+                            700: '#5c4e43',
+                            800: '#3d322a',
+                            900: '#261f1a',
+                        },
+                        terracotta: {
+                            50: '#fdf3f1',
+                            100: '#fbe4e0',
+                            200: '#f7c9c2',
+                            300: '#f0a99e',
+                            400: '#e67f6f',
+                            500: '#c0392b',
+                            600: '#a93226',
+                            700: '#8e281e',
+                            800: '#76231b',
+                            900: '#5e1d16',
+                        },
+                        amber: {
+                            600: '#d35400',
+                            700: '#b7410e',
+                        },
+                        slate: {
+                            800: '#2c3e50',
+                            900: '#1a252f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-active {
+            border-bottom: 3px solid #c0392b;
+            color: #f0a99e;
+            font-weight: 700;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #d4c3b0;
+            border-radius: 3px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f5f0e6;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 font-sans antialiased min-h-screen flex flex-col selection:bg-terracotta-500 selection:text-white">
+
+    <!-- Chosen Palette: Warm Terracotta & Deep Slate Existential Palette -->
+    <!-- Application Structure Plan:
+         1. Header & Dynamic Navigation: Tabbed SPA architecture allowing non-linear exploration across Classical Mythology, Camusian Absurdism, Behavioral Economics, and Synthesis.
+         2. Executive Dashboard: High-level metrics, core narrative thesis, and key findings for fast comprehension.
+         3. Mythological Domain: Interactive character matrix, timeline of transgressions, and Contrapasso comparative matrix.
+         4. Existential Philosophy Domain: Camus vs Sartre comparison framework, 3 Responses to the Absurd decision explorer, and "Hour of Consciousness" descent interactive experience.
+         5. Behavioral Economics Domain: Chart.js rendering of Ariely's Bionicle and Shredder experiments, plus interactive Workplace Motivation Simulator.
+         6. Synthesis & Self-Reflection Tool: Interactive quiz allowing users to assess their balance between Camusian macro-lucidity and Ariely micro-meaning.
+    -->
+    <!-- Visualization & Content Choices:
+         - Bionicle Productivity Chart -> Bar Chart (Chart.js) -> Toggle dataset to compare Meaningful vs Sisyphus condition -> Proves ~32% loss in output.
+         - Reservation Wage Chart -> Horizontal Bar (Chart.js) -> Shows wage cost of ignored/shredded labor -> Clearly displays cost of futility.
+         - Mythological Transgressions -> Interactive Step-by-Step Stepper -> Clickable progression showing consequences -> Explains divine logic.
+         - Hour of Consciousness -> Dynamic Toggle View -> Alternates between Ascent (Labor) and Descent (Lucidity) with relevant quotes.
+         - Confirming NO SVG elements used; Unicode glyphs and HTML/CSS styling used instead. NO Mermaid JS used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Layout Convention: the sticky header uses TWO rows — Row 1 = brand, back-to-Vault link and page actions; Row 2 = section navigation on its own row (scrolls horizontally on small screens). -->
+    <!-- Top Navigation Header -->
+    <header class="bg-stone-900 text-stone-100 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: back link + brand + page action -->
+            <div class="flex justify-between items-center gap-3 h-16">
+                <div class="flex items-center space-x-3 min-w-0">
+                    <a href="../" class="shrink-0 text-stone-400 hover:text-amber-500 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-stone-800 border border-stone-700 whitespace-nowrap" title="Return to the D/0 Knowledge Vault">← Vault</a>
+                    <span class="text-2xl">🏛️</span>
+                    <div class="min-w-0">
+                        <h1 class="font-serif text-lg sm:text-xl font-bold tracking-wide text-stone-100 truncate">THE SISYPHEAN CONDITION</h1>
+                        <p class="text-xs text-stone-400 hidden sm:block">Mythology • Existentialism • Behavioral Economics</p>
+                    </div>
+                </div>
+                <a href="./readme.md" class="hidden sm:inline-block shrink-0 text-xs font-semibold px-3 py-2 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-700 text-stone-200 transition whitespace-nowrap" title="Read the full report">📖 Read Essay</a>
+            </div>
+            <!-- Row 2: section navigation on its own row (all viewports; scrolls horizontally on small screens) -->
+            <nav class="flex items-center gap-1 overflow-x-auto border-t border-stone-800 py-1 text-sm font-medium" aria-label="Section navigation">
+                <button type="button" onclick="switchTab('overview')" id="nav-overview" class="whitespace-nowrap py-2 px-3 rounded-t hover:text-amber-500 transition tab-active">Overview</button>
+                <button type="button" onclick="switchTab('mythology')" id="nav-mythology" class="whitespace-nowrap py-2 px-3 rounded-t hover:text-amber-500 transition">Mythology</button>
+                <button type="button" onclick="switchTab('philosophy')" id="nav-philosophy" class="whitespace-nowrap py-2 px-3 rounded-t hover:text-amber-500 transition">Philosophy</button>
+                <button type="button" onclick="switchTab('economics')" id="nav-economics" class="whitespace-nowrap py-2 px-3 rounded-t hover:text-amber-500 transition">Economics</button>
+                <button type="button" onclick="switchTab('synthesis')" id="nav-synthesis" class="whitespace-nowrap py-2 px-3 rounded-t hover:text-amber-500 transition">Synthesis</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: OVERVIEW & DASHBOARD -->
+        <section id="sec-overview" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-stone-800 text-stone-100 rounded-2xl p-6 sm:p-10 shadow-xl border border-stone-700 relative overflow-hidden">
+                <div class="max-w-3xl relative z-10 space-y-4">
+                    <span class="inline-block bg-terracotta-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Report Synthesis Application</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-stone-100 leading-tight">
+                        From Mythological Trickster to Modern Paradigm of Absurdity
+                    </h2>
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                        An interdisciplinary exploration of Sisyphus: condemned by Zeus to push a boulder for eternity, reinterpreted by Albert Camus as the ultimate absurd hero, and empirically tested by Dan Ariely to quantify the destructive psychological mechanics of meaningless labor.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="switchTab('philosophy')" class="bg-terracotta-500 hover:bg-terracotta-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow transition">
+                            Explore Camus' Philosophy ➔
+                        </button>
+                        <button onclick="switchTab('economics')" class="bg-stone-700 hover:bg-stone-600 text-stone-200 text-sm font-semibold px-5 py-2.5 rounded-lg shadow transition">
+                            View Empirical Data 📊
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-stone-500 uppercase">Death Cheated</span>
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <div class="text-3xl font-bold font-serif text-stone-900 mt-2">2 Times</div>
+                    <p class="text-xs text-stone-600 mt-1">Chained Thanatos & manipulated Queen Persephone.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-stone-500 uppercase">The Absurd Pivot</span>
+                        <span class="text-2xl">🏔️</span>
+                    </div>
+                    <div class="text-3xl font-bold font-serif text-terracotta-500 mt-2">1942</div>
+                    <p class="text-xs text-stone-600 mt-1">Albert Camus publishes <em>The Myth of Sisyphus</em> during WWII.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-stone-500 uppercase">Productivity Loss</span>
+                        <span class="text-2xl">📉</span>
+                    </div>
+                    <div class="text-3xl font-bold font-serif text-amber-600 mt-2">-32%</div>
+                    <p class="text-xs text-stone-600 mt-1">Reduction in completed labor under the "Sisyphus Condition".</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-stone-500 uppercase">Reservation Wage</span>
+                        <span class="text-2xl">💵</span>
+                    </div>
+                    <div class="text-3xl font-bold font-serif text-slate-800 mt-2 font-mono">200%</div>
+                    <p class="text-xs text-stone-600 mt-1">Pay required to work when labor is visibly shredded ($0.30 vs $0.15).</p>
+                </div>
+            </div>
+
+            <!-- Interdisciplinary Pillars -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-stone-200 space-y-6">
+                <div class="border-b border-stone-200 pb-4">
+                    <h3 class="text-xl font-serif font-bold text-stone-900">The Three Pillars of the Report</h3>
+                    <p class="text-sm text-stone-600 mt-1">This application synthesizes three distinct intellectual domains to analyze human struggle, resilience, and meaning.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-5 rounded-xl bg-stone-50 border border-stone-200 hover:border-terracotta-500 transition cursor-pointer" onclick="switchTab('mythology')">
+                        <div class="text-terracotta-500 font-bold text-sm tracking-wider uppercase mb-1">Pillar I</div>
+                        <h4 class="font-serif font-bold text-lg text-stone-900 mb-2">Classical Mythology</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Sisyphus as the cunning king of Corinth (*metis*), his severe violation of *xenia*, his extortion of Asopus, the chaining of Thanatos, and the divine *contrapasso* penalty of Tartarus.
+                        </p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-stone-50 border border-stone-200 hover:border-terracotta-500 transition cursor-pointer" onclick="switchTab('philosophy')">
+                        <div class="text-terracotta-500 font-bold text-sm tracking-wider uppercase mb-1">Pillar II</div>
+                        <h4 class="font-serif font-bold text-lg text-stone-900 mb-2">Absurdist Philosophy</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Albert Camus’s formulation of the Absurd (the collision of human desire for meaning with an indifferent universe), rejecting suicide, and finding victory in the "hour of consciousness."
+                        </p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-stone-50 border border-stone-200 hover:border-terracotta-500 transition cursor-pointer" onclick="switchTab('economics')">
+                        <div class="text-terracotta-500 font-bold text-sm tracking-wider uppercase mb-1">Pillar III</div>
+                        <h4 class="font-serif font-bold text-lg text-stone-900 mb-2">Behavioral Economics</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Dan Ariely's empirical experiments demonstrating how immediate futility eradicates intrinsic motivation, destroys labor efficiency, and doubles the wage cost of work.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CLASSICAL MYTHOLOGY -->
+        <section id="sec-mythology" class="hidden space-y-8">
+            <!-- Section Context Header -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-2">
+                <span class="text-xs font-bold text-terracotta-500 uppercase tracking-widest">Pillar I • Archaic & Classical Lore</span>
+                <h2 class="text-2xl font-serif font-bold text-stone-900">The Mythological Architect of Ephyra</h2>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    Explore the classical origins of Sisyphus—not merely as an eternal victim, but as a ruthless king endowed with extraordinary <em>metis</em> (cunning intelligence) who challenged the boundary between mortality and the divine.
+                </p>
+            </div>
+
+            <!-- Transgression Timeline / Stepper -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <h3 class="text-lg font-serif font-bold text-stone-900 border-b border-stone-200 pb-3">
+                    Chronology of Cosmic Transgressions
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <!-- Step 1 -->
+                    <div onclick="selectStep(1)" id="step-btn-1" class="p-4 rounded-xl border-2 border-terracotta-500 bg-stone-50 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-terracotta-500 text-white px-2 py-0.5 rounded-full">1</span>
+                            <span class="text-xs text-stone-400">Earthly Reign</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-stone-900">Violation of Xenia</h4>
+                        <p class="text-xs text-stone-500 mt-1">Murdered guests to show power.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div onclick="selectStep(2)" id="step-btn-2" class="p-4 rounded-xl border border-stone-200 bg-stone-50 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-stone-300 text-stone-700 px-2 py-0.5 rounded-full">2</span>
+                            <span class="text-xs text-stone-400">Zeus's Wrath</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-stone-900">Extortion of Asopus</h4>
+                        <p class="text-xs text-stone-500 mt-1">Traded Zeus' secret for a spring.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div onclick="selectStep(3)" id="step-btn-3" class="p-4 rounded-xl border border-stone-200 bg-stone-50 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-stone-300 text-stone-700 px-2 py-0.5 rounded-full">3</span>
+                            <span class="text-xs text-stone-400">First Escape</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-stone-900">Binding Thanatos</h4>
+                        <p class="text-xs text-stone-500 mt-1">Chained Death; stopped mortality.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div onclick="selectStep(4)" id="step-btn-4" class="p-4 rounded-xl border border-stone-200 bg-stone-50 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-stone-300 text-stone-700 px-2 py-0.5 rounded-full">4</span>
+                            <span class="text-xs text-stone-400">Second Escape</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-stone-900">Unburied Corpse</h4>
+                        <p class="text-xs text-stone-500 mt-1">Duped Queen Persephone.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div onclick="selectStep(5)" id="step-btn-5" class="p-4 rounded-xl border border-stone-200 bg-stone-50 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-stone-300 text-stone-700 px-2 py-0.5 rounded-full">5</span>
+                            <span class="text-xs text-stone-400">Damnation</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-stone-900">Tartarus Sentence</h4>
+                        <p class="text-xs text-stone-500 mt-1">Eternal rolling of the boulder.</p>
+                    </div>
+                </div>
+
+                <!-- Dynamic Step Content Area -->
+                <div id="step-content" class="bg-stone-50 p-6 rounded-xl border border-stone-200 space-y-3">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Character Matrix & Contrapasso Table Split -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Character & Genealogical Matrix -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-serif font-bold text-stone-900 border-b border-stone-200 pb-2">
+                        Key Mythological Figures
+                    </h3>
+                    <p class="text-xs text-stone-500">Click a figure to review their relationship and role in Sisyphus's life.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="character-buttons">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div id="character-detail" class="p-4 bg-stone-50 rounded-lg border border-stone-200 text-xs text-stone-700 space-y-1">
+                        <span class="font-bold text-stone-900">Select a figure above to inspect genealogical details.</span>
+                    </div>
+                </div>
+
+                <!-- Contrapasso Comparative Table -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <h3 class="text-lg font-serif font-bold text-stone-900 border-b border-stone-200 pb-2">
+                        Divine Retribution: The Contrapasso Logic
+                    </h3>
+                    <p class="text-xs text-stone-500">Ancient punishments matched the sinner's hubris (*contrapasso*).</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-stone-700">
+                            <thead class="bg-stone-100 uppercase text-stone-600 font-bold">
+                                <tr>
+                                    <th class="p-2.5">Sinner</th>
+                                    <th class="p-2.5">Cosmic Crime</th>
+                                    <th class="p-2.5">Tartarus Torture</th>
+                                    <th class="p-2.5">Psychological Contrapasso</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-200">
+                                <tr class="bg-amber-50/50">
+                                    <td class="p-2.5 font-bold text-stone-900">Sisyphus</td>
+                                    <td class="p-2.5">Used intellect (*metis*) to cheat death twice.</td>
+                                    <td class="p-2.5">Pushing boulder up steep hill eternally.</td>
+                                    <td class="p-2.5 font-semibold text-terracotta-600">Total rendering of intellect as useless against brute physics.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-stone-900">Tantalus</td>
+                                    <td class="p-2.5">Stole nectar; served son to the gods.</td>
+                                    <td class="p-2.5">Trapped in pool with unreachable food/water.</td>
+                                    <td class="p-2.5">Eternal physical temptation without fulfillment.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-stone-900">Tityos</td>
+                                    <td class="p-2.5">Attempted bodily assault on Leto.</td>
+                                    <td class="p-2.5">Chained while vultures devour his liver daily.</td>
+                                    <td class="p-2.5">Daily bodily violation mirroring his violation attempt.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXISTENTIAL PHILOSOPHY (CAMUS) -->
+        <section id="sec-philosophy" class="hidden space-y-8">
+            <!-- Section Context Header -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-2">
+                <span class="text-xs font-bold text-terracotta-500 uppercase tracking-widest">Pillar II • Albert Camus & The Absurd (1942)</span>
+                <h2 class="text-2xl font-serif font-bold text-stone-900">The Absurdist Reinterpretation</h2>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    In 1942, amid the horror of World War II, Albert Camus transformed Sisyphus from a condemned criminal into the ultimate hero. Camus argued that pushing the rock mirrors the repetitive, mechanical nature of human life—and that true freedom is found in conscious rebellion.
+                </p>
+            </div>
+
+            <!-- Camus vs Sartre Framework Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-serif font-bold text-lg text-terracotta-600">Camusian Absurdism</h3>
+                        <span class="text-xs bg-terracotta-50 text-terracotta-600 px-2 py-1 rounded font-mono">Albert Camus</span>
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        The Absurd is born from the conflict between the human mind seeking inherent meaning and the cold, silent universe that offers none.
+                    </p>
+                    <ul class="text-xs text-stone-700 space-y-2 pt-2 border-t border-stone-100">
+                        <li class="flex items-start"><span class="mr-2 text-terracotta-500">▪</span> <strong>Meaning Construction:</strong> Absolute meaning cannot be forged or invented.</li>
+                        <li class="flex items-start"><span class="mr-2 text-terracotta-500">▪</span> <strong>Stance:</strong> Accept meaninglessness without despair; live in continuous revolt.</li>
+                        <li class="flex items-start"><span class="mr-2 text-terracotta-500">▪</span> <strong>Sisyphus's State:</strong> Happy because he owns his task and rejects divine illusions.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-serif font-bold text-lg text-slate-800">Sartrean Existentialism</h3>
+                        <span class="text-xs bg-slate-100 text-slate-800 px-2 py-1 rounded font-mono">Jean-Paul Sartre</span>
+                    </div>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        "Existence precedes essence." Humans exist first, encounter themselves, and must define their purpose through conscious choice and action.
+                    </p>
+                    <ul class="text-xs text-stone-700 space-y-2 pt-2 border-t border-stone-100">
+                        <li class="flex items-start"><span class="mr-2 text-slate-700">▪</span> <strong>Meaning Construction:</strong> Purpose can and must be forged by personal agency.</li>
+                        <li class="flex items-start"><span class="mr-2 text-slate-700">▪</span> <strong>Stance:</strong> Absolute freedom creates radical responsibility for self-definition.</li>
+                        <li class="flex items-start"><span class="mr-2 text-slate-700">▪</span> <strong>Sisyphus's State:</strong> Would need to project personal meaning onto the boulder.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- The 3 Responses to the Absurd Decision Explorer -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <h3 class="text-lg font-serif font-bold text-stone-900 border-b border-stone-200 pb-3">
+                    The Three Human Responses to the Absurd
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Response 1 -->
+                    <div class="p-5 rounded-xl border border-stone-200 bg-stone-50 space-y-3 hover:shadow-md transition">
+                        <div class="text-xs font-bold text-red-600 uppercase tracking-wider">Option 1</div>
+                        <h4 class="font-bold text-base text-stone-900">Physical Suicide</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Ending one's life when confronted with meaninglessness.
+                        </p>
+                        <div class="p-3 bg-red-50 rounded text-xs text-red-800 border border-red-100">
+                            <strong>Camus' Verdict: REJECTED.</strong> It surrenders to the Absurd rather than confronting it. It eliminates one side of the paradox instead of mastering it.
+                        </div>
+                    </div>
+                    <!-- Response 2 -->
+                    <div class="p-5 rounded-xl border border-stone-200 bg-stone-50 space-y-3 hover:shadow-md transition">
+                        <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">Option 2</div>
+                        <h4 class="font-bold text-base text-stone-900">Philosophical Suicide</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Taking a "leap of faith" into religion, mysticism, or dogmatic hope.
+                        </p>
+                        <div class="p-3 bg-amber-50 rounded text-xs text-amber-800 border border-amber-100">
+                            <strong>Camus' Verdict: REJECTED.</strong> Intellectual cowardice. Escapes the void by inventing a supernatural safety net (Critique of Kierkegaard & Jaspers).
+                        </div>
+                    </div>
+                    <!-- Response 3 -->
+                    <div class="p-5 rounded-xl border-2 border-terracotta-500 bg-stone-50 space-y-3 hover:shadow-md transition">
+                        <div class="text-xs font-bold text-terracotta-600 uppercase tracking-wider">Option 3 • Authentic Path</div>
+                        <h4 class="font-bold text-base text-stone-900">Acceptance & Revolt</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Living fully in lucid awareness of the void without giving up or despairing.
+                        </p>
+                        <div class="p-3 bg-terracotta-50 rounded text-xs text-terracotta-800 border border-terracotta-100">
+                            <strong>Camus' Verdict: EMBRACED.</strong> Sisyphus's path. Defiance gives life its grandeur. "The struggle itself toward the heights is enough to fill a man's heart."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Hour of Consciousness Descent Simulator -->
+            <div class="bg-stone-900 text-stone-100 p-6 sm:p-8 rounded-2xl shadow-xl space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-stone-800 pb-4">
+                    <div>
+                        <span class="text-xs text-amber-500 uppercase font-bold tracking-widest">Interactive Experience</span>
+                        <h3 class="text-xl font-serif font-bold text-stone-100">The Hour of Consciousness</h3>
+                    </div>
+                    <div class="flex bg-stone-800 p-1 rounded-lg border border-stone-700">
+                        <button onclick="toggleConsciousness('ascent')" id="btn-ascent" class="px-4 py-1.5 rounded text-xs font-bold transition bg-stone-700 text-stone-100">The Ascent (Labor)</button>
+                        <button onclick="toggleConsciousness('descent')" id="btn-descent" class="px-4 py-1.5 rounded text-xs font-bold transition text-stone-400 hover:text-stone-200">The Descent (Lucidity)</button>
+                    </div>
+                </div>
+
+                <div id="consciousness-display" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Dynamic details populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: BEHAVIORAL ECONOMICS (DAN ARIELY) -->
+        <section id="sec-economics" class="hidden space-y-8">
+            <!-- Section Context Header -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-2">
+                <span class="text-xs font-bold text-terracotta-500 uppercase tracking-widest">Pillar III • Empirical Psychology & Economics</span>
+                <h2 class="text-2xl font-serif font-bold text-stone-900">Quantifying the "Sisyphus Condition"</h2>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    Behavioral economist Dan Ariely and colleagues empirically measured the impact of meaningless labor on human motivation. Their experiments reveal that while humans can process cosmic absurdities, immediate labor futility destroys productivity and doubles required compensation.
+                </p>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Experiment 1: Lego Bionicle Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <div class="flex justify-between items-center border-b border-stone-200 pb-3">
+                        <div>
+                            <h3 class="font-serif font-bold text-base text-stone-900">Experiment I: Lego Bionicles</h3>
+                            <p class="text-xs text-stone-500">Completed models under diminishing pay scale</p>
+                        </div>
+                        <span class="text-xs bg-amber-100 text-amber-800 font-mono px-2 py-1 rounded">Ariely et al.</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="bionicleChart"></canvas>
+                    </div>
+                    <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 text-xs text-stone-600 space-y-1">
+                        <p><strong>Key Insight:</strong> In the Sisyphus condition (where Legos were broken down immediately in front of subjects), completed output dropped by <strong>32%</strong> (10.6 down to 7.2 models). Furthermore, subjects' natural love for Legos ceased to correlate with output!</p>
+                    </div>
+                </div>
+
+                <!-- Experiment 2: Paper Shredding Reservation Wage Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
+                    <div class="flex justify-between items-center border-b border-stone-200 pb-3">
+                        <div>
+                            <h3 class="font-serif font-bold text-base text-stone-900">Experiment II: Reservation Wage</h3>
+                            <p class="text-xs text-stone-500">Pay rate per page at which subjects quit</p>
+                        </div>
+                        <span class="text-xs bg-amber-100 text-amber-800 font-mono px-2 py-1 rounded">Ariely et al.</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="shredderChart"></canvas>
+                    </div>
+                    <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 text-xs text-stone-600 space-y-1">
+                        <p><strong>Key Insight:</strong> Simply acknowledging labor ("Aha!") reduced the wage required to continue working down to $0.15. Destroying work (Shredded) doubled the cost to $0.30. Ignoring work was virtually identical to shredding it!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Workplace Motivation Simulator -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <div class="border-b border-stone-200 pb-3">
+                    <h3 class="text-lg font-serif font-bold text-stone-900">Interactive Workplace Motivation Simulator</h3>
+                    <p class="text-xs text-stone-500 mt-1">Adjust environmental factors to observe projected employee retention wage & productivity.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Slider 1: Acknowledgment -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-stone-700 flex justify-between">
+                            <span>Managerial Acknowledgment</span>
+                            <span id="val-ack" class="text-terracotta-600 font-mono">Medium</span>
+                        </label>
+                        <input type="range" id="input-ack" min="1" max="3" value="2" oninput="updateSimulator()" class="w-full accent-terracotta-500">
+                        <p class="text-[11px] text-stone-500">1: Direct Shred/Ignore | 2: Neutral | 3: Active Nod/Review</p>
+                    </div>
+
+                    <!-- Slider 2: Visible Impact -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-stone-700 flex justify-between">
+                            <span>Visible Accumulation / Impact</span>
+                            <span id="val-impact" class="text-terracotta-600 font-mono">Partial</span>
+                        </label>
+                        <input type="range" id="input-impact" min="1" max="3" value="2" oninput="updateSimulator()" class="w-full accent-terracotta-500">
+                        <p class="text-[11px] text-stone-500">1: Cancelled/Disassembled | 2: Stored | 3: Displayed/Used</p>
+                    </div>
+
+                    <!-- Slider 3: Task Complexity (IKEA Effect) -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-stone-700 flex justify-between">
+                            <span>Labor Effort / Autonomy</span>
+                            <span id="val-effort" class="text-terracotta-600 font-mono">Standard</span>
+                        </label>
+                        <input type="range" id="input-effort" min="1" max="3" value="2" oninput="updateSimulator()" class="w-full accent-terracotta-500">
+                        <p class="text-[11px] text-stone-500">1: Trivial/Passive | 2: Standard | 3: High Effort (IKEA Effect)</p>
+                    </div>
+                </div>
+
+                <!-- Simulation Output Panel -->
+                <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div>
+                        <span class="text-xs uppercase text-stone-500 font-bold">Estimated Output</span>
+                        <div id="sim-output" class="text-2xl font-bold font-serif text-stone-900 mt-1">8.9 Units</div>
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase text-stone-500 font-bold">Quit Reservation Wage</span>
+                        <div id="sim-wage" class="text-2xl font-bold font-serif text-terracotta-600 mt-1">$0.22 / page</div>
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase text-stone-500 font-bold">Intrinsic Motivation</span>
+                        <div id="sim-morale" class="text-2xl font-bold font-serif text-amber-600 mt-1">Moderate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spotlight: IKEA Effect & Cake Mix Egg Theory -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-xl border border-stone-200 space-y-2">
+                    <h4 class="font-bold text-stone-900 text-sm flex items-center">
+                        <span class="mr-2">🧱</span> The IKEA Effect
+                    </h4>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        In Dan Ariely's origami study, participants who folded ugly paper cranes valued their crude creations nearly as high as expert origami, whereas outside buyers valued them at almost zero. When instructions were made harder, creators valued their work <em>even more</em> because effort builds meaning.
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-stone-200 space-y-2">
+                    <h4 class="font-bold text-stone-900 text-sm flex items-center">
+                        <span class="mr-2">🥚</span> The Egg Theory (Instant Cake Mixes)
+                    </h4>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Early cake mixes required only water and failed commercially. Psychologists realized it was too simple—bakers felt no labor ownership. When manufacturers required adding a real fresh egg, sales soared. The explicit injection of effort cured labor alienation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SYNTHESIS & SELF-REFLECTION -->
+        <section id="sec-synthesis" class="hidden space-y-8">
+            <!-- Section Context Header -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-2">
+                <span class="text-xs font-bold text-terracotta-500 uppercase tracking-widest">Synthesis • Micro vs. Macro Equilibrium</span>
+                <h2 class="text-2xl font-serif font-bold text-stone-900">The Sisyphean Equilibrium</h2>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    Bridging philosophical lucidity and empirical design. While Camus urges macro-acceptance of cosmic absurdity, Ariely proves we must insulate our daily micro-environments from pure futility.
+                </p>
+            </div>
+
+            <!-- Interactive Assessment Tool -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <div class="border-b border-stone-200 pb-3">
+                    <h3 class="text-lg font-serif font-bold text-stone-900">Assess Your Sisyphean Alignment</h3>
+                    <p class="text-xs text-stone-500">Answer 3 brief questions to discover your balance between Camusian Lucidity and Ariely Environmental Meaning.</p>
+                </div>
+
+                <form id="quiz-form" class="space-y-6" onsubmit="event.preventDefault(); calculateQuiz();">
+                    <!-- Q1 -->
+                    <div class="space-y-2">
+                        <p class="text-sm font-bold text-stone-800">1. How do you respond when a major project you worked on is suddenly cancelled?</p>
+                        <div class="space-y-1 text-xs text-stone-700">
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q1" value="A" checked class="accent-terracotta-500">
+                                <span>I feel totally demoralized and find it hard to start the next project.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q1" value="B" class="accent-terracotta-500">
+                                <span>I recognize that all work is transient, smile, and move on to the next task.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="space-y-2">
+                        <p class="text-sm font-bold text-stone-800">2. What gives your daily work or studies the most value?</p>
+                        <div class="space-y-1 text-xs text-stone-700">
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q2" value="A" checked class="accent-terracotta-500">
+                                <span>Knowing that someone acknowledges it and that it serves a clear purpose.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q2" value="B" class="accent-terracotta-500">
+                                <span>The internal defiance and discipline of doing it regardless of outcomes.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="space-y-2">
+                        <p class="text-sm font-bold text-stone-800">3. When thinking about ultimate existential questions (mortality, meaning):</p>
+                        <div class="space-y-1 text-xs text-stone-700">
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q3" value="A" checked class="accent-terracotta-500">
+                                <span>I prefer focusing on concrete, solvable local problems and immediate progress.</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 rounded hover:bg-stone-50 cursor-pointer">
+                                <input type="radio" name="q3" value="B" class="accent-terracotta-500">
+                                <span>I embrace the lack of ultimate meaning as a source of radical freedom.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="bg-stone-900 hover:bg-stone-800 text-stone-100 text-sm font-bold px-6 py-2.5 rounded-lg shadow transition">
+                        Calculate Alignment Result ➔
+                    </button>
+                </form>
+
+                <!-- Quiz Result Panel -->
+                <div id="quiz-result" class="hidden p-6 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 text-xs py-8 border-t border-stone-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+            <p class="font-serif text-stone-200 text-sm">"The struggle itself toward the heights is enough to fill a man's heart." — Albert Camus</p>
+            <p>Comprehensive Source Analysis Application • Single-Page Architecture</p>
+            <p class="pt-2">
+                <a href="../" class="text-amber-500 hover:underline">← Back to D/0 Vault</a> &nbsp;•&nbsp;
+                <a href="./readme.md" class="text-amber-500 hover:underline">Read the Full Report</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // DOM State Management
+        let currentTab = 'overview';
+        let bionicleChartInstance = null;
+        let shredderChartInstance = null;
+
+        // Data Store
+        const characterData = [
+            { name: "Aeolus", role: "Father", detail: "King of Thessaly; patriarch of a powerful but tragically flawed lineage." },
+            { name: "Salmoneus", role: "Brother", detail: "Bitter rival whom Sisyphus plotted to eliminate via an incestuous proxy plot." },
+            { name: "Tyro", role: "Niece", detail: "Seduced by Sisyphus to fulfill a dark Oracle prophecy; killed her own infants to save her father." },
+            { name: "Merope", role: "Wife", detail: "A Pleiad who complied with his plot to leave his corpse unburied, tricking Tartarus." },
+            { name: "Autolycus", role: "Rival / Ally", detail: "Master thief whose cattle Sisyphus identified using branded hooves; impressed by Sisyphus's metis." },
+            { name: "Anticleia", role: "Lover", detail: "Mother of Odysseus; seduced by Sisyphus on the eve of her wedding to Laërtes." },
+            { name: "Odysseus", role: "Putative Son", detail: "Inherited Sisyphus's extreme metis (cunning intelligence) and survival instinct." }
+        ];
+
+        const stepData = {
+            1: {
+                title: "1. Violation of Xenia (Hospitality)",
+                content: "As ruler of Ephyra (Corinth), Sisyphus enriched his kingdom by routinely murdering travelers and guests who entered his palace. This directly violated xenia—the sacred Greek code of hospitality protected by Zeus."
+            },
+            2: {
+                title: "2. Extortion of Asopus & Betrayal of Zeus",
+                content: "Sisyphus witnessed Zeus abduct the nymph Aegina. When her father, the river god Asopus, searched for her, Sisyphus traded Zeus's secret in exchange for Asopus creating a perpetual freshwater spring (Peirene) for Corinth."
+            },
+            3: {
+                title: "3. Chaining Thanatos (Halting Mortality)",
+                content: "Enraged by the betrayal, Zeus sent Thanatos (Death) to chain Sisyphus in Tartarus. Sisyphus tricked Thanatos into demonstrating how the shackles worked, locking Death in his own chains. Result: Nobody on Earth could die, causing global chaos."
+            },
+            4: {
+                title: "4. The Unburied Corpse & Persephone's Furlough",
+                content: "Rescued by Ares, Sisyphus instructed his wife Merope to throw his body unburied into the public square. In Tartarus, Sisyphus pleaded with Queen Persephone for a 3-day furlough to punish his 'disrespectful' wife. Upon returning to sunlight, he simply stayed alive."
+            },
+            5: {
+                title: "5. Eternal Damnation in Tartarus",
+                content: "Hermes eventually dragged Sisyphus back to the Underworld. Hades enchanted a massive boulder so that whenever Sisyphus neared the hill's summit, the stone's weight would overcome him, rolling back to the valley forever."
+            }
+        };
+
+        // Navigation Switcher
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const sections = ['overview', 'mythology', 'philosophy', 'economics', 'synthesis'];
+            
+            sections.forEach(sec => {
+                const el = document.getElementById(`sec-${sec}`);
+                const navEl = document.getElementById(`nav-${sec}`);
+                if (sec === tabId) {
+                    el.classList.remove('hidden');
+                    if (navEl) navEl.classList.add('tab-active');
+                } else {
+                    el.classList.add('hidden');
+                    if (navEl) navEl.classList.remove('tab-active');
+                }
+            });
+
+            // Lazy init charts on tab show
+            if (tabId === 'economics') {
+                initCharts();
+            }
+
+            // Bring the new section into view instead of staying at the previous scroll depth
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Stepper Selector Logic
+        function selectStep(stepNum) {
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                if (i === stepNum) {
+                    btn.className = "p-4 rounded-xl border-2 border-terracotta-500 bg-stone-50 cursor-pointer transition shadow-sm";
+                    btn.querySelector('span').className = "text-xs font-bold bg-terracotta-500 text-white px-2 py-0.5 rounded-full";
+                } else {
+                    btn.className = "p-4 rounded-xl border border-stone-200 bg-stone-50 cursor-pointer transition hover:border-stone-300";
+                    btn.querySelector('span').className = "text-xs font-bold bg-stone-300 text-stone-700 px-2 py-0.5 rounded-full";
+                }
+            }
+            const data = stepData[stepNum];
+            document.getElementById('step-content').innerHTML = `
+                <h4 class="font-serif font-bold text-base text-stone-900">${data.title}</h4>
+                <p class="text-xs text-stone-700 leading-relaxed">${data.content}</p>
+            `;
+        }
+
+        // Populate Character Matrix
+        function initCharacters() {
+            const container = document.getElementById('character-buttons');
+            container.innerHTML = characterData.map((c, idx) => `
+                <button onclick="showCharacter(${idx})" class="p-2 bg-stone-100 hover:bg-terracotta-50 hover:text-terracotta-700 rounded text-xs font-bold text-stone-800 text-left border border-stone-200 transition">
+                    ${c.name}
+                </button>
+            `).join('');
+        }
+
+        function showCharacter(idx) {
+            const c = characterData[idx];
+            document.getElementById('character-detail').innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold text-stone-900 text-sm">${c.name}</span>
+                    <span class="bg-stone-200 text-stone-700 px-2 py-0.5 rounded text-[10px] font-mono">${c.role}</span>
+                </div>
+                <p class="text-stone-600 leading-relaxed">${c.detail}</p>
+            `;
+        }
+
+        // Consciousness Toggle
+        function toggleConsciousness(mode) {
+            const btnAscent = document.getElementById('btn-ascent');
+            const btnDescent = document.getElementById('btn-descent');
+            const display = document.getElementById('consciousness-display');
+
+            if (mode === 'ascent') {
+                btnAscent.className = "px-4 py-1.5 rounded text-xs font-bold transition bg-stone-700 text-stone-100";
+                btnDescent.className = "px-4 py-1.5 rounded text-xs font-bold transition text-stone-400 hover:text-stone-200";
+                display.innerHTML = `
+                    <div class="space-y-4">
+                        <span class="text-xs bg-amber-500/20 text-amber-400 font-mono px-2 py-1 rounded uppercase">State 1: Physical Strain</span>
+                        <h4 class="text-2xl font-serif font-bold text-white">The Ascent (Pushing the Rock)</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            Homer describes the violent physical torment: every muscle strained, feet braced against earth, dust rising from his head. This represents the mechanical routine of human life: "Rising, streetcar, four hours in the office or factory, meal, sleep..."
+                        </p>
+                    </div>
+                    <div class="p-5 bg-stone-800 rounded-xl border border-stone-700 text-xs italic text-stone-300 space-y-2">
+                        <p>"Verily he would brace himself with hands and feet, and thrust the stone toward the crest of a hill..."</p>
+                        <span class="block text-right font-sans not-italic text-stone-500 text-[10px]">— Homer, Odyssey (Book 11)</span>
+                    </div>
+                `;
+            } else {
+                btnDescent.className = "px-4 py-1.5 rounded text-xs font-bold transition bg-stone-700 text-stone-100";
+                btnAscent.className = "px-4 py-1.5 rounded text-xs font-bold transition text-stone-400 hover:text-stone-200";
+                display.innerHTML = `
+                    <div class="space-y-4">
+                        <span class="text-xs bg-terracotta-500/20 text-terracotta-400 font-mono px-2 py-1 rounded uppercase">State 2: Lucid Victory</span>
+                        <h4 class="text-2xl font-serif font-bold text-white">The Descent (The Hour of Consciousness)</h4>
+                        <p class="text-xs text-stone-300 leading-relaxed">
+                            As the boulder rolls down, Sisyphus walks back down the mountain. Unburdened by labor, he is entirely conscious of his eternal futility. By embracing this truth without hope or despair, he strips the gods of power. The rock becomes HIS rock.
+                        </p>
+                    </div>
+                    <div class="p-5 bg-stone-800 rounded-xl border border-stone-700 text-xs italic text-stone-300 space-y-2">
+                        <p>"The lucidity that was to constitute his torture at the same time crowns his victory. There is no fate that cannot be surmounted by scorn."</p>
+                        <span class="block text-right font-sans not-italic text-stone-500 text-[10px]">— Albert Camus, The Myth of Sisyphus</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize Chart.js Data
+        function initCharts() {
+            if (bionicleChartInstance && shredderChartInstance) return;
+            if (typeof Chart === 'undefined') return; // CDN unreachable — page stays usable without charts
+
+            // Chart 1: Lego Bionicle Experiment
+            const ctx1 = document.getElementById('bionicleChart').getContext('2d');
+            bionicleChartInstance = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Meaningful Condition', 'Sisyphus Condition'],
+                    datasets: [{
+                        label: 'Avg Bionicles Assembled',
+                        data: [10.6, 7.2],
+                        backgroundColor: ['#2c3e50', '#c0392b'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Assembled: ${context.raw} models`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 14,
+                            title: { display: true, text: 'Average Models Assembled' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Paper Shredder Reservation Wage
+            const ctx2 = document.getElementById('shredderChart').getContext('2d');
+            shredderChartInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Acknowledged', 'Ignored', 'Shredded (Sisyphus)'],
+                    datasets: [{
+                        label: 'Reservation Wage ($/page)',
+                        data: [0.15, 0.28, 0.30],
+                        backgroundColor: ['#27ae60', '#e67e22', '#c0392b'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Reservation Wage: $${context.raw.toFixed(2)}/page`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 0.40,
+                            title: { display: true, text: 'Cost to Keep Working ($)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Workplace Simulator Dynamic Update
+        function updateSimulator() {
+            const ack = parseInt(document.getElementById('input-ack').value);
+            const impact = parseInt(document.getElementById('input-impact').value);
+            const effort = parseInt(document.getElementById('input-effort').value);
+
+            const ackText = ['Direct Shred/Ignore', 'Neutral', 'Active Nod/Review'][ack - 1];
+            const impactText = ['Cancelled/Disassembled', 'Stored', 'Displayed/Used'][impact - 1];
+            const effortText = ['Trivial/Passive', 'Standard', 'High Effort (IKEA Effect)'][effort - 1];
+
+            document.getElementById('val-ack').innerText = ackText;
+            document.getElementById('val-impact').innerText = impactText;
+            document.getElementById('val-effort').innerText = effortText;
+
+            // Output Calibrations — anchored to Ariely's measured range:
+            // Sisyphus condition = 7.2 models / $0.30 per page, meaningful condition = 10.6 models / $0.15 per page
+            const sum = ack + impact + effort; // 3..9
+            const baseOutput = 7.2 + ((sum - 3) / 6) * (10.6 - 7.2);
+            const baseWage = 0.30 - ((sum - 3) / 6) * (0.30 - 0.15);
+            
+            let morale = "Low";
+            if (sum >= 7) morale = "High";
+            else if (sum >= 5) morale = "Moderate";
+
+            document.getElementById('sim-output').innerText = `${baseOutput.toFixed(1)} Units`;
+            document.getElementById('sim-wage').innerText = `$${Math.max(0.12, baseWage).toFixed(2)} / page`;
+            document.getElementById('sim-morale').innerText = morale;
+        }
+
+        // Quiz Alignment Calculation
+        function calculateQuiz() {
+            const form = document.getElementById('quiz-form');
+            const q1 = form.q1.value;
+            const q2 = form.q2.value;
+            const q3 = form.q3.value;
+
+            let camusCount = 0;
+            if (q1 === 'B') camusCount++;
+            if (q2 === 'B') camusCount++;
+            if (q3 === 'B') camusCount++;
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+
+            if (camusCount >= 2) {
+                resultDiv.innerHTML = `
+                    <div class="flex items-center space-x-2 text-terracotta-600 font-bold">
+                        <span>🏔️</span>
+                        <h4 class="font-serif text-base">Camusian Absurdist Defiance</h4>
+                    </div>
+                    <p class="text-xs text-stone-700 leading-relaxed">
+                        You have strong macro-lucidity! You lean toward Albert Camus's perspective: recognizing that outcomes are often beyond your control, yet finding deep, internal satisfaction in the sheer act of living and pushing your boulder regardless.
+                    </p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="flex items-center space-x-2 text-slate-800 font-bold">
+                        <span>📊</span>
+                        <h4 class="font-serif text-base">Ariely Environmental Pragmatist</h4>
+                    </div>
+                    <p class="text-xs text-stone-700 leading-relaxed">
+                        You align closely with Dan Ariely's empirical insights: you require immediate, tangible meaning and acknowledgment in your micro-environment to thrive. You build momentum when your labor is recognized and stored, avoiding the "Sisyphus condition."
+                    </p>
+                `;
+            }
+        }
+
+        // Initialize App on DOM Ready
+        document.addEventListener('DOMContentLoaded', () => {
+            selectStep(1);
+            initCharacters();
+            showCharacter(0);
+            toggleConsciousness('ascent');
+            updateSimulator(); // sync the simulator readouts with its default slider positions
+        });
+    </script>
+</body>
+</html>

@@ -187,4 +187,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Sisyphus](./sisyphus/)
+**The Modern Paradigm of Absurdity** — why the king who cheated death twice became the West's defining archetype of pointless labor. Traces the figure of Sisyphus across three domains: his metis-fueled kingship of Ephyra and the violation of *xenia*, the contrapasso logic of his Tartarus sentence; Albert Camus's 1942 reinterpretation of the myth as the ultimate absurd hero ("one must imagine Sisyphus happy"); and Dan Ariely's behavioral-economics quantification of meaningless labor, which measures the "Sisyphus Condition" as a 32% productivity collapse and a doubled reservation wage.
+
+- 📝 [The Full Report](./sisyphus/readme.md) — the long-form essay with 51 cited sources. (`readme.md`)
+- 🏔️ [Interactive Infographic](./sisyphus/index.html) — the complete warm terracotta & deep-slate interactive page: five-tab SPA (Overview, Mythology, Philosophy, Economics, Synthesis) with a five-step transgression stepper, clickable mythological character matrix, contrapasso comparative table, Camus-vs-Sartre framework, three-responses decision explorer, Hour of Consciousness ascent/descent toggle, Chart.js Bionicle & reservation-wage charts, an adjustable workplace motivation simulator, and a Sisyphean-alignment quiz. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*
