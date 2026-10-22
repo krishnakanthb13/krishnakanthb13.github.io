@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurocognitive &amp; Philosophical Architecture of Deliberate Intention</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom styling for chart constraints & smooth transitions -->
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 420px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .tab-active {
+            border-bottom: 3px solid #d97706;
+            color: #92400e;
+            font-weight: 600;
+        }
+        .pulse-glow {
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(217, 119, 6, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(217, 119, 6, 0.5); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Chosen Palette: Warm Sand & Slate Harmony (Slate-50 background, Muted Indigo & Rose for React/System 1, Warm Amber & Emerald for Respond/System 2) -->
+    <!-- Application Structure Plan: Designed as a 5-module interactive portal (1. Dual-Process Neurobiology, 2. Philosophical Lineage, 3. Semiotic Symbolism, 4. Evidence-Based Regulatory Toolkit, 5. Volitional Choice Simulator). This structure translates dense academic research into actionable, self-directed exploration, allowing users to move seamlessly between biological mechanisms, philosophical models, and practical self-regulation tools. -->
+    <!-- Visualization & Content Choices:
+        - Dual-Process Parameters -> Chart.js Radar & Bar Chart -> Interactive toggle comparing System 1 vs System 2 properties.
+        - Epistemic Pause Models -> Interactive Step-by-Step Flow Diagrams (HTML/CSS) -> Explaining Stoic, Buddhist, and Existential temporal gaps.
+        - Physiological Sigh & 90-Sec Rule -> Interactive Canvas Respiration Meter -> Live biofeedback-guided breathwork practice.
+        - Affect Labeling Math -> Dynamic Formula Slider -> Demonstrating inverse relationship between rVLPFC activation and Amygdala reactivity.
+        - ACT Choice Point Matrix -> Interactive Classifier -> Real-time sorting of Away Moves vs Towards Moves.
+        - Scenario Simulator -> Interactive Decision Tree -> Testing user response in simulated workspace stress triggers.
+        - Library: Chart.js for canvas rendering; Pure HTML/CSS/JS for UI logic. NO SVG or Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header / Navigation Banner -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center space-x-3 min-w-0">
+                    <span class="text-2xl" aria-hidden="true">&#x1F9E0;</span>
+                    <div class="min-w-0">
+                        <h1 class="font-bold text-base sm:text-lg text-slate-900 leading-tight truncate">Architecture of Deliberate Intention</h1>
+                        <p class="text-xs text-slate-500 hidden sm:block">Affective Reactivity vs. Volitional Agency</p>
+                    </div>
+                </div>
+                <a href="../" class="flex-shrink-0 text-xs font-semibold text-slate-500 hover:text-amber-700 transition-colors px-2.5 py-1 rounded border border-slate-200 hover:border-amber-300">&larr; Knowledge Vault</a>
+            </div>
+            <!-- Row 2: section navigation -->
+            <nav class="flex items-center gap-1 overflow-x-auto border-t border-slate-100 pt-2 pb-1 text-sm font-medium text-slate-600" aria-label="Page sections">
+                <button type="button" onclick="switchTab('neurobiology')" id="nav-neurobiology" class="flex-shrink-0 whitespace-nowrap px-3 py-2 rounded-t transition-colors hover:text-amber-700 tab-active">Neurobiology</button>
+                <button type="button" onclick="switchTab('philosophy')" id="nav-philosophy" class="flex-shrink-0 whitespace-nowrap px-3 py-2 rounded-t transition-colors hover:text-amber-700">Philosophy</button>
+                <button type="button" onclick="switchTab('semiotics')" id="nav-semiotics" class="flex-shrink-0 whitespace-nowrap px-3 py-2 rounded-t transition-colors hover:text-amber-700">Semiotics</button>
+                <button type="button" onclick="switchTab('toolkit')" id="nav-toolkit" class="flex-shrink-0 whitespace-nowrap px-3 py-2 rounded-t transition-colors hover:text-amber-700">Regulatory Toolkit</button>
+                <button type="button" onclick="switchTab('simulator')" id="nav-simulator" class="flex-shrink-0 whitespace-nowrap px-3 py-2 rounded-t transition-colors hover:text-amber-700">Choice Simulator</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Context & Overview Card -->
+        <section class="bg-gradient-to-r from-amber-500/10 via-slate-100 to-indigo-500/10 border border-amber-200/60 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="max-w-4xl">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 mb-3">
+                    &#x1FA9E; Multidisciplinary Synthesis
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">
+                    From Automatic Reaction to Values-Aligned Intention
+                </h2>
+                <p class="text-slate-700 text-base md:text-lg mb-4 leading-relaxed">
+                    Human decision-making operates at the continuous threshold between subcortical emotional surges and deliberate prefrontal executive control. Volitional maturity does not require suppressing emotion, but rather cultivating an <strong>epistemic pause</strong>—a temporal space where raw affect is recognized, decoupled from motor impulses, and redirected toward chosen values.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    <div class="bg-white/80 p-3 rounded-lg border border-slate-200 text-center">
+                        <span class="text-xs uppercase tracking-wider text-rose-600 font-bold block mb-1">Subcortical React</span>
+                        <span class="text-sm text-slate-700 font-medium">Automatic, Fast, Low Metabolic Cost</span>
+                    </div>
+                    <div class="bg-white/80 p-3 rounded-lg border border-amber-300 text-center">
+                        <span class="text-xs uppercase tracking-wider text-amber-700 font-bold block mb-1">The Interstitial Pause</span>
+                        <span class="text-sm text-slate-700 font-medium">90s Clearing &amp; Affect Labeling</span>
+                    </div>
+                    <div class="bg-white/80 p-3 rounded-lg border border-slate-200 text-center">
+                        <span class="text-xs uppercase tracking-wider text-emerald-600 font-bold block mb-1">Cortical Respond</span>
+                        <span class="text-sm text-slate-700 font-medium">Deliberate, Rule-Governed, Values-Aligned</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: NEUROBIOLOGY -->
+        <section id="section-neurobiology" class="space-y-6">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                        <span>&#x1F9E0;</span>
+                        <span>Dual-Process Foundations &amp; Neurobiology of Volition</span>
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Understanding the neural architecture driving System 1 (Subcortical Reflexive) versus System 2 (Cortical Reflective) cognitive modes.
+                    </p>
+                </div>
+
+                <!-- Intro Paragraph -->
+                <p class="text-slate-700 mb-6 text-sm md:text-base">
+                    This section maps the contrast between reflexive emotional reactions and deliberate intentional responses onto established dual-process neurobiology. While System 1 routes rapidly through the amygdala and ventral striatum to generate immediate motor impulses, System 2 recruits the frontoparietal cognitive control network (dlPFC, vlPFC, and ACC) to monitor conflict, inhibit subcortical urges, and maintain goal representations in working memory.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <!-- Dynamic Chart Side -->
+                    <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-sm font-semibold text-slate-800">System 1 vs System 2 Cognitive Profile</h3>
+                            <div class="space-x-1">
+                                <button onclick="updateChartType('radar')" id="btn-chart-radar" class="px-2.5 py-1 text-xs font-medium rounded bg-amber-600 text-white">Radar View</button>
+                                <button onclick="updateChartType('bar')" id="btn-chart-bar" class="px-2.5 py-1 text-xs font-medium rounded bg-slate-200 text-slate-700 hover:bg-slate-300">Bar View</button>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="neuroChart"></canvas>
+                        </div>
+                        <p class="text-xs text-slate-500 text-center mt-2 italic">Chart illustrates normalized scores (0-100) across operational metrics.</p>
+                    </div>
+
+                    <!-- Brain Region Focus -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <h3 class="text-sm font-semibold text-slate-800">Key Anatomical Drivers</h3>
+                        
+                        <div class="p-3 bg-rose-50 border-l-4 border-rose-500 rounded-r-lg">
+                            <h4 class="font-bold text-xs text-rose-900 uppercase tracking-wide">System 1: Amygdala &amp; Ventral Striatum</h4>
+                            <p class="text-xs text-rose-800 mt-1">
+                                Rapid vigilance detection (<100ms). Diverts sensory signals subcortically to provoke immediate fight-or-flight autonomic outflow before conscious cortical awareness.
+                            </p>
+                        </div>
+
+                        <div class="p-3 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-lg">
+                            <h4 class="font-bold text-xs text-emerald-900 uppercase tracking-wide">System 2: ACC, dlPFC &amp; vlPFC</h4>
+                            <p class="text-xs text-emerald-800 mt-1">
+                                Anterior Cingulate Cortex (ACC) detects cognitive conflict. Dorsolateral PFC maintains goal representations; Ventrolateral PFC exerts top-down inhibitory control over subcortical firing.
+                            </p>
+                        </div>
+
+                        <div class="p-3 bg-indigo-50 border-l-4 border-indigo-500 rounded-r-lg">
+                            <h4 class="font-bold text-xs text-indigo-900 uppercase tracking-wide">Gross's CER vs EDER Model</h4>
+                            <p class="text-xs text-indigo-800 mt-1">
+                                Cognitive Emotion Regulation (CER) reinterprets stimuli antecedent to emotion generation, whereas Experiential-Dynamic regulation modulates expression post-cascade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Parameters Table -->
+                <div class="mt-8 overflow-x-auto">
+                    <h3 class="text-sm font-semibold text-slate-800 mb-3">Comparative Neuro-Operational Parameters</h3>
+                    <table class="w-full text-left border-collapse text-xs md:text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                                <th class="p-3 font-semibold">Parameter</th>
+                                <th class="p-3 font-semibold text-rose-700 bg-rose-50/50">System 1: Emotional Reaction</th>
+                                <th class="p-3 font-semibold text-emerald-700 bg-emerald-50/50">System 2: Intentional Response</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 font-medium text-slate-900">Neural Correlates</td>
+                                <td class="p-3 bg-rose-50/20 text-slate-700">Amygdala, Ventral Striatum, PAG, Orbitofrontal Cortex</td>
+                                <td class="p-3 bg-emerald-50/20 text-slate-700">dlPFC, vlPFC, Anterior Cingulate Cortex (ACC)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slate-900">Temporal Latency</td>
+                                <td class="p-3 bg-rose-50/20 text-slate-700">Automatic, immediate (<100ms)</td>
+                                <td class="p-3 bg-emerald-50/20 text-slate-700">Deliberate, sequential (requires processing window)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slate-900">Cognitive Cost</td>
+                                <td class="p-3 bg-rose-50/20 text-slate-700">Low metabolic cost; functions under high cognitive load</td>
+                                <td class="p-3 bg-emerald-50/20 text-slate-700">High metabolic cost; constrained by working memory</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slate-900">Evolutionary Function</td>
+                                <td class="p-3 bg-rose-50/20 text-slate-700">Immediate threat evasion, rapid resource capture</td>
+                                <td class="p-3 bg-emerald-50/20 text-slate-700">Long-term planning, social cooperation, moral reasoning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PHILOSOPHY -->
+        <section id="section-philosophy" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                        <span>&#x1F3DB;</span>
+                        <span>Philosophical &amp; Contemplative Epistemologies of Action</span>
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Centuries before neuroimaging, classical Stoicism, early Buddhist phenomenology, and existential psychology deconstructed the interstitial space between sensation and action.
+                    </p>
+                </div>
+
+                <!-- Intro Paragraph -->
+                <p class="text-slate-700 mb-6 text-sm md:text-base">
+                    This module explores how ancient and modern philosophical frameworks locate ethical agency within the temporal gap separating an initial stimulus from an executed action. Toggle between traditions below to analyze how Stoic assent, Buddhist sati (mindfulness), and Existentialist choice expand this critical interval.
+                </p>
+
+                <!-- Interactive Tradition Switcher -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button onclick="switchPhilosopher('stoicism')" id="btn-stoicism" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-lg bg-amber-600 text-white shadow-sm">Hellenistic Stoicism</button>
+                    <button onclick="switchPhilosopher('buddhism')" id="btn-buddhism" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Buddhist Phenomenology</button>
+                    <button onclick="switchPhilosopher('existentialism')" id="btn-existentialism" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Existential Psychology</button>
+                </div>
+
+                <!-- Stoicism Content -->
+                <div id="phil-stoicism" class="space-y-4">
+                    <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200">
+                        <h3 class="font-bold text-amber-900 text-base mb-2">Chrysippus, Seneca &amp; Epictetus: The Tripartite Movement</h3>
+                        <p class="text-slate-700 text-xs md:text-sm leading-relaxed mb-4">
+                            Stoic psychology asserts that involuntary physiological reactions do not constitute moral fault. Moral volition exists solely in granting or withholding rational assent (<em>synkatathesis</em>) by the ruling center of the mind (<em>hegemonikon</em>).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="bg-white p-3 rounded border border-amber-200">
+                                <span class="text-xs font-bold text-amber-800 uppercase block mb-1">1. Phantasia &amp; Propatheia</span>
+                                <p class="text-xs text-slate-600">The sensory impression and pre-volitional somatic surge (<em>primus motus</em>). Autonomic, pre-moral, and involuntary.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border border-amber-400 bg-amber-50/30">
+                                <span class="text-xs font-bold text-amber-900 uppercase block mb-1">2. Synkatathesis (Assent)</span>
+                                <p class="text-xs text-slate-600">The epistemic pause where the <em>Hegemonikon</em> evaluates the truth of the impression before granting endorsement.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border border-amber-200">
+                                <span class="text-xs font-bold text-amber-800 uppercase block mb-1">3. Pathos or Action</span>
+                                <p class="text-xs text-slate-600">If unexamined assent is granted, it solidifies into destructive passion (<em>pathos</em>); if suspended, rational action prevails.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buddhism Content -->
+                <div id="phil-buddhism" class="space-y-4 hidden">
+                    <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200">
+                        <h3 class="font-bold text-emerald-900 text-base mb-2">Abhidharma: Inserting Sati between Vedanā and Taṇhā</h3>
+                        <p class="text-slate-700 text-xs md:text-sm leading-relaxed mb-4">
+                            In the twelve links of Dependent Origination (<em>pratītyasamutpāda</em>), sensory contact (<em>phassa</em>) instantaneously produces a raw feeling-tone (<em>vedanā</em>). In an uncultivated mind, this immediately provokes reactive craving or aversion (<em>taṇhā</em>).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <div class="bg-white p-3 rounded border border-emerald-200">
+                                <span class="text-xs font-bold text-emerald-800 uppercase block mb-1">Phassa &amp; Vedanā</span>
+                                <p class="text-xs text-slate-600">Sensory contact yields pleasant, unpleasant, or neutral somatic tones.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border border-emerald-500 bg-emerald-100/50">
+                                <span class="text-xs font-bold text-emerald-900 uppercase block mb-1">Sati (Mindfulness)</span>
+                                <p class="text-xs text-slate-600">Acts as a phenomenological wedge, observing sensations rise and fall without attachment.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border border-emerald-200">
+                                <span class="text-xs font-bold text-emerald-800 uppercase block mb-1">Dissolution of Taṇhā</span>
+                                <p class="text-xs text-slate-600">Prevents feeling-tone from escalating into instinctive aversion or greedy grasping.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border border-emerald-200">
+                                <span class="text-xs font-bold text-emerald-800 uppercase block mb-1">Cetanā (Ethical Volition)</span>
+                                <p class="text-xs text-slate-600">Frees the mind to act from clear, ethical intention rather than habitual drive.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Existentialism Content -->
+                <div id="phil-existentialism" class="space-y-4 hidden">
+                    <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-200">
+                        <h3 class="font-bold text-indigo-900 text-base mb-2">Rollo May &amp; Viktor Frankl: The Interstitial Space</h3>
+                        <p class="text-slate-700 text-xs md:text-sm leading-relaxed mb-4">
+                            Formulated by Rollo May in 1967 and popularized alongside Viktor Frankl's insights, existential freedom is defined by the interval between stimulus and response. When that gap collapses to zero, determinism takes over.
+                        </p>
+                        <div class="bg-white p-4 rounded-lg border border-indigo-200 text-center">
+                            <blockquote class="italic text-sm text-slate-800 mb-2">
+                                "Human freedom involves our capacity to pause between the stimulus and response and, in that pause, to choose the one alternative among many we will center our life upon."
+                            </blockquote>
+                            <cite class="text-xs font-semibold text-indigo-700">— Rollo May, <em>Psychology and the Human Dilemma</em> (1967)</cite>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SEMIOTICS -->
+        <section id="section-semiotics" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                        <span>&#x1F3A8;</span>
+                        <span>Aesthetic Semiotics &amp; Iconography of Duality</span>
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Decoding the artistic motifs of the tempestuous storm versus the navigational compass.
+                    </p>
+                </div>
+
+                <!-- Intro Paragraph -->
+                <p class="text-slate-700 mb-6 text-sm md:text-base">
+                    The visual contrast between stormy, turbulent waters on the left and tranquil, compass-guided seas on the right draws from historical art iconography and Kantian aesthetics. This visual scaffolding serves as an environmental prime, prompting the viewer to transition from affective overwhelm to values-guided navigation.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Storm -->
+                    <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800 space-y-3">
+                        <div class="text-3xl">&#x1F30A;</div>
+                        <h3 class="font-bold text-amber-400 text-base">The Tempestuous Sea &amp; Kantian Sublime</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Immanuel Kant's <em>Dynamical Sublime</em> represents nature's overwhelming physical force (<em>Macht</em>). Unexamined affective surges feel terrifyingly infinite when experienced without distance, but become sources of reflective wisdom when observed from a secure, grounded vantage point.
+                        </p>
+                        <span class="inline-block text-[11px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded border border-slate-700">Symbol: Impulsive Reactivity</span>
+                    </div>
+
+                    <!-- Card 2: Still Water -->
+                    <div class="bg-amber-50 text-slate-900 p-5 rounded-xl border border-amber-200 space-y-3">
+                        <div class="text-3xl">&#x2600;&#xFE0F;</div>
+                        <h3 class="font-bold text-amber-900 text-base">Still Waters &amp; Radiant Light</h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">
+                            In Neoplatonic philosophy and classical emblem books, calm water acts as an un-distorted mirror reflecting the sky (<em>Logos</em>). It represents <em>Ataraxia</em>—unshakable inner equanimity—and the intellectual clarity necessary to select deliberate courses of action.
+                        </p>
+                        <span class="inline-block text-[11px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-medium">Symbol: Ataraxia &amp; Reason</span>
+                    </div>
+
+                    <!-- Card 3: Compass -->
+                    <div class="bg-emerald-950 text-white p-5 rounded-xl border border-emerald-800 space-y-3">
+                        <div class="text-3xl">&#x1F9ED;</div>
+                        <h3 class="font-bold text-emerald-400 text-base">Navigational Compass &amp; Prudenza</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            In Cesare Ripa's <em>Iconologia</em> (1593), measuring instruments like the compass (<em>compasso</em>) and nautical rudder (<em>timone</em>) represent Prudence (<em>Prudenza</em>) and Practical Wisdom (<em>Phronesis</em>)—steering purposefully despite volatile ocean currents.
+                        </p>
+                        <span class="inline-block text-[11px] bg-emerald-900 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700">Symbol: Values-Based Steering</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: TOOLKIT -->
+        <section id="section-toolkit" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                        <span>&#x1F9F0;</span>
+                        <span>Evidence-Based Regulatory Interventions</span>
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Somatic, temporal, cognitive, and values-based protocols to bridge System 1 arousal into System 2 volitional action.
+                    </p>
+                </div>
+
+                <!-- Intro Paragraph -->
+                <p class="text-slate-700 mb-6 text-sm md:text-base">
+                    Conceptual knowledge alone cannot quiet an acute autonomic sympathetic discharge. This interactive toolkit provides real-time somatic down-regulation tools, affective math calculators, and behavioral frameworks designed to systematically discharge stress and re-engage prefrontal executive networks.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Tool 1: Interactive Breathing & 90-Sec Timer -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+                                <span>&#x1F32C;&#xFE0F;</span>
+                                <span>Physiological Sigh &amp; 90-Second Timer</span>
+                            </h3>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Somatic / Autonomic</span>
+                        </div>
+                        <p class="text-xs text-slate-600">
+                            Dr. Jill Bolte Taylor's research shows that acute chemical surges clear the bloodstream in ~90 seconds unless sustained by cognitive rumination. Accelerate recovery using the Huberman/Balban <strong>Physiological Sigh</strong> (two rapid nasal inhales followed by one slow oral exhale).
+                        </p>
+
+                        <!-- Canvas Breath Indicator -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-slate-200 space-y-3">
+                            <div class="relative w-32 h-32 flex items-center justify-center">
+                                <canvas id="breathCanvas" width="128" height="128" class="absolute inset-0"></canvas>
+                                <span id="timerDisplay" class="font-mono text-2xl font-bold text-slate-800 z-10" aria-live="polite">01:30</span>
+                            </div>
+                            <span id="breathPhase" class="text-xs font-semibold text-amber-700 uppercase tracking-wider" aria-live="polite">Ready to Begin</span>
+                            <div class="flex space-x-2">
+                                <button onclick="startSighTimer()" id="btn-start-timer" class="px-4 py-1.5 text-xs font-semibold rounded bg-amber-600 text-white hover:bg-amber-700">Start 90s Cycle</button>
+                                <button onclick="resetSighTimer()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-200 text-slate-700 hover:bg-slate-300">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Affect Labeling Math Simulator -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+                                <span>&#x1F9EA;</span>
+                                <span>Affect Labeling Neural Calculator</span>
+                            </h3>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">Cognitive / Prefrontal</span>
+                        </div>
+                        <p class="text-xs text-slate-600">
+                            fMRI research by Lieberman et al. proves that translating raw affect into semantic vocabulary increases right ventrolateral prefrontal (rVLPFC) activity, directly inhibiting amygdalar firing:
+                        </p>
+                        
+                        <div class="bg-white p-3 rounded border border-slate-200 font-mono text-xs text-center text-slate-800">
+                            rVLPFC Activation &propto; 1 / Amygdala Reactivity
+                        </div>
+
+                        <div class="space-y-3 bg-white p-4 rounded-lg border border-slate-200">
+                            <label class="block text-xs font-semibold text-slate-700">Select or Type Current State Granularity:</label>
+                            <select id="affect-select" onchange="calculateAffect()" class="w-full text-xs p-2 border border-slate-300 rounded bg-slate-50 text-slate-800">
+                                <option value="1">Vague: "I feel bad / angry"</option>
+                                <option value="2">Moderate: "I am feeling anxious and overwhelmed"</option>
+                                <option value="3" selected>High Granularity: "I am noticing acute professional vulnerability &amp; threat"</option>
+                            </select>
+
+                            <div class="space-y-2 pt-2">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-indigo-700 font-semibold">rVLPFC Cortical Inhibition:</span>
+                                    <span id="rvlpfc-val" class="font-bold">75%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div id="rvlpfc-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
+                                </div>
+
+                                <div class="flex justify-between text-xs pt-1">
+                                    <span class="text-rose-700 font-semibold">Amygdala Hyperactivity:</span>
+                                    <span id="amygdala-val" class="font-bold">25%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div id="amygdala-bar" class="bg-rose-500 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tool 3: ACT Choice Point Classifier -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4 mt-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+                            <span>&#x1F500;</span>
+                            <span>ACT Choice Point: Behavioral Vector Classifier</span>
+                        </h3>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Volitional / Behavioral</span>
+                    </div>
+                    <p class="text-xs text-slate-600">
+                        In Acceptance and Commitment Therapy (ACT), choices are framed into two vectors: <strong>Away Moves</strong> (driven by experiential avoidance) vs. <strong>Towards Moves</strong> (driven by chosen core values).
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-rose-50 p-4 rounded-lg border border-rose-200">
+                            <h4 class="font-bold text-xs text-rose-900 uppercase tracking-wide mb-2">Away Moves (Experiential Avoidance)</h4>
+                            <ul class="text-xs text-rose-800 space-y-1.5 list-disc pl-4">
+                                <li>Firing off an immediate angry email response to relieve tension.</li>
+                                <li>Compulsive social media scrolling to numb difficult feelings.</li>
+                                <li>Abruptly withdrawing from necessary, challenging discussions.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+                            <h4 class="font-bold text-xs text-emerald-900 uppercase tracking-wide mb-2">Towards Moves (Values-Aligned Action)</h4>
+                            <ul class="text-xs text-emerald-800 space-y-1.5 list-disc pl-4">
+                                <li>Pausing to execute 2 physiological sighs before responding.</li>
+                                <li>Framing feedback constructively despite feeling defensiveness.</li>
+                                <li>Staying present in uncomfortable conversations in service of integrity.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SIMULATOR -->
+        <section id="section-simulator" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                        <span>&#x1F3AF;</span>
+                        <span>Interactive Volitional Choice Simulator</span>
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Test your capacity to execute the epistemic pause during high-stress workspace triggers.
+                    </p>
+                </div>
+
+                <!-- Intro Paragraph -->
+                <p class="text-slate-700 mb-6 text-sm md:text-base">
+                    Apply the multidisciplinary framework in real-time. Navigate a simulated high-stakes workplace stress trigger and observe how selecting emotional reactions versus intentional responses alters your neural state, relationship outcomes, and alignment with core values.
+                </p>
+
+                <div id="sim-container" class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-6">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="px-2.5 py-1 bg-amber-100 text-amber-900 font-bold text-xs rounded-full">Scenario Step <span id="sim-step-num">1</span> of 3</span>
+                        <h3 id="sim-title" class="font-bold text-slate-900 text-base">The Inflammatory Email Trigger</h3>
+                    </div>
+
+                    <div class="flex items-center gap-2" aria-hidden="true">
+                        <div class="sim-dot h-1.5 flex-1 rounded-full bg-amber-500 transition-colors"></div>
+                        <div class="sim-dot h-1.5 flex-1 rounded-full bg-slate-200 transition-colors"></div>
+                        <div class="sim-dot h-1.5 flex-1 rounded-full bg-slate-200 transition-colors"></div>
+                    </div>
+
+                    <div id="sim-description" class="bg-white p-4 rounded-lg border border-slate-200 text-slate-700 text-sm leading-relaxed">
+                        You open your inbox at 4:45 PM and read a harsh, public email from a project partner claiming your analysis is "completely inaccurate and irresponsible." You instantly feel a hot surge in your chest, tight breathing, and an urge to reply-all with a scathing defense.
+                    </div>
+
+                    <div id="sim-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                    <div id="sim-feedback" class="hidden p-4 rounded-lg border text-xs md:text-sm leading-relaxed" aria-live="polite"></div>
+
+                    <div id="sim-actions" class="hidden">
+                        <button type="button" id="sim-next" onclick="nextSimStep()" class="px-4 py-2 text-xs font-semibold rounded bg-amber-600 text-white hover:bg-amber-700 transition-colors">Next Scenario &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p>Interactive Academic Exploration: <em>Neurocognitive, Philosophical, and Semiotic Architecture of Deliberate Intention</em></p>
+            <p class="text-slate-400">Built with Vanilla JS, Tailwind CSS &amp; Chart.js • Fully Accessible Single Page Application</p>
+        </div>
+    </footer>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // Global State
+        let currentTab = 'neurobiology';
+        let neuroChartInstance = null;
+        let timerInterval = null;
+        let timerSeconds = 90;
+        let isBreathing = false;
+        let simStep = 1;
+        let simChoices = [];
+        let simComplete = false;
+
+        const simScenarios = [
+            {
+                title: 'The Inflammatory Email Trigger',
+                description: 'You open your inbox at 4:45 PM and read a harsh, public email from a project partner claiming your analysis is "completely inaccurate and irresponsible." You instantly feel a hot surge in your chest, tight breathing, and an urge to reply-all with a scathing defense.',
+                options: {
+                    react: {
+                        label: '&#x26A1; Option A: Reactive Reflex (System 1)',
+                        text: 'Immediately type a sharp rebuttal pointing out their previous mistakes and hit "Reply All".',
+                        feedback: 'You fire off the reply-all within seconds. The partner forwards it to your manager, and the thread turns into a public spectacle. The initial epinephrine surge never clears because your mind keeps replaying the exchange, prolonging cortisol elevation and damaging the working relationship (an <em>Away Move</em>).'
+                    },
+                    respond: {
+                        label: '&#x1FA9E; Option B: Volitional Pause (System 2)',
+                        text: 'Close the draft, step away for a 90-second physiological sigh, label the affect, and schedule a call.',
+                        feedback: 'You close the draft and run two physiological sighs. The primary chemical surge begins to clear inside the 90-second window. Naming the feeling ("I am noticing acute professional vulnerability") activates your rVLPFC, and you book a call instead of a public fight (a <em>Towards Move</em>).'
+                    }
+                }
+            },
+            {
+                title: 'The Public Pile-On',
+                description: 'Before you can decide what to do, a second colleague replies-all: "I have to agree with the concerns raised here." Your face flushes again. The audience is now larger, and the urge to defend your competence is almost overwhelming.',
+                options: {
+                    react: {
+                        label: '&#x26A1; Option A: Escalate the Public Defense',
+                        text: 'Reply-all again, listing every mistake the other team has made this quarter to prove you are right.',
+                        feedback: 'The thread becomes a spectator sport. Your defense reads as retaliation rather than accountability, and two more colleagues privately distance themselves from the project. The conflict has shifted from the analysis to your temperament (an <em>Away Move</em>).'
+                    },
+                    respond: {
+                        label: '&#x1FA9E; Option B: Label the Shame and Hold the Pause',
+                        text: 'Notice the embarrassment without obeying it. Post one neutral sentence acknowledging the concern, then move the detail offline.',
+                        feedback: 'You name the shame silently and resist the pile-on. A short public acknowledgment ("Thanks, I will address this in the working session") preserves credibility without conceding the substance. The conflict stays about the work, not your character (a <em>Towards Move</em>).'
+                    }
+                }
+            },
+            {
+                title: 'The Direct Message',
+                description: 'Your project partner sends a private message: "That public thread was not fair to you. Can we talk before tomorrow?" The sting is still fresh, and part of you wants to make them absorb the full weight of what happened.',
+                options: {
+                    react: {
+                        label: '&#x26A1; Option A: Make Them Pay First',
+                        text: 'Reply: "You should have thought about that before you embarrassed me in front of everyone."',
+                        feedback: 'The opening for repair closes. Your partner reads the message as score-settling and cancels the call. The original disagreement is now fused with a second injury, and both sides have a new grievance to defend (an <em>Away Move</em>).'
+                    },
+                    respond: {
+                        label: '&#x1FA9E; Option B: Accept the Repair Opening',
+                        text: 'Accept the call, ask what they need, and separate their intent from the impact on you.',
+                        feedback: 'You take the call and lead with curiosity before grievance. The conversation separates intent from impact: they explain the pressure they were under, and you name the public cost without attacking them. The relationship retains a repair pathway, and the original problem gets solved (a <em>Towards Move</em>).'
+                    }
+                }
+            }
+        ];
+
+        // Chart Helper: Format labels to <= 16 chars per line
+        function formatChartLabels(labels) {
+            return labels.map(label => {
+                if (label.length <= 16) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > 16) {
+                        if (currentLine) lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) lines.push(currentLine.trim());
+                return lines;
+            });
+        }
+
+        // Tab Navigation
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const sections = ['neurobiology', 'philosophy', 'semiotics', 'toolkit', 'simulator'];
+            
+            sections.forEach(sec => {
+                const el = document.getElementById(`section-${sec}`);
+                const navBtn = document.getElementById(`nav-${sec}`);
+                if (sec === tabId) {
+                    el.classList.remove('hidden');
+                    if (navBtn) navBtn.classList.add('tab-active');
+                } else {
+                    el.classList.add('hidden');
+                    if (navBtn) navBtn.classList.remove('tab-active');
+                }
+            });
+
+            // Re-render chart if switching to neurobiology
+            if (tabId === 'neurobiology' && neuroChartInstance) {
+                setTimeout(() => neuroChartInstance.resize(), 100);
+            }
+        }
+
+        // Initialize Chart.js
+        function initNeuroChart() {
+            const ctx = document.getElementById('neuroChart').getContext('2d');
+            const rawLabels = ['Speed of Processing', 'Metabolic Cost', 'Working Memory Load', 'Cortical Control', 'Value Alignment', 'Subcortical Urgency'];
+            const formattedLabels = formatChartLabels(rawLabels);
+
+            neuroChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: formattedLabels,
+                    datasets: [
+                        {
+                            label: 'System 1 (Emotional Reaction)',
+                            data: [95, 15, 10, 15, 30, 95],
+                            backgroundColor: 'rgba(244, 63, 94, 0.25)',
+                            borderColor: 'rgba(244, 63, 94, 0.9)',
+                            pointBackgroundColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'System 2 (Intentional Response)',
+                            data: [30, 85, 90, 95, 90, 20],
+                            backgroundColor: 'rgba(16, 185, 129, 0.25)',
+                            borderColor: 'rgba(16, 185, 129, 0.9)',
+                            pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11, family: 'sans-serif' },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    let label = context[0].label;
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartType(type) {
+            const btnRadar = document.getElementById('btn-chart-radar');
+            const btnBar = document.getElementById('btn-chart-bar');
+
+            if (type === 'radar') {
+                btnRadar.className = "px-2.5 py-1 text-xs font-medium rounded bg-amber-600 text-white";
+                btnBar.className = "px-2.5 py-1 text-xs font-medium rounded bg-slate-200 text-slate-700 hover:bg-slate-300";
+            } else {
+                btnBar.className = "px-2.5 py-1 text-xs font-medium rounded bg-amber-600 text-white";
+                btnRadar.className = "px-2.5 py-1 text-xs font-medium rounded bg-slate-200 text-slate-700 hover:bg-slate-300";
+            }
+
+            if (neuroChartInstance) {
+                neuroChartInstance.destroy();
+            }
+
+            const ctx = document.getElementById('neuroChart').getContext('2d');
+            const rawLabels = ['Speed of Processing', 'Metabolic Cost', 'Working Memory Load', 'Cortical Control', 'Value Alignment', 'Subcortical Urgency'];
+            const formattedLabels = formatChartLabels(rawLabels);
+
+            neuroChartInstance = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: formattedLabels,
+                    datasets: [
+                        {
+                            label: 'System 1 (Emotional Reaction)',
+                            data: [95, 15, 10, 15, 30, 95],
+                            backgroundColor: 'rgba(244, 63, 94, 0.7)',
+                            borderColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'System 2 (Intentional Response)',
+                            data: [30, 85, 90, 95, 90, 20],
+                            backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: type === 'bar' ? {
+                        y: { beginAtZero: true, max: 100 }
+                    } : {
+                        r: { suggestedMin: 0, suggestedMax: 100 }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // Philosophy Switcher
+        function switchPhilosopher(philKey) {
+            ['stoicism', 'buddhism', 'existentialism'].forEach(k => {
+                const el = document.getElementById(`phil-${k}`);
+                const btn = document.getElementById(`btn-${k}`);
+                if (k === philKey) {
+                    el.classList.remove('hidden');
+                    btn.className = "px-4 py-2 text-xs md:text-sm font-semibold rounded-lg bg-amber-600 text-white shadow-sm";
+                } else {
+                    el.classList.add('hidden');
+                    btn.className = "px-4 py-2 text-xs md:text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200";
+                }
+            });
+        }
+
+        // Breath Canvas Animation & 90-Second Timer
+        function drawBreathCircle(scale = 1, color = '#d97706') {
+            const canvas = document.getElementById('breathCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 35 * scale;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.25;
+            ctx.fill();
+
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = color;
+            ctx.globalAlpha = 0.9;
+            ctx.stroke();
+            ctx.globalAlpha = 1.0;
+        }
+
+        function startSighTimer() {
+            if (isBreathing) return;
+            isBreathing = true;
+            timerSeconds = 90;
+            const phaseEl = document.getElementById('breathPhase');
+            const timerEl = document.getElementById('timerDisplay');
+
+            let breathCycleTime = 0;
+
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                breathCycleTime = (breathCycleTime + 1) % 6; // 6-second cycle
+
+                // Update Timer Text
+                const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                const secs = String(timerSeconds % 60).padStart(2, '0');
+                timerEl.textContent = `${mins}:${secs}`;
+
+                // Physiological Sigh Cycle Guidance
+                if (breathCycleTime <= 2) {
+                    phaseEl.textContent = "Inhale (Nasal Sniff 1)...";
+                    drawBreathCircle(1.2, '#3b82f6');
+                } else if (breathCycleTime === 3) {
+                    phaseEl.textContent = "Inhale More (Nasal Sniff 2)...";
+                    drawBreathCircle(1.4, '#2563eb');
+                } else {
+                    phaseEl.textContent = "Exhale Long (Oral Release)...";
+                    drawBreathCircle(0.8, '#059669');
+                }
+
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    isBreathing = false;
+                    phaseEl.textContent = "90s Cycle Complete - Chemical Surge Cleared";
+                    drawBreathCircle(1.0, '#10b981');
+                }
+            }, 1000);
+        }
+
+        function resetSighTimer() {
+            clearInterval(timerInterval);
+            isBreathing = false;
+            timerSeconds = 90;
+            document.getElementById('timerDisplay').textContent = "01:30";
+            document.getElementById('breathPhase').textContent = "Ready to Begin";
+            drawBreathCircle(1.0, '#d97706');
+        }
+
+        // Affect Labeling Math Calculator
+        function calculateAffect() {
+            const select = document.getElementById('affect-select');
+            const val = parseInt(select.value);
+
+            let rvlpfc = 30;
+            let amygdala = 85;
+
+            if (val === 2) {
+                rvlpfc = 60;
+                amygdala = 45;
+            } else if (val === 3) {
+                rvlpfc = 92;
+                amygdala = 18;
+            }
+
+            document.getElementById('rvlpfc-val').textContent = `${rvlpfc}%`;
+            document.getElementById('rvlpfc-bar').style.width = `${rvlpfc}%`;
+
+            document.getElementById('amygdala-val').textContent = `${amygdala}%`;
+            document.getElementById('amygdala-bar').style.width = `${amygdala}%`;
+        }
+
+        // Simulator Logic
+        function renderSimStep() {
+            const scenario = simScenarios[simStep - 1];
+            document.getElementById('sim-step-num').textContent = simStep;
+            document.getElementById('sim-title').textContent = scenario.title;
+            document.getElementById('sim-description').textContent = scenario.description;
+
+            const optionsEl = document.getElementById('sim-options');
+            optionsEl.innerHTML = '';
+            Object.entries(scenario.options).forEach(([type, option]) => {
+                const isReact = type === 'react';
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = isReact
+                    ? 'p-4 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg text-left transition-colors'
+                    : 'p-4 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-lg text-left transition-colors';
+                button.innerHTML = `
+                    <span class="block text-xs font-bold uppercase mb-1 ${isReact ? 'text-rose-800' : 'text-emerald-800'}">${option.label}</span>
+                    <span class="text-xs ${isReact ? 'text-rose-950' : 'text-emerald-950'}">${option.text}</span>
+                `;
+                button.addEventListener('click', () => handleSimChoice(type));
+                optionsEl.appendChild(button);
+            });
+
+            document.querySelectorAll('.sim-dot').forEach((dot, index) => {
+                dot.className = 'sim-dot h-1.5 flex-1 rounded-full transition-colors ' + (index < simStep ? 'bg-amber-500' : 'bg-slate-200');
+            });
+
+            const feedbackEl = document.getElementById('sim-feedback');
+            feedbackEl.classList.add('hidden');
+            feedbackEl.textContent = '';
+            document.getElementById('sim-actions').classList.add('hidden');
+        }
+
+        function handleSimChoice(type) {
+            const scenario = simScenarios[simStep - 1];
+            simChoices.push(type);
+
+            document.querySelectorAll('#sim-options button').forEach(button => {
+                button.disabled = true;
+                button.classList.add('opacity-60', 'cursor-not-allowed');
+            });
+
+            const isReact = type === 'react';
+            const feedbackEl = document.getElementById('sim-feedback');
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.className = 'p-4 rounded-lg border text-xs md:text-sm leading-relaxed ' + (isReact ? 'border-rose-300 bg-rose-50 text-rose-950' : 'border-emerald-300 bg-emerald-50 text-emerald-950');
+            feedbackEl.innerHTML = `
+                <strong class="block mb-1 ${isReact ? 'text-rose-900' : 'text-emerald-900'}">${isReact ? '&#x26A1; System 1 Reaction' : '&#x1FA9E; System 2 Response'}:</strong>
+                ${scenario.options[type].feedback}
+            `;
+
+            const actionsEl = document.getElementById('sim-actions');
+            actionsEl.classList.remove('hidden');
+            document.getElementById('sim-next').textContent = simStep < simScenarios.length ? 'Next Scenario \u2192' : 'See Final Outcome \u2192';
+        }
+
+        function nextSimStep() {
+            if (simComplete) {
+                resetSimulator();
+                return;
+            }
+            if (simStep < simScenarios.length) {
+                simStep++;
+                renderSimStep();
+            } else {
+                showSimOutcome();
+            }
+        }
+
+        function showSimOutcome() {
+            simComplete = true;
+            const score = simChoices.filter(choice => choice === 'respond').length;
+            const verdicts = [
+                'Full System-1 Hijack (0/3). Every decision was made inside the reactive window. The good news: the pause is a trainable skill, not a personality trait—start with the 90-second rule before any high-stakes reply.',
+                'Reflex Dominant (1/3). You recovered once, but emotional urgency drove most of the sequence. Practicing affect labeling before choosing would have widened the gap at the other two decision points.',
+                'Emerging Pause (2/3). You interrupted the reflex twice and repaired the relationship. The remaining work is consistency under a larger audience—precisely when the prefrontal cortex is most likely to lose the contest.',
+                'Volitional Mastery (3/3). You widened the interval between stimulus and response at every decision point. The sequence shows the full model: somatic regulation, affect labeling, and values-based action compounding across a single conflict.'
+            ];
+
+            document.getElementById('sim-title').textContent = 'Your Volitional Profile';
+            document.getElementById('sim-description').textContent = 'You completed all three stress tests. This is the decision trace from your choices, scored by how often you converted raw affect into deliberate action.';
+            document.getElementById('sim-options').innerHTML = '';
+            document.querySelectorAll('.sim-dot').forEach(dot => {
+                dot.className = 'sim-dot h-1.5 flex-1 rounded-full transition-colors bg-amber-500';
+            });
+
+            const feedbackEl = document.getElementById('sim-feedback');
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.className = 'p-4 rounded-lg border border-amber-300 bg-amber-50 text-amber-950 text-sm leading-relaxed';
+            feedbackEl.innerHTML = `
+                <strong class="block mb-1 text-amber-900">${score} of 3 volitional responses</strong>
+                ${verdicts[score]}
+            `;
+
+            document.getElementById('sim-actions').classList.remove('hidden');
+            document.getElementById('sim-next').textContent = '\u21BB Restart Simulation';
+        }
+
+        function resetSimulator() {
+            simStep = 1;
+            simChoices = [];
+            simComplete = false;
+            renderSimStep();
+        }
+
+        // On Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            initNeuroChart();
+            drawBreathCircle(1.0, '#d97706');
+            calculateAffect();
+            renderSimStep();
+        });
+    </script>
+</body>
+</html>

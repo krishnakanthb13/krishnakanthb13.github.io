@@ -187,6 +187,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Respond vs. React](./respond_vs_react/)
+**The Interstitial Pause** — why volitional maturity is not the eradication of emotion but the cultivation of a temporal and epistemic gap between raw affect and motor output. Synthesizes dual-process neurobiology (amygdala/ventral striatum vs. ACC/dlPFC/vlPFC), Gross's emotion-regulation model, Stoic *synkatathesis*, Buddhist *sati*, Rollo May's existential pause, Lieberman's affect-labeling findings, the 90-second neurochemical window, physiological-sigh breathwork, and the ACT Choice Point—then treats the storm-versus-compass artwork as a cognitive prime for real-world self-regulation.
+
+- 📝 [The Full Report](./respond_vs_react/readme.md) — the long-form essay with 54 cited sources. (`readme.md`)
+- 🧭 [Interactive Infographic](./respond_vs_react/index.html) — the complete warm-sand & slate interactive page: five-module tabbed portal with a dual-process radar/bar chart, Stoic–Buddhist–existential pause explorer, semiotic iconography cards, 90-second physiological-sigh timer, affect-labeling neural calculator, ACT Choice Point matrix, and a three-step volitional choice simulator. (`index.html`)
+
+---
+
 ### 📁 [Sisyphus](./sisyphus/)
 **The Modern Paradigm of Absurdity** — why the king who cheated death twice became the West's defining archetype of pointless labor. Traces the figure of Sisyphus across three domains: his metis-fueled kingship of Ephyra and the violation of *xenia*, the contrapasso logic of his Tartarus sentence; Albert Camus's 1942 reinterpretation of the myth as the ultimate absurd hero ("one must imagine Sisyphus happy"); and Dan Ariely's behavioral-economics quantification of meaningless labor, which measures the "Sisyphus Condition" as a 32% productivity collapse and a doubled reservation wage.
 
