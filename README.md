@@ -18,6 +18,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) — The Architecture of the Spiral
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) — The Metacognitive Paradox
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
+		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
 		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
@@ -196,6 +197,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.
+	- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/): The Neurobiology of Goal Pursuit — why dopamine is the engine and discipline is the steering, and why self-control is an economic allocation of cognitive effort rather than a finite tank of willpower.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/): Reward-prediction-error simulator with cue-shift chart, Expected Value of Control calculator, COMT genotype switcher, hyperbolic-vs-exponential discounting chart, basal-ganglia pathway explorer, ventral-to-dorsal habit timeline, stress/sleep disruptor panels & 4-question alignment diagnostic.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/readme.md): Long-form research essay with 90 cited sources.
 	- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/): The Rationalist Fallacy in Human Bonding — why the brain devalues what comes free and obsesses over what costs effort.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/effort_paradox/): Relational investment simulator (dissonance, perceived value, entitlement risk), four classic-study charts (Aronson & Mills 1959, Jecker & Landy 1969, Aronson & Linder 1965, Walster 1973), a 5-question over-functioning audit & boundary-conditions framework.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/effort_paradox/readme.md): Long-form research essay with 27 cited sources.

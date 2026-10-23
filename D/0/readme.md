@@ -99,6 +99,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Dopamine vs. Discipline](./dopamine_vs_discipline/)
+**The Neurobiology of Goal Pursuit** — why dopamine is the engine and discipline is the steering: motivation is incentive salience, not pleasure, and self-control is an economic allocation of cognitive effort rather than a finite tank of willpower. Synthesizes Berridge's wanting/liking dissociation, Schultz's reward prediction error, the Expected Value of Control model, COMT Val158Met genetics, hyperbolic discounting, the ventral-to-dorsal habit shift, and the stress, sleep, and pleasure-pain disruptors that decouple the two systems.
+
+- 📝 [The Full Report](./dopamine_vs_discipline/readme.md) — the long-form essay with 90 cited sources. (`readme.md`)
+- ⚡ [Interactive Infographic](./dopamine_vs_discipline/index.html) — the complete warm scientific-neutral interactive page: six-section portal with a reward-prediction-error simulator and cue-shift chart, Expected Value of Control calculator, COMT genotype switcher, hyperbolic-vs-exponential discounting chart, basal-ganglia direct/indirect pathway explorer, ventral-to-dorsal habit timeline, stress/sleep disruptor panels, and a 4-question goal-alignment diagnostic. (`index.html`)
+
+---
+
 ### 📁 [Effort Paradox](./effort_paradox/)
 **The Rationalist Fallacy in Human Bonding** — why the human brain devalues what comes free while obsessing over what costs effort. Synthesizes cognitive dissonance and the severity-of-initiation paradigm (Aronson & Mills 1959), the Ben Franklin effect (Jecker & Landy 1969), the Gain-Loss theory of attraction (Aronson & Linder 1965), Walster's selectively-hard-to-get findings, the IKEA effect, and Inzlicht's neurocomputational model of effort valuation—then maps the pathology of the hyper-giver who robs a partner of the cognitive friction required to synthesize attachment.
 
