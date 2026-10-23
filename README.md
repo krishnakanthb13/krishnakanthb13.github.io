@@ -31,6 +31,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 		- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/) — The Interstitial Pause
 		- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/) — The Modern Paradigm of Absurdity
+	- **1**: [TechXConf 2026 — AI, Cloud & Data Conference](https://krishnakanthb13.github.io/D/1/techxconf26/) — single-file event page: agenda, themes, speakers & venue (tickets closed)
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))

@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'sha256-19BKJdy0Y1um5ZZMFNq0J0wmrH19l0NrOJk+1cSzn84=' 'sha256-gCAD3QsoWd/3giIGxg1ihWGG7zYRBhJDk3GPSERBXX0=' https://fonts.googleapis.com; script-src 'sha256-DPqHgIChsX+8v0GWBQNP1RW+aaVV3RhcOZaHY9NYPEY='; img-src 'self' https://files.techxconf.com data:; font-src https://fonts.gstatic.com; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>TechXConf 2026 — AI, Cloud &amp; Data Conference | 24 Oct 2026, Chennai</title>
+<meta name="description" content="TechXConf 2026, the flagship AI, Cloud and Data conference — 24 October 2026 at IIT Madras Research Park, Chennai. Full agenda, 40+ speakers, six themes, why attend and venue. One self-contained HTML file.">
+<meta name="theme-color" content="#0a0e17">
+<link rel="canonical" href="https://krishnakanthb13.github.io/D/1/techxconf26/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TechXConf 2026">
+<meta property="og:title" content="TechXConf 2026 — AI, Cloud &amp; Data Conference">
+<meta property="og:description" content="One power-packed day of keynotes, deep-dive sessions, round tables and fireside chats — 24 October 2026 at IIT Madras Research Park, Chennai. Full agenda, 35 speakers, four tracks.">
+<meta property="og:url" content="https://krishnakanthb13.github.io/D/1/techxconf26/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e17'/%3E%3Cpath d='M14 22h36M32 22v26' stroke='%23ff9a3c' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://files.techxconf.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+/* ============================================================
+   TechXConf 2026 — design system
+   Aesthetic: "conference pass / timetable" — ink-navy stock,
+   warm signal amber, monospaced timecodes, hairline grid.
+   Tokens: 6 colors / 3 type roles / 1 rhythm unit (4px base)
+   ============================================================ */
+:root{
+  /* color */
+  --ink:#0a0e17; --panel:#101624; --raise:#161e30; --line:#26304a;
+  --text:#e9edf7; --muted:#98a2b8; --dim:#7f8ba6; /* AA on ink 5.7 / panel 5.3 / raise 4.9 */
+  --signal:#ff9a3c; --aqua:#37e0ce;
+  --t1:#ff9a3c; --t2:#37e0ce; --t3:#5aa9ff; --t4:#ff6fa5;
+  --grad:linear-gradient(96deg,#ff9a3c,#ff6fa5 48%,#5aa9ff);
+  /* type */
+  --display:"Bricolage Grotesque","Segoe UI Semibold",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Consolas,"Liberation Mono",monospace;
+  /* space + shape */
+  --maxw:1160px; --r:10px; --rp:99px; --u:4px;
+  --shadow:0 18px 44px -26px rgba(0,0,0,.9);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--text);
+  font:400 16px/1.65 var(--body);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+img.img-broken{visibility:hidden} /* CDN 404: keep the layout slot, drop the broken glyph */
+[hidden]{display:none!important} /* author display rules must not beat the hidden attribute */
+a{color:var(--aqua);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;letter-spacing:-.025em;margin:0 0 .45em;font-weight:700}
+h1{font-size:clamp(40px,7.4vw,76px);font-weight:800;letter-spacing:-.035em}
+h2{font-size:clamp(30px,4.6vw,46px)}
+h3{font-size:20px}
+p{margin:0 0 1em}
+strong{color:#fff}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+main{display:block}
+/* session abstracts contain 380-char URLs and long tokens; never let them
+   force horizontal scroll on a narrow screen (break only when needed) */
+main,footer{overflow-wrap:anywhere}
+section{padding:68px 0}
+section[id]{scroll-margin-top:84px}
+.hr{border:0;border-top:1px solid var(--line);margin:0}
+
+/* ---------- shared page furniture ---------- */
+.label{
+  font:600 11.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--signal);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px
+}
+.label::before{content:"";width:26px;height:1px;background:var(--signal);opacity:.7}
+.label .n{color:var(--dim)}
+.lead{color:var(--muted);font-size:17px;max-width:74ch}
+.center{text-align:center}
+.center .lead{margin-inline:auto}
+
+/* page header (interior pages) */
+.page-head{position:relative;padding:56px 0 34px;border-bottom:1px solid var(--line);overflow:hidden}
+.page-head::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 68px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 68px),
+    radial-gradient(60% 120% at 78% 0%,rgba(255,154,60,.14),transparent 70%),
+    radial-gradient(50% 100% at 12% 10%,rgba(90,169,255,.12),transparent 70%);
+}
+.page-head .wrap{position:relative}
+.crumb{font:500 13px/1 var(--mono);color:var(--dim);letter-spacing:.06em;margin-bottom:22px}
+.crumb a{color:var(--muted)}
+.crumb .sep{padding:0 8px;opacity:.55}
+.page-head h1{font-size:clamp(34px,5.6vw,60px);margin-bottom:12px}
+.page-head .lead{margin-bottom:0}
+.page-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.tag{
+  font:600 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);border:1px solid var(--line);background:rgba(255,255,255,.03);
+  padding:8px 13px;border-radius:var(--rp)
+}
+.tag b{color:var(--aqua);font-weight:600}
+
+/* ---------- header / navigation ---------- */
+.site-head{position:sticky;top:0;z-index:60;background:rgba(10,14,23,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:baseline;gap:7px;font-family:var(--display);font-weight:800;font-size:20px;color:#fff;letter-spacing:-.03em}
+.brand:hover{text-decoration:none}
+.brand .tx{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .cf{color:var(--signal)}
+.brand .yr{font:600 11px/1 var(--mono);color:var(--dim);letter-spacing:.14em}
+.nav{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav a{
+  position:relative;color:var(--muted);font:600 14.5px/1 var(--body);
+  padding:10px 13px;border-radius:8px;transition:color .18s,background .18s
+}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none}
+.nav .ticket{display:none} /* drawer-only copy; desktop uses the bar copy */
+.nav a[aria-current]{color:#fff;background:rgba(255,154,60,.12)}
+.nav a[aria-current]::after{
+  content:"";position:absolute;left:13px;right:13px;bottom:4px;height:2px;border-radius:2px;background:var(--signal)
+}
+.ticket{
+  font:700 13.5px/1 var(--mono);letter-spacing:.04em;color:var(--dim);
+  border:1px dashed var(--line);background:rgba(255,255,255,.02);
+  padding:10px 14px;border-radius:8px;white-space:nowrap;cursor:not-allowed;
+  position:relative
+}
+.ticket::before{content:"● ";color:#4b5670;font-size:9px;vertical-align:2px}
+.burger{
+  display:none;margin-left:auto;width:44px;height:40px;padding:9px;
+  border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.04);cursor:pointer
+}
+.burger span{display:block;height:2px;background:var(--text);border-radius:2px;margin:4px 0;transition:.22s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font:700 15px/1 var(--body);padding:15px 24px;border-radius:var(--r);
+  border:1px solid transparent;cursor:pointer;transition:transform .18s,filter .18s,border-color .18s,background .18s;
+  text-align:center
+}
+.btn:hover{transform:translateY(-2px);text-decoration:none}
+.btn-p{background:var(--grad);color:#12060b;box-shadow:0 16px 34px -22px rgba(255,154,60,.9)}
+.btn-p:hover{filter:brightness(1.07)}
+.btn-g{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.03)}
+.btn-g:hover{border-color:var(--aqua);color:#fff}
+.btn-off{
+  background:rgba(255,255,255,.03);border:1px dashed var(--line);color:var(--dim);
+  font-family:var(--mono);font-size:14px;letter-spacing:.03em;cursor:not-allowed
+}
+.btn-off:hover{transform:none;filter:none}
+.btn.sm{padding:11px 17px;font-size:14px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:76px 0 60px;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 74px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 74px),
+    radial-gradient(55% 70% at 88% 8%,rgba(255,107,53,.20),transparent 70%),
+    radial-gradient(50% 60% at 6% 34%,rgba(55,224,206,.14),transparent 70%);
+  mask-image:linear-gradient(180deg,#000 55%,transparent);
+  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent) /* Safari < 15.4 */
+}
+.hero .wrap{position:relative}
+.hero .g-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.g-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mt-s{margin-top:12px}
+.mt-m{margin-top:24px}
+.mt-l{margin-top:32px}
+.dim{color:var(--dim)}
+.hero .kicker{font-size:clamp(17px,2.4vw,23px);color:#cfd8ec;font-weight:500;max-width:34ch;margin-bottom:26px}
+.hero .kicker b{color:var(--signal);font-weight:700}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px;padding:0;list-style:none}
+.facts li{
+  display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:11px 15px;font-size:14.5px;color:#d7dfef
+}
+.facts .i{font-family:var(--mono);color:var(--signal);font-size:13px}
+.notice{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:26px;
+  border:1px dashed var(--line);border-left:3px solid var(--signal);border-radius:var(--r);
+  background:rgba(255,154,60,.06);padding:14px 18px;font-size:14.5px;color:#e6d9c9
+}
+.notice b{color:var(--signal);font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+
+/* countdown */
+.cd{display:flex;gap:10px;margin-top:30px;list-style:none;padding:0;flex-wrap:wrap}
+.cd-done{margin:30px 0 0;max-width:62ch;font:600 14.5px/1.6 var(--mono);letter-spacing:.04em;color:var(--aqua)} /* shown once the event starts */
+.cd li{
+  flex:1;min-width:74px;max-width:118px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:14px 6px;text-align:center
+}
+.cd b{display:block;font:800 28px/1 var(--display);letter-spacing:-.03em;color:#fff}
+.cd span{font:600 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-top:7px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:46px}
+.stat{background:linear-gradient(180deg,var(--panel),var(--raise));border:1px solid var(--line);border-radius:var(--r);padding:20px 14px;text-align:center}
+.stat b{display:block;font:800 clamp(24px,3.4vw,34px)/1 var(--display);letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:13px;color:var(--muted);display:block;margin-top:6px}
+
+/* ---------- cards ---------- */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:26px;transition:transform .2s,border-color .2s,background .2s;position:relative
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,154,60,.5);background:var(--raise)}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);font-size:15px;margin-bottom:0}
+.card .idx{
+  font:600 11.5px/1 var(--mono);letter-spacing:.16em;color:var(--dim);
+  display:block;margin-bottom:16px
+}
+.ico{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:21px;
+  background:rgba(255,154,60,.1);border:1px solid rgba(255,154,60,.32);margin-bottom:16px
+}
+ul.ticks{list-style:none;padding:0;margin:14px 0 0}
+ul.ticks li{position:relative;padding-left:26px;color:var(--muted);font-size:15px;margin-bottom:9px}
+ul.ticks li::before{
+  content:"";position:absolute;left:0;top:8px;width:11px;height:6px;
+  border-left:2px solid var(--aqua);border-bottom:2px solid var(--aqua);transform:rotate(-45deg)
+}
+a.card{display:block;color:inherit}
+a.card:hover{text-decoration:none}
+a.card .go{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  font:700 14px/1 var(--mono);letter-spacing:.06em;color:var(--signal);text-transform:uppercase
+}
+a.card .go::after{content:"→";transition:transform .2s}
+a.card:hover .go::after{transform:translateX(5px)}
+
+/* two-column editorial block */
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:start}
+.hl{
+  background:linear-gradient(140deg,rgba(255,107,53,.13),rgba(255,154,60,.03));
+  border:1px solid rgba(255,154,60,.4);border-radius:var(--r);padding:24px
+}
+.hl h3{color:#ffc79a;font-size:19px}
+.hl p{color:#e8d3c2;font-size:14.5px;margin-bottom:0}
+.hl .when{font:600 12px/1 var(--mono);letter-spacing:.1em;color:var(--signal);display:block;margin-top:12px}
+
+/* ---------- agenda ---------- */
+.tc1{--tc:var(--t1)}
+.tc2{--tc:var(--t2)}
+.tc3{--tc:var(--t3)}
+.tc4{--tc:var(--t4)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px;padding:0;border:0}
+.tab{
+  font:700 14px/1 var(--body);background:var(--panel);border:1px solid var(--line);
+  color:var(--muted);padding:12px 17px;border-radius:var(--rp);cursor:pointer;
+  transition:.18s;display:inline-flex;align-items:center;gap:9px
+}
+.tab .dot{width:8px;height:8px;border-radius:50%;background:var(--tc,var(--signal))}
+.tab:hover{color:#fff;border-color:var(--aqua)}
+.tab[aria-selected="true"]{background:var(--raise);color:#fff;border-color:var(--tc,var(--signal));box-shadow:inset 0 0 0 1px var(--tc,var(--signal))}
+.panel{display:none}
+.panel.on{display:block;animation:rise .32s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.track-note{
+  font:600 12.5px/1.5 var(--mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--dim);margin:0 0 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap
+}
+.track-note b{color:var(--text)}
+.track-note .dot{width:9px;height:9px;border-radius:50%;background:var(--tc,var(--signal))}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:22px;font:600 12px/1 var(--mono);letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:14px;height:3px;border-radius:2px;background:var(--tc);display:inline-block}
+
+.sess{
+  display:grid;grid-template-columns:140px 1fr;gap:20px;background:var(--panel);
+  border:1px solid var(--line);border-left:3px solid var(--tc,var(--line));
+  border-radius:var(--r);padding:18px 20px;margin-bottom:12px;transition:border-color .18s,background .18s
+}
+.sess:hover{background:var(--raise);border-color:var(--line);border-left-color:var(--tc,var(--signal))}
+.time{font:700 15px/1.35 var(--mono);color:#fff;letter-spacing:-.01em}
+.time i{display:block;font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.16em;color:var(--dim);margin-top:6px}
+.badge{
+  display:inline-block;font:700 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  padding:5px 9px;border-radius:5px;background:rgba(90,169,255,.13);
+  border:1px solid rgba(90,169,255,.4);color:#a9ccff;vertical-align:middle
+}
+.badge.b-light{background:rgba(255,111,165,.12);border-color:rgba(255,111,165,.4);color:#ffb9d3}
+.badge.b-gen{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:#b6c1d6}
+.badge.b-fun{background:rgba(255,154,60,.14);border-color:rgba(255,154,60,.45);color:#ffc79a}
+.sess h4{font-size:18px;margin:9px 0 9px;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.chip{
+  display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);
+  border:1px solid var(--line);border-radius:var(--rp);padding:4px 14px 4px 4px;
+  font-size:13.5px;color:#d7dfef
+}
+.chip img{width:27px;height:27px;border-radius:50%;object-fit:cover;background:var(--raise)}
+.chip b{font-weight:600}
+.chip i{font-style:normal;color:var(--dim);font-size:12.5px}
+details{margin-top:4px}
+summary{
+  cursor:pointer;font:700 13px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--aqua);list-style:none;display:inline-block;padding:5px 0
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ "}
+details[open] summary::before{content:"▾ "}
+summary:hover{color:#fff}
+details p{
+  color:var(--muted);font-size:15px;white-space:pre-line;margin:10px 0 0;
+  border-left:2px solid var(--tc,var(--line));padding-left:16px
+}
+
+/* ---------- speakers ---------- */
+.spk{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 18px;text-align:center;transition:transform .2s,border-color .2s,background .2s
+}
+.spk:hover{transform:translateY(-4px);border-color:rgba(55,224,206,.5);background:var(--raise)}
+.spk .ph{
+  width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 14px;
+  background:var(--raise);border:2px solid var(--line)
+}
+.spk h3{font-size:17px;margin-bottom:4px}
+.spk .role{font-size:13.5px;color:var(--aqua);margin-bottom:6px;font-weight:600}
+.spk .co{
+  font-size:12.5px;color:var(--dim);margin-bottom:14px;display:flex;align-items:center;
+  justify-content:center;gap:8px;min-height:20px;flex-wrap:wrap
+}
+.spk .co img{height:18px;width:auto;max-width:88px;object-fit:contain}
+.spk .li{
+  font:700 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:7px;padding:8px 13px;color:var(--muted);display:inline-block
+}
+.spk .li:hover{color:#fff;border-color:var(--aqua);text-decoration:none}
+
+/* ---------- venue + footer ---------- */
+.venue{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.map{border-radius:var(--r);border:1px solid var(--line);background:var(--panel);padding:28px}
+.map .pin{font-size:36px;line-height:1}
+.site-foot{border-top:1px solid var(--line);background:#080b13;padding:44px 0 28px;color:var(--muted);font-size:14.5px}
+.fgrid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.fgrid h4{font:700 11.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.fgrid ul{list-style:none;margin:0;padding:0}
+.fgrid li{margin-bottom:9px}
+.fgrid a{color:var(--muted)}
+.fgrid a:hover{color:#fff}
+.fgrid a[aria-current]{color:var(--signal)}
+.social{display:flex;gap:9px;flex-wrap:wrap}
+.social a{border:1px solid var(--line);border-radius:8px;padding:8px 13px;font:600 13px/1 var(--body)}
+.social a:hover{color:#fff;border-color:var(--aqua);text-decoration:none}
+.legal{
+  margin-top:28px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--dim);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap
+}
+.foot-brand{max-width:340px}
+.foot-brand p{margin-top:12px}
+
+/* ---------- responsive ---------- */
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .split,.venue{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .site-head{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,14,23,.97)} /* drop blur: sticky-header repaint cost on phones */
+  .burger{display:block}
+  .head .ticket{display:none}
+  .nav{
+    position:fixed;left:0;right:0;top:64px;margin:0;flex-direction:column;align-items:stretch;
+    background:#0b111d;border-bottom:1px solid var(--line);padding:10px 16px 18px;gap:3px;
+    box-shadow:var(--shadow);display:none
+  }
+  .nav.open{display:flex}
+  .nav a{padding:14px 10px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .nav a[aria-current]::after{left:10px;right:auto;width:22px;bottom:8px}
+  .nav .ticket{display:block;margin-top:14px;text-align:center;padding:14px}
+  section{padding:52px 0}
+  .sess{grid-template-columns:1fr;gap:6px;padding:16px}
+  .time i{display:inline-block;margin:6px 0 0}
+  .cd li{max-width:none;min-width:64px;padding:11px 4px}
+  .cd b{font-size:23px}
+}
+@media(max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .cta .btn{width:100%}
+  .page-head{padding:40px 0 26px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .site-head,.site-foot,.tabs,.burger{display:none}
+  body{background:#fff;color:#000}
+  .panel{display:block!important}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "TechXConf 2026 — AI, Cloud & Data Conference",
+  "description": "One power-packed day of keynotes, deep-dive sessions, round tables and fireside chats across Generative AI, Cloud Computing and Data Science — four parallel tracks, 35 speakers, 47 session slots.",
+  "startDate": "2026-10-24T10:00:00+05:30",
+  "endDate": "2026-10-24T18:00:00+05:30",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "IIT Madras Research Park",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "332, Kanagam Rd, Kanagam, Tharamani",
+      "addressLocality": "Chennai",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "600 113",
+      "addressCountry": "IN"
+    }
+  },
+  "organizer": { "@type": "Organization", "name": "TechXConf", "url": "https://techxconf.com" },
+  "offers": { "@type": "Offer", "url": "https://techxconf.com", "availability": "https://schema.org/SoldOut" }
+}
+</script>
+<noscript><style>
+/* no-JS fallback: stacked tracks, inline section links */
+.tabs{display:none}
+.panel{display:block}
+.legend{display:none}
+.cd{display:none}
+@media(max-width:900px){
+  .burger{display:none}
+  .head{flex-wrap:wrap}
+  .nav{position:static;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:2px;margin:12px 0 0;width:100%;padding:8px;border:1px solid var(--line);border-radius:var(--r);box-shadow:none;background:#0b111d}
+  .nav a{padding:9px 11px;font-size:14px;border-bottom:0}
+  .nav .ticket{display:none}
+}</style></noscript>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head">
+    <a class="brand" href="#top" aria-label="TechXConf 2026 — back to top"><span class="tx">TechX</span><span class="cf">Conf</span><span class="yr">'26</span></a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Sections">
+      <a href="#overview">Overview</a>
+        <a href="#why">Why Attend</a>
+        <a href="#themes">Themes</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#venue">Venue</a>
+      <span class="ticket">Get Tickets (closed)</span>
+    </nav>
+    <span class="ticket">Get Tickets (closed)</span>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="label">AI &middot; Cloud &middot; Data &middot; Chennai</span>
+    <h1>TechXConf <span class="g-text">2026</span></h1>
+    <p class="kicker">The flagship <b>AI, Cloud &amp; Data Conference</b> &mdash; one power-packed day of keynotes, deep-dive sessions, round tables and fireside chats.</p>
+    <ul class="facts">
+      <li><span class="i">DATE</span> Saturday, 24 October 2026</li>
+      <li><span class="i">CITY</span> IIT Madras Research Park, Chennai</li>
+      <li><span class="i">FORM</span> In-person &middot; 1 day &middot; 4 tracks</li>
+    </ul>
+    <div class="cta">
+      <span class="btn btn-off" aria-disabled="true">Get Tickets (closed)</span>
+      <a class="btn btn-p" href="#agenda">View the Agenda</a>
+      <a class="btn btn-g" href="https://files.techxconf.com/2026/TechXConf_2026_Prospectus.pdf" target="_blank" rel="noopener noreferrer">Explore Sponsorship</a>
+    </div>
+    <div class="notice">
+        <b>Ticket sales are closed</b>
+        <span>Registrations for TechXConf 2026 have ended. For enquiries, write to <a href="mailto:support@techxconf.com">support@techxconf.com</a>.</span>
+      </div>
+    <ul class="cd" id="cd" aria-label="Countdown to the conference">
+      <li><b id="cd-d">--</b><span>Days</span></li>
+      <li><b id="cd-h">--</b><span>Hours</span></li>
+      <li><b id="cd-m">--</b><span>Mins</span></li>
+      <li><b id="cd-s">--</b><span>Secs</span></li>
+    </ul>
+    <p class="cd-done" id="cd-done" hidden>TechXConf 2026 — 24 October 2026, IIT Madras Research Park, Chennai.</p>
+    <div class="stats">
+      <div class="stat"><b>1800+</b><span>Developers, architects &amp; leaders</span></div>
+      <div class="stat"><b>35+</b><span>Speakers announced</span></div>
+      <div class="stat"><b>30+</b><span>Sessions</span></div>
+      <div class="stat"><b>1000+</b><span>Companies represented</span></div>
+      <div class="stat"><b>1</b><span>Day &middot; 4 parallel tracks</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="overview">
+      <div class="wrap">
+        <span class="label"><span class="n">01</span> Overview</span>
+        <h2>A global tech phenomenon, hosted from India</h2>
+        
+      <div class="split">
+        <div>
+          <p class="lead">TechXConf is a globally recognised flagship tech conference that unites visionary speakers, pioneering technologies and a vibrant community of tech enthusiasts. Its mission is to explore, educate and envision the future of technology across three dynamic domains &mdash; <strong>Generative AI, Cloud Computing and Data Science</strong>.</p>
+          <ul class="ticks">
+            <li>Globally recognised flagship tech conference from India &mdash; the largest AI &amp; Cloud conference in Asia</li>
+            <li>Keynotes by renowned industry leaders and AI pioneers</li>
+            <li>Round tables and fireside chats across 4 parallel tracks</li>
+            <li>Participants from 1000+ companies, with networking lounges all day</li>
+            <li>Immersive, hands-on technology learning for builders and decision-makers alike</li>
+          </ul>
+        </div>
+        <aside class="hl">
+          <h3>Laugh out loud with our tech stand-up comedian</h3>
+          <p><strong>Jagan Krishnan</strong> takes over with his solo special <em>&ldquo;Jagane Thandhiram&rdquo;</em> &mdash; guitar in hand, playfully roasting Tamil music legends like Harris Jayaraj, Santhosh Narayanan and AR Rahman, turning your favourite melodies into a laugh-out-loud, tech-flavoured comedy jam.</p>
+          <span class="when">17:15 &ndash; 18:00 IST &middot; main hall</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <span class="label"><span class="n">02</span> Why Attend</span>
+      <h2>Connect, Network, Learn &amp; Grow</h2>
+      <p class="lead">A full day engineered around four outcomes &mdash; and the people you will share it with: 1800+ developers, architects, data scientists and leaders from 1000+ companies.</p>
+      <div class="grid g4 mt-m">
+        <div class="card"><span class="idx">01</span><div class="ico" aria-hidden="true">&#129309;</div><h3>Connect</h3><p>Meet and collaborate with peers, speakers and professionals in our networking lounges.</p></div>
+        <div class="card"><span class="idx">02</span><div class="ico" aria-hidden="true">&#127760;</div><h3>Network</h3><p>Engage with attendees and partners, exchange ideas and build valuable connections.</p></div>
+        <div class="card"><span class="idx">03</span><div class="ico" aria-hidden="true">&#128218;</div><h3>Learn</h3><p>Gain insights from industry experts through keynotes, case studies and workshops.</p></div>
+        <div class="card"><span class="idx">04</span><div class="ico" aria-hidden="true">&#128640;</div><h3>Grow</h3><p>Stay informed, boost your brand, generate leads and strengthen your competitive edge.</p></div>
+      </div>
+      <div class="split mt-l">
+        <div class="card">
+          <span class="idx">THE DAY, END TO END</span>
+          <ul class="ticks">
+            <li><strong>08:00 &ndash; 09:45</strong> &mdash; registration, breakfast and first introductions</li>
+            <li><strong>10:00</strong> &mdash; opening note, then four parallel tracks run all day</li>
+            <li><strong>10:40 &ndash; 12:55</strong> &mdash; talks, lightning talks and live demos</li>
+            <li><strong>12:55 &ndash; 14:15</strong> &mdash; lunch and open networking</li>
+            <li><strong>14:30 &ndash; 16:45</strong> &mdash; afternoon tracks, panels and fireside chats</li>
+            <li><strong>17:00</strong> &mdash; closing note; <strong>17:15</strong> &mdash; stand-up comedy to end the day</li>
+          </ul>
+        </div>
+        <aside class="hl">
+          <h3>Ticket sales are closed</h3>
+          <p>Registrations for the 2026 edition have ended. If your team still needs access, reach the organisers directly &mdash; they will let you know what is possible.</p>
+          <span class="when"><a href="mailto:support@techxconf.com">support@techxconf.com</a></span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes">
+    <div class="wrap">
+      <span class="label"><span class="n">03</span> Themes</span>
+      <h2>Six tracks of what&rsquo;s next</h2>
+      <p class="lead">From production LLM systems to hybrid quantum optimisation &mdash; six core theme areas, each mapped to a running track in the agenda.</p>
+      <div class="grid g3 mt-m">
+        <div class="card"><span class="idx">01</span><div class="ico" aria-hidden="true">&#9729;&#65039;</div><h3>Cloud Computing, Data Engineering &amp; Analytics</h3><ul class="ticks"><li>Generative AI in data engineering</li><li>AIOps for cloud management</li><li>LLMs for data analytics</li></ul></div>
+        <div class="card"><span class="idx">02</span><div class="ico" aria-hidden="true">&#129504;</div><h3>Machine Learning Engineering</h3><ul class="ticks"><li>Advanced ML algorithms and techniques</li><li>Model interpretability and explainability</li><li>Model monitoring, versioning and reproducibility</li></ul></div>
+        <div class="card"><span class="idx">03</span><div class="ico" aria-hidden="true">&#129302;</div><h3>AI-Powered Applications</h3><ul class="ticks"><li>Natural language processing and understanding</li><li>Computer vision and image recognition</li><li>AI in healthcare, finance and e-commerce</li></ul></div>
+        <div class="card"><span class="idx">04</span><div class="ico" aria-hidden="true">&#127981;</div><h3>Industry-Specific AI &amp; Cloud Solutions</h3><ul class="ticks"><li>Smart cities and urban innovation</li><li>Industry 4.0 and IoT integration</li><li>Financial forecasting and risk management</li></ul></div>
+        <div class="card"><span class="idx">05</span><div class="ico" aria-hidden="true">&#128302;</div><h3>Emerging Trends &amp; Future Direction</h3><ul class="ticks"><li>Generative AI and creativity</li><li>Ethics and governance of AI</li><li>AI in education</li><li>The future of work with AI</li></ul></div>
+        <div class="card"><span class="idx">06</span><div class="ico" aria-hidden="true">&#128752;</div><h3>Aerospace, Quantum &amp; Edge Computing</h3><ul class="ticks"><li>Satellite data processing and analytics</li><li>Aerospace software development</li><li>AI and machine learning in aerospace</li><li>Gen AI in simulation and modeling</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda">
+    <div class="wrap">
+      <span class="label"><span class="n">04</span> Agenda</span>
+      <h2>The agenda</h2>
+      <p class="lead">Saturday, 24 October 2026 &mdash; one day, four parallel tracks, all timings in IST. Pick a track below; open any session for its full abstract.</p>
+      <p class="track-note mt-m"><span aria-hidden="true">&#9201;</span> 47 session slots &middot; 08:00 to 18:00 IST</p>
+<div class="tabs" role="tablist" aria-label="Conference tracks">
+          <button class="tab tc1" type="button" role="tab" id="tab1" aria-controls="trk1" aria-selected="true">AI &amp; Agentic Intelligence</button><button class="tab tc2" type="button" role="tab" id="tab2" aria-controls="trk2" aria-selected="false">Cloud, DevOps &amp; FinOps</button><button class="tab tc3" type="button" role="tab" id="tab3" aria-controls="trk3" aria-selected="false">Data &amp; Observability</button><button class="tab tc4" type="button" role="tab" id="tab4" aria-controls="trk4" aria-selected="false">Industry &amp; Innovation</button>
+        </div>
+        <div class="panel tc1 on" id="trk1" role="tabpanel" aria-labelledby="tab1" tabindex="0">
+            <h3 class="track-note"><span class="dot"></span><b>AI &amp; Agentic Intelligence</b> &mdash; 13 sessions &middot; 08:00 to 18:00 IST</h3>
+            <article class="sess">
+          <div class="time">08:00 – 09:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Registration</span>
+            <h4>Registration</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:00 – 10:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Opening Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:40 – 11:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Who Governs the AI Agent? A Practical Framework for Enterprise Risk Assessment</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sridevi%20PP.png" alt=""><b>Sridevi P P</b><i>Senior Information Security Architect</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Manoj%20KumarS.png" alt=""><b>Manoj Kumar S</b><i>Associate Director</i></span></div>
+            <details><summary>Session details</summary><p>As Enterprise AI Agents gain the ability to access data, invoke tools, trigger workflows, and influence business decisions, traditional governance processes struggle to keep pace. Most organizations rely on manual reviews, spreadsheets, and policy documents to assess agent risk, resulting in in consistent evaluations and limited scalability. 
+
+This session introduces an AI-powered governance approach that automates the assessment of enterprise AI agents. Using a risk-tiered control framework, a governance agent analyzes an agent's autonomy, data access, external connectivity, decision impact, and action capabilities to determine its risk level and validate whether appropriate controls are in place. 
+
+Attendees will learn how AI can be used to classify agents, identify missing controls, validate governance requirements, and generate deployment recommendations. Through practical examples and a few demonstration, the session will showcase how organizations can move from manual governance reviews to continuous, scalable AI agent oversight while balancing security, compliance and innovation.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">11:25 – 12:05<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Exploiting the AI Agent: LLM Vulnerabilities in Action</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Bipul%20Kumar.png" alt=""><b>Bipul Kumar</b><i>Senior Distinguished Engineer</i></span></div>
+            <details><summary>Session details</summary><p>This session explore the unique attack surface exposed by autonomous Agentic AI systems in the real-world applications. When large language models are granted tool execution privileges, persistent memory, and multi-step planning capabilities, traditional application security models and network safeguards are no longer enough to keep systems secure.
+
+We will dive deep into critical LLM and Agentic AI vulnerabilities with examples and live Demos. We will also talk about practical controls that can be applied to mitigate the risks.
+
+This session will cover following:
+- Direct and indirect prompt injection
+- Tool misuse and unauthorised access
+- Identity and privilege escalation
+- Memory and context poisioning
+- Sensitive information disclosure
+etc.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:10 – 12:30<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Engineering AI Workflows: Context, Agents, Skills and Human Verification</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AarthyRamesh.png" alt=""><b>Aarthy Ramesh</b><i>Technical Documentation Engineer</i></span></div>
+            <details><summary>Session details</summary><p>In this session, I will share case studies from my own work across technical documentation, SME workflows, Developer Relations, and AI projects.
+
+The first case study looks at a documentation and operations workflow involving SOPs, articles, policies, spreadsheets, and CMS publishing. I will show how AI agents and MCP can support anomaly detection, reusable skills, verification, and workflow automation.
+
+A key focus will be Design Based on Role, Not Based on Task. Instead of asking what individual task AI can automate, we look at the complete role, its responsibilities, decisions, context, dependencies, and repetitive work. This helps identify what an agent should execute, what it should assist with, and what must remain human controlled.
+
+The second case study covers building a technical knowledge base from scratch using AI agents and modern AI tools. I will share how context was structured, how reusable skills were developed, and how hallucinations, AI slop, privacy concerns, and manual verification were handled.
+
+Session Highlights
+
+• Design Based on Role, Not Based on Task: Design AI workflows around the complete role, not isolated tasks.
+
+• The Human Verification Tax: Identify where AI actually saves time and where humans are still checking every output.
+
+• Skills, Not Giant Prompts: Convert repeatable expert processes into reusable agent skills.
+
+• Context as an Engineering Layer: Decide what context an agent needs and what it should retrieve.
+
+• MCP as the Tool Layer: Connect agents with documentation, CMS, spreadsheets, and knowledge systems.
+
+• AI Slop at Scale: Understand why AI generated content can become a quality problem and how to build quality gates.
+
+• Agent Boundaries: Define what agents can execute, what requires validation, and what stays human owned.
+
+• From Knowledge to Action: Move from AI answering questions to AI operating within a governed workflow.
+
+• Failure First: Learn from real examples of hallucinations, incorrect context, privacy issues, and failed automation.
+
+Takeaway
+
+Attendees will leave with a practical framework for designing AI workflows around real professional roles:
+
+Role → Context → Skills → Tools → Agent → Validation → Human Decision
+
+The goal is not to automate everything. It is to understand what AI should execute, what it should assist with, and what humans should continue to own.
+
+Format
+
+20 to 30 minute technical session
+
+The session will use architecture diagrams, workflow maps, personal case studies, and practical strategies.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:35 – 12:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Beyond GPUs: A Workload-First Framework for AI Compute and Data Centre Design</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aarrti%20TRJ.png" alt=""><b>Aarrti TRJ</b><i>AI Lead</i></span></div>
+            <details><summary>Session details</summary><p>Enterprises scaling AI from pilot to production often default to &quot;more GPUs&quot; as the answer to every workload — quietly driving up cost, energy consumption, and time-to-deploy without ever asking whether the hardware actually matches the job. In a landscape where infrastructure decisions compound rapidly, this default is expensive, inflexible, and increasingly unsustainable.
+Choosing the right compute substrate — CPU, GPU, or TPU — is one of the highest-stakes architectural decisions an engineering team makes. Yet most teams lack a structured framework for making it well. This talk introduces a practical, workload-first decision framework grounded in three dimensions that matter most: workload shape, latency requirements, and power envelopes.
+We map these dimensions against the full spectrum of modern AI data centre architectures — each purpose-built for specific use cases rather than generic, one-size-fits-all deployments:
+• Dense GPU clusters — optimised for large-scale distributed model training
+• Hybrid CPU pipelines — delivering cost- and energy-efficient inference at scale
+• Disaggregated infrastructure (e.g., IBM LinuxONE) — purpose-built for data residency, compliance, and hybrid cloud workloads
+• Edge-to-core designs — engineered for latency-bound, real-time inference at the boundary
+• Ocean- and sea-based data centres — leveraging natural cooling environments to dramatically reduce energy and water footprint at scale
+Each model represents a deliberate architectural trade-off. Getting these decisions right pays off directly in time-to-market, sustainability metrics, and unit economics. Getting them wrong locks organisations into rigid, over-provisioned infrastructure that is costly to unwind.
+This session is designed for engineers, architects, and technical leads who need to move beyond instinct and vendor defaults — and make compute decisions they can defend with data.
+Key Takeaways
+1. A workload-first decision framework for choosing between CPU, GPU, and TPU — based on workload shape, latency tolerance, and power constraints, not convention or vendor pressure
+2. A practical map of purpose-built data centre models — from dense GPU clusters and disaggregated hybrid infrastructure to edge-to-core and ocean-cooled designs — and the specific use cases each one is engineered to serve
+3. A framework linking infrastructure choices to business outcomes — connecting compute decisions directly to time-to-market, sustainability goals, and unit economics so technical teams can align with organisational priorities</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:55 – 14:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Break</span>
+            <h4>Lunch &amp; Networking</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">14:30 – 15:10<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Building Autonomous Agents: A Framework for Loops and Harnesses</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Balaji%20Janarthanam.png" alt=""><b>Balaji Janarthanam</b><i>Technical Lead - Machine Learning Engineer</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AshwiniPurushothaman.png" alt=""><b>Ashwini Purushothaman</b><i>Founder and CEO</i></span></div>
+            <details><summary>Session details</summary><p>A comprehensive guide to building reliable, enterprise-grade AI agents by separating reasoning from execution. Moving beyond simple single-prompt LLM calls, this book introduces a structural blueprint centered on Loop Engineering (the dynamic self-prompting and iterative decision cycle) and Harness Engineering (the surrounding execution environment of tools, state management, and guardrails). Learn how to design resilient agent systems that can autonomously plan, execute, verify, and self-correct with minimal human intervention.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">15:15 – 15:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>UCP Agentic Commerce: From AI Recommendations to AI-Driven Transactions</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/NavaneethanGopal.png" alt=""><b>Navaneethan Gopal</b><i>Senior Manager AICoE &amp; Data Science</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SharmaG.png" alt=""><b>Sharma G</b><i>Agentic AI Engineer</i></span></div>
+            <details><summary>Session details</summary><p>AI agents are evolving from assistants that recommend products to agents that can execute commerce transactions. This session explores how UCP, MCP, A2A, and AP2 enable this shift. Using a practical reference architecture, we’ll show how these emerging protocols work alongside existing APIs and AI agents to reduce integration complexity and deliver standardized, interoperable, and governed agentic commerce, and we’ll close with a phased path for adopting them.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:00 – 16:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>OWASP TOP 10 FOR LLM</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Arun%20Kumar%20K.png" alt=""><b>Arun Kumar K</b><i>Cyber Security Consultant</i></span></div>
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:25 – 16:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Evaluating AI Applications: Testing Chatbots, AI Agents, RAG &amp; MCP Servers</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Vijayaraghavan%20Vashudevan.png" alt=""><b>Vijayaraghavan Vashudevan</b><i>Associate Vice President</i></span></div>
+            <details><summary>Session details</summary><p>The session will demonstrate how AI evaluation can be automated and integrated into a repeatable testing workflow, allowing teams to identify regressions as models, prompts, data, and application logic evolve.
+Attendees will leave with a practical approach to testing AI applications and a foundation for building their own AI Quality Engineering strategy using open-source tools.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:00 – 17:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Closing Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:15 – 18:00<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Fun Show</span>
+            <h4>Jagan Krishnan - STAND UP COMEDY SHOW</h4>
+            
+            <details><summary>Session details</summary><p>Fun Show</p></details>
+          </div>
+        </article>
+          </div><div class="panel tc2" id="trk2" role="tabpanel" aria-labelledby="tab2" tabindex="0">
+            <h3 class="track-note"><span class="dot"></span><b>Cloud, DevOps &amp; FinOps</b> &mdash; 12 sessions &middot; 08:00 to 18:00 IST</h3>
+            <article class="sess">
+          <div class="time">08:00 – 09:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Registration</span>
+            <h4>Registration</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:00 – 10:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Opening Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:40 – 11:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>AIoT That Acts: When Connected Devices Stop Reporting and Start Deciding</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SrinivasanMoorthy.png" alt=""><b>Srinivasan Moorthy</b><i>Senior Engineering Manager</i></span></div>
+            <details><summary>Session details</summary><p>This session covers what changes technically when an AIoT device moves from reporting data to taking physical action on its own.
+
+The reliability arithmetic. Why per-decision accuracy is the wrong metric for an autonomous device, how duty cycle converts an ordinary error rate into hundreds of wrong physical actions per node per day, and why agent reliability measured across repeated runs falls far below its single-run benchmark figure.
+
+Architecture and its constraints. How to partition an AIoT workload across device, edge and cloud so it survives connectivity loss; what a quantised model actually costs in accuracy; the flash, RAM and power ceilings that determine model size on a microcontroller; and where deterministic rules remain the correct engineering answer rather than a compromise.
+
+New failure classes. The risks that appear only when AI gains actuator access — excessive agency, poisoned sensor context, chained tool authority, memory poisoning and emergent fleet behaviour — mapped against the OWASP Top 10 for Agentic Applications, with a worked example of a prompt injection that produces a physical result.
+
+The guard pattern. A deterministic policy layer between model and actuator: closed command schema, bounded parameters, rate limiting, confirmation on state change, and audit logging of rejected intents. Roughly forty lines of code, containing no intelligence, and therefore provable.
+
+Includes measured results from real hardware and a pre-production checklist for AIoT autonomy.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">11:25 – 11:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>From Alert to Evidence: Building AI-Powered Security Agents</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/LavanyaKanagaraj%20.png" alt=""><b>Lavanya Kanagaraj</b><i>Cybersecurity &amp; IAM Professional</i></span></div>
+            <details><summary>Session details</summary><p>AI is changing how security teams investigate threats. Instead of analysts manually switching between multiple tools, AI-powered security agents can orchestrate investigations, gather evidence, correlate context, and assist analysts with faster decision-making.
+
+In this session, we will explore how AI agents can be applied to real-world Security Operations, including alert investigation, evidence collection, tool orchestration, and analyst assistance. We will also look at how Model Context Protocol (MCP) can connect AI agents with security tools and data sources to create a more unified investigation workflow.
+
+The session will focus on practical architecture, real-world use cases, and the opportunities and challenges of bringing AI agents into cybersecurity operations.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">11:50 – 12:10<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Cloud FinOps Advisor: Building AIOps on OCI with Generative AI Platform</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/MuthukumarSivagnanam.png" alt=""><b>Muthukumar Sivagnanam</b><i>Principal Cloud Architect</i></span></div>
+            <details><summary>Session details</summary><p>This session demonstrates a practical AIOps use case built and tested on OCI: automatically collecting and analysing cloud cost information, identifying opportunities for optimization, and using Generative AI to convert operational data into meaningful recommendations and actions.
+
+The solution brings together OCI Functions, Object Storage, Resource Scheduler, cloud automation, and OCI Generative AI, showing how AI can become part of day-to-day cloud operations rather than remaining a standalone chatbot or experimental capability.
+
+The objective of this session is to demonstrate how Generative AI can evolve from answering questions to actively participating in cloud operations—understanding operational data, recommending decisions, and safely triggering automated actions.
+Live MVP Demo will be shared during the session.
+
+How can we move from simply observing our cloud environment to having AI understand it, recommend actions, and automate the response?</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:15 – 12:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>When AI Agents Hit an Optimization Wall: Can Quantum Computing Help?</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AshwiniMahendiran.png" alt=""><b>Ashwini Mahendiran</b><i>AI Engineer</i></span></div>
+            <details><summary>Session details</summary><p>AI agents can reason, plan, and act, but many real-world decisions eventually become constrained optimization problems. This session explores how hybrid quantum-classical computing can help AI agents tackle such problems. Through a live end-to-end demo, we will build an AI agent that formulates a cloud resource allocation problem as a QUBO and compares classical and quantum optimization approaches. We will evaluate solution quality, cost, SLA compliance, and execution time, while discussing where quantum computing can realistically add value to modern AI systems.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:55 – 14:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Break</span>
+            <h4>Lunch &amp; Networking</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">14:30 – 15:10<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Will AI Replace DevOps Engineers? Building Self-Healing Pipelines with AI</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/ChayanDeokar.png" alt=""><b>Chayan Deokar</b><i>Openshift Engineer</i></span></div>
+            <details><summary>Session details</summary><p>AI agents can already detect anomalies, suggest fixes, and even trigger rollbacks. In this talk, I'll explore how AI is starting to reshape DevOps workflows — from intelligent monitoring to self-healing CI/CD pipelines — and share a working example of integrating AI-driven decision-making into a deployment pipeline. Is this the future of DevOps, or just smarter automation? We'll dig into both the promise and the limits.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">15:15 – 15:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Platform Engineering in the AI Era: Why Developers Need a Platform More Than Ever</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/ParanitharanKalaiselvan.png" alt=""><b>Paranitharan Kalaiselvan</b><i>Principal Engineer</i></span></div>
+            <details><summary>Session details</summary><p>AI is accelerating how quickly developers can create software, but the complexity behind delivering and operating that software continues to grow.
+
+Cloud, Kubernetes, security, observability, compliance, networking, and now AI-powered development are creating more cognitive load than individual development teams should be expected to manage.
+
+In this session, we will explore why platform engineering matters more in the AI era, how internal developer platforms can turn infrastructure complexity into reusable self-service capabilities, and why the platform should be designed around developer problems rather than platform-team assumptions.
+
+We will also look at how platforms are evolving from serving only human developers to safely exposing capabilities to AI-assisted workflows and agents.
+
+The key question is simple: **as development gets faster, who owns the complexity behind it?**</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:00 – 16:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>The Machine-Readable Enterprise: Engineering the Context Layer</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/VennilaShanmugam.png" alt=""><b>Vennila Shanmugam</b><i>Director of Engineering</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/CharanPanthangi.png" alt=""><b>Charan Panthangi</b><i>Lead AI Engineer</i></span></div>
+            <details><summary>Session details</summary><p>Enterprises already have enormous amounts of data spread across databases, lakehouses, event streams, documents, support systems, images, and other operational platforms. The challenge is no longer just storing or moving that data. The harder problem is giving machines a governed, queryable understanding of what the business actually is, including its entities, relationships, meanings, current state, and provenance.
+This session explores how modern data engineering can evolve from traditional pipelines into an enterprise context layer. The architecture combines multimodal ingestion, entity resolution, ontology engineering, knowledge graphs, temporal state, lineage, provenance, and runtime context assembly.
+A Knowledge Graph represents the persistent structure of the enterprise, including customers, products, contracts, suppliers, tickets, people, and the relationships between them. A Context Graph is then dynamically assembled for a specific question or decision, selecting only the relevant entities, facts, documents, events, and relationships from the larger enterprise knowledge base.
+Using a practical scenario such as identifying enterprise customers at risk of churn, the session demonstrates how structured data, support history, contracts, account relationships, product usage, and external signals can be combined into a small, evidence-backed context graph that is explainable and traceable to its original sources.
+The key idea is simple:
+The Knowledge Graph represents what the enterprise knows. The Context Graph represents what matters right now.
+The session presents a practical blueprint for moving from Data → Identity → Meaning → Knowledge → State → Context → Decision, and shows how the next generation of data platforms can become machine-readable foundations for analytics, applications, and AI.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:00 – 17:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Closing Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:15 – 18:00<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Fun Show</span>
+            <h4>Jagan Krishnan - STAND UP COMEDY SHOW</h4>
+            
+            <details><summary>Session details</summary><p>Fun Show</p></details>
+          </div>
+        </article>
+          </div><div class="panel tc3" id="trk3" role="tabpanel" aria-labelledby="tab3" tabindex="0">
+            <h3 class="track-note"><span class="dot"></span><b>Data &amp; Observability</b> &mdash; 12 sessions &middot; 08:00 to 18:00 IST</h3>
+            <article class="sess">
+          <div class="time">08:00 – 09:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Registration</span>
+            <h4>Registration</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:00 – 10:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Opening Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:40 – 11:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Trust, But Verify: Building a Provenance Layer for AI in Banking</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/BhanujaAinary.png" alt=""><b>Bhanuja Ainary</b><i>Data Engineer</i></span></div>
+            <details><summary>Session details</summary><p>Banks are racing to deploy AI copilots and chatbots on top of internal data - risk reports, transaction logs, compliance docs, customer records. But in a regulated, high-stakes domain, a fluent-sounding wrong answer isn't just embarrassing, it's a compliance and financial risk. This talk breaks down how to engineer trust into AI systems as a property of the data pipeline, not a claim the model makes about itself.
+
+I'll walk through a practical architecture - built during a recent hackathon — that scores every AI-generated answer on provenance (can you trace it back?), source reliability, freshness, and cross-source agreement, and makes every claim clickable back to its exact origin (file, row, page, timestamp). I'll also cover why letting an LLM self-report its own confidence is unreliable, and why deterministic signals from the data layer matter far more - especially for banking, where auditability and regulatory traceability aren't optional.
+
+Attendees will leave with a concrete mental model (and reference architecture) for adding a &quot;trust layer&quot; to any RAG system, with specific considerations for financial data: PII handling, audit trails, conflicting source reconciliation, and stale-data risk in fast-moving markets.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">11:25 – 12:05<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Architecting Enterprise Data Platforms for Reliable AI Systems</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Harun%20RaseedBasheer.png" alt=""><b>Harun Raseed Basheer</b><i>Data Engineer</i></span></div>
+            <details><summary>Session details</summary><p>Most AI fails because of messy data, not bad algorithms. In this interactive session, we’ll look under the hood at how to build a clean data foundation that keeps AI smart, accurate, and reliable.
+Through quick questions and a live side-by-side demo, you'll see how real-time pipeline design and smart data storage stop AI hallucinations before they start.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:10 – 12:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Harnessing the Power of Open Source Tool in Automating Data Quality Controls</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Rohith%20RamPrabakaran.png" alt=""><b>Rohith Ram Prabakaran</b><i>Advisory Automation Architect</i></span></div>
+            <details><summary>Session details</summary><p>We live in a World of Data. We need data for almost every Analytical purpose. Financial institutions are one among the Major sectors using Data especially
+in Trade and investment, Tax reform, Fraud detection and Investigation and Risk Analysis.
+
+We will have quick overview of a live use case and how we helped the client to tackle a real time problem by setting up an Automated Quality Controls process for Data Delivery to Analysis Teams.
+
+The Client had a problem statement of running 2000+ Database queries across 180+ DB tables across different Delivery checkpoints. This was manual, much time consuming and prone to manual error.
+
+The Data delivered to downstream systems was through different Business Layers, some in Hadoop, a few in Oracle and a few in files. I from Automation perspective saw the pattern of these queries and how we can simplify the whole process. I harnessed the power of Robot Framework and suggested to Automate the queries and we call it Data Quality Controls.
+
+We used Robot Framework and Automated 2000+ Controls and this serves as entry and exit checkpoints at each Business level. These Data Quality Controls run every month to ensure accuracy, completeness, consistency, validity and no wrong data is supplied to the DownStream system.
+
+Framework Architecture:
+We build a Hybrid Test Automation Framework with Page Object Model, combined with Keyword and Data Driven Architecture to cater our needs.
+
+Tech Stack: Hadoop, HDFS, Oracle, Unix and Python
+Test Automation: Robot Framework with Python</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:55 – 14:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Break</span>
+            <h4>Lunch &amp; Networking</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">14:30 – 15:10<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>The Hidden Cost of “Just Ship It”: What Happens After Production?</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SrinithiLoganathan.png" alt=""><b>Srinithi Loganathan</b><i>Senior Software Engineer</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SahithyaB%20A.png" alt=""><b>Sahithya B A</b><i>Senior Software Engineer</i></span></div>
+            <details><summary>Session details</summary><p>Shipping to production is often treated as the finish line. In reality, it is where software begins encountering the conditions that development environments cannot fully reproduce: unexpected traffic, partial failures, slow dependencies, resource exhaustion, configuration drift, noisy alerts, and real users doing unpredictable things.
+
+In this practical, demo-driven session, we will take a seemingly healthy application from “works on my machine” to a production incident and uncover the hidden engineering costs that appear after deployment.
+
+Through a live demonstration, we will introduce realistic failure scenarios such as increased traffic, service timeouts, dependency failures, memory and CPU pressure, and cascading errors. We will then use observability and reliability techniques to identify what went wrong and progressively improve the system.
+
+The session will explore observability, logging, metrics, distributed tracing, health checks, timeouts, retries, graceful degradation, alerting, capacity planning, and incident debugging. We will also examine how architectural decisions made during development can directly influence production reliability and operational complexity.
+
+The goal is not to discourage teams from shipping quickly, but to show what responsible “ship it” engineering looks like—and how developers can design systems that are easier to operate, debug, and recover when things inevitably go wrong.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">15:15 – 15:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Activation Sensory Transduction - A new approach to AI Model Safety</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/VirajSharma.png" alt=""><b>Viraj Sharma</b><i>Young Technology Enthusiast 10 Grader</i></span></div>
+            <details><summary>Session details</summary><p>In this talk, I will describe the core challenge of building causal analysis systems for mechanistic interpretibility and walk through my idea of Activation Sensory Transducers. The main focus of the talk is to show how current tools around mech interp for human-in the-loop AI model safety guardrails are fundamentally limiting - as they focus on text and linguistic channels to convert activations and outputs trained autoencoders into features. This approach can result in errors and misleading outputs for human observation.
+
+I will explain the main concept of transducing the activation maps to a human sensory outputs and enabling an alternative way to detect model mislaignments. I will show how we can use senses like sound (sonification of activations), sight (MNE python used as a neuroscience visualisation tool) to demonstrate how we can convert GPT2 activations in sensory outputs.
+
+This concept has been presented in Scientific Python US conference 2026 as a reasearch paper and a poster presentation. It is also accepted by Euro Scientific Python 2026
+
+My Slides:
+
+https://docs.google.com/presentation/d/1PM-NrVYKe-eAMDUJTU5TqV-3ICtJ2DAM9-YKtCWsi3A/edit?usp=sharing
+
+My research paper:
+https://proceedings.scipy.org/previews/019f571b-4ffd-7ff6-95ac-0b5e0d94540b?preview=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NjbXMuY3VydmVub3RlLmNvbSIsImV4cCI6MTc4NzAyMTQ0MiwiYXVkIjoic2Ntcy1wcmV2aWV3Iiwic2NvcGUiOiJzdWJtaXNzaW9uIiwic2NvcGVJZCI6IjAxOWY1NzFiLTRmZmQtN2ZmNi05NWFjLTBiNWY1MWY1MzYxMyIsImlhdCI6MTc4NjU4OTQ0Mn0.K8MjEno20DQoRlgAnofOfx2hizStm4-UymHwtqA9M2k
+
+My Previous talk references are at sharmaviraj.com</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:00 – 16:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Beyond the Guardrail: How LLM Observability strengthens Guardrails</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/DayadeviKarunanidhi.png" alt=""><b>Dayadevi Karunanidhi</b><i>Sr Staff SW Engineer</i></span></div>
+            <details><summary>Session details</summary><p>As LLM-powered intelligent applications/systems continue to grow at an unprecedented pace, ensuring their safety, reliability, and trustworthiness goes far beyond setting guardrails. LLM observability provides deeper visibility into prompts, responses, hallucinations, failures, and safety violations, enabling teams to identify blind spots and continuously strengthen AI safeguards. This talk explores how observability transforms guardrails from static controls into an evolving defense mechanism, empowering developers to build AI systems that are more transparent, resilient, secure, and responsible. Discover the synergy between observability and guardrails in advancing AI towards trustworthy intelligence.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:25 – 16:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-light">Lightning Talk</span>
+            <h4>Microsoft Fabric: From Data to Intelligence — Building the Modern Data Platform</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aravindh%20KumarV.png" alt=""><b>Aravindh Kumar V</b><i>Data Engineer</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aswathiraj%20KA.png" alt=""><b>Aswathiraj KA</b><i>Lead Data Engineer</i></span></div>
+            <details><summary>Session details</summary><p>Microsoft Fabric brings data engineering, analytics, real-time intelligence, data warehousing, Power BI, and AI together on a unified platform. In this session, we’ll explore how Fabric simplifies modern data architecture and enables organizations to build scalable, intelligent, and end-to-end data solutions.
+
+The session will cover key Fabric workloads, OneLake, Lakehouse architecture, Data Pipelines, Spark, Data Warehouse, Real-Time Intelligence, semantic models, and AI-powered capabilities, with a practical perspective on how these components work together in a modern data ecosystem</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:00 – 17:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Closing Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:15 – 18:00<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Fun Show</span>
+            <h4>Jagan Krishnan - STAND UP COMEDY SHOW</h4>
+            
+            <details><summary>Session details</summary><p>Fun Show</p></details>
+          </div>
+        </article>
+          </div><div class="panel tc4" id="trk4" role="tabpanel" aria-labelledby="tab4" tabindex="0">
+            <h3 class="track-note"><span class="dot"></span><b>Industry &amp; Innovation</b> &mdash; 10 sessions &middot; 08:00 to 18:00 IST</h3>
+            <article class="sess">
+          <div class="time">08:00 – 09:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Registration</span>
+            <h4>Registration</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:00 – 10:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Opening Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">10:40 – 11:20<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>7 Missing Links of AI-Native Software Delivery</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Karthikeyan%20VK.png" alt=""><b>Karthikeyan VK</b><i>Chief Technology Officer</i></span></div>
+            <details><summary>Session details</summary><p>AI can generate code faster than ever, but production engineering has not evolved at the same pace. This session explores the 7 Missing Links of AI-Native Software Delivery: context, verification, security, traceability, observability, feedback, and human judgment, and how these gaps can turn AI-driven development into production risk.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">11:25 – 12:05<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Riding the AI Elephant</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AnandanKumaran.png" alt=""><b>Anandan Kumaran</b><i>Co-Founder, Sr VP &amp; Principal Advisor</i></span></div>
+            <details><summary>Session details</summary><p>Your AI may be ready. Your organisation/customer may not be.
+
+Riding the AI Elephant explores why promising GenAI initiatives struggle to move from impressive pilots to everyday adoption.
+
+Using the memorable Rider–Elephant–Path framework, the session examines three forces that can stop AI transformation: token cost and decision paralysis, trust and human resistance, and hallucination and poorly designed processes. The presentation deliberately makes trust the first priority, arguing that a user who doesn't trust an AI output simply does the work twice—destroying much of the promised value.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:10 – 12:55<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Algorithms Behind the Models: From Statistical Foundations to Modern AI</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SathishNadarajan.png" alt=""><b>Sathish Nadarajan</b><i>Director - Patient Safety Technical Solutions</i></span></div>
+            <details><summary>Session details</summary><p>Every AI model rests on a small set of mathematical ideas. This session goes under the hood of the models we use every day. It traces how the core algorithms emerged, what problem each one solved, and how their mathematics connects to modern AI systems. The talk is designed for newcomers who want a first principled understanding and for experienced practitioners who want to revisit the foundations behind the tools they use.
+
+What the Session Covers
+1. Statistical Foundations
+2. The Evolution of Algorithms
+3. Nature-Inspired and Heuristic Algorithms
+4. Connecting Classical Ideas to Modern AI
+
+Key Takeaways
+A clear mental model of how popular AI models are built, trained and optimised.
+The core mathematics and statistics behind each algorithm family, presented intuitively with the key equations.
+An understanding of why different algorithms exist and the trade-offs among accuracy, interpretability, cost and data needs.
+Practical guidance for selecting and explaining models, so you can use AI more critically and confidently.
+
+Who Should Attend
+Students, data scientists, engineers, researchers, and decision-makers who work with or evaluate AI solutions. No advanced mathematics is required. Foundational ideas are explained step by step, with deeper detail for experienced attendees.
+
+Format
+A concept-driven talk with visual explanations. It closes with Q&amp;A and a reading list for further study.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">12:55 – 14:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Break</span>
+            <h4>Lunch &amp; Networking</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">14:30 – 15:10<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>Meet Chintu — Automating Data Lineage on Azure for $0.04 a Pipeline</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sarveshwaran%20Rajagopal.png" alt=""><b>Sarveshwaran Rajagopal</b><i>Senior Research Scientist</i></span></div>
+            <details><summary>Session details</summary><p>A senior director asked one question in a routine review: which source systems feed our churn model? A room full of engineers who had built the thing could not answer with confidence. The documentation described a system that no longer existed. The only accurate lineage lived in two architects' heads.
+
+We had 1,400 SQL pipelines, roughly three hours to trace each one by hand, and a backlog measured in thousands of engineer-hours. So we built Chintu — a multi-agent system using LangGraph and Azure OpenAI that automatically extracts, validates, and catalogs data lineage from SQL stored procedures.
+
+This session is the full, honest story of building Chintu — including the four walls we hit before it worked.
+
+Wall 1, The Bill: Our first prototype cost more per pipeline than manual tracing. I will show exactly how we cut cost from $0.42 to $0.04 per pipeline — structured JSON output instead of prose, complexity-based model routing so simple SQL never touches an expensive deployment, and the one prompt change that cut output tokens by 70%.
+
+Wall 2, The Kitchen: We sent 1,400 requests at once and the API stopped responding at 300. I will show the queuing, backoff, and checkpoint-resume patterns that cleared the backlog in 11 days.
+
+Wall 3, The Recipe: Security said our production SQL is not going to an external model. I will show the boundary architecture — what crosses the pass (table names, join structure) and what never does (literal values, credentials, customer data) — and the diagram that got security approval in one meeting.
+
+Wall 4, The People: Leadership paused the project in week three. The team wanted to know if they were being replaced. I will share the exact sentences that turned both conversations around.
+
+Live demo: You will watch Chintu process three SQL pipelines of increasing complexity in real time — see the scrubber strip sensitive values before anything leaves the network, the router pick a cheap or expensive model deployment, the extraction agent parse lineage, the validation agent catch errors, and the human approval gate fire only for the one pipeline where confidence is low. The audience decides whether to approve or reject.
+
+You will leave with a reusable architecture pattern for applying multi-agent AI to any enterprise automation problem — and the cost, security, and people playbook to get it into production.</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">16:00 – 16:45<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge ">Talk</span>
+            <h4>SuperIntelligence Is Near. Is AI Even Production-Ready?</h4>
+            <div class="chips"><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SanthoshNarayanan.png" alt=""><b>Santhosh Narayanan</b><i>Lead Engineer</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sukumar%20Rajagopal.png" alt=""><b>Sukumar Rajagopal</b><i>Founder &amp; CEO</i></span><span class="chip"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Karthikeyan%20VK.png" alt=""><b>Karthikeyan VK</b><i>Chief Technology Officer</i></span></div>
+            <details><summary>Session details</summary><p>AI leaders increasingly suggest that AGI is within reach. But are today’s AI systems truly ready for production, or are we still looking at impressive prototypes that require human expertise, supervision, and intervention? This panel explores the gap between AI capability and real-world trust: reliability, autonomy, hallucinations, expert oversight, production failures, and what it would actually take for AI to move from “it can do it” to “we can trust it to do it</p></details>
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:00 – 17:15<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-gen">Plenary</span>
+            <h4>Closing Note</h4>
+            
+            
+          </div>
+        </article>
+            <article class="sess">
+          <div class="time">17:15 – 18:00<i>IST</i></div>
+          <div class="sess-body">
+            <span class="badge b-fun">Fun Show</span>
+            <h4>Jagan Krishnan - STAND UP COMEDY SHOW</h4>
+            
+            <details><summary>Session details</summary><p>Fun Show</p></details>
+          </div>
+        </article>
+          </div>
+        <div class="legend" aria-hidden="true"><span class="tc1"><i></i>AI &amp; Agentic Intelligence</span><span class="tc2"><i></i>Cloud, DevOps &amp; FinOps</span><span class="tc3"><i></i>Data &amp; Observability</span><span class="tc4"><i></i>Industry &amp; Innovation</span></div>
+    </div>
+  </section>
+
+  <section id="speakers">
+    <div class="wrap">
+      <span class="label"><span class="n">05</span> Speakers</span>
+      <h2>Meet the speakers</h2>
+      <p class="lead">35+ practitioners, architects, researchers and leaders &mdash; from IBM, Amazon, Oracle, Red Hat, Capital One, PwC, AstraZeneca and more. Line-up subject to change.</p>
+      <div class="grid g4 mt-m">
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aarrti%20TRJ.png" alt="Aarrti TRJ">
+          <h3>Aarrti TRJ</h3>
+          <p class="role">AI Lead</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/IBM.png" alt=""><span>IBM</span></p>
+          <a class="li" href="https://www.linkedin.com/in/aarrti-trj/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AarthyRamesh.png" alt="Aarthy Ramesh">
+          <h3>Aarthy Ramesh</h3>
+          <p class="role">Technical Documentation Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Amazon.png" alt=""><span>Amazon</span></p>
+          <a class="li" href="https://www.linkedin.com/in/aarthy-r1553/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AnandanKumaran.png" alt="Anandan Kumaran">
+          <h3>Anandan Kumaran</h3>
+          <p class="role">Co-Founder, Sr VP &amp; Principal Advisor</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Tiny%20Magiq.png" alt=""><span>Tiny Magiq</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aravindh%20KumarV.png" alt="Aravindh Kumar V">
+          <h3>Aravindh Kumar V</h3>
+          <p class="role">Data Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Presidio.png" alt=""><span>Presidio</span></p>
+          <a class="li" href="https://www.linkedin.com/in/aravindh-kumar-venkatramanan-b7aa14327" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Arun%20Kumar%20K.png" alt="Arun Kumar K">
+          <h3>Arun Kumar K</h3>
+          <p class="role">Cyber Security Consultant</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Cyber%20Security%20.png" alt=""><span>Cyber Security</span></p>
+          <a class="li" href="https://www.linkedin.com/in/arun-kumar-k-26a10849/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AshwiniMahendiran.png" alt="Ashwini Mahendiran">
+          <h3>Ashwini Mahendiran</h3>
+          <p class="role">AI Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Insight%20Global.png" alt=""><span>Insight Global</span></p>
+          <a class="li" href="https://www.linkedin.com/in/ashwinimahendiran/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/AshwiniPurushothaman.png" alt="Ashwini Purushothaman">
+          <h3>Ashwini Purushothaman</h3>
+          <p class="role">Founder and CEO</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/GradientNovaAI.png" alt=""><span>GradientNovaAI</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Aswathiraj%20KA.png" alt="Aswathiraj KA">
+          <h3>Aswathiraj KA</h3>
+          <p class="role">Lead Data Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Presidio.png" alt=""><span>Presidio</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Balaji%20Janarthanam.png" alt="Balaji Janarthanam">
+          <h3>Balaji Janarthanam</h3>
+          <p class="role">Technical Lead - Machine Learning Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Viasat.png" alt=""><span>Viasat</span></p>
+          <a class="li" href="https://www.linkedin.com/in/balaji-janarthanam/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/BhanujaAinary.png" alt="Bhanuja Ainary">
+          <h3>Bhanuja Ainary</h3>
+          <p class="role">Data Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Presidio.png" alt=""><span>Presidio</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Bipul%20Kumar.png" alt="Bipul Kumar">
+          <h3>Bipul Kumar</h3>
+          <p class="role">Senior Distinguished Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Capital%20One.png" alt=""><span>Capital One</span></p>
+          <a class="li" href="https://www.linkedin.com/in/bipulk" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/CharanPanthangi.png" alt="Charan Panthangi">
+          <h3>Charan Panthangi</h3>
+          <p class="role">Lead AI Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Endava.png" alt=""><span>Endava</span></p>
+          <a class="li" href="https://www.linkedin.com/in/charan-panthangi/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/ChayanDeokar.png" alt="Chayan Deokar">
+          <h3>Chayan Deokar</h3>
+          <p class="role">Openshift Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/RedHat.png" alt=""><span>RedHat</span></p>
+          <a class="li" href="https://www.linkedin.com/in/chayandeokar/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/DayadeviKarunanidhi.png" alt="Dayadevi Karunanidhi">
+          <h3>Dayadevi Karunanidhi</h3>
+          <p class="role">Sr Staff SW Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Gigamon.png" alt=""><span>Gigamon</span></p>
+          <a class="li" href="https://www.linkedin.com/in/dayadevi-karunanidhi/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Harun%20RaseedBasheer.png" alt="Harun Raseed Basheer">
+          <h3>Harun Raseed Basheer</h3>
+          <p class="role">Data Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Hitachi.png" alt=""><span>Hitachi</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Karthikeyan%20VK.png" alt="Karthikeyan VK">
+          <h3>Karthikeyan VK</h3>
+          <p class="role">Chief Technology Officer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/PRO.png" alt=""><span>PRO</span></p>
+          <a class="li" href="https://www.linkedin.com/in/karthikeyanvk/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/LavanyaKanagaraj%20.png" alt="Lavanya Kanagaraj">
+          <h3>Lavanya Kanagaraj</h3>
+          <p class="role">Cybersecurity &amp; IAM Professional</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/PwC.png" alt=""><span>PwC</span></p>
+          <a class="li" href="https://www.linkedin.com/in/lavanya-kanagaraj-cissp" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Manoj%20KumarS.png" alt="Manoj Kumar S">
+          <h3>Manoj Kumar S</h3>
+          <p class="role">Associate Director</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/DTCC.png" alt=""><span>DTCC</span></p>
+          <a class="li" href="https://www.linkedin.com/in/manojkumar-s/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/MuthukumarSivagnanam.png" alt="Muthukumar Sivagnanam">
+          <h3>Muthukumar Sivagnanam</h3>
+          <p class="role">Principal Cloud Architect</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Oracle.png" alt=""><span>Oracle</span></p>
+          <a class="li" href="https://www.linkedin.com/in/muthukumarsivagnanam/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/NavaneethanGopal.png" alt="Navaneethan Gopal">
+          <h3>Navaneethan Gopal</h3>
+          <p class="role">Senior Manager AICoE &amp; Data Science</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Ingram%20Micro.png" alt=""><span>Ingram Micro</span></p>
+          <a class="li" href="https://www.linkedin.com/in/navaneethangopal/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/ParanitharanKalaiselvan.png" alt="Paranitharan Kalaiselvan">
+          <h3>Paranitharan Kalaiselvan</h3>
+          <p class="role">Principal Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Comcast.png" alt=""><span>Comcast</span></p>
+          <a class="li" href="https://www.linkedin.com/in/paranitharan-kalaiselvan-41815377/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Praveena%20Jagdish.png" alt="Praveena Jagdish">
+          <h3>Praveena Jagdish</h3>
+          <p class="role">Maxillofacial Physician &amp; Co-founder</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Healthpilot.png" alt=""><span>Healthpilot</span></p>
+          <a class="li" href="https://linkedin.com/in/praveenajagdish" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Rohith%20RamPrabakaran.png" alt="Rohith Ram Prabakaran">
+          <h3>Rohith Ram Prabakaran</h3>
+          <p class="role">Advisory Automation Architect</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Tata%20Consultancy%20Services.png" alt=""><span>Tata Consultancy Services</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SahithyaB%20A.png" alt="Sahithya B A">
+          <h3>Sahithya B A</h3>
+          <p class="role">Senior Software Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Zensar%20Technologies.png" alt=""><span>Zensar Technologies</span></p>
+          <a class="li" href="https://www.linkedin.com/in/sahithyaba/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SanthoshNarayanan.png" alt="Santhosh Narayanan">
+          <h3>Santhosh Narayanan</h3>
+          <p class="role">Lead Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Xome.png" alt=""><span>Xome</span></p>
+          <a class="li" href="https://www.linkedin.com/in/santhosh-narayanan-link" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sarveshwaran%20Rajagopal.png" alt="Sarveshwaran Rajagopal">
+          <h3>Sarveshwaran Rajagopal</h3>
+          <p class="role">Senior Research Scientist</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/NIQ.png" alt=""><span>NIQ</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SathishNadarajan.png" alt="Sathish Nadarajan">
+          <h3>Sathish Nadarajan</h3>
+          <p class="role">Director - Patient Safety Technical Solutions</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/AstraZeneca.png" alt=""><span>AstraZeneca</span></p>
+          
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SharmaG.png" alt="Sharma G">
+          <h3>Sharma G</h3>
+          <p class="role">Agentic AI Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Tata%20consultancy%20services.png" alt=""><span>Tata consultancy services</span></p>
+          <a class="li" href="https://www.linkedin.com/in/sharma-g-124923253" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sridevi%20PP.png" alt="Sridevi P P">
+          <h3>Sridevi P P</h3>
+          <p class="role">Senior Information Security Architect</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/DTCC.png" alt=""><span>DTCC</span></p>
+          <a class="li" href="https://www.linkedin.com/in/sridevi-p-cissp-98490814/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SrinithiLoganathan.png" alt="Srinithi Loganathan">
+          <h3>Srinithi Loganathan</h3>
+          <p class="role">Senior Software Engineer</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Zensar%20Technologies.png" alt=""><span>Zensar Technologies</span></p>
+          <a class="li" href="https://www.linkedin.com/in/srinithi09/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/SrinivasanMoorthy.png" alt="Srinivasan Moorthy">
+          <h3>Srinivasan Moorthy</h3>
+          <p class="role">Senior Engineering Manager</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Hubbell.png" alt=""><span>Hubbell</span></p>
+          <a class="li" href="https://www.linkedin.com/in/vassanmoorthy/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Sukumar%20Rajagopal.png" alt="Sukumar Rajagopal">
+          <h3>Sukumar Rajagopal</h3>
+          <p class="role">Founder &amp; CEO</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Tiny%20Magiq%20Innovations%20Private%20Limited%20.png" alt=""><span>Tiny Magiq Innovations Private Limited</span></p>
+          <a class="li" href="https://www.linkedin.com/in/rajagopalsukumar" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/VennilaShanmugam.png" alt="Vennila Shanmugam">
+          <h3>Vennila Shanmugam</h3>
+          <p class="role">Director of Engineering</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/Endava%20.png" alt=""><span>Endava</span></p>
+          <a class="li" href="https://www.linkedin.com/in/vennila-shanmugam-5b64b715/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/Vijayaraghavan%20Vashudevan.png" alt="Vijayaraghavan Vashudevan">
+          <h3>Vijayaraghavan Vashudevan</h3>
+          <p class="role">Associate Vice President</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/NatWest%20Group.png" alt=""><span>NatWest Group</span></p>
+          <a class="li" href="https://www.linkedin.com/in/vjraghavanv/?trk=nav_responsive_tab_profile_pic&amp;originalSubdomain=in" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </article>
+<article class="spk">
+          <img class="ph" loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakers/VirajSharma.png" alt="Viraj Sharma">
+          <h3>Viraj Sharma</h3>
+          <p class="role">Young Technology Enthusiast 10 Grader</p>
+          <p class="co"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="https://files.techxconf.com/2026/speakerscompanylogo/agenticarguments.com.png" alt=""><span>agenticarguments.com</span></p>
+          
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="venue">
+    <div class="wrap">
+      <span class="label"><span class="n">06</span> Venue</span>
+      <h2>IIT Madras Research Park</h2>
+      <p class="lead">Chennai&rsquo;s research and innovation campus in Tharamani &mdash; home to TechXConf 2026 on Saturday, 24 October 2026.</p>
+      <div class="venue mt-m">
+        <div class="card">
+          <div class="ico" aria-hidden="true">&#128205;</div>
+          <h3>IIT Madras Research Park</h3>
+          <p>332, Kanagam Rd, Kanagam, Tharamani,<br>Chennai, Tamil Nadu &ndash; 600 113, India</p>
+          <div class="cta mt-m">
+            <a class="btn btn-p" href="https://www.google.com/maps/search/?api=1&amp;query=IIT+Madras+Research+Park+Chennai" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </div>
+        </div>
+        <div class="map">
+          <div class="pin" aria-hidden="true">&#127963;</div>
+          <h3 class="mt-s">Good to know</h3>
+          <ul class="ticks">
+            <li>Gates and registration open 08:00 &ndash; 09:45 IST</li>
+            <li>Four parallel tracks run 10:00 &ndash; 17:00 IST</li>
+            <li>Lunch and networking 12:55 &ndash; 14:15 IST</li>
+            <li>Closing note 17:00, stand-up comedy 17:15 &ndash; 18:00 IST</li>
+            <li>Queries: <a href="mailto:support@techxconf.com">support@techxconf.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="notice">
+        <b>Ticket sales are closed</b>
+        <span>Registrations for TechXConf 2026 have ended. For enquiries, write to <a href="mailto:support@techxconf.com">support@techxconf.com</a>.</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="foot-brand">
+        <span class="brand"><span class="tx">TechX</span><span class="cf">Conf</span><span class="yr">'26</span></span>
+        <p>A one-day, multi-track conference &mdash; the largest AI and Cloud conference in Asia, offering immersive technology learning.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#why">Why Attend</a></li>
+          <li><a href="#themes">Themes</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#venue">Venue</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Event</h4>
+        <ul>
+          <li><span class="dim">Tickets: closed</span></li>
+          <li><a href="https://files.techxconf.com/2026/TechXConf_2026_Prospectus.pdf" target="_blank" rel="noopener noreferrer">Sponsorship prospectus</a></li>
+          <li><a href="mailto:support@techxconf.com">support@techxconf.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <div class="social">
+          <a href="https://www.linkedin.com/company/techxconf" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://x.com/TechXConf" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.instagram.com/techxconf/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.youtube.com/@TechXConf" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 TechXConf. All rights reserved.</span>
+      <span>Built by Krishna Kanth B and AI — MiMo v2.6</span>
+      <span>Event details sourced from <a href="https://techxconf.com/" target="_blank" rel="noopener noreferrer">techxconf.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* TechXConf 2026 — progressive enhancement only.
+   No innerHTML, no eval, no user-input handling: content is static. */
+(function () {
+  'use strict';
+
+  /* --- mobile navigation drawer --- */
+  var burger = document.getElementById('burger');
+  var nav = document.getElementById('nav');
+  if (burger && nav) {
+    var setOpen = function (open) {
+      nav.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    burger.addEventListener('click', function () {
+      setOpen(!nav.classList.contains('open'));
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); burger.focus(); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900) setOpen(false);
+    });
+  }
+
+  /* --- countdown to gates open: 24 Oct 2026, 10:00 IST --- */
+  var cd = document.getElementById('cd');
+  if (cd) {
+    var target = Date.parse('2026-10-24T10:00:00+05:30');
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var cells = ['d', 'h', 'm', 's'].map(function (k) { return document.getElementById('cd-' + k); });
+    var tick = function () {
+      if (cells.some(function (c) { return !c; })) return;
+      var left = target - Date.now();
+      if (left <= 0) {
+        /* event has started: swap the countdown for a status line, once */
+        if (cd.hidden) return;
+        var done = document.getElementById('cd-done');
+        cd.hidden = true;
+        if (done) {
+          done.hidden = false;
+          done.textContent = Date.now() < Date.parse('2026-10-24T18:00:00+05:30')
+            ? 'TechXConf 2026 is underway — 24 October 2026, IIT Madras Research Park, Chennai.'
+            : 'That’s a wrap — TechXConf 2026 ran on 24 October 2026 at IIT Madras Research Park, Chennai.';
+        }
+        return;
+      }
+      cells[0].textContent = pad(Math.floor(left / 864e5));
+      cells[1].textContent = pad(Math.floor(left / 36e5) % 24);
+      cells[2].textContent = pad(Math.floor(left / 6e4) % 60);
+      cells[3].textContent = pad(Math.floor(left / 1e3) % 60);
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  /* --- agenda track tabs (WAI-ARIA tab pattern, keyboard operable) --- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  if (tabs.length) {
+    var select = function (tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.classList.toggle('on', on);
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach(function (t, i) {
+      t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      t.addEventListener('click', function () { select(t, false); });
+      t.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') next = tabs[0];
+        else if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); select(next, true); }
+      });
+    });
+  }
+  /* --- images: if a CDN photo 404s, drop the broken-image glyph (slot keeps its size) --- */
+  var imgFail = function (img) {
+    if (img.classList.contains('ph')) {
+      var d = document.createElement('div');           /* same placeholder as speakers with no photo */
+      d.className = 'ph';
+      d.setAttribute('aria-hidden', 'true');
+      if (img.parentNode) img.parentNode.replaceChild(d, img);
+    } else {
+      img.classList.add('img-broken');
+    }
+  };
+  Array.prototype.forEach.call(document.images, function (img) {
+    img.addEventListener('error', function () { imgFail(img); });
+    if (img.complete && img.naturalWidth === 0) imgFail(img);
+  });
+
+  /* --- scroll spy: highlight the section you are currently reading --- */
+  var spyLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.nav a[href^="#"], .fgrid a[href^="#"]'));
+  if (spyLinks.length) { /* scroll listener + rAF — no capability guard needed */
+    var sections = [];
+    spyLinks.forEach(function (a) {
+      var s = document.getElementById(a.getAttribute('href').slice(1));
+      if (s && sections.indexOf(s) < 0) sections.push(s);
+    });
+    var ticking = false;
+    var sync = function () {
+      var y = window.pageYOffset + 130, current = '';
+      sections.forEach(function (s) { if (s.offsetTop <= y) current = s.id; });
+      if (!current && sections[0]) current = sections[0].id;
+      spyLinks.forEach(function (a) {
+        if (a.getAttribute('href') === '#' + current) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+    };
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { sync(); ticking = false; });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    sync();
+  }
+})();
+</script>
+</body>
+</html>
