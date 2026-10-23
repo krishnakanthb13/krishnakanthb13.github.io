@@ -5,7 +5,7 @@ window.__PLUGINS__ = {
   "hero_subtitle": "My collection of tools designed to streamline your workflow and expand the power of Amplenote.",
   "referral_link": "https://www.amplenote.com/signup?ref=7JGSMI4H0",
   "source_url": "https://public.amplenote.com/Y3dy91/krishna-plugins",
-  "updated": "2026-08-29T06:26:48.383Z",
+  "updated": "2026-10-23T11:43:27.101Z",
   "categories": [
     {
       "id": "managing-filtering-notes",
@@ -54,12 +54,13 @@ window.__PLUGINS__ = {
           "name": "Graph Utility",
           "link": "https://public.amplenote.com/sDBcbB/graph-utility",
           "install": "https://www.amplenote.com/plugins/sDBcbBrdEhAuerZ5HzLyaTn5",
-          "badge": "🟡 Trending"
+          "badge": "🔴 Updated"
         },
         {
           "name": "Kanban Board",
           "link": "https://public.amplenote.com/qWiUEM/kanban",
-          "install": "https://www.amplenote.com/plugins/qWiUEMAuZVX4FguvSTgrgDoH"
+          "install": "https://www.amplenote.com/plugins/qWiUEMAuZVX4FguvSTgrgDoH",
+          "badge": "🔴 Updated"
         },
         {
           "name": "Task Manager Pro",
@@ -70,6 +71,24 @@ window.__PLUGINS__ = {
           "name": "Media Manager",
           "link": "https://public.amplenote.com/eE9LqM/media-manager",
           "install": "https://www.amplenote.com/plugins/eE9LqMWqfQ4vhdSnQ2A5JLen"
+        },
+        {
+          "name": "Habit Streak",
+          "link": "https://public.amplenote.com/YLJXqU/habit-streak",
+          "install": "https://www.amplenote.com/plugins/YLJXqUN1o2SaQgHyxhowKCk9",
+          "badge": "🟢 Latest"
+        },
+        {
+          "name": "Image Compressor",
+          "link": "https://public.amplenote.com/z5BM2u/image-compressor",
+          "install": "https://www.amplenote.com/plugins/z5BM2uQoY1fjFJa1d1RnRrhU",
+          "badge": "🟢 Latest"
+        },
+        {
+          "name": "Recurring Tasks",
+          "link": "https://public.amplenote.com/4nMnmy/recurring-tasks",
+          "install": "https://www.amplenote.com/plugins/4nMnmyqsxSiqvRkUuur3GRkD",
+          "badge": "🟢 Latest"
         }
       ]
     },
@@ -107,6 +126,18 @@ window.__PLUGINS__ = {
           "name": "Extract to a note 2.0",
           "link": "https://public.amplenote.com/JRm6xB/extracttoanote2",
           "install": "https://www.amplenote.com/plugins/JRm6xBYBTDYLRx3NzTJ1GBvp"
+        },
+        {
+          "name": "Grammar Reviewer",
+          "link": "https://public.amplenote.com/cqRC2a/grammar-reviewer",
+          "install": "https://www.amplenote.com/plugins/cqRC2apyXdznnYhjbS3mp2hg",
+          "badge": "🟢 Latest"
+        },
+        {
+          "name": "Hemmingway",
+          "link": "https://public.amplenote.com/viYzHz/hemmingway",
+          "install": "https://www.amplenote.com/plugins/viYzHzqeqfFBm8Eb22ZUcmmx",
+          "badge": "🟢 Latest"
         }
       ]
     },
@@ -118,20 +149,17 @@ window.__PLUGINS__ = {
         {
           "name": "Dice",
           "link": "https://public.amplenote.com/2zJ5cA/dice",
-          "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm",
-          "badge": "🔴 Updated"
+          "install": "https://www.amplenote.com/plugins/2zJ5cAQRhfzuttwD5d5CjrRm"
         },
         {
           "name": "Dice Lite",
           "link": "https://public.amplenote.com/NXgEhb/dice-lite",
-          "install": "https://www.amplenote.com/plugins/NXgEhb1RLtiBZydiSsG7xhux",
-          "badge": "🟢 Latest"
+          "install": "https://www.amplenote.com/plugins/NXgEhb1RLtiBZydiSsG7xhux"
         },
         {
           "name": "Timestamp",
           "link": "https://public.amplenote.com/qMzEXt/timestamp",
-          "install": "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR",
-          "badge": "🔴 Updated"
+          "install": "https://www.amplenote.com/plugins/qMzEXtAnVzeHR6nDLdWacfDR"
         },
         {
           "name": "Time - Progress Bar",
@@ -142,6 +170,12 @@ window.__PLUGINS__ = {
           "name": "Active Plugin Info",
           "link": "https://public.amplenote.com/ChSUvM/active-plugin-info",
           "install": "https://www.amplenote.com/plugins/ChSUvMyexTteXALUfHjhobeq"
+        },
+        {
+          "name": "Zotero",
+          "link": "https://public.amplenote.com/oAJzh1/zotero",
+          "install": "https://www.amplenote.com/plugins/oAJzh1LioZiW9uXUDvcvi25P",
+          "badge": "🟢 Latest"
         }
       ]
     }
@@ -250,12 +284,11 @@ window.__PLUGINS__ = {
       "name": "Graph Utility",
       "category": "Graph Tool",
       "published": "August 24th, 2024",
-      "last_updated": "October 14th, 2024",
+      "last_updated": "August 31st, 2026",
       "custom_url": "https://public.amplenote.com/sDBcbB/graph-utility",
       "install": "https://www.amplenote.com/plugins/sDBcbBrdEhAuerZ5HzLyaTn5",
       "plans": [
-        "Add Multi Select. (Did not plan this in the initial Manifest). Hand only the Axis's in mind and built it.",
-        "Move Viewer! option into the Download! option. Better UX design. And Update Download! to Options! or something."
+        "Based on user and Amplenote's requests."
       ]
     },
     {
@@ -330,7 +363,7 @@ window.__PLUGINS__ = {
       "name": "Kanban Board",
       "category": "Task Tool",
       "published": "October 18th, 2024",
-      "last_updated": "",
+      "last_updated": "October 7th, 2026",
       "custom_url": "https://public.amplenote.com/qWiUEM/kanban",
       "install": "https://www.amplenote.com/plugins/qWiUEMAuZVX4FguvSTgrgDoH",
       "plans": [
@@ -411,6 +444,78 @@ window.__PLUGINS__ = {
       "plans": [
         "Based on user and Amplenote's requests."
       ]
+    },
+    {
+      "id": 22,
+      "name": "Habit Streak",
+      "category": "Habit Tracker",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/YLJXqU/habit-streak",
+      "install": "https://www.amplenote.com/plugins/YLJXqUN1o2SaQgHyxhowKCk9",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Grammar Reviewer",
+      "category": "Grammar Tool",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/cqRC2a/grammar-reviewer",
+      "install": "https://www.amplenote.com/plugins/cqRC2apyXdznnYhjbS3mp2hg",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Image Compressor",
+      "category": "Image Tool",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/z5BM2u/image-compressor",
+      "install": "https://www.amplenote.com/plugins/z5BM2uQoY1fjFJa1d1RnRrhU",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Zotero",
+      "category": "Zotero Docs",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/oAJzh1/zotero",
+      "install": "https://www.amplenote.com/plugins/oAJzh1LioZiW9uXUDvcvi25P",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Hemmingway",
+      "category": "Hemmingway Style",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/viYzHz/hemmingway",
+      "install": "https://www.amplenote.com/plugins/viYzHzqeqfFBm8Eb22ZUcmmx",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Recurring Tasks",
+      "category": "Recurring Tasks",
+      "published": "October 23rd, 2026",
+      "last_updated": "",
+      "custom_url": "https://public.amplenote.com/4nMnmy/recurring-tasks",
+      "install": "https://www.amplenote.com/plugins/4nMnmyqsxSiqvRkUuur3GRkD",
+      "plans": [
+        "Based on user and Amplenote's requests."
+      ]
     }
   ],
   "milestones": [
@@ -445,6 +550,14 @@ window.__PLUGINS__ = {
     {
       "date": "June 29th, 2026",
       "event": "Reignited with streamlining Dice and Time Stamp."
+    },
+    {
+      "date": "August 31st, 2026",
+      "event": "Streamlined and Updated Kanban and Chart (Graph) Utility."
+    },
+    {
+      "date": "October 23rd, 2026",
+      "event": "Overhaul release of 6 Plugins - Habit Streak, Grammar Reviewer, Image Compressor, Zotero, Hemmingway, Recurring Tasks."
     }
   ],
   "support": {
