@@ -853,17 +853,26 @@
             let words = text.split(/\s+/);
             let count = 0;
 
-            let highlighted = words.map(word => {
+            const highlightedEl = document.getElementById('highlightedText');
+            highlightedEl.replaceChildren();
+
+            words.forEach((word, index) => {
+                if (index > 0) {
+                    highlightedEl.appendChild(document.createTextNode(' '));
+                }
                 let cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
                 if (cognitiveWords.includes(cleanWord)) {
                     count++;
-                    return `<mark class="bg-amber-200 text-amber-900 px-1 rounded font-bold">${word}</mark>`;
+                    const mark = document.createElement('mark');
+                    mark.className = 'bg-amber-200 text-amber-900 px-1 rounded font-bold';
+                    mark.textContent = word;
+                    highlightedEl.appendChild(mark);
+                } else {
+                    highlightedEl.appendChild(document.createTextNode(word));
                 }
-                return word;
-            }).join(" ");
+            });
 
             document.getElementById('cognitiveWordCount').innerText = `${count} Cognitive Words Found`;
-            document.getElementById('highlightedText').innerHTML = highlighted;
 
             // Extracted Rule logic
             let rule = "If someone repeatedly mocks my vulnerability despite my understanding stance, I will categorize their action as unsafe and restrict their access to my emotional life.";

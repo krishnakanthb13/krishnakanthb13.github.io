@@ -1020,7 +1020,15 @@
             const input = document.getElementById('customAffectInput').value.trim();
             const feedback = document.getElementById('affectFeedback');
             if (input.length > 2) {
-                feedback.innerHTML = `<span class="text-sage-700 font-bold">✓ Custom Label: "${input}"</span><br><span class="text-[11px] text-sand-800">Symbolic encoding active. Vague terror transformed into explicit semantic data.</span>`;
+                const label = document.createElement('span');
+                label.className = "text-sage-700 font-bold";
+                label.textContent = `✓ Custom Label: "${input}"`;
+
+                const note = document.createElement('span');
+                note.className = "text-[11px] text-sand-800";
+                note.textContent = "Symbolic encoding active. Vague terror transformed into explicit semantic data.";
+
+                feedback.replaceChildren(label, document.createElement('br'), note);
                 feedback.className = "p-3 bg-sage-100 rounded-xl border border-sage-200 text-xs text-sand-800 text-center";
             }
         }
@@ -1067,12 +1075,13 @@
 
             res.innerHTML = `
                 <div class="text-left space-y-1">
-                    <p class="font-bold text-slatecustom-900">Concrete Analysis for: "${val}"</p>
+                    <p class="font-bold text-slatecustom-900"></p>
                     <p class="text-[11px] text-sand-800">1. <strong>Worst Case Scenario:</strong> The feared scenario occurs in its entirety.</p>
                     <p class="text-[11px] text-sand-800">2. <strong>Adaptation Action:</strong> What immediate step prevents disaster? Gather scans, outline backups.</p>
                     <p class="text-[11px] text-sage-800 font-semibold">✦ Result: Dread stripped of novelty; converted into an operational checklist.</p>
                 </div>
             `;
+            res.querySelector('p').textContent = `Concrete Analysis for: "${val}"`;
             res.className = "p-3 bg-sand-100 rounded-xl border border-sand-200 text-xs text-sand-800";
         }
     </script>
