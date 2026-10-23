@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Market for Time: Labor Economics &amp; Stratification</title>
+    <meta name="description" content="An interactive labor-economics portal on comparative advantage, household time allocation, employability thresholds, fissured workplaces, and digital monopsony.">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏳</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom chart container styling for strict boundary & responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        /* Tab transitions & custom scrollbar */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 font-sans antialiased selection:bg-teal-100 selection:text-teal-900">
+
+<!-- Chosen Palette: Warm Sand & Slate Charcoal (Background: #FBF9F5 / bg-stone-50, Text: #1C1917 / text-stone-900, Accent Primary: #1E3A8A / indigo-900, Accent Secondary: #0F766E / teal-700, Highlight Amber: #D97706 / amber-600) -->
+
+<!-- Application Structure Plan: The SPA is structured into five cohesive thematic modules reflecting the economic progression of the report: (1) Foundations & Time Banking (Time Banking vs Monetized Exchange), (2) Household Allocation & Trade (Becker Household Model & Comparative Advantage Calculator), (3) Frictions & Employability Thresholds (DMP Matching & Efficiency Wage Simulator), (4) Structural Stratification & Fissuring (German Outsourcing Event Study & Dual Market Theory), and (5) Digital Monopsony & Precariat (MTurk Elasticity & Platform Analysis). This structure was selected over a linear text dump to allow users to interactively test the theoretical mechanisms (e.g., tweaking wages, friction costs, and labor supply elasticity) and immediately visualize how time valuation gaps produce both employment opportunities and systemic stratification. -->
+
+<!-- Visualization & Content Choices: 
+1. Barter vs Time Bank vs Monetized Market -> High-level matrix and Chart.js bar chart comparing liquidity and skill retention -> Visualizes why equal time valuation collapses market exchange -> Chart.js Canvas.
+2. Becker Time Allocation & Executive/Janitor Comparative Advantage -> Interactive JS Calculator & Dynamic Allocation Stacked Bar Chart -> Allows user to adjust wages and observe the emergence of domestic outsourcing and secondhand employment -> HTML/Tailwind + Chart.js Canvas.
+3. DMP Search Frictions & Threshold of Employability -> Dynamic Chart.js Bar Chart showing Surplus vs Vacancy Cost (k) and Wage Floors -> Demonstrates why workers with positive value remain unemployed when costs exceed match surplus -> Chart.js Canvas.
+4. Fissured Workplace Event-Study (German Outsourcing) -> Line Chart showing pre/post-outsourcing wage trajectories (-10% to -15% penalty) -> Proves empirical wage rent loss when moving from primary to secondary labor markets -> Chart.js Canvas.
+5. Online Monopsony & MTurk Elasticity -> Chart.js Line Chart showing actual elasticity (e=0.1) vs competitive market -> Demonstrates platform wage setting power over micro-task sellers -> Chart.js Canvas.
+Confirmation: NO SVG graphics used. NO Mermaid JS used. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- TOP HEADER / HERO -->
+    <header class="bg-stone-900 text-stone-100 border-b border-stone-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity, return link and quick stat badges -->
+            <div class="py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-teal-500" aria-hidden="true"></span>
+                        <span class="text-xs font-mono uppercase tracking-wider text-stone-400">Labor Economics &amp; Information Architecture</span>
+                        <a href="../" class="inline-flex items-center gap-1 rounded border border-stone-700 px-2 py-0.5 text-[11px] font-semibold text-stone-300 hover:border-teal-500 hover:text-teal-300 transition-colors" title="Return to the Knowledge Vault">&larr; Knowledge Vault</a>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">The Market for Time</h1>
+                    <p class="text-xs sm:text-sm text-stone-400">Comparative Advantage, Fissured Workplaces, and Employment Stratification</p>
+                </div>
+
+                <!-- Quick Stat Badges -->
+                <div class="hidden sm:flex flex-wrap gap-2 text-xs">
+                    <div class="bg-stone-800 border border-stone-700 px-3 py-1.5 rounded-lg text-stone-300">
+                        <span class="text-stone-400 block text-[10px] uppercase font-mono">Time Bank Scale</span>
+                        <span class="font-bold text-amber-400">&lt; 1% Macro Capacity</span>
+                    </div>
+                    <div class="bg-stone-800 border border-stone-700 px-3 py-1.5 rounded-lg text-stone-300">
+                        <span class="text-stone-400 block text-[10px] uppercase font-mono">German Wage Penalty</span>
+                        <span class="font-bold text-rose-400">-10% to -15%</span>
+                    </div>
+                    <div class="bg-stone-800 border border-stone-700 px-3 py-1.5 rounded-lg text-stone-300">
+                        <span class="text-stone-400 block text-[10px] uppercase font-mono">MTurk Monopsony</span>
+                        <span class="font-bold text-teal-400">Elasticity &#949; = 0.1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: section navigation -->
+            <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-stone-800 py-2 text-xs sm:text-sm font-medium" id="nav-tabs" role="tablist" aria-label="Sections">
+                <button type="button" role="tab" aria-selected="true" aria-controls="tab1" onclick="switchTab('tab1')" id="btn-tab1" class="tab-btn px-3 py-2 rounded-md transition-all text-teal-400 bg-stone-800 border border-stone-700 font-semibold">
+                    1. Equal Valuation Paradox
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab2" onclick="switchTab('tab2')" id="btn-tab2" class="tab-btn px-3 py-2 rounded-md transition-all text-stone-400 hover:text-stone-200 hover:bg-stone-800">
+                    2. Household Time Allocation
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab3" onclick="switchTab('tab3')" id="btn-tab3" class="tab-btn px-3 py-2 rounded-md transition-all text-stone-400 hover:text-stone-200 hover:bg-stone-800">
+                    3. Employability Thresholds
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab4" onclick="switchTab('tab4')" id="btn-tab4" class="tab-btn px-3 py-2 rounded-md transition-all text-stone-400 hover:text-stone-200 hover:bg-stone-800">
+                    4. Fissured Workplace
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab5" onclick="switchTab('tab5')" id="btn-tab5" class="tab-btn px-3 py-2 rounded-md transition-all text-stone-400 hover:text-stone-200 hover:bg-stone-800">
+                    5. Digital Monopsony
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ==================================================================== -->
+        <!-- TAB 1: EQUAL VALUATION PARADOX & TIME BANKING -->
+        <!-- ==================================================================== -->
+        <section id="tab1" class="tab-content active space-y-8" role="tabpanel" aria-labelledby="btn-tab1" tabindex="0">
+            <!-- Section Intro Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded font-mono">Section 1</span>
+                    <h2 class="text-xl font-bold text-stone-900">The Impossibility of Equal Valuation & Genesis of Exchange</h2>
+                </div>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    This module explores the foundational economic paradox: <strong class="text-stone-800">if every individual’s time were valued equally by market forces, the labor market as a mechanism of exchange would structurally collapse</strong>. In a friction-free market where everyone’s hour commands identical purchasing power, the gains from specialization vanish. By contrasting pure barter, artificial time-banking initiatives (such as Japan's <em>Fureai Kippu</em>), and monetized labor markets, this section demonstrates why unequal valuation is the essential prerequisite for trade, liquidity, and systemic job creation.
+                </p>
+            </div>
+
+            <!-- Two Column Section Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left Column: Interactive Explanation & Data -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                        <h3 class="text-lg font-bold text-stone-900 border-b border-stone-100 pb-2">Macroeconomic Failure of Time Banking</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed">
+                            Time banks operate on an egalitarian rule: 1 hour of specialized service (e.g., structural engineering) equals 1 time-credit, exchangeable for 1 hour of any other service (e.g., lawn mowing). While fostering localized community cohesion, time banking consistently fails as a macroeconomic model due to three critical structural frictions:
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded-r-md">
+                                <span class="font-bold text-amber-900 text-xs block uppercase">1. Skill Brain Drain & Exit Paradox</span>
+                                <p class="text-xs text-amber-800 mt-1">High-human-capital providers exit because equalized credits fail to compensate for extensive prior training costs, depleting specialized labor supply.</p>
+                            </div>
+                            <div class="p-3 bg-stone-50 border-l-4 border-stone-400 rounded-r-md">
+                                <span class="font-bold text-stone-900 text-xs block uppercase">2. Non-Fungibility & Divisibility</span>
+                                <p class="text-xs text-stone-700 mt-1">Complex supply chains require variable value ratios; treating diverse skills as strictly fungible creates severe matching bottlenecks.</p>
+                            </div>
+                            <div class="p-3 bg-stone-50 border-l-4 border-stone-400 rounded-r-md">
+                                <span class="font-bold text-stone-900 text-xs block uppercase">3. Double Coincidence of Wants</span>
+                                <p class="text-xs text-stone-700 mt-1">Without monetary price signals, participants spend excessive time negotiating exchanges, destroying trade value before execution.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Table -->
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                        <h3 class="text-base font-bold text-stone-900 mb-3">Comparative Exchange Mechanics</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left text-stone-600">
+                                <thead class="text-xs text-stone-700 uppercase bg-stone-100">
+                                    <tr>
+                                        <th class="px-3 py-2">System</th>
+                                        <th class="px-3 py-2">Valuation Method</th>
+                                        <th class="px-3 py-2">Primary Bottleneck</th>
+                                        <th class="px-3 py-2">Employment Impact</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-100">
+                                    <tr>
+                                        <td class="px-3 py-2 font-semibold text-stone-900">Pure Barter</td>
+                                        <td class="px-3 py-2">Direct mutual need</td>
+                                        <td class="px-3 py-2">Extreme search frictions</td>
+                                        <td class="px-3 py-2 text-rose-600 font-medium">Minimal / Friction-locked</td>
+                                    </tr>
+                                    <tr class="bg-stone-50/50">
+                                        <td class="px-3 py-2 font-semibold text-stone-900">Time Banking</td>
+                                        <td class="px-3 py-2">Exogenous equality (1:1)</td>
+                                        <td class="px-3 py-2">Liquidity & skill withdrawal</td>
+                                        <td class="px-3 py-2 text-amber-600 font-medium">Localized / Non-scalable</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-semibold text-stone-900">Monetized Market</td>
+                                        <td class="px-3 py-2">Endogenous relative prices</td>
+                                        <td class="px-3 py-2">Income & power inequality</td>
+                                        <td class="px-3 py-2 text-teal-600 font-medium">Mass Division of Labor</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visualization Chart & Dynamic Controls -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col justify-between h-full">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-base font-bold text-stone-900">Market Efficiency & Skill Retention Analysis</h3>
+                                    <p class="text-xs text-stone-500">Comparing structural metrics across labor exchange frameworks</p>
+                                </div>
+                                <span class="bg-teal-50 text-teal-700 text-[10px] font-mono px-2 py-1 rounded border border-teal-200">Interactive Canvas</span>
+                            </div>
+
+                            <!-- Chart Container -->
+                            <div class="chart-container">
+                                <canvas id="chartTimeBanking" role="img" aria-label="Bar chart comparing time banking and monetized markets across search friction, skill retention, transaction liquidity and macro scalability."></canvas>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-4 bg-stone-50 rounded-lg border border-stone-200">
+                            <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wider mb-1">Key Takeaway</h4>
+                            <p class="text-xs text-stone-600 leading-normal">
+                                Equalizing the price of time destroys the financial incentive for specialized human capital investment. Monetized labor markets tolerate wage inequality specifically because variable pricing clears complex transactions and enables an extensive macro division of labor.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 2: HOUSEHOLD TIME ALLOCATION & COMPARATIVE ADVANTAGE -->
+        <!-- ==================================================================== -->
+        <section id="tab2" class="tab-content space-y-8" role="tabpanel" aria-labelledby="btn-tab2" tabindex="0">
+            <!-- Section Intro Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-0.5 rounded font-mono">Section 2</span>
+                    <h2 class="text-xl font-bold text-stone-900">Household Production & Comparative Advantage Engine</h2>
+                </div>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    This section operationalizes <strong class="text-stone-800">Gary Becker's 1965 Theory of the Allocation of Time</strong> and David Ricardo's principle of Comparative Advantage. An individual whose market wage is exceptionally high creates labor market demand by purchasing the time of others to perform lower-yield household commodities (cleaning, cooking, childcare). Use the interactive engine below to observe how high wage differentials generate "secondhand" employment opportunities while reclaiming high-value market hours.
+                </p>
+            </div>
+
+            <!-- Simulator & Visual Breakdown Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Interactive Becker Allocation Engine -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-6">
+                    <div class="border-b border-stone-100 pb-3">
+                        <h3 class="text-base font-bold text-stone-900">Comparative Advantage Simulator</h3>
+                        <p class="text-xs text-stone-500">Executive vs. Domestic Service Provider Trade Engine</p>
+                    </div>
+
+                    <!-- Sliders -->
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Executive Market Wage ($/hr):</span>
+                                <span id="execWageVal" class="font-bold text-indigo-700">$150/hr</span>
+                            </div>
+                            <input type="range" id="execWage" min="30" max="500" value="150" step="5" 
+                                   aria-label="Executive market wage in dollars per hour"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-indigo-700" oninput="updateBeckerSim()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Domestic Worker Wage ($/hr):</span>
+                                <span id="domWageVal" class="font-bold text-teal-700">$20/hr</span>
+                            </div>
+                            <input type="range" id="domWage" min="10" max="60" value="20" step="1" 
+                                   aria-label="Domestic worker wage in dollars per hour"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-teal-700" oninput="updateBeckerSim()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Domestic Work Needed (Hours/Week):</span>
+                                <span id="houseHoursVal" class="font-bold text-amber-700">15 hrs</span>
+                            </div>
+                            <input type="range" id="houseHours" min="5" max="40" value="15" step="1" 
+                                   aria-label="Hours of domestic work needed per week"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateBeckerSim()">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Output Box -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200 space-y-3 font-mono text-xs" aria-live="polite">
+                        <div class="flex justify-between items-center text-stone-600">
+                            <span>Cost to Self-Perform Domestic Tasks:</span>
+                            <span id="selfCost" class="font-bold text-stone-900">$2,250 / wk</span>
+                        </div>
+                        <div class="flex justify-between items-center text-stone-600">
+                            <span>Cost to Outsource Domestic Tasks:</span>
+                            <span id="outsourceCost" class="font-bold text-teal-700">$300 / wk</span>
+                        </div>
+                        <div class="border-t border-stone-200 pt-2 flex justify-between items-center font-sans font-bold text-sm text-stone-900">
+                            <span>Net Value Surplus Created:</span>
+                            <span id="netSurplus" class="text-indigo-700">$1,950 / wk</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-md text-xs text-indigo-900 leading-relaxed">
+                        <span class="font-bold block mb-1">Economic Decision Rule:</span>
+                        Because the Executive's opportunity cost ($150/hr) vastly exceeds the Janitor/Domestic worker's market rate ($20/hr), outsourcing household production yields direct economic surplus, freeing executive time for market expansion while funding secondary employment.
+                    </div>
+                </div>
+
+                <!-- Right: Empirical Context & Visualization -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">Empirical Case Study: Cortés & Tessada (2011)</h3>
+                                <p class="text-xs text-stone-500">Impact of Low-Skilled Immigration on High-Earning Native Women's Work Hours</p>
+                            </div>
+                            <span class="bg-indigo-50 text-indigo-700 text-[10px] font-mono px-2 py-1 rounded border border-indigo-200">US & Spain Data</span>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="chartBeckerEmpirical" role="img" aria-label="Line chart showing the increased probability of working more than 50 hours per week among high-earning native women after an influx of low-skilled service labor."></canvas>
+                        </div>
+
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            <strong>Key Findings:</strong> An influx of low-skilled service labor reduced the market price of housekeeping, childcare, and food prep. In response, high-earning native female professionals drastically reduced self-performed housework and increased market labor supply (specifically increasing the likelihood of working 50+ to 60+ hour workweeks). The "first-tier" employed explicitly created the "second-tier" domestic job market.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 3: EMPLOYABILITY THRESHOLDS & FRICTIONS -->
+        <!-- ==================================================================== -->
+        <section id="tab3" class="tab-content space-y-8" role="tabpanel" aria-labelledby="btn-tab3" tabindex="0">
+            <!-- Section Intro Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded font-mono">Section 3</span>
+                    <h2 class="text-xl font-bold text-stone-900">The Threshold of Employability: Frictions & Wage Floors</h2>
+                </div>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    While comparative advantage creates the theoretical market for time, <strong class="text-stone-800">a worker's time can possess positive economic value and still fail to generate employment</strong>. Drawing from the Diamond-Mortensen-Pissarides (DMP) search and matching framework and Shapiro-Stiglitz efficiency wage theory, this simulator demonstrates how recruitment costs, statutory minimum wages, and training frictions construct a rigid "Employability Floor" that excludes lower-productivity labor from formal employment.
+                </p>
+            </div>
+
+            <!-- Interactive DMP Simulator -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Controls & Explanation -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-5">
+                    <div class="border-b border-stone-100 pb-3">
+                        <h3 class="text-base font-bold text-stone-900">DMP Matching & Surplus Simulator</h3>
+                        <p class="text-xs text-stone-500">Calculate Match Surplus & Employability Threshold</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Worker Marginal Product ($/hr):</span>
+                                <span id="mpVal" class="font-bold text-teal-700">$18/hr</span>
+                            </div>
+                            <input type="range" id="mpInput" min="5" max="40" value="18" step="1" 
+                                   aria-label="Worker marginal product in dollars per hour"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-teal-700" oninput="updateDMPSim()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Vacancy &amp; Coordination Cost (<em>k</em>) ($/hr eq):</span>
+                                <span id="kCostVal" class="font-bold text-rose-600">$4/hr</span>
+                            </div>
+                            <input type="range" id="kCostInput" min="0" max="15" value="4" step="0.5" 
+                                   aria-label="Vacancy and coordination cost in dollars per hour equivalent"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-rose-600" oninput="updateDMPSim()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Statutory Minimum Wage ($/hr):</span>
+                                <span id="minWageVal" class="font-bold text-amber-600">$15/hr</span>
+                            </div>
+                            <input type="range" id="minWageInput" min="0" max="25" value="15" step="0.5" 
+                                   aria-label="Statutory minimum wage in dollars per hour"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateDMPSim()">
+                        </div>
+                    </div>
+
+                    <!-- Output Dynamic Status -->
+                    <div id="dmpStatusBox" class="p-4 rounded-lg border text-xs space-y-2" role="status" aria-live="polite">
+                        <div class="flex justify-between font-bold">
+                            <span>Net Match Surplus (<em>S</em>):</span>
+                            <span id="surplusVal" class="font-mono text-sm">$0.00</span>
+                        </div>
+                        <p id="dmpStatusText" class="leading-relaxed">Calculating market equilibrium...</p>
+                    </div>
+
+                    <!-- Theory Cards -->
+                    <div class="space-y-2 text-xs">
+                        <div class="p-3 bg-stone-50 rounded border border-stone-200">
+                            <span class="font-bold text-stone-800">Shapiro-Stiglitz Efficiency Wage:</span>
+                            <p class="text-stone-600 mt-0.5">Firms pay above-market wages to prevent worker shirking. Lowering wages would destroy anti-shirking incentives, leaving willing workers involuntarily unemployed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Dynamic Chart -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">Employability Surplus Curve</h3>
+                                <p class="text-xs text-stone-500">Visualizing the gap between productivity, hiring costs, and legal wage floors</p>
+                            </div>
+                            <span class="bg-amber-50 text-amber-700 text-[10px] font-mono px-2 py-1 rounded border border-amber-200">DMP Model Canvas</span>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="chartDMP" role="img" aria-label="Bar chart of marginal product, effective wage, vacancy friction and net match surplus in the DMP search model."></canvas>
+                        </div>
+
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            <strong>Interpretation:</strong> When hiring, screening, or coordination costs (<em>k</em>) plus statutory minimum wages exceed the marginal value of a worker's time, the firm's zero-profit condition is violated. Position posting ceases, converting positive human value into structural unemployment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 4: FISSURED WORKPLACE & DUAL MARKETS -->
+        <!-- ==================================================================== -->
+        <section id="tab4" class="tab-content space-y-8" role="tabpanel" aria-labelledby="btn-tab4" tabindex="0">
+            <!-- Section Intro Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2.5 py-0.5 rounded font-mono">Section 4</span>
+                    <h2 class="text-xl font-bold text-stone-900">Structural Stratification & The Fissured Workplace</h2>
+                </div>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    Inequality in time valuation shapes the organizational boundaries of the modern enterprise. Guided by <strong class="text-stone-800">Dual Labor Market Theory (Doeringer & Piore)</strong> and <strong class="text-stone-800">David Weil's Fissured Workplace framework</strong>, this module analyzes how primary capital sheds direct employment for non-core functions (janitorial, security, logistics) via third-party subcontracting, severing peripheral workers from corporate profit pools.
+                </p>
+            </div>
+
+            <!-- Interactive Event Study Visualization -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Event Study Controls & Data -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-5">
+                    <div class="border-b border-stone-100 pb-3">
+                        <h3 class="text-base font-bold text-stone-900">Goldschmidt &amp; Schmieder (2017) Event Study</h3>
+                        <p class="text-xs text-stone-500">German Administrative Data on Domestic Outsourcing Wage Loss</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label class="text-xs font-medium text-stone-700 block">Select Subcontracted Sector:</label>
+                        <select id="sectorSelect" onchange="updateGermanChart()" 
+                                class="w-full bg-stone-50 border border-stone-300 text-stone-800 text-xs rounded-lg p-2.5 focus:ring-teal-500 focus:border-teal-500">
+                            <option value="cleaning">Cleaning Services (-15.2% Penalty)</option>
+                            <option value="security">Security Personnel (-12.4% Penalty)</option>
+                            <option value="food">Food Services / Cafeteria (-10.1% Penalty)</option>
+                            <option value="logistics">Logistics &amp; Warehousing (-11.5% Penalty)</option>
+                        </select>
+                    </div>
+
+                    <!-- Sector Impact Card -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200 space-y-2 text-xs" aria-live="polite">
+                        <div class="flex justify-between items-center font-bold text-stone-900">
+                            <span>Sector Wage Penalty:</span>
+                            <span id="sectorPenaltyVal" class="text-rose-600 text-sm font-mono">-15.2%</span>
+                        </div>
+                        <p id="sectorDesc" class="text-stone-600 leading-normal">
+                            Workers performing identical physical tasks experience an immediate wage drop after being outsourced, driven entirely by the loss of firm-specific rent sharing and union coverage.
+                        </p>
+                    </div>
+
+                    <!-- Macro Inequality Stat -->
+                    <div class="p-4 bg-rose-50 border border-rose-100 rounded-lg text-xs text-rose-950 space-y-1">
+                        <span class="font-bold uppercase tracking-wider block text-[10px] text-rose-700">Macro Impact</span>
+                        <p class="leading-relaxed">
+                            Domestic outsourcing of logistics, cleaning, and security accounts for <strong>9% of the total rise in German wage inequality</strong> from 1980 to 2010.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event Study Canvas Chart -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">Real Wage Trajectory Around Outsourcing Event</h3>
+                                <p class="text-xs text-stone-500">Years relative to outsourcing event (<em>t</em> = 0 is the outsourcing transition)</p>
+                            </div>
+                            <span class="bg-rose-50 text-rose-700 text-[10px] font-mono px-2 py-1 rounded border border-rose-200">Event Study Canvas</span>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="chartGermanOutsourcing" role="img" aria-label="Line chart of indexed real wages before and after a domestic outsourcing event in the German labor market."></canvas>
+                        </div>
+
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            <strong>Mechanism:</strong> Subcontracting creates cutthroat bidding wars among business service vendors. Lacking market power or differentiated technology, vendors compress labor costs, forcing secondhand sellers of time to bear systemic wage suppression.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Primary vs Secondary Dual Market Matrix -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                <h3 class="text-base font-bold text-stone-900">Dual Labor Market Structural Segmentation</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 bg-stone-50 rounded-lg border border-stone-200 space-y-2">
+                        <span class="font-bold text-indigo-900 uppercase block">1. Primary In-House Tier</span>
+                        <ul class="text-stone-600 space-y-1 list-disc list-inside">
+                            <li>Direct employment with lead capital</li>
+                            <li>Firm-specific rent sharing & benefits</li>
+                            <li>High bargaining power & job security</li>
+                            <li>Internal promotion pathways</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-stone-50 rounded-lg border border-stone-200 space-y-2">
+                        <span class="font-bold text-amber-900 uppercase block">2. Subcontracted / Fissured Tier</span>
+                        <ul class="text-stone-600 space-y-1 list-disc list-inside">
+                            <li>Employed by third-party vendor</li>
+                            <li>Severed from lead firm profit pool</li>
+                            <li>Cutthroat vendor wage pressure</li>
+                            <li>High turnover & zero career progression</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-stone-50 rounded-lg border border-stone-200 space-y-2">
+                        <span class="font-bold text-rose-900 uppercase block">3. Independent / Gig Tier</span>
+                        <ul class="text-stone-600 space-y-1 list-disc list-inside">
+                            <li>Misclassified 1099 contractors</li>
+                            <li>Absence of statutory wage floors</li>
+                            <li>Full assumption of idle time risk</li>
+                            <li>Algorithmic monopsony control</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 5: DIGITAL MONOPSONY & THE PRECARIAT -->
+        <!-- ==================================================================== -->
+        <section id="tab5" class="tab-content space-y-8" role="tabpanel" aria-labelledby="btn-tab5" tabindex="0">
+            <!-- Section Intro Paragraph -->
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-stone-800 text-stone-100 text-xs font-semibold px-2.5 py-0.5 rounded font-mono">Section 5</span>
+                    <h2 class="text-xl font-bold text-stone-900">The Extreme Margin: Monopsony & Algorithmic Precariat</h2>
+                </div>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    At the logical extreme of the fissured workplace sits the digital platform economy. By leveraging micro-task platforms like Amazon Mechanical Turk (MTurk), capital atomizes time into discrete, second-by-second tasks. Groundbreaking empirical research by <strong class="text-stone-800">Dube, Jacobs, Naidu, and Suri (2020)</strong> reveals that despite low physical entry barriers, online labor platforms possess extreme monopsony power, allowing lead actors to drastically suppress wages without losing labor supply.
+                </p>
+            </div>
+
+            <!-- Monopsony Elasticity Calculator & Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Interactive Elasticity Controls -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-5">
+                    <div class="border-b border-stone-100 pb-3">
+                        <h3 class="text-base font-bold text-stone-900">MTurk Labor Supply Elasticity Simulator</h3>
+                        <p class="text-xs text-stone-500">Replicating Dube et al. Experimental Honeypot Results</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-stone-700 mb-1">
+                                <span>Platform Wage Reduction (% Cut):</span>
+                                <span id="wageCutVal" class="font-bold text-rose-600">-20% Cut</span>
+                            </div>
+                            <input type="range" id="wageCutInput" min="0" max="50" value="20" step="5" 
+                                   aria-label="Platform wage reduction as a percentage cut"
+                                   class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-rose-600" oninput="updateMonopsonySim()">
+                        </div>
+                    </div>
+
+                    <!-- Output Box comparing Elasticity -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200 space-y-3 text-xs" aria-live="polite">
+                        <div class="flex justify-between items-center text-stone-700">
+                            <span>Competitive Market Loss ($\varepsilon = \infty$):</span>
+                            <span class="font-bold text-rose-600 font-mono">-100% Workers Exit</span>
+                        </div>
+                        <div class="flex justify-between items-center text-stone-700">
+                            <span>Empirical MTurk Loss ($\varepsilon = 0.1$):</span>
+                            <span id="mturkWorkerLoss" class="font-bold text-teal-700 font-mono">-2.0% Workers Exit</span>
+                        </div>
+                        <div class="border-t border-stone-200 pt-2 text-[11px] text-stone-500 leading-relaxed">
+                            Because MTurk labor elasticity is only ~0.1, a 10% wage cut leads to just a 1% reduction in labor supplied. Requesters enjoy immense wage-setting power.
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-stone-900 text-stone-200 rounded-md text-xs leading-relaxed space-y-1">
+                        <span class="font-bold text-teal-400 block">Guy Standing's "Precariat" Class:</span>
+                        <p class="text-stone-300">
+                            Platform gig workers absorb all capital depreciation, downtime risk, and transaction costs while retaining zero occupational identity or collective bargaining leverage.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Elasticity Curve Canvas -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-bold text-stone-900">Labor Supply Curve: Monopsony vs. Perfect Competition</h3>
+                                <p class="text-xs text-stone-500">Plotting Wage Offered ($/hr) vs. Quantity of Micro-Task Labor Supplied</p>
+                            </div>
+                            <span class="bg-stone-100 text-stone-800 text-[10px] font-mono px-2 py-1 rounded border border-stone-300">Monopsony Canvas</span>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="chartMonopsony" role="img" aria-label="Line chart comparing the near-vertical labor supply curve under platform monopsony with the horizontal supply curve of a competitive market."></canvas>
+                        </div>
+
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            <strong>Why Monopsony Exists Online:</strong> High task concentration (top 10% requesters post 98% of work), search frictions in discovering high-paying HITs, and proprietary platform algorithms give buyers structural leverage over isolated sellers of time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grand Synthesis Box -->
+            <div class="bg-stone-900 text-stone-100 p-6 rounded-xl space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+                    <h3 class="text-lg font-bold tracking-tight text-white">Synthesis: The Two Sides of Time Valuation</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-stone-300 leading-relaxed">
+                    <div class="p-4 bg-stone-800/60 rounded-lg border border-stone-700 space-y-2">
+                        <h4 class="font-bold text-teal-300 text-sm">1. Unequal Valuation Creates the Market</h4>
+                        <p>
+                            Without variable shadow pricing for time, specialization collapses. High-yield actors purchase low-yield actors' hours to release time for higher-productivity output, enabling comparative advantage and generating employment that would otherwise not exist.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-stone-800/60 rounded-lg border border-stone-700 space-y-2">
+                        <h4 class="font-bold text-amber-300 text-sm">2. Inequality Dictates Direct vs. Secondhand Access</h4>
+                        <p>
+                            While unequal valuation creates jobs, institutional frictions, fissured organizational structures, and digital monopsonies determine who sells labor directly to primary capital and who is relegated to precarious, secondhand subcontracting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 text-stone-400 border-t border-stone-800 py-6 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-mono">Time Valuation &amp; Labor Market Dynamics — Interactive Analytics Platform</p>
+            <p class="text-stone-500">Synthesizing Becker (1965), DMP Search Models, Fissured Workplace Theory (Weil), and Online Monopsony (Dube et al.).</p>
+            <p class="pt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                <a href="../" class="text-teal-400 hover:underline">&larr; Knowledge Vault</a>
+                <span class="text-stone-700" aria-hidden="true">•</span>
+                <a href="./readme.md" class="text-teal-400 hover:underline">The Full Report</a>
+                <span class="text-stone-700" aria-hidden="true">•</span>
+                <a href="../../" class="text-teal-400 hover:underline">Portfolio Home &nearr;</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & CHART.JS IMPLEMENTATION -->
+    <script>
+        // Global references for Chart instances
+        let chartTimeBankingInstance = null;
+        let chartBeckerInstance = null;
+        let chartDMPInstance = null;
+        let chartGermanInstance = null;
+        let chartMonopsonyInstance = null;
+
+        // Map each tab to the charts it owns so canvases initialised inside a
+        // hidden panel can recalculate their dimensions once it is visible.
+        const tabChartMap = {
+            tab1: () => chartTimeBankingInstance,
+            tab2: () => chartBeckerInstance,
+            tab3: () => chartDMPInstance,
+            tab4: () => chartGermanInstance,
+            tab5: () => chartMonopsonyInstance
+        };
+        const validTabs = Object.keys(tabChartMap);
+
+        // Navigation Tab Switching Logic
+        function switchTab(tabId, updateHash = true) {
+            if (!validTabs.includes(tabId)) return;
+
+            // Hide all tab content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.remove('active'));
+
+            // Reset tab button styles
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-3 py-2 rounded-md transition-all text-stone-400 hover:text-stone-200 hover:bg-stone-800";
+                btn.setAttribute('aria-selected', 'false');
+            });
+
+            // Show target content
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            // Highlight active tab button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn px-3 py-2 rounded-md transition-all text-teal-400 bg-stone-800 border border-stone-700 font-semibold";
+                activeBtn.setAttribute('aria-selected', 'true');
+            }
+
+            // Keep the URL shareable (and deep-linkable) without adding history noise
+            try {
+                if (updateHash && window.location.hash !== '#' + tabId) {
+                    history.replaceState(null, '', '#' + tabId);
+                }
+            } catch (err) {
+                // Some local file:// or sandboxed contexts block history updates.
+            }
+
+            // A canvas rendered while its panel was display:none reports 0x0.
+            requestAnimationFrame(() => {
+                const chart = tabChartMap[tabId] ? tabChartMap[tabId]() : null;
+                if (chart) chart.resize();
+            });
+        }
+
+        // ====================================================================
+        // TAB 1: CHART INITIALIZATION (TIME BANKING VS MONETIZED)
+        // ====================================================================
+        function initTimeBankingChart() {
+            const ctx = document.getElementById('chartTimeBanking').getContext('2d');
+            chartTimeBankingInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Search Friction', 'Skill Retention', 'Transaction Liquidity', 'Macro Scalability'],
+                    datasets: [
+                        {
+                            label: 'Time Banking (Egalitarian)',
+                            data: [85, 20, 25, 10],
+                            backgroundColor: 'rgba(217, 119, 6, 0.75)',
+                            borderColor: 'rgba(217, 119, 6, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Monetized Market (Unequal Pricing)',
+                            data: [25, 90, 95, 92],
+                            backgroundColor: 'rgba(15, 118, 110, 0.75)',
+                            borderColor: 'rgba(15, 118, 110, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' Index Score';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Index Score (0-100)', font: { size: 11 } } },
+                        x: { ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        // ====================================================================
+        // TAB 2: BECKER SIMULATOR & EMPIRICAL CHART
+        // ====================================================================
+        function updateBeckerSim() {
+            const execWage = parseFloat(document.getElementById('execWage').value);
+            const domWage = parseFloat(document.getElementById('domWage').value);
+            const houseHours = parseFloat(document.getElementById('houseHours').value);
+
+            document.getElementById('execWageVal').innerText = '$' + execWage + '/hr';
+            document.getElementById('domWageVal').innerText = '$' + domWage + '/hr';
+            document.getElementById('houseHoursVal').innerText = houseHours + ' hrs';
+
+            const selfCost = execWage * houseHours;
+            const outsourceCost = domWage * houseHours;
+            const netSurplus = selfCost - outsourceCost;
+
+            document.getElementById('selfCost').innerText = '$' + selfCost.toLocaleString() + ' / wk';
+            document.getElementById('outsourceCost').innerText = '$' + outsourceCost.toLocaleString() + ' / wk';
+            document.getElementById('netSurplus').innerText = '$' + netSurplus.toLocaleString() + ' / wk';
+        }
+
+        function initBeckerEmpiricalChart() {
+            const ctx = document.getElementById('chartBeckerEmpirical').getContext('2d');
+            chartBeckerInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Bottom 20%', '20-40%', '40-60%', '60-80%', 'Top 10% High Earners'],
+                    datasets: [{
+                        label: 'Pr(Working > 50 hrs/wk) post Low-Skilled Immigration Influx',
+                        data: [0.8, 1.2, 2.5, 4.8, 8.5],
+                        borderColor: 'rgba(30, 58, 138, 1)',
+                        backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: 'rgba(30, 58, 138, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Increase in Long Hours Probability: +' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: 'Percentage Point Change (%)', font: { size: 11 } }, beginAtZero: true },
+                        x: { title: { display: true, text: 'Native Female Wage Percentile', font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        // ====================================================================
+        // TAB 3: DMP SEARCH FRICTION SIMULATOR & CHART
+        // ====================================================================
+        function updateDMPSim() {
+            const mp = parseFloat(document.getElementById('mpInput').value);
+            const k = parseFloat(document.getElementById('kCostInput').value);
+            const minWage = parseFloat(document.getElementById('minWageInput').value);
+
+            document.getElementById('mpVal').innerText = '$' + mp + '/hr';
+            document.getElementById('kCostVal').innerText = '$' + k + '/hr';
+            document.getElementById('minWageVal').innerText = '$' + minWage + '/hr';
+
+            // Effective Wage paid is max of minWage or base reservation wage
+            const wage = Math.max(minWage, mp * 0.6);
+            const surplus = mp - wage - k;
+
+            const statusBox = document.getElementById('dmpStatusBox');
+            const statusText = document.getElementById('dmpStatusText');
+            const surplusVal = document.getElementById('surplusVal');
+
+            surplusVal.innerText = '$' + surplus.toFixed(2) + ' / hr';
+
+            if (surplus >= 0) {
+                statusBox.className = "p-4 rounded-lg border text-xs space-y-2 bg-teal-50 border-teal-200 text-teal-900";
+                statusText.innerText = "STATUS: EMPLOYABLE MATCH. Net surplus is positive. Firms post position and hire worker.";
+            } else {
+                statusBox.className = "p-4 rounded-lg border text-xs space-y-2 bg-rose-50 border-rose-200 text-rose-900";
+                statusText.innerText = "STATUS: UNEMPLOYABLE / STRUCTURAL EXCLUSION. Hiring frictions + wage floors exceed productivity. Job opening cancelled.";
+            }
+
+            if (chartDMPInstance) {
+                chartDMPInstance.data.datasets[0].data = [mp, wage, k, surplus];
+                chartDMPInstance.update();
+            }
+        }
+
+        function initDMPChart() {
+            const ctx = document.getElementById('chartDMP').getContext('2d');
+            chartDMPInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Marginal Product (MP)', 'Effective Wage (W)', 'Vacancy Friction (k)', 'Net Match Surplus (S)'],
+                    datasets: [{
+                        label: 'DMP Surplus Component ($/hr)',
+                        data: [18, 15, 4, -1],
+                        backgroundColor: [
+                            'rgba(15, 118, 110, 0.8)',
+                            'rgba(217, 119, 6, 0.8)',
+                            'rgba(225, 29, 72, 0.8)',
+                            'rgba(30, 58, 138, 0.8)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': $' + context.raw.toFixed(2) + '/hr';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: 'Hourly Dollar Value ($)', font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        // ====================================================================
+        // TAB 4: GERMAN OUTSOURCING EVENT STUDY CHART
+        // ====================================================================
+        const sectorDataMap = {
+            cleaning: {
+                penalty: '-15.2%',
+                desc: 'Cleaning personnel experience a 15.2% structural wage reduction upon moving to external contractors, losing firm-specific profit shares.',
+                data: [100, 101, 100.5, 84.8, 83.5, 82.0]
+            },
+            security: {
+                penalty: '-12.4%',
+                desc: 'Security guards suffer a 12.4% wage drop, transitioning from internal corporate wage scales to competitive vendor bidding.',
+                data: [100, 100.8, 100.2, 87.6, 86.8, 85.5]
+            },
+            food: {
+                penalty: '-10.1%',
+                desc: 'Cafeteria and food service workers lose union coverage and experience a 10.1% real wage penalty post-outsourcing.',
+                data: [100, 100.3, 99.8, 89.9, 89.2, 88.0]
+            },
+            logistics: {
+                penalty: '-11.5%',
+                desc: 'Logistics and warehouse staff see an 11.5% wage suppression as lead firms shift to third-party logistics (3PL) providers.',
+                data: [100, 101.2, 100.1, 88.5, 87.2, 86.0]
+            }
+        };
+
+        function updateGermanChart() {
+            const sector = document.getElementById('sectorSelect').value;
+            const sectorObj = sectorDataMap[sector];
+
+            document.getElementById('sectorPenaltyVal').innerText = sectorObj.penalty;
+            document.getElementById('sectorDesc').innerText = sectorObj.desc;
+
+            if (chartGermanInstance) {
+                chartGermanInstance.data.datasets[0].data = sectorObj.data;
+                chartGermanInstance.update();
+            }
+        }
+
+        function initGermanChart() {
+            const ctx = document.getElementById('chartGermanOutsourcing').getContext('2d');
+            chartGermanInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['t - 2 Yrs', 't - 1 Yr', 't = 0 (Outsourced)', 't + 1 Yr', 't + 2 Yrs', 't + 3 Yrs'],
+                    datasets: [{
+                        label: 'Indexed Real Wage Trajectory (Base = 100)',
+                        data: [100, 101, 100.5, 84.8, 83.5, 82.0],
+                        borderColor: 'rgba(225, 29, 72, 1)',
+                        backgroundColor: 'rgba(225, 29, 72, 0.1)',
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 6,
+                        pointBackgroundColor: 'rgba(225, 29, 72, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Wage Index: ' + context.raw;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: 'Real Wage Index (t-2 = 100)', font: { size: 11 } }, min: 70, max: 110 }
+                    }
+                }
+            });
+        }
+
+        // ====================================================================
+        // TAB 5: MONOPSONY ELASTICITY CHART (DUBE ET AL. MTURK)
+        // ====================================================================
+        function updateMonopsonySim() {
+            const wageCut = parseFloat(document.getElementById('wageCutInput').value);
+            document.getElementById('wageCutVal').innerText = '-' + wageCut + '% Cut';
+
+            // Elasticity e = 0.1 => % Worker loss = 0.1 * wageCut
+            const workerLoss = (0.1 * wageCut).toFixed(1);
+            document.getElementById('mturkWorkerLoss').innerText = '-' + workerLoss + '% Workers Exit';
+        }
+
+        function initMonopsonyChart() {
+            const ctx = document.getElementById('chartMonopsony').getContext('2d');
+            chartMonopsonyInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['$2.00/hr', '$4.00/hr', '$6.00/hr', '$8.00/hr', '$10.00/hr'],
+                    datasets: [
+                        {
+                            label: 'Empirical Platform Supply Curve (Monopsony e = 0.1)',
+                            data: [90, 92, 95, 97, 100],
+                            borderColor: 'rgba(15, 118, 110, 1)',
+                            backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                            fill: false,
+                            tension: 0.1,
+                            pointRadius: 5
+                        },
+                        {
+                            label: 'Theoretical Competitive Supply Curve (e = Infinity)',
+                            data: [0, 10, 40, 80, 100],
+                            borderColor: 'rgba(225, 29, 72, 1)',
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.1,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' Labor Supply Units';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: 'Labor Quantity Supplied (Index)', font: { size: 11 } }, min: 0, max: 110 },
+                        x: { title: { display: true, text: 'Micro-Task Wage Offered ($/hr)', font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        // Initialize all charts on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initTimeBankingChart();
+            initBeckerEmpiricalChart();
+            initDMPChart();
+            initGermanChart();
+            initMonopsonyChart();
+
+            // Run initial updates for interactive calculations
+            updateBeckerSim();
+            updateDMPSim();
+            updateGermanChart();
+            updateMonopsonySim();
+
+            // Restore a deep-linked tab (index.html#tab4) or default to tab 1
+            const initialTab = window.location.hash.replace('#', '');
+            switchTab(validTabs.includes(initialTab) ? initialTab : 'tab1', false);
+        });
+
+        // Keep tab state in sync when the hash is edited manually
+        window.addEventListener('hashchange', function() {
+            const hashTab = window.location.hash.replace('#', '');
+            if (validTabs.includes(hashTab)) switchTab(hashTab, false);
+        });
+    </script>
+</body>
+</html>

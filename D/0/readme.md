@@ -203,4 +203,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Time & Employment Dynamics](./time_n_employment_dynamics/)
+**The Market for Time** — why unequal valuation is the engine of employment, and why the same differential decides who sells labor directly to primary capital and who is relegated to precarious, secondhand subcontracting. Synthesizes Becker's 1965 household production model and Ricardo's comparative advantage with DMP search frictions, Shapiro-Stiglitz efficiency wages, dual labor market theory, Weil's fissured workplace, and Dube et al.'s measurement of monopsony power on Amazon Mechanical Turk.
+
+- 📝 [The Full Report](./time_n_employment_dynamics/readme.md) — the long-form essay with 68 cited sources. (`readme.md`)
+- ⏳ [Interactive Infographic](./time_n_employment_dynamics/index.html) — the complete warm sand & slate interactive page: five-module tabbed portal (Equal Valuation Paradox, Household Time Allocation, Employability Thresholds, Fissured Workplace, Digital Monopsony) with a time-banking vs. monetized-exchange comparison matrix, Becker comparative-advantage simulator, DMP employability-surplus model, German outsourcing event study by sector, MTurk monopsony elasticity lab, and a dual labor-market segmentation matrix. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*

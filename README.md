@@ -31,6 +31,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 		- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/) — The Interstitial Pause
 		- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/) — The Modern Paradigm of Absurdity
+		- [Time & Employment Dynamics](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/) — The Market for Time
 	- **1**: [TechXConf 2026 — AI, Cloud & Data Conference](https://krishnakanthb13.github.io/D/1/techxconf26/) — single-file event page: agenda, themes, speakers & venue (tickets closed)
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
@@ -234,6 +235,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/): The Modern Paradigm of Absurdity — from the trickster king who chained Death to Camus's absurd hero and Ariely's measured cost of meaningless labor.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/sisyphus/): Five-tab SPA with transgression stepper, character matrix, contrapasso table, Camus-vs-Sartre framework, three-responses explorer, Hour of Consciousness toggle, Ariely Bionicle & reservation-wage charts, workplace motivation simulator & alignment quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/sisyphus/readme.md): Long-form research essay with 51 cited sources.
+	- [Time & Employment Dynamics](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/): The Market for Time — why unequal valuation is the engine of employment, and why the same differential decides who sells labor directly to primary capital and who is relegated to precarious, secondhand subcontracting.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/): Five-module tabbed portal with a time-banking vs. monetized-exchange matrix, Becker comparative-advantage simulator, DMP employability-surplus model, German outsourcing event study, MTurk monopsony elasticity lab & dual labor-market segmentation matrix.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/readme.md): Long-form research essay with 68 cited sources.
 
 ---
 

@@ -111,17 +111,21 @@
      ================================================================ -->
 
     <!-- Sticky Navigation Header -->
-    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
-        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
-            <div class="flex items-center space-x-3">
-                <a href="../" class="text-brand-textMuted hover:text-brand-accentCyan transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-brand-card border border-brand-border" title="Return to The Dump">← Dump</a>
-                <span class="text-2xl">📚</span>
-                <span class="text-xl font-bold tracking-tight text-brand-textLight">D/0 <span class="text-brand-accentCyan">Knowledge Vault</span></span>
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur border-b border-brand-border">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center space-x-3 min-w-0">
+                    <a href="../" class="flex-shrink-0 text-brand-textMuted hover:text-brand-accentCyan transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-brand-card border border-brand-border" title="Return to The Dump">← Dump</a>
+                    <span class="text-2xl" aria-hidden="true">📚</span>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight text-brand-textLight truncate">D/0 <span class="text-brand-accentCyan">Knowledge Vault</span></span>
+                </div>
             </div>
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-brand-textMuted">
-                <a href="#topics" class="hover:text-brand-accentCyan transition-colors">Topics</a>
-                <a href="#about" class="hover:text-brand-accentCyan transition-colors">About</a>
-                <a href="../../" class="hover:text-brand-accentCyan transition-colors text-xs">Portfolio Home ↗</a>
+            <!-- Row 2: section navigation -->
+            <nav class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-t border-brand-border/70 py-2 text-sm font-medium text-brand-textMuted" aria-label="Page sections">
+                <a href="#topics" class="flex-shrink-0 hover:text-brand-accentCyan transition-colors">Topics</a>
+                <a href="#about" class="flex-shrink-0 hover:text-brand-accentCyan transition-colors">About</a>
+                <a href="../../" class="flex-shrink-0 text-xs hover:text-brand-accentCyan transition-colors">Portfolio Home ↗</a>
             </nav>
         </div>
     </header>
@@ -129,7 +133,7 @@
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
 
         <!-- HERO -->
-        <section id="overview" class="text-center space-y-5 pt-4">
+        <section id="overview" class="text-center space-y-5 pt-4 scroll-mt-24">
             <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-accentCyan/10 border border-brand-accentCyan/30 text-brand-accentCyan text-xs uppercase tracking-widest font-semibold">
                 <span>Living Knowledge Vault</span>
             </div>
@@ -141,11 +145,11 @@
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-2">
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
-                    <div class="text-3xl font-extrabold text-brand-accentCyan">16</div>
+                    <div class="text-3xl font-extrabold text-brand-accentCyan">17</div>
                     <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Topic Earned</div>
                 </div>
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
-                    <div class="text-3xl font-extrabold text-brand-accentAmber">32</div>
+                    <div class="text-3xl font-extrabold text-brand-accentAmber">34</div>
                     <div class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Files Indexed</div>
                 </div>
                 <div class="bg-brand-card border border-brand-border p-5 rounded-xl text-center space-y-1">
@@ -156,7 +160,7 @@
         </section>
 
         <!-- TOPICS -->
-        <section id="topics" class="space-y-8">
+        <section id="topics" class="space-y-8 scroll-mt-24">
             <div class="flex items-center gap-3">
                 <h2 class="text-2xl sm:text-3xl font-bold text-brand-textLight">Vault Topics</h2>
                 <span class="text-xs px-2.5 py-1 rounded-full bg-brand-card border border-brand-border text-brand-textMuted font-semibold">sorted by folder</span>
@@ -723,10 +727,45 @@
             </article>
             <!-- ===================== /TOPIC CARD ===================== -->
 
+            <!-- ===================== TOPIC CARD: time_n_employment_dynamics ===================== -->
+            <article class="bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl">
+                <div class="h-1.5 w-full bg-gradient-to-r from-brand-accentTeal via-brand-accentAmber to-brand-accentCyan"></div>
+                <div class="p-6 sm:p-8 space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <h3 class="text-xl sm:text-2xl font-bold text-brand-textLight">
+                            <a href="./time_n_employment_dynamics/" class="hover:text-brand-accentTeal transition-colors">⏳ Time &amp; Employment Dynamics</a>
+                        </h3>
+                        <span class="text-xs px-3 py-1 rounded-full bg-brand-accentTeal/10 border border-brand-accentTeal/30 text-brand-accentTeal font-semibold uppercase tracking-wider">Labor Economics &amp; Stratification</span>
+                    </div>
+                    <p class="text-brand-textMuted leading-relaxed max-w-3xl">
+                        <strong class="text-brand-textLight">The Market for Time.</strong> Why unequal valuation is the engine of employment—and why the very same differential decides who sells labor directly to primary capital and who is relegated to precarious, secondhand subcontracting. Synthesizes Becker's household production model and Ricardo's comparative advantage with DMP search frictions, Shapiro-Stiglitz efficiency wages, Weil's fissured workplace, and Dube et al.'s measurement of monopsony power on Amazon Mechanical Turk.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="./time_n_employment_dynamics/readme.md" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentEmerald transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">📝</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentEmerald">Markdown</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentEmerald transition-colors">The Full Report</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>readme.md</code> — long-form essay with 68 cited sources.</div>
+                        </a>
+                        <a href="./time_n_employment_dynamics/index.html" class="group p-4 rounded-xl bg-slate-900/60 border border-brand-border hover:border-brand-accentTeal transition-colors block">
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl">🧠</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-accentTeal">Interactive</span>
+                            </div>
+                            <div class="mt-2 font-bold text-sm text-brand-textLight group-hover:text-brand-accentTeal transition-colors">Interactive Infographic</div>
+                            <div class="text-xs text-brand-textMuted mt-1"><code>index.html</code> — five-module tabbed portal: time-banking vs. monetized-exchange matrix, Becker comparative-advantage simulator, DMP employability-threshold model, German outsourcing event study, MTurk monopsony elasticity lab &amp; dual labor-market matrix.</div>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            <!-- ===================== /TOPIC CARD ===================== -->
+
         </section>
 
         <!-- ABOUT -->
-        <section id="about" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-3">
+        <section id="about" class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 space-y-3 scroll-mt-24">
             <h2 class="text-xl font-bold text-brand-textLight">📖 Why This Vault Exists</h2>
             <p class="text-brand-textMuted text-sm leading-relaxed max-w-3xl">
                 Knowledge picked up from a sentence is cheap and reversible—it stays in the head. This vault exists to convert earned knowledge into a durable, navigable structure: every topic is written out as an essay (the report) and rendered as an interactive page (the experience). Knowing needs evidence; a vault needs surrendering the chaos of unorganized notes into one indexed place.
