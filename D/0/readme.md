@@ -211,6 +211,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Sunk Cost Fallacy](./sunk_cost_fallacy/)
+**The Psychology and Economics of Sunk Costs** — why unrecoverable past investments should have zero bearing on future decisions, and why the mind instead treats them as an ongoing obligation. Synthesizes Thaler's mental accounting and Kahneman–Tversky loss aversion with Arkes & Blumer's waste aversion, Staw's escalation of commitment, Charnov's Marginal Value Theorem and Sweis et al.'s cross-species wait-phase evidence, Flyvbjerg's Iron Law of megaprojects, aviation plan-continuation bias, the disposition effect, demographic variance, and the quitting frameworks of Duke, Teller, Grove, and real-options theory.
+
+- 📝 [The Full Report](./sunk_cost_fallacy/readme.md) — the long-form essay with 119 cited sources. (`readme.md`)
+- 🚂 [Interactive Infographic](./sunk_cost_fallacy/index.html) — the complete warm sand & terracotta interactive page: six-tab portal (Overview, Mechanisms, Evolution & MVT, Systemic Impact, Demographics, Mitigation) with a "Wrong Train" thought experiment, clickable neural-circuitry explorer, Marginal Value Theorem foraging simulator, Sweis offer-vs-wait chart, megaproject overrun chart, searchable cross-domain risk matrix, age/culture/CRT panels, and a 4-question "Should I Disembark?" diagnostic. (`index.html`)
+
+---
+
 ### 📁 [Time & Employment Dynamics](./time_n_employment_dynamics/)
 **The Market for Time** — why unequal valuation is the engine of employment, and why the same differential decides who sells labor directly to primary capital and who is relegated to precarious, secondhand subcontracting. Synthesizes Becker's 1965 household production model and Ricardo's comparative advantage with DMP search frictions, Shapiro-Stiglitz efficiency wages, dual labor market theory, Weil's fissured workplace, and Dube et al.'s measurement of monopsony power on Amazon Mechanical Turk.
 

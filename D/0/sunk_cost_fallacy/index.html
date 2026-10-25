@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-stone-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Persistence: Sunk Cost Fallacy &amp; Escalation Analysis</title>
+  <meta name="description" content="An interactive decision-science portal on the sunk cost fallacy: mental accounting, loss aversion, escalation of commitment, the Marginal Value Theorem, neural circuitry, megaproject overruns, demographic variance, and evidence-based quitting frameworks.">
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚂</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sand: {
+              50: '#FDFBF7',
+              100: '#F7F3EB',
+              200: '#EDE5D8',
+              300: '#DFD2BE',
+              700: '#786851',
+              800: '#544736',
+              900: '#382F23',
+            },
+            terracotta: {
+              500: '#D96B43',
+              600: '#C2522A',
+              700: '#A03B19',
+            },
+            sage: {
+              600: '#5A7D6C',
+              700: '#436152',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F7F3EB;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #DFD2BE;
+      border-radius: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<!-- Chosen Palette: Warm Sand & Slate (Background #FDFBF7, Neutral Sand/Stone, Accents in Terracotta #C2522A and Deep Navy/Slate) -->
+
+<!-- Application Structure Plan:
+  1. Header & Navigation: Clean sticky header with thematic tabs (Overview, Mechanisms, Evolutionary & MVT, Systemic Impact, Demographics, Mitigation Toolkit).
+  2. Section 1: Interactive Metaphor & Overview: "The Wrong Train" interactive prompt + core principles (Arkes & Blumer).
+  3. Section 2: Psychological & Neural Architecture: Card grid for Loss Aversion, Waste Aversion, Endowed Progress, plus dynamic Neural Circuit Explorer (Interactive Brain Region cards).
+  4. Section 3: Evolutionary Biology & Foraging Model: Interactive Marginal Value Theorem (MVT) slider simulator + Sweis et al. (2018) Restaurant Row / WebSurf dataset chart comparing offer phase vs wait phase.
+  5. Section 4: Systemic & Domain Manifestations: Megaprojects Iron Law (Chart.js cost overrun breakdown), Aviation plan continuation, Financial disposition effect, and searchable Domain Matrix table.
+  6. Section 5: Demographics & Cognitive Reflection: Socioemotional Selectivity chart by age group, Cultural variances (Individualist vs Collectivist), CRT impact.
+  7. Section 6: Strategy & Mitigation Toolkit: Interactive "Should I Disembark?" decision tool + actionable frameworks (Kill Criteria, Monkeys & Pedestals, New CEO Test, Real Options, Mindfulness).
+-->
+
+<!-- Visualization & Content Choices:
+  1. Sweis et al. Wait Phase vs Offer Phase -> Chart.js Line/Bar -> Toggleable offer vs wait sensitivity -> Demonstrates shift from rational evaluation to sunk cost persistence once committed.
+  2. Megaproject Cost Overruns (Flyvbjerg Data) -> Chart.js Horizontal Bar -> Interactive category filtering -> Shows lock-in across public infrastructure.
+  3. Age vs Sunk Cost Susceptibility (Carstensen / Strough) -> Chart.js Bar Chart -> Illustrates Socioemotional Selectivity Theory.
+  4. MVT Interactive Simulator -> Dynamic Canvas/JS recalculation -> Sliders for patch density & transit time -> Proves mathematically why sunk cost violates optimal foraging.
+  5. Neural Region Map -> HTML/CSS Interactive Grid with detail updates -> Avoids SVG, provides rich contextual explanations.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<body class="h-full font-sans text-stone-800 bg-sand-50 custom-scrollbar flex flex-col selection:bg-terracotta-500 selection:text-white">
+
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-50 bg-sand-50/95 backdrop-blur border-b border-sand-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="w-8 h-8 flex-shrink-0 rounded-lg bg-terracotta-600 flex items-center justify-center text-white font-bold text-lg shadow-sm hover:bg-terracotta-700 transition-colors" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault">&#8617;</a>
+          <div class="min-w-0">
+            <span class="font-bold text-stone-900 tracking-tight block text-base sm:text-lg truncate">The Sunk Cost Architecture</span>
+            <span class="text-xs text-stone-500 hidden sm:block truncate">Mechanisms, Manifestations &amp; Strategic Mitigation</span>
+          </div>
+        </div>
+        <a href="../" class="flex-shrink-0 text-xs font-semibold text-stone-500 hover:text-terracotta-700 transition-colors px-2.5 py-1 rounded border border-sand-300 hover:border-terracotta-500 bg-white/60" title="Return to the Knowledge Vault">&larr; Knowledge Vault</a>
+      </div>
+
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-sand-200 py-2 text-xs sm:text-sm font-medium text-stone-600" role="tablist" aria-label="Page sections">
+        <button type="button" role="tab" aria-selected="true" aria-controls="sec-overview" tabindex="0" onclick="switchTab('overview')" id="tab-overview" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors bg-sand-200 text-stone-900">Overview</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="sec-mechanisms" tabindex="-1" onclick="switchTab('mechanisms')" id="tab-mechanisms" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors text-stone-600 hover:text-stone-900 hover:bg-sand-100">Mechanisms</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="sec-evolutionary" tabindex="-1" onclick="switchTab('evolutionary')" id="tab-evolutionary" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors text-stone-600 hover:text-stone-900 hover:bg-sand-100">Evolution &amp; MVT</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="sec-systemic" tabindex="-1" onclick="switchTab('systemic')" id="tab-systemic" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors text-stone-600 hover:text-stone-900 hover:bg-sand-100">Systemic Impact</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="sec-demographics" tabindex="-1" onclick="switchTab('demographics')" id="tab-demographics" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors text-stone-600 hover:text-stone-900 hover:bg-sand-100">Demographics</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="sec-toolkit" tabindex="-1" onclick="switchTab('toolkit')" id="tab-toolkit" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md font-medium transition-colors text-stone-600 hover:text-stone-900 hover:bg-sand-100">Mitigation</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- SECTION 1: OVERVIEW -->
+    <section id="sec-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0" class="space-y-8">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">Foundational Analysis</span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">The Psychology &amp; Economics of Sunk Costs</h1>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            This analytical dashboard translates the full research report on sunk costs into an interactive framework. In standard economic theory, unrecoverable past investments (sunk costs) should have zero impact on future decision-making—only expected incremental costs and benefits matter. However, human cognition routinely violates this axiom. Explore the interactive components below to examine why individuals and organizations escalate commitment to failing endeavors and how to systematically engineer rational departure strategies.
+          </p>
+        </div>
+      </div>
+
+      <!-- Thought Experiment: The Wrong Train Metaphor -->
+      <div class="bg-sand-100/70 border border-sand-300 rounded-2xl p-6 sm:p-8">
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+          <div class="lg:w-1/2 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-900 text-white text-xs font-semibold">
+              <span>&#9888;</span> Thought Experiment
+            </div>
+            <h2 class="text-xl font-bold text-stone-900">The "Wrong Train" Dilemma</h2>
+            <p class="text-stone-600 text-sm leading-relaxed">
+              Consider finding yourself aboard a train traveling away from your intended destination. Economic logic requires disembarking at the very next stop. Yet, past investments—ticket price, hours spent traveling, or waiting alone on a platform—create psychological friction that urges you to remain.
+            </p>
+            <div class="space-y-3 pt-2" id="dialogue-container">
+              <div class="p-3 rounded-lg bg-white border border-sand-200 text-xs sm:text-sm">
+                <strong class="text-stone-900">Question:</strong> You spent $150 and 2 hours on the wrong train. Staying on costs $0 extra, but moves you 50 miles further off-track. What do you do?
+              </div>
+              <div class="flex gap-3">
+                <button type="button" onclick="runMetaphorChoice('disembark')" class="flex-1 py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white rounded-lg text-sm font-semibold transition-all">
+                  Disembark Immediately
+                </button>
+                <button type="button" onclick="runMetaphorChoice('stay')" class="flex-1 py-2.5 px-4 bg-stone-200 hover:bg-sand-300 text-stone-800 rounded-lg text-sm font-semibold transition-all">
+                  Stay to "Justify" Ticket
+                </button>
+              </div>
+              <div id="metaphor-feedback" role="status" aria-live="polite" class="p-4 rounded-lg bg-white border-l-4 border-terracotta-600 text-xs sm:text-sm text-stone-700 hidden">
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Quantitative Takeaways -->
+          <div class="lg:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-5 bg-white rounded-xl border border-sand-200 shadow-sm">
+              <span class="text-3xl font-extrabold text-terracotta-600">54%</span>
+              <h3 class="font-bold text-stone-900 text-sm mt-1">Ski Trip Classic Study</h3>
+              <p class="text-stone-500 text-xs mt-1">Arkes &amp; Blumer (1985): 33 of 61 students chose the $100 Michigan trip they expected to enjoy less over the $50 Wisconsin trip, purely to avoid wasting the larger ticket.</p>
+            </div>
+            <div class="p-5 bg-white rounded-xl border border-sand-200 shadow-sm">
+              <span class="text-3xl font-extrabold text-stone-900">9 in 10</span>
+              <h3 class="font-bold text-stone-900 text-sm mt-1">Megaproject Overruns</h3>
+              <p class="text-stone-500 text-xs mt-1">Flyvbjerg's Iron Law: nine of ten megaprojects run over budget, and political waste-aversion routinely locks in the escalation.</p>
+            </div>
+            <div class="p-5 bg-white rounded-xl border border-sand-200 shadow-sm">
+              <span class="text-3xl font-extrabold text-sage-600">34% vs 19%</span>
+              <h3 class="font-bold text-stone-900 text-sm mt-1">Endowed Progress</h3>
+              <p class="text-stone-500 text-xs mt-1">Nunes &amp; Dreze (2006): Artificial progress boosts completion despite identical remaining effort.</p>
+            </div>
+            <div class="p-5 bg-white rounded-xl border border-sand-200 shadow-sm">
+              <span class="text-3xl font-extrabold text-stone-800">15 Min</span>
+              <h3 class="font-bold text-stone-900 text-sm mt-1">Mindfulness Intervention</h3>
+              <p class="text-stone-500 text-xs mt-1">Hafenbrack et al. (2014): Brief focused-breathing meditation significantly dampens sunk cost bias.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MECHANISMS -->
+    <section id="sec-mechanisms" role="tabpanel" aria-labelledby="tab-mechanisms" tabindex="0" class="space-y-8 hidden">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">Cognitive &amp; Neurological Underpinnings</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">Theoretical Foundations &amp; Brain Circuitry</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            The sunk cost fallacy operates at the intersection of mental accounting, loss aversion, and neural valuation structures. Closing a mental account "in the red" triggers acute psychological pain. Below, explore both the psychological frameworks identified by Thaler, Kahneman, and Tversky, and the neurobiological brain regions that encode these irrational persistent behaviors.
+          </p>
+        </div>
+      </div>
+
+      <!-- Psychological Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-xl border border-sand-200 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold">1</div>
+          <h3 class="font-bold text-stone-900 text-lg">Mental Accounting &amp; Loss Aversion</h3>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            Richard Thaler (1980) introduced mental accounting: resources are compartmentalized into distinct cognitive ledgers. Daniel Kahneman &amp; Amos Tversky (1979) established that losses loom ~2x larger than equivalent gains. Quitting forces an account to close with a confirmed deficit.
+          </p>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border border-sand-200 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-lg bg-terracotta-500/10 text-terracotta-700 flex items-center justify-center font-bold">2</div>
+          <h3 class="font-bold text-stone-900 text-lg">Waste Aversion &amp; Consistency</h3>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            Arkes &amp; Blumer (1985) demonstrated that humans adhere to a social rule: "do not be wasteful." Paradoxically, applying this rule indiscriminately to sunk costs results in wasting far more future resources to redeem past losses.
+          </p>
+        </div>
+
+        <div class="p-6 bg-white rounded-xl border border-sand-200 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-lg bg-sage-600/10 text-sage-700 flex items-center justify-center font-bold">3</div>
+          <h3 class="font-bold text-stone-900 text-lg">Ego Threat &amp; Self-Justification</h3>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            Barry Staw (1976) showed that decision-makers personally responsible for an initial allocation double down to protect their self-concept. Abandoning a project publicly admits flawed original judgment.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Neural Circuitry Explorer -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <h3 class="text-xl font-bold text-stone-900 mb-2">Neurobiological Architecture Explorer</h3>
+        <p class="text-stone-500 text-sm mb-6">Click on a neural structure to inspect its functional role in sunk cost persistence.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Brain Region Selector Matrix -->
+          <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+            <button type="button" onclick="selectBrainRegion('striatum')" id="btn-striatum" aria-pressed="true" class="brain-btn p-4 rounded-xl border border-sand-300 bg-sand-100 hover:bg-terracotta-500 hover:text-white transition-all text-left">
+              <span class="block font-bold text-sm">Ventral Striatum</span>
+              <span class="text-xs opacity-75">Reward &amp; Effort Integration</span>
+            </button>
+            <button type="button" onclick="selectBrainRegion('insula')" id="btn-insula" aria-pressed="false" class="brain-btn p-4 rounded-xl border border-sand-300 bg-sand-100 hover:bg-terracotta-500 hover:text-white transition-all text-left">
+              <span class="block font-bold text-sm">Anterior Insula</span>
+              <span class="text-xs opacity-75">Negative Affect &amp; Loss Pain</span>
+            </button>
+            <button type="button" onclick="selectBrainRegion('acc')" id="btn-acc" aria-pressed="false" class="brain-btn p-4 rounded-xl border border-sand-300 bg-sand-100 hover:bg-terracotta-500 hover:text-white transition-all text-left">
+              <span class="block font-bold text-sm">ACC</span>
+              <span class="text-xs opacity-75">Conflict &amp; Error Monitoring</span>
+            </button>
+            <button type="button" onclick="selectBrainRegion('amygdala')" id="btn-amygdala" aria-pressed="false" class="brain-btn p-4 rounded-xl border border-sand-300 bg-sand-100 hover:bg-terracotta-500 hover:text-white transition-all text-left">
+              <span class="block font-bold text-sm">Amygdala</span>
+              <span class="text-xs opacity-75">Threat &amp; Anticipated Regret</span>
+            </button>
+          </div>
+
+          <!-- Region Detail Card -->
+          <div class="lg:col-span-7 p-6 rounded-xl bg-sand-100 border border-sand-300 min-h-[200px]" id="brain-detail-card" aria-live="polite">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-terracotta-600 text-white" id="brain-title-tag">Ventral Striatum</span>
+              <span class="text-xs text-stone-500" id="brain-subtitle">Valuation Circuitry</span>
+            </div>
+            <p class="text-stone-700 text-sm leading-relaxed" id="brain-description">
+              The ventral striatum integrates subjective reward expectations with accumulated effort costs. As effort mounts, neurophysiological representations of outcome value synchronize with past expenditure, making the brain biologically predisposed to double down on ongoing investments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: EVOLUTIONARY & MVT -->
+    <section id="sec-evolutionary" role="tabpanel" aria-labelledby="tab-evolutionary" tabindex="0" class="space-y-8 hidden">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">Behavioral Ecology &amp; Foraging</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">Evolutionary Roots &amp; The Marginal Value Theorem</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            Is the sunk cost fallacy uniquely human? Behavioral ecology demonstrates that sensitivity to sunk costs spans mammalian species. Eric Charnov’s Marginal Value Theorem (MVT) defines the mathematically optimal time for a forager to leave a resource patch. However, as Sweis et al. (2018) showed in <em>Science</em> across mice, rats, and humans, once an organism transitions from deliberation to the "wait phase," time already spent irrationally delays departure.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive MVT Simulator -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div>
+            <h3 class="text-xl font-bold text-stone-900">Marginal Value Theorem (MVT) Interactive Model</h3>
+            <p class="text-stone-500 text-xs">Simulate optimal patch departure vs. sunk-cost delayed departure.</p>
+          </div>
+          <div class="flex items-center gap-4 text-xs font-semibold">
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-sage-600 inline-block"></span> Optimal Departure</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-terracotta-600 inline-block"></span> Sunk Cost Overstay</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- Controls -->
+          <div class="lg:col-span-4 space-y-5 bg-sand-100 p-5 rounded-xl border border-sand-300 text-xs">
+            <div>
+              <label class="font-bold text-stone-800 flex justify-between">
+                <span>Travel/Transit Time to Next Patch</span>
+                <span id="mvt-transit-val" class="text-terracotta-600">4 sec</span>
+              </label>
+              <input type="range" id="mvt-transit" min="1" max="10" value="4" aria-label="Travel or transit time to the next patch in seconds" oninput="updateMVTChart()" class="w-full mt-2 accent-terracotta-600">
+            </div>
+
+            <div>
+              <label class="font-bold text-stone-800 flex justify-between">
+                <span>Current Patch Resource Density</span>
+                <span id="mvt-density-val" class="text-terracotta-600">Medium</span>
+              </label>
+              <input type="range" id="mvt-density" min="1" max="3" value="2" aria-label="Current patch resource density: low, medium, or high" oninput="updateMVTChart()" class="w-full mt-2 accent-terracotta-600">
+            </div>
+
+            <div>
+              <label class="font-bold text-stone-800 flex justify-between">
+                <span>Sunk Time Accumulated</span>
+                <span id="mvt-sunk-val" class="text-terracotta-600">5 sec</span>
+              </label>
+              <input type="range" id="mvt-sunk" min="0" max="10" value="5" aria-label="Sunk time already accumulated in the patch in seconds" oninput="updateMVTChart()" class="w-full mt-2 accent-terracotta-600">
+            </div>
+
+            <div class="p-3 bg-white rounded border border-sand-200 text-stone-600">
+              <strong class="text-stone-900 block mb-1">Mathematical Reality:</strong>
+              MVT proves patch departure should depend <em>only</em> on remaining food density relative to environment average, never on energy already spent traveling or searching.
+            </div>
+          </div>
+
+          <!-- Chart Display -->
+          <div class="lg:col-span-8">
+            <div class="chart-container">
+              <canvas id="mvtChart" role="img" aria-label="Line chart comparing cumulative energy gain for an optimal MVT departure versus a delayed sunk-cost overstay."></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sweis et al. (2018) Offer vs Wait Phase Empirical Evidence -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-stone-900">Offer Phase vs. Wait Phase Dynamics (Sweis et al. 2018)</h3>
+          <p class="text-stone-500 text-xs mt-1">
+            Comparing economic choice behavior during initial offer evaluation versus active waiting across rodents (Restaurant Row) and humans (WebSurf).
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7">
+            <div class="chart-container">
+              <canvas id="sweisChart" role="img" aria-label="Line chart showing that quitting probability stays high during the offer phase but collapses as time is spent in the wait phase."></canvas>
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-4 text-xs sm:text-sm text-stone-600">
+            <div class="p-4 bg-sand-100 rounded-xl border border-sand-300">
+              <h4 class="font-bold text-stone-900 mb-1 text-sm">Key Scientific Discovery</h4>
+              <p>
+                In the <strong>Offer Phase</strong> (deliberating before entering), decision-makers act rationally, rejecting high-cost low-reward options. However, once in the <strong>Wait Phase</strong>, the likelihood of quitting drops precipitously as time elapses.
+              </p>
+            </div>
+            <p class="leading-relaxed">
+              This proves that the cognitive circuitry for <em>choosing between options</em> is fundamentally distinct from the circuitry for <em>opting out of an active path</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SYSTEMIC IMPACT -->
+    <section id="sec-systemic" role="tabpanel" aria-labelledby="tab-systemic" tabindex="0" class="space-y-8 hidden">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">Macroeconomics &amp; Organizational Dynamics</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">Systemic Manifestations Across Domains</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            When scaled up to corporate governance, safety engineering, and capital allocation, the sunk cost fallacy produces systemic hazards. From Flyvbjerg’s "Iron Law of Megaprojects" to aviation’s lethal "plan continuation bias" (get-there-itis) and financial markets' disposition effect, unrecoverable costs frequently drive catastrophic escalation. Explore the charts and interactive matrix below.
+          </p>
+        </div>
+      </div>
+
+      <!-- Megaprojects Cost Overrun Chart -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+          <div>
+            <h3 class="text-xl font-bold text-stone-900">Megaproject Cost Overruns ("Iron Law of Megaprojects")</h3>
+            <p class="text-stone-500 text-xs">Based on data from Bent Flyvbjerg: Overruns driven by political lock-in and public waste aversion.</p>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="megaprojectChart" role="img" aria-label="Horizontal bar chart of average cost overruns by megaproject category, led by Olympic Games and nuclear power."></canvas>
+        </div>
+      </div>
+
+      <!-- Domain Matrix Interactive Filter & Search -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h3 class="text-xl font-bold text-stone-900">Cross-Domain Risk Matrix</h3>
+          <input type="text" id="domain-search" placeholder="Search domain or mechanism..." aria-label="Search domains and mechanisms" oninput="filterDomainMatrix()" class="px-3 py-2 border border-sand-300 rounded-lg text-xs w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-sand-100 border-b border-sand-300 text-stone-800 font-bold">
+                <th class="p-3">Domain</th>
+                <th class="p-3">Manifestation</th>
+                <th class="p-3">Core Mechanism</th>
+                <th class="p-3">Real-World Consequence</th>
+              </tr>
+            </thead>
+            <tbody id="domain-table-body" class="divide-y divide-sand-200 text-stone-700">
+              <tr>
+                <td class="p-3 font-bold text-stone-900">Public Infrastructure</td>
+                <td class="p-3">Megaproject Lock-in</td>
+                <td class="p-3">Political weaponization of waste aversion</td>
+                <td class="p-3">Billions in cost overruns (Concorde, CA High-Speed Rail)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-stone-900">Aviation / Safety</td>
+                <td class="p-3">Plan Continuation Bias ("Get-there-itis")</td>
+                <td class="p-3">Proximity to goal &amp; completion effect</td>
+                <td class="p-3">Fatal accidents (1977 Tenerife Disaster, VFR into IMC)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-stone-900">Financial Markets</td>
+                <td class="p-3">Disposition Effect</td>
+                <td class="p-3">Loss aversion &amp; mental accounting</td>
+                <td class="p-3">Holding losing stocks too long, selling winners early</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-stone-900">Cybersecurity &amp; Fraud</td>
+                <td class="p-3">Scam Escalation &amp; Social Engineering</td>
+                <td class="p-3">Exploitation of emotional entrapment</td>
+                <td class="p-3">Compounded financial loss via staged extortion</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-stone-900">Corporate Governance</td>
+                <td class="p-3">Principal-Agent Entrapment</td>
+                <td class="p-3">Ego protection &amp; market pooling</td>
+                <td class="p-3">Sudden CEO departures &amp; delayed massive write-downs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: DEMOGRAPHICS -->
+    <section id="sec-demographics" role="tabpanel" aria-labelledby="tab-demographics" tabindex="0" class="space-y-8 hidden">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">Demographic &amp; Cognitive Variance</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">Aging, Culture, and Cognitive Reflection</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            Susceptibility to sunk costs is not uniform across human populations. Research demonstrates that older adults show lower vulnerability to sunk cost fallacies due to Socioemotional Selectivity Theory (Carstensen &amp; Strough). Furthermore, culture (Individualist ego defense vs. Collectivist group face saving) and high Cognitive Reflection Test (CRT) scores moderate the intensity of this bias.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Age & Socioemotional Selectivity Chart -->
+        <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm space-y-4">
+          <h3 class="text-xl font-bold text-stone-900">Sunk Cost Bias Susceptibility by Age Group</h3>
+          <p class="text-stone-500 text-xs">Older adults prioritize present emotional well-being over past loss rumination.</p>
+          <div class="chart-container">
+            <canvas id="ageChart" role="img" aria-label="Bar chart of sunk cost fallacy susceptibility by age group, highest in young adults and lowest in older adults."></canvas>
+          </div>
+        </div>
+
+        <!-- Culture & Cognitive Reflection Cards -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-white p-6 rounded-2xl border border-sand-200 shadow-sm space-y-2">
+            <span class="text-xs font-bold text-terracotta-600 uppercase">Cross-Cultural Dynamics</span>
+            <h4 class="font-bold text-stone-900">Individualist vs. Collectivist Drivers</h4>
+            <p class="text-stone-600 text-xs leading-relaxed">
+              <strong>Individualist Cultures (e.g., USA):</strong> Driven primarily by personal ego protection and individual self-justification.<br><br>
+              <strong>Collectivist Cultures (e.g., East Asia):</strong> Escalation often stems from preserving group "face", honoring elders' previous decisions, or preventing social friction.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-sand-200 shadow-sm space-y-2">
+            <span class="text-xs font-bold text-sage-600 uppercase">Cognitive Buffer</span>
+            <h4 class="font-bold text-stone-900">Cognitive Reflection (CRT)</h4>
+            <p class="text-stone-600 text-xs leading-relaxed">
+              Ronayne, Sgroi &amp; Tuckwell (2021) demonstrated that individuals with high Cognitive Reflection Test scores override immediate emotional impulses generated by the anterior insula and amygdala, adhering more closely to expected utility calculations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: MITIGATION TOOLKIT -->
+    <section id="sec-toolkit" role="tabpanel" aria-labelledby="tab-toolkit" tabindex="0" class="space-y-8 hidden">
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-sand-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold uppercase tracking-wider text-terracotta-600">The Architecture of Quitting</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1 mb-4">Strategic Mitigation &amp; Decision Frameworks</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            De-escalating commitment requires pre-engineered structural interventions. As Annie Duke notes, "quitting on time will almost always feel like quitting too early." This section presents actionable frameworks—Kill Criteria, Astro Teller's "Monkeys &amp; Pedestals", Andy Grove’s "New CEO Test", Real Options Theory, and Mindfulness—to enable rational abandonment. Use the interactive diagnostic below to evaluate your current project.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Diagnostic Tool: "Should I Disembark?" -->
+      <div class="bg-sand-100 border border-sand-300 p-6 sm:p-8 rounded-2xl space-y-6">
+        <div class="max-w-2xl">
+          <h3 class="text-xl font-bold text-stone-900">Interactive Diagnostic: Should You Disembark?</h3>
+          <p class="text-stone-600 text-xs mt-1">Answer these four objective evaluation questions regarding your current project or initiative.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm" id="diagnostic-questions">
+          <div class="p-4 bg-white rounded-xl border border-sand-200 space-y-2">
+            <label for="diag-q1" class="font-bold text-stone-900 block">1. The "New CEO" Test</label>
+            <p class="text-stone-500 text-xs">If you were replaced today, would your successor continue this path?</p>
+            <select id="diag-q1" class="w-full p-2 border border-sand-300 rounded-lg text-xs bg-sand-50">
+              <option value="-1" selected>Select an answer…</option>
+              <option value="0">No — A fresh successor would cancel it immediately.</option>
+              <option value="1">Uncertain — They might attempt a pivot.</option>
+              <option value="2">Yes — They would definitely double down.</option>
+            </select>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-sand-200 space-y-2">
+            <label for="diag-q2" class="font-bold text-stone-900 block">2. Monkeys vs. Pedestals</label>
+            <p class="text-stone-500 text-xs">Are you working on the hardest core risk ("monkey") or easy visual progress ("pedestal")?</p>
+            <select id="diag-q2" class="w-full p-2 border border-sand-300 rounded-lg text-xs bg-sand-50">
+              <option value="-1" selected>Select an answer…</option>
+              <option value="0">Pedestal — Making easy progress while core risk remains unsolved.</option>
+              <option value="1">Mixed — Tackling both simultaneously.</option>
+              <option value="2">Monkey — Actively proving/disproving the single hardest bottleneck.</option>
+            </select>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-sand-200 space-y-2">
+            <label for="diag-q3" class="font-bold text-stone-900 block">3. Pre-established Kill Criteria</label>
+            <p class="text-stone-500 text-xs">Has the project crossed pre-set "states &amp; dates" tripwires?</p>
+            <select id="diag-q3" class="w-full p-2 border border-sand-300 rounded-lg text-xs bg-sand-50">
+              <option value="-1" selected>Select an answer…</option>
+              <option value="0">Yes — Key milestones missed, but deadline/budget extended.</option>
+              <option value="1">No pre-set tripwires were ever defined.</option>
+              <option value="2">No — Currently within original bounds.</option>
+            </select>
+          </div>
+
+          <div class="p-4 bg-white rounded-xl border border-sand-200 space-y-2">
+            <label for="diag-q4" class="font-bold text-stone-900 block">4. Incremental Future Value</label>
+            <p class="text-stone-500 text-xs">Ignoring ALL past expenditures, does future ROI exceed next best alternative?</p>
+            <select id="diag-q4" class="w-full p-2 border border-sand-300 rounded-lg text-xs bg-sand-50">
+              <option value="-1" selected>Select an answer…</option>
+              <option value="0">No — Alternative opportunities offer far higher expected value.</option>
+              <option value="1">Uncertain — Data is ambiguous.</option>
+              <option value="2">Yes — Next dollar/hour has highest returns here.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+          <button type="button" onclick="calculateDiagnostic()" class="w-full sm:w-auto px-6 py-3 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-sm">
+            Calculate Strategic Recommendation
+          </button>
+          <div id="diagnostic-result" role="status" aria-live="polite" class="w-full flex-1 p-4 rounded-xl bg-white border border-sand-300 hidden text-xs sm:text-sm font-semibold text-stone-800">
+          </div>
+        </div>
+      </div>
+
+      <!-- Mitigation Framework Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 shadow-sm space-y-3">
+          <span class="px-2.5 py-1 rounded bg-terracotta-600/10 text-terracotta-700 font-bold text-xs">Annie Duke / Chip &amp; Dan Heath</span>
+          <h4 class="font-bold text-stone-900 text-lg">Kill Criteria &amp; Tripwires</h4>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            Pre-commitment contracts pairing specific "states and dates" (e.g., "If user retention is &lt;15% by Month 3, kill project"). Setting criteria in advance eliminates emotional escalation when entrapped.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 shadow-sm space-y-3">
+          <span class="px-2.5 py-1 rounded bg-stone-900/10 text-stone-900 font-bold text-xs">Astro Teller (Google X)</span>
+          <h4 class="font-bold text-stone-900 text-lg">Monkeys &amp; Pedestals</h4>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            If your goal is to teach a monkey to juggle torches on a pedestal, don't start by building the pedestal. Tackle the hardest bottleneck ("the monkey") first to fail fast before accumulating sunk costs.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 shadow-sm space-y-3">
+          <span class="px-2.5 py-1 rounded bg-sage-600/10 text-sage-700 font-bold text-xs">Dixit &amp; Pindyck</span>
+          <h4 class="font-bold text-stone-900 text-lg">Real Options Theory</h4>
+          <p class="text-stone-600 text-xs leading-relaxed">
+            Treat staged initial investments not as down payments on a mandatory outcome, but as purchasing the <em>right, not obligation</em> to continue. Reframes quitting as executing a rational exit option.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-white border-t border-sand-200 py-6">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-stone-500 space-y-2">
+      <p>Sunk Cost Fallacy &amp; Escalation Analysis Platform &bull; Built for Interactive Research &amp; Decision Science</p>
+      <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+        <a href="../" class="text-terracotta-700 hover:underline">&larr; Knowledge Vault</a>
+        <span class="text-sand-300" aria-hidden="true">&bull;</span>
+        <a href="./readme.md" class="text-terracotta-700 hover:underline">The Full Report</a>
+        <span class="text-sand-300" aria-hidden="true">&bull;</span>
+        <a href="../../" class="text-terracotta-700 hover:underline">Portfolio Home &nearr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded JavaScript Logic -->
+  <script>
+    // Global State & Tab Handler
+    let activeTab = 'overview';
+    let chartInstances = {};
+
+    function switchTab(tabId) {
+      const targetSection = document.getElementById(`sec-${tabId}`);
+      if (!targetSection) return;
+      activeTab = tabId;
+
+      document.querySelectorAll('main > section').forEach(sec => {
+        sec.classList.add('hidden');
+        sec.setAttribute('aria-hidden', 'true');
+      });
+      targetSection.classList.remove('hidden');
+      targetSection.removeAttribute('aria-hidden');
+
+      // Update navigation tab styles and ARIA state
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sand-200', 'text-stone-900');
+        btn.classList.add('text-stone-600', 'hover:text-stone-900', 'hover:bg-sand-100');
+        btn.setAttribute('aria-selected', 'false');
+        btn.tabIndex = -1;
+      });
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sand-200', 'text-stone-900');
+        activeBtn.classList.remove('text-stone-600', 'hover:text-stone-900', 'hover:bg-sand-100');
+        activeBtn.setAttribute('aria-selected', 'true');
+        activeBtn.tabIndex = 0;
+      }
+
+      // Return to the top of the newly selected panel.
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+
+      // Initialize Charts when tabs become visible
+      if (tabId === 'evolutionary') {
+        initMVTChart();
+        initSweisChart();
+      } else if (tabId === 'systemic') {
+        initMegaprojectChart();
+      } else if (tabId === 'demographics') {
+        initAgeChart();
+      }
+    }
+
+    // SECTION 1: Metaphor Choice Handler
+    function runMetaphorChoice(choice) {
+      const feedback = document.getElementById('metaphor-feedback');
+      feedback.classList.remove('hidden');
+      if (choice === 'disembark') {
+        feedback.className = "p-4 rounded-lg bg-emerald-50 border-l-4 border-emerald-600 text-xs sm:text-sm text-emerald-900";
+        feedback.innerHTML = "<strong>Rational Choice Executed:</strong> Disembarking immediately caps your loss at 2 hours and $150. Spending another minute traveling in the wrong direction compounds your error without recovering the past investment.";
+      } else {
+        feedback.className = "p-4 rounded-lg bg-rose-50 border-l-4 border-terracotta-600 text-xs sm:text-sm text-stone-800";
+        feedback.innerHTML = "<strong>Sunk Cost Fallacy Activated:</strong> Staying on the train turns a 50-mile error into a 100-mile error. The ticket money and past 2 hours are gone forever; staying on board cannot restore them.";
+      }
+    }
+
+    // SECTION 2: Brain Region Explorer Handler
+    const brainData = {
+      striatum: {
+        title: "Ventral Striatum",
+        subtitle: "Reward & Effort Integration",
+        desc: "Central to subjective reward valuation and integrating effort costs. As effort (a sunk cost) accumulates, neurophysiological representations of outcome expectations become synchronized with value representations in the ventral striatum, compelling the organism to protect accumulated effort."
+      },
+      insula: {
+        title: "Anterior Insula",
+        subtitle: "Negative Affect & Loss Pain",
+        desc: "Activated heavily during loss processing and risk anticipation. The anterior insula fires when contemplating quitting, treating the realization of a loss as immediate physical or emotional pain, driving actors to persist to keep the outcome theoretically unconfirmed."
+      },
+      acc: {
+        title: "Anterior Cingulate Cortex (ACC)",
+        subtitle: "Conflict & Error Monitoring",
+        desc: "Monitors cognitive conflict between expected logical outcomes and emotional impulses. In sunk cost scenarios, the ACC signals high dissonance when forced to choose between admitting a past error or doubling down."
+      },
+      amygdala: {
+        title: "Amygdala",
+        subtitle: "Threat & Anticipated Regret",
+        desc: "Prospectively encodes threat value and anticipated regret. It tracks progress toward goals and fuels the emotional urge to avoid the immediate regret of quitting before a potential, though unlikely, delayed success."
+      }
+    };
+
+    function selectBrainRegion(regionKey) {
+      const data = brainData[regionKey];
+      if (!data) return;
+      document.getElementById('brain-title-tag').innerText = data.title;
+      document.getElementById('brain-subtitle').innerText = data.subtitle;
+      document.getElementById('brain-description').innerText = data.desc;
+
+      document.querySelectorAll('.brain-btn').forEach(btn => {
+        const isActive = btn.id === `btn-${regionKey}`;
+        btn.classList.toggle('border-terracotta-600', isActive);
+        btn.classList.toggle('bg-terracotta-500', isActive);
+        btn.classList.toggle('text-white', isActive);
+        btn.classList.toggle('bg-sand-100', !isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    // SECTION 3: MVT Interactive Chart
+    function initMVTChart() {
+      if (chartInstances.mvt) return;
+      const ctx = document.getElementById('mvtChart').getContext('2d');
+      chartInstances.mvt = new Chart(ctx, {
+        type: 'line',
+        data: getMVTData(),
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} energy units`
+              }
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Time in Patch (seconds)' } },
+            y: { title: { display: true, text: 'Cumulative Energy Gain' } }
+          }
+        }
+      });
+    }
+
+    function getMVTData() {
+      const transit = parseInt(document.getElementById('mvt-transit').value);
+      const density = parseInt(document.getElementById('mvt-density').value);
+      const sunk = parseInt(document.getElementById('mvt-sunk').value);
+
+      document.getElementById('mvt-transit-val').innerText = `${transit} sec`;
+      document.getElementById('mvt-density-val').innerText = density === 1 ? 'Low' : density === 2 ? 'Medium' : 'High';
+      document.getElementById('mvt-sunk-val').innerText = `${sunk} sec`;
+
+      const labels = [0, 2, 4, 6, 8, 10, 12, 14, 16];
+      // MVT: longer transit to the next patch raises the opportunity cost of
+      // leaving, so the optimal departure point moves later. Patch density
+      // controls the intake rate itself.
+      const optimalDeparture = 4 + transit * 0.6;
+      // Sunk-cost persistence keeps the forager in the patch past the optimum.
+      const sunkDeparture = Math.min(16, optimalDeparture + sunk * 0.5);
+      const optimalStop = Math.floor(optimalDeparture);
+      const sunkStop = Math.floor(sunkDeparture);
+      const intake = (t) => Math.max(0, density * 15 * (1 - Math.exp(-0.25 * t)));
+      // The green line ends at the rational MVT exit. The dashed line picks up
+      // from that point and shows the extra (diminishing) intake accrued by
+      // overstaying, ending at the sunk-cost departure time.
+      const optimalCurve = labels.map(t => t <= optimalStop ? intake(t) : null);
+      const sunkCurve = labels.map(t => (t >= optimalStop && t <= sunkStop) ? intake(t) : null);
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: `Optimal Departure (MVT) — leave by ${optimalStop}s`,
+            data: optimalCurve,
+            borderColor: '#436152',
+            backgroundColor: 'rgba(67, 97, 82, 0.1)',
+            fill: true,
+            tension: 0.3,
+            spanGaps: false
+          },
+          {
+            label: `Sunk-Cost Overstay — leaves by ${sunkStop}s`,
+            data: sunkCurve,
+            borderColor: '#C2522A',
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0.3,
+            spanGaps: false
+          }
+        ]
+      };
+    }
+
+    function updateMVTChart() {
+      if (chartInstances.mvt) {
+        chartInstances.mvt.data = getMVTData();
+        chartInstances.mvt.update();
+      }
+    }
+
+    // SECTION 3: Sweis et al. (2018) Offer vs Wait Chart
+    function initSweisChart() {
+      if (chartInstances.sweis) return;
+      const ctx = document.getElementById('sweisChart').getContext('2d');
+      chartInstances.sweis = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['0s Spent', '5s Spent', '10s Spent', '15s Spent', '20s Spent', '25s Spent'],
+          datasets: [
+            {
+              label: 'Offer Phase: Quitting Probability (Rational)',
+              data: [85, 82, 88, 86, 85, 87],
+              borderColor: '#436152',
+              backgroundColor: '#436152',
+              tension: 0.1
+            },
+            {
+              label: 'Wait Phase: Quitting Probability (Sunk Cost Decay)',
+              data: [80, 50, 25, 12, 5, 2],
+              borderColor: '#C2522A',
+              backgroundColor: '#C2522A',
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top' }
+          },
+          scales: {
+            y: {
+              title: { display: true, text: 'Probability of Abandoning Doomed Offer (%)' },
+              min: 0,
+              max: 100
+            }
+          }
+        }
+      });
+    }
+
+    // SECTION 4: Megaproject Overrun Chart
+    function initMegaprojectChart() {
+      if (chartInstances.megaproject) return;
+      const ctx = document.getElementById('megaprojectChart').getContext('2d');
+      chartInstances.megaproject = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Olympic Games', 'Nuclear Power', 'Rail Infrastructure', 'Dams & Waterways', 'IT Systems'],
+          datasets: [{
+            label: 'Average Cost Overrun (%)',
+            data: [157, 117, 44, 27, 16],
+            backgroundColor: [
+              '#C2522A',
+              '#D96B43',
+              '#786851',
+              '#5A7D6C',
+              '#436152'
+            ]
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Average Budget Overrun Percentage (%)' } }
+          }
+        }
+      });
+    }
+
+    function filterDomainMatrix() {
+      const query = document.getElementById('domain-search').value.trim().toLowerCase();
+      const rows = document.querySelectorAll('#domain-table-body tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    }
+
+    // SECTION 5: Age & Socioemotional Selectivity Chart
+    function initAgeChart() {
+      if (chartInstances.age) return;
+      const ctx = document.getElementById('ageChart').getContext('2d');
+      chartInstances.age = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Young Adults (18-30)', 'Middle-Aged (31-59)', 'Older Adults (60+)'],
+          datasets: [{
+            label: 'Sunk Cost Fallacy Susceptibility Index',
+            data: [78, 54, 28],
+            backgroundColor: ['#C2522A', '#786851', '#436152']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { title: { display: true, text: 'Susceptibility Rating (0-100)' }, min: 0, max: 100 }
+          }
+        }
+      });
+    }
+
+    // SECTION 6: Diagnostic Tool Handler
+    function calculateDiagnostic() {
+      const q1 = parseInt(document.getElementById('diag-q1').value);
+      const q2 = parseInt(document.getElementById('diag-q2').value);
+      const q3 = parseInt(document.getElementById('diag-q3').value);
+      const q4 = parseInt(document.getElementById('diag-q4').value);
+
+      const answers = [q1, q2, q3, q4];
+      const resultDiv = document.getElementById('diagnostic-result');
+      resultDiv.classList.remove('hidden');
+
+      if (answers.some(value => Number.isNaN(value) || value < 0)) {
+        resultDiv.className = "w-full flex-1 p-4 rounded-xl bg-sand-100 border border-sand-300 text-stone-900";
+        resultDiv.innerHTML = "<strong>Answer all four questions.</strong><br><span class='font-normal text-xs text-stone-700'>Select an option for each question to generate a strategic recommendation.</span>";
+        resultDiv.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'nearest'
+        });
+        return;
+      }
+
+      const totalScore = q1 + q2 + q3 + q4;
+
+      if (totalScore <= 3) {
+        resultDiv.className = "w-full flex-1 p-4 rounded-xl bg-rose-50 border border-terracotta-600 text-stone-900";
+        resultDiv.innerHTML = "<strong>CRITICAL RECOMMENDATION: Disembark / Cancel Immediately.</strong><br><span class='font-normal text-xs text-stone-700'>Your answers indicate severe escalation of commitment driven by sunk costs. You are building 'pedestals' and masking failure rather than generating net future utility.</span>";
+      } else if (totalScore <= 6) {
+        resultDiv.className = "w-full flex-1 p-4 rounded-xl bg-amber-50 border border-amber-600 text-stone-900";
+        resultDiv.innerHTML = "<strong>WARNING: Impose Strict Kill Criteria Now.</strong><br><span class='font-normal text-xs text-stone-700'>The project is at high risk of sunk cost entrapment. Freeze funding until core 'monkey' bottleneck risks are objectively verified within a 30-day window.</span>";
+      } else {
+        resultDiv.className = "w-full flex-1 p-4 rounded-xl bg-emerald-50 border border-emerald-600 text-stone-900";
+        resultDiv.innerHTML = "<strong>PROCEED WITH CAUTION: Rational Alignment Intact.</strong><br><span class='font-normal text-xs text-stone-700'>Your project currently demonstrates strong expected incremental utility and clear alignment with objective metrics. Maintain tripwire monitoring.</span>";
+      }
+
+      resultDiv.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'nearest'
+      });
+    }
+
+    // Roving tabindex keyboard support for the tab list.
+    const tabList = document.querySelector('[role="tablist"]');
+    if (tabList) {
+      tabList.addEventListener('keydown', (event) => {
+        const tabs = Array.from(tabList.querySelectorAll('.tab-btn'));
+        const currentIndex = tabs.indexOf(document.activeElement);
+        if (currentIndex === -1) return;
+
+        let nextIndex = null;
+        if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex === null) return;
+
+        event.preventDefault();
+        const nextTab = tabs[nextIndex];
+        nextTab.focus();
+        switchTab(nextTab.id.replace('tab-', ''));
+      });
+    }
+
+    // Set initial active brain region
+    selectBrainRegion('striatum');
+  </script>
+</body>
+</html>
