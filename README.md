@@ -15,6 +15,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **A**: [Amplenote Data](https://krishnakanthb13.github.io/A/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
+		- [Aimlessness & Goals](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/) — The Psychology of Aimlessness and Goal-Directed Behavior
 		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) — The Architecture of the Spiral
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) — The Metacognitive Paradox
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
@@ -189,6 +190,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 ---
 
 - **Ground Zero — Knowledge Vault (D/0):** ([overview](https://krishnakanthb13.github.io/D/0/) — living knowledge vault pairing deep-dive research essays with interactive visualizations)
+	- [Aimlessness & Goals](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/): The Psychology of Aimlessness and Goal-Directed Behavior — why the absence of a goal is a metabolically expensive state of hyper-uncertainty, traced through psychological entropy, the BIS and SEEKING systems, Future Authoring, Self-Determination Theory, and the "Goals Gone Wild" critique.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/): Six-tab portal with a three-trajectory option-set simulator, Goal Clarity vs. Psychological Entropy model, MID-task fMRI chart, multi-domain Future Authoring studio, motivation-spectrum explorer & "Goals Gone Wild" risk matrix.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/readme.md): Long-form research essay with 113 cited sources.
 	- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): The Architecture of the Spiral — why systemic collapse rarely stems from a flawed premise; a bubble is a good idea that outgrows its own evidence.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): Five-phase spiral stepper, Deneubourg bifurcation model, information-cascade simulator, asymmetric pheromone-decay chart, cross-domain matrix, diagnostic wizard & friction-control lab.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/bubble_n_idea/readme.md): Long-form research essay with 41 cited sources.

@@ -75,6 +75,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ## Vault Contents
 
+### 📁 [Aimlessness & Goals](./aimlessness_n_goals/)
+**The Psychology of Aimlessness and Goal-Directed Behavior** — why the absence of a goal is not calm but a metabolically expensive state of hyper-uncertainty. Frames aimlessness as psychological entropy—a combinatorial explosion of affordances—and traces the resulting anxiety through Gray's Behavioral Inhibition System, Panksepp's SEEKING system and Schultz's reward prediction error, Locke & Latham's goal-setting theory and Morisano/Schippers' Future Authoring trials, Fromm's *Escape from Freedom*, Frankl's logotherapy and Self-Determination Theory, before weighing the "Goals Gone Wild" critique and clinical applications in vocational guidance and psychiatric rehabilitation.
+
+- 📝 [The Full Report](./aimlessness_n_goals/readme.md) — the long-form essay with 113 cited sources. (`readme.md`)
+- 🧭 [Interactive Infographic](./aimlessness_n_goals/index.html) — the complete warm sand & intellectual-slate interactive page: six-tab psychology portal (Core Thesis, Neurobiology & Entropy, Positive Emotion & SEEKING, Future Authoring, Existential & SDT, Risks & Clinical) with a three-trajectory option-set simulator, Goal Clarity vs. Psychological Entropy model, MID-task fMRI chart, multi-domain goal-architecture studio, motivation-spectrum explorer, and "Goals Gone Wild" risk matrix. (`index.html`)
+
+---
+
 ### 📁 [Bubble & Idea](./bubble_n_idea/)
 **The Architecture of the Spiral** — why systemic collapse rarely stems from a flawed premise: a bubble is a good idea that outgrows its own evidence. Maps the army ant "death spiral" (Beebe's 1,200-ft Guyanese mill, 1921) onto financial bubbles through information cascades and Minsky's Financial Instability Hypothesis, then extends the same closed-loop pathology to Ant Colony Optimization, recommender echo chambers, and AI model collapse.
 

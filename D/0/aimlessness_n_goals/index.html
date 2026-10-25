@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Psychology of Aimlessness &amp; Goal Pursuit</title>
+    <meta name="description" content="An interactive psychology portal on aimlessness and goal-directed behavior: psychological entropy, the Behavioral Inhibition and SEEKING systems, reward prediction error, Future Authoring, Self-Determination Theory, and the risks of aggressive goal-setting.">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: {
+                            50: '#fdfbf7',
+                            100: '#f7f4ec',
+                            200: '#ebe4d5',
+                            300: '#dbcdb4',
+                            800: '#43382c',
+                            900: '#2c231a'
+                        },
+                        amberAccent: {
+                            500: '#d97706',
+                            600: '#b45309',
+                            700: '#92400e'
+                        },
+                        navyAccent: {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        },
+                        navy: {
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-active {
+            border-bottom: 3px solid #d97706;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Chosen Palette: Warm Sand & Intellectual Slate (Background: #fdfbf7, Primary: #1e293b, Warm Accents: #d97706 / #b45309, Neutral Containers: #f7f4ec / #ffffff) -->
+
+    <!-- Application Structure Plan:
+         1. Header & Executive Banner: Establishes context, core research premise, and key metric indicators.
+         2. Tabbed Navigation Bar: Enables smooth, thematic exploration across 6 modular sections without vertical page overload.
+         3. Section 1: The Fundamental Dichotomy & Exodus Framework (Interactive Option Set Selector & Transcript Deep Dive).
+         4. Section 2: Neurobiology & Psychological Entropy (Interactive Entropy/Goal Clarity Slider, Neural Circuitry Matrix, and Chart.js Neurological System State Visualizer).
+         5. Section 3: Positive Emotion & Incentive Salience (Chart.js MID Task fMRI Data Explorer & Reward Prediction Error Simulator).
+         6. Section 4: Cognitive Architecture & Future Authoring (Interactive 6-Domain Vision Builder, Goal Setting Mechanics, & Academic Impact Chart).
+         7. Section 5: Existential Dimensions & Motivation Spectrum (Interactive Self-Determination Theory (SDT) Continuum & Fromm/Frankl Synthesis).
+         8. Section 6: Risks, Critiques & Clinical Applications (Interactive "Goals Gone Wild" Risk Matrix, Guardrail Checker, & Clinical Rehabilitation Case Library).
+         9. Footer: Scientific Citation Summary & Methodological Footnotes.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Choice 1: Interactive Entropy & Neural Activation Chart (Chart.js Bar/Radar) -> Displays real-time changes in Psychological Entropy (H), BIS, SEEKING, and FFS activation based on Goal Clarity slider. Justification: Visualizes abstract information theory formulas in actionable psychological states.
+         - Choice 2: MID Task Striatal vs Prefrontal fMRI Activation (Chart.js Grouped Bar) -> Demonstrates ventral striatum vs vmPFC neural response during anticipation vs consumption phase. Justification: Proves that dopamine fires during anticipation/movement toward goals.
+         - Choice 3: Future Authoring Academic Impact Data (Chart.js Horizontal Bar) -> Shows empirical GPA and retention improvements from randomized controlled trials (Morisano et al., Schippers et al.). Justification: Quantifies practical efficacy.
+         - Choice 4: SDT Motivation Spectrum Interactive Accordion -> Allows clicking through Amotivation to Intrinsic Motivation. Justification: Clearly distinguishes autonomous goal-setting from external tyranny.
+         - Choice 5: Option Set Trajectory Simulator (HTML Grid + JS State) -> Compares Chaos vs Tyranny vs Self-Determination across neurochemistry, emotion, and sociopolitical outcomes.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Top Navigation Header -->
+    <header class="bg-navy-800 text-slate-100 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-amber-500 text-2xl font-black tracking-wider flex-shrink-0" aria-hidden="true">▲</span>
+                    <div class="min-w-0">
+                        <span class="block font-bold text-sm sm:text-lg tracking-tight text-white truncate">ARCHITECTURES OF PURPOSE</span>
+                        <span class="block text-[11px] text-slate-400 truncate hidden sm:block">Aimlessness, Entropy &amp; Goal Pursuit</span>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center gap-1 text-xs font-medium text-slate-300 flex-shrink-0">
+                    <span class="px-2 py-1 bg-slate-700/50 rounded">Neurobiology</span>
+                    <span class="px-2 py-1 bg-slate-700/50 rounded">Information Theory</span>
+                    <span class="px-2 py-1 bg-slate-700/50 rounded">Existential Psychology</span>
+                </div>
+                <a href="../" aria-label="Return to the Knowledge Vault" class="flex-shrink-0 text-xs font-semibold text-slate-300 hover:text-amber-300 transition-colors px-2.5 py-1 rounded border border-slate-600 hover:border-amber-500" title="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+            </div>
+
+            <!-- Row 2: section navigation -->
+            <nav class="flex items-center gap-1 overflow-x-auto custom-scrollbar whitespace-nowrap border-t border-slate-700/60 py-2 text-xs sm:text-sm font-semibold text-slate-300" role="tablist" aria-label="Page sections">
+                <button type="button" role="tab" aria-selected="true" aria-controls="tab-dichotomy" tabindex="0" onclick="switchTab('tab-dichotomy')" id="btn-tab-dichotomy" class="tab-button tab-active flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md transition-colors">
+                    1. Core Thesis &amp; Trajectories
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab-entropy" tabindex="-1" onclick="switchTab('tab-entropy')" id="btn-tab-entropy" class="tab-button flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md hover:text-white hover:bg-slate-700/50 transition-colors">
+                    2. Neurobiology &amp; Entropy
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab-positive-emotion" tabindex="-1" onclick="switchTab('tab-positive-emotion')" id="btn-tab-positive-emotion" class="tab-button flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md hover:text-white hover:bg-slate-700/50 transition-colors">
+                    3. Positive Emotion &amp; SEEKING
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab-authoring" tabindex="-1" onclick="switchTab('tab-authoring')" id="btn-tab-authoring" class="tab-button flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md hover:text-white hover:bg-slate-700/50 transition-colors">
+                    4. Future Authoring
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab-existential" tabindex="-1" onclick="switchTab('tab-existential')" id="btn-tab-existential" class="tab-button flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md hover:text-white hover:bg-slate-700/50 transition-colors">
+                    5. Existential &amp; SDT Matrix
+                </button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="tab-clinical" tabindex="-1" onclick="switchTab('tab-clinical')" id="btn-tab-clinical" class="tab-button flex-shrink-0 whitespace-nowrap py-2 px-2.5 rounded-md hover:text-white hover:bg-slate-700/50 transition-colors">
+                    6. Risks &amp; Clinical
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Hero Banner -->
+    <section class="bg-gradient-to-b from-navy-800 to-slate-800 text-white py-10 px-4 sm:px-6 lg:px-8 border-b border-amber-600/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+                    <span>Synthesized Source Analysis</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100 leading-tight">
+                    The Psychology of Aimlessness and Goal-Directed Behavior
+                </h1>
+                <p class="mt-3 text-slate-300 text-base sm:text-lg leading-relaxed">
+                    An interactive exploration into how the human nervous system processes uncertainty, computes positive emotion through goal pursuit, and avoids psychological entropy and tyranny.
+                </p>
+            </div>
+
+            <!-- Key Metric Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-slate-700/40 p-4 rounded-xl border border-slate-600/50">
+                    <div class="text-xs text-slate-400 font-medium">Core Computational Signal</div>
+                    <div class="text-lg sm:text-xl font-bold text-amber-400 mt-1">Anxiety = Entropy</div>
+                    <div class="text-xs text-slate-300 mt-1">Output of unconstrained option sets</div>
+                </div>
+                <div class="bg-slate-700/40 p-4 rounded-xl border border-slate-600/50">
+                    <div class="text-xs text-slate-400 font-medium">Dopamine Engine</div>
+                    <div class="text-lg sm:text-xl font-bold text-emerald-400 mt-1">SEEKING System</div>
+                    <div class="text-xs text-slate-300 mt-1">Fires on distance reduction to goals</div>
+                </div>
+                <div class="bg-slate-700/40 p-4 rounded-xl border border-slate-600/50">
+                    <div class="text-xs text-slate-400 font-medium">Empirical Intervention</div>
+                    <div class="text-lg sm:text-xl font-bold text-sky-400 mt-1">Future Authoring</div>
+                    <div class="text-xs text-slate-300 mt-1">Closes student achievement gaps</div>
+                </div>
+                <div class="bg-slate-700/40 p-4 rounded-xl border border-slate-600/50">
+                    <div class="text-xs text-slate-400 font-medium">Existential Imperative</div>
+                    <div class="text-lg sm:text-xl font-bold text-rose-400 mt-1">Self-Determination</div>
+                    <div class="text-xs text-slate-300 mt-1">Alternative to tyranny & chaos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Containers -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: CORE THESIS & TRAJECTORIES          -->
+        <!-- ========================================== -->
+        <section id="tab-dichotomy" role="tabpanel" aria-labelledby="btn-tab-dichotomy" tabindex="0" class="tab-content space-y-8">
+            
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: The Human Option Set & The Desert Metaphor</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    This section synthesizes the central transcript thesis: aimlessness is not a passive lack of movement, but an active, metabolically exhausting state of hyper-uncertainty where "every direction beckons." Drawing on the biblical metaphor of the Exodus, human psychology is framed as a constant choice between three fundamental existential conditions: unstructured chaos in the desert, structured oppression under a tyrant, or self-authored direction. Explore the interactive option set below to inspect how each trajectory governs human cognition and neurochemistry.
+                </p>
+            </div>
+
+            <!-- Interactive Option Set Selector -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                    <span class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full text-xs font-bold">Interactive Tool</span>
+                    <span>The Three Human Option Sets</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mb-6">
+                    Click on a trajectory below to analyze its underlying neurobiology, emotional state, and historical/existential manifestations.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button type="button" onclick="selectTrajectory('chaos')" id="traj-btn-chaos" aria-pressed="true" class="p-4 text-left rounded-xl border-2 transition-all border-amber-500 bg-amber-50/50 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-slate-900 text-sm">1. Aimless Chaos</span>
+                            <span class="text-xs font-mono bg-amber-200/60 text-amber-900 px-2 py-0.5 rounded">The Desert</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Lack of perceptual constraints leading to hyper-uncertainty and paralysis.</p>
+                    </button>
+
+                    <button type="button" onclick="selectTrajectory('tyranny')" id="traj-btn-tyranny" aria-pressed="false" class="p-4 text-left rounded-xl border-2 transition-all border-slate-200 bg-slate-50 hover:border-slate-300">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-slate-900 text-sm">2. External Tyranny</span>
+                            <span class="text-xs font-mono bg-slate-200 text-slate-800 px-2 py-0.5 rounded">The Pharaoh / Slavery</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Externally imposed goals that eliminate uncertainty at the cost of personal autonomy.</p>
+                    </button>
+
+                    <button type="button" onclick="selectTrajectory('vision')" id="traj-btn-vision" aria-pressed="false" class="p-4 text-left rounded-xl border-2 transition-all border-slate-200 bg-slate-50 hover:border-slate-300">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-slate-900 text-sm">3. Visionary Self-Determination</span>
+                            <span class="text-xs font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Promised Land</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Self-authored, structured goal hierarchies that generate sustained positive affect.</p>
+                    </button>
+                </div>
+
+                <!-- Dynamic Detail Display -->
+                <div id="trajectory-display" aria-live="polite" class="bg-sand-50 p-6 rounded-xl border border-sand-200">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Key Transcript Highlights Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-2">Computational Paradox</div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">"Anxiety Computes Aimlessness"</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                        When dropped in a desert, anxiety does not stem from a total lack of direction, but rather from an overwhelming excess of unconstrained choices. Every direction beckons equally, causing a computational overflow in the brain's predictive processing systems.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border-l-4 border-amber-500 text-xs text-slate-700 italic">
+                        "Aimlessness and anxiety are functionally identical computational states: the environment becomes excessively complicated because perceptual boundaries have collapsed."
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="text-xs font-bold text-sky-600 uppercase tracking-wider mb-2">Anhedonia & Reward</div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">The Dual Penalty of Goallessness</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                        Aimlessness imposes a double neurological tax. While simultaneously activating the Behavioral Inhibition System (BIS) to produce chronic anxiety, it starves the mesolimbic SEEKING system, leaving the individual in a state of profound anhedonia.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border-l-4 border-sky-500 text-xs text-slate-700 italic">
+                        "If you don't have a goal, you have no positive emotion. The positive emotion system computes distance reduction between you and a valued objective."
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: NEUROBIOLOGY & ENTROPY              -->
+        <!-- ========================================== -->
+        <section id="tab-entropy" role="tabpanel" aria-labelledby="btn-tab-entropy" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: Information Theory & The Septohippocampal Axis</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    This section maps the exact neurobiological architecture responsible for goal pursuit and uncertainty management. Grounded in Psychological Entropy theory (<em>H</em> = &minus;&Sigma; <em>p</em>(<em>x</em><sub>i</sub>) log<sub>2</sub> <em>p</em>(<em>x</em><sub>i</sub>)) and Jeffrey Gray's Biopsychological Theory of Personality, it details how the Behavioral Inhibition System (BIS) acts as a conflict detector that freezes prepotent behavior when goals are ambiguous. Use the interactive Goal Clarity Slider below to observe how goal specificity directly reduces psychological entropy and shifts brain activation from anxiety (BIS) to approach motivation (SEEKING).
+                </p>
+            </div>
+
+            <!-- Interactive Goal Clarity & Entropy Simulator -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center space-x-2">
+                            <span class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full text-xs font-bold">Interactive Model</span>
+                            <span>Goal Clarity vs. Psychological Entropy Simulator</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Adjust goal clarity to observe predicted neural network activity and entropy metrics.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 bg-slate-100 px-4 py-2 rounded-xl text-right">
+                        <span class="text-xs text-slate-500 block uppercase font-mono">Calculated Entropy (H)</span>
+                        <span id="entropy-value-display" class="text-xl font-black text-amber-600 font-mono" aria-live="polite">2.98 bits</span>
+                    </div>
+                </div>
+
+                <!-- Range Input -->
+                <div class="mb-8">
+                    <div class="flex justify-between text-xs font-bold text-slate-600 mb-2">
+                        <span>0% (Complete Aimlessness / Desert)</span>
+                        <span>50% (Vague Intention)</span>
+                        <span>100% (Hyper-Specific Goal / Implementation Intentions)</span>
+                    </div>
+                    <input type="range" id="goal-clarity-slider" aria-label="Goal clarity from zero percent complete aimlessness to one hundred percent a hyper-specific goal" min="0" max="100" value="15" oninput="updateEntropySimulation(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                </div>
+
+                <!-- Simulation Visualizations Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- Chart Column -->
+                    <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-600 uppercase mb-3 text-center">Neural System Activation Profile</h4>
+                        <div class="chart-container">
+                            <canvas id="entropyChart" role="img" aria-label="Bar chart of Behavioral Inhibition System activation, SEEKING system drive, and psychological entropy at the current goal-clarity level."></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Interpretive Metric Panel Column -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200">
+                            <div class="text-xs font-bold text-amber-800 uppercase">Perceptual Map Parsing</div>
+                            <div id="sim-parsing-text" class="text-sm text-slate-800 font-medium mt-1">
+                                Unconstrained options. Environment perceived as noise. High cognitive load.
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="text-xs font-bold text-slate-500 uppercase">Primary Neurological Driver</div>
+                            <div id="sim-driver-text" class="text-sm font-bold text-slate-800 mt-1">
+                                Behavioral Inhibition System (BIS)
+                            </div>
+                            <p id="sim-driver-sub" class="text-xs text-slate-600 mt-1">
+                                Locus coeruleus & septohippocampal system detect unresolved goal conflict, triggering vigilance and motor freezing.
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="text-xs font-bold text-slate-500 uppercase">Subjective Affective State</div>
+                            <div id="sim-affect-text" class="text-sm font-bold text-rose-600 mt-1">
+                                High Anxiety + Anhedonia
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Neurological Reference Table -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <h3 class="text-base font-bold text-slate-900 mb-4">Core Tripartite Neurological Systems Comparison</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3">System</th>
+                                <th class="p-3">Anatomical Correlates</th>
+                                <th class="p-3">Core Computational Trigger</th>
+                                <th class="p-3">Behavioral Output</th>
+                                <th class="p-3">Subjective State</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-600">
+                            <tr>
+                                <td class="p-3 font-bold text-amber-700">Behavioral Inhibition System (BIS)</td>
+                                <td class="p-3">Septohippocampal system, Locus Coeruleus, Anterior Cingulate Cortex</td>
+                                <td class="p-3">Goal conflict, unexpected novelty, unconstrained options</td>
+                                <td class="p-3">Halts action (freezing), increases environmental scanning</td>
+                                <td class="p-3 font-semibold text-rose-600">Anxiety, Rumination, Paralysis</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold text-emerald-700">SEEKING / BAS System</td>
+                                <td class="p-3">Ventral Tegmental Area (VTA), Nucleus Accumbens (NAc), PFC</td>
+                                <td class="p-3">Perceived reduction in distance to goal, incentive cues</td>
+                                <td class="p-3">Forward exploration, strategy execution, persistence</td>
+                                <td class="p-3 font-semibold text-emerald-600">Anticipatory Enthusiasm, Vitality</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold text-slate-800">Fight-or-Flight System (FFS)</td>
+                                <td class="p-3">Periaqueductal Gray (PAG), Amygdala, Hypothalamus</td>
+                                <td class="p-3">Proximate, unconditioned threats or active physical pain</td>
+                                <td class="p-3">Rapid escape or immediate aggressive defense</td>
+                                <td class="p-3 font-semibold text-slate-800">Acute Panic, Terror, Rage</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: POSITIVE EMOTION & SEEKING          -->
+        <!-- ========================================== -->
+        <section id="tab-positive-emotion" role="tabpanel" aria-labelledby="btn-tab-positive-emotion" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: Dopaminergic Anticipation & Reward Prediction Errors</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    Contrary to popular belief, dopamine is not the molecule of final pleasure or consumption ("liking"); it is the neurochemical engine of anticipation and approach ("wanting"). Drawing on Jaak Panksepp's SEEKING system, Wolfram Schultz's Reward Prediction Error (RPE) model, and Brian Knutson's Monetary Incentive Delay (MID) task fMRI studies, this section illustrates that positive affect is generated during movement toward a goal rather than after its completion. Explore the fMRI paradigm chart below to see how goal-directed anticipation activates the ventral striatum.
+                </p>
+            </div>
+
+            <!-- Chart & fMRI Explorer -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- MID Chart Column -->
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-slate-900">MID Task fMRI Neural Activation Profiles</h3>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Knutson et al. Meta-Analysis Data</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        Comparing neural blood-oxygen-level-dependent (BOLD) signals during goal anticipation versus reward outcome consumption across healthy vs. aimless/anhedonic profiles.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="midTaskChart" role="img" aria-label="Grouped bar chart comparing ventral striatum and vmPFC BOLD activation during anticipation versus consumption phases, including an aimless anhedonic profile."></canvas>
+                    </div>
+                </div>
+
+                <!-- Explanation Panel -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-base font-bold text-slate-900 mb-3">Key Neurochemical Insights</h3>
+                        
+                        <div class="space-y-4 text-xs sm:text-sm">
+                            <div class="border-l-2 border-emerald-500 pl-3">
+                                <span class="font-bold text-slate-800 block">1. "Wanting" vs. "Liking" (Berridge & Robinson)</span>
+                                <p class="text-slate-600 mt-0.5">
+                                    Dopamine in the Nucleus Accumbens energizes forage and goal pursuit ("wanting"). Satiety and consumption pleasure ("liking") are mediated separately by opioid and endocannabinoid hotspots.
+                                </p>
+                            </div>
+
+                            <div class="border-l-2 border-amber-500 pl-3">
+                                <span class="font-bold text-slate-800 block">2. Reward Prediction Error (Schultz)</span>
+                                <p class="text-slate-600 mt-0.5">
+                                    &delta; = <em>R</em><sub>actual</sub> &minus; <em>R</em><sub>expected</sub>. Midbrain dopamine neurons fire phasically when a signal indicates an unexpected reduction in distance to a goal, reinforcing successful behavioral strategies.
+                                </p>
+                            </div>
+
+                            <div class="border-l-2 border-indigo-500 pl-3">
+                                <span class="font-bold text-slate-800 block">3. Ventral Striatal Blunting in Aimlessness</span>
+                                <p class="text-slate-600 mt-0.5">
+                                    fMRI studies show that without an explicit goal hierarchy, ventral striatal activity during anticipation drops significantly, producing clinical anhedonia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive RPE Quote Box -->
+                    <div class="bg-emerald-900 text-white p-5 rounded-2xl shadow-sm">
+                        <div class="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-1">Core Neurobiological Axiom</div>
+                        <p class="text-sm font-medium leading-relaxed italic">
+                            "Almost all the pleasure is in the moving toward. If you set up a goal on the edge of conceivability, every microscopic step forward delivers a dopaminergic hit that strengthens the very neural circuits that moved you."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 4: FUTURE AUTHORING STUDIO             -->
+        <!-- ========================================== -->
+        <section id="tab-authoring" role="tabpanel" aria-labelledby="btn-tab-authoring" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: Cognitive Control & The Future Authoring Framework</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    Goal formulation is an executive function mediated by the prefrontal cortex. As demonstrated by Locke & Latham’s Goal-Setting Theory and Peterson/Morisano's "Future Authoring" methodology, establishing specific, challenging goals across core life domains transforms vague wishes into concrete behavioral programs. This section provides an interactive goal-structuring studio alongside empirical evidence demonstrating how Future Authoring closes academic achievement gaps.
+                </p>
+            </div>
+
+            <!-- Interactive Future Authoring Builder -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center space-x-2">
+                            <span class="bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full text-xs font-bold">Interactive Tool</span>
+                            <span>Multi-Domain Goal Architecture Studio</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Select a domain from the transcript's framework and construct a structured goal specification.</p>
+                    </div>
+                </div>
+
+                <!-- Domain Selector Tabs -->
+                <div class="flex space-x-2 overflow-x-auto pb-3 mb-6 border-b border-slate-100">
+                    <button type="button" onclick="selectDomain('relationship')" id="dom-btn-relationship" aria-pressed="true" class="domain-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white">1. Intimate Relationships</button>
+                    <button type="button" onclick="selectDomain('family')" id="dom-btn-family" aria-pressed="false" class="domain-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">2. Family & Friends</button>
+                    <button type="button" onclick="selectDomain('career')" id="dom-btn-career" aria-pressed="false" class="domain-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">3. Career & Vocation</button>
+                    <button type="button" onclick="selectDomain('education')" id="dom-btn-education" aria-pressed="false" class="domain-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">4. Education & Mind</button>
+                    <button type="button" onclick="selectDomain('habits')" id="dom-btn-habits" aria-pressed="false" class="domain-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">5. Habit & Substance Regulation</button>
+                </div>
+
+                <!-- Domain Interactive Form Container -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div id="domain-prompt-box" aria-live="polite" class="bg-sand-50 p-4 rounded-xl border border-sand-200 text-xs text-slate-700">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div>
+                            <label for="goal-input-vision" class="block text-xs font-bold text-slate-700 mb-1">Specific Vision Statement (Ideal 5-Year Horizon)</label>
+                            <input type="text" id="goal-input-vision" placeholder="e.g., Cultivate a marriage characterized by open dialogue, daily rituals, and mutual honesty." class="w-full p-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="goal-input-ifthen" class="block text-xs font-bold text-slate-700 mb-1">Implementation Intention (If-Then Plan)</label>
+                                <input type="text" id="goal-input-ifthen" placeholder="If [Trigger/Obstacle], then I will [Specific Action]." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="goal-input-avoid" class="block text-xs font-bold text-slate-700 mb-1">Dystopian Warning (Avoidance Vision)</label>
+                                <input type="text" id="goal-input-avoid" placeholder="What happens if bad habits persist unchecked over 5 years?" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="generateGoalCard()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm rounded-lg shadow-sm transition-colors">
+                            Synthesize Goal Specification Card
+                        </button>
+                    </div>
+
+                    <!-- Output Card Preview -->
+                    <div class="lg:col-span-5 bg-slate-800 text-slate-100 p-5 rounded-xl border border-slate-700 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-3 mb-3">
+                                <span class="text-xs font-mono text-amber-400 font-bold uppercase" id="card-domain-tag">Intimate Relationships</span>
+                                <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Prefrontal Constraint</span>
+                            </div>
+                            <h4 id="card-vision-display" class="font-bold text-sm sm:text-base text-white mb-3">
+                                "Cultivate a marriage characterized by open dialogue and daily connection."
+                            </h4>
+                            <div class="space-y-2 text-xs text-slate-300">
+                                <div>
+                                    <span class="text-slate-400 font-bold block">Implementation Trigger:</span>
+                                    <span id="card-ifthen-display" class="italic text-amber-200">"If I feel defensive during a conflict, I will stop and request a 5-minute pause."</span>
+                                </div>
+                                <div class="pt-2 border-t border-slate-700/60">
+                                    <span class="text-slate-400 font-bold block">Dystopian Fear Constraint:</span>
+                                    <span id="card-avoid-display" class="italic text-rose-300">"Resentment builds, leading to emotional detachment and isolation."</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-700 text-[11px] text-slate-400 flex items-center justify-between">
+                            <span id="card-status" aria-live="polite">Status: Cognitive Model Formulated</span>
+                            <span class="text-emerald-400 font-bold">✓ Entropy Constrained</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Impact Chart & Empirical Validation -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900">Empirical Efficacy: Future Authoring Intervention Impact</h3>
+                        <p class="text-xs text-slate-600">Data from randomized controlled trials (Morisano et al., 2010; Schippers et al., 2015).</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7">
+                        <div class="chart-container">
+                            <canvas id="academicImpactChart" role="img" aria-label="Horizontal bar chart of Future Authoring outcomes: control and intervention GPA plus minority retention rates for control and intervention groups."></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 space-y-3 text-xs sm:text-sm text-slate-600">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-800 block">GPA & Retention Lift</span>
+                            <span>Struggling university students completing the structured goal writing program showed significant GPA increases (+0.62) and higher course completion rates.</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-800 block">Elimination of Demographic Gaps</span>
+                            <span>Schippers et al. (2015) demonstrated that the intervention completely closed the academic achievement gap for ethnic minority and male students within two years.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: EXISTENTIAL & SDT MATRIX            -->
+        <!-- ========================================== -->
+        <section id="tab-existential" role="tabpanel" aria-labelledby="btn-tab-existential" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: Self-Determination Theory & Escape from Freedom</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    Goal formulation is not merely an optimization technique; it is an existential imperative. Combining Erich Fromm’s <em>Escape from Freedom</em>, Viktor Frankl’s Logotherapy, and Ryan &amp; Deci’s Self-Determination Theory (SDT), this section maps how human beings react to negative freedom ("freedom from external tyranny"). Without autonomous self-determination, individuals retreat into authoritarianism, automaton conformity, or destructive impulsivity to escape the void of aimlessness. Explore the interactive motivation spectrum below.
+                </p>
+            </div>
+
+            <!-- Interactive SDT Motivation Continuum -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-800 mb-2">Self-Determination Theory (SDT) Motivation Spectrum</h3>
+                <p class="text-xs text-slate-600 mb-6">Click through the regulatory styles to see how goal origin dictates neurological longevity and existential meaning.</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-6">
+                    <button type="button" onclick="selectSDT('amotivation')" id="sdt-btn-amotivation" aria-pressed="true" class="sdt-tab-btn p-3 rounded-xl border text-left transition-all bg-rose-50 border-rose-300">
+                        <div class="text-[10px] font-bold uppercase text-rose-700">Non-Regulated</div>
+                        <div class="text-xs font-extrabold text-slate-900 mt-1">Amotivation</div>
+                    </button>
+                    <button type="button" onclick="selectSDT('external')" id="sdt-btn-external" aria-pressed="false" class="sdt-tab-btn p-3 rounded-xl border text-left transition-all bg-slate-50 border-slate-200 hover:bg-slate-100">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Controlled</div>
+                        <div class="text-xs font-extrabold text-slate-900 mt-1">External</div>
+                    </button>
+                    <button type="button" onclick="selectSDT('introjected')" id="sdt-btn-introjected" aria-pressed="false" class="sdt-tab-btn p-3 rounded-xl border text-left transition-all bg-slate-50 border-slate-200 hover:bg-slate-100">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Controlled</div>
+                        <div class="text-xs font-extrabold text-slate-900 mt-1">Introjected</div>
+                    </button>
+                    <button type="button" onclick="selectSDT('identified')" id="sdt-btn-identified" aria-pressed="false" class="sdt-tab-btn p-3 rounded-xl border text-left transition-all bg-slate-50 border-slate-200 hover:bg-slate-100">
+                        <div class="text-[10px] font-bold uppercase text-amber-700">Autonomous</div>
+                        <div class="text-xs font-extrabold text-slate-900 mt-1">Identified</div>
+                    </button>
+                    <button type="button" onclick="selectSDT('intrinsic')" id="sdt-btn-intrinsic" aria-pressed="false" class="sdt-tab-btn p-3 rounded-xl border text-left transition-all bg-slate-50 border-slate-200 hover:bg-slate-100">
+                        <div class="text-[10px] font-bold uppercase text-emerald-700">Autonomous</div>
+                        <div class="text-xs font-extrabold text-slate-900 mt-1">Intrinsic</div>
+                    </button>
+                </div>
+
+                <!-- SDT Detail Card -->
+                <div id="sdt-detail-display" aria-live="polite" class="bg-sand-50 p-6 rounded-xl border border-sand-200">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Fromm vs. Frankl Theoretical Framework Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="px-2 py-0.5 bg-rose-100 text-rose-800 font-bold text-xs rounded">Erich Fromm</span>
+                        <h3 class="text-base font-bold text-slate-900">Escape from Freedom (1941)</h3>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                        When people are freed from oppressive structures ("freedom from") but lack the inner capacity to construct personal purpose ("freedom to"), the resulting isolation and anxiety drive them to seek escape mechanisms.
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2 bg-slate-50 rounded border-l-2 border-rose-500">
+                            <span class="font-bold text-slate-800">Authoritarian Fusion:</span> Surrendering self-governance to a dictator or rigid dogma to escape uncertainty.
+                        </div>
+                        <div class="p-2 bg-slate-50 rounded border-l-2 border-amber-500">
+                            <span class="font-bold text-slate-800">Automaton Conformity:</span> Uncritically adopting societal scripts so completely that the individual self ceases to exist.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-xs rounded">Viktor Frankl</span>
+                        <h3 class="text-base font-bold text-slate-900">Logotherapy & Will to Meaning</h3>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                        The primary human drive is neither pleasure (Freud) nor power (Adler), but the "will to meaning." Frustration of this drive leads to an "existential vacuum" and "noögenic neurosis."
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2 bg-slate-50 rounded border-l-2 border-emerald-500">
+                            <span class="font-bold text-slate-800">Responsibility as Antidote:</span> Meaning is forged by voluntarily shouldering responsibility for a purpose higher than oneself.
+                        </div>
+                        <div class="p-2 bg-slate-50 rounded border-l-2 border-sky-500">
+                            <span class="font-bold text-slate-800">Self-Transcendence:</span> True purpose is discovered in engagement with the world rather than passive introspection.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 6: RISKS & CLINICAL APPLICATIONS        -->
+        <!-- ========================================== -->
+        <section id="tab-clinical" role="tabpanel" aria-labelledby="btn-tab-clinical" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+            <!-- Contextual Introductory Paragraph -->
+            <div class="bg-sand-100 p-6 rounded-2xl border border-sand-200">
+                <h2 class="text-xl font-bold text-navy-800 mb-2">Section Context: "Goals Gone Wild" & Clinical Rehabilitation</h2>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                    While goal structures are essential for managing anxiety and generating positive affect, unconstrained or misapplied goal-setting carries significant risks. Drawing on Ordóñez et al.’s critique <em>"Goals Gone Wild"</em> alongside clinical applications in vocational guidance (MCMF / Chennai Counselors Foundation) and severe psychiatric rehabilitation (SCARF India), this section examines how goals must be dosed responsibly with strict guardrails to prevent burnout, unethical behavior, and psychological depletion.
+                </p>
+            </div>
+
+            <!-- "Goals Gone Wild" Risk Assessor -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-800 mb-2">"Goals Gone Wild" Risk Matrix & Guardrails</h3>
+                <p class="text-xs text-slate-600 mb-6">Select a known failure mode of aggressive goal-setting to review its mechanism and the corresponding Locke & Latham guardrail.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button type="button" onclick="selectRisk('narrow')" id="risk-btn-narrow" aria-pressed="true" class="p-4 text-left rounded-xl border-2 transition-all border-amber-500 bg-amber-50/50">
+                        <div class="font-bold text-slate-900 text-xs sm:text-sm">1. Narrow Focus & Inattention</div>
+                        <p class="text-[11px] text-slate-600 mt-1">Ignoring non-measured critical dimensions (e.g., safety, ethics).</p>
+                    </button>
+                    <button type="button" onclick="selectRisk('unethical')" id="risk-btn-unethical" aria-pressed="false" class="p-4 text-left rounded-xl border-2 transition-all border-slate-200 bg-slate-50 hover:border-slate-300">
+                        <div class="font-bold text-slate-900 text-xs sm:text-sm">2. Unethical Behavior</div>
+                        <p class="text-[11px] text-slate-600 mt-1">Cheating or distorting data to meet rigid stretch goals.</p>
+                    </button>
+                    <button type="button" onclick="selectRisk('depletion')" id="risk-btn-depletion" aria-pressed="false" class="p-4 text-left rounded-xl border-2 transition-all border-slate-200 bg-slate-50 hover:border-slate-300">
+                        <div class="font-bold text-slate-900 text-xs sm:text-sm">3. Psychological Depletion</div>
+                        <p class="text-[11px] text-slate-600 mt-1">Loss of self-efficacy due to repeated failure on impossible goals.</p>
+                    </button>
+                </div>
+
+                <div id="risk-display-box" aria-live="polite" class="bg-sand-50 p-6 rounded-xl border border-sand-200">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Clinical & Community Applications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2 py-0.5 bg-sky-100 text-sky-800 font-bold text-xs rounded">Vocational Guidance</span>
+                        <span class="text-xs font-mono text-slate-500">MCMF / CCF Framework</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Psychometric Option-Set Reduction</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                        Organizations like the Chennai Counselors Foundation (CCF) utilize tools such as "My Choice My Future" (MCMF)—developed with IIT Madras and Pearson—to map personality traits onto structured career paths.
+                    </p>
+                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-sky-500 text-xs text-slate-700">
+                        <span class="font-bold block">Entropy Reduction Effect:</span> Translates an infinite, paralyzing landscape of potential jobs into 3-4 highly compatible domains, lowering youth career anxiety.
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-xs rounded">Psychiatric Rehabilitation</span>
+                        <span class="text-xs font-mono text-slate-500">SCARF India Model</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Micro-Goal Structuring in Severe Illness</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                        In severe mental illness (e.g., schizophrenia, major depression), avolition and SEEKING system collapse occur. Rehabilitation programs break daily life down into micro-goals (ADLs, skill training).
+                    </p>
+                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-emerald-500 text-xs text-slate-700">
+                        <span class="font-bold block">Dopaminergic Bootstrapping:</span> Micro-goal completion artificially stimulates phasic dopamine firing, gradually restoring agency and self-efficacy.
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-slate-400 py-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="font-bold text-slate-200">Architectures of Purpose: Single-Page Interactive Application</p>
+                <p class="mt-1 text-slate-500">Based on multi-disciplinary synthesis of information theory, neurobiology, and existential psychology.</p>
+                <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <a href="../" class="text-amber-400 hover:text-amber-300 hover:underline">&larr; Knowledge Vault</a>
+                    <span class="text-slate-600" aria-hidden="true">&bull;</span>
+                    <a href="./readme.md" class="text-amber-400 hover:text-amber-300 hover:underline">The Full Report</a>
+                    <span class="text-slate-600" aria-hidden="true">&bull;</span>
+                    <a href="../../" class="text-amber-400 hover:text-amber-300 hover:underline">Portfolio Home &nearr;</a>
+                </p>
+            </div>
+            <div class="text-right text-slate-500">
+                <p>Chart.js Visualizations • Tailwind CSS Layout</p>
+                <p class="mt-0.5">No SVG / No Mermaid JS Dependencies</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // State Management
+        const state = {
+            activeTab: 'tab-dichotomy',
+            selectedTrajectory: 'chaos',
+            goalClarity: 15,
+            selectedDomain: 'relationship',
+            selectedSDT: 'amotivation',
+            selectedRisk: 'narrow'
+        };
+
+        // Chart Instances Storage
+        let entropyChartInstance = null;
+        let midTaskChartInstance = null;
+        let academicImpactChartInstance = null;
+
+        // Data Models
+        const trajectoriesData = {
+            chaos: {
+                title: "1. Aimless Chaos (The Desert)",
+                entropy: "High Entropy (H &asymp; 3.5 bits)",
+                neurobiology: "Dominant Behavioral Inhibition System (BIS) activation. Septohippocampal conflict monitoring active.",
+                affect: "Chronic Anxiety, Paralysis, Rumination, Anhedonia.",
+                sociopolitical: "Vulnerable to authoritarian recruitment or withdrawal into destructive compulsions.",
+                metaphor: "The Israelites wandering in the desert after escaping Egypt, overwhelmed by unstructured freedom."
+            },
+            tyranny: {
+                title: "2. External Tyranny (The Pharaoh)",
+                entropy: "Artificially Zero Entropy (H &asymp; 0 bits)",
+                neurobiology: "Introjected/External regulation. BIS suppressed by external threat, SEEKING system suppressed.",
+                affect: "Resentment, Alienation, Burnout, Lack of Autonomy.",
+                sociopolitical: "Submission to autocratic systems, total conformity, loss of individual selfhood.",
+                metaphor: "Nostalgia for the structured oppression of slavery because it eliminates the terror of choice."
+            },
+            vision: {
+                title: "3. Visionary Self-Determination",
+                entropy: "Optimally Constrained Entropy (H &asymp; 0.8 bits)",
+                neurobiology: "Robust mesolimbic SEEKING system activation; prefrontal cognitive control guiding motor pathways.",
+                affect: "Anticipatory Enthusiasm, Meaning, Resilience, Eagerness.",
+                sociopolitical: "Autonomous functioning, civic engagement, continuous self-authored growth.",
+                metaphor: "Entering the Promised Land through visionary self-governance and voluntary responsibility."
+            }
+        };
+
+        const domainPrompts = {
+            relationship: "Prompt: Imagine an ideal intimate partnership. How do you communicate during conflict? What daily rituals sustain connection?",
+            family: "Prompt: How do you wish to interact with your parents, siblings, and friends? What boundaries or care structures do you maintain?",
+            career: "Prompt: What meaningful vocational contribution do you wish to make over the next 5 years? What skills must you acquire?",
+            education: "Prompt: What intellectual or practical disciplines do you need to master to stay sharp and capable in your environment?",
+            habits: "Prompt: What destructive habits or substance abuses drag you down? How will you constrain them and why?"
+        };
+
+        // Example preview content, one set per life domain.
+        const domainExamples = {
+            relationship: {
+                vision: "Cultivate a marriage characterized by open dialogue and daily connection.",
+                ifthen: "If I feel defensive during a conflict, I will stop and request a 5-minute pause.",
+                avoid: "Resentment builds, leading to emotional detachment and isolation."
+            },
+            family: {
+                vision: "Maintain warm, boundaried relationships with parents, siblings, and close friends.",
+                ifthen: "If a family conversation becomes heated, then I will name one shared interest before responding.",
+                avoid: "Estrangement and unresolved resentment accumulate across the years."
+            },
+            career: {
+                vision: "Build a body of work that solves a problem I consider genuinely worth solving.",
+                ifthen: "If a higher-paying role teaches me nothing new, then I will test it against my five-year skill plan.",
+                avoid: "Drift between unrelated jobs with no compounding expertise or reputation."
+            },
+            education: {
+                vision: "Master statistics and clear writing well enough to test my own ideas.",
+                ifthen: "If a concept stays fuzzy, then I will explain it aloud to someone else within 48 hours.",
+                avoid: "Confidence outruns competence and I quietly stop being corrigible."
+            },
+            habits: {
+                vision: "Restrict alcohol and screens to deliberate contexts rather than default relief.",
+                ifthen: "If the urge appears after 9pm, then I will walk for ten minutes before deciding.",
+                avoid: "Sleep collapses, attention fragments, and long-term goals are quietly abandoned."
+            }
+        };
+
+        const sdtData = {
+            amotivation: {
+                title: "Amotivation (Non-Regulated)",
+                locus: "Impersonal",
+                neuro: "SEEKING system dormant; high psychological entropy; elevated BIS.",
+                description: "Complete lack of intention to act. The individual feels incompetent and helpless, experiencing absolute aimlessness."
+            },
+            external: {
+                title: "External Regulation (Controlled)",
+                locus: "External",
+                neuro: "Driven by fear of punishment or desire for external reward.",
+                description: "Behavior forced entirely by external coercion or tyrants. Autonomy is completely absent."
+            },
+            introjected: {
+                title: "Introjected Regulation (Controlled)",
+                locus: "Somewhat External",
+                neuro: "Internalized 'tyrant'; ego-involvement, guilt, and anxiety drive behavior.",
+                description: "The individual acts to avoid self-disapproval or guilt. The external rules are inside the head, but not integrated with the authentic self."
+            },
+            identified: {
+                title: "Identified Regulation (Autonomous)",
+                locus: "Somewhat Internal",
+                neuro: "Prefrontal cortex endorses the goal value; SEEKING system activated.",
+                description: "The goal is consciously valued as personally important, even if the activity itself is not inherently enjoyable."
+            },
+            intrinsic: {
+                title: "Intrinsic Regulation (Autonomous)",
+                locus: "Internal",
+                neuro: "Optimal mesolimbic dopamine release; state of flow and self-actualization.",
+                description: "Action done purely for inherent satisfaction, curiosity, and joy in mastery."
+            }
+        };
+
+        const riskData = {
+            narrow: {
+                title: "Narrow Focus & Inattentional Blindness",
+                mechanism: "Hyper-focusing on a specific target causes executive filters to discard critical non-measured variables.",
+                example: "Ford Pinto design team focusing exclusively on weight and cost targets, neglecting safety testing.",
+                guardrail: "Institute holistic balanced scorecards and learning goals rather than rigid outcome targets for complex tasks."
+            },
+            unethical: {
+                title: "Unethical Behavior & Data Distortion",
+                mechanism: "Extreme pressure to hit arbitrary stretch goals triggers desperate risk-taking and cheating.",
+                example: "Sales teams misrepresenting financial data to bridge the gap between actual performance and bonus quotas.",
+                guardrail: "Align goals with ethical culture, measure process integrity, and never penalize honest failure on stretch targets."
+            },
+            depletion: {
+                title: "Psychological Depletion & Abandonment",
+                mechanism: "Repeated failure on impossibly hard goals degrades self-efficacy and triggers learned helplessness.",
+                example: "Setting an unachievable metric without providing training, leading to burnout and amotivation.",
+                guardrail: "Ensure high self-efficacy (Bandura), provide continuous progress feedback, and use proximal sub-goals."
+            }
+        };
+
+        // Navigation Tab Switching
+        function switchTab(tabId) {
+            const targetSection = document.getElementById(tabId);
+            if (!targetSection) return;
+            state.activeTab = tabId;
+
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.setAttribute('aria-hidden', 'true');
+            });
+            targetSection.classList.remove('hidden');
+            targetSection.removeAttribute('aria-hidden');
+
+            document.querySelectorAll('.tab-button').forEach(el => {
+                el.classList.remove('tab-active');
+                el.setAttribute('aria-selected', 'false');
+                el.tabIndex = -1;
+            });
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.setAttribute('aria-selected', 'true');
+                activeBtn.tabIndex = 0;
+            }
+
+            // Keep the active tab visible when the nav row scrolls horizontally.
+            if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+                activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            }
+
+            // Render/Resize Charts depending on tab
+            if (tabId === 'tab-entropy' && !entropyChartInstance) {
+                renderEntropyChart();
+            } else if (tabId === 'tab-positive-emotion' && !midTaskChartInstance) {
+                renderMIDTaskChart();
+            } else if (tabId === 'tab-authoring' && !academicImpactChartInstance) {
+                renderAcademicImpactChart();
+            }
+        }
+
+        // Trajectory Selector
+        function selectTrajectory(type) {
+            state.selectedTrajectory = type;
+            ['chaos', 'tyranny', 'vision'].forEach(t => {
+                const btn = document.getElementById(`traj-btn-${t}`);
+                if (t === type) {
+                    btn.classList.add('border-amber-500', 'bg-amber-50/50', 'shadow-sm');
+                    btn.classList.remove('border-slate-200', 'bg-slate-50');
+                } else {
+                    btn.classList.remove('border-amber-500', 'bg-amber-50/50', 'shadow-sm');
+                    btn.classList.add('border-slate-200', 'bg-slate-50');
+                }
+                btn.setAttribute('aria-pressed', t === type ? 'true' : 'false');
+            });
+
+            const data = trajectoriesData[type];
+            document.getElementById('trajectory-display').innerHTML = `
+                <h4 class="font-extrabold text-slate-900 text-base mb-2">${data.title}</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="p-3 bg-white rounded-lg border border-sand-200">
+                        <span class="font-bold text-slate-800 block text-xs uppercase text-amber-700">Information State</span>
+                        <span class="text-slate-700">${data.entropy}</span>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border border-sand-200">
+                        <span class="font-bold text-slate-800 block text-xs uppercase text-amber-700">Subjective Affect</span>
+                        <span class="text-slate-700">${data.affect}</span>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border border-sand-200 sm:col-span-2">
+                        <span class="font-bold text-slate-800 block text-xs uppercase text-amber-700">Neurobiological Profile</span>
+                        <span class="text-slate-700">${data.neurobiology}</span>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border border-sand-200 sm:col-span-2">
+                        <span class="font-bold text-slate-800 block text-xs uppercase text-amber-700">Sociopolitical Manifestation & Metaphor</span>
+                        <span class="text-slate-700">${data.sociopolitical} (${data.metaphor})</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Entropy Simulation Logic
+        function updateEntropySimulation(val) {
+            state.goalClarity = parseInt(val);
+            
+            // Math formula approximation for entropy H (bits)
+            const entropyH = (3.5 * (1 - (state.goalClarity / 100))).toFixed(2);
+            document.getElementById('entropy-value-display').innerText = `${entropyH} bits`;
+
+            // Text displays
+            const parsing = document.getElementById('sim-parsing-text');
+            const driver = document.getElementById('sim-driver-text');
+            const driverSub = document.getElementById('sim-driver-sub');
+            const affect = document.getElementById('sim-affect-text');
+
+            if (state.goalClarity < 30) {
+                parsing.innerText = "Unconstrained options. Environment perceived as chaotic noise. High cognitive processing fatigue.";
+                driver.innerText = "Behavioral Inhibition System (BIS) Dominant";
+                driverSub.innerText = "Septohippocampal system detects high goal conflict, freezing prepotent motor behavior.";
+                affect.innerText = "High Anxiety + Anhedonia";
+                affect.className = "text-sm font-bold text-rose-600 mt-1";
+            } else if (state.goalClarity < 70) {
+                parsing.innerText = "Partial domain constraint. Tools and obstacles emerging from background environment.";
+                driver.innerText = "Co-activation of BIS and SEEKING Systems";
+                driverSub.innerText = "Cognitive conflict resolving; initial prefrontal executive control engaging.";
+                affect.innerText = "Moderate Focus with Residual Hesitation";
+                affect.className = "text-sm font-bold text-amber-600 mt-1";
+            } else {
+                parsing.innerText = "Optimal constraint map. Objects categorized instantly into tools, obstacles, or irrelevancies.";
+                driver.innerText = "Mesolimbic SEEKING System Dominant";
+                driverSub.innerText = "Phasic dopamine release in Nucleus Accumbens energizing forward motor action.";
+                affect.innerText = "High Anticipatory Enthusiasm & Positive Emotion";
+                affect.className = "text-sm font-bold text-emerald-600 mt-1";
+            }
+
+            // Update Chart
+            if (entropyChartInstance) {
+                const bisVal = Math.max(10, 90 - state.goalClarity * 0.8);
+                const seekingVal = Math.min(95, 10 + state.goalClarity * 0.85);
+                const entropyVis = Math.max(5, 100 - state.goalClarity);
+
+                entropyChartInstance.data.datasets[0].data = [bisVal, seekingVal, entropyVis];
+                entropyChartInstance.update();
+            }
+        }
+
+        // Render Chart 1: Entropy & Neural Systems
+        function renderEntropyChart() {
+            const ctx = document.getElementById('entropyChart').getContext('2d');
+            
+            const bisVal = Math.max(10, 90 - state.goalClarity * 0.8);
+            const seekingVal = Math.min(95, 10 + state.goalClarity * 0.85);
+            const entropyVis = Math.max(5, 100 - state.goalClarity);
+
+            entropyChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['BIS (Anxiety/Conflict)', 'SEEKING (Dopamine/Drive)', 'Psychological Entropy'],
+                    datasets: [{
+                        label: 'Activation Level (%)',
+                        data: [bisVal, seekingVal, entropyVis],
+                        backgroundColor: [
+                            'rgba(225, 29, 72, 0.7)',
+                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(217, 119, 6, 0.7)'
+                        ],
+                        borderColor: [
+                            '#be123c',
+                            '#047857',
+                            '#b45309'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Relative Intensity (%)',
+                                font: { size: 10, weight: 'bold' }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 10, weight: 'bold' },
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 26 ? label.substring(0, 26) + '...' : label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Chart 2: MID Task fMRI Data
+        function renderMIDTaskChart() {
+            const ctx = document.getElementById('midTaskChart').getContext('2d');
+            
+            midTaskChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Anticipation Phase', 'Consumption Phase'],
+                    datasets: [
+                        {
+                            label: 'Ventral Striatum / NAc (Healthy Goal-Directed)',
+                            data: [85, 25],
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'vmPFC (Healthy Goal-Directed)',
+                            data: [30, 80],
+                            backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Ventral Striatum (Aimless / Anhedonic Profile)',
+                            data: [20, 22],
+                            backgroundColor: 'rgba(225, 29, 72, 0.7)',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'fMRI BOLD Signal Activation (%)',
+                                font: { size: 10, weight: 'bold' }
+                            }
+                        },
+                        x: {
+                            ticks: { font: { size: 11, weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}% BOLD signal`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Domain Selection Logic
+        const domainLabels = {
+            relationship: 'Intimate Relationships',
+            family: 'Family & Friends',
+            career: 'Career & Vocation',
+            education: 'Education & Mind',
+            habits: 'Habit & Substance Regulation'
+        };
+
+        function selectDomain(domKey) {
+            state.selectedDomain = domKey;
+            document.querySelectorAll('.domain-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            const activeBtn = document.getElementById(`dom-btn-${domKey}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-amber-600', 'text-white');
+            activeBtn.setAttribute('aria-pressed', 'true');
+
+            document.getElementById('domain-prompt-box').innerText = domainPrompts[domKey];
+            document.getElementById('card-domain-tag').innerText = domainLabels[domKey] || domKey;
+
+            // Refresh the example preview only when the user has not typed anything yet.
+            const visionInput = document.getElementById('goal-input-vision');
+            const ifthenInput = document.getElementById('goal-input-ifthen');
+            const avoidInput = document.getElementById('goal-input-avoid');
+            const isEmpty = !visionInput.value.trim() && !ifthenInput.value.trim() && !avoidInput.value.trim();
+            if (isEmpty && domainExamples[domKey]) {
+                const example = domainExamples[domKey];
+                setPreview(example.vision, example.ifthen, example.avoid);
+                document.getElementById('card-status').innerText = 'Status: Example Preview';
+            }
+        }
+
+        function setPreview(vision, ifthen, avoid) {
+            if (vision) document.getElementById('card-vision-display').innerText = `"${vision}"`;
+            if (ifthen) document.getElementById('card-ifthen-display').innerText = `"${ifthen}"`;
+            if (avoid) document.getElementById('card-avoid-display').innerText = `"${avoid}"`;
+        }
+
+        function generateGoalCard() {
+            const vision = document.getElementById('goal-input-vision').value.trim();
+            const ifthen = document.getElementById('goal-input-ifthen').value.trim();
+            const avoid = document.getElementById('goal-input-avoid').value.trim();
+            const status = document.getElementById('card-status');
+
+            if (!vision && !ifthen && !avoid) {
+                status.innerText = 'Status: Awaiting input — add a vision statement.';
+                return;
+            }
+
+            setPreview(vision, ifthen, avoid);
+            status.innerText = 'Status: Cognitive Model Formulated';
+        }
+
+        // Render Chart 3: Future Authoring Academic Impact
+        function renderAcademicImpactChart() {
+            const ctx = document.getElementById('academicImpactChart').getContext('2d');
+
+            academicImpactChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Control GPA', 'Future Authoring GPA', 'Minority Retention (Control)', 'Minority Retention (Intervention)'],
+                    datasets: [{
+                        label: 'Academic Metrics Impact (%)',
+                        data: [2.25, 2.87, 68, 91],
+                        backgroundColor: [
+                            'rgba(148, 163, 184, 0.8)',
+                            'rgba(217, 119, 6, 0.85)',
+                            'rgba(225, 29, 72, 0.7)',
+                            'rgba(16, 185, 129, 0.85)'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Metric Value (GPA / Retention %)', font: { size: 10 } }
+                        },
+                        y: {
+                            ticks: {
+                                font: { size: 10, weight: 'bold' },
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 26 ? label.substring(0, 26) + '...' : label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // SDT Selection Logic
+        function selectSDT(type) {
+            state.selectedSDT = type;
+            document.querySelectorAll('.sdt-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-50', 'border-amber-300', 'bg-rose-50', 'border-rose-300');
+                btn.classList.add('bg-slate-50', 'border-slate-200');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            const activeBtn = document.getElementById(`sdt-btn-${type}`);
+            activeBtn.classList.remove('bg-slate-50', 'border-slate-200', 'bg-rose-50', 'border-rose-300');
+            activeBtn.classList.add('bg-amber-50', 'border-amber-300');
+            activeBtn.setAttribute('aria-pressed', 'true');
+
+            const data = sdtData[type];
+            document.getElementById('sdt-detail-display').innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-extrabold text-slate-900 text-base">${data.title}</h4>
+                    <span class="text-xs font-mono bg-white px-2.5 py-1 rounded border border-sand-300">Locus of Causality: <strong>${data.locus}</strong></span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">${data.description}</p>
+                <div class="p-3 bg-white rounded-lg border border-sand-200 text-xs">
+                    <span class="font-bold text-amber-800 block uppercase">Neurobiological Signature</span>
+                    <span class="text-slate-600">${data.neuro}</span>
+                </div>
+            `;
+        }
+
+        // Risk Selection Logic
+        function selectRisk(type) {
+            state.selectedRisk = type;
+            ['narrow', 'unethical', 'depletion'].forEach(r => {
+                const btn = document.getElementById(`risk-btn-${r}`);
+                if (r === type) {
+                    btn.classList.add('border-amber-500', 'bg-amber-50/50');
+                    btn.classList.remove('border-slate-200', 'bg-slate-50');
+                } else {
+                    btn.classList.remove('border-amber-500', 'bg-amber-50/50');
+                    btn.classList.add('border-slate-200', 'bg-slate-50');
+                }
+                btn.setAttribute('aria-pressed', r === type ? 'true' : 'false');
+            });
+
+            const data = riskData[type];
+            document.getElementById('risk-display-box').innerHTML = `
+                <h4 class="font-extrabold text-slate-900 text-base mb-2">${data.title}</h4>
+                <p class="text-xs sm:text-sm text-slate-700 mb-3">${data.mechanism}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                        <span class="font-bold text-rose-800 block uppercase mb-1">Case Example</span>
+                        <span class="text-slate-700">${data.example}</span>
+                    </div>
+                    <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                        <span class="font-bold text-emerald-800 block uppercase mb-1">Locke & Latham Guardrail</span>
+                        <span class="text-slate-700">${data.guardrail}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Roving tabindex keyboard support for the tab list.
+        const tabList = document.querySelector('[role="tablist"]');
+        if (tabList) {
+            tabList.addEventListener('keydown', (event) => {
+                const tabs = Array.from(tabList.querySelectorAll('.tab-button'));
+                const currentIndex = tabs.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+
+                let nextIndex = null;
+                if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+                else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = tabs.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                const nextTab = tabs[nextIndex];
+                nextTab.focus();
+                switchTab(nextTab.id.replace('btn-', ''));
+            });
+        }
+
+        // Initialize Default States on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            selectTrajectory('chaos');
+            selectDomain('relationship');
+            selectSDT('amotivation');
+            selectRisk('narrow');
+            updateEntropySimulation(15);
+        });
+    </script>
+</body>
+</html>
