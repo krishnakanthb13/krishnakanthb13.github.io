@@ -1,0 +1,937 @@
+<!-- Chosen Palette: Warm Sand & Deep Slate Harmony (Background: #FDFBF7, Cards: #FFFFFF, Primary Text: #1E293B, Accents: Amber #D97706, Crimson/Rose #E11D48, Deep Teal #0F766E, Indigo #4F46E5) -->
+<!-- Application Structure Plan: Designed as a multi-perspective interactive dashboard for exploring the report. Section 1 introduces the thesis quote and core taxonomy through an interactive comparison matrix. Section 2 analyzes the initiator's psychological "ceiling" with dynamic charts for Destiny vs Growth beliefs and expandable profile cards. Section 3 details the target's neurological and emotional devastation via Williams' Temporal Need-Threat Model and a 5-Need radar visualization. Section 4 tackles cognitive loops (Zeigarnik Effect & Ambiguous Loss) with an interactive "Thought Reframing Engine". Section 5 presents clinical modalities, and Section 6 offers a filterable support directory for Chennai institutions and 24/7 helplines. This layout shifts the user from emotional confusion to empirical understanding and actionable internal closure. -->
+<!-- Visualization & Content Choices: 
+- Relational Taxonomy -> Goal: Compare Direct Rejection vs Ostracism vs Ghosting -> Interactive Matrix Filter -> HTML/Tailwind + JS logic
+- Destiny vs Growth Beliefs -> Goal: Quantify ghosting acceptability &amp; propensity -> Grouped Bar Chart -> Chart.js Canvas
+- 5 Fundamental Needs Impact -> Goal: Visualize neurological threat severity -> Radar / Horizontal Bar Chart -> Chart.js Canvas
+- Temporal Need-Threat Model -> Goal: Illustrate 3-stage progression -> Interactive Pipeline Stepper -> Custom JS DOM switching
+- Cognitive Loop Reframer -> Goal: Convert rumination into behavioral data -> Interactive Transformation Utility -> Vanilla JS DOM manipulation
+- Institutional Ecosystem -> Goal: Accessible directory of Chennai mental health facilities -> Filterable Card Grid -> HTML/Tailwind + JS filtering
+- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive psychological analysis of ghosting: relational ostracism, attachment and destiny beliefs, the Temporal Need-Threat Model, Zeigarnik loops, ambiguous loss, and clinical support pathways.">
+    <meta name="theme-color" content="#0f172a">
+    <title>The Psychology of Ghosting | Interactive Report</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: {
+                            50: '#FDFBF7',
+                            100: '#F7F3EB',
+                            200: '#EFE8DA',
+                            300: '#E2D5C1',
+                        },
+                        slate: {
+                            850: '#1E293B',
+                            900: '#0F172A',
+                        },
+                        amber: {
+                            650: '#C05621',
+                        },
+                        teal: {
+                            750: '#0D6E6E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F7F3EB;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+        /* Visible keyboard focus without disturbing pointer users */
+        a:focus-visible,
+        button:focus-visible,
+        select:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #D97706;
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-slate-850 font-sans antialiased selection:bg-amber-200 selection:text-slate-900 custom-scrollbar">
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-slate-900 focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 bg-sand-50/95 backdrop-blur-md border-b border-sand-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-2xl flex-shrink-0" aria-hidden="true">👻</span>
+                    <div class="min-w-0">
+                        <span class="block font-bold text-slate-900 text-sm sm:text-lg tracking-tight truncate">Ghosting as Behavioral Data</span>
+                        <span class="block text-[11px] text-slate-500 font-medium truncate hidden sm:block">Ambiguous Loss, Ostracism &amp; the Silence That Speaks</span>
+                    </div>
+                </div>
+                <a href="../" class="flex-shrink-0 text-xs font-semibold text-slate-600 hover:text-amber-800 transition-colors px-2.5 py-1 rounded-lg border border-sand-300 hover:border-amber-600" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+            </div>
+
+            <!-- Row 2: section navigation, horizontally scrollable on small screens -->
+            <nav class="flex items-center gap-1 overflow-x-auto custom-scrollbar whitespace-nowrap border-t border-sand-200 py-2 text-xs sm:text-sm font-semibold text-slate-600" aria-label="Page sections">
+                <a href="#taxonomy" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-sand-200 hover:text-slate-900 transition-colors">Taxonomy</a>
+                <a href="#initiator" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-sand-200 hover:text-slate-900 transition-colors">The Initiator</a>
+                <a href="#neurology" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-sand-200 hover:text-slate-900 transition-colors">Target Pain</a>
+                <a href="#cognitive" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-sand-200 hover:text-slate-900 transition-colors">Cognitive Loops</a>
+                <a href="#reframer" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-sand-200 hover:text-slate-900 transition-colors">Reframing Tool</a>
+                <a href="#support" class="flex-shrink-0 px-2.5 py-2 rounded-lg bg-teal-750 text-white hover:bg-teal-800 transition-colors">Support &amp; Crisis</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- Hero Section & Master Thesis -->
+        <section class="relative bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-[180px] pointer-events-none select-none font-serif" aria-hidden="true">"</div>
+            <div class="max-w-4xl relative z-10 space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold tracking-wide border border-amber-500/30">
+                    <span>⚡ Key Thesis Paradigm</span>
+                    <span>•</span>
+                    <span>Clinical Insight</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-sand-50">
+                    Ghosting isn't cowardice, it's <span class="text-amber-400 underline decoration-amber-500/50 underline-offset-8">data</span>.
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-serif italic border-l-4 border-amber-500 pl-4 py-1">
+                    "They showed you exactly what they're capable of. No conversation, no closure, no accountability, just silence. The explanation you're waiting for isn't coming... That's not about your worth, that's about their ceiling."
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-700/60 text-xs sm:text-sm">
+                    <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700">
+                        <span class="text-amber-400 font-bold block text-lg">+63.4%</span>
+                        <span class="text-slate-300">Acceptability shift among individuals with Destiny Beliefs</span>
+                    </div>
+                    <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700">
+                        <span class="text-rose-400 font-bold block text-lg">dACC Activation</span>
+                        <span class="text-slate-300">Triggers physical pain neural pathways in target's brain</span>
+                    </div>
+                    <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700">
+                        <span class="text-teal-400 font-bold block text-lg">Zeigarnik Loop</span>
+                        <span class="text-slate-300">Incomplete task recall keeps working memory locked</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: Taxonomy & Relational Matrix -->
+        <section id="taxonomy" class="space-y-6 scroll-mt-28">
+            <div class="space-y-3 max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <span aria-hidden="true">🔍</span> <span>The Taxonomy and Epistemology of Ghosting</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    This section establishes the psychological boundaries of ghosting compared to other forms of relational termination. While public discourse often conflates ghosting with general silent treatment or direct rejection, clinical research distinguishes it by three specific criteria: an expected continuation of contact, unilateral sudden withdrawal, and total withholding of closure.
+                </p>
+            </div>
+
+            <!-- Interactive Comparison Cards / Matrix -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-sand-200 pb-4">
+                    <h3 class="text-lg font-bold text-slate-900">Relational Severance Matrix</h3>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold" role="group" aria-label="Filter relational severance modes">
+                        <button type="button" id="filter-all" onclick="filterMatrix('all')" aria-pressed="true" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-sm transition-all">All Modes</button>
+                        <button type="button" id="filter-ghosting" onclick="filterMatrix('ghosting')" aria-pressed="false" class="px-3 py-1.5 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200 transition-all">Ghosting</button>
+                        <button type="button" id="filter-direct" onclick="filterMatrix('direct')" aria-pressed="false" class="px-3 py-1.5 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200 transition-all">Direct Rejection</button>
+                        <button type="button" id="filter-ostracism" onclick="filterMatrix('ostracism')" aria-pressed="false" class="px-3 py-1.5 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200 transition-all">Ostracism</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="matrix-container">
+                    <!-- Direct Rejection Card -->
+                    <div class="matrix-card direct bg-sand-50/50 rounded-xl p-5 border border-sand-200 space-y-4 hover:border-slate-400 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">Direct Rejection</span>
+                            <span class="text-xl">💬</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div><strong class="text-slate-900">Primary Intent:</strong> Permanent relationship termination</div>
+                            <div><strong class="text-slate-900">Communication:</strong> Explicit verbal or written notice with defined boundaries</div>
+                            <div><strong class="text-slate-900">Closure:</strong> Externally provided by initiator, verifiable event timeline</div>
+                            <div><strong class="text-slate-900">Psychological Toll:</strong> Acute short-term pain, low ambiguity, high cognitive clarity</div>
+                        </div>
+                    </div>
+
+                    <!-- Ostracism / Silent Treatment Card -->
+                    <div class="matrix-card ostracism bg-sand-50/50 rounded-xl p-5 border border-sand-200 space-y-4 hover:border-slate-400 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">Ostracism / Silent Treatment</span>
+                            <span class="text-xl">🛑</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div><strong class="text-slate-900">Primary Intent:</strong> Behavioral modification or punitive control within ongoing relationship</div>
+                            <div><strong class="text-slate-900">Communication:</strong> Selective withholding of contact with intent to resume later</div>
+                            <div><strong class="text-slate-900">Closure:</strong> N/A (Relationship continues, bound to compliance)</div>
+                            <div><strong class="text-slate-900">Psychological Toll:</strong> Sustained interpersonal tension, anxiety, relational strain</div>
+                        </div>
+                    </div>
+
+                    <!-- Ghosting Card -->
+                    <div class="matrix-card ghosting bg-rose-50/50 rounded-xl p-5 border border-rose-200 space-y-4 hover:border-rose-400 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 text-xs font-bold uppercase tracking-wider">Ghosting</span>
+                            <span class="text-xl">👻</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div><strong class="text-slate-900">Primary Intent:</strong> Unilateral permanent relationship dissolution</div>
+                            <div><strong class="text-slate-900">Communication:</strong> Absolute, sudden, unannounced cessation of all contact</div>
+                            <div><strong class="text-slate-900">Closure:</strong> Denied by initiator; must be internally self-generated by target</div>
+                            <div><strong class="text-slate-900">Psychological Toll:</strong> Max ambiguity, Zeigarnik open loop, severe cognitive distress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: The Initiator's Psychological Architecture -->
+        <section id="initiator" class="space-y-6 scroll-mt-28">
+            <div class="space-y-3 max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <span aria-hidden="true">🏛️</span> <span>The Initiator's Architecture: Identifying "The Ceiling"</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Victims of ghosting routinely spend months constructing complex defense cases for the perpetrator—hypothesizing sudden trauma or external crises. Empirical data reveals that silence is rarely an accident; it marks the initiator's emotional ceiling—their limit of conflict-tolerance, attachment security, and communication bandwidth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Data Visualization: Destiny vs Growth Beliefs -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-4">
+                    <div class="flex items-center justify-between border-b border-sand-200 pb-3">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Implicit Relationship Theories &amp; Ghosting Endorsement</h3>
+                            <p class="text-xs text-slate-500">Freedman et al. Binary Logistic Regression Data Model</p>
+                        </div>
+                        <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-2.5 py-1 rounded-full">Statistical Odds</span>
+                    </div>
+
+                    <!-- Chart Canvas Wrapper -->
+                    <div class="chart-container">
+                        <canvas id="destinyGrowthChart" role="img" aria-label="Grouped bar chart comparing destiny and growth relationship beliefs across four ghosting outcomes; destiny beliefs show a 63.4 percent higher acceptability shift, while growth beliefs show a 38.4 percent lower shift."></canvas>
+                    </div>
+
+                    <p class="text-xs text-slate-500 italic bg-sand-50 p-3 rounded-lg border border-sand-200">
+                        *Key Takeaway: Individuals with strong "Destiny Beliefs" (viewing compatibility as fixed) are 63.4% more likely to view ghosting as acceptable, whereas "Growth Beliefs" foster communicative resolution.
+                    </p>
+                </div>
+
+                <!-- Interactive Profile Inspector -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-4">
+                    <h3 class="font-bold text-slate-900 text-base border-b border-sand-200 pb-3">Initiator Motivations Inspector</h3>
+                    <p class="text-xs text-slate-600">Select an initiator archetype to inspect their underlying psychological mechanism and rationale:</p>
+                    
+                    <!-- Profile Buttons -->
+                    <div class="grid grid-cols-2 gap-2" id="profile-buttons" role="group" aria-label="Initiator motivation archetypes">
+                        <button type="button" onclick="selectProfile('avoidant')" id="btn-avoidant" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">🏃 Avoidant Attachment</button>
+                        <button type="button" onclick="selectProfile('anxious')" id="btn-anxious" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">🛡️ Anxious Attachment</button>
+                        <button type="button" onclick="selectProfile('destiny')" id="btn-destiny" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">🔮 Destiny Beliefs</button>
+                        <button type="button" onclick="selectProfile('darktriad')" id="btn-darktriad" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">🎭 Dark Triad Traits</button>
+                        <button type="button" onclick="selectProfile('prosocial')" id="btn-prosocial" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">🕊️ Prosocial Avoidance</button>
+                        <button type="button" onclick="selectProfile('safety')" id="btn-safety" aria-pressed="false" class="profile-btn px-3 py-2 text-xs font-semibold rounded-lg bg-sand-100 text-slate-700 hover:bg-slate-900 hover:text-white transition-all text-left">⚠️ Safety &amp; Survival</button>
+                    </div>
+
+                    <!-- Profile Inspector Detail Box -->
+                    <div id="profile-detail-box" class="bg-sand-50 p-4 rounded-xl border border-sand-200 space-y-2" aria-live="polite" aria-atomic="true">
+                        <!-- Dynamic Content via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: The Target's Neurological & Emotional Devastation -->
+        <section id="neurology" class="space-y-6 scroll-mt-28">
+            <div class="space-y-3 max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <span aria-hidden="true">⚡</span> <span>Target Neurological &amp; Emotional Devastation</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    The profound pain of being ghosted is not an overreaction—it is hardwired human neurology. Evolutionary biology links social inclusion to physical survival. When severed without warning, the brain processes social rejection in the dorsal anterior cingulate cortex (dACC)—the exact neural pathway activated by physical bodily injury.
+                </p>
+            </div>
+
+            <!-- Need-Threat Model Stepper & Chart Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Williams' Temporal Need-Threat Model Interactive Pipeline -->
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-6">
+                    <div class="border-b border-sand-200 pb-3">
+                        <h3 class="font-bold text-slate-900 text-base">Temporal Need-Threat Model (Dr. Kipling Williams)</h3>
+                        <p class="text-xs text-slate-500">Click stages to trace the chronological trajectory of ghosting pain:</p>
+                    </div>
+
+                    <!-- Stage Tabs -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 border-b border-sand-200 pb-2 text-xs font-bold" role="tablist" aria-label="Temporal Need-Threat stages">
+                        <button type="button" role="tab" aria-selected="true" aria-controls="stage-display" tabindex="0" id="stage-btn-1" onclick="switchStage(1)" class="px-3 py-2 rounded-lg bg-rose-600 text-white shadow-sm">1. Reflexive Stage</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="stage-display" tabindex="-1" id="stage-btn-2" onclick="switchStage(2)" class="px-3 py-2 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200">2. Reflective Stage</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="stage-display" tabindex="-1" id="stage-btn-3" onclick="switchStage(3)" class="px-3 py-2 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200">3. Resignation Stage</button>
+                    </div>
+
+                    <!-- Stage Display Box -->
+                    <div id="stage-display" class="space-y-4" role="tabpanel" tabindex="0" aria-label="Temporal Need-Threat stage details" aria-live="polite" aria-atomic="true">
+                        <!-- Dynamic content filled via JS -->
+                    </div>
+                </div>
+
+                <!-- 5 Fundamental Needs Threat Radar Chart -->
+                <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-4">
+                    <div class="border-b border-sand-200 pb-3 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Fundamental Human Needs Depletion</h3>
+                            <p class="text-xs text-slate-500">Degree of psychological compromise induced by ghosting</p>
+                        </div>
+                        <span class="text-xs bg-rose-100 text-rose-800 font-bold px-2.5 py-1 rounded-full">Threat Assessment</span>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="needsThreatChart" role="img" aria-label="Horizontal bar chart of fundamental human needs depletion after ghosting: belongingness 92, self-esteem 88, control 95, meaningful existence 84, and epistemic certainty 90 out of 100."></canvas>
+                    </div>
+
+                    <p class="text-xs text-slate-500 italic bg-sand-50 p-3 rounded-lg border border-sand-200">
+                        *Epistemic Certainty is compromised by d = -0.37 (meta-analytic effect size), leaving targets uncertain of baseline social rules.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Cognitive Loops & Ambiguous Loss -->
+        <section id="cognitive" class="space-y-6 scroll-mt-28">
+            <div class="space-y-3 max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <span aria-hidden="true">🔄</span> <span>The Paradox of Incompletion: Cognitive Loops &amp; Ambiguous Loss</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Why does a brief text-based "situationship" that ends in ghosting often cause more lingering cognitive distress than a long-term marriage ending in mutual divorce? The answer lies in the cognitive architecture of open loops and ambiguous loss.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Zeigarnik Effect Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-4">
+                    <div class="flex items-center space-x-3 text-amber-600">
+                        <span class="text-2xl">☕</span>
+                        <h3 class="font-bold text-slate-900 text-lg">The Zeigarnik Effect</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Discovered by Russian psychologist Bluma Zeigarnik, this principle dictates that the human brain retains uncompleted or interrupted tasks in active working memory far more vividly than completed tasks (like Viennese waiters remembering unpaid orders).
+                    </p>
+                    <div class="bg-sand-50 p-4 rounded-xl border border-sand-200 text-xs space-y-2 text-slate-700">
+                        <div class="font-bold text-slate-900">Application to Ghosting:</div>
+                        <p>Without a closing conversation or formal goodbye, the brain categorizes the relationship as an "open loop". It remains on the active mental desktop, triggering persistent rumination and obsessive text re-reading.</p>
+                    </div>
+                </div>
+
+                <!-- Ambiguous Loss Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-4">
+                    <div class="flex items-center space-x-3 text-indigo-600">
+                        <span class="text-2xl">🌫️</span>
+                        <h3 class="font-bold text-slate-900 text-lg">Ambiguous Loss (Pauline Boss)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Ambiguous loss occurs when a person is physically absent but psychologically present. It is recognized as the most agonizing form of grief because it lacks objective verification and traditional mourning rituals.
+                    </p>
+                    <div class="bg-sand-50 p-4 rounded-xl border border-sand-200 text-xs space-y-2 text-slate-700">
+                        <div class="font-bold text-slate-900">The Purgatory Trap:</div>
+                        <p>Ghosting freezes the grieving process entirely. Targets oscillate violently between hope (fantasizing about their return) and mourning (facing their absence), unable to complete emotional integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Interactive Reframing Engine -->
+        <section id="reframer" class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl space-y-6 scroll-mt-28">
+            <div class="max-w-3xl space-y-2">
+                <span class="text-xs uppercase font-bold tracking-widest text-amber-400">Interactive Cognitive Utility</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">The Behavioral Data Reframing Engine</h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Transform your open cognitive rumination loops into objective behavioral metrics. Select a standard self-blaming thought below to inspect the empirical psychological reality.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Select Input -->
+                <div class="lg:col-span-5 space-y-3">
+                    <label for="rumination-select" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Select a Persistent Thought:</label>
+                    <select id="rumination-select" onchange="processReframe()" class="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <option value="option1">"Why didn't they text back? Did I say something wrong?"</option>
+                        <option value="option2">"If I just get a final conversation, I'll get closure."</option>
+                        <option value="option3">"Maybe they're just going through a hard time right now."</option>
+                        <option value="option4">"Were all those shared moments a complete lie?"</option>
+                        <option value="option5">"I was easily discarded, so I must lack intrinsic value."</option>
+                    </select>
+                    <button type="button" onclick="processReframe()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                        🔄 Reframe Cognitive Loop
+                    </button>
+                </div>
+
+                <!-- Output Box -->
+                <div class="lg:col-span-7 bg-slate-800/90 border border-slate-700 rounded-2xl p-5 sm:p-6 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Empirical Behavioral Diagnosis</span>
+                        <span class="text-xs text-slate-400">Internal Closure Protocol</span>
+                    </div>
+                    <div id="reframe-output" class="space-y-3" aria-live="polite" aria-atomic="true">
+                        <!-- Output generated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Clinical Interventions & Institutional Support Ecosystem -->
+        <section id="support" class="space-y-6 scroll-mt-28">
+            <div class="space-y-3 max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <span aria-hidden="true">🏥</span> <span>Institutional Infrastructure &amp; Clinical Support</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    When ambiguous loss and relational ostracism push an individual into severe depressive states or resignation, clinical interventions and structural support systems become necessary. Below is a curated directory of therapeutic modalities and mental health infrastructure (highlighting specialized frameworks in regional hubs such as Chennai).
+                </p>
+            </div>
+
+            <!-- Therapeutic Modalities Overview -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-sand-200 shadow-sm space-y-2">
+                    <span class="text-xs font-bold text-teal-750 uppercase tracking-wider block">Narrative Therapy</span>
+                    <h4 class="font-bold text-slate-900 text-sm">Externalizing Narrative</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Separates self-worth from traumatic abandonment. Shifts perspective from "I am defective" to "I experienced a partner's limited capacity."</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-sand-200 shadow-sm space-y-2">
+                    <span class="text-xs font-bold text-teal-750 uppercase tracking-wider block">CBT (Cognitive Behavioral)</span>
+                    <h4 class="font-bold text-slate-900 text-sm">Restructuring Distortions</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Intercepts catastrophic self-blame loops. Re-attributes sudden silence onto the initiator's documented conflict avoidance.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-sand-200 shadow-sm space-y-2">
+                    <span class="text-xs font-bold text-teal-750 uppercase tracking-wider block">ACT (Acceptance &amp; Commitment)</span>
+                    <h4 class="font-bold text-slate-900 text-sm">Epistemic Surrender</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Teaches acceptance of absolute ambiguity without fighting it, refocusing energy on personal core values and secure relationships.</p>
+                </div>
+            </div>
+
+            <!-- Institutional Directory & Crisis Helpline Network -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-sand-200 pb-4">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg">Chennai &amp; National Clinical Directory</h3>
+                        <p class="text-xs text-slate-500">Filter specialized mental health centers and 24/7 crisis hotlines</p>
+                    </div>
+                    <!-- Search Filter Inputs -->
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="directory-search" onkeyup="filterDirectory()" aria-label="Search facilities by name or focus" placeholder="Search facility or focus..." class="bg-sand-50 border border-sand-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-teal-750">
+                        <select id="directory-type" onchange="filterDirectory()" aria-label="Filter directory by service type" class="bg-sand-50 border border-sand-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-teal-750">
+                            <option value="all">All Modalities</option>
+                            <option value="crisis">24/7 Crisis Helplines</option>
+                            <option value="clinical">Clinical Centers</option>
+                            <option value="narrative">Affirmative/Narrative</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="directory-grid">
+                    <!-- Mind Zone -->
+                    <div class="directory-card clinical bg-sand-50/70 p-4 rounded-xl border border-sand-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-slate-900 text-sm">Mind Zone</h4>
+                            <span class="text-[10px] bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded">Adyar, Chennai</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Clinical psychology, relationship counseling, addiction recovery, psychological assessments, and trauma processing.</p>
+                        <div class="text-[11px] font-semibold text-slate-500 pt-1">Focus: Clinical Psychology &amp; Couples Therapy</div>
+                    </div>
+
+                    <!-- SCARF India -->
+                    <div class="directory-card clinical bg-sand-50/70 p-4 rounded-xl border border-sand-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-slate-900 text-sm">SCARF India (Sarada Menon Foundation)</h4>
+                            <span class="text-[10px] bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded">Anna Nagar, Chennai</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Premier clinical institution providing cognitive-behavioral therapies, community mental health support, and intensive outpatient care.</p>
+                        <div class="text-[11px] font-semibold text-slate-500 pt-1">Focus: Structured CBT &amp; Psychosocial Care</div>
+                    </div>
+
+                    <!-- The Alternative Story -->
+                    <div class="directory-card narrative bg-sand-50/70 p-4 rounded-xl border border-sand-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-slate-900 text-sm">The Alternative Story</h4>
+                            <span class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded">Online / National</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Affirmative, trauma-informed therapy focusing heavily on narrative practices to help navigate identity crises, social rejection, and queer-affirmative care.</p>
+                        <div class="text-[11px] font-semibold text-slate-500 pt-1">Focus: Narrative &amp; Intersectional Therapy</div>
+                    </div>
+
+                    <!-- Sneha India Crisis Helpline -->
+                    <div class="directory-card crisis bg-rose-50/80 p-4 rounded-xl border border-rose-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-rose-950 text-sm">Sneha India (24/7 Suicide Prevention)</h4>
+                            <span class="text-[10px] bg-rose-200 text-rose-900 font-bold px-2 py-0.5 rounded">24/7 Helpline</span>
+                        </div>
+                        <p class="text-xs text-rose-900 font-semibold">Immediate crisis support for individuals experiencing extreme emotional distress, resignation, or suicidal ideation.</p>
+                        <div class="flex items-center justify-between text-xs pt-1 font-bold text-rose-800">
+                            <span>📞 <a href="tel:+914424640050" class="hover:underline">044-24640050</a></span>
+                            <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-900 text-[10px] uppercase tracking-wide">Free &amp; Confidential</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-bold text-white text-sm block">The Psychology of Ghosting</span>
+                <span>Synthesized from empirical clinical research, Williams' Need-Threat Model, and Attachment Science.</span>
+            </div>
+            <div class="text-right">
+                <span class="block">Interactive Single Page Web Application</span>
+                <span class="mt-2 flex flex-wrap sm:justify-end items-center gap-x-3 gap-y-1">
+                    <a href="../" class="text-amber-400 hover:text-amber-300 hover:underline">&larr; Knowledge Vault</a>
+                    <span class="text-slate-600" aria-hidden="true">&bull;</span>
+                    <a href="./readme.md" class="text-amber-400 hover:text-amber-300 hover:underline">The Full Report</a>
+                    <span class="text-slate-600" aria-hidden="true">&bull;</span>
+                    <a href="../../" class="text-amber-400 hover:text-amber-300 hover:underline">Portfolio Home &nearr;</a>
+                </span>
+                <span class="block text-slate-500 mt-1">Chart.js Visualizations &bull; Tailwind CSS Layout</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. Matrix Filtering ---
+        function filterMatrix(type) {
+            const cards = document.querySelectorAll('.matrix-card');
+            const btns = ['filter-all', 'filter-ghosting', 'filter-direct', 'filter-ostracism'];
+            
+            btns.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.className = "px-3 py-1.5 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200 transition-all text-xs font-semibold";
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+            });
+
+            const activeBtn = document.getElementById(`filter-${type}`);
+            if (activeBtn) {
+                activeBtn.className = "px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-sm transition-all text-xs font-semibold";
+                activeBtn.setAttribute('aria-pressed', 'true');
+            }
+
+            cards.forEach(card => {
+                if (type === 'all' || card.classList.contains(type)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 3. Initiator Profiles Inspector Data & Selection ---
+        const profileData = {
+            avoidant: {
+                title: "Avoidant Attachment Style",
+                mechanism: "Severe fear of intimacy and emotional enmeshment.",
+                rationale: "When vulnerability or potential conflict arises, the avoidant nervous system perceives intimacy as a threat. Disappearance acts as a emergency escape valve, avoiding emotional friction at the cost of long-term conflict skills.",
+                tag: "High Propensity"
+            },
+            anxious: {
+                title: "Anxious Attachment Style",
+                mechanism: "Hyper-vigilant fear of rejection and abandonment.",
+                rationale: "If an anxiously attached individual senses potential rejection or instability, they may preemptively ghost their partner to abandon before being abandoned—seizing control of a scary narrative.",
+                tag: "Preemptive Defense"
+            },
+            destiny: {
+                title: "Destiny Belief System",
+                mechanism: "Assumption that compatibility is fixed and predetermined.",
+                rationale: "Believes relationships are either meant-to-be or worthless. If friction occurs, they conclude the bond is flawed and see zero utility in wasting communicative effort on a non-destined ending.",
+                tag: "+63.4% Acceptance"
+            },
+            darktriad: {
+                title: "Dark Triad Personality Traits",
+                mechanism: "Machiavellianism, Narcissism, and Lack of Empathy.",
+                rationale: "Views social connections through a purely transactional lens. Discards partners efficiently without assuming emotional accountability or feeling psychic weight.",
+                tag: "Low Effort Discard"
+            },
+            prosocial: {
+                title: "Prosocial Avoidance",
+                mechanism: "High conflict aversion and fear of inflicting direct pain.",
+                rationale: "Lacks emotional vocabulary for direct rejection. Erroneously assumes that fading away silently causes less pain than the harsh confrontation of direct rejection.",
+                tag: "Misguided Altruism"
+            },
+            safety: {
+                title: "Safety & Survival Boundary",
+                mechanism: "Threat detection regarding abusive or volatile behavior.",
+                rationale: "Ghosting is deployed as a strict, non-negotiable boundary when there is reasonable fear of physical harm, stalking, or psychological abuse. Adaptive and protective.",
+                tag: "Adaptive Boundary"
+            }
+        };
+
+        function selectProfile(key) {
+            const data = profileData[key];
+            const box = document.getElementById('profile-detail-box');
+            
+            // Highlight button
+            document.querySelectorAll('.profile-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-900', 'text-white');
+                btn.classList.add('bg-sand-100', 'text-slate-700');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            const selectedBtn = document.getElementById(`btn-${key}`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-sand-100', 'text-slate-700');
+                selectedBtn.classList.add('bg-slate-900', 'text-white');
+                selectedBtn.setAttribute('aria-pressed', 'true');
+            }
+
+            box.innerHTML = `
+                <div class="flex items-center justify-between border-b border-sand-200 pb-2">
+                    <h4 class="font-bold text-slate-900 text-sm">${data.title}</h4>
+                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-[10px] font-bold">${data.tag}</span>
+                </div>
+                <div class="text-xs space-y-1.5 pt-1">
+                    <p><strong class="text-slate-900">Core Mechanism:</strong> ${data.mechanism}</p>
+                    <p class="text-slate-600 leading-relaxed"><strong class="text-slate-900">Behavioral Rationale:</strong> ${data.rationale}</p>
+                </div>
+            `;
+        }
+
+        // --- 4. Williams' Temporal Need-Threat Model Stepper ---
+        const stageData = {
+            1: {
+                title: "Stage 1: The Reflexive Stage (Neurological Shock)",
+                description: "Immediate visceral reaction upon realizing sudden contact cessation. Bypasses higher-order cognitive appraisal.",
+                neurology: "Activation of the dorsal anterior cingulate cortex (dACC)—the same brain region that registers severe physical bodily trauma.",
+                symptoms: ["Severe visceral panic", "Immediate drop in sociometer (self-worth)", "Simultaneous compromise of Belongingness, Self-Esteem, Control, and Meaningful Existence"],
+                color: "bg-rose-600"
+            },
+            2: {
+                title: "Stage 2: The Reflective Stage (Attributional Search)",
+                description: "The target's brain attempts to make sense of the void, searching frantic memory logs to regain control and certainty.",
+                neurology: "Hyper-arousal of working memory and active cognitive loops (Zeigarnik Effect). High baseline cortisol.",
+                symptoms: ["Obsessive re-reading of past text messages", "Compulsive social media monitoring", "Severe rumination, clinical anxiety, and intrusive self-blame"],
+                color: "bg-amber-600"
+            },
+            3: {
+                title: "Stage 3: The Resignation Stage (Depletion)",
+                description: "Occurs when ambiguity persists long-term and internal closure cannot be generated, depleting coping bandwidth.",
+                neurology: "Chronic psychological exhaustion, un-severed open loops solidifying into depressive schemas.",
+                symptoms: ["Learned helplessness", "Profound alienation and social withdrawal", "Global belief of unlovability and severe depressive symptoms"],
+                color: "bg-slate-800"
+            }
+        };
+
+        function switchStage(stageNum) {
+            const data = stageData[stageNum];
+            const box = document.getElementById('stage-display');
+
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`stage-btn-${i}`);
+                const isActive = i === stageNum;
+                if (isActive) {
+                    btn.className = `px-3 py-2 rounded-lg text-white shadow-sm font-bold text-xs ${data.color}`;
+                } else {
+                    btn.className = "px-3 py-2 rounded-lg bg-sand-100 text-slate-700 hover:bg-sand-200 font-bold text-xs";
+                }
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                btn.setAttribute('tabindex', isActive ? '0' : '-1');
+            }
+
+            box.innerHTML = `
+                <div class="space-y-3 pt-2">
+                    <h4 class="font-bold text-slate-900 text-base">${data.title}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">${data.description}</p>
+                    <div class="bg-sand-50 p-3 rounded-xl border border-sand-200 text-xs space-y-1">
+                        <strong class="text-slate-900 block">Neurological Correlate:</strong>
+                        <span class="text-slate-700">${data.neurology}</span>
+                    </div>
+                    <div class="space-y-1">
+                        <strong class="text-slate-900 text-xs">Primary Clinical Manifestations:</strong>
+                        <ul class="list-disc list-inside text-xs text-slate-600 space-y-1">
+                            ${data.symptoms.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- 5. Behavioral Data Reframing Utility ---
+        const reframeMap = {
+            option1: {
+                original: "Why didn't they text back? Did I say something wrong?",
+                diagnosis: "Attributional Self-Blame Loop",
+                empiricalFact: "Ghosting is rarely caused by a single text message. It is driven by the initiator's avoidant attachment style and inability to handle emotional confrontation.",
+                reframeText: "Their silence is not a response to my words; it is a demonstration of their psychological ceiling."
+            },
+            option2: {
+                original: "If I just get a final conversation, I'll get closure.",
+                diagnosis: "The External Closure Illusion",
+                empiricalFact: "Studies in the Journal of Experimental Psychology show explicit rejection explanations do NOT reduce social pain. Forced conversations often lead to gaslighting or ego-deflection.",
+                reframeText: "I don't need an explanation from someone whose actions proved they lack the bandwidth to provide an honest, empathetic one."
+            },
+            option3: {
+                original: "Maybe they're just going through a hard time right now.",
+                diagnosis: "Perpetrator Defense Case Construction",
+                empiricalFact: "While life complications happen, someone who values the relationship communicates a boundary. Silence is a choice to prioritize personal comfort over mutual respect.",
+                reframeText: "Someone who wanted to be in my life would communicate. Their silence is the clearest behavioral metric available."
+            },
+            option4: {
+                original: "Were all those shared moments a complete lie?",
+                diagnosis: "Binary Retrospective Distortion",
+                empiricalFact: "Moments can be genuine in the present while still ending due to the initiator's long-term conflict intolerance and Destiny Beliefs.",
+                reframeText: "The connection may have been real then, but their departure reveals their permanent limit now."
+            },
+            option5: {
+                original: "I was easily discarded, so I must lack intrinsic value.",
+                diagnosis: "Sociometer Drop & Comparative Rejection",
+                empiricalFact: "Ghosting reflects the initiator's low accountability and transactional view of relationships—not your intrinsic human worth.",
+                reframeText: "This is not about my worth; this is about their ceiling."
+            }
+        };
+
+        function processReframe() {
+            const val = document.getElementById('rumination-select').value;
+            const item = reframeMap[val];
+            const outputBox = document.getElementById('reframe-output');
+
+            outputBox.innerHTML = `
+                <div class="space-y-3">
+                    <div>
+                        <span class="text-[11px] text-amber-400 font-semibold uppercase">Cognitive Distortion:</span>
+                        <p class="text-sm font-medium text-slate-200 italic">"${item.original}"</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700 text-xs space-y-1.5">
+                        <span class="text-rose-400 font-bold block">Empirical Finding: ${item.diagnosis}</span>
+                        <p class="text-slate-300 leading-relaxed">${item.empiricalFact}</p>
+                    </div>
+                    <div class="bg-amber-500/20 border border-amber-500/40 p-3.5 rounded-xl text-xs space-y-1">
+                        <span class="text-amber-300 font-bold block">Internal Closure Shift:</span>
+                        <p class="text-sand-50 font-serif text-sm font-bold">"${item.reframeText}"</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- 6. Institutional Directory Search & Filter ---
+        function filterDirectory() {
+            const query = document.getElementById('directory-search').value.toLowerCase();
+            const typeFilter = document.getElementById('directory-type').value;
+            const cards = document.querySelectorAll('.directory-card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const matchesSearch = text.includes(query);
+                const matchesType = (typeFilter === 'all') || card.classList.contains(typeFilter);
+
+                if (matchesSearch && matchesType) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 7. Keyboard support for the stage tablist ---
+        const stageTablist = document.querySelector('[role="tablist"]');
+        if (stageTablist) {
+            stageTablist.addEventListener('keydown', (event) => {
+                const tabs = Array.from(stageTablist.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+
+                let nextIndex = null;
+                if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % tabs.length;
+                else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = tabs.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                const nextTab = tabs[nextIndex];
+                nextTab.focus();
+                switchStage(Number(nextTab.id.replace('stage-btn-', '')));
+            });
+        }
+
+        // --- 8. Chart.js Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize default state views
+            selectProfile('avoidant');
+            switchStage(1);
+            processReframe();
+
+            // Chart 1: Destiny vs Growth Beliefs Grouped Bar Chart
+            const ctx1 = document.getElementById('destinyGrowthChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Ghosting Acceptable', '(Long-Term)'],
+                        ['Has Previously', 'Ghosted Partner'],
+                        ['Been Ghosted', 'By Partner'],
+                        ['Holds Negative', 'View of Ghosting']
+                    ],
+                    datasets: [
+                        {
+                            label: 'Destiny Beliefs (Fixed Compatibility)',
+                            data: [63.4, 37.2, 35.7, 12.0],
+                            backgroundColor: 'rgba(217, 119, 6, 0.85)',
+                            borderColor: 'rgba(217, 119, 6, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Growth Beliefs (Malleable Effort)',
+                            data: [-38.4, -15.0, -10.2, 35.4],
+                            backgroundColor: 'rgba(15, 118, 110, 0.85)',
+                            borderColor: 'rgba(15, 118, 110, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let value = context.raw;
+                                    return `${context.dataset.label}: ${value > 0 ? '+' : ''}${value}% likelihood shift`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: '#E2D5C1' },
+                            ticks: {
+                                font: { size: 10 },
+                                callback: function(value) { return value + '%'; }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Likelihood Shift vs Baseline (%)',
+                                font: { size: 11, weight: 'bold' }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: 5 Fundamental Needs Threat Radar/Bar Chart
+            const ctx2 = document.getElementById('needsThreatChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Belongingness',
+                        'Self-Esteem',
+                        'Control',
+                        'Meaningful Existence',
+                        'Epistemic Certainty'
+                    ],
+                    datasets: [{
+                        label: 'Depletion / Threat Level (Scale 0 - 100)',
+                        data: [92, 88, 95, 84, 90],
+                        backgroundColor: [
+                            'rgba(225, 29, 72, 0.8)',
+                            'rgba(217, 119, 6, 0.8)',
+                            'rgba(79, 70, 229, 0.8)',
+                            'rgba(15, 118, 110, 0.8)',
+                            'rgba(14, 116, 144, 0.8)'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Threat Severity: ${context.raw}/100`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            max: 100,
+                            grid: { color: '#E2D5C1' },
+                            ticks: { font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11, weight: 'bold' } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

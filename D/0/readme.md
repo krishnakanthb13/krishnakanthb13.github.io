@@ -139,6 +139,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Ghosting](./ghosting/)
+**The Psychology of Ghosting** — why unilateral silence is not an absence of information but the data itself. Frames ghosting as relational ostracism and ambiguous loss, then traces the target's pain through Williams' Temporal Need-Threat Model, dACC activation, sociometer theory and the Zeigarnik open loop. Synthesizes attachment styles, destiny versus growth beliefs, Dark Triad research, the myth of external closure, and clinical pathways from narrative therapy to Chennai crisis infrastructure.
+
+- 📝 [The Full Report](./ghosting/readme.md) — the long-form essay with 47 cited sources. (`readme.md`)
+- 👻 [Interactive Infographic](./ghosting/index.html) — the warm sand & deep-slate interactive page: relational severance matrix, destiny-versus-growth belief chart, initiator motivations inspector, Temporal Need-Threat stage stepper, needs-depletion chart, behavioral-data reframing engine, and a filterable Chennai clinical/crisis directory. (`index.html`)
+
+---
+
 ### 📁 [Growth & Comparison Joy](./growth_comparison_joy/)
 **The Architecture of Evaluation** — why comparison itself isn't the thief of joy—the ruler is. This analysis explores Social Comparison Theory, Temporal Self-Appraisal Theory, Achievement Goal Frameworks, and Self-Determination Theory, showing how to shift from norm-referenced verdicts to ipsative and criterion-referenced growth metrics for sustainable motivation.
 

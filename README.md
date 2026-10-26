@@ -23,6 +23,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
 		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
+		- [Ghosting](https://krishnakanthb13.github.io/D/0/ghosting/) — Silence as Behavioral Data
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Identity Habit Formation](https://krishnakanthb13.github.io/D/0/identity_habit_formation/) — The Architecture of Self-Transformation
@@ -214,6 +215,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
+	- [Ghosting](https://krishnakanthb13.github.io/D/0/ghosting/): The Psychology of Ghosting — why unilateral silence is behavioral data rather than missing information; ambiguous loss, relational ostracism, the Temporal Need-Threat Model, and the Zeigarnik open loop.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/ghosting/): Relational severance matrix, destiny-versus-growth belief chart, initiator motivations inspector, need-threat stepper, needs-depletion chart, cognitive reframing engine & Chennai support directory.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/ghosting/readme.md): Long-form research essay with 47 cited sources.
 	- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): The Architecture of Evaluation — why comparison isn't the thief of joy, the ruler is.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): Etymology chart, SAM simulator, paradigm switcher, 2x2 motivation matrix, CBT reframing engine.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/readme.md): Long-form research essay with 96 cited sources.
