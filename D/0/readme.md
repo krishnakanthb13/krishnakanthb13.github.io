@@ -91,6 +91,15 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Calves as Second Heart](./calves_as_second_heart/)
+**The Peripheral Heart** — why the calf is not merely a venous pump but the body's fastest emotional sentinel. Traces the triceps surae through soleal sinuses, bicuspid valves and the Frank-Starling mechanism, then through alpha motor neurons, the muscle-pump baroreflex, H-reflex suppression, Reichian armoring, the BL-57 acupoint and soleus NMES. Argues that circulatory and cognitive health are tethered to the lower limbs, with a companion module on "cold feet": vasoconstriction, tonic freeze, vasovagal faint risk, injury triage and grounding.
+
+- 📝 [The Full Report](./calves_as_second_heart/readme.md) — the long-form essay with 101 cited sources. (`readme.md`)
+- 🦵 [Interactive Infographic](./calves_as_second_heart/index.html) — the complete warm neuro-somatic interactive page: dual-paradigm dashboard, veno-muscular pump simulator with AVP/ejection chart, startle-latency race, nerve-conduction chart, H-reflex threat slider, bioenergetics/TCM sub-tabs, NMES cognitive-rescue lab, and a Stroop executive-function test. (`index.html`)
+- ❄️ [Cold Feet: Freeze, Anxiety & Acute Leg Rescue](./calves_as_second_heart/cold_feet.html) — the companion arctic-palette interactive page: anticipatory-stress vasoconstriction simulator, vasovagal faint-risk gauge, acute calf strain/ankle sprain/panic-lock/cramp triage matrix, cryotherapy science, and a pre-step somatic grounding suite. (`cold_feet.html`)
+
+---
+
 ### 📁 [Confidence & Competence](./confidence_n_competence/)
 **The Metacognitive Paradox** — why the least skilled are so often the most certain, and why the viral "Mount Stupid" curve is internet folklore rather than psychometric data. Weighs Kruger & Dunning's 1999 dual-burden hypothesis against the statistical backlash (autocorrelation, regression to the mean, task-difficulty reversal, homoscedasticity), then traces the effect across WEIRD vs. East Asian self-enhancement and its cognitive mirror, Impostor Syndrome.
 

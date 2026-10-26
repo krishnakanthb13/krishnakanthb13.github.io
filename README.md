@@ -16,8 +16,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
 		- [Aimlessness & Goals](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/) — The Psychology of Aimlessness and Goal-Directed Behavior
-		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) — The Architecture of the Spiral
-		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) — The Metacognitive Paradox
+		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) - The Architecture of the Spiral
+		- [Calves as Second Heart](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/) - The Neurocardiology of the Calf
+		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) - The Metacognitive Paradox
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
@@ -197,7 +198,11 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): The Architecture of the Spiral — why systemic collapse rarely stems from a flawed premise; a bubble is a good idea that outgrows its own evidence.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): Five-phase spiral stepper, Deneubourg bifurcation model, information-cascade simulator, asymmetric pheromone-decay chart, cross-domain matrix, diagnostic wizard & friction-control lab.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/bubble_n_idea/readme.md): Long-form research essay with 41 cited sources.
-	- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): The Metacognitive Paradox — why the least skilled are the most certain, and why the viral "Mount Stupid" curve is folklore rather than psychometric data.
+	- [Calves as Second Heart](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/): The Peripheral Heart - why the calf is both a veno-muscular pump and the body's fastest emotional sentinel.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/): Veno-muscular pump simulator, startle-latency race, nerve-conduction chart, H-reflex threat slider, bioenergetics/TCM sub-tabs, NMES cognitive-rescue lab & Stroop test.
+		- [Cold Feet: Freeze, Anxiety & Acute Leg Rescue](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/cold_feet.html): Anticipatory-stress vasoconstriction simulator, vasovagal faint-risk gauge, injury triage matrix, cryotherapy protocol & somatic grounding suite.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/readme.md): Long-form research essay with 101 cited sources.
+	- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): The Metacognitive Paradox - why the least skilled are the most certain, and why the viral "Mount Stupid" curve is folklore rather than psychometric data.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): Meme-vs-1999 curve toggle, quartile bar chart, random-noise autocorrelation simulator, Dunning-Kruger vs. Impostor spectrum slider, domain-hazard tabs & syllogism calibration test.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/confidence_n_competence/readme.md): Long-form research essay with 60 cited sources.
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.

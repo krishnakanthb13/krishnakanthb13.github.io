@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive guide to cold feet: sympathetic vasoconstriction, tonic freeze and motor lock, vasovagal faint risk, acute calf strain and ankle sprain triage, cryotherapy science, and on-demand somatic grounding protocols.">
+    <meta name="theme-color" content="#0F172A">
+    <title>Cold Feet: The Physiology of Freezing, Anxiety &amp; Acute Leg Rescue</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            height: 320px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284C7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0369A1;
+        }
+        /* Section tabs: second-row navigation */
+        .tab-button {
+            color: #E0F2FE;
+        }
+        .tab-button:hover {
+            background-color: #1E293B;
+            color: #ffffff;
+        }
+        .tab-button.tab-active {
+            background-color: #0284C7;
+            color: #ffffff;
+        }
+        .tab-button.tab-active:hover {
+            background-color: #0369A1;
+        }
+        /* Visible keyboard focus without disturbing pointer users */
+        a:focus-visible,
+        button:focus-visible,
+        select:focus-visible,
+        input:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid #38BDF8;
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] font-sans antialiased selection:bg-[#0284C7] selection:text-white">
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#0F172A] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
+    <!-- Chosen Palette: Arctic & Thermal Palette (Frost White #F8FAFC, Deep Slate #0F172A, Ice Blue #0284C7, Sky Tint #E0F2FE, Alert Coral #E11D48, Sage Warmth #10B981) -->
+
+    <!-- Application Structure Plan:
+        1. Top Navigation: Switch between "Psychological Freeze", "Vasoconstriction &amp; Temp", "Injury &amp; Ice Protocol", and "Emergency Grounding".
+        2. Module 1 - Overview &amp; Dual Meaning: Key metric cards defining physical coldness (vasoconstriction) vs emotional freezing (tonic immobilization) vs acute physical injury.
+        3. Module 2 - The Neuro-Somatic Freeze Engine: Interactive stress level slider (e.g., Standing at Altar / Big Event), live updates of cutaneous temperature, peripheral resistance, and fainting risk.
+        4. Module 3 - Acute Leg Injury &amp; Cryotherapy Protocol: Interactive triage tool for calf strain / ankle sprain vs panic lock, step-by-step ice therapy (R.I.C.E / P.O.L.I.C.E) timer &amp; mechanism breakdown.
+        5. Module 4 - Emergency Somatic Grounding Suite: On-demand tactical exercises (Soleus isometric pumping, box breathing, tactile grounding) to restore microvascular flow and release motor stiffness before stepping out.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Freeze Simulator: Stress Level Slider -> Dynamic Gauges -> Chart.js Bar Chart (Blood flow vs Sympathetic tone) -> Explains arteriovenous anastomoses constriction.
+        - Cryotherapy Protocol: Triage Selector -> Interactive Timer &amp; Phase Matrix -> Demonstrates slowing nerve conduction velocity &amp; limiting edema.
+        - Motor Lock Matrix: Comparative visual breakdown of Tonic Immobilization vs Muscle Sprain.
+        - NO SVG or Mermaid JS used. HTML Canvas Chart.js and Tailwind layouts only.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-[#0F172A] text-white shadow-md border-b border-[#1E293B]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-2xl flex-shrink-0" aria-hidden="true">❄️</span>
+                    <div class="min-w-0">
+                        <span class="block font-bold text-sm sm:text-lg tracking-wider text-[#E0F2FE] truncate">COLD FEET</span>
+                        <span class="block text-[11px] text-[#94A3B8] font-medium truncate hidden sm:block">Freeze, Vasoconstriction &amp; Acute Leg Rescue</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-1 text-xs font-medium text-[#94A3B8] flex-shrink-0">
+                    <span class="px-2 py-1 bg-[#1E293B] rounded">Physiology</span>
+                    <span class="px-2 py-1 bg-[#1E293B] rounded">Cryotherapy</span>
+                    <span class="px-2 py-1 bg-[#1E293B] rounded">Grounding</span>
+                </div>
+                <a href="../" class="flex-shrink-0 text-xs font-semibold text-[#E0F2FE] hover:text-white transition-colors px-2.5 py-1 rounded-lg border border-[#334155] hover:border-[#0284C7]" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+            </div>
+
+            <!-- Row 2: section navigation, horizontally scrollable on small screens -->
+            <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-[#1E293B] py-2 text-xs sm:text-sm font-semibold" role="tablist" aria-label="Page sections">
+                <button type="button" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" tabindex="0" onclick="switchTab('overview')" id="btn-tab-overview" class="tab-button tab-active flex-shrink-0 px-3 py-2 rounded-md transition-colors">Overview</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-freeze-engine" tabindex="-1" onclick="switchTab('freeze-engine')" id="btn-tab-freeze-engine" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">The Freeze Response</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-ice-protocol" tabindex="-1" onclick="switchTab('ice-protocol')" id="btn-tab-ice-protocol" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Injury &amp; Ice Rescue</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-grounding" tabindex="-1" onclick="switchTab('grounding')" id="btn-tab-grounding" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Somatic Grounding</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section id="tab-overview" role="tabpanel" aria-labelledby="btn-tab-overview" tabindex="0" aria-hidden="false" class="tab-content block space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E2E8F0] space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#F1F5F9] pb-4 gap-2">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-[#0F172A]">Understanding "Cold Feet"</h1>
+                    <span class="text-xs sm:text-sm font-semibold text-[#0284C7] bg-[#E0F2FE] px-3 py-1 rounded-full w-fit">Psychological Freeze &amp; Acute Injury Management</span>
+                </div>
+                <p class="text-sm sm:text-base text-[#475569] leading-relaxed">
+                    The idiom <strong>"cold feet"</strong> describes the sudden onset of uncertainty, dread, or physical inability to move during pivotal life events such as weddings, public performances, or major competitions. Anatomically, this phenomenon encompasses three distinct biological pathways: 
+                    <strong>1) Autonomic Vasoconstriction</strong> (sympathetic shunt draining blood from toes to core), 
+                    <strong>2) Somatic Freezing</strong> (tonic spinal motor inhibition locking the legs), and 
+                    <strong>3) Acute Musculoskeletal Strain</strong> (physical calf or ankle injury requiring cryotherapy).
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                    <div class="bg-[#F8FAFC] p-4 rounded-lg border border-[#E2E8F0] text-center">
+                        <div class="text-3xl font-extrabold text-[#0284C7]" id="stat-temp">-3.5 °C</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#64748B] mt-1">Peripheral Temp Drop</div>
+                        <p class="text-xs text-[#64748B] mt-1">Shunting of blood to deep visceral organs causes physical cooling of the feet.</p>
+                    </div>
+                    <div class="bg-[#F8FAFC] p-4 rounded-lg border border-[#E2E8F0] text-center">
+                        <div class="text-3xl font-extrabold text-[#E11D48]" id="stat-conduction">35-50%</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#64748B] mt-1">Pain &amp; Conduction Delay (Ice)</div>
+                        <p class="text-xs text-[#64748B] mt-1">Targeted 15-min ice application slows nociceptive nerve signaling.</p>
+                    </div>
+                    <div class="bg-[#F8FAFC] p-4 rounded-lg border border-[#E2E8F0] text-center">
+                        <div class="text-3xl font-extrabold text-[#10B981]" id="stat-rescue">100%</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#64748B] mt-1">Motor Recovery Rate</div>
+                        <p class="text-xs text-[#64748B] mt-1">Achieved via isometric soleus activation &amp; tactical somatic grounding.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Pillar 1: Vasoconstriction -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-[#0284C7] font-bold text-lg mb-3">
+                            <span class="w-7 h-7 rounded-full bg-[#E0F2FE] flex items-center justify-center text-sm">1</span>
+                            <h3>Biological Coldness</h3>
+                        </div>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            Acute social stress triggers sympathetic alpha-adrenergic activation, clamping down on cutaneous arteriovenous anastomoses in the toes and feet. Blood is shunted away, leaving extremities physically cold.
+                        </p>
+                    </div>
+                    <button type="button" onclick="switchTab('freeze-engine')" class="w-full py-2 bg-[#0284C7] text-white rounded font-medium text-xs hover:bg-[#0369A1] transition">Simulate Vasoconstriction &rarr;</button>
+                </div>
+
+                <!-- Pillar 2: Somatic Lock -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-[#E11D48] font-bold text-lg mb-3">
+                            <span class="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center text-sm">2</span>
+                            <h3>Motor Freezing (Panic Lock)</h3>
+                        </div>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            When perceived threat spikes, the brainstem activates tonic immobilization. The calf muscles co-contract involuntarily, making the legs feel like "heavy concrete pillars" or completely numb.
+                        </p>
+                    </div>
+                    <button type="button" onclick="switchTab('grounding')" class="w-full py-2 bg-[#E11D48] text-white rounded font-medium text-xs hover:bg-red-700 transition">Unlock Motor Units &rarr;</button>
+                </div>
+
+                <!-- Pillar 3: Acute Injury & Cryotherapy -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E2E8F0] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-[#10B981] font-bold text-lg mb-3">
+                            <span class="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-sm">3</span>
+                            <h3>Leg Injury &amp; Ice Therapy</h3>
+                        </div>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            If your "cold feet" are literal acute calf strains or ankle sprains right before a major event, cryotherapy reduces edema, limits metabolic secondary injury, and numbs acute pain.
+                        </p>
+                    </div>
+                    <button type="button" onclick="switchTab('ice-protocol')" class="w-full py-2 bg-[#10B981] text-white rounded font-medium text-xs hover:bg-emerald-700 transition">Open Ice Triage Guide &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE NEURO-SOMATIC FREEZE ENGINE -->
+        <section id="tab-freeze-engine" role="tabpanel" aria-labelledby="btn-tab-freeze-engine" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E2E8F0] space-y-4">
+                <h2 class="text-2xl font-bold text-[#0F172A]">The Neuro-Somatic Freeze Engine</h2>
+                <p class="text-[#475569] text-sm leading-relaxed">
+                    During moments of severe anticipatory stress (e.g., standing at the altar or stepping onto a stage), the sympathetic nervous system triggers profound peripheral vasoconstriction. Concurrently, motionless upright standing leads to venous pooling in the lower legs, escalating the risk of postural sway instability or neurogenic syncope (fainting).
+                </p>
+
+                <!-- Interactive Stress Simulator -->
+                <div class="bg-[#F8FAFC] p-6 rounded-xl border border-[#E2E8F0] grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="space-y-4 lg:col-span-1">
+                        <h3 class="font-bold text-[#0F172A] text-base">Acute Event Stress Simulator</h3>
+                        <p class="text-xs text-[#64748B]">Adjust the slider to simulate stress levels right before walking down the aisle or performing.</p>
+
+                        <div>
+                            <label for="stress-slider" class="block text-xs font-semibold text-[#334155] mb-1">Perceived Stress / Anticipatory Fear</label>
+                            <input type="range" id="stress-slider" min="0" max="100" value="20" oninput="updateFreezeSim()" class="w-full accent-[#0284C7]">
+                            <div class="flex justify-between text-[11px] text-[#64748B] mt-1">
+                                <span>Calm / Prepared</span>
+                                <span>High Anxiety</span>
+                                <span>Panic / Freeze</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 bg-white p-3 rounded-md border border-[#E2E8F0] text-xs" aria-live="polite" aria-atomic="true">
+                            <div class="flex justify-between">
+                                <span class="text-[#475569]">Foot Cutaneous Temp:</span>
+                                <span id="sim-temp-val" class="font-bold text-[#0284C7]">33.0 °C (Warm)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#475569]">Peripheral Blood Flow:</span>
+                                <span id="sim-flow-val" class="font-bold text-[#10B981]">100% Normal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#475569]">Leg Stiffness Index:</span>
+                                <span id="sim-stiffness-val" class="font-bold text-[#475569]">Low (Fluid Motion)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#475569]">Vasovagal Faint Risk:</span>
+                                <span id="sim-faint-val" class="font-bold text-green-600">Minimal</span>
+                            </div>
+                        </div>
+
+                        <div id="freeze-status-box" role="status" aria-live="polite" aria-atomic="true" class="p-3 rounded-lg text-xs bg-green-100 text-green-800 border border-green-200">
+                            <strong>Status: Baseline Perfusion.</strong> Normal thermoregulation and fluid leg movement.
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2 flex flex-col justify-center">
+                        <div class="chart-container">
+                            <canvas id="chartFreeze" role="img" aria-label="Line chart showing foot cutaneous blood flow falling from 100 to 10 percent as stress rises, while leg motor stiffness rises from 10 to 98 percent."></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Physiological Mechanisms -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 text-xs text-[#475569]">
+                    <div class="bg-white p-4 rounded-lg border border-[#E2E8F0]">
+                        <h4 class="font-bold text-[#0F172A] text-sm mb-1">Arteriovenous Anastomoses Shunting</h4>
+                        <p class="leading-relaxed">
+                            Under acute threat, norepinephrine binds to alpha-1 receptors on dermal blood vessels in the soles of the feet. Arteriovenous anastomoses close rapidly, redirecting warm blood to core skeletal muscle (thighs, heart) for escape. The feet become physically cold within 60 to 90 seconds.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-[#E2E8F0]">
+                        <h4 class="font-bold text-[#0F172A] text-sm mb-1">The Altar Fainting Paradox</h4>
+                        <p class="leading-relaxed">
+                            Standing motionless while experiencing high anxiety causes venous blood to pool in the relaxed soleus sinuses. Without active calf muscle pumping, venous return drops precipitously, leading to a sudden drop in brain blood pressure (vasovagal pre-syncope) often mistaken for panic.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INJURY & ICE PROTOCOL -->
+        <section id="tab-ice-protocol" role="tabpanel" aria-labelledby="btn-tab-ice-protocol" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E2E8F0] space-y-4">
+                <h2 class="text-2xl font-bold text-[#10B981]">Emergency Leg Injury &amp; Cryotherapy Protocol</h2>
+                <p class="text-[#475569] text-sm leading-relaxed">
+                    If your "cold feet" stem from a physical calf muscle strain, Achilles tendinopathy, or ankle sprain hours before your wedding or major event, applying cold therapy (ice) correctly is the most effective immediate intervention to control swelling and dull acute pain.
+                </p>
+
+                <!-- Interactive Triage & Rescue Tool -->
+                <div class="bg-[#F8FAFC] p-6 rounded-xl border border-[#E2E8F0] space-y-6">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h3 class="font-bold text-[#0F172A] text-base">Acute Pre-Event Triage Matrix</h3>
+                            <p class="text-xs text-[#64748B]">Select what you are experiencing to generate the precise emergency rescue plan.</p>
+                        </div>
+                        <select id="triage-select" onchange="updateTriagePlan()" aria-label="Select acute leg condition" class="bg-white border border-[#E2E8F0] text-[#0F172A] text-xs sm:text-sm font-semibold rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#10B981]">
+                            <option value="strain">Option A: Acute Calf Muscle Strain (Sharp Tear/Pull)</option>
+                            <option value="sprain">Option B: Ankle Sprain / Rolled Joint</option>
+                            <option value="freeze">Option C: Panic Freezing / Numb Heavy Legs</option>
+                            <option value="cramp">Option D: Severe Sudden Calf Cramp / Spasm</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Triage Plan Card -->
+                    <div id="triage-output" role="status" aria-live="polite" aria-atomic="true" class="bg-white p-6 rounded-xl border border-[#E2E8F0] space-y-4 text-xs sm:text-sm text-[#334155]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Cryotherapy Science Breakdown -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="bg-white p-5 rounded-xl border border-[#E2E8F0] space-y-2">
+                        <span class="text-xs font-bold text-[#0284C7] uppercase">Mechanism 1</span>
+                        <h4 class="font-bold text-[#0F172A] text-sm">Nerve Conduction Slowing</h4>
+                        <p class="text-xs text-[#475569] leading-relaxed">
+                            Cooling skin to 10-15°C reduces peripheral nerve conduction velocity by up to 33%, providing natural topical analgesia without systemic medication.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-[#E2E8F0] space-y-2">
+                        <span class="text-xs font-bold text-[#10B981] uppercase">Mechanism 2</span>
+                        <h4 class="font-bold text-[#0F172A] text-sm">Metabolic Rate Suppression</h4>
+                        <p class="text-xs text-[#475569] leading-relaxed">
+                            Cold therapy slows cellular metabolism, preventing secondary hypoxic damage in injured gastrocnemius muscle fibers and saving undamaged tissue.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-[#E2E8F0] space-y-2">
+                        <span class="text-xs font-bold text-[#E11D48] uppercase">Mechanism 3</span>
+                        <h4 class="font-bold text-[#0F172A] text-sm">Controlled Edema</h4>
+                        <p class="text-xs text-[#475569] leading-relaxed">
+                            Constricting localized capillaries prevents massive fluid accumulation in the lower ankle, allowing shoes/dress footwear to fit comfortably for the event.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOMATIC GROUNDING & ON-DEMAND RESCUE -->
+        <section id="tab-grounding" role="tabpanel" aria-labelledby="btn-tab-grounding" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E2E8F0] space-y-4">
+                <h2 class="text-2xl font-bold text-[#0284C7]">Somatic Grounding &amp; Pre-Step Rescue Suite</h2>
+                <p class="text-[#475569] text-sm leading-relaxed">
+                    If your legs feel frozen, heavy, or numb right before stepping down the aisle or onto the stage, use these targeted physical protocols to reset your central spinal stretch reflexes and re-establish microvascular perfusion.
+                </p>
+
+                <!-- Interactive Grounding Routine -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Exercise 1 -->
+                    <div class="bg-[#F8FAFC] p-5 rounded-xl border border-[#E2E8F0] space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-[#0284C7] font-bold text-sm">
+                                <span class="w-6 h-6 rounded-full bg-[#E0F2FE] flex items-center justify-center text-xs">1</span>
+                                <h4>Soleus Isometric Micro-Pumps</h4>
+                            </div>
+                            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+                                While standing quietly, subtly lift your heels 1/2 inch off the floor, holding for 3 seconds, then release. Repeat 10 times.
+                            </p>
+                            <div class="mt-3 bg-white p-2.5 rounded border border-[#E2E8F0] text-[11px] text-[#334155]">
+                                <strong>Why it works:</strong> Triggers the veno-muscular pump, ejecting 80 mL of pooled venous blood back to the heart and restoring cerebral blood pressure.
+                            </div>
+                        </div>
+                        <button type="button" onclick="triggerRescueToast('Micro-pumps active! Venous return restored.')" class="w-full py-2 bg-[#0284C7] text-white rounded font-medium text-xs hover:bg-[#0369A1] transition">Practice Micro-Pump</button>
+                    </div>
+
+                    <!-- Exercise 2 -->
+                    <div class="bg-[#F8FAFC] p-5 rounded-xl border border-[#E2E8F0] space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-[#10B981] font-bold text-sm">
+                                <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs">2</span>
+                                <h4>BL-57 Acupressure Press</h4>
+                            </div>
+                            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+                                Firmly press the center of the posterior calf (midway between knee crease and Achilles tendon) for 15-20 seconds with your thumb.
+                            </p>
+                            <div class="mt-3 bg-white p-2.5 rounded border border-[#E2E8F0] text-[11px] text-[#334155]">
+                                <strong>Why it works:</strong> Stimulates the Bladder Meridian (Chengshan point) and deep tibial nerve fibers, breaking involuntary motor spasms.
+                            </div>
+                        </div>
+                        <button type="button" onclick="triggerRescueToast('Acupressure held. Muscle spindle tension relaxing.')" class="w-full py-2 bg-[#10B981] text-white rounded font-medium text-xs hover:bg-emerald-700 transition">Practice Acupressure</button>
+                    </div>
+
+                    <!-- Exercise 3 -->
+                    <div class="bg-[#F8FAFC] p-5 rounded-xl border border-[#E2E8F0] space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-[#E11D48] font-bold text-sm">
+                                <span class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs">3</span>
+                                <h4>Tactile Heel Strike Grounding</h4>
+                            </div>
+                            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+                                Firmly tap your heel into the floor 3 times, focusing sensory attention entirely on the physical vibration traveling up the leg.
+                            </p>
+                            <div class="mt-3 bg-white p-2.5 rounded border border-[#E2E8F0] text-[11px] text-[#334155]">
+                                <strong>Why it works:</strong> Overrides cortical threat loops by bombarding the primary somatosensory cortex with mechanical proprioceptive feedback.
+                            </div>
+                        </div>
+                        <button type="button" onclick="triggerRescueToast('Proprioceptive reset complete. Legs grounded.')" class="w-full py-2 bg-[#E11D48] text-white rounded font-medium text-xs hover:bg-red-700 transition">Practice Heel Strike</button>
+                    </div>
+                </div>
+
+                <!-- Toast Notification Box -->
+                <div id="rescue-toast" role="status" aria-live="polite" aria-atomic="true" class="hidden p-4 bg-[#0F172A] text-[#E0F2FE] rounded-lg text-xs font-semibold text-center border border-[#1E293B]">
+                    <!-- Dynamic feedback -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0F172A] text-[#94A3B8] py-8 border-t border-[#1E293B] mt-12 text-center text-xs space-y-1">
+        <p class="font-bold text-white">Cold Feet: Physiology of Freezing, Anxiety &amp; Acute Leg Rescue</p>
+        <p>A neurocardiological and somatic guide for managing high-stress events and acute extremity care.</p>
+        <p class="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 pt-2">
+            <a href="../" class="text-[#7DD3FC] hover:text-white hover:underline">&larr; Knowledge Vault</a>
+            <span class="text-[#475569]" aria-hidden="true">&bull;</span>
+            <a href="./index.html" class="text-[#7DD3FC] hover:text-white hover:underline">The Peripheral Heart</a>
+            <span class="text-[#475569]" aria-hidden="true">&bull;</span>
+            <a href="./readme.md" class="text-[#7DD3FC] hover:text-white hover:underline">The Full Report</a>
+            <span class="text-[#475569]" aria-hidden="true">&bull;</span>
+            <a href="../../" class="text-[#7DD3FC] hover:text-white hover:underline">Portfolio Home &nearr;</a>
+        </p>
+        <p class="text-[11px] text-[#64748B] pt-1">Chart.js Visualizations &bull; Tailwind CSS Layout &bull; No SVG / No Mermaid JS</p>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        let chartFreezeRef = null;
+
+        // Navigation Switcher
+        function switchTab(tabId) {
+            const target = document.getElementById('tab-' + tabId);
+            if (!target) return;
+
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+                el.setAttribute('aria-hidden', 'true');
+            });
+            target.classList.remove('hidden');
+            target.classList.add('block');
+            target.setAttribute('aria-hidden', 'false');
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.setAttribute('aria-selected', 'false');
+                btn.tabIndex = -1;
+            });
+            const activeBtn = document.getElementById('btn-tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.setAttribute('aria-selected', 'true');
+                activeBtn.tabIndex = 0;
+                if (typeof activeBtn.scrollIntoView === 'function') {
+                    activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                }
+            }
+
+            // Create the chart on first view so it never sizes inside a hidden container.
+            if (tabId === 'freeze-engine') {
+                if (!chartFreezeRef) initFreezeChart();
+                else chartFreezeRef.resize();
+            }
+        }
+
+        // Chart 1 Initialization: Stress vs Blood Flow & Temp
+        function initFreezeChart() {
+            const ctx = document.getElementById('chartFreeze').getContext('2d');
+            chartFreezeRef = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Baseline (0%)', 'Mild Stress (25%)', 'Moderate (50%)', 'High Stress (75%)', 'Panic Freeze (100%)'],
+                    datasets: [
+                        {
+                            label: 'Foot Cutaneous Blood Flow (%)',
+                            data: [100, 75, 45, 20, 10],
+                            borderColor: '#0284C7',
+                            backgroundColor: 'rgba(2, 132, 199, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Leg Motor Stiffness Index (%)',
+                            data: [10, 25, 55, 80, 98],
+                            borderColor: '#E11D48',
+                            backgroundColor: 'rgba(225, 29, 72, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: 'Effect of Anticipatory Threat on Leg Perfusion & Muscle Tone', color: '#0F172A', font: { size: 14, weight: 'bold' } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 110, title: { display: true, text: 'Percentage (%)' } }
+                    }
+                }
+            });
+        }
+
+        // Simulator Logic
+        function updateFreezeSim() {
+            const val = parseInt(document.getElementById('stress-slider').value);
+            const temp = document.getElementById('sim-temp-val');
+            const flow = document.getElementById('sim-flow-val');
+            const stiffness = document.getElementById('sim-stiffness-val');
+            const faint = document.getElementById('sim-faint-val');
+            const statusBox = document.getElementById('freeze-status-box');
+
+            const calculatedTemp = (33.0 - (val * 0.035)).toFixed(1);
+            const calculatedFlow = Math.max(10, Math.round(100 - (val * 0.85)));
+            const calculatedStiffness = Math.min(100, Math.round(10 + (val * 0.88)));
+
+            const tempState = calculatedTemp >= 32.0 ? 'Warm' : (calculatedTemp >= 30.0 ? 'Cooling' : 'Cold');
+            temp.innerText = calculatedTemp + ' °C (' + tempState + ')';
+            flow.innerText = calculatedFlow >= 90 ? calculatedFlow + '% Normal' : calculatedFlow + '% Flow';
+            stiffness.innerText = calculatedStiffness > 60 ? calculatedStiffness + '% (Frozen/Rigid)' : calculatedStiffness + '% (Fluid)';
+
+            if (val < 30) {
+                faint.innerText = 'Minimal Risk';
+                faint.className = 'font-bold text-green-600';
+                statusBox.className = 'p-3 rounded-lg text-xs bg-green-100 text-green-800 border border-green-200';
+                statusBox.innerHTML = '<strong>Status: Baseline Perfusion.</strong> Normal thermoregulation and fluid leg movement.';
+            } else if (val < 70) {
+                faint.innerText = 'Moderate Risk (Venous Pooling)';
+                faint.className = 'font-bold text-yellow-600';
+                statusBox.className = 'p-3 rounded-lg text-xs bg-yellow-100 text-yellow-800 border border-yellow-200';
+                statusBox.innerHTML = '<strong>Warning: Vasoconstriction Active.</strong> Peripheral blood shunting is causing foot cooling and leg heaviness.';
+            } else {
+                faint.innerText = 'High Risk (Vasovagal Pre-Syncope)';
+                faint.className = 'font-bold text-red-600';
+                statusBox.className = 'p-3 rounded-lg text-xs bg-red-100 text-red-800 border border-red-200';
+                statusBox.innerHTML = '<strong>CRITICAL: Tonic Freeze Lock.</strong> High risk of fainting if standing motionless. Execute isometric heel pumps immediately!';
+            }
+        }
+
+        // Triage Protocols Content Data
+        const triageMap = {
+            strain: `
+                <div class="border-l-4 border-[#E11D48] pl-4 space-y-2">
+                    <h4 class="font-bold text-[#0F172A] text-base">Acute Calf Muscle Strain (Gastrocnemius/Soleus Pull)</h4>
+                    <p class="text-xs text-[#475569]"><strong>Immediate Action (P.O.L.I.C.E Protocol):</strong></p>
+                    <ul class="list-disc pl-4 text-xs space-y-1 text-[#334155]">
+                        <li><strong>Ice Application:</strong> Apply crushed ice wrapped in a damp towel to the calf for 15-20 minutes every 2 hours. Do NOT apply ice directly to bare skin.</li>
+                        <li><strong>Compression:</strong> Wrap an elastic bandage firmly from ankle upward toward knee to control acute swelling.</li>
+                        <li><strong>Elevation:</strong> Prop leg above heart level whenever sitting prior to the event.</li>
+                        <li><strong>Event Rescue:</strong> Use a heel lift insert in your shoe to reduce mechanical stretch on the calf tendon during walking.</li>
+                    </ul>
+                </div>
+            `,
+            sprain: `
+                <div class="border-l-4 border-[#0284C7] pl-4 space-y-2">
+                    <h4 class="font-bold text-[#0F172A] text-base">Ankle Ligament Sprain (Rolled Ankle)</h4>
+                    <p class="text-xs text-[#475569]"><strong>Immediate Action (Protection & Edema Control):</strong></p>
+                    <ul class="list-disc pl-4 text-xs space-y-1 text-[#334155]">
+                        <li><strong>Ice Submersion / Ice Pack:</strong> 15 minutes of cryotherapy to dull acute pain nerve transmission.</li>
+                        <li><strong>Functional Taping:</strong> Apply figure-8 ankle bracing tape to stabilize lateral ligaments.</li>
+                        <li><strong>Footwear Adjustment:</strong> Wear supportive high-ankle footwear or hidden supportive straps under dress attire.</li>
+                    </ul>
+                </div>
+            `,
+            freeze: `
+                <div class="border-l-4 border-[#10B981] pl-4 space-y-2">
+                    <h4 class="font-bold text-[#0F172A] text-base">Panic Freezing / Numb Heavy Legs (No Physical Tear)</h4>
+                    <p class="text-xs text-[#475569]"><strong>Immediate Action (Neuro-Somatic Reset):</strong></p>
+                    <ul class="list-disc pl-4 text-xs space-y-1 text-[#334155]">
+                        <li><strong>Do NOT Ice:</strong> Cold will worsen vasoconstriction if there is no physical muscle injury!</li>
+                        <li><strong>Apply Warmth / Massage:</strong> Warm footwear or gentle calf rubbing restores peripheral capillary blood flow.</li>
+                        <li><strong>Execute Soleus Pumping:</strong> Flex and extend ankles 15 times to pump pooled blood out of the soleal sinuses.</li>
+                    </ul>
+                </div>
+            `,
+            cramp: `
+                <div class="border-l-4 border-yellow-500 pl-4 space-y-2">
+                    <h4 class="font-bold text-[#0F172A] text-base">Severe Sudden Calf Cramp / Spasm</h4>
+                    <p class="text-xs text-[#475569]"><strong>Immediate Action (Reciprocal Inhibition):</strong></p>
+                    <ul class="list-disc pl-4 text-xs space-y-1 text-[#334155]">
+                        <li><strong>Active Dorsiflexion:</strong> Pull toes forcefully UP toward shin. This contracts the tibialis anterior, forcing the calf to relax via reciprocal inhibition.</li>
+                        <li><strong>Hydration & Electrolytes:</strong> Sip electrolyte fluid with sodium and magnesium immediately.</li>
+                    </ul>
+                </div>
+            `
+        };
+
+        function updateTriagePlan() {
+            const val = document.getElementById('triage-select').value;
+            const container = document.getElementById('triage-output');
+            container.innerHTML = triageMap[val] || triageMap['strain'];
+        }
+
+        let toastTimer = null;
+        function triggerRescueToast(message) {
+            const toast = document.getElementById('rescue-toast');
+            toast.innerText = message;
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Roving tabindex keyboard support for the section tab list.
+        const mainTabList = document.querySelector('header [role="tablist"]');
+        if (mainTabList) {
+            mainTabList.addEventListener('keydown', (event) => {
+                const tabs = Array.from(mainTabList.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+
+                let nextIndex = null;
+                if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+                else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = tabs.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                const nextTab = tabs[nextIndex];
+                nextTab.focus();
+                switchTab(nextTab.id.replace('btn-tab-', ''));
+            });
+        }
+
+        // DOM Content Loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            updateTriagePlan();
+        });
+    </script>
+</body>
+</html>

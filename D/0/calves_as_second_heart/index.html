@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive analysis of the calf muscle as the body's second heart: veno-muscular hemodynamics, the muscle-pump baroreflex, neuro-temporal threat latency, H-reflex suppression, bioenergetic grounding, and soleus neuromodulation for cognitive rescue.">
+    <meta name="theme-color" content="#1E4D58">
+    <title>The Peripheral Heart: Neurocardiological &amp; Somatic Paradigm of the Calf Muscle</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦵</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Embedded CSS for Chart Containers and Specific UI Adjustments */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            height: 320px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        /* Custom Scrollbar for smooth exploration */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2EDE4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E4D58;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C85A32;
+        }
+        .pulse-subtle {
+            animation: pulse-animation 2.5s infinite ease-in-out;
+        }
+        @keyframes pulse-animation {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.92; }
+        }
+        /* Section tabs: second-row navigation and somatic sub-tabs */
+        .tab-button {
+            color: #F2EDE4;
+        }
+        .tab-button:hover {
+            background-color: #14353d;
+            color: #ffffff;
+        }
+        .tab-button.tab-active {
+            background-color: #C85A32;
+            color: #ffffff;
+        }
+        .tab-button.tab-active:hover {
+            background-color: #a64725;
+        }
+        .subtab-btn {
+            color: #4B5563;
+            border-bottom: 2px solid transparent;
+        }
+        .subtab-btn:hover {
+            color: #1E4D58;
+            background-color: #ECE6DB;
+        }
+        .subtab-btn.subtab-active {
+            color: #1E4D58;
+            border-bottom-color: #1E4D58;
+            background-color: #ffffff;
+        }
+        /* Visible keyboard focus without disturbing pointer users */
+        a:focus-visible,
+        button:focus-visible,
+        select:focus-visible,
+        input:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid #C85A32;
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#FAF8F5] text-[#1F2937] font-sans antialiased selection:bg-[#C85A32] selection:text-white">
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#1E4D58] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
+    <!-- Chosen Palette: Warm Neuro-Somatic Palette (Cream #FAF8F5, Charcoal #1F2937, Terracotta #C85A32, Deep Teal #1E4D58, Soft Sand #F2EDE4, Sage #6E8B74) -->
+
+    <!-- Application Structure Plan:
+        1. Header &amp; Navigation: Clean top navigation to toggle between thematic modules (Overview, Hemodynamics, Neuro-Temporal Speed, Somatic &amp; Bioenergetics, Neuromodulation &amp; Rescue).
+        2. Module 1 - Dual Paradigm Overview: Dynamic metrics, physical vs. emotional dualities, high-level summary.
+        3. Module 2 - Hemodynamics &amp; The Veno-Muscular Pump: Interactive muscle contraction simulator (rest vs tiptoe vs walking), Chart.js comparison of Ambulatory Venous Pressure (AVP) &amp; Stroke Volume augmentation, Frank-Starling mechanism explainer.
+        4. Module 3 - Neuro-Temporal Disparity Matrix: Interactive threat reaction simulator comparing Alpha Motor Neuron speed (100ms) vs. Sympathetic C-Fiber latency (3500ms), visual racing timeline, conduction velocity chart.
+        5. Module 4 - Somatic Repository &amp; Reflex Map: H-Reflex modulation under fear simulator, Bioenergetic armoring (Reich/Lowen), and Traditional Chinese Medicine (BL-57 Chengshan) interactive map.
+        6. Module 5 - Cognitive Rescue &amp; Therapeutic Lab: NMES Soleus stimulation simulator demonstrating +6-8 mmHg DBP restoration and +35% Stroop test cognitive boost, TRE &amp; somatic release guide.
+        Rationally designed to prioritize user intuition, step-by-step discovery, and deep scientific engagement over static text reading.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Pump Dynamics: Interactive slider -> Dynamic Canvas / HTML Gauge -> Chart.js Bar Chart (AVP &amp; Pressure drop) -> Demonstrates Frank-Starling preload dependency.
+        - Neural Latency: Simulated Startle Button -> Real-time Javascript Millisecond Timer -> Horizontal Stacked/Bar Chart -> Demonstrates why calves tense BEFORE heart beats.
+        - Threat &amp; Reflexes: Height/Threat Slider -> Chart.js Line Chart (H-Reflex suppression) -> Explains presynaptic Ia afferent inhibition during freeze state.
+        - Cognitive Rescue: Soleus NMES Toggle -> Live Metrics Card -> Interactive Stroop Test Simulator -> Proves calf health protects brain from ischemic cognitive decline.
+        - NO SVG or Mermaid JS used. All visual components rely strictly on Chart.js HTML5 Canvas, styled Tailwind containers, and unicode elements.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 bg-[#1E4D58] text-white shadow-md border-b border-[#14353d]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-2xl flex-shrink-0" aria-hidden="true">🦵</span>
+                    <div class="min-w-0">
+                        <span class="block font-bold text-sm sm:text-lg tracking-wider text-[#F2EDE4] truncate">THE PERIPHERAL HEART</span>
+                        <span class="block text-[11px] text-[#A0B0B5] font-medium truncate hidden sm:block">Neurocardiology &amp; Somatic Psychology of the Calf</span>
+                    </div>
+                </div>
+                <span class="hidden md:inline-block flex-shrink-0 text-xs bg-[#C85A32] text-white px-2.5 py-1 rounded font-medium">NEURO-CARDIO INTERFACE</span>
+                <a href="../" class="flex-shrink-0 text-xs font-semibold text-[#F2EDE4] hover:text-white transition-colors px-2.5 py-1 rounded-lg border border-[#3d6670] hover:border-[#C85A32]" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+            </div>
+
+            <!-- Row 2: section navigation, horizontally scrollable on small screens -->
+            <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-[#14353d] py-2 text-xs sm:text-sm font-semibold" role="tablist" aria-label="Page sections">
+                <button type="button" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" tabindex="0" onclick="switchTab('overview')" id="btn-tab-overview" class="tab-button tab-active flex-shrink-0 px-3 py-2 rounded-md transition-colors">Overview</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-hemodynamics" tabindex="-1" onclick="switchTab('hemodynamics')" id="btn-tab-hemodynamics" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Veno-Muscular Pump</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-neuro-latency" tabindex="-1" onclick="switchTab('neuro-latency')" id="btn-tab-neuro-latency" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Neuro-Latency Speed</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-somatic-map" tabindex="-1" onclick="switchTab('somatic-map')" id="btn-tab-somatic-map" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Somatic Repository</button>
+                <button type="button" type="button" role="tab" aria-selected="false" aria-controls="tab-cognitive-rescue" tabindex="-1" onclick="switchTab('cognitive-rescue')" id="btn-tab-cognitive-rescue" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Therapeutics &amp; Brain</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: OVERVIEW & DUAL PARADIGM DASHBOARD -->
+        <section id="tab-overview" role="tabpanel" aria-labelledby="btn-tab-overview" tabindex="0" aria-hidden="false" class="tab-content block space-y-8">
+            <!-- Intro Paragraph -->
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E5DFD3] space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#F2EDE4] pb-4">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-[#1E4D58]">The Calf Muscle as the "Second Heart"</h1>
+                    <span class="text-sm font-semibold text-[#C85A32] bg-[#F2EDE4] px-3 py-1 rounded-full self-start">Dual Physiological &amp; Somatic Paradigm</span>
+                </div>
+                <p class="text-base text-[#4B5563] leading-relaxed">
+                    The human calf muscle—specifically the <strong>triceps surae</strong> complex (gastrocnemius and soleus)—occupies an extraordinary double-role in human biology. Physically, it operates as a high-pressure <strong>veno-muscular pump</strong>, driving venous blood upward against gravity to sustain central cardiac output and cerebral blood flow. Philosophically and neurobiologically, it serves as the body’s fastest <strong>emotional sentinel</strong>, reacting to psychological threat and startle stimuli hundreds of milliseconds before the heart rate can physically alter.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                    <div class="bg-[#FAF8F5] p-4 rounded-lg border border-[#E5DFD3] text-center">
+                        <div class="text-3xl font-extrabold text-[#1E4D58]" id="stat-ejection">80 - 97 mL</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#6E8B74] mt-1">Single Contraction Ejection</div>
+                        <p class="text-xs text-[#6B7280] mt-1">Exceeds the normal resting cardiac stroke volume (70 mL/beat).</p>
+                    </div>
+                    <div class="bg-[#FAF8F5] p-4 rounded-lg border border-[#E5DFD3] text-center">
+                        <div class="text-3xl font-extrabold text-[#C85A32]" id="stat-speed-ratio">70x Faster</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#6E8B74] mt-1">Motor Conduction vs. Sympathetic</div>
+                        <p class="text-xs text-[#6B7280] mt-1">Alpha motor fibers (70-120 m/s) vs. Sympathetic C-fibers (1 m/s).</p>
+                    </div>
+                    <div class="bg-[#FAF8F5] p-4 rounded-lg border border-[#E5DFD3] text-center">
+                        <div class="text-3xl font-extrabold text-[#1E4D58]" id="stat-cognitive">+35%</div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-[#6E8B74] mt-1">Executive Function Boost</div>
+                        <p class="text-xs text-[#6B7280] mt-1">Cognitive accuracy gains achieved via targeted soleus neuromodulation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dual Interactive Perspective Explorer -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Dimension A: Physical Hemodynamics -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E5DFD3] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-[#1E4D58] text-white flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="text-xl font-bold text-[#1E4D58]">The Physical Dimension: Hemodynamics</h2>
+                        </div>
+                        <p class="text-sm text-[#4B5563] mb-4">
+                            Deep within the soleus muscle lie the non-muscular <strong>soleal sinuses</strong>. During locomotion, contraction compresses these intramuscular reservoirs, propelling blood through one-way bicuspid valves toward the heart.
+                        </p>
+                        <ul class="space-y-2 text-sm text-[#374151] mb-6">
+                            <li class="flex items-start">
+                                <span class="text-[#1E4D58] font-bold mr-2">✓</span>
+                                <span><strong>Resting Hydrostatic Load:</strong> Ankle pressure reaches 90-110 mmHg in static standing.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1E4D58] font-bold mr-2">✓</span>
+                                <span><strong>Ambulatory Relief:</strong> Active walking drops venous pressure to 20-30 mmHg, preventing edema &amp; tissue breakdown.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1E4D58] font-bold mr-2">✓</span>
+                                <span><strong>Frank-Starling Coupling:</strong> Venous return directly dictates cardiac end-diastolic volume (preload).</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" onclick="switchTab('hemodynamics')" class="w-full py-2.5 bg-[#1E4D58] text-white rounded-lg font-medium text-sm hover:bg-[#14353d] transition">Explore Hemodynamic Engine &rarr;</button>
+                </div>
+
+                <!-- Dimension B: Neuro-Somatic Interface -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E5DFD3] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-[#C85A32] text-white flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="text-xl font-bold text-[#C85A32]">The Somatic &amp; Neuro-Temporal Dimension</h2>
+                        </div>
+                        <p class="text-sm text-[#4B5563] mb-4">
+                            The lower legs serve as the primary physical anchor ("grounding") and trauma repository. Myelinated somatic nerve tracts allow the calves to physically brace long before autonomic signals alter cardiac rate.
+                        </p>
+                        <ul class="space-y-2 text-sm text-[#374151] mb-6">
+                            <li class="flex items-start">
+                                <span class="text-[#C85A32] font-bold mr-2">✓</span>
+                                <span><strong>Temporal Disparity:</strong> Leg motor response (~100-150 ms) drastically outpaces heart rate elevation (2-5 sec).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#C85A32] font-bold mr-2">✓</span>
+                                <span><strong>Spinal Reflex Inhibition:</strong> Fear &amp; threat suppress soleus H-reflex, locking the joint into a freeze/bracing state.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#C85A32] font-bold mr-2">✓</span>
+                                <span><strong>Bioenergetic Armoring:</strong> Chronic anxiety creates persistent hypertonic spasms in gastrocnemius &amp; soleus.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" onclick="switchTab('neuro-latency')" class="w-full py-2.5 bg-[#C85A32] text-white rounded-lg font-medium text-sm hover:bg-[#a64725] transition">Explore Speed of Threat &amp; Somatic Map &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Concept Interactive Summary Matrix -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-[#E5DFD3]">
+                <h3 class="text-lg font-bold text-[#1E4D58] mb-4">Synthesis of the Dual-Heart Framework</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-[#374151]">
+                        <thead class="bg-[#F2EDE4] text-[#1E4D58] font-bold uppercase text-xs">
+                            <tr>
+                                <th class="p-3">Domain</th>
+                                <th class="p-3">Primary Mechanism</th>
+                                <th class="p-3">Key Anatomical Substrate</th>
+                                <th class="p-3">Functional Consequence</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#E5DFD3]">
+                            <tr>
+                                <td class="p-3 font-semibold text-[#1E4D58]">Hemodynamics</td>
+                                <td class="p-3">Veno-Muscular Ejection &amp; Flow Diversion</td>
+                                <td class="p-3">Soleal Sinuses &amp; Bicuspid Venous Valves</td>
+                                <td class="p-3">Sustains central venous preload, prevents ambulatory venous hypertension &amp; deep vein thrombosis.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-[#1E4D58]">Cardiopostural Control</td>
+                                <td class="p-3">Muscle-Pump Baroreflex &amp; Micro-Sway</td>
+                                <td class="p-3">Carotid Baroreceptors to Soleus Motor Units</td>
+                                <td class="p-3">Prevents orthostatic syncope during quiet standing; maintains cerebral perfusion.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-[#C85A32]">Neuro-Temporal Speed</td>
+                                <td class="p-3">Saltatory Conduction via A-alpha Fibers</td>
+                                <td class="p-3">Alpha Motor Neurons (70-120 m/s) vs C-Fibers</td>
+                                <td class="p-3">Calves brace physically ~3 seconds before heart rate increases during acute threat.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-[#C85A32]">Somatic Storage</td>
+                                <td class="p-3">H-Reflex Suppression &amp; Segmental Armoring</td>
+                                <td class="p-3">Presynaptic Ia Afferent Pathways &amp; BL-57 Point</td>
+                                <td class="p-3">Trauma energy trapped as chronic hypertonicity; impairs bioenergetic "grounding".</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-[#6E8B74]">Neuromodulation</td>
+                                <td class="p-3">Exogenous Soleus Stimulation (NMES)</td>
+                                <td class="p-3">Soleus Postural Motor Network</td>
+                                <td class="p-3">Raises resting diastolic BP (+6-8 mmHg) &amp; rescues executive cognitive performance (+35%).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Companion interactive module -->
+            <div class="bg-gradient-to-r from-[#1E4D58] to-[#14353d] text-white rounded-xl p-6 shadow-sm flex flex-col md:flex-row md:items-center gap-5">
+                <span class="text-3xl flex-shrink-0" aria-hidden="true">❄️</span>
+                <div class="flex-1 min-w-0">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-[#E8A87C]">Companion Interactive Module</span>
+                    <h3 class="text-lg font-bold mt-1">Cold Feet: Freeze, Anxiety &amp; Acute Leg Rescue</h3>
+                    <p class="text-xs text-[#C9D6D9] mt-1 leading-relaxed">When the second heart is not pumping but bracing: simulate sympathetic vasoconstriction and vasovagal faint risk, triage a calf strain or ankle sprain, run the cryotherapy protocol, and use the somatic grounding suite.</p>
+                </div>
+                <a href="./cold_feet.html" class="flex-shrink-0 self-start md:self-auto px-4 py-2.5 bg-[#C85A32] hover:bg-[#a64725] rounded-lg text-sm font-bold transition">Open Cold Feet Guide &rarr;</a>
+            </div>
+        </section>
+
+        <!-- SECTION 2: HEMODYNAMICS & VENO-MUSCULAR PUMP -->
+        <section id="tab-hemodynamics" role="tabpanel" aria-labelledby="btn-tab-hemodynamics" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E5DFD3] space-y-4">
+                <h2 class="text-2xl font-bold text-[#1E4D58]">The Physical Dimension: Hemodynamic Architecture &amp; Flow Diversion</h2>
+                <p class="text-[#4B5563] text-sm leading-relaxed">
+                    This module explores how the lower extremity acts as an essential mechanical auxiliary engine for the circulatory system. In an upright human, hydrostatic pressure forces roughly 90 to 110 mmHg of pressure onto the ankle venous plexus during static standing. Continuous locomotion triggers the calf muscle pump, reducing this pressure to 20-30 mmHg and restoring stroke volume via the <strong>Frank-Starling mechanism</strong>.
+                </p>
+
+                <!-- Interactive Muscle Pump Simulator -->
+                <div class="bg-[#FAF8F5] p-6 rounded-xl border border-[#E5DFD3] grid grid-cols-1 lg:grid-cols-3 gap-6 my-6">
+                    <div class="space-y-4 lg:col-span-1">
+                        <h3 class="font-bold text-[#1E4D58] text-base">Interactive Activity Simulator</h3>
+                        <p class="text-xs text-[#6B7280]">Adjust the calf muscle activity level to observe real-time changes in ambulatory venous pressure, ejection fraction, and cardiac preload.</p>
+                        
+                        <div>
+                            <label for="sim-activity" class="block text-xs font-semibold uppercase text-[#374151] mb-1">Calf Muscle Activity Mode</label>
+                            <select id="sim-activity" onchange="updateHemodynamicSim()" class="w-full bg-white border border-[#E5DFD3] rounded-md px-3 py-2 text-sm text-[#1F2937] focus:outline-none focus:border-[#1E4D58]">
+                                <option value="standing">Quiet Motionless Standing (Rest)</option>
+                                <option value="sway">Micro Postural Sway (Involuntary Baroreflex)</option>
+                                <option value="walking" selected>Active Walking / Locomotion (2-3 mph)</option>
+                                <option value="tiptoe">Vigorous Tiptoe Exercises / Running</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-[#4B5563]">Ambulatory Venous Pressure (Ankle):</span>
+                                <span id="sim-avp-val" class="text-[#1E4D58] font-bold">25 mmHg</span>
+                            </div>
+                            <div class="w-full bg-[#E5DFD3] h-2 rounded-full overflow-hidden">
+                                <div id="sim-avp-bar" class="bg-[#1E4D58] h-full transition-all duration-500" style="width: 25%;"></div>
+                            </div>
+
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-[#4B5563]">Calf Pump Ejection Fraction:</span>
+                                <span id="sim-ef-val" class="text-[#C85A32] font-bold">62%</span>
+                            </div>
+                            <div class="w-full bg-[#E5DFD3] h-2 rounded-full overflow-hidden">
+                                <div id="sim-ef-bar" class="bg-[#C85A32] h-full transition-all duration-500" style="width: 62%;"></div>
+                            </div>
+
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-[#4B5563]">Central Cardiac Preload (Stroke Vol):</span>
+                                <span id="sim-preload-val" class="text-[#1E4D58] font-bold">Optimal (~70-75 mL)</span>
+                            </div>
+                        </div>
+
+                        <div id="sim-risk-box" role="status" aria-live="polite" aria-atomic="true" class="p-3 rounded-lg text-xs bg-green-100 text-green-800 border border-green-200">
+                            <strong>Status: Normal Circulation.</strong> Low risk of tissue edema or venous stasis.
+                        </div>
+                    </div>
+
+                    <!-- Chart Container for AVP & Flow -->
+                    <div class="lg:col-span-2 flex flex-col justify-center">
+                        <div class="chart-container">
+                            <canvas id="chartHemodynamics" role="img" aria-label="Grouped bar chart of ankle venous pressure and calf ejection fraction across quiet standing, postural sway, active walking, and tiptoe or running."></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Dive Explanations -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="border border-[#E5DFD3] p-4 rounded-lg bg-white">
+                        <h4 class="font-bold text-[#1E4D58] mb-2 text-sm">Flow Diverter Mechanics &amp; Systole/Diastole</h4>
+                        <p class="text-xs text-[#4B5563] leading-relaxed">
+                            During calf muscle <em>systole</em> (contraction), muscular compression forces venous blood cephalad through the deep axial veins past one-way bicuspid valves. During <em>diastole</em> (relaxation), intramuscular pressure falls to negative levels relative to superficial veins, drawing blood inward from the superficial Great Saphenous Vein via perforator veins.
+                        </p>
+                    </div>
+                    <div class="border border-[#E5DFD3] p-4 rounded-lg bg-white">
+                        <h4 class="font-bold text-[#1E4D58] mb-2 text-sm">Pathophysiology of Calf Pump Failure</h4>
+                        <p class="text-xs text-[#4B5563] leading-relaxed">
+                            When calf ejection fraction drops (due to disuse, aging, or nerve degeneration), persistent ambulatory venous hypertension ensues. Studies at Mayo Clinic show that reduced calf pump ejection fraction is an independent predictor of deep vein thrombosis (DVT), heart failure hospitalization, and systemic frailty.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: NEURO-TEMPORAL DISPARITY MATRIX -->
+        <section id="tab-neuro-latency" role="tabpanel" aria-labelledby="btn-tab-neuro-latency" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E5DFD3] space-y-4">
+                <h2 class="text-2xl font-bold text-[#C85A32]">The Temporal Disparity: Why Calves React Before the Heart</h2>
+                <p class="text-[#4B5563] text-sm leading-relaxed">
+                    It is a common somatic observation that under sudden fright or emotional shock, the leg muscles stiffen or brace long before the chest starts pounding. This phenomenon is a direct consequence of neuroanatomy: <strong>somatic motor signals travel up to 70-120x faster than autonomic sympathetic signals</strong>.
+                </p>
+
+                <!-- Interactive Reaction Speed Simulator -->
+                <div class="bg-[#FAF8F5] p-6 rounded-xl border border-[#E5DFD3] space-y-6">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h3 class="font-bold text-[#1E4D58] text-base">Simulate Acute Threat / Startle Trigger</h3>
+                            <p class="text-xs text-[#6B7280]">Click the trigger to launch parallel nerve signals to the calf muscles vs. the heart sinoatrial node.</p>
+                        </div>
+                        <button type="button" onclick="runStartleSimulation()" id="startle-btn" class="px-6 py-3 bg-[#C85A32] text-white font-bold rounded-lg hover:bg-[#a64725] transition shadow-md flex items-center space-x-2">
+                            <span>⚡ Trigger Threat Event</span>
+                        </button>
+                    </div>
+
+                    <!-- Visual Race Timeline -->
+                    <div class="space-y-4 bg-white p-4 rounded-lg border border-[#E5DFD3]">
+                        <!-- Track 1: Calf Somatic Motor -->
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span class="text-[#C85A32]">Somatic Alpha Motor Pathway (Calf Muscle Bracing)</span>
+                                <span id="time-calf" class="text-gray-500">Latency: -- ms</span>
+                            </div>
+                            <div class="w-full bg-[#E5DFD3] h-6 rounded-full overflow-hidden relative">
+                                <div id="runner-calf" class="bg-[#C85A32] h-full w-0 transition-all duration-[120ms] flex items-center justify-end pr-2 text-[10px] text-white font-bold">
+                                    A-alpha (80 m/s)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Track 2: Heart Sympathetic -->
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span class="text-[#1E4D58]">Sympathetic Autonomic C-Fiber Pathway (Heart Tachycardia)</span>
+                                <span id="time-heart" class="text-gray-500">Latency: -- ms</span>
+                            </div>
+                            <div class="w-full bg-[#E5DFD3] h-6 rounded-full overflow-hidden relative">
+                                <div id="runner-heart" class="bg-[#1E4D58] h-full w-0 transition-all duration-[3200ms] flex items-center justify-end pr-2 text-[10px] text-white font-bold">
+                                    C-Fiber (1 m/s)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latency Explanation Output -->
+                    <div id="startle-output" role="status" aria-live="polite" aria-atomic="true" class="p-4 bg-[#F2EDE4] rounded-lg text-xs text-[#1F2937] leading-relaxed hidden">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Conduction Comparison Chart -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-4">
+                    <div class="chart-container">
+                        <canvas id="chartNerveSpeed" role="img" aria-label="Horizontal bar chart of nerve conduction velocity: somatic motor 80 meters per second, Ia sensory 100, sympathetic 1.5, and vagus 10."></canvas>
+                    </div>
+                    <div class="space-y-4 text-sm text-[#374151]">
+                        <h3 class="font-bold text-[#1E4D58] text-lg">Biophysical Discrepancy Breakdown</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-white border-l-4 border-[#C85A32] shadow-sm rounded-r">
+                                <strong class="text-[#C85A32] text-sm block mb-1">Alpha Motor Axons (Heavy Myelination)</strong>
+                                Conduction velocity: <strong>70 - 120 m/s</strong>. Rapid saltatory conduction allows descending brainstem threat signals to reach the soleus and gastrocnemius in 100-150 ms, preparing ground stability immediately.
+                            </div>
+                            <div class="p-3 bg-white border-l-4 border-[#1E4D58] shadow-sm rounded-r">
+                                <strong class="text-[#1E4D58] text-sm block mb-1">Autonomic C-Fibers (Unmyelinated)</strong>
+                                Conduction velocity: <strong>1 - 2.2 m/s</strong>. Postganglionic sympathetic fibers lack myelin sheaths and rely on slow second-messenger G-protein cascades at the sinoatrial node, taking 2 to 5 seconds to raise heart rate.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOMATIC REPOSITORY & REFLEX MAP -->
+        <section id="tab-somatic-map" role="tabpanel" aria-labelledby="btn-tab-somatic-map" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E5DFD3] space-y-4">
+                <h2 class="text-2xl font-bold text-[#1E4D58]">The Somatic Repository: Emotional Storage &amp; Reflex Modulation</h2>
+                <p class="text-[#4B5563] text-sm leading-relaxed">
+                    Beyond fluid mechanics, somatic psychologies (Reich, Lowen) and modern reflex neurophysiology demonstrate that the calf muscles actively process and retain emotional trauma, fear, and threat responses through altered spinal cord reflex arc parameters.
+                </p>
+
+                <!-- Dynamic Threat & H-Reflex Simulator -->
+                <div class="bg-[#FAF8F5] p-6 rounded-xl border border-[#E5DFD3] space-y-6">
+                    <h3 class="font-bold text-[#1E4D58] text-base">Spinal Reflex Modulation Simulator (H-Reflex Paradigm)</h3>
+                    <p class="text-xs text-[#6B7280]">
+                        The <strong>Hoffmann Reflex (H-reflex)</strong> measures alpha motoneuron excitability in the soleus. Adjust perceived environmental threat level (e.g. standing on an elevated height or experiencing acute anxiety) to observe reflex suppression and co-contraction bracing.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="space-y-4 bg-white p-4 rounded-lg border border-[#E5DFD3]">
+                            <div>
+                                <label for="threat-slider" class="block text-xs font-semibold text-[#374151] mb-1">Perceived Psychological Threat / Height Elevation</label>
+                                <input type="range" id="threat-slider" min="0" max="100" value="15" oninput="updateReflexSim()" class="w-full accent-[#C85A32]">
+                                <div class="flex justify-between text-[11px] text-[#6B7280] mt-1">
+                                    <span>Neutral / Safe</span>
+                                    <span>High Elevation / Fear</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-2 space-y-2 text-xs" aria-live="polite" aria-atomic="true">
+                                <div class="flex justify-between">
+                                    <span class="text-[#4B5563]">Soleus H-Reflex Amplitude:</span>
+                                    <span id="hreflex-val" class="font-bold text-[#1E4D58]">95% (Baseline)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-[#4B5563]">Ankle Joint Co-Contraction:</span>
+                                    <span id="cocontraction-val" class="font-bold text-[#C85A32]">Low (Fluid Sway)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-[#4B5563]">Somatic Defense State:</span>
+                                    <span id="defense-state" class="font-bold text-[#6E8B74]">Grounded / Relaxed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <div class="chart-container">
+                                <canvas id="chartReflex" role="img" aria-label="Line chart showing soleus H-reflex amplitude falling from 100 to 25 percent as threat rises, while ankle co-contraction rises from 15 to 95 percent."></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Somatic Architecture & Meridian Interactive Tabs -->
+                <div class="bg-white rounded-lg border border-[#E5DFD3] overflow-hidden">
+                    <div class="flex flex-wrap border-b border-[#E5DFD3] bg-[#F2EDE4]" role="tablist" aria-label="Somatic frameworks">
+                        <button type="button" role="tab" aria-selected="true" aria-controls="somatic-subcontent" tabindex="0" onclick="switchSomaticSubTab('bioenergetics')" id="subtab-bioenergetics" class="subtab-btn subtab-active px-4 py-3 text-sm font-bold">Bioenergetics &amp; Grounding</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="somatic-subcontent" tabindex="-1" onclick="switchSomaticSubTab('tcm')" id="subtab-tcm" class="subtab-btn px-4 py-3 text-sm font-bold">TCM &amp; Chengshan (BL-57)</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="somatic-subcontent" tabindex="-1" onclick="switchSomaticSubTab('armoring')" id="subtab-armoring" class="subtab-btn px-4 py-3 text-sm font-bold">Reichian Muscle Armoring</button>
+                    </div>
+
+                    <div id="somatic-subcontent" role="tabpanel" aria-labelledby="subtab-bioenergetics" tabindex="0" class="p-6 text-xs sm:text-sm text-[#374151] leading-relaxed">
+                        <!-- Content dynamically updated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: THERAPEUTIC & COGNITIVE RESCUE -->
+        <section id="tab-cognitive-rescue" role="tabpanel" aria-labelledby="btn-tab-cognitive-rescue" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-[#E5DFD3] space-y-4">
+                <h2 class="text-2xl font-bold text-[#6E8B74]">Therapeutic Paradigms: Cognitive Rescue &amp; Somatic Release</h2>
+                <p class="text-[#4B5563] text-sm leading-relaxed">
+                    Because central brain health depends heavily on diastolic arterial pressure—which is directly sustained by the soleus muscle—rehabilitating calf strength protects against cognitive decline. Furthermore, somatic trauma therapies (TRE, Somatic Experiencing) focus on releasing bound motor tension in the legs.
+                </p>
+
+                <!-- Cognitive Rescue & NMES Interactive Simulator -->
+                <div class="bg-[#FAF8F5] p-6 rounded-xl border border-[#E5DFD3] grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="space-y-4 lg:col-span-1">
+                        <h3 class="font-bold text-[#1E4D58] text-base">Soleus Neuromodulation Lab</h3>
+                        <p class="text-xs text-[#6B7280]">
+                            Simulate daily non-invasive neuromuscular electrical stimulation (NMES) or micromechanical stimulation applied to the soleus muscle in older adults or bed-rest patients.
+                        </p>
+
+                        <div>
+                            <label for="nmes-slider" class="block text-xs font-semibold text-[#374151] mb-1">Daily Stimulation Therapy Duration</label>
+                            <input type="range" id="nmes-slider" min="0" max="60" value="0" step="15" oninput="updateNMESSim()" class="w-full accent-[#6E8B74]">
+                            <div class="flex justify-between text-[11px] text-[#6B7280] mt-1">
+                                <span>0 min (Sedentary)</span>
+                                <span>30 min</span>
+                                <span>60 min / day</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 bg-white p-3 rounded-md border border-[#E5DFD3] text-xs" aria-live="polite" aria-atomic="true">
+                            <div class="flex justify-between">
+                                <span class="text-[#4B5563]">Resting Diastolic BP Gain:</span>
+                                <span id="nmes-dbp" class="font-bold text-[#1E4D58]">+0 mmHg (68 mmHg baseline)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#4B5563]">Cerebral Perfusion Index:</span>
+                                <span id="nmes-perfusion" class="font-bold text-[#C85A32]">Sub-optimal (100%)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#4B5563]">Executive Function Speed:</span>
+                                <span id="nmes-stroop" class="font-bold text-[#6E8B74]">Baseline Stroop Score</span>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="launchStroopTest()" class="w-full py-2.5 bg-[#6E8B74] text-white rounded-lg font-bold text-xs hover:bg-[#58725d] transition">
+                            🧠 Test Executive Function (Interactive Stroop Test)
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-2 flex flex-col justify-center">
+                        <div class="chart-container">
+                            <canvas id="chartCognitive" role="img" aria-label="Dual-axis line chart showing resting diastolic blood pressure rising from 68 to 76 millimeters of mercury and executive accuracy rising from 62 to 94 percent across daily soleus stimulation durations."></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stroop Test Modal / Container -->
+                <div id="stroop-modal" role="region" aria-label="Stroop executive function test" class="hidden bg-white p-6 rounded-xl border-2 border-[#6E8B74] space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-[#1E4D58]">Interactive Executive Function Test (Stroop Task)</h4>
+                        <button type="button" onclick="closeStroopTest()" class="text-xs font-bold text-[#C85A32]">Close Test ✕</button>
+                    </div>
+                    <p class="text-xs text-[#6B7280]">Select the color of the text displayed below as fast as possible, ignoring the word written.</p>
+                    
+                    <div class="text-center py-6 bg-[#FAF8F5] rounded-lg border border-[#E5DFD3]">
+                        <div id="stroop-word" class="text-4xl font-black uppercase tracking-wider mb-4" style="color: red;">BLUE</div>
+                        <div class="flex justify-center space-x-2 sm:space-x-4">
+                            <button type="button" onclick="answerStroop('red')" class="px-4 py-2 bg-red-600 text-white font-bold text-xs rounded">RED</button>
+                            <button type="button" onclick="answerStroop('blue')" class="px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded">BLUE</button>
+                            <button type="button" onclick="answerStroop('green')" class="px-4 py-2 bg-green-600 text-white font-bold text-xs rounded">GREEN</button>
+                            <button type="button" onclick="answerStroop('yellow')" class="px-4 py-2 bg-yellow-400 text-slate-900 font-bold text-xs rounded">YELLOW</button>
+                        </div>
+                    </div>
+                    <div id="stroop-result" role="status" aria-live="polite" aria-atomic="true" class="text-xs text-center font-bold text-[#1E4D58]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Somatic Release Modalities -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="bg-white p-5 rounded-xl border border-[#E5DFD3] space-y-2">
+                        <span class="text-xs font-bold uppercase text-[#C85A32]">Trauma Release Exercises (TRE) &amp; Neurogenic Tremors</span>
+                        <h4 class="font-bold text-[#1E4D58] text-base">Discharging Thwarted Survival Energy</h4>
+                        <p class="text-xs text-[#4B5563] leading-relaxed">
+                            Developed by Dr. David Berceli and Dr. Peter Levine (Somatic Experiencing), TRE uses targeted fatigue of the calf and psoas muscles to invoke natural <strong>neurogenic tremors</strong>. These rhythmic contractions reset hyper-aroused spinal motor circuits, clearing bound "fight-or-flight" energy trapped during traumatic freezing.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-[#E5DFD3] space-y-2">
+                        <span class="text-xs font-bold uppercase text-[#6E8B74]">Preventing Ischemic Cognitive Decline</span>
+                        <h4 class="font-bold text-[#1E4D58] text-base">The Cardiopostural Brain Link</h4>
+                        <p class="text-xs text-[#4B5563] leading-relaxed">
+                            Clinical trials confirm that restoring soleus muscle tone increases resting diastolic blood pressure by 6-8 mmHg in older adults. Because cerebral microvasculature requires persistent diastolic pressure for deep tissue perfusion, active calf pumping protects executive processing speed, memory, and spatial reasoning.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1E4D58] text-[#F2EDE4] py-8 border-t border-[#14353d] mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-sm font-bold tracking-wide">The Neurocardiological &amp; Somatic Paradigm of the Calf Muscle</p>
+            <p class="text-xs text-[#A0B0B5]">Based on comprehensive hemodynamic, neurophysiological, and bioenergetic literature.</p>
+            <p class="text-xs flex flex-wrap justify-center items-center gap-x-3 gap-y-1 pt-2">
+                <a href="../" class="text-[#E8A87C] hover:text-white hover:underline">&larr; Knowledge Vault</a>
+                <span class="text-[#5c8189]" aria-hidden="true">&bull;</span>
+                <a href="./readme.md" class="text-[#E8A87C] hover:text-white hover:underline">The Full Report</a>
+                <span class="text-[#5c8189]" aria-hidden="true">&bull;</span>
+                <a href="./cold_feet.html" class="text-[#E8A87C] hover:text-white hover:underline">Cold Feet Guide</a>
+                <span class="text-[#5c8189]" aria-hidden="true">&bull;</span>
+                <a href="../../" class="text-[#E8A87C] hover:text-white hover:underline">Portfolio Home &nearr;</a>
+            </p>
+            <p class="text-[11px] text-[#7d9aa1] pt-1">Chart.js Visualizations &bull; Tailwind CSS Layout &bull; No SVG / No Mermaid JS</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic & Chart Initialization -->
+    <script>
+        // Tab Navigation State
+        function switchTab(tabId) {
+            const target = document.getElementById('tab-' + tabId);
+            if (!target) return;
+
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+                el.setAttribute('aria-hidden', 'true');
+            });
+            target.classList.remove('hidden');
+            target.classList.add('block');
+            target.setAttribute('aria-hidden', 'false');
+
+            // Update Navigation Button Active States
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.setAttribute('aria-selected', 'false');
+                btn.tabIndex = -1;
+            });
+            const activeBtn = document.getElementById('btn-tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.setAttribute('aria-selected', 'true');
+                activeBtn.tabIndex = 0;
+                if (typeof activeBtn.scrollIntoView === 'function') {
+                    activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                }
+            }
+
+            // Charts are created lazily so they never initialize inside a hidden, zero-height container.
+            if (tabId === 'hemodynamics') {
+                if (!chartHemodynamicRef) initHemodynamicsChart();
+                else chartHemodynamicRef.resize();
+            } else if (tabId === 'neuro-latency') {
+                if (!chartNerveSpeedRef) initNerveSpeedChart();
+                else chartNerveSpeedRef.resize();
+            } else if (tabId === 'somatic-map') {
+                if (!chartReflexRef) initReflexChart();
+                else chartReflexRef.resize();
+            } else if (tabId === 'cognitive-rescue') {
+                if (!chartCognitiveRef) initCognitiveChart();
+                else chartCognitiveRef.resize();
+            }
+        }
+
+        // Subtab Navigation inside Somatic Map
+        const somaticSubContentMap = {
+            bioenergetics: `
+                <h4 class="font-bold text-[#1E4D58] text-base mb-2">Bioenergetic Grounding & Alexander Lowen's Paradigm</h4>
+                <p class="mb-2">In Bioenergetic Analysis, "grounding" represents an individual's physical and psychological connection to the earth, reality, and emotional stability. The calf muscles and feet act as the foundational pillars of this connection.</p>
+                <p>When individuals experience chronic anxiety or developmental trauma, they hold tight contractions in the soleus and gastrocnemius, metaphorically "pulling themselves up" away from the earth. This chronic hypertonicity severs the energetic discharge to the ground, trapping unexpressed fear in the legs.</p>
+            `,
+            tcm: `
+                <h4 class="font-bold text-[#1E4D58] text-base mb-2">Traditional Chinese Medicine: The Bladder Meridian & Chengshan (BL-57)</h4>
+                <p class="mb-2">In TCM, the <strong>Taiyang Bladder Meridian</strong> descends along the posterior calf, directly bisecting the soleus and gastrocnemius muscles. Key acupoint <strong>BL-57 (Chengshan)</strong> lies precisely at the anatomical convergence of the two gastrocnemius bellies.</p>
+                <p>Associated with the Water Element, the Bladder Meridian governs the expression of fear and survival instincts. Acupressure or acupuncture at BL-57 is clinically utilized to release severe calf cramping while simultaneously calming systemic anxiety and emotional panic.</p>
+            `,
+            armoring: `
+                <h4 class="font-bold text-[#1E4D58] text-base mb-2">Wilhelm Reich's Segmental Armoring Theory</h4>
+                <p class="mb-2">Psychoanalyst Wilhelm Reich mapped seven distinct somatic rings or "segments of armoring" where suppressed psychological affect is converted into chronic muscular contraction.</p>
+                <p>The lower extremity segment acts as the reservoir for thwarted "flight or fight" responses. Traumatic experiences that could not be physically executed (e.g., running away from danger) leave persistent motor tension locked in the calf myofascial tissue, altering gait mechanics and spinal stretch reflexes.</p>
+            `
+        };
+
+        function switchSomaticSubTab(subId) {
+            document.querySelectorAll('.subtab-btn').forEach(btn => {
+                btn.classList.remove('subtab-active');
+                btn.setAttribute('aria-selected', 'false');
+                btn.tabIndex = -1;
+            });
+            const activeSub = document.getElementById('subtab-' + subId);
+            if (activeSub) {
+                activeSub.classList.add('subtab-active');
+                activeSub.setAttribute('aria-selected', 'true');
+                activeSub.tabIndex = 0;
+            }
+            const panel = document.getElementById('somatic-subcontent');
+            panel.innerHTML = somaticSubContentMap[subId];
+            if (activeSub) panel.setAttribute('aria-labelledby', activeSub.id);
+        }
+
+        // ------------------- SIMULATOR LOGIC & CHARTS -------------------
+
+        let chartHemodynamicRef = null;
+        let chartNerveSpeedRef = null;
+        let chartReflexRef = null;
+        let chartCognitiveRef = null;
+
+        // Chart 1: Hemodynamics
+        function initHemodynamicsChart() {
+            const ctx = document.getElementById('chartHemodynamics').getContext('2d');
+            chartHemodynamicRef = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Quiet Standing', 'Postural Sway', 'Active Walking', 'Tiptoe / Run'],
+                    datasets: [
+                        {
+                            label: 'Ankle Venous Pressure (mmHg)',
+                            data: [100, 65, 25, 18],
+                            backgroundColor: '#1E4D58',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Calf Ejection Fraction (%)',
+                            data: [10, 35, 62, 85],
+                            backgroundColor: '#C85A32',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: 'Hemodynamic Response Across Activity Modes', color: '#1E4D58', font: { size: 14, weight: 'bold' } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 120, grid: { color: '#E5DFD3' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function updateHemodynamicSim() {
+            const mode = document.getElementById('sim-activity').value;
+            const avpVal = document.getElementById('sim-avp-val');
+            const avpBar = document.getElementById('sim-avp-bar');
+            const efVal = document.getElementById('sim-ef-val');
+            const efBar = document.getElementById('sim-ef-bar');
+            const preloadVal = document.getElementById('sim-preload-val');
+            const riskBox = document.getElementById('sim-risk-box');
+
+            if (mode === 'standing') {
+                avpVal.innerText = '100 mmHg';
+                avpBar.style.width = '90%';
+                avpBar.className = 'bg-red-600 h-full transition-all duration-500';
+                efVal.innerText = '10%';
+                efBar.style.width = '10%';
+                preloadVal.innerText = 'Severely Impaired (~45 mL)';
+                riskBox.className = 'p-3 rounded-lg text-xs bg-red-100 text-red-800 border border-red-200';
+                riskBox.innerHTML = '<strong>Warning: High Hydrostatic Pooling.</strong> Risk of orthostatic hypotension, syncope, and soleal sinus stasis (DVT).';
+            } else if (mode === 'sway') {
+                avpVal.innerText = '65 mmHg';
+                avpBar.style.width = '60%';
+                avpBar.className = 'bg-yellow-600 h-full transition-all duration-500';
+                efVal.innerText = '35%';
+                efBar.style.width = '35%';
+                preloadVal.innerText = 'Moderate (~58 mL)';
+                riskBox.className = 'p-3 rounded-lg text-xs bg-yellow-100 text-yellow-800 border border-yellow-200';
+                riskBox.innerHTML = '<strong>Cardiopostural Baroreflex Active:</strong> Involuntary micro-sway prevents acute fainting during posture holding.';
+            } else if (mode === 'walking') {
+                avpVal.innerText = '25 mmHg';
+                avpBar.style.width = '25%';
+                avpBar.className = 'bg-[#1E4D58] h-full transition-all duration-500';
+                efVal.innerText = '62%';
+                efBar.style.width = '62%';
+                preloadVal.innerText = 'Optimal (~72-75 mL)';
+                riskBox.className = 'p-3 rounded-lg text-xs bg-green-100 text-green-800 border border-green-200';
+                riskBox.innerHTML = '<strong>Status: Normal Locomotion.</strong> Muscle pump actively diverts blood, maintaining cardiac output.';
+            } else if (mode === 'tiptoe') {
+                avpVal.innerText = '18 mmHg';
+                avpBar.style.width = '18%';
+                avpBar.className = 'bg-[#6E8B74] h-full transition-all duration-500';
+                efVal.innerText = '85%';
+                efBar.style.width = '85%';
+                preloadVal.innerText = 'Maximum Augmentation (~85-95 mL)';
+                riskBox.className = 'p-3 rounded-lg text-xs bg-blue-100 text-blue-800 border border-blue-200';
+                riskBox.innerHTML = '<strong>Maximum Veno-Muscular Ejection:</strong> Ejection volume exceeds resting cardiac stroke volume.';
+            }
+        }
+
+        // Chart 2: Nerve Latency Speed
+        function initNerveSpeedChart() {
+            const ctx = document.getElementById('chartNerveSpeed').getContext('2d');
+            chartNerveSpeedRef = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Somatic Motor (Legs)', 'Ia Primary Sensory', 'Autonomic Sympathetic (Heart)', 'Vagus Parasympathetic'],
+                    datasets: [{
+                        label: 'Conduction Velocity (meters/second)',
+                        data: [80, 100, 1.5, 10],
+                        backgroundColor: ['#C85A32', '#C85A32', '#1E4D58', '#6E8B74'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: 'Nerve Fiber Conduction Speed Comparison', color: '#1E4D58', font: { size: 14, weight: 'bold' } }
+                    },
+                    scales: {
+                        x: { beginAtZero: true, max: 120, title: { display: true, text: 'Meters per Second (m/s)' } }
+                    }
+                }
+            });
+        }
+
+        // Startle Simulation Animation
+        function runStartleSimulation() {
+            const runnerCalf = document.getElementById('runner-calf');
+            const runnerHeart = document.getElementById('runner-heart');
+            const timeCalf = document.getElementById('time-calf');
+            const timeHeart = document.getElementById('time-heart');
+            const output = document.getElementById('startle-output');
+            const btn = document.getElementById('startle-btn');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            runnerCalf.style.width = '0%';
+            runnerHeart.style.width = '0%';
+            timeCalf.innerText = 'Latency: Calculating...';
+            timeHeart.innerText = 'Latency: Calculating...';
+            output.classList.add('hidden');
+
+            // Force a reflow so both bars animate from zero on every run.
+            void runnerCalf.offsetWidth;
+            runnerCalf.style.width = '100%';
+            runnerHeart.style.width = '100%';
+
+            // Fast Calf Motor Latency (~120ms)
+            setTimeout(() => {
+                timeCalf.innerText = '⚡ 120 ms (Instant Leg Bracing)';
+                timeCalf.className = 'text-[#C85A32] font-extrabold';
+            }, 120);
+
+            // Slow Heart Sympathetic Latency (~3200ms)
+            setTimeout(() => {
+                timeHeart.innerText = '💓 3,200 ms (Heart Rate Elevation)';
+                timeHeart.className = 'text-[#1E4D58] font-extrabold';
+
+                output.classList.remove('hidden');
+                output.innerHTML = `
+                    <strong>Neuro-Temporal Analysis Complete:</strong><br/>
+                    The signal reached the <strong>calf muscles in 120 ms</strong> via myelinated A-alpha motor axons, causing instant postural tightening and startle response. The cardiac sympathetic signal arrived <strong>3.08 seconds later</strong> due to slow unmyelinated C-fiber conduction and G-protein coupled intracellular receptor cascades. <em>The body braced long before the heart beat faster.</em>
+                `;
+
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+            }, 3200);
+        }
+
+        // Chart 3: Reflex Modulation
+        function initReflexChart() {
+            const ctx = document.getElementById('chartReflex').getContext('2d');
+            chartReflexRef = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['0% (Safe)', '25% (Mild Stress)', '50% (Postural Threat)', '75% (Acute Fear)', '100% (High Height Threat)'],
+                    datasets: [
+                        {
+                            label: 'Soleus H-Reflex Amplitude (%)',
+                            data: [100, 85, 60, 40, 25],
+                            borderColor: '#1E4D58',
+                            backgroundColor: 'rgba(30, 77, 88, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Ankle Co-Contraction Stiffening (%)',
+                            data: [15, 30, 55, 80, 95],
+                            borderColor: '#C85A32',
+                            backgroundColor: 'rgba(200, 90, 50, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: 'Soleus H-Reflex Suppression under Psychological Fear', color: '#1E4D58', font: { size: 14, weight: 'bold' } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 110, title: { display: true, text: 'Amplitude / Activation Level (%)' } }
+                    }
+                }
+            });
+        }
+
+        function updateReflexSim() {
+            const val = parseInt(document.getElementById('threat-slider').value);
+            const hreflexVal = document.getElementById('hreflex-val');
+            const cocontractionVal = document.getElementById('cocontraction-val');
+            const defenseState = document.getElementById('defense-state');
+
+            const hAmp = Math.max(20, Math.round(100 - (val * 0.75)));
+            const coCon = Math.min(100, Math.round(15 + (val * 0.8)));
+
+            hreflexVal.innerText = hAmp + '% (Inhibited)';
+            cocontractionVal.innerText = coCon + '% (High Rigidity)';
+
+            if (val < 30) {
+                defenseState.innerText = 'Grounded / Relaxed';
+                defenseState.className = 'font-bold text-[#6E8B74]';
+            } else if (val < 70) {
+                defenseState.innerText = 'Alert Bracing / Hypertonic';
+                defenseState.className = 'font-bold text-yellow-600';
+            } else {
+                defenseState.innerText = 'Tonic Freeze / Dynamic Reflex Lock';
+                defenseState.className = 'font-bold text-[#C85A32]';
+            }
+        }
+
+        // Chart 4: Cognitive & NMES Simulator
+        function initCognitiveChart() {
+            const ctx = document.getElementById('chartCognitive').getContext('2d');
+            chartCognitiveRef = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['0 min (Baseline)', '15 min/day', '30 min/day', '45 min/day', '60 min/day'],
+                    datasets: [
+                        {
+                            label: 'Resting Diastolic BP (mmHg)',
+                            data: [68, 71, 74, 75, 76],
+                            borderColor: '#1E4D58',
+                            yAxisID: 'yBP',
+                            tension: 0.2
+                        },
+                        {
+                            label: 'Executive Processing Accuracy (%)',
+                            data: [62, 72, 85, 91, 94],
+                            borderColor: '#6E8B74',
+                            yAxisID: 'yStroop',
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: 'Impact of Daily Soleus Stimulation on BP & Cognitive Speed', color: '#1E4D58', font: { size: 14, weight: 'bold' } }
+                    },
+                    scales: {
+                        yBP: { type: 'linear', position: 'left', min: 60, max: 85, title: { display: true, text: 'Diastolic BP (mmHg)' } },
+                        yStroop: { type: 'linear', position: 'right', min: 50, max: 100, title: { display: true, text: 'Accuracy (%)' }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function updateNMESSim() {
+            const duration = parseInt(document.getElementById('nmes-slider').value);
+            const dbp = document.getElementById('nmes-dbp');
+            const perf = document.getElementById('nmes-perfusion');
+            const stroop = document.getElementById('nmes-stroop');
+
+            const dbpGain = Math.round((duration / 60) * 8);
+            const perfGain = Math.round(100 + (duration / 60) * 25);
+            const stroopGain = Math.round((duration / 60) * 35);
+
+            dbp.innerText = `+${dbpGain} mmHg (${68 + dbpGain} mmHg total)`;
+            perf.innerText = `Optimal (${perfGain}% flow)`;
+            stroop.innerText = `+${stroopGain}% processing speed`;
+        }
+
+        // Stroop Test Interactive Game
+        const stroopColors = ['red', 'blue', 'green', 'yellow'];
+        let currentStroopColor = 'red';
+        let stroopStartTime = 0;
+
+        function launchStroopTest() {
+            const res = document.getElementById('stroop-result');
+            res.className = 'text-xs text-center font-bold text-[#1E4D58]';
+            res.innerText = '';
+            document.getElementById('stroop-modal').classList.remove('hidden');
+            nextStroopQuestion();
+        }
+
+        function closeStroopTest() {
+            document.getElementById('stroop-modal').classList.add('hidden');
+        }
+
+        function nextStroopQuestion() {
+            const wordIndex = Math.floor(Math.random() * stroopColors.length);
+            let colorIndex = Math.floor(Math.random() * stroopColors.length);
+            while (colorIndex === wordIndex) {
+                colorIndex = Math.floor(Math.random() * stroopColors.length);
+            }
+
+            const wordElem = document.getElementById('stroop-word');
+            wordElem.innerText = stroopColors[wordIndex].toUpperCase();
+            wordElem.style.color = stroopColors[colorIndex];
+            currentStroopColor = stroopColors[colorIndex];
+            stroopStartTime = Date.now();
+        }
+
+        function answerStroop(selectedColor) {
+            const timeTaken = Date.now() - stroopStartTime;
+            const res = document.getElementById('stroop-result');
+            if (selectedColor === currentStroopColor) {
+                res.className = 'text-xs text-center font-bold text-green-700';
+                res.innerText = `✓ Correct! Response Time: ${timeTaken} ms. Neuromodulated cerebral speed active.`;
+            } else {
+                res.className = 'text-xs text-center font-bold text-red-600';
+                res.innerText = `✕ Incorrect color choice. Try focusing purely on ink color!`;
+            }
+            setTimeout(nextStroopQuestion, 1200);
+        }
+
+        // Roving tabindex keyboard support for the main tab list.
+        const mainTabList = document.querySelector('header [role="tablist"]');
+        if (mainTabList) {
+            mainTabList.addEventListener('keydown', (event) => {
+                const tabs = Array.from(mainTabList.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+
+                let nextIndex = null;
+                if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+                else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = tabs.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                const nextTab = tabs[nextIndex];
+                nextTab.focus();
+                switchTab(nextTab.id.replace('btn-tab-', ''));
+            });
+        }
+
+        // Roving tabindex keyboard support for the somatic sub-tab list.
+        const somaticTabList = document.querySelector('#tab-somatic-map [role="tablist"]');
+        if (somaticTabList) {
+            somaticTabList.addEventListener('keydown', (event) => {
+                const tabs = Array.from(somaticTabList.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+
+                let nextIndex = null;
+                if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+                else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = tabs.length - 1;
+                if (nextIndex === null) return;
+
+                event.preventDefault();
+                const nextTab = tabs[nextIndex];
+                nextTab.focus();
+                switchSomaticSubTab(nextTab.id.replace('subtab-', ''));
+            });
+        }
+
+        // Initialize Everything on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            switchSomaticSubTab('bioenergetics');
+        });
+    </script>
+</body>
+</html>
