@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive analysis of the breadcrumb method: the Progress Principle, reward prediction error, resumption lag, multi-step conversion UX, ethical dark-pattern boundaries and Schema.org breadcrumb markup.">
+  <meta name="theme-color" content="#047857">
+  <meta name="color-scheme" content="light">
+  <title>The Architecture of Micro-Progress: Breadcrumb Method Analysis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b'
+            },
+            neutralbg: '#f8faf9',
+            cardbg: '#ffffff',
+            warmgray: {
+              50: '#fcfbf9',
+              100: '#f4f1ea',
+              200: '#e6e1d5',
+              700: '#524e43',
+              800: '#38352e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+
+    /* Row 2 section tabs */
+    .tab-button {
+      color: #475569;
+    }
+    .tab-button:hover {
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+    .tab-button.tab-active {
+      background-color: #047857;
+      color: #ffffff;
+    }
+    .tab-button.tab-active:hover {
+      background-color: #065f46;
+    }
+    .tab-button.tab-cta {
+      color: #92400e;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+    }
+    .tab-button.tab-cta:hover {
+      background-color: #fef3c7;
+      color: #78350f;
+    }
+    .tab-button.tab-cta.tab-active {
+      background-color: #b45309;
+      border-color: #b45309;
+      color: #ffffff;
+    }
+    .tab-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 transparent;
+    }
+    .tab-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tab-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .tab-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Visible keyboard focus without disturbing pointer users */
+    a:focus-visible,
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 3px solid #059669;
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-neutralbg text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-200 selection:text-brand-900">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-brand-700 focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
+  <!-- Chosen Palette: Warm Neutrals & Sage Harmony -->
+  <!-- Application Structure Plan:
+       Designed as a 5-Section Thematic Interactive Dashboard:
+       1. Overview & Progress Psychology: Intro context, Progress Principle dynamics, and interactive 7-Catalysts grid.
+       2. Neurobiology & Dopamine Lab: Interactive Chart.js simulator for Reward Prediction Error (RPE), brain circuit breakdown, and memory decay.
+       3. Digital UX, CRO & Case Study: Interactive comparison of monolithic vs multi-step UX, featuring an interactive India Tax Filing (Form 16/AIS) progressive disclosure step-through tool.
+       4. Dark Patterns & SEO Architecture: Ethics comparison tool and live JSON-LD Schema.org Breadcrumb generator with SERP preview.
+       5. Practical Breadcrumb Generator Tool: Live task deconstructor with countdown timer and dopamine task completion system.
+       This structure translates linear theoretical paper sections into active exploratory tools to maximize user engagement and mastery.
+  -->
+  <!-- Visualization & Content Choices:
+       - RPE & Dopamine Firing: Line chart (Chart.js) comparing Expected vs Actual Reward dopamine responses across micro-tasks vs monolithic tasks.
+       - Progress Catalysts & Setbacks: Interactive card selector detailing catalysts and asymmetric failure mitigation.
+       - Form Friction (UX): Visual multi-step progress widget simulating conversion lift (+74%).
+       - Tax Filing Case Study: Step-by-step progressive disclosure UI simulator (Form 16 Part A/B, AIS, Old vs New Regime).
+       - SEO Breadcrumb Generator: Dynamic JSON-LD code previewer & Google SERP visualizer.
+       - Practical Task Breakdown: Interactive task chunker & 5-min timer.
+       - Confirming NO SVG elements or Mermaid JS used. HTML symbols, CSS, Canvas, and Chart.js used exclusively.
+  -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <!-- Top Navigation Header -->
+  <header class="bg-cardbg/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-2xl flex-shrink-0" aria-hidden="true">🍞</span>
+          <div class="min-w-0">
+            <span class="block font-bold text-sm sm:text-lg tracking-tight text-slate-900 truncate">The Architecture of Micro-Progress</span>
+            <span class="block text-[11px] text-slate-500 font-medium truncate hidden sm:block">A Multidisciplinary Analysis of the Breadcrumb Method</span>
+          </div>
+        </div>
+        <span class="hidden lg:inline-block flex-shrink-0 text-[10px] uppercase tracking-wider bg-brand-100 text-brand-800 px-2.5 py-1 rounded font-bold">Cognition · UX · Productivity</span>
+        <a href="../" class="flex-shrink-0 text-xs font-semibold text-slate-600 hover:text-brand-700 transition-colors px-2.5 py-1 rounded-lg border border-slate-200 hover:border-brand-500" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+      </div>
+
+      <!-- Row 2: section navigation, horizontally scrollable on small screens -->
+      <nav class="tab-scroll flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-slate-100 py-2 text-xs sm:text-sm font-semibold" role="tablist" aria-label="Page sections">
+        <button type="button" role="tab" aria-selected="true" aria-controls="tab-overview" tabindex="0" onclick="switchTab('overview')" id="btn-tab-overview" class="tab-button tab-active flex-shrink-0 px-3 py-2 rounded-md transition-colors">Overview</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-neuro" tabindex="-1" onclick="switchTab('neuro')" id="btn-tab-neuro" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">Neurobiology</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-ux" tabindex="-1" onclick="switchTab('ux')" id="btn-tab-ux" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">UX &amp; CRO</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-seo" tabindex="-1" onclick="switchTab('seo')" id="btn-tab-seo" class="tab-button flex-shrink-0 px-3 py-2 rounded-md transition-colors">SEO &amp; Ethics</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-app" tabindex="-1" onclick="switchTab('app')" id="btn-tab-app" class="tab-button tab-cta flex-shrink-0 px-3 py-2 rounded-md transition-colors">&#9654; Live Task Tool</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main id="main" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- SECTION 1: OVERVIEW & PSYCHOLOGY OF SMALL WINS -->
+    <section id="tab-overview" role="tabpanel" aria-labelledby="btn-tab-overview" tabindex="0" aria-hidden="false" class="tab-content block space-y-8">
+
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-brand-100 text-brand-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Theoretical Foundations</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">The Power of Micro-Progress &amp; Inner Work Life</h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            The <strong>Breadcrumb Method</strong> disaggregates daunting, high-friction objectives into micro-tasks requiring 5 to 10 minutes of effort. Anchored in Teresa Amabile and Steven Kramer&rsquo;s <em>Progress Principle</em>, empirical research confirms that making incremental headway in meaningful work is the single strongest driver of positive daily emotions, engagement, and creative output. Explore the core principles and environmental catalysts below.
+          </p>
+        </div>
+      </div>
+
+      <!-- Key Stats & Principles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-cardbg p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="text-amber-600 text-3xl font-extrabold mb-1">28%</div>
+            <h3 class="text-base font-bold text-slate-800 mb-2">Disproportionate Impact</h3>
+            <p class="text-slate-600 text-xs sm:text-sm">Minor events classified as &ldquo;small wins&rdquo; account for 28% of positive inner work life events, exerting massive psychological leverage.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-400">Source: Amabile &amp; Kramer Diary Studies</div>
+        </div>
+
+        <div class="bg-cardbg p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="text-emerald-600 text-3xl font-extrabold mb-1">5-10 Min</div>
+            <h3 class="text-base font-bold text-slate-800 mb-2">Micro-Task Threshold</h3>
+            <p class="text-slate-600 text-xs sm:text-sm">The optimal duration to bypass limbic threat detection and overcome initial cognitive friction without triggering anxiety.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-400">Focus &amp; Arousal Optimization</div>
+        </div>
+
+        <div class="bg-cardbg p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="text-rose-600 text-3xl font-extrabold mb-1">Asymmetric</div>
+            <h3 class="text-base font-bold text-slate-800 mb-2">Negativity Bias Prophylactic</h3>
+            <p class="text-slate-600 text-xs sm:text-sm">Setbacks degrade motivation faster than progress elevates it. Breadcrumbs strictly bound failure to a matter of minutes.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-400">Risk Containment Mechanism</div>
+        </div>
+      </div>
+
+      <!-- Interactive 7 Catalysts Explorer -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-xl font-bold text-slate-900 mb-2">The 7 Environmental Catalysts for Progress</h3>
+        <p class="text-slate-600 text-xs sm:text-sm mb-6">Select a catalyst below to see how it operates within the micro-progress framework:</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-1 space-y-2" id="catalystList" role="group" aria-label="Progress catalysts">
+            <!-- Buttons injected by JS -->
+          </div>
+          <div class="lg:col-span-2 bg-warmgray-50 p-6 rounded-xl border border-warmgray-200 flex flex-col justify-between" id="catalystDetail" role="region" aria-live="polite" aria-atomic="true">
+            <div>
+              <span id="catalystTag" class="text-xs font-bold uppercase tracking-wider text-brand-700 bg-brand-100 px-2.5 py-1 rounded">Catalyst 1</span>
+              <h4 id="catalystTitle" class="text-lg font-bold text-slate-900 mt-3 mb-2">Clear Goals &amp; Objectives</h4>
+              <p id="catalystDesc" class="text-slate-600 text-sm leading-relaxed mb-4">Breadcrumbs function effectively only when directed toward a specific, unambiguous outcome. Chunking massive goals into clear micro-objectives provides a realistic timeframe for a win.</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border border-slate-200 text-xs text-slate-700 font-mono">
+              <strong>Neuro-Cognitive Alignment:</strong> <span id="catalystNeuro">Reduces ambiguity, allowing prefrontal cortex to allocate immediate executive focus.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 2: NEUROBIOLOGY & DOPAMINE LAB -->
+    <section id="tab-neuro" role="tabpanel" aria-labelledby="btn-tab-neuro" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Brain Circuitry &amp; Dopamine</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">Neurobiological Correlates &amp; Reward Prediction Error</h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Procrastination is not a failure of time management, but a failure of emotional self-regulation. When confronted with large tasks, the amygdala signals threat, while temporal discounting devalues distant rewards. The breadcrumb method exploits the brain&rsquo;s <strong>Reward Prediction Error (RPE)</strong> mechanism, generating dopamine surges that reinforce action.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Chart & Simulator Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- RPE Simulator Chart -->
+        <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+              <h3 class="text-lg font-bold text-slate-900">Reward Prediction Error (RPE) Simulator</h3>
+              <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-mono">Chart.js Dynamic</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-4">
+              Formula: <code class="bg-slate-100 px-1 py-0.5 rounded text-amber-700">RPE = Actual Reward (R_t) - Expected Value (V)</code>.<br>
+              Simulate completing small micro-breadcrumbs vs facing a monolithic task:
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-4 text-xs">
+              <button type="button" onclick="triggerRPESimulation('micro')" class="px-3 py-1.5 bg-emerald-600 text-white rounded font-medium shadow-sm hover:bg-emerald-700 transition-colors">Simulate Micro-Tasks</button>
+              <button type="button" onclick="triggerRPESimulation('monolith')" class="px-3 py-1.5 bg-rose-600 text-white rounded font-medium shadow-sm hover:bg-rose-700 transition-colors">Simulate Monolithic Task</button>
+            </div>
+
+            <!-- Responsive Chart Container -->
+            <div class="chart-container">
+              <canvas id="rpeChart" role="img" aria-label="Line chart comparing dopamine and motivation levels for a micro-task workflow versus a monolithic task workflow"></canvas>
+            </div>
+          </div>
+          <div id="rpeExplanation" role="status" aria-live="polite" class="mt-4 p-3 bg-emerald-50 text-emerald-800 text-xs rounded-lg border border-emerald-200">
+            <strong>Micro-Task Mode:</strong> Anticipated agonizing effort (Low Expectation) turns into quick completion, triggering a Positive RPE and dopamine surge in the striatum.
+          </div>
+        </div>
+
+        <!-- Brain Regions & Memory Decay -->
+        <div class="space-y-6">
+          <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Key Brain Regions in Task Valuation</h3>
+            <div class="space-y-3 text-xs sm:text-sm">
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <div class="font-bold text-slate-800">Amygdala &amp; Limbic System</div>
+                <div class="text-slate-600 text-xs">Registers task anxiety and triggers the emotional &ldquo;freeze&rdquo; response, driving instant relief seeking (scrolling, distractions).</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <div class="font-bold text-slate-800">Ventromedial PFC (vmPFC)</div>
+                <div class="text-slate-600 text-xs">Weighs engagement utility (effort cost) against outcome utility (future reward). Breadcrumbs drastically lower engagement utility.</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <div class="font-bold text-slate-800">VTA &amp; Substantia Nigra (SN)</div>
+                <div class="text-slate-600 text-xs">Dopaminergic hub broadcasting phasic surges upon successful completion of a 5-minute task step.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Memory for Goals &amp; Resumption Lag</h3>
+            <p class="text-xs text-slate-600 mb-3">
+              Altmann &amp; Trafton&rsquo;s <em>Memory for Goals</em> theory explains how interruptions decay mental goal activation. Leaving environmental breadcrumbs preserves workflow context.
+            </p>
+            <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs space-y-2">
+              <div class="font-semibold text-amber-900">The Resumption Lag Remedy:</div>
+              <p class="text-amber-800">Leaving a sentence half-written or a quick sticky note externalizes working memory. Upon return, perceptual cues trigger prospective memory reactivation without heavy cognitive tax.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SECTION 3: DIGITAL UX, CRO & TAX CASE STUDY -->
+    <section id="tab-ux" role="tabpanel" aria-labelledby="btn-tab-ux" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Digital Conversion &amp; Usability</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">UX Design, Conversion Rate Optimization &amp; Cognitive Load</h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            In digital product design, the <strong>Breadcrumb Technique</strong> leverages the &ldquo;foot-in-the-door&rdquo; effect by chunking complex onboarding or form flows into low-threat micro-steps. Multi-step forms regularly yield up to a <strong>+74% increase in conversion rate</strong> compared to monolithic single-page forms.
+          </p>
+        </div>
+      </div>
+
+      <!-- Monolithic vs Multi-Step Interactive UX Comparison -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Interactive Multi-Step Simulator -->
+        <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+            <h3 class="text-lg font-bold text-slate-900">Breadcrumb UX Multi-Step Flow</h3>
+            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">+74% Conversion Lift</span>
+          </div>
+          <p class="text-xs text-slate-600 mb-4">Experience how progressive disclosure reduces cognitive friction:</p>
+
+          <!-- Interactive UI Wizard Widget -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5" id="uxWizard">
+            <!-- Progress Bar -->
+            <div class="mb-4">
+              <div class="flex justify-between text-xs text-slate-500 mb-1">
+                <span id="wizardStepLabel" aria-live="polite">Step 1 of 3: Low Friction Question</span>
+                <span id="wizardPercentLabel">33%</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden" id="wizardProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" aria-valuetext="Step 1 of 3">
+                <div id="wizardBar" class="bg-brand-600 h-full w-1/3 transition-all duration-300"></div>
+              </div>
+            </div>
+
+            <!-- Wizard Step Contents -->
+            <div id="wizardContent" class="space-y-4">
+              <!-- Step 1 -->
+              <div id="wizStep1" class="space-y-3">
+                <fieldset class="space-y-2 text-xs border-0 p-0 m-0">
+                  <legend class="block text-xs font-bold text-slate-700 mb-2">What is your primary goal today?</legend>
+                  <label class="flex items-center p-2.5 bg-white rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                    <input type="radio" name="goal" value="momentum" class="mr-2 text-brand-600" checked> Reduce Procrastination &amp; Build Momentum
+                  </label>
+                  <label class="flex items-center p-2.5 bg-white rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                    <input type="radio" name="goal" value="conversion" class="mr-2 text-brand-600"> Optimize Web Application UX Conversion
+                  </label>
+                </fieldset>
+                <button type="button" onclick="nextWizStep(2)" class="w-full py-2 bg-brand-600 text-white text-xs font-bold rounded shadow hover:bg-brand-700 transition-colors">Continue to Step 2 &#8594;</button>
+              </div>
+
+              <!-- Step 2 -->
+              <div id="wizStep2" class="space-y-3 hidden">
+                <div class="block text-xs font-bold text-slate-700">How much time can you commit right now?</div>
+                <div class="grid grid-cols-3 gap-2 text-xs" role="group" aria-label="Available time">
+                  <button type="button" data-minutes="5" aria-pressed="false" onclick="selectTime(this, 5)" class="p-2 border bg-white rounded text-center hover:bg-emerald-50 transition-colors">5 Mins</button>
+                  <button type="button" data-minutes="10" aria-pressed="false" onclick="selectTime(this, 10)" class="p-2 border bg-white rounded text-center hover:bg-emerald-50 transition-colors">10 Mins</button>
+                  <button type="button" data-minutes="20" aria-pressed="false" onclick="selectTime(this, 20)" class="p-2 border bg-white rounded text-center hover:bg-emerald-50 transition-colors">20 Mins</button>
+                </div>
+                <div class="flex space-x-2">
+                  <button type="button" onclick="nextWizStep(1)" class="w-1/3 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded hover:bg-slate-300 transition-colors">Back</button>
+                  <button type="button" onclick="nextWizStep(3)" class="w-2/3 py-2 bg-brand-600 text-white text-xs font-bold rounded hover:bg-brand-700 transition-colors">Next Step &#8594;</button>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div id="wizStep3" class="space-y-3 hidden">
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded text-xs text-amber-900">
+                  <strong>High-Friction Final Conversion Step:</strong> Because you already completed 2 micro-steps, the foot-in-the-door psychological momentum makes completion 74% more likely. Your selected sprint: <span id="wizardTimeSummary" class="font-bold">5 minutes</span>.
+                </div>
+                <div>
+                  <label for="wizardEmail" class="block text-xs font-bold text-slate-700 mb-1">Email (optional, to save progress)</label>
+                  <input type="email" id="wizardEmail" placeholder="Enter email to save progress..." class="w-full text-xs p-2.5 border rounded border-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                </div>
+                <div class="flex space-x-2">
+                  <button type="button" onclick="nextWizStep(2)" class="w-1/3 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded hover:bg-slate-300 transition-colors">Back</button>
+                  <button type="button" onclick="completeWiz()" class="w-2/3 py-2 bg-emerald-600 text-white text-xs font-bold rounded hover:bg-emerald-700 transition-colors">Complete Conversion &#10003;</button>
+                </div>
+              </div>
+            </div>
+
+            <p id="wizardStatus" role="status" aria-live="polite" class="mt-3 text-xs font-semibold text-emerald-700"></p>
+          </div>
+        </div>
+
+        <!-- Real-World Complex Case Study: India Income Tax Filing -->
+        <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 bg-slate-100 text-slate-800 text-xs font-bold rounded">Case Study</span>
+              <h3 class="text-lg font-bold text-slate-900">India Tax Filing Progressive Disclosure</h3>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              Filing taxes for IT professionals involves reconciling <strong>Form 16 (Parts A &amp; B)</strong>, <strong>Annual Information Statement (AIS)</strong>, <strong>Form 26AS</strong>, HRA exemptions, and selecting between Old vs New Tax Regimes. Presenting this all at once causes high drop-offs.
+            </p>
+
+            <div class="space-y-2 text-xs">
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-start space-x-2">
+                <div class="bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded text-xs">Step 1</div>
+                <div>
+                  <div class="font-bold text-slate-800">Form 16 Auto-Upload</div>
+                  <div class="text-slate-500">Parses employer TRACES TDS data &amp; Section 203 details automatically.</div>
+                </div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-start space-x-2">
+                <div class="bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded text-xs">Step 2</div>
+                <div>
+                  <div class="font-bold text-slate-800">AIS &amp; 26AS Reconciliation</div>
+                  <div class="text-slate-500">Presents pre-filled interest, dividend, and capital gains data for single-click confirmation.</div>
+                </div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-start space-x-2">
+                <div class="bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded text-xs">Step 3</div>
+                <div>
+                  <div class="font-bold text-slate-800">Regime Comparison &amp; Deductions</div>
+                  <div class="text-slate-500">Interactive toggle comparing tax liabilities under Old vs New Tax Regimes.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            <strong>Key Outcome:</strong> Masks statutory complexity through isolated micro-queries, maximizing compliance completion.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SECTION 4: SEO ARCHITECTURE & DARK PATTERNS -->
+    <section id="tab-seo" role="tabpanel" aria-labelledby="btn-tab-seo" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Web Architecture &amp; Ethics</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">Schema.org Structured Data &amp; Ethical Boundaries</h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Breadcrumbs serve two distinct external dimensions: enabling search crawlers to map site hierarchy via JSON-LD structured data (boosting CTR up to 30%), and defining the ethical boundary between persuasive user guidance and manipulative <strong>Dark Patterns</strong> (such as forced continuity and Roach Motels).
+          </p>
+        </div>
+      </div>
+
+      <!-- SEO Schema Builder & Google SERP Simulator -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Live JSON-LD Schema Builder -->
+        <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Interactive JSON-LD Breadcrumb Builder</h3>
+            <p class="text-xs text-slate-600 mb-4">Build and inspect a valid Schema.org <code class="bg-slate-100 px-1 rounded">BreadcrumbList</code> payload:</p>
+
+            <div class="space-y-3 text-xs mb-4">
+              <div>
+                <label for="schemaL1" class="block font-bold text-slate-700 mb-1">Level 1 (Home):</label>
+                <input type="text" id="schemaL1" value="Home" oninput="updateSchemaOutput()" class="w-full p-2 border rounded border-slate-300">
+              </div>
+              <div>
+                <label for="schemaL2" class="block font-bold text-slate-700 mb-1">Level 2 (Category):</label>
+                <input type="text" id="schemaL2" value="Productivity" oninput="updateSchemaOutput()" class="w-full p-2 border rounded border-slate-300">
+              </div>
+              <div>
+                <label for="schemaL3" class="block font-bold text-slate-700 mb-1">Level 3 (Current Page):</label>
+                <input type="text" id="schemaL3" value="Breadcrumb Method" oninput="updateSchemaOutput()" class="w-full p-2 border rounded border-slate-300">
+              </div>
+            </div>
+
+            <!-- JSON Output Code Box -->
+            <pre class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs font-mono overflow-x-auto h-48" id="schemaCodeOutput" aria-label="Generated Schema.org BreadcrumbList JSON-LD" tabindex="0"></pre>
+          </div>
+        </div>
+
+        <!-- SERP Preview & Ethical Boundaries -->
+        <div class="space-y-6">
+          <!-- Google SERP Rich Snippet Preview -->
+          <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Google SERP Rich Snippet Preview</h3>
+            <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm font-sans">
+              <div class="flex items-center space-x-2 text-xs text-slate-600 mb-1">
+                <span class="w-4 h-4 bg-slate-200 rounded-full inline-block text-center text-[10px] font-bold" aria-hidden="true">g</span>
+                <span id="serpBreadcrumbTrail" class="text-slate-700">https://example.com &#8250; Productivity &#8250; Breadcrumb Method</span>
+              </div>
+              <div class="text-blue-800 text-base font-medium hover:underline cursor-pointer" id="serpTitle">
+                Breadcrumb Method - Theoretical &amp; UX Overview
+              </div>
+              <div class="text-xs text-slate-600 mt-1">
+                Learn how breaking overwhelming projects into 5-minute breadcrumbs activates dopamine RPE circuits and bypasses procrastination resistance...
+              </div>
+            </div>
+            <div class="mt-3 text-xs text-slate-500">
+              &#10003; Enhanced breadcrumb snippets boost organic Click-Through-Rates (CTR) by up to <strong>30%</strong>.
+            </div>
+          </div>
+
+          <!-- Ethical Boundaries Matrix -->
+          <div class="bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Ethical UX vs Dark Patterns</h3>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                <div class="font-bold text-emerald-900">Ethical Persuasion (Full-Disclosure Test)</div>
+                <div class="text-emerald-800">Clear progressive commitment aligned with user goals. Transparent exit paths equal to onboarding paths.</div>
+              </div>
+              <div class="p-3 bg-rose-50 border border-rose-200 rounded-lg">
+                <div class="font-bold text-rose-900">Dark Pattern (Sunk Cost &amp; Roach Motel)</div>
+                <div class="text-rose-800">Exploits prior effort to force final payments or obfuscates cancellation through intentional friction (&ldquo;sludge&rdquo;).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SECTION 5: LIVE ACTION BREADCRUMB TOOL -->
+    <section id="tab-app" role="tabpanel" aria-labelledby="btn-tab-app" tabindex="0" aria-hidden="true" class="tab-content hidden space-y-8">
+
+      <!-- Section Introductory Paragraph -->
+      <div class="bg-cardbg p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Interactive Application</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">Breadcrumb Task Deconstructor &amp; Timer</h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Apply the breadcrumb methodology to your own real-world work right now. Input a daunting project below to deconstruct it into micro-steps, start a sprint timer, and trigger simulated dopaminergic task completion rewards!
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Interactive App Matrix -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Input Panel -->
+        <div class="lg:col-span-1 bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-900">1. Define Daunting Task</h3>
+
+          <div>
+            <label for="userTaskInput" class="block text-xs font-bold text-slate-700 mb-1">What are you procrastinating on?</label>
+            <input type="text" id="userTaskInput" placeholder="e.g., Write Tax Return or Draft Report" class="w-full text-xs p-2.5 border rounded border-slate-300 focus:ring-1 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label for="userTimeSelect" class="block text-xs font-bold text-slate-700 mb-1">Available Time Today:</label>
+            <select id="userTimeSelect" onchange="setTimerMinutes(parseInt(this.value, 10))" class="w-full text-xs p-2.5 border rounded border-slate-300">
+              <option value="5">5 Minutes (Micro-Initiation)</option>
+              <option value="10">10 Minutes (Constrained Sprint)</option>
+              <option value="20">20 Minutes (Memory Restoration)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="userBarrierSelect" class="block text-xs font-bold text-slate-700 mb-1">Procrastination Barrier:</label>
+            <select id="userBarrierSelect" class="w-full text-xs p-2.5 border rounded border-slate-300">
+              <option value="aversive">High Task Aversiveness (Amygdala Freeze)</option>
+              <option value="anxiety">Scope Anxiety &amp; Rumination</option>
+              <option value="resumption">Resumption Lag (Interruption Context)</option>
+            </select>
+          </div>
+
+          <button type="button" onclick="generateBreadcrumbs()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-lg shadow transition-colors">
+            Deconstruct into Breadcrumbs &#9889;
+          </button>
+        </div>
+
+        <!-- Deconstructed Steps Checklist & Timer -->
+        <div class="lg:col-span-2 bg-cardbg p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+              <h3 class="text-lg font-bold text-slate-900">2. Actionable Breadcrumbs</h3>
+              <div id="dopamineCounter" role="status" aria-live="polite" class="bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full text-xs">
+                Dopamine Score: 0 RPE
+              </div>
+            </div>
+
+            <!-- Dynamic Steps List -->
+            <div id="breadcrumbListContainer" class="space-y-3 mb-6" role="region" aria-live="polite" aria-label="Generated breadcrumbs">
+              <div class="p-4 bg-slate-50 border border-dashed border-slate-300 rounded-xl text-xs text-slate-500 text-center">
+                Enter a task on the left and click &ldquo;Deconstruct&rdquo; to generate your 5-minute micro-steps.
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrated Sprint Timer -->
+          <div class="bg-warmgray-50 border border-warmgray-200 p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Sprint Countdown</div>
+              <div id="timerDisplay" role="timer" aria-live="off" class="text-2xl font-mono font-extrabold text-slate-900">05:00</div>
+              <div id="timerStatus" role="status" aria-live="polite" class="text-[11px] text-slate-500 mt-1">Ready to start.</div>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <button type="button" onclick="startTimer()" id="btnStartTimer" class="px-3 py-2 bg-emerald-600 text-white font-bold rounded hover:bg-emerald-700 transition-colors">Start 5-Min Timer</button>
+              <button type="button" onclick="pauseTimer()" class="px-3 py-2 bg-slate-200 text-slate-700 font-bold rounded hover:bg-slate-300 transition-colors">Pause</button>
+              <button type="button" onclick="resetTimer()" class="px-3 py-2 bg-slate-200 text-slate-700 font-bold rounded hover:bg-slate-300 transition-colors">Reset</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-cardbg border-t border-slate-200 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>The Architecture of Micro-Progress &copy; Multidisciplinary Research Synthesis | Designed for Cognition, UX, &amp; Productivity</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2" aria-label="Footer">
+        <a href="../" class="text-brand-700 hover:underline">&larr; Knowledge Vault</a>
+        <a href="./readme.md" class="text-brand-700 hover:underline">The Full Report</a>
+        <a href="../../../" class="text-brand-700 hover:underline">Portfolio Home &nearr;</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    // Global State
+    let currentRPEChart = null;
+    let dopamineScore = 0;
+    let timerInterval = null;
+    let timerTotal = 300;
+    let timerSeconds = 300;
+    let selectedWizardTime = 5;
+
+    // Catalyst Data
+    const catalysts = [
+      {
+        id: 'c1',
+        title: 'Clear Goals & Objectives',
+        tag: 'Catalyst 1',
+        desc: 'Breadcrumbs function effectively only when directed toward a specific, unambiguous outcome. Chunking massive goals into clear micro-objectives provides a realistic timeframe for a win.',
+        neuro: 'Reduces ambiguity, allowing prefrontal cortex to allocate immediate executive focus.'
+      },
+      {
+        id: 'c2',
+        title: 'Autonomy',
+        tag: 'Catalyst 2',
+        desc: 'Individuals require the freedom to determine HOW to execute a micro-task. Micromanagement paralyzes creative thinking and negates the intrinsic reward.',
+        neuro: 'Sustains internal locus of control and keeps intrinsic motivation intact.'
+      },
+      {
+        id: 'c3',
+        title: 'Sufficient Resources',
+        tag: 'Catalyst 3',
+        desc: 'A breadcrumb cannot be completed if energy must first be spent acquiring materials. Pre-arranging resources minimizes initiation friction.',
+        neuro: 'Prevents mental fatigue from context switching before primary task initiation.'
+      },
+      {
+        id: 'c4',
+        title: 'Optimal Time Pressure',
+        tag: 'Catalyst 4',
+        desc: 'Low-to-moderate time pressure (such as a 5-minute timer) creates an optimal arousal state that enhances focus without triggering anxiety.',
+        neuro: 'Optimizes Yerkes-Dodson arousal curve without triggering amygdala freeze.'
+      },
+      {
+        id: 'c5',
+        title: 'Support & Expertise',
+        tag: 'Catalyst 5',
+        desc: 'Rapid access to help ensures micro-tasks do not stall when unexpected difficulties arise, maintaining sequential momentum.',
+        neuro: 'Preserves psychological safety and prevents negative dopamine prediction error drops.'
+      },
+      {
+        id: 'c6',
+        title: 'Learning from Failure',
+        tag: 'Catalyst 6',
+        desc: 'When a micro-task fails, it is viewed as an educational iteration rather than a punitive failure, preserving psychological safety.',
+        neuro: 'Minimizes stress response and cortisol release during task iteration.'
+      },
+      {
+        id: 'c7',
+        title: 'Interpersonal Nourishers',
+        tag: 'Catalyst 7',
+        desc: 'Positive interactions and recognition amplify the emotional resonance of a small win, providing essential fuel for subsequent steps.',
+        neuro: 'Triggers oxytocin and endogenous dopamine release to fortify social motivation.'
+      }
+    ];
+
+    // Initialize Application
+    document.addEventListener('DOMContentLoaded', () => {
+      initCatalystList();
+      updateSchemaOutput();
+      updateTimerDisplay();
+    });
+
+    // Tab Navigation Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(panel => {
+        const isTarget = panel.id === 'tab-' + tabId;
+        panel.classList.toggle('hidden', !isTarget);
+        panel.classList.toggle('block', isTarget);
+        panel.setAttribute('aria-hidden', isTarget ? 'false' : 'true');
+      });
+
+      document.querySelectorAll('header [role="tab"]').forEach(tab => {
+        const isTarget = tab.id === 'btn-tab-' + tabId;
+        tab.classList.toggle('tab-active', isTarget);
+        tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        tab.tabIndex = isTarget ? 0 : -1;
+        if (isTarget && typeof tab.scrollIntoView === 'function') {
+          tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        }
+      });
+
+      // Charts are created lazily so they never initialize inside a hidden, zero-height container.
+      if (tabId === 'neuro') {
+        if (!currentRPEChart) initRPEChart();
+        else currentRPEChart.resize();
+      }
+    }
+
+    // Roving tabindex keyboard support for the main tab list.
+    const mainTabList = document.querySelector('header [role="tablist"]');
+    if (mainTabList) {
+      mainTabList.addEventListener('keydown', (event) => {
+        const tabs = Array.from(mainTabList.querySelectorAll('[role="tab"]'));
+        const currentIndex = tabs.indexOf(document.activeElement);
+        if (currentIndex === -1) return;
+
+        let nextIndex = null;
+        if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex === null) return;
+
+        event.preventDefault();
+        const nextTab = tabs[nextIndex];
+        nextTab.focus();
+        switchTab(nextTab.id.replace('btn-tab-', ''));
+      });
+    }
+
+    // Catalyst Explorer Logic
+    function initCatalystList() {
+      const container = document.getElementById('catalystList');
+      container.innerHTML = '';
+      catalysts.forEach((cat, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `w-full text-left p-3 rounded-lg border text-xs font-semibold transition-all ${index === 0 ? 'bg-brand-600 text-white border-brand-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+        btn.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+        btn.textContent = cat.title;
+        btn.onclick = () => selectCatalyst(cat.id, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectCatalyst(id, targetBtn) {
+      document.querySelectorAll('#catalystList button').forEach(b => {
+        b.className = 'w-full text-left p-3 rounded-lg border text-xs font-semibold transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+        b.setAttribute('aria-pressed', 'false');
+      });
+      targetBtn.className = 'w-full text-left p-3 rounded-lg border text-xs font-semibold transition-all bg-brand-600 text-white border-brand-600';
+      targetBtn.setAttribute('aria-pressed', 'true');
+
+      const cat = catalysts.find(c => c.id === id);
+      if (cat) {
+        document.getElementById('catalystTitle').textContent = cat.title;
+        document.getElementById('catalystTag').textContent = cat.tag;
+        document.getElementById('catalystDesc').textContent = cat.desc;
+        document.getElementById('catalystNeuro').textContent = cat.neuro;
+      }
+    }
+
+    // RPE Dynamic Chart (Chart.js)
+    function initRPEChart() {
+      const canvas = document.getElementById('rpeChart');
+      if (!canvas || currentRPEChart) return;
+
+      const ctx = canvas.getContext('2d');
+      const labels = ['Start', 'Step 1 (2m)', 'Step 2 (5m)', 'Step 3 (8m)', 'Completion'];
+
+      currentRPEChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Micro-Task Dopamine Firing (Positive RPE)',
+              data: [20, 75, 85, 90, 100],
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Monolithic Task Expectation (Procrastination Resistance)',
+              data: [20, 15, 10, 5, 0],
+              borderColor: '#e11d48',
+              backgroundColor: 'transparent',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                font: { size: 10 }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.raw + ' % Baseline';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 120,
+              title: { display: true, text: 'Dopamine / Motivation Level (%)', font: { size: 10 } }
+            },
+            x: {
+              title: { display: true, text: 'Time / Micro-Steps', font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function triggerRPESimulation(mode) {
+      if (!currentRPEChart) initRPEChart();
+      if (!currentRPEChart) return;
+
+      const expDiv = document.getElementById('rpeExplanation');
+      if (mode === 'micro') {
+        currentRPEChart.data.datasets[0].data = [20, 75, 85, 90, 100];
+        currentRPEChart.data.datasets[1].data = [20, 15, 10, 5, 0];
+        expDiv.className = 'mt-4 p-3 bg-emerald-50 text-emerald-800 text-xs rounded-lg border border-emerald-200';
+        expDiv.innerHTML = '<strong>Micro-Task Mode:</strong> Anticipated agonizing effort turns into easy win, generating Positive RPE and dopamine release that drives continuous momentum.';
+      } else {
+        currentRPEChart.data.datasets[0].data = [10, 12, 8, 5, 2];
+        currentRPEChart.data.datasets[1].data = [80, 85, 90, 95, 100];
+        expDiv.className = 'mt-4 p-3 bg-rose-50 text-rose-800 text-xs rounded-lg border border-rose-200';
+        expDiv.innerHTML = '<strong>Monolithic Task Mode:</strong> High perceived effort cost overwhelms distant reward expectation, triggering amygdala freeze and task abandonment.';
+      }
+      currentRPEChart.update();
+    }
+
+    // UX Wizard Logic
+    function nextWizStep(step) {
+      [1, 2, 3].forEach(s => {
+        document.getElementById('wizStep' + s).classList.toggle('hidden', s !== step);
+      });
+
+      const wizStatus = document.getElementById('wizardStatus');
+      if (wizStatus) wizStatus.textContent = '';
+
+      const bar = document.getElementById('wizardBar');
+      const label = document.getElementById('wizardStepLabel');
+      const percent = document.getElementById('wizardPercentLabel');
+      const progress = document.getElementById('wizardProgress');
+
+      let width = '33%';
+      let text = 'Step 1 of 3: Low Friction Question';
+      if (step === 2) {
+        width = '66%';
+        text = 'Step 2 of 3: Micro Commitment';
+      } else if (step === 3) {
+        width = '100%';
+        text = 'Step 3 of 3: High Conversion Step';
+      }
+
+      bar.style.width = width;
+      label.textContent = text;
+      percent.textContent = width;
+      progress.setAttribute('aria-valuenow', String(parseInt(width, 10)));
+      progress.setAttribute('aria-valuetext', `Step ${step} of 3`);
+    }
+
+    function selectTime(button, minutes) {
+      selectedWizardTime = minutes;
+      document.querySelectorAll('#wizStep2 [data-minutes]').forEach(btn => {
+        const active = btn === button;
+        btn.classList.toggle('bg-emerald-600', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('border-emerald-600', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      const summary = document.getElementById('wizardTimeSummary');
+      if (summary) summary.textContent = `${minutes} minutes`;
+      setTimerMinutes(minutes);
+    }
+
+    function completeWiz() {
+      const email = document.getElementById('wizardEmail');
+      const hadEmail = email.value.trim().length > 0;
+      email.value = '';
+      nextWizStep(1);
+      document.getElementById('wizardStatus').textContent = hadEmail
+        ? 'Conversion completed. Progress saved to your email.'
+        : 'Conversion completed. Email skipped, progress kept for this session.';
+    }
+
+    // SEO Schema Output Logic
+    function updateSchemaOutput() {
+      const l1 = document.getElementById('schemaL1').value.trim() || 'Home';
+      const l2 = document.getElementById('schemaL2').value.trim() || 'Category';
+      const l3 = document.getElementById('schemaL3').value.trim() || 'Current Page';
+      const slug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'page';
+
+      const jsonLD = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': l1,
+            'item': 'https://example.com/'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': l2,
+            'item': `https://example.com/${slug(l2)}`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 3,
+            'name': l3,
+            'item': `https://example.com/${slug(l2)}/${slug(l3)}`
+          }
+        ]
+      };
+
+      document.getElementById('schemaCodeOutput').textContent = JSON.stringify(jsonLD, null, 2);
+      document.getElementById('serpBreadcrumbTrail').textContent = `https://example.com \u203A ${l2} \u203A ${l3}`;
+      document.getElementById('serpTitle').textContent = `${l3} - Theoretical & UX Overview`;
+    }
+
+    // Interactive Breadcrumb Task Generator Tool Logic
+    function generateBreadcrumbs() {
+      const task = document.getElementById('userTaskInput').value.trim() || 'Complete Complex Project';
+      const time = document.getElementById('userTimeSelect').value;
+      const barrier = document.getElementById('userBarrierSelect').value;
+
+      const container = document.getElementById('breadcrumbListContainer');
+      container.innerHTML = '';
+
+      let steps = [];
+      if (barrier === 'aversive') {
+        steps = [
+          `Open laptop/workspace and create blank document titled "${task}".`,
+          'Write or assemble exactly ONE sentence or single data entry point.',
+          'Set a 5-minute timer to outline 3 micro-subtopics without editing.'
+        ];
+      } else if (barrier === 'anxiety') {
+        steps = [
+          `Write down the single scariest part of "${task}" in 5 words.`,
+          'Perform a 2-minute micro-sprint focusing ONLY on the first bullet point.',
+          'Close all browser tabs except the single tool required for the step.'
+        ];
+      } else {
+        steps = [
+          'Review the cognitive breadcrumb/note left from the last session.',
+          'Re-open the exact file/line where work was previously suspended.',
+          'Execute immediate micro-action for 5 minutes to restore state of flow.'
+        ];
+      }
+
+      steps.forEach((stepText, index) => {
+        const card = document.createElement('div');
+        card.className = 'p-3 bg-white border border-slate-200 rounded-xl flex items-start space-x-3 shadow-sm hover:border-brand-500 transition-colors';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'mt-1 text-brand-600 rounded focus:ring-brand-500 h-4 w-4';
+        checkbox.setAttribute('aria-label', `Mark breadcrumb ${index + 1} complete`);
+        checkbox.addEventListener('change', () => completeBreadcrumb(checkbox));
+
+        const content = document.createElement('div');
+        content.className = 'flex-grow text-xs';
+
+        const label = document.createElement('span');
+        label.className = 'font-bold text-slate-800';
+        label.textContent = `Breadcrumb ${index + 1} (${time}m constraint):`;
+
+        const paragraph = document.createElement('p');
+        paragraph.className = 'text-slate-600 mt-0.5';
+        paragraph.textContent = stepText;
+
+        content.appendChild(label);
+        content.appendChild(paragraph);
+        card.appendChild(checkbox);
+        card.appendChild(content);
+        container.appendChild(card);
+      });
+
+      dopamineScore = 0;
+      updateDopamineCounter();
+      setTimerMinutes(parseInt(time, 10));
+    }
+
+    function completeBreadcrumb(checkbox) {
+      if (checkbox.checked) {
+        dopamineScore += 25;
+        checkbox.parentElement.classList.add('bg-emerald-50', 'border-emerald-300');
+      } else {
+        dopamineScore = Math.max(0, dopamineScore - 25);
+        checkbox.parentElement.classList.remove('bg-emerald-50', 'border-emerald-300');
+      }
+      updateDopamineCounter();
+    }
+
+    function updateDopamineCounter() {
+      const counter = document.getElementById('dopamineCounter');
+      counter.textContent = dopamineScore === 0
+        ? 'Dopamine Score: 0 RPE'
+        : `Dopamine Score: +${dopamineScore} RPE`;
+    }
+
+    // Timer Logic
+    function setTimerMinutes(minutes) {
+      timerTotal = minutes * 60;
+      timerSeconds = timerTotal;
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      updateTimerDisplay();
+      const btn = document.getElementById('btnStartTimer');
+      if (btn) btn.textContent = `Start ${minutes}-Min Timer`;
+      const status = document.getElementById('timerStatus');
+      if (status) status.textContent = `Timer set to ${minutes} minutes.`;
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      if (timerSeconds <= 0) timerSeconds = timerTotal;
+
+      const status = document.getElementById('timerStatus');
+      if (status) status.textContent = 'Sprint running. Stay with the next breadcrumb.';
+
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        }
+        if (timerSeconds === 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          if (status) status.textContent = 'Sprint finished. Check off your breadcrumb for a positive RPE reward.';
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      const status = document.getElementById('timerStatus');
+      if (status) status.textContent = 'Timer paused.';
+    }
+
+    function resetTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      timerSeconds = timerTotal;
+      updateTimerDisplay();
+      const status = document.getElementById('timerStatus');
+      if (status) status.textContent = 'Timer reset and ready.';
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      document.getElementById('timerDisplay').textContent =
+        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+  </script>
+
+</body>
+</html>

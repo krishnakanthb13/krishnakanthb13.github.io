@@ -16,6 +16,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 - **D**: [Dump](https://krishnakanthb13.github.io/D/) — notes, summaries & small tools (unified light/dark/system theme)
 	- **0**: [Ground Zero](https://krishnakanthb13.github.io/D/0/) — Knowledge Vault
 		- [Aimlessness & Goals](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/) — The Psychology of Aimlessness and Goal-Directed Behavior
+		- [Breadcrumb Method](https://krishnakanthb13.github.io/D/0/breadcrumb_method/) - The Architecture of Micro-Progress
 		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) - The Architecture of the Spiral
 		- [Calves as Second Heart](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/) - The Neurocardiology of the Calf
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) - The Metacognitive Paradox
@@ -195,6 +196,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Aimlessness & Goals](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/): The Psychology of Aimlessness and Goal-Directed Behavior — why the absence of a goal is a metabolically expensive state of hyper-uncertainty, traced through psychological entropy, the BIS and SEEKING systems, Future Authoring, Self-Determination Theory, and the "Goals Gone Wild" critique.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/): Six-tab portal with a three-trajectory option-set simulator, Goal Clarity vs. Psychological Entropy model, MID-task fMRI chart, multi-domain Future Authoring studio, motivation-spectrum explorer & "Goals Gone Wild" risk matrix.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/aimlessness_n_goals/readme.md): Long-form research essay with 113 cited sources.
+	- [Breadcrumb Method](https://krishnakanthb13.github.io/D/0/breadcrumb_method/): The Architecture of Micro-Progress — why daunting goals become tractable when sliced into five-minute markers, traced from the Progress Principle and reward prediction error to multi-step UX, dark-pattern ethics and Schema.org markup.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/breadcrumb_method/): Five-tab dashboard with a 7-catalyst explorer, RPE simulator, conversion wizard, India tax progressive-disclosure walkthrough, JSON-LD/SERP builder, dark-pattern matrix, task deconstructor & sprint timer.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/breadcrumb_method/readme.md): Long-form research essay with 73 cited sources.
 	- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): The Architecture of the Spiral — why systemic collapse rarely stems from a flawed premise; a bubble is a good idea that outgrows its own evidence.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/bubble_n_idea/): Five-phase spiral stepper, Deneubourg bifurcation model, information-cascade simulator, asymmetric pheromone-decay chart, cross-domain matrix, diagnostic wizard & friction-control lab.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/bubble_n_idea/readme.md): Long-form research essay with 41 cited sources.

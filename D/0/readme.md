@@ -83,6 +83,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Breadcrumb Method](./breadcrumb_method/)
+**The Architecture of Micro-Progress** — why daunting goals become tractable when sliced into five-minute markers. Traces the breadcrumb method from Amabile & Kramer's Progress Principle and the asymmetry of setbacks through amygdala threat detection, vmPFC effort valuation, dopaminergic reward prediction error and Altmann & Trafton's resumption lag, then into multi-step form CRO, India's Form 16/AIS tax-filing flow, Nielsen's breadcrumb heuristics, dark-pattern ethics and Schema.org `BreadcrumbList` markup.
+
+- 📝 [The Full Report](./breadcrumb_method/readme.md) — the long-form essay with 73 cited sources. (`readme.md`)
+- 🍞 [Interactive Infographic](./breadcrumb_method/index.html) — the complete warm sage & cream interactive page: five-tab dashboard (Overview, Neurobiology, UX & CRO, SEO & Ethics, Live Task Tool), 7-catalyst explorer, RPE simulator chart, multi-step conversion wizard, India tax progressive-disclosure walkthrough, live JSON-LD/SERP builder, ethical dark-pattern matrix, task deconstructor, sprint timer and dopamine score. (`index.html`)
+
+---
+
 ### 📁 [Bubble & Idea](./bubble_n_idea/)
 **The Architecture of the Spiral** — why systemic collapse rarely stems from a flawed premise: a bubble is a good idea that outgrows its own evidence. Maps the army ant "death spiral" (Beebe's 1,200-ft Guyanese mill, 1921) onto financial bubbles through information cascades and Minsky's Financial Instability Hypothesis, then extends the same closed-loop pathology to Ant Colony Optimization, recommender echo chambers, and AI model collapse.
 
