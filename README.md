@@ -20,6 +20,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) - The Architecture of the Spiral
 		- [Calves as Second Heart](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/) - The Neurocardiology of the Calf
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) - The Metacognitive Paradox
+		- [Connection Guilt](https://krishnakanthb13.github.io/D/0/connection_guilt/) - The Trajectory of Relational Recovery
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
@@ -210,6 +211,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): The Metacognitive Paradox - why the least skilled are the most certain, and why the viral "Mount Stupid" curve is folklore rather than psychometric data.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): Meme-vs-1999 curve toggle, quartile bar chart, random-noise autocorrelation simulator, Dunning-Kruger vs. Impostor spectrum slider, domain-hazard tabs & syllogism calibration test.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/confidence_n_competence/readme.md): Long-form research essay with 60 cited sources.
+	- [Connection Guilt](https://krishnakanthb13.github.io/D/0/connection_guilt/): The Trajectory of Relational Recovery — why the drive to connect swings between absolute withdrawal and boundaryless enmeshment before resolving into earned secure attachment, traced through polyvagal biology, Control-Mastery guilt typologies, ACT/CFT and Chennai's collectivist family system.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/connection_guilt/): Three-stage recovery simulator, polyvagal activation chart, CMT guilt-typology radar, Porges-vs-Grossman debate accordion, ACT/CFT/CMT therapy tabs, filterable Chennai resource directory & boundary-defusion practice tool.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/connection_guilt/readme.md): Long-form research essay with 97 cited sources.
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.

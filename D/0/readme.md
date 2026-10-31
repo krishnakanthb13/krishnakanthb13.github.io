@@ -116,6 +116,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Connection Guilt](./connection_guilt/)
+**The Trajectory of Relational Recovery** — why the drive to connect swings between two pathological extremes: absolute withdrawal ("connect with no one") and boundaryless enmeshment ("connect with everyone"), before resolving into selective, boundaried connection ("connect with who is ready"). Synthesizes Polyvagal Theory, Control-Mastery Theory's interpersonal guilt typologies (self-hate, omnipotent responsibility, separation, survivor), attachment theory and earned secure attachment, ACT and CFT, then contextualizes the whole trajectory inside Chennai's vertical-collectivist family system.
+
+- 📝 [The Full Report](./connection_guilt/readme.md) — the long-form essay with 97 cited sources. (`readme.md`)
+- 🧶 [Interactive Infographic](./connection_guilt/index.html) — the complete warm sand & sage interactive page: three-stage recovery simulator, polyvagal activation chart, CMT guilt-typology radar, Porges-vs-Grossman debate accordion, ACT/CFT/CMT therapy tabs, filterable Chennai clinical & peer directory, and a boundary-defusion practice tool. (`index.html`)
+
+---
+
 ### 📁 [Counter-Dependency Paradox](./counter_dependency_paradox/)
 **The Architecture of the Isolated Self** — why extreme self-reliance is often a rigid, compulsive defense mechanism rather than resilience: the individuals who appear to require absolutely no one are consistently the ones who harbor the most acute terror of interpersonal connection. Synthesizes the Weinhold developmental model, attachment theory (Bowlby, Ainsworth), Polyvagal Theory (Porges), Internal Family Systems (Schwartz), Schema Therapy (Young), and Feeney's empirical dependency paradox.
 

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Trajectory of Relational Recovery: Interactive Clinical Report</title>
+    <meta name="description" content="An interactive clinical synthesis of relational recovery: from trauma-driven isolation and hyper-affiliation to earned secure attachment — polyvagal biology, Control-Mastery guilt typologies, ACT/CFT/CMT and Chennai support resources.">
+    <meta name="theme-color" content="#fdfbf7">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧶</text></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: {
+                            50: '#fdfbf7',
+                            100: '#f7f4ed',
+                            200: '#eee8da',
+                            300: '#e1d6c2',
+                            800: '#4a4437',
+                            900: '#2d2921',
+                        },
+                        sage: {
+                            50: '#f4f7f4',
+                            100: '#e3ebe3',
+                            500: '#5c8065',
+                            600: '#476850',
+                            800: '#2b3f31',
+                        },
+                        terracotta: {
+                            100: '#fceee9',
+                            500: '#d96b43',
+                            600: '#b8502b',
+                        },
+                        amberCustom: {
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            800: '#92400e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .tab-active {
+            border-bottom: 3px solid #5c8065;
+            color: #2b3f31;
+            font-weight: 700;
+        }
+        .stage-card-active {
+            outline: 2px solid #5c8065;
+            outline-offset: 2px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .chart-note {
+            font-size: 0.7rem;
+            line-height: 1.35;
+        }
+        @media print {
+            header, footer, nav, input[type="range"], #stage-explorer button {
+                display: none !important;
+            }
+            .chart-container { height: 260px; }
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Sand & Sage Harmony (Background: #fdfbf7, Accents: Sage Green #5c8065, Warm Terracotta #d96b43, Muted Amber #f59e0b) -->
+<!-- Application Structure Plan:
+     1. Navigation Header & Global Stage Switcher: Enables immediate jumping across the 3 core phases (Isolation -> Hyper-Affiliation -> Earned Security).
+     2. Interactive Stage Simulator: A interactive slider allowing users to transition smoothly through neurobiology, guilt dynamics, and behavioral outcomes.
+     3. Neurophysiology & Polyvagal Explorer: Dynamic Chart.js standard visualization contrasting Dorsal Vagal, Sympathetic, and Ventral Vagal activity across stages, plus scientific debates (Porges vs Grossman).
+     4. Interpersonal Guilt & Cultural Context Matrix: Control-Mastery Theory (CMT) guilt typologies filtered by systemic Indian/Chennai cultural expectations.
+     5. Therapeutic Modalities Lab: Comparative interactive tabs comparing ACT, CBT, CFT/MSC, and CMT Transference Testing logic.
+     6. Localized Chennai Ecosystem Directory: Searchable and filterable local resources (Aruvadai, Harsha, SCARF, Tele-MANAS, SoulUp, Jayabharathi V).
+-->
+<!-- Visualization & Content Choices:
+     - Stage Dynamic Chart: Chart.js Bar & Line combo graph showing Autonomic State vs Guilt Severity across stages.
+     - Guilt Matrix Radar Chart: Chart.js Radar visualization mapping the intensity of 4 CMT guilt types (Self-Hate, Omnipotent Responsibility, Survivor, Separation).
+     - Modality Interactive Table: Pure HTML/CSS structured grid with dynamic JS tabs for ACT vs CBT vs CFT.
+     - NO SVG graphics used. NO Mermaid JS used. All visual markers rely on styled HTML, Unicode badges, and Chart.js Canvas elements.
+-->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<body class="bg-sand-50 text-sand-900 font-sans antialiased min-h-screen flex flex-col selection:bg-sage-100">
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-sage-500 focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-sand-50/90 backdrop-blur-md border-b border-sand-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity, return link, report link -->
+            <div class="flex items-center justify-between gap-4 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <a href="../" class="flex-shrink-0 text-sand-800 hover:text-sage-600 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-sand-200" title="Return to the Knowledge Vault">← Vault</a>
+                    <span class="text-2xl flex-shrink-0" aria-hidden="true">🌿</span>
+                    <div class="min-w-0">
+                        <h1 class="font-bold text-base sm:text-lg leading-tight text-sage-800 truncate">Relational Recovery Matrix</h1>
+                        <p class="text-[11px] sm:text-xs text-sand-800 truncate">Clinical &amp; Neurophysiological Explorer</p>
+                    </div>
+                </div>
+                <a href="readme.md" class="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-sage-100 text-sage-800 hover:bg-sage-500 hover:text-white transition-colors" title="Read the full written report">
+                    <span aria-hidden="true">📝</span> <span class="hidden sm:inline">Full Report</span>
+                </a>
+            </div>
+            <!-- Row 2: section navigation (always visible, horizontally scrollable) -->
+            <nav class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-t border-sand-200 py-2 text-sm font-medium text-sand-800" aria-label="Page sections">
+                <a href="#stage-explorer" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">3-Stage Journey</a>
+                <a href="#polyvagal-section" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">Polyvagal Biology</a>
+                <a href="#guilt-section" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">Guilt &amp; Culture</a>
+                <a href="#therapies-section" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">Therapeutic Tools</a>
+                <a href="#chennai-section" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">Chennai Ecosystem</a>
+                <a href="#boundary-tool" class="flex-shrink-0 border-b-2 border-transparent pb-0.5 hover:border-sage-500 hover:text-sage-600 transition-colors">Boundary Practice</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="main" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero & Context Section -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm">
+            <div class="max-w-3xl">
+                <span class="inline-block px-3 py-1 bg-sage-100 text-sage-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Clinical Synthesis</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-sand-900 tracking-tight">From Trauma & Isolation to Earned Secure Attachment</h2>
+                <p class="mt-4 text-sand-800 leading-relaxed">
+                    This interactive platform translates empirical research on complex trauma, interpersonal guilt, and autonomic regulation into an exploratory model. It maps the psychological shift from severe isolation ("Connect with no one"), through boundaryless people-pleasing ("Connect with everyone"), to selective, boundaried connection ("Connect with who is ready").
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 1: The 3-Stage Interactive Journey -->
+        <section id="stage-explorer" class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm space-y-6 scroll-mt-28">
+            <div>
+                <h3 class="text-xl font-bold text-sage-800 flex items-center space-x-2">
+                    <span>🔄</span> <span>Interactive Trajectory Explorer</span>
+                </h3>
+                <p class="text-sm text-sand-800 mt-1">
+                    Select a stage or drag the slider to observe how the nervous system, primary guilt typology, and cognitive patterns evolve during recovery.
+                </p>
+            </div>
+
+            <!-- Stage Selection Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button id="btn-stage-1" type="button" onclick="setStage(1)" aria-pressed="true" aria-controls="stage-detail-card" class="text-left p-5 rounded-xl border border-sand-200 bg-sand-50 hover:bg-white transition duration-200 text-sand-900">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-terracotta-600">Stage 1</span>
+                        <span class="text-xl">🛑</span>
+                    </div>
+                    <h4 class="font-bold text-lg">Connect With No One</h4>
+                    <p class="text-xs text-sand-800 mt-1 font-mono">"Guilt of what I am doing to myself"</p>
+                </button>
+
+                <button id="btn-stage-2" type="button" onclick="setStage(2)" aria-pressed="false" aria-controls="stage-detail-card" class="text-left p-5 rounded-xl border border-sand-200 bg-sand-50 hover:bg-white transition duration-200 text-sand-900">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amberCustom-800">Stage 2</span>
+                        <span class="text-xl">⚠️</span>
+                    </div>
+                    <h4 class="font-bold text-lg">Connect With Everyone</h4>
+                    <p class="text-xs text-sand-800 mt-1 font-mono">"Guilt of wanting + could not do it"</p>
+                </button>
+
+                <button id="btn-stage-3" type="button" onclick="setStage(3)" aria-pressed="false" aria-controls="stage-detail-card" class="text-left p-5 rounded-xl border border-sand-200 bg-sand-50 hover:bg-white transition duration-200 text-sand-900">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Stage 3</span>
+                        <span class="text-xl">🌱</span>
+                    </div>
+                    <h4 class="font-bold text-lg">Connect With Who is Ready</h4>
+                    <p class="text-xs text-sand-800 mt-1 font-mono">"A hope builds without guilt"</p>
+                </button>
+            </div>
+
+            <!-- Trajectory Slider -->
+            <div class="bg-sand-50 p-4 rounded-xl border border-sand-200">
+                <label for="stageSlider" class="block text-xs font-semibold uppercase text-sand-800 mb-2">Trajectory Progression Slider</label>
+                <input type="range" id="stageSlider" min="1" max="3" value="1" step="1" oninput="setStage(parseInt(this.value))" class="w-full accent-sage-600 cursor-pointer h-2 bg-sand-200 rounded-lg">
+                <div class="flex justify-between text-xs text-sand-800 font-medium mt-2">
+                    <span>Isolation (Dorsal Shutdown)</span>
+                    <span>Hyper-Affiliation (Sympathetic Overdrive)</span>
+                    <span>Earned Security (Ventral Coregulation)</span>
+                </div>
+            </div>
+
+            <!-- Dynamic Detail Display -->
+            <div id="stage-detail-card" aria-live="polite" class="bg-sand-50 border-l-4 border-terracotta-500 rounded-r-xl p-6 space-y-4">
+                <!-- Content inserted via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: Polyvagal Neurophysiology & Scientific Debate -->
+        <section id="polyvagal-section" class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm space-y-6 scroll-mt-28">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Neurobiology</span>
+                <h3 class="text-2xl font-bold text-sand-900 mt-1">The Polyvagal Hierarchy & Autonomic Flexibility</h3>
+                <p class="text-sm text-sand-800 mt-2 leading-relaxed">
+                    According to Stephen Porges' Polyvagal Theory, autonomic responses follow an evolutionary hierarchy. Trauma causes regression to ancient survival systems. The chart below illustrates autonomic pathway activity and vagal tone across the three stages.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Chart Container -->
+                <div class="bg-sand-50 p-4 rounded-xl border border-sand-200">
+                    <h4 class="text-xs font-bold uppercase text-center text-sand-800 mb-3">Autonomic Pathway Activation Levels</h4>
+                    <div class="chart-container">
+                        <canvas id="polyvagalChart" role="img" aria-label="Bar chart comparing dorsal vagal, sympathetic and ventral vagal activation across the three recovery stages"></canvas>
+                    </div>
+                    <p class="chart-note text-sand-800/80 italic mt-3 text-center">Illustrative model of autonomic activation, not a direct clinical measurement.</p>
+                </div>
+
+                <!-- Polyvagal State Breakdown & Scientific Debate -->
+                <div class="space-y-4">
+                    <div class="border border-sand-200 rounded-xl p-4 bg-sand-50">
+                        <h4 class="font-bold text-sm text-sage-800 flex items-center space-x-2">
+                            <span>🧠</span> <span>Polyvagal Circuit Architecture</span>
+                        </h4>
+                        <ul class="mt-3 text-xs space-y-2 text-sand-800">
+                            <li class="p-2 rounded bg-white border border-sand-200">
+                                <strong class="text-sage-600">Ventral Vagal Complex (VVC):</strong> Nucleus ambiguus (myelinated). Enables facial prosody, social engagement, and mutual co-regulation.
+                            </li>
+                            <li class="p-2 rounded bg-white border border-sand-200">
+                                <strong class="text-amberCustom-800">Sympathetic Mobilization (SNS):</strong> Spinal cord. Drives fight/flight, anxious hypervigilance, and desperate fawning behavior.
+                            </li>
+                            <li class="p-2 rounded bg-white border border-sand-200">
+                                <strong class="text-terracotta-600">Dorsal Vagal Complex (DVC):</strong> Dorsal motor nucleus (unmyelinated). Triggers feigned death, profound dissociation, metabolic freeze, and isolation.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Scientific Debate Accordion -->
+                    <div class="border border-sand-200 rounded-xl p-4 bg-white">
+                        <button onclick="toggleDebate()" aria-expanded="false" aria-controls="debate-content" class="w-full flex justify-between items-center text-left font-bold text-sm text-sand-900">
+                            <span>🔬 Scientific Perspective: Porges vs. Grossman Debate</span>
+                            <span id="debate-arrow" aria-hidden="true">▼</span>
+                        </button>
+                        <div id="debate-content" class="hidden text-xs text-sand-800 mt-3 space-y-2 leading-relaxed border-t border-sand-100 pt-3">
+                            <p>
+                                <strong>Grossman's Critique:</strong> Skeptics like Paul Grossman challenge Porges' evolutionary timeline and the "vagal paradox," arguing Respiratory Sinus Arrhythmia (RSA) is an imperfect proxy for cardiac vagal tone and questioning the strict phylogenetic ordering.
+                            </p>
+                            <p>
+                                <strong>Porges' Resolution:</strong> Porges highlights that DVC and VVC operate as functionally distinct circuits: DVC manages extreme hypoxia and immobilizing freeze under severe life threat, while VVC acts as a brake for rapid socioemotional regulation. Clinically, this framework effectively models severe trauma shutdown.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Interpersonal Guilt (CMT) & Cultural Context -->
+        <section id="guilt-section" class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm space-y-6 scroll-mt-28">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Cognitive & Cultural Dynamics</span>
+                <h3 class="text-2xl font-bold text-sand-900 mt-1">Control-Mastery Theory (CMT) & Collectivist Guilt</h3>
+                <p class="text-sm text-sand-800 mt-2 leading-relaxed">
+                    Control-Mastery Theory (Weiss & Sampson) posits that irrational interpersonal guilt stems from pathogenic beliefs formed to protect childhood attachment figures. In collectivist societies, these internal beliefs are reinforced by external cultural norms.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Radar Chart Container -->
+                <div class="bg-sand-50 p-4 rounded-xl border border-sand-200">
+                    <h4 class="text-xs font-bold uppercase text-center text-sand-800 mb-3">CMT Guilt Typology Profile by Stage</h4>
+                    <div class="chart-container">
+                        <canvas id="guiltRadarChart" role="img" aria-label="Radar chart comparing Control-Mastery guilt typologies across the three recovery stages"></canvas>
+                    </div>
+                    <p class="chart-note text-sand-800/80 italic mt-3 text-center">Relative profile based on the IGQ-67 typologies; individual scores vary.</p>
+                </div>
+
+                <!-- Guilt Breakdown Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div class="p-4 rounded-xl bg-sand-50 border border-sand-200">
+                        <span class="font-bold text-sm text-terracotta-600 block mb-1">Self-Hate Guilt</span>
+                        <p class="text-sand-800">Internalized belief of being inherently flawed, toxic, or unlovable. Drives absolute isolation (Stage 1) to "protect" others from oneself.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-sand-50 border border-sand-200">
+                        <span class="font-bold text-sm text-amberCustom-800 block mb-1">Omnipotent Responsibility</span>
+                        <p class="text-sand-800">Irrational belief that one is responsible for everyone else's happiness. Drives Stage 2 boundaryless people-pleasing and burnout.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-sand-50 border border-sand-200">
+                        <span class="font-bold text-sm text-sage-600 block mb-1">Separation / Disloyalty</span>
+                        <p class="text-sand-800">Fear that setting boundaries or differentiating oneself is an act of betrayal against parents or family elders.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-sand-50 border border-sand-200">
+                        <span class="font-bold text-sm text-sand-900 block mb-1">Survivor Guilt</span>
+                        <p class="text-sand-800">Belief that achieving success or happiness inflicts pain on others by comparison, leading to deliberate self-sabotage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urban Indian & Cultural Context Box -->
+            <div class="bg-sage-50 border border-sage-100 rounded-xl p-5 space-y-3">
+                <h4 class="font-bold text-sm text-sage-800 flex items-center space-x-2">
+                    <span>🏛️</span> <span>Socio-Cultural Context: Urban Indian Collectivism (Chennai)</span>
+                </h4>
+                <p class="text-xs text-sage-800 leading-relaxed">
+                    In vertical collectivist paradigms common in Chennai and wider South India, identity is closely integrated with family systems. Boundary setting is frequently misconstrued as selfishness, westernization, or lack of filial piety. Parental psychological control and guilt induction exacerbate CMT separation guilt, forcing individuals to remain in Stage 2 enmeshment to prove loyalty. Recovery requires establishing differentiation without internalizing false guilt.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Therapeutic Modalities & Mechanisms of Change -->
+        <section id="therapies-section" class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm space-y-6 scroll-mt-28">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Clinical Intervention</span>
+                <h3 class="text-2xl font-bold text-sand-900 mt-1">Therapeutic Modalities & Transference Testing</h3>
+                <p class="text-sm text-sand-800 mt-2">
+                    Deconstructing chronic guilt requires specific mechanisms across Acceptance & Commitment Therapy (ACT), Compassion-Focused Therapy (CFT), and CMT Transference Testing.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div role="tablist" aria-label="Therapeutic modalities" class="flex border-b border-sand-200 text-sm font-medium space-x-6 overflow-x-auto">
+                <button id="tab-act" type="button" role="tab" aria-selected="true" aria-controls="therapy-tab-content" onclick="switchTherapyTab('act')" class="flex-shrink-0 pb-3 tab-active">ACT vs Traditional CBT</button>
+                <button id="tab-cft" type="button" role="tab" aria-selected="false" aria-controls="therapy-tab-content" onclick="switchTherapyTab('cft')" class="flex-shrink-0 pb-3 text-sand-800 hover:text-sage-600">CFT & Self-Compassion</button>
+                <button id="tab-cmt" type="button" role="tab" aria-selected="false" aria-controls="therapy-tab-content" onclick="switchTherapyTab('cmt')" class="flex-shrink-0 pb-3 text-sand-800 hover:text-sage-600">CMT Transference Testing</button>
+            </div>
+
+            <!-- Tab Content Display -->
+            <div id="therapy-tab-content" role="tabpanel" aria-live="polite" class="min-h-[220px]">
+                <!-- Dynamic Content Load via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 5: Localized Mental Health Ecosystem (Chennai & Online) -->
+        <section id="chennai-section" class="bg-white rounded-2xl p-6 sm:p-8 border border-sand-200 shadow-sm space-y-6 scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Support Network</span>
+                    <h3 class="text-2xl font-bold text-sand-900 mt-1">Chennai Mental Health Infrastructure</h3>
+                    <p class="text-sm text-sand-800 mt-1">Contextualized local clinics, bilingual therapists, peer networks, and national lifelines.</p>
+                </div>
+                <div class="flex flex-wrap gap-2" role="group" aria-label="Filter support resources">
+                    <button type="button" data-filter="all" aria-pressed="true" onclick="filterResources('all')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sand-200 hover:bg-sage-100 text-sand-900 transition-colors">All</button>
+                    <button type="button" data-filter="clinic" aria-pressed="false" onclick="filterResources('clinic')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sand-200 hover:bg-sage-100 text-sand-900 transition-colors">Clinics</button>
+                    <button type="button" data-filter="peer" aria-pressed="false" onclick="filterResources('peer')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sand-200 hover:bg-sage-100 text-sand-900 transition-colors">Peer &amp; Digital</button>
+                </div>
+            </div>
+
+            <!-- Resource Cards Grid -->
+            <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Javascript populated -->
+            </div>
+        </section>
+
+        <!-- SECTION 6: Interactive Boundary Practice Tool -->
+        <section id="boundary-tool" class="bg-sand-100 rounded-2xl p-6 sm:p-8 border border-sand-300 space-y-4 scroll-mt-28">
+            <h3 class="text-xl font-bold text-sand-900 flex items-center space-x-2">
+                <span>🛡️</span> <span>Interactive Boundary & Guilt Defusion Tool</span>
+            </h3>
+            <p class="text-xs text-sand-800 leading-relaxed">
+                Practice formulating boundaried responses free from omnipotent responsibility guilt. Select a common relational scenario to see a guilt-driven response transformed into a boundaried, earned-secure response.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="scenarioSelect" class="block text-xs font-bold uppercase text-sand-800 mb-1">Select Scenario</label>
+                    <select id="scenarioSelect" onchange="updateBoundaryTool()" class="w-full text-xs p-2.5 rounded-lg border border-sand-300 bg-white text-sand-900 font-medium">
+                        <option value="overwork">Demanding Request from Family Elder</option>
+                        <option value="friend">Draining Friend Demanding Immediate Help</option>
+                        <option value="isolation">Urge to Withdraw Entirely After Conflict</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-terracotta-100 border border-terracotta-500/30 p-4 rounded-xl">
+                        <span class="text-xs font-bold uppercase text-terracotta-600 block mb-1">Stage 2: Guilt-Driven Response</span>
+                        <p id="guiltResponseText" class="text-xs text-sand-900 italic">"..."</p>
+                    </div>
+                    <div class="bg-sage-100 border border-sage-500/30 p-4 rounded-xl">
+                        <div class="flex items-start justify-between gap-2 mb-1">
+                            <span class="text-xs font-bold uppercase text-sage-800">Stage 3: Secure Boundaried Response</span>
+                            <button type="button" onclick="copySecureResponse(this)" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/70 text-sage-800 border border-sage-500/30 hover:bg-white transition-colors" title="Copy this response to the clipboard">Copy</button>
+                        </div>
+                        <p id="secureResponseText" class="text-xs text-sand-900 font-medium">"..."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sand-900 text-sand-200 text-xs py-8 border-t border-sand-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-medium">Clinical Report &amp; Interactive Web Application Synthesis</p>
+            <p class="text-sand-300">Based on Polyvagal Theory, Control-Mastery Theory, ACT, CFT, and Attachment Research.</p>
+            <p class="text-sand-300">
+                <a href="readme.md" class="underline hover:text-white transition-colors">Read the full report</a>
+                &nbsp;•&nbsp;
+                <a href="../" class="underline hover:text-white transition-colors">Knowledge Vault</a>
+            </p>
+            <p class="pt-2 text-[11px] text-sand-300/90 border-t border-sand-800 mt-3">
+                If you or someone you know is in immediate distress, contact <strong class="text-sand-100">Tele-MANAS 14416</strong> (24/7, free, Tamil &amp; English) or your local emergency services.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Structures for the 3 Stages
+        const stageData = {
+            1: {
+                title: 'Stage 1: "Connect With No One"',
+                subtitle: 'Dorsal Vagal Freeze & Self-Hate Guilt',
+                borderColor: 'border-terracotta-500',
+                badgeBg: 'bg-terracotta-100 text-terracotta-600',
+                ansState: 'Dorsal Vagal Complex (DVC) Shutdown / Feigned Death',
+                guiltType: 'Self-Hate Guilt & Threat Overdrive',
+                attachmentStyle: 'Fearful-Avoidant / Deep Attachment Inhibition',
+                description: 'The individual withdraws to protect themselves from overwhelming perceived danger. However, this produces intense self-hate guilt—the feeling that one is damaging oneself and wasting life, creating an isolating feedback loop.',
+                keyBehavior: 'Avoidance, emotional numbness, social withdrawal, severe exhaustion, dissociation.',
+                clinicalFocus: 'Biological stabilization, soft sensory groundings, safe presence, disconfirming self-toxicity.'
+            },
+            2: {
+                title: 'Stage 2: "Connect With Everyone"',
+                subtitle: 'Sympathetic Overdrive & Omnipotent Responsibility',
+                borderColor: 'border-amberCustom-500',
+                badgeBg: 'bg-amberCustom-100 text-amberCustom-800',
+                ansState: 'Sympathetic Mobilization (SNS) + Fawning Defenses',
+                guiltType: 'Omnipotent Responsibility & Separation Guilt',
+                attachmentStyle: 'Anxious-Preoccupied / Disinhibited Social Engagement',
+                description: 'To escape the agony of isolation, the individual swings to hyper-affiliation and boundaryless people-pleasing. Driven by the belief that they must manage everyone else\'s emotions, they experience burnout and the "guilt of wanting" personal space.',
+                keyBehavior: 'Compulsive caretaking, inability to say no, over-commitment, chronic social anxiety, burnout.',
+                clinicalFocus: 'Experiential acceptance (ACT), cognitive defusion, setting boundary limits without self-punishment.'
+            },
+            3: {
+                title: 'Stage 3: "Connect With Who is Ready"',
+                subtitle: 'Ventral Vagal Safety & Earned Secure Attachment',
+                borderColor: 'border-sage-500',
+                badgeBg: 'bg-sage-100 text-sage-800',
+                ansState: 'Ventral Vagal Complex (VVC) Dominance & Autonomic Flexibility',
+                guiltType: 'Dismantled Pathogenic Beliefs / Minimal Irrational Guilt',
+                attachmentStyle: 'Earned Secure Attachment',
+                description: 'The individual recognizes that relational energy is finite. Guided by Socioemotional Selectivity Theory, they focus only on mutual, safe, and reciprocal connections. Hope builds because relationships no longer require self-abandonment.',
+                keyBehavior: 'Selective boundary setting, emotional bids recognition, healthy co-regulation, calm presence.',
+                clinicalFocus: 'Values-based living, sustained secure attachments, ongoing self-compassion.'
+            }
+        };
+
+        // Scenario Data for Boundary Tool
+        const scenarios = {
+            overwork: {
+                guilt: "I am so sorry, I know how important this is to you! I'm completely exhausted and sick, but of course I will cancel my doctor appointment and fix this for you right away.",
+                secure: "I understand this is urgent for you, but I am unable to take this on today as I need to rest. I can look into it tomorrow afternoon."
+            },
+            friend: {
+                guilt: "I feel terrible for not replying within 2 minutes! Please don't be upset with me. Let me drop everything I'm doing and stay up all night talking to you.",
+                secure: "I hear that you're having a tough evening. I'm currently at capacity tonight, but let's connect for 20 minutes tomorrow over lunch."
+            },
+            isolation: {
+                guilt: "I ruined everything by making a minor mistake. I am toxic and should just cut everyone off forever so I don't bother anyone again.",
+                secure: "I made a mistake, which feels uncomfortable, but making mistakes is human. I will take a breath, rest, and communicate calmly when I'm regulated."
+            }
+        };
+
+        // Resource Data (Chennai & Digital)
+        const resources = [
+            {
+                name: "Aruvadai Mind & Behaviour Clinic",
+                type: "clinic",
+                location: "Washermanpet, Chennai",
+                desc: "Trauma-informed, holistic clinical practice founded on Tamil cultural integration. Specializes in relationship patterns, ACT, and community support groups.",
+                badge: "Clinical Practice"
+            },
+            {
+                name: "Harsha Mind Care",
+                type: "clinic",
+                location: "Velachery, Chennai",
+                desc: "Comprehensive psychiatric & psychological wellness clinic providing autonomic regulation and bio-behavioral interventions.",
+                badge: "Mental Wellness"
+            },
+            {
+                name: "SCARF India",
+                type: "clinic",
+                location: "Anna Nagar, Chennai",
+                desc: "Premier research-backed mental health institute offering structured psychological rehabilitation and community care.",
+                badge: "Research & Rehab"
+            },
+            {
+                name: "Jayabharathi V (Medavas)",
+                type: "clinic",
+                location: "Chennai / Bilingual",
+                desc: "Specialized in Exposure therapy, ACT, and helping clients 'say no without guilt' in Tamil and English.",
+                badge: "Therapist"
+            },
+            {
+                name: "SoulUp Peer Support Groups",
+                type: "peer",
+                location: "Online / Pan-India",
+                desc: "Therapist-led peer groups focusing on relational trauma, narcissistic abuse recovery, and boundaries. Offers late-night slots.",
+                badge: "Digital Peer Support"
+            },
+            {
+                name: "Tele-MANAS Helpline (14416)",
+                type: "peer",
+                location: "24/7 National Emergency",
+                desc: "Government of India tele-mental health service offering free, round-the-clock psychosocial support in Tamil & English.",
+                badge: "Crisis Lifeline"
+            }
+        ];
+
+        // Global Chart Instances
+        let polyvagalChartInstance = null;
+        let guiltRadarChartInstance = null;
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            initPolyvagalChart();
+            initGuiltRadarChart();
+            setStage(1);
+            switchTherapyTab('act');
+            filterResources('all');
+            updateBoundaryTool();
+        });
+
+        // Stage Switcher Function
+        function setStage(stageNum) {
+            const data = stageData[stageNum];
+            const slider = document.getElementById('stageSlider');
+            slider.value = stageNum;
+            slider.setAttribute('aria-valuetext', data.title);
+
+            // Highlight buttons
+            [1, 2, 3].forEach(n => {
+                const btn = document.getElementById(`btn-stage-${n}`);
+                btn.setAttribute('aria-pressed', n === stageNum ? 'true' : 'false');
+                if (n === stageNum) {
+                    btn.classList.add('ring-2', 'ring-sage-500', 'bg-white', 'shadow-sm');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-sage-500', 'bg-white', 'shadow-sm');
+                }
+            });
+
+            // Update Detail Card HTML
+            const card = document.getElementById('stage-detail-card');
+            card.className = `bg-sand-50 border-l-4 ${data.borderColor} rounded-r-xl p-6 space-y-4 transition-all duration-300`;
+            card.innerHTML = `
+                <div class="flex flex-wrap justify-between items-center gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${data.badgeBg}">${data.subtitle}</span>
+                    <span class="text-xs font-semibold text-sand-800">Attachment: ${data.attachmentStyle}</span>
+                </div>
+                <h4 class="text-xl font-bold text-sand-900">${data.title}</h4>
+                <p class="text-xs sm:text-sm text-sand-800 leading-relaxed">${data.description}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+                    <div class="bg-white p-3 rounded-lg border border-sand-200">
+                        <strong class="text-sand-900 block mb-1">⚡ Autonomic State:</strong>
+                        <span class="text-sand-800">${data.ansState}</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-sand-200">
+                        <strong class="text-sand-900 block mb-1">🧭 Key Behavior:</strong>
+                        <span class="text-sand-800">${data.keyBehavior}</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-sand-200">
+                        <strong class="text-sand-900 block mb-1">🎯 Clinical Target:</strong>
+                        <span class="text-sand-800">${data.clinicalFocus}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Graceful fallback when the Chart.js CDN is unavailable
+        function showChartFallback(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const note = document.createElement('p');
+            note.className = 'text-xs text-sand-800 italic p-4 text-center';
+            note.textContent = 'Chart unavailable offline — the written analysis above still applies.';
+            canvas.replaceWith(note);
+        }
+
+        // Initialize Polyvagal Chart.js
+        function initPolyvagalChart() {
+            if (typeof Chart === 'undefined') {
+                showChartFallback('polyvagalChart');
+                return;
+            }
+            const ctx = document.getElementById('polyvagalChart').getContext('2d');
+            polyvagalChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Stage 1: Isolation', 'Stage 2: Hyper-Affiliation', 'Stage 3: Earned Security'],
+                    datasets: [
+                        {
+                            label: 'Dorsal Vagal Shutdown (Freeze)',
+                            data: [90, 25, 10],
+                            backgroundColor: 'rgba(217, 107, 67, 0.85)',
+                            borderColor: '#d96b43',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sympathetic Mobilization (Flight/Fawn)',
+                            data: [30, 95, 20],
+                            backgroundColor: 'rgba(245, 158, 11, 0.85)',
+                            borderColor: '#f59e0b',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Ventral Vagal Complex (Social Engagement)',
+                            data: [10, 20, 90],
+                            backgroundColor: 'rgba(92, 128, 101, 0.85)',
+                            borderColor: '#5c8065',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Activation Intensity (%)', font: { size: 11 } }
+                        },
+                        x: {
+                            ticks: { font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize Guilt Radar Chart
+        function initGuiltRadarChart() {
+            if (typeof Chart === 'undefined') {
+                showChartFallback('guiltRadarChart');
+                return;
+            }
+            const ctx = document.getElementById('guiltRadarChart').getContext('2d');
+            guiltRadarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Self-Hate Guilt', 'Omnipotent Responsibility', 'Separation Guilt', 'Survivor Guilt'],
+                    datasets: [
+                        {
+                            label: 'Stage 1 (Isolation)',
+                            data: [95, 20, 40, 60],
+                            backgroundColor: 'rgba(217, 107, 67, 0.2)',
+                            borderColor: '#d96b43',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Stage 2 (Hyper-Affiliation)',
+                            data: [30, 95, 90, 85],
+                            backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                            borderColor: '#f59e0b',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Stage 3 (Earned Security)',
+                            data: [15, 15, 20, 10],
+                            backgroundColor: 'rgba(92, 128, 101, 0.2)',
+                            borderColor: '#5c8065',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e1d6c2' },
+                            grid: { color: '#eee8da' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        // Toggle Scientific Debate Accordion
+        function toggleDebate() {
+            const content = document.getElementById('debate-content');
+            const arrow = document.getElementById('debate-arrow');
+            const trigger = content.previousElementSibling;
+            const isHidden = content.classList.contains('hidden');
+            content.classList.toggle('hidden', !isHidden);
+            arrow.textContent = isHidden ? '▲' : '▼';
+            if (trigger) trigger.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        }
+
+        // Therapy Tab Switcher
+        function switchTherapyTab(tab) {
+            const actTab = document.getElementById('tab-act');
+            const cftTab = document.getElementById('tab-cft');
+            const cmtTab = document.getElementById('tab-cmt');
+            const container = document.getElementById('therapy-tab-content');
+
+            [actTab, cftTab, cmtTab].forEach(t => {
+                t.className = 'flex-shrink-0 pb-3 text-sand-800 hover:text-sage-600';
+                t.setAttribute('aria-selected', 'false');
+            });
+
+            if (tab === 'act') {
+                actTab.className = 'flex-shrink-0 pb-3 tab-active';
+                actTab.setAttribute('aria-selected', 'true');
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-xs text-sand-800 leading-relaxed">
+                            Niles et al. (2014) demonstrated that Acceptance & Commitment Therapy (ACT) reduces social anxiety primarily through rapid early decreases in <strong>experiential avoidance</strong>, whereas CBT works via cognitive restructuring.
+                        </p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-sand-100 text-sand-900 border-b border-sand-200">
+                                        <th class="p-2.5 font-bold">Domain</th>
+                                        <th class="p-2.5 font-bold">Traditional CBT</th>
+                                        <th class="p-2.5 font-bold">ACT Approach</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-sand-200 text-sand-800">
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Negative Thought ("I am bad")</td>
+                                        <td class="p-2.5">Cognitive restructuring: Test validity & replace with evidence.</td>
+                                        <td class="p-2.5">Cognitive Defusion: Observe thought as a linguistic event without believing it.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Aversive Guilt Feelings</td>
+                                        <td class="p-2.5">Symptom reduction: Decrease intensity of guilt.</td>
+                                        <td class="p-2.5">Experiential Acceptance: Make room for guilt while acting on core values.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Relational Goal</td>
+                                        <td class="p-2.5">Reduce social anxiety scores.</td>
+                                        <td class="p-2.5">Committed Action: Connect with who is ready, aligned with personal values.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'cft') {
+                cftTab.className = 'flex-shrink-0 pb-3 tab-active';
+                cftTab.setAttribute('aria-selected', 'true');
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-xs text-sand-800 leading-relaxed">
+                            Compassion-Focused Therapy (Paul Gilbert) intentionally stimulates the mammalian <strong>soothing system</strong> (oxytocin/endorphin pathways) to regulate overactive threat responses. Kristin Neff's Mindful Self-Compassion framework outlines three essential pillars:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 bg-sand-50 rounded-lg border border-sand-200">
+                                <strong class="text-sage-600 block mb-1">1. Self-Kindness</strong>
+                                <span class="text-sand-800">Replacing harsh self-criticism during relational failure with gentle internal soothing.</span>
+                            </div>
+                            <div class="p-3 bg-sand-50 rounded-lg border border-sand-200">
+                                <strong class="text-sage-600 block mb-1">2. Common Humanity</strong>
+                                <span class="text-sand-800">Recognizing that relational struggle and guilt are universal human experiences, not personal failures.</span>
+                            </div>
+                            <div class="p-3 bg-sand-50 rounded-lg border border-sand-200">
+                                <strong class="text-sage-600 block mb-1">3. Mindfulness</strong>
+                                <span class="text-sand-800">Holding painful emotions in balanced awareness without over-identifying or repressing them.</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'cmt') {
+                cmtTab.className = 'flex-shrink-0 pb-3 tab-active';
+                cmtTab.setAttribute('aria-selected', 'true');
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-xs text-sand-800 leading-relaxed">
+                            Control-Mastery Theory states that clients unconsciously test therapists to disconfirm childhood pathogenic beliefs. When therapists pass these tests, the patient safely sheds guilt.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-sand-50 p-3.5 rounded-lg border border-sand-200">
+                                <strong class="text-terracotta-600 block mb-1">Transference Test by Compliance</strong>
+                                <p class="text-sand-800">The patient acts out their pathogenic belief (e.g., pleasing the therapist obsessively). The therapist passes by encouraging boundaries and refusing to exploit the client.</p>
+                            </div>
+                            <div class="bg-sand-50 p-3.5 rounded-lg border border-sand-200">
+                                <strong class="text-sage-600 block mb-1">Transference Test by Non-Compliance</strong>
+                                <p class="text-sand-800">The patient acts opposite to their belief (e.g., setting a firm boundary or expressing anger). The therapist passes by validating autonomy without punishing or abandoning them.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Filter Resource Cards
+        function filterResources(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isActive = btn.dataset.filter === category;
+                btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                btn.classList.toggle('bg-sage-500', isActive);
+                btn.classList.toggle('text-white', isActive);
+                btn.classList.toggle('hover:bg-sage-600', isActive);
+                btn.classList.toggle('bg-sand-200', !isActive);
+                btn.classList.toggle('text-sand-900', !isActive);
+                btn.classList.toggle('hover:bg-sage-100', !isActive);
+            });
+            renderResources(category);
+        }
+
+        function renderResources(category) {
+            const grid = document.getElementById('resource-grid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'all' ? resources : resources.filter(r => r.type === category);
+
+            if (filtered.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'text-xs text-sand-800 italic col-span-full p-4';
+                empty.textContent = 'No resources match this filter.';
+                grid.appendChild(empty);
+                return;
+            }
+
+            filtered.forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'p-4 rounded-xl bg-sand-50 border border-sand-200 flex flex-col justify-between space-y-3';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h4 class="font-bold text-sm text-sand-900">${r.name}</h4>
+                            <span class="text-[10px] font-bold uppercase px-2 py-0.5 bg-sage-100 text-sage-800 rounded">${r.badge}</span>
+                        </div>
+                        <p class="text-xs text-sage-600 font-medium mb-1">📍 ${r.location}</p>
+                        <p class="text-xs text-sand-800 leading-relaxed">${r.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Boundary Tool Interactive Update
+        function updateBoundaryTool() {
+            const select = document.getElementById('scenarioSelect').value;
+            const data = scenarios[select];
+            document.getElementById('guiltResponseText').textContent = `"${data.guilt}"`;
+            document.getElementById('secureResponseText').textContent = `"${data.secure}"`;
+        }
+
+        // Copy the boundaried response to the clipboard, with fallback
+        function copySecureResponse(btn) {
+            const text = document.getElementById('secureResponseText').textContent.replace(/^"|"$/g, '');
+            const done = () => {
+                const original = btn.textContent;
+                btn.textContent = 'Copied ✓';
+                setTimeout(() => { btn.textContent = original; }, 1500);
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(done).catch(() => {});
+            } else {
+                const area = document.createElement('textarea');
+                area.value = text;
+                area.setAttribute('readonly', '');
+                area.style.position = 'absolute';
+                area.style.left = '-9999px';
+                document.body.appendChild(area);
+                area.select();
+                try { document.execCommand('copy'); done(); } catch (e) { /* clipboard unavailable */ }
+                document.body.removeChild(area);
+            }
+        }
+    </script>
+</body>
+</html>
