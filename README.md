@@ -28,6 +28,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Ghosting](https://krishnakanthb13.github.io/D/0/ghosting/) — Silence as Behavioral Data
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
+		- [Guilt Tripping](https://krishnakanthb13.github.io/D/0/guilt_tripping/) — The Anatomy of Manufactured Guilt
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Identity Habit Formation](https://krishnakanthb13.github.io/D/0/identity_habit_formation/) — The Architecture of Self-Transformation
 		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
@@ -235,6 +236,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): The Architecture of Evaluation — why comparison isn't the thief of joy, the ruler is.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/): Etymology chart, SAM simulator, paradigm switcher, 2x2 motivation matrix, CBT reframing engine.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/readme.md): Long-form research essay with 96 cited sources.
+	- [Guilt Tripping](https://krishnakanthb13.github.io/D/0/guilt_tripping/): The Anatomy of Manufactured Guilt — why guilt is an adaptive social emotion while guilt-tripping weaponizes it through indirect pressure, FOG, shame induction and filial obligation, traced through Baumeister, Tangney, Forward, schema modes, DBT and Chennai's clinical network.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/guilt_tripping/): Guilt-vs-shame behavioral chart, Forward's four blackmailer typologies, filterable tactic decoder, deontological-vs-altruistic neurobiology radar, schema-mode matrix, cultural boundary comparison, DEAR MAN script builder, distinction quiz & Chennai clinical directory.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/guilt_tripping/readme.md): Long-form research essay with 59 cited sources.
 	- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/): The Psychology of Enough — why the pursuit of happiness paradoxically backfires and how contentment restores wholeness.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/happy_or_content/): Dimension matrix, hedonic time-series simulator, wanting-vs-liking chart, CFT three-system simulator & contentment quotient assessment.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/happy_or_content/readme.md): Long-form research essay with 45 cited sources.

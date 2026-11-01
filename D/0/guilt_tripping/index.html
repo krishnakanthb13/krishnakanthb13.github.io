@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding &amp; Defending Against Guilt-Tripping</title>
+    <!-- Favicon — clay monogram, drawn as pure SVG (no emoji font dependency) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23C86D51%22/><text x=%2250%22 y=%2273%22 font-family=%22Segoe UI,Arial,sans-serif%22 font-size=%2262%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22%23FAF8F5%22>G</text></svg>">
+    <meta name="description" content="An interactive guide to guilt-tripping: Baumeister's interpersonal theory, Forward's FOG model, deontological vs. altruistic guilt, Schema Therapy modes, filial guilt in collectivist cultures, and a DBT DEAR MAN response builder.">
+    <meta name="theme-color" content="#FAF8F5">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warmbg: '#FAF8F5',
+                        surface: '#FFFFFF',
+                        brand: {
+                            50: '#FDF8F6',
+                            100: '#F2E8E5',
+                            500: '#C86D51',
+                            600: '#B05439',
+                            800: '#6B2C1C'
+                        },
+                        slatecustom: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            700: '#334155',
+                            900: '#0F172A'
+                        },
+                        sage: {
+                            50: '#F4F7F3',
+                            100: '#EAEFE9',
+                            600: '#5A7D63',
+                            800: '#2D4433'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        section[id] {
+            scroll-margin-top: 7.5rem;
+        }
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn:hover {
+            color: #C86D51;
+        }
+        .tab-btn.active {
+            border-bottom-color: #C86D51;
+            color: #C86D51;
+            font-weight: 600;
+        }
+        .tab-btn:focus-visible,
+        .filter-btn:focus-visible {
+            outline: 2px solid #C86D51;
+            outline-offset: 2px;
+        }
+        /* Keep the second-row nav swipeable without a chunky scrollbar */
+        .nav-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: #D6C7BE transparent;
+        }
+        .nav-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+        .nav-scroll::-webkit-scrollbar-thumb {
+            background: #D6C7BE;
+            border-radius: 9999px;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .fade-in { animation: none; }
+            * { transition-duration: 0.01ms !important; }
+        }
+        @media print {
+            header, .no-print { display: none !important; }
+            section.hidden { display: block !important; }
+            .chart-container { height: 260px; page-break-inside: avoid; }
+            body { background: #FFFFFF; }
+        }
+    </style>
+</head>
+<body class="bg-warmbg text-slatecustom-900 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-800">
+
+    <noscript>
+        <div class="bg-brand-100 text-brand-800 text-sm text-center px-4 py-2 border-b border-brand-500/30">
+            JavaScript is disabled. All six modules are shown below, but the charts, filters, quiz and DEAR MAN builder will not respond.
+        </div>
+        <style>main > section.hidden { display: block !important; }</style>
+    </noscript>
+
+    <!-- Chosen Palette: Warm Sand & Serene Slate (Background: #FAF8F5, Primary: #0F172A, Accent: #C86D51, Supporting: #5A7D63) -->
+    <!-- Application Structure Plan: Designed as an interactive 6-module educational and coping platform. It breaks down complex psychological, neurobiological, and cultural dynamics of guilt-tripping into digestible, interactive components (Interactive Tactics Decoder, Neurobiology Radar Chart, Schema Mode Matrix, Filial Guilt Analyzer, DBT DEAR MAN Interactive Script Builder, and Chennai Clinical Resource Directory). This non-linear, task-oriented structure allows users to both understand the psychological mechanics and immediately generate practical boundary-setting strategies. -->
+    <!-- Visualization & Content Choices: 1. Guilt vs. Shame Comparison -> Interactive Matrix & Chart.js Donut -> Allows visual distinction of behavioral vs identity attacks. 2. Neurobiology of Guilt -> Chart.js Bar Chart (Deontological vs Altruistic activation) -> Clarifies brain mechanism differences. 3. Signs & FOG Typology -> Filterable Card Grid -> Enables users to identify tactics by relationship context. 4. DBT DEAR MAN Generator -> Dynamic Interactive Script Builder -> Converts theory into custom actionable response scripts. 5. Chennai Clinical Directory -> Interactive Filtered Directory Cards -> Connects users with verified local help. NO SVG or Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-surface focus:text-brand-800 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:border focus:border-brand-500">
+        Skip to content
+    </a>
+
+    <!-- Header / Navbar — two rows: identity on top, module links below -->
+    <header class="sticky top-0 z-50 bg-surface/95 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity, report link, primary action -->
+            <div class="flex items-center justify-between gap-3 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <a href="../" class="hidden sm:inline-flex flex-shrink-0 items-center text-[11px] font-semibold uppercase tracking-wider text-slate-500 hover:text-brand-600 border border-stone-300 hover:border-brand-500 rounded-lg px-2.5 py-1 transition-colors" title="Back to the D/0 Knowledge Vault">← Vault</a>
+                    <div class="w-8 h-8 flex-shrink-0 rounded-lg bg-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-sm" aria-hidden="true">
+                        G
+                    </div>
+                    <div class="min-w-0">
+                        <span class="font-bold text-base sm:text-lg tracking-tight text-slatecustom-900 block truncate">GuiltTrip</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-brand-500 font-semibold block -mt-0.5 truncate">Insights &amp; Defense</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <a href="./readme.md" class="hidden md:inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-brand-600 px-3 py-2 rounded-lg border border-stone-300 hover:border-brand-500 transition-colors">
+                        📄 <span>Full Report</span>
+                    </a>
+                    <a href="#module-defense" data-tab="defense" class="bg-brand-500 hover:bg-brand-600 text-white text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-lg font-medium shadow-sm transition-all transform hover:-translate-y-0.5 whitespace-nowrap">
+                        Script Generator
+                    </a>
+                </div>
+            </div>
+
+            <!-- Row 2: always-visible, horizontally scrollable module nav -->
+            <nav class="nav-scroll -mx-4 sm:mx-0 px-4 sm:px-0 border-t border-stone-200/80 flex items-center gap-1 overflow-x-auto whitespace-nowrap py-2 text-sm font-medium text-slate-600" aria-label="Page modules">
+                <a href="#module-overview" data-tab="overview" id="nav-overview" aria-controls="module-overview" aria-current="page" class="tab-btn active flex-shrink-0 px-3 py-2 transition-colors">Overview &amp; Science</a>
+                <a href="#module-tactics" data-tab="tactics" id="nav-tactics" aria-controls="module-tactics" class="tab-btn flex-shrink-0 px-3 py-2 transition-colors">Tactics &amp; FOG</a>
+                <a href="#module-neurobiology" data-tab="neurobiology" id="nav-neurobiology" aria-controls="module-neurobiology" class="tab-btn flex-shrink-0 px-3 py-2 transition-colors">Neuro &amp; Schemas</a>
+                <a href="#module-culture" data-tab="culture" id="nav-culture" aria-controls="module-culture" class="tab-btn flex-shrink-0 px-3 py-2 transition-colors">Filial &amp; Culture</a>
+                <a href="#module-defense" data-tab="defense" id="nav-defense" aria-controls="module-defense" class="tab-btn flex-shrink-0 px-3 py-2 transition-colors">DEAR MAN Builder</a>
+                <a href="#module-resources" data-tab="resources" id="nav-resources" aria-controls="module-resources" class="tab-btn flex-shrink-0 px-3 py-2 transition-colors">Clinical Care</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-b from-surface to-warmbg border-b border-stone-200 py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto text-center space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-50 text-brand-600 border border-brand-100">
+                Interactive Psychological Analysis & Action Suite
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slatecustom-900 tracking-tight leading-tight">
+                Deconstructing Guilt-Tripping & Reclaiming Personal Autonomy
+            </h1>
+            <p class="max-w-3xl mx-auto text-base sm:text-lg text-slatecustom-700 font-normal leading-relaxed">
+                Guilt-tripping is an indirect, manipulative tactic that weaponizes empathy, obligation, and care to control your choices. Explore the psychological mechanisms, neurobiology, cultural roots, and evidence-based boundary strategies below.
+            </p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="main-content" tabindex="-1" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 outline-none">
+
+        <!-- MODULE 1: OVERVIEW & SCIENCE -->
+        <section id="module-overview" class="space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Understanding the Dual Nature of Guilt</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    Welcome to the foundational analysis of guilt-tripping. This section explores the fundamental difference between <strong>organic, adaptive guilt</strong>—an evolutionary mechanism designed to repair genuine relationship transgressions—and <strong>manipulative guilt-tripping</strong>, which artificially induces distress to force compliance. According to Baumeister’s Interpersonal Theory, organic guilt serves as an emotional equalizer. However, when weaponized, it exploits human empathy and turns obligation into psychological coercion.
+                </p>
+            </div>
+
+            <!-- Key Metric Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-surface p-6 rounded-xl border border-stone-200 shadow-sm hover:border-brand-500/40 transition-colors">
+                    <div class="text-brand-500 font-bold text-3xl mb-1">3 Key Drivers</div>
+                    <div class="font-semibold text-slatecustom-900 mb-2">Why Manipulators Use Guilt</div>
+                    <p class="text-sm text-slate-600">To gain compliance without fair negotiation, avoid direct conflict, and compensate for poor direct communication skills.</p>
+                </div>
+                <div class="bg-surface p-6 rounded-xl border border-stone-200 shadow-sm hover:border-brand-500/40 transition-colors">
+                    <div class="text-sage-600 font-bold text-3xl mb-1">F.O.G.</div>
+                    <div class="font-semibold text-slatecustom-900 mb-2">The Manipulation Triad</div>
+                    <p class="text-sm text-slate-600">Susan Forward’s framework detailing how Fear of loss, sense of Obligation, and manufactured Guilt trap targets.</p>
+                </div>
+                <div class="bg-surface p-6 rounded-xl border border-stone-200 shadow-sm hover:border-brand-500/40 transition-colors">
+                    <div class="text-brand-600 font-bold text-3xl mb-1">2 Neural Pathways</div>
+                    <div class="font-semibold text-slatecustom-900 mb-2">Deontological vs. Altruistic</div>
+                    <p class="text-sm text-slate-600">Manipulators trigger rule-breaking fear (Insula) and empathy for suffering (mPFC) simultaneously to paralyze defense.</p>
+                </div>
+            </div>
+
+            <!-- Guilt vs Shame Comparison & Visualization Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                
+                <!-- Interactive Text Comparison -->
+                <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900 mb-2">Guilt vs. Shame: Tangney's Empirical Distinction</h3>
+                        <p class="text-sm text-slatecustom-700">
+                            Manipulators often intentionally blur the line between guilt and shame to weaken personal defenses. Understanding this distinction helps in maintaining strong boundaries.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-brand-50 border border-brand-100">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-brand-800">Adaptive Guilt</span>
+                                <span class="text-xs bg-brand-500 text-white px-2 py-0.5 rounded">Action Focused</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>Cognition:</strong> "I committed a specific wrongful action."<br>
+                                <strong>Behavioral Outcome:</strong> Motivates repair, restitution, and genuine apology. Maintains healthy self-esteem while taking responsibility.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800">Induced Shame (Weaponized)</span>
+                                <span class="text-xs bg-slate-700 text-white px-2 py-0.5 rounded">Identity Focused</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>Cognition:</strong> "I am a bad, selfish, or ungrateful person."<br>
+                                <strong>Behavioral Outcome:</strong> Triggers feelings of worthlessness, paralysis, withdrawal, or defensive submission to the manipulator's demands.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                        <h4 class="text-sm font-semibold text-slatecustom-900 mb-1">Baumeister's 3 Interpersonal Functions of Guilt</h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                            <li><strong>Reparative Motivation:</strong> Prompts transgressors to compensate victims.</li>
+                            <li><strong>Power Equalizer:</strong> Protects less powerful partners by preventing exploitation.</li>
+                            <li><strong>Emotional Redistribution:</strong> Transfers distress from victim to transgressor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interactive Visualizing Chart -->
+                <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900 mb-1">Behavioral Response Profile</h3>
+                        <p class="text-sm text-slate-500">Comparing behavioral drives triggered by Healthy Guilt vs. Toxic Shame vs. Guilt-Tripping capitulation.</p>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="guiltShameChart" role="img" aria-label="Bar chart comparing adaptive guilt, weaponized shame and guilt-trip capitulation across apology, boundary setting, withdrawal and defensive submission."></canvas>
+                    </div>
+
+                    <p class="text-xs text-slate-500 text-center italic">
+                        Clicking legend items filters behavioral drives. Notice how guilt-tripping drives non-reparative compliance rather than constructive repair. Values are illustrative, not measured data.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 2: TACTICS & FOG MODEL -->
+        <section id="module-tactics" class="hidden space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Signs, Tactics, & The FOG Mechanics</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    This section analyzes the structural mechanics of emotional manipulation. Based on Dr. Susan Forward’s <em>Emotional Blackmail</em> framework, guilt-tripping relies on creating an emotional climate of <strong>Fear, Obligation, and Guilt (FOG)</strong>. Below, you can explore common signs, real-world verbal quotes across different relationships, and Forward’s four Blackmailer Typologies.
+                </p>
+            </div>
+
+            <!-- FOG Interactive Typology Explorer -->
+            <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Susan Forward's 4 Blackmailer Typologies</h3>
+                        <p class="text-sm text-slate-500">Select a typology to inspect the core operational mechanics and real-world examples.</p>
+                    </div>
+                </div>
+
+                <!-- Typology Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="typology-buttons">
+                    <button onclick="selectTypology('punisher')" id="btn-punisher" aria-pressed="true" class="p-3 rounded-xl border border-brand-500 bg-brand-50 text-brand-800 font-semibold text-sm text-left transition-all">
+                        1. The Punisher
+                    </button>
+                    <button onclick="selectTypology('self-punisher')" id="btn-self-punisher" aria-pressed="false" class="p-3 rounded-xl border border-stone-200 hover:border-stone-400 font-semibold text-sm text-left transition-all text-slate-700">
+                        2. The Self-Punisher
+                    </button>
+                    <button onclick="selectTypology('sufferer')" id="btn-sufferer" aria-pressed="false" class="p-3 rounded-xl border border-stone-200 hover:border-stone-400 font-semibold text-sm text-left transition-all text-slate-700">
+                        3. The Sufferer
+                    </button>
+                    <button onclick="selectTypology('tantalizer')" id="btn-tantalizer" aria-pressed="false" class="p-3 rounded-xl border border-stone-200 hover:border-stone-400 font-semibold text-sm text-left transition-all text-slate-700">
+                        4. The Tantalizer
+                    </button>
+                </div>
+
+                <!-- Dynamic Detail Display -->
+                <div id="typology-detail-card" class="p-6 bg-warmbg rounded-xl border border-stone-200 space-y-3" aria-live="polite">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Interactive Tactics Explorer (Filterable Grid) -->
+            <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Interactive Tactics & Phrase Decoder</h3>
+                        <p class="text-sm text-slate-500">Filter tactics by relationship domain to see typical phrasing and underlying intentions.</p>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterTactics('all')" id="filter-all" aria-pressed="true" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slatecustom-900 text-white">All Domains</button>
+                        <button onclick="filterTactics('family')" id="filter-family" aria-pressed="false" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-stone-100 text-slate-700 hover:bg-stone-200">Family/Parents</button>
+                        <button onclick="filterTactics('romantic')" id="filter-romantic" aria-pressed="false" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-stone-100 text-slate-700 hover:bg-stone-200">Romantic Partners</button>
+                        <button onclick="filterTactics('workplace')" id="filter-workplace" aria-pressed="false" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-stone-100 text-slate-700 hover:bg-stone-200">Workplace</button>
+                    </div>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tactics-grid">
+                    <!-- Cards populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 3: NEUROBIOLOGY & SCHEMAS -->
+        <section id="module-neurobiology" class="hidden space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Neurobiological Mechanisms & Schema Therapy Modes</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    Guilt-tripping doesn't just affect emotions; it recruits specific neural circuits in the brain. Advanced fMRI research distinguishes between <strong>Deontological Guilt (DG)</strong> (violating moral standards) and <strong>Altruistic Guilt (AG)</strong> (failing to prevent harm). Prolonged exposure to guilt-tripping internalizes these pressures as <strong>Dysfunctional Parent Modes</strong> within Schema Therapy, causing long-term psychological distress.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <!-- Neurobiology Chart Card -->
+                <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Neural Activation Pathways</h3>
+                        <p class="text-sm text-slate-500">Deontological vs. Altruistic Guilt brain region recruitment intensity.</p>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="neuroChart" role="img" aria-label="Radar chart comparing deontological and altruistic guilt activation across the anterior insula, dorsal anterior cingulate, medial prefrontal cortex, frontopolar cortex and septal region."></canvas>
+                    </div>
+
+                    <p class="text-xs text-slate-500 text-center italic">
+                        Relative activation profiles synthesized from the fMRI literature; the chart is illustrative, not a single-study measurement.
+                    </p>
+
+                    <div class="p-4 bg-warmbg rounded-xl text-xs space-y-2 border border-stone-200">
+                        <p><strong>Deontological Guilt (Moral Rule Violation):</strong> Recruits the <em>Anterior Insula</em> and <em>Dorsal ACC</em>. Strongly associated with OCD and moral disgust sensitivity.</p>
+                        <p><strong>Altruistic Guilt (Empathic Harm/Suffering):</strong> Recruits the <em>Frontopolar Cortex (BA 9/10)</em> and <em>Medial Prefrontal Cortex (mPFC)</em>. Strongly linked to Depression and Survivor's Guilt.</p>
+                    </div>
+                </div>
+
+                <!-- Schema Therapy Modes Matrix -->
+                <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Internalized Schema Modes (Jeffrey Young)</h3>
+                        <p class="text-sm text-slate-500">How childhood exposure to guilt-tripping becomes internalized in adulthood.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl border border-stone-200 hover:border-brand-500/50 transition-colors">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slatecustom-900 text-sm">The Guilt-Inducing Parent Mode</span>
+                                <span class="text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded">Internalized Critic</span>
+                            </div>
+                            <p class="text-xs text-slate-600">
+                                The internalized inner voice that constantly whispers you are being selfish, ungrateful, or failing in your duties, keeping you trapped in internal FOG.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-stone-200 hover:border-brand-500/50 transition-colors">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slatecustom-900 text-sm">The Vulnerable Child Mode</span>
+                                <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">Target Emotional State</span>
+                            </div>
+                            <p class="text-xs text-slate-600">
+                                Activated when guilt-tripped. Experiences profound defectiveness, abandonment fear, and anxiety, triggering a panic reaction to restore the relationship.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-stone-200 hover:border-brand-500/50 transition-colors">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slatecustom-900 text-sm">Compliant Surrenderer Mode</span>
+                                <span class="text-xs bg-sage-100 text-sage-800 font-semibold px-2 py-0.5 rounded">Maladaptive Coping</span>
+                            </div>
+                            <p class="text-xs text-slate-600">
+                                Giving in to every demand, people-pleasing, and suppressing personal needs to avoid conflict, resulting in long-term resentment and burnout.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 p-4 rounded-xl border border-brand-100">
+                        <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-1">Clinical Insight</h4>
+                        <p class="text-xs text-slate-700">
+                            Research shows that when high Punitive Parent modes interact with high Deontological Guilt, OCD symptoms and obsessive self-checking increase dramatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4: FILIAL GUILT & CULTURE -->
+        <section id="module-culture" class="hidden space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Cultural Frameworks: Filial Guilt & Enmeshment</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    Culture heavily shapes how guilt-tripping is practiced and perceived. In collectivist societies such as India, individual autonomy is often subordinated to family unity. This section explores <strong>Filial Guilt</strong>, emotional parentification, and how healthy boundary-setting is often misunderstood as "disrespect" or "selfishness" within familial structures.
+                </p>
+            </div>
+
+            <!-- Filial Guilt Dynamics Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                        1
+                    </div>
+                    <h3 class="font-bold text-slatecustom-900 text-lg">Intergenerational Debt</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Parents often emphasize the tremendous personal, financial, and emotional sacrifices made for their children, framing adult independence as ungratefulness.
+                    </p>
+                </div>
+
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                        2
+                    </div>
+                    <h3 class="font-bold text-slatecustom-900 text-lg">Emotional Parentification</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Children are conditioned to feel entirely responsible for their parents' happiness, health, and emotional stability, reversing healthy parental roles.
+                    </p>
+                </div>
+
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-lg">
+                        3
+                    </div>
+                    <h3 class="font-bold text-slatecustom-900 text-lg">Pathologized Boundaries</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Establishing personal limits (e.g., career choice, marriage choices, moving out) is framed as an assault on family honor rather than healthy maturity.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparative Analysis Box -->
+            <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                <h3 class="text-xl font-bold text-slatecustom-900">Comparing Boundary Perceptions Across Cultural Frameworks</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-700 border-collapse">
+                        <thead>
+                            <tr class="border-b border-stone-200 bg-stone-50">
+                                <th class="p-3 font-semibold text-slatecustom-900">Life Situation</th>
+                                <th class="p-3 font-semibold text-brand-800 bg-brand-50/50">Individualist Perspective</th>
+                                <th class="p-3 font-semibold text-sage-800 bg-sage-100/40">Collectivist / Filial Dynamic</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-100">
+                            <tr>
+                                <td class="p-3 font-medium text-slatecustom-900">Saying "No" to Family Event</td>
+                                <td class="p-3">Self-care & schedule prioritization.</td>
+                                <td class="p-3 text-slate-600">Perceived as rejection of family identity and care.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slatecustom-900">Choosing a Career Path</td>
+                                <td class="p-3">Personal passion & individual fulfillment.</td>
+                                <td class="p-3 text-slate-600">Family obligation & return on parental sacrifice.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slatecustom-900">Asserting Relational Limits</td>
+                                <td class="p-3">Healthy relationship maintenance.</td>
+                                <td class="p-3 text-slate-600">Rebellion, disrespect, or loss of filial piety.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 5: DEAR MAN RESPONSE BUILDER -->
+        <section id="module-defense" class="hidden space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Interactive Defense Suite: DBT DEAR MAN Generator</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    Escaping emotional blackmail requires transforming passive or aggressive reactions into calm, firm interpersonal effectiveness. Dialectical Behavior Therapy (DBT) provides the <strong>DEAR MAN</strong> framework: <strong>D</strong>escribe, <strong>E</strong>xpress, <strong>A</strong>ssert, <strong>R</strong>einforce, <strong>M</strong>indful, <strong>A</strong>ppear Confident, <strong>N</strong>egotiate. Use the interactive tool below to generate a tailored response to common guilt trips.
+                </p>
+            </div>
+
+            <!-- DEAR MAN Generator Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Input Controls (5 cols) -->
+                <div class="lg:col-span-5 bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm space-y-5">
+                    <h3 class="text-lg font-bold text-slatecustom-900">Step 1: Select Your Scenario & Manipulation</h3>
+
+                    <!-- Scenario Selector -->
+                    <div>
+                        <label for="dear-context" class="block text-xs font-semibold uppercase text-slate-500 mb-1">Relationship Context</label>
+                        <select id="dear-context" onchange="updateDearBuilder()" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-sm text-slatecustom-900 focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="parent">Parent / Family Member</option>
+                            <option value="partner">Romantic Partner</option>
+                            <option value="coworker">Workplace / Manager</option>
+                        </select>
+                    </div>
+
+                    <!-- Preset Guilt Trip Phrases -->
+                    <div>
+                        <label for="dear-phrase" class="block text-xs font-semibold uppercase text-slate-500 mb-1">Select Guilt Trip Phrase</label>
+                        <select id="dear-phrase" onchange="updateDearBuilder()" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-sm text-slatecustom-900 focus:ring-2 focus:ring-brand-500 outline-none">
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+
+                    <!-- User Custom Goal/Boundary -->
+                    <div>
+                        <label for="dear-custom-goal" class="block text-xs font-semibold uppercase text-slate-500 mb-1">Your Personal Boundary / Decision</label>
+                        <input type="text" id="dear-custom-goal" oninput="updateDearBuilder()" value="I cannot attend this weekend and need time for myself." class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-sm text-slatecustom-900 focus:ring-2 focus:ring-brand-500 outline-none" placeholder="State your boundary clearly...">
+                    </div>
+
+                    <!-- Guidance Box -->
+                    <div class="p-4 bg-sage-100/50 rounded-xl border border-sage-600/20 text-xs text-sage-800 space-y-1">
+                        <span class="font-bold">Boundary Rule:</span> Do not apologize excessively or over-explain. State your decision clearly and stick to facts.
+                    </div>
+                </div>
+
+                <!-- Generated Output (7 cols) -->
+                <div class="lg:col-span-7 bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-slatecustom-900">Step 2: Generated DEAR MAN Response Script</h3>
+                        <button type="button" onclick="copyDearScript()" class="text-xs bg-stone-100 hover:bg-stone-200 text-slatecustom-900 font-semibold px-3 py-1.5 rounded-lg border border-stone-300 transition-colors">
+                            📋 Copy Script
+                        </button>
+                    </div>
+
+                    <!-- Structured Breakdown Container -->
+                    <div id="dear-script-output" class="space-y-3 font-sans text-sm">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <p class="text-[11px] text-slate-500 italic">This is a fill-in template, not a script to read word for word. Adapt the wording to your voice and the specific relationship.</p>
+
+                    <div id="copy-toast" role="status" aria-live="polite" class="hidden text-xs text-center text-sage-800 font-medium py-1 bg-sage-100 rounded-lg">
+                        Script copied to clipboard!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Assessment Quiz Section -->
+            <div class="bg-surface p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-slatecustom-900">Interactive Self-Check: Guilt Trip or Healthy Communication?</h3>
+                    <p class="text-sm text-slate-500">Test your ability to distinguish between direct boundary requests and covert manipulation.</p>
+                </div>
+
+                <div id="quiz-container" class="space-y-4">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 6: CLINICAL SUPPORT & CHENNAI DIRECTORY -->
+        <section id="module-resources" class="hidden space-y-8 fade-in">
+            <!-- Intro Paragraph -->
+            <div class="bg-surface rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-slatecustom-900 mb-3">Clinical Care & Specialized Support Infrastructure</h2>
+                <p class="text-slatecustom-700 leading-relaxed">
+                    Chronic emotional manipulation and severe filial guilt can lead to clinical anxiety, depression, and trauma bonding. Professional psychotherapy—such as Schema Therapy, CBT, and systemic family counseling—provides crucial support for recovery. Below is a directory of specialized mental health institutions in <strong>Chennai, Tamil Nadu</strong>, equipped to assist with relationship dynamics and psychological recovery.
+                </p>
+            </div>
+
+            <!-- Chennai Resource Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- SCARF Card -->
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-2.5 py-1 rounded-full">Community & Clinical Psychiatry</span>
+                        <h3 class="text-xl font-bold text-slatecustom-900">SCARF India</h3>
+                        <p class="text-xs text-slate-500">Schizophrenia Research Foundation</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Established center for comprehensive mental health care, outpatient psychological counseling, family support, and psychosocial rehabilitation.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-xs space-y-1 text-slate-600">
+                        <p><strong>Locations:</strong> Chetpet & Thiruporur, Chennai</p>
+                        <p><strong>Services:</strong> Individual Therapy, Family Counseling</p>
+                    </div>
+                </div>
+
+                <!-- Chennai Counseling Services Card -->
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-sage-600 bg-sage-100 px-2.5 py-1 rounded-full">Psychotherapy & Relationship Specialist</span>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Chennai Counseling Services</h3>
+                        <p class="text-xs text-slate-500">Founded by Karthik Lakshmanan</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Specialized in relationship issues, emotional blackmail management, boundary counseling, Gestalt, and Cognitive Behavioral Therapy (CBT).
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-xs space-y-1 text-slate-600">
+                        <p><strong>Primary Center:</strong> Bazulla Road, T. Nagar</p>
+                        <p><strong>Secondary Branch:</strong> OMR, Thoraipakkam</p>
+                    </div>
+                </div>
+
+                <!-- Mind Zone Card -->
+                <div class="bg-surface p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full">Integrative Mental Health</span>
+                        <h3 class="text-xl font-bold text-slatecustom-900">Mind Zone Clinic</h3>
+                        <p class="text-xs text-slate-500">Led by Dr. Vasanth & Team</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Over two decades of experience providing psychiatric support, stress management, anxiety relief, and psychodynamic counseling.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 text-xs space-y-1 text-slate-600">
+                        <p><strong>Location:</strong> Kamaraj Avenue 2nd St, Adyar</p>
+                        <p><strong>Services:</strong> Clinical Evaluation & Therapy</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Immediate Crisis Note -->
+            <div class="bg-stone-900 text-stone-100 p-6 rounded-2xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <h4 class="font-bold text-base text-white">In Immediate Emotional Distress?</h4>
+                    <p class="text-xs text-stone-300">If emotional manipulation has left you feeling overwhelmed or helpless, reach out to national helplines for immediate confidential support.</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="tel:14416" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-lg whitespace-nowrap transition-colors">📞 Tele-MANAS: 14416</a>
+                    <a href="tel:18005990019" class="px-4 py-2 bg-slatecustom-700 hover:bg-slatecustom-900 text-white font-bold text-xs rounded-lg whitespace-nowrap transition-colors">📞 KIRAN: 1800-599-0019</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-stone-200 py-6 mt-12 text-xs text-center text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>Guilt-Tripping Dynamics &amp; Boundary Defense Matrix — Built for psychological education and self-advocacy.</p>
+            <p>Based on peer-reviewed psychological literature (Baumeister, Tangney, Forward, Linehan, Young).</p>
+            <p class="text-[11px] text-slate-400">Educational content only — not a substitute for individual clinical care or legal advice.</p>
+            <p class="pt-2 space-x-1">
+                <a href="../" class="text-brand-600 hover:underline">← D/0 Knowledge Vault</a>
+                <span aria-hidden="true">•</span>
+                <a href="./readme.md" class="text-brand-600 hover:underline">The Full Report</a>
+                <span aria-hidden="true">•</span>
+                <a href="../../" class="text-brand-600 hover:underline">Portfolio Home</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // --- DATA STORE ---
+        
+        const typologies = {
+            'punisher': {
+                title: 'The Punisher',
+                subtitle: 'Direct Threat & Relational Aggression',
+                mechanism: 'Explicitly threatens consequences, abandonment, or anger if compliance is withheld.',
+                quote: '"If you choose to prioritize your career over me, do not expect me to be here when you return."',
+                defense: 'Do not react with fear. State your decision firmly and refuse to yield to threats.'
+            },
+            'self-punisher': {
+                title: 'The Self-Punisher',
+                subtitle: 'Weaponized Vulnerability & Guilt Induction',
+                mechanism: 'Threatens self-harm, medical collapse, or severe depression to force the target into a rescuer role.',
+                quote: '"Go ahead and say no. My blood pressure will spike, but I guess my health doesn\'t matter to you."',
+                defense: 'Separate your choice from their physical/emotional state. Encourage them to seek medical care.'
+            },
+            'sufferer': {
+                title: 'The Sufferer (The Martyr)',
+                subtitle: 'Passive-Aggressive Guilt & Victimhood',
+                mechanism: 'Acts deeply wounded, sighs loudly, or employs the silent treatment so the target has to guess their needs.',
+                quote: '"Don\'t worry about me. I\'ll just sit here alone while everyone else has fun."',
+                defense: 'Ask for direct communication: "If you need something, please ask directly instead of sighing."'
+            },
+            'tantalizer': {
+                title: 'The Tantalizer',
+                subtitle: 'Conditional Love & Moving Goalposts',
+                mechanism: 'Promises affection, approval, or inheritance, but holds it back contingent on continuous compliance.',
+                quote: '"I was planning on leaving you the family house, if only you showed more dedication to us."',
+                defense: 'Recognize that the reward will always be kept out of reach. Disengage from the conditional deal.'
+            }
+        };
+
+        const tacticsData = [
+            {
+                domain: 'family',
+                tactic: 'Weaponizing Past Sacrifices',
+                quote: '"After everything I sacrificed to raise you, you can\'t even visit for one weekend?"',
+                analysis: 'Appeals to filial duty and creates a debt that can never be fully repaid.',
+                counter: 'Acknowledge past care while keeping your present boundary separate from past favors.'
+            },
+            {
+                domain: 'romantic',
+                tactic: 'The Silent Treatment (Ostracism)',
+                quote: '[Complete silence, refusal to speak or acknowledge presence for two days after a refusal]',
+                analysis: 'Triggers fear of abandonment and Deontological Guilt, compelling the target to apologize just to restore contact.',
+                counter: 'Call out the silent treatment calmly: "I am open to talking when you are ready to discuss this directly."'
+            },
+            {
+                domain: 'workplace',
+                tactic: 'Citizenship Fatigue Exploitation',
+                quote: '"A true team player would stay until midnight to finish this project without complaint."',
+                analysis: 'Exploits organizational citizenship to push employees beyond contract limits.',
+                counter: 'Reframe around capacity and priorities: "I am committed to team success, but I cannot work past 6 PM tonight."'
+            },
+            {
+                domain: 'romantic',
+                tactic: 'All-or-Nothing Emotional Testing',
+                quote: '"If you really loved me, you would drop your plans and come over right now."',
+                analysis: 'Conflates compliance with love, forcing the target to prove their affection through submission.',
+                counter: 'Separate love from compliance: "I love you very much, and I also have prior commitments tonight."'
+            },
+            {
+                domain: 'family',
+                tactic: 'Emotional Parentification',
+                quote: '"You know how fragile my mental health is. Your decision is breaking my heart."',
+                analysis: 'Makes the adult child responsible for the parent\'s emotional regulation.',
+                counter: 'Maintain emotional boundaries: "I care about your wellbeing, but I am not responsible for managing your emotions."'
+            },
+            {
+                domain: 'workplace',
+                tactic: 'Passive-Aggressive Martrydom',
+                quote: '"No, no, go home to your family. I\'ll just stay behind and finish your share of the report myself."',
+                analysis: 'Uses sarcasm and self-sacrifice to induce shame and force unpaid overtime.',
+                counter: 'Offer clear task division: "I\'ll complete my assigned section by tomorrow morning as scheduled."'
+            }
+        ];
+
+        const presetPhrases = {
+            parent: [
+                { text: '"After everything I did for you, you don\'t care about us."', goal: 'I cannot visit this weekend due to work obligations.' },
+                { text: '"If you loved your family, you would choose a respectable career path."', goal: 'I am choosing a career path that aligns with my strengths.' }
+            ],
+            partner: [
+                { text: '"If you really loved me, you wouldn\'t spend time with your friends tonight."', goal: 'I am spending Friday night with my friends and seeing you Saturday.' },
+                { text: '"I guess I\'ll just sit at home alone since you\'re too busy for me."', goal: 'I have plans tonight, but we can plan a special dinner tomorrow.' }
+            ],
+            coworker: [
+                { text: '"I guess I\'ll stay until midnight doing your part since you\'re leaving on time."', goal: 'I have completed my assigned deliverables for today.' },
+                { text: '"Everyone else is working weekend shifts without complaining."', goal: 'I am unable to work weekend shifts due to personal commitments.' }
+            ]
+        };
+
+        const quizQuestions = [
+            {
+                scenario: 'Your partner says: "I understand you have a heavy workload tonight, but if you could help me for 20 minutes, I\'d appreciate it."',
+                optionA: 'Guilt-Tripping Manipulation',
+                optionB: 'Healthy, Direct Communication',
+                correct: 'B',
+                explanation: 'This is healthy communication. The partner expresses their need directly while acknowledging your limits without shaming you.'
+            },
+            {
+                scenario: 'A family member says: "I guess my health doesn\'t matter to anyone in this house, since nobody bothered to clean the kitchen."',
+                optionA: 'Guilt-Tripping Manipulation (The Sufferer)',
+                optionB: 'Healthy, Direct Communication',
+                correct: 'A',
+                explanation: 'This is passive-aggressive guilt-tripping. Instead of asking directly for help cleaning, they weaponize their health to induce shame.'
+            },
+            {
+                scenario: 'A colleague says: "No, no, go home at 6. I\'ll just stay until midnight and finish your share of the report myself."',
+                optionA: 'Guilt-Tripping Manipulation (Martyrdom)',
+                optionB: 'Healthy, Direct Communication',
+                correct: 'A',
+                explanation: 'This is self-sacrificing martyrdom used to induce shame and pressure you into unpaid overtime. A direct request would name the task, the deadline, and ask whether you can help — without the theatrical sacrifice.'
+            },
+            {
+                scenario: 'A friend says: "I was hurt when you cancelled, and I\'d like to understand what happened. Can we talk tomorrow?"',
+                optionA: 'Guilt-Tripping Manipulation',
+                optionB: 'Healthy, Direct Communication',
+                correct: 'B',
+                explanation: 'This is healthy communication. Your friend names their feeling, asks for context, and proposes a concrete time to talk — without attacking your character or demanding compliance.'
+            }
+        ];
+
+        // --- CHART INSTANCES ---
+        let guiltShameChartInstance = null;
+        let neuroChartInstance = null;
+
+        // --- TAB SWITCHING LOGIC ---
+        const MODULES = ['overview', 'tactics', 'neurobiology', 'culture', 'defense', 'resources'];
+
+        function switchTab(tabId, options = {}) {
+            if (!MODULES.includes(tabId)) tabId = 'overview';
+
+            MODULES.forEach(mod => {
+                const el = document.getElementById(`module-${mod}`);
+                const link = document.getElementById(`nav-${mod}`);
+                const isActive = mod === tabId;
+
+                if (el) el.classList.toggle('hidden', !isActive);
+
+                if (link) {
+                    link.classList.toggle('active', isActive);
+                    if (isActive) {
+                        link.setAttribute('aria-current', 'page');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                    // Keep the active link visible inside the horizontally scrolling row
+                    if (isActive && link.scrollIntoView) {
+                        link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                    }
+                }
+            });
+
+            // Re-render charts when visible to maintain responsiveness
+            if (tabId === 'overview' && guiltShameChartInstance) {
+                guiltShameChartInstance.resize();
+            }
+            if (tabId === 'neurobiology' && neuroChartInstance) {
+                neuroChartInstance.resize();
+            }
+
+            // Deep-link support: #module-tactics, #module-defense, etc.
+            if (options.updateHash !== false) {
+                const hash = `#module-${tabId}`;
+                if (window.location.hash !== hash) {
+                    try {
+                        history.replaceState(null, '', hash);
+                    } catch (err) {
+                        // Some file:// contexts block history updates; tabs still work.
+                        window.location.hash = hash;
+                    }
+                }
+            }
+
+            if (options.scroll) {
+                const main = document.getElementById('main-content');
+                const top = main ? main.getBoundingClientRect().top + window.scrollY - 112 : 0;
+                if (window.scrollY > Math.max(top, 0)) {
+                    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+                }
+            }
+        }
+
+        function moduleFromHash() {
+            const requested = (window.location.hash || '').replace(/^#module-/, '').replace(/^#/, '');
+            return MODULES.includes(requested) ? requested : null;
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll('[data-tab]').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    switchTab(link.dataset.tab, { scroll: true });
+                });
+            });
+
+            window.addEventListener('hashchange', () => {
+                const mod = moduleFromHash();
+                if (mod) switchTab(mod, { updateHash: false, scroll: true });
+            });
+        }
+
+        // --- MODULE 2 LOGIC: TYPOLOGY & TACTICS ---
+        function selectTypology(key) {
+            const data = typologies[key];
+            const detailCard = document.getElementById('typology-detail-card');
+            
+            // Update buttons
+            Object.keys(typologies).forEach(k => {
+                const btn = document.getElementById(`btn-${k}`);
+                const isActive = k === key;
+                btn.className = isActive
+                    ? 'p-3 rounded-xl border border-brand-500 bg-brand-50 text-brand-800 font-semibold text-sm text-left transition-all'
+                    : 'p-3 rounded-xl border border-stone-200 hover:border-stone-400 font-semibold text-sm text-left transition-all text-slate-700';
+                btn.setAttribute('aria-pressed', String(isActive));
+            });
+
+            // Update content
+            detailCard.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-slatecustom-900 text-base">${data.title}</h4>
+                    <span class="text-xs bg-brand-100 text-brand-800 font-semibold px-2.5 py-0.5 rounded-full">${data.subtitle}</span>
+                </div>
+                <p class="text-sm text-slate-700"><strong>Mechanism:</strong> ${data.mechanism}</p>
+                <div class="p-3 bg-surface rounded-lg border-l-4 border-brand-500 text-xs italic text-slate-800">
+                    Example: ${data.quote}
+                </div>
+                <p class="text-xs text-sage-800 font-medium"><strong>Recommended Defense:</strong> ${data.defense}</p>
+            `;
+        }
+
+        function filterTactics(domain) {
+            const buttons = ['all', 'family', 'romantic', 'workplace'];
+            buttons.forEach(d => {
+                const btn = document.getElementById(`filter-${d}`);
+                const isActive = d === domain;
+                btn.className = isActive
+                    ? 'filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slatecustom-900 text-white'
+                    : 'filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-stone-100 text-slate-700 hover:bg-stone-200';
+                btn.setAttribute('aria-pressed', String(isActive));
+            });
+
+            const grid = document.getElementById('tactics-grid');
+            grid.innerHTML = '';
+
+            const filtered = domain === 'all' ? tacticsData : tacticsData.filter(t => t.domain === domain);
+
+            if (!filtered.length) {
+                grid.innerHTML = '<p class="col-span-full text-center text-sm text-slate-500 py-8">No tactics are catalogued for this domain yet.</p>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-surface p-5 rounded-xl border border-stone-200 space-y-3 hover:border-brand-500/40 transition-colors flex flex-col justify-between';
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-wider font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">${item.domain}</span>
+                            <span class="text-xs text-slate-400 font-medium">${item.tactic}</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slatecustom-900 italic">
+                            ${item.quote}
+                        </p>
+                        <p class="text-xs text-slate-600">
+                            <strong>Psychological Analysis:</strong> ${item.analysis}
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-stone-100 text-xs text-sage-800 font-medium">
+                        <strong>Counter-Strategy:</strong> ${item.counter}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- MODULE 5 LOGIC: DEAR MAN BUILDER ---
+        function updateDearBuilder() {
+            const context = document.getElementById('dear-context').value;
+            const phraseSelect = document.getElementById('dear-phrase');
+            
+            // Check if context changed to reload options
+            if (phraseSelect.getAttribute('data-context') !== context) {
+                phraseSelect.setAttribute('data-context', context);
+                phraseSelect.innerHTML = '';
+                presetPhrases[context].forEach((p, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = p.text;
+                    phraseSelect.appendChild(opt);
+                });
+            }
+
+            const selectedIdx = phraseSelect.value || 0;
+            const phraseObj = presetPhrases[context][selectedIdx] || presetPhrases[context][0];
+            const customGoal = document.getElementById('dear-custom-goal').value.trim() || phraseObj.goal;
+            const described = phraseObj.text.replace(/^["']|["']$/g, '').replace(/[.!?]$/, '');
+
+            const outputContainer = document.getElementById('dear-script-output');
+
+            outputContainer.innerHTML = `
+                <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
+                    <span class="font-bold text-brand-800 text-xs uppercase tracking-wider block">D — Describe (Objective Facts)</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"You mentioned that ${described}."</p>
+                </div>
+
+                <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
+                    <span class="font-bold text-brand-800 text-xs uppercase tracking-wider block">E — Express ("I" Statements)</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"I feel overwhelmed and pressured when past sacrifices or emotional claims are used to challenge my decisions."</p>
+                </div>
+
+                <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
+                    <span class="font-bold text-brand-800 text-xs uppercase tracking-wider block">A — Assert (Clear Boundary)</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"${customGoal}"</p>
+                </div>
+
+                <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
+                    <span class="font-bold text-brand-800 text-xs uppercase tracking-wider block">R — Reinforce (Mutual Benefit)</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"When we communicate directly without inducing guilt, it helps us maintain a stronger, resentment-free relationship."</p>
+                </div>
+
+                <div class="p-3 bg-sage-50 rounded-lg border-l-4 border-sage-600">
+                    <span class="font-bold text-sage-800 text-xs uppercase tracking-wider block">M — Mindful · A — Appear Confident</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Maintain steady eye contact, keep a calm tone, and use the 'broken record' technique if they repeat the guilt trip.</p>
+                </div>
+
+                <div class="p-3 bg-sage-50 rounded-lg border-l-4 border-sage-600">
+                    <span class="font-bold text-sage-800 text-xs uppercase tracking-wider block">N — Negotiate (Give to Get)</span>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"I am not asking you to never raise this again — I am asking that we discuss it directly, without guilt or withdrawal."</p>
+                </div>
+            `;
+        }
+
+        function copyDearScript() {
+            const container = document.getElementById('dear-script-output');
+            const textToCopy = container.innerText.trim();
+            const toast = document.getElementById('copy-toast');
+
+            const finish = (ok) => {
+                toast.textContent = ok ? 'Script copied to clipboard!' : 'Copy failed — select the script and copy it manually.';
+                toast.classList.remove('hidden');
+                clearTimeout(copyDearScript._timer);
+                copyDearScript._timer = setTimeout(() => toast.classList.add('hidden'), 2500);
+            };
+
+            const fallback = () => {
+                try {
+                    const area = document.createElement('textarea');
+                    area.value = textToCopy;
+                    area.setAttribute('readonly', '');
+                    area.style.position = 'fixed';
+                    area.style.opacity = '0';
+                    document.body.appendChild(area);
+                    area.select();
+                    const ok = document.execCommand('copy');
+                    document.body.removeChild(area);
+                    finish(ok);
+                } catch (err) {
+                    finish(false);
+                }
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(() => finish(true)).catch(fallback);
+            } else {
+                fallback();
+            }
+        }
+
+        // --- QUIZ LOGIC ---
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'p-5 bg-warmbg rounded-xl border border-stone-200 space-y-3';
+                qDiv.innerHTML = `
+                    <p class="text-sm font-semibold text-slatecustom-900">${idx + 1}. ${q.scenario}</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" onclick="checkAnswer(${idx}, 'A')" id="q${idx}-btnA" aria-pressed="false" class="px-4 py-2 text-xs font-semibold rounded-lg bg-surface border border-stone-300 hover:border-brand-500 text-slate-700 transition-colors">
+                            A) ${q.optionA}
+                        </button>
+                        <button type="button" onclick="checkAnswer(${idx}, 'B')" id="q${idx}-btnB" aria-pressed="false" class="px-4 py-2 text-xs font-semibold rounded-lg bg-surface border border-stone-300 hover:border-brand-500 text-slate-700 transition-colors">
+                            B) ${q.optionB}
+                        </button>
+                    </div>
+                    <div id="q${idx}-feedback" role="status" aria-live="polite" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkAnswer(qIdx, choice) {
+            const q = quizQuestions[qIdx];
+            const feedback = document.getElementById(`q${qIdx}-feedback`);
+            feedback.classList.remove('hidden');
+
+            ['A', 'B'].forEach(option => {
+                const btn = document.getElementById(`q${qIdx}-btn${option}`);
+                if (btn) btn.setAttribute('aria-pressed', String(option === choice));
+            });
+
+            if (choice === q.correct) {
+                feedback.className = 'p-3 rounded-lg text-xs leading-relaxed bg-sage-100 text-sage-800 border border-sage-600/30';
+                feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+            } else {
+                feedback.className = 'p-3 rounded-lg text-xs leading-relaxed bg-brand-50 text-brand-800 border border-brand-200';
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+        }
+
+        // --- CHARTS INITIALIZATION ---
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                document.querySelectorAll('.chart-container').forEach(container => {
+                    container.innerHTML = '<div class="h-full flex items-center justify-center text-center text-xs text-slate-500 border border-dashed border-stone-300 rounded-xl p-4">Charts could not load. Check your connection and refresh — the written analysis on this page is still fully available.</div>';
+                });
+                return;
+            }
+
+            // Chart 1: Guilt vs Shame Drives
+            const ctx1 = document.getElementById('guiltShameChart').getContext('2d');
+            guiltShameChartInstance = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Apology/Repair', 'Boundary Setting', 'Withdrawal/Avoidance', 'Defensive Submission'],
+                    datasets: [
+                        {
+                            label: 'Adaptive Guilt',
+                            data: [90, 75, 15, 10],
+                            backgroundColor: '#5A7D63'
+                        },
+                        {
+                            label: 'Weaponized Shame',
+                            data: [20, 10, 85, 45],
+                            backgroundColor: '#334155'
+                        },
+                        {
+                            label: 'Guilt-Trip Capitulation',
+                            data: [30, 0, 40, 95],
+                            backgroundColor: '#C86D51'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Behavioral Tendency Index (%)', font: { size: 10 } }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(index);
+                                    return label.length > 14 ? label.substring(0, 14) + '...' : label;
+                                },
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '% propensity';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Neurobiology Activation
+            const ctx2 = document.getElementById('neuroChart').getContext('2d');
+            neuroChartInstance = new Chart(ctx2, {
+                type: 'radar',
+                data: {
+                    labels: ['Anterior Insula', 'Dorsal ACC', 'mPFC (Medial Prefrontal)', 'Frontopolar Cortex', 'Septal Region'],
+                    datasets: [
+                        {
+                            label: 'Deontological Guilt (Moral Rules)',
+                            data: [95, 85, 30, 25, 20],
+                            borderColor: '#C86D51',
+                            backgroundColor: 'rgba(200, 109, 81, 0.2)'
+                        },
+                        {
+                            label: 'Altruistic Guilt (Empathy/Harm)',
+                            data: [35, 40, 90, 85, 75],
+                            borderColor: '#5A7D63',
+                            backgroundColor: 'rgba(90, 125, 99, 0.2)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E2E8F0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { font: { size: 9 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '% activation';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- INITIALIZATION ON LOAD ---
+        window.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+            selectTypology('punisher');
+            filterTactics('all');
+            updateDearBuilder();
+            renderQuiz();
+            initCharts();
+
+            // Honour a deep link such as #module-defense on first load
+            const initial = moduleFromHash();
+            if (initial) switchTab(initial, { updateHash: false, scroll: false });
+        });
+    </script>
+</body>
+</html>

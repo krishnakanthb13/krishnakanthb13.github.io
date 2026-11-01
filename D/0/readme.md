@@ -180,6 +180,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Guilt Tripping](./guilt_tripping/)
+**The Anatomy of Manufactured Guilt** — why guilt is an adaptive social emotion while guilt-tripping is its weaponized counterfeit: indirect pressure that bypasses rational negotiation and removes the target's agency. Synthesizes Baumeister's interpersonal theory and Tangney's guilt-versus-shame distinction with the deontological-versus-altruistic neurobiology of guilt, Forward's FOG model and four blackmailer typologies, Young's schema modes, filial guilt and emotional parentification in collectivist India, DBT's DEAR MAN framework, and Chennai's clinical infrastructure.
+
+- 📝 [The Full Report](./guilt_tripping/readme.md) — the long-form essay with 59 cited sources. (`readme.md`)
+- 🎣 [Interactive Infographic](./guilt_tripping/index.html) — the complete warm sand & clay interactive page: six-module tabbed portal (Overview, Tactics & FOG, Neuro & Schemas, Filial & Culture, DEAR MAN Builder, Clinical Care) with a guilt-vs-shame behavioral chart, Forward's four blackmailer typologies, a domain-filterable tactic decoder, deontological-vs-altruistic neurobiology radar, schema-mode matrix, cultural boundary comparison table, a copyable DEAR MAN response builder, a four-scenario distinction quiz, and a Chennai clinical directory with crisis lines. (`index.html`)
+
+---
+
 ### 📁 [Happy or Content](./happy_or_content/)
 **The Psychology of Enough** — why the relentless cultural pursuit of happiness backfires, and why contentment—the unconditional, low-arousal sense of wholeness—offers a more sustainable model for human flourishing. Synthesizes affective science (the paradoxical effects of valuing happiness), Berridge's wanting/liking affective neuroscience, Gilbert's Compassion-Focused Therapy three-system model, and Global Wellbeing Initiative / World Happiness Report data.
 
