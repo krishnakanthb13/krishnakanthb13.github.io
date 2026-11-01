@@ -683,6 +683,15 @@
 
     <!-- JAVASCRIPT APPLICATION LOGIC -->
     <script>
+        // --- HELPERS ---
+        const escapeHtml = (value) => String(value).replace(/[&<>"']/g, ch => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[ch]));
+
         // --- DATA STORE ---
         
         const typologies = {
@@ -998,7 +1007,7 @@
 
                 <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
                     <span class="font-bold text-brand-800 text-xs uppercase tracking-wider block">A — Assert (Clear Boundary)</span>
-                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"${customGoal}"</p>
+                    <p class="text-xs sm:text-sm text-slate-700 mt-0.5">"${escapeHtml(customGoal)}"</p>
                 </div>
 
                 <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-brand-500">
