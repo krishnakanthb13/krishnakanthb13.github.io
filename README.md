@@ -110,6 +110,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [YouTube Video Hub](https://krishnakanthb13.github.io/A/aa/): Gallery of my YouTube channels.
 	- [Amplenote Plugins Hub](https://krishnakanthb13.github.io/A/): Gallery of my Amplenote plugins.
 	- [Recurring Task Trends](https://krishnakanthb13.github.io/A/P/recurring-task-trends/): Visual consistency engine for Amplenote — 52-week contribution heatmaps, live streak KPIs, day-of-week distributions & chronotype rhythms ($1.99/mo).
+	- [Note Reviewer Lite](https://krishnakanthb13.github.io/A/P/note-reviewer-lite/): Fast note triage for Amplenote — random note discovery, color-coded Keep/Delete/Review workflow, live progress metrics & an automatic audit log inside the Peek Viewer ($1.99).
 
 ---
 
