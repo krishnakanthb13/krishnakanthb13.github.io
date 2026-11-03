@@ -41,6 +41,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Sunk Cost Fallacy](https://krishnakanthb13.github.io/D/0/sunk_cost_fallacy/) — The Psychology and Economics of Sunk Costs
 		- [Time & Employment Dynamics](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/) — The Market for Time
 	- **1**: [TechXConf 2026 — AI, Cloud & Data Conference](https://krishnakanthb13.github.io/D/1/techxconf26/) — single-file event page: agenda, themes, speakers & venue (tickets closed)
+		- [CDC50 — Confluence](https://krishnakanthb13.github.io/D/1/cdc50-confluence/) — Chennai Data Circle's 50th event: 14 Nov 2026 at Ford GTBC, Chennai. Countdown, agenda, partners, venue & registration.
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
