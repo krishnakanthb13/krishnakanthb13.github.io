@@ -1,1076 +1,513 @@
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"
-   xmlns="http://www.w3.org/TR/REC-html40">
+<!DOCTYPE html>
+<!--
+================================================================================
+ WORK EXPERIENCE & GAPS ANALYSIS  (gap.htm)
+================================================================================
+
+ WHAT THIS FILE IS
+ =================
+ A single, self-contained webpage that shows:
+   1. A company-wise work experience table.
+   2. A company + gap detail table.
+   3. Totals for experience and gaps.
+
+ There is no build step, no dependency and no server requirement. All HTML, CSS
+ and JavaScript live in this one file, so it can be opened directly in a browser
+ or served as-is from GitHub Pages.
+
+ WHERE THE DATA LIVES
+ ====================
+ Scroll to the <script> near the bottom and edit ONLY the "EDIT ONLY THIS BLOCK"
+ section. Everything else is generated from that data when the page opens.
+
+   const companies = [
+      { name: "SITEL", start: "2010-09-14", end: "2011-03-30" },
+      ...
+   ];
+
+ Each company object supports:
+
+   name   (required)  Company name exactly as it should appear.
+   start  (required)  Start date in YYYY-MM-DD format.
+   end    (optional)  End date in YYYY-MM-DD format.
+                      Leave it as "" or omit it for the current job.
+   gap    (optional)  Reason for the gap BEFORE this company.
+                      "MASTERS"       shows the gap row in yellow.
+                      "HEALTH ISSUES" shows the gap row in orange.
+                      Anything else / omitted shows a normal white gap row.
+
+ The "trailingGap" constant sets the reason and colour of the final gap between
+ the last company's end date and today:
+
+   const trailingGap = "HEALTH ISSUES";
+
+ ADD A COMPANY
+ =============
+ Copy any line inside the array, change the values and place it anywhere.
+ Rows are sorted by start date automatically, so the order in the file does not
+ matter. Example:
+
+   { name: "NEW COMPANY", start: "2025-01-06", end: "2026-03-31" },
+
+ For a current job (no end date), use an empty end:
+
+   { name: "NEW COMPANY", start: "2026-04-01", end: "" },
+
+ REMOVE A COMPANY
+ ================
+ Delete its line from the array. Its work-experience row and the gap row linked
+ to it are removed automatically.
+
+ WHAT IS CALCULATED AUTOMATICALLY
+ ================================
+ Company rows (both tables):
+   - Start Date / End Date          formatted as DD-MM-YYYY
+   - End Date                       shows "Present" when end is blank
+   - Working Period                 end - start in days (current job: today - start)
+   - Sum Up with Previous           running total of Working Period
+   - Experience Per Company         Working Period converted to years/months/days
+
+ Gap rows (second table):
+   - Gap after a company            next company's start - this company's end
+   - Final / trailing gap           today - last company's end
+   - Gap Experience                 gap days converted to years/months/days
+   - Gap colour                     taken from the next company's "gap" value
+                                    (or "trailingGap" for the final gap)
+   - Gaps of zero or less are hidden (overlapping dates)
+
+ Summary rows:
+   - Total Experience WO Current    sum of all companies that have an end date
+   - Total Experience               sum of every company (current counted to today)
+   - Total Experience After MSC     sum from the company after the MASTERS gap onward
+   - Total Gap                      sum of every gap, including the trailing gap
+   - Total Gap w/o MS               Total Gap minus the MASTERS gap
+   - As on                          today's date, in long format
+
+ Experience is converted using 365.25 days per year and 30.4375 days per month,
+ with the remaining days rounded up. This matches the totals in the original
+ Excel export.
+
+ RENDERING NOTES
+ ===============
+   - Everything is rendered by the inline JavaScript into <tbody id="sheet-body">.
+     Do not hand-edit the generated table rows; edit the data array instead.
+   - The table is fixed at 765px wide. Wide screens centre it; narrow screens
+     scroll the page horizontally, with the scrollbar at the bottom of the viewport.
+   - "As on" and the trailing gap are recalculated every time the page is loaded
+     or refreshed, so they stay current without editing the file.
+
+ COMMON MISTAKES
+ ===============
+   - Dates must be YYYY-MM-DD (for example, 2026-11-07). DD-MM-YYYY will not parse.
+   - Keep the comma after each { ... } object except the last one.
+   - Keep names and dates in quotes.
+   - If no company is tagged "MASTERS", then "After MSC" equals Total Experience
+     and "Gap w/o MS" equals Total Gap.
+
+ QUICK PREVIEW
+ =============
+ Open this file in a browser, or visit the GitHub Pages URL for this folder.
+
+================================================================================
+-->
+<html lang="en">
 
 <head>
-   <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Work Experience &amp; Gaps Analysis</title>
    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-   <meta name=ProgId content=Excel.Sheet>
-   <meta name=Generator content="Microsoft Excel 14">
-   <link rel=File-List href="WORK%20EXPERIENCE%20&amp;%20GAPS%20ANALYSIS_files/filelist.xml">
-   <style id="WORK EXPERIENCE &amp; GAPS ANALYSIS_23682_Styles">
+   <style>
+      html {
+         background-color: #000;
+      }
+
       body {
-         background-color: black;
-         color: white;
-         /* Optional: To ensure text is visible against the black background */
+         background-color: #000;
+         color: #fff;
+         font-family: Calibri, Arial, sans-serif;
+         font-size: 11pt;
+         margin: 0;
+         padding: 16px;
       }
 
-      < !--table {
-         mso-displayed-decimal-separator: "\.";
-         mso-displayed-thousand-separator: "\,";
+      .sheet {
+         width: 765px;
+         margin: 0 auto;
       }
 
-      .xl1523682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: general;
-         vertical-align: bottom;
-         mso-background-source: auto;
-         mso-pattern: auto;
-         white-space: nowrap;
+      table {
+         border-collapse: collapse;
+         table-layout: fixed;
+         width: 765px;
       }
 
-      .xl6323682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border: .5pt solid windowtext;
-         background: #FFC000;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl6423682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
+      td {
+         border: 1px solid #000;
+         height: 20px;
+         padding: 1px 4px;
          text-align: center;
          vertical-align: middle;
-         border: .5pt solid windowtext;
-         background: #FFC000;
-         mso-pattern: black none;
          white-space: nowrap;
       }
 
-      .xl6523682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: 1.0pt solid black;
-         border-right: .5pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: 1.0pt solid black;
-         background: #FFC000;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl6623682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: middle;
-         border-top: 1.0pt solid black;
-         border-right: .5pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: #FFC000;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl6723682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: 1.0pt solid black;
-         border-right: .5pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: #FFC000;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl6823682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: 1.0pt solid black;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: #FFC000;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl6923682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: general;
-         vertical-align: bottom;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7023682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: black;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: middle;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7123682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: general;
-         vertical-align: bottom;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7223682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: middle;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7323682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border: .5pt solid windowtext;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7423682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: "Short Date";
-         text-align: center;
-         vertical-align: middle;
-         border: .5pt solid windowtext;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7523682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: 1.0pt solid black;
-         border-right: .5pt solid windowtext;
-         border-bottom: .5pt solid windowtext;
-         border-left: 1.0pt solid black;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7623682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid windowtext;
-         border-right: .5pt solid windowtext;
-         border-bottom: none;
-         border-left: 1.0pt solid black;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7723682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid windowtext;
-         border-right: .5pt solid windowtext;
-         border-bottom: 1.0pt solid black;
-         border-left: 1.0pt solid black;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7823682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid windowtext;
-         border-right: .5pt solid windowtext;
-         border-bottom: .5pt solid windowtext;
-         border-left: 1.0pt solid black;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl7923682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: windowtext;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: 1.0pt solid black;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid windowtext;
-         border-left: .5pt solid windowtext;
-         background: #92D050;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8023682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: windowtext;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid windowtext;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid windowtext;
-         border-left: .5pt solid windowtext;
-         background: #92D050;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8123682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: windowtext;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid windowtext;
-         border-right: 1.0pt solid black;
-         border-bottom: 1.0pt solid black;
-         border-left: none;
-         background: #92D050;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8223682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid black;
-         border-right: .5pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: 1.0pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8323682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: "Short Date";
-         text-align: center;
-         vertical-align: middle;
-         border: .5pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8423682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border: .5pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8523682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid black;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8623682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: yellow;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid black;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8723682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: #F79646;
-         font-size: 11.0pt;
-         font-weight: 700;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: bottom;
-         border-top: .5pt solid black;
-         border-right: 1.0pt solid black;
-         border-bottom: .5pt solid black;
-         border-left: .5pt solid black;
-         background: gray;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8823682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 11.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: "Short Date";
-         text-align: general;
-         vertical-align: bottom;
-         background: black;
-         mso-pattern: black none;
-         white-space: nowrap;
-      }
-
-      .xl8923682 {
-         padding-top: 1px;
-         padding-right: 1px;
-         padding-left: 1px;
-         mso-ignore: padding;
-         color: white;
-         font-size: 14.0pt;
-         font-weight: 400;
-         font-style: normal;
-         text-decoration: none;
-         font-family: Calibri, sans-serif;
-         mso-font-charset: 0;
-         mso-number-format: General;
-         text-align: center;
-         vertical-align: middle;
+      .title {
          background: #E36C09;
-         mso-pattern: black none;
-         white-space: nowrap;
+         color: #fff;
+         font-size: 14pt;
+         height: 38px;
       }
 
-      -->
+      .head {
+         background: #FFC000;
+         color: #000;
+         font-weight: 700;
+      }
+
+      .company {
+         background: #000;
+         color: #fff;
+         font-weight: 700;
+      }
+
+      .gap {
+         background: gray;
+         color: #fff;
+         font-weight: 700;
+      }
+
+      .gap.masters {
+         color: #FFFF00;
+      }
+
+      .gap.health {
+         color: #F79646;
+      }
+
+      .blank {
+         background: #000;
+         border-color: #000;
+      }
+
+      .summary-label {
+         background: #000;
+         color: #fff;
+         font-weight: 700;
+      }
+
+      .summary-value {
+         background: #92D050;
+         color: #000;
+         font-weight: 700;
+      }
+
+      .reason-masters {
+         background: gray;
+         color: #FFFF00;
+         font-weight: 700;
+      }
+
+      .reason-health {
+         background: gray;
+         color: #F79646;
+         font-weight: 700;
+      }
+
+      .ason {
+         background: #FFC000;
+         color: #000;
+         font-weight: 700;
+      }
+
+      .email {
+         display: inline-block;
+         background-color: #000;
+         color: #39ff14;
+         padding: 5px 10px;
+         text-decoration: none;
+         border-radius: 5px;
+         transition: background-color 0.3s, color 0.3s;
+         font-family: Arial, sans-serif;
+      }
+
+      .email:hover {
+         background-color: #39ff14;
+         color: #000;
+      }
    </style>
 </head>
 
 <body>
-   <!--[if !excel]>&nbsp;&nbsp;<![endif]-->
-   <!--The following information was generated by Microsoft Excel's Publish as Web
-         Page wizard.-->
-   <!--If the same item is republished from Excel, all information between the DIV
-         tags will be replaced.-->
-   <!----------------------------->
-   <!--START OF OUTPUT FROM EXCEL PUBLISH AS WEB PAGE WIZARD -->
-   <!----------------------------->
-   <div id="WORK EXPERIENCE &amp; GAPS ANALYSIS_23682" align=center x:publishsource="Excel">
-      <table border=0 cellpadding=0 cellspacing=0 width=765 style='border-collapse:
-            collapse;table-layout:fixed;width:574pt'>
-         <col width=103 style='mso-width-source:userset;mso-width-alt:3766;width:77pt'>
-         <col width=73 span=2 style='mso-width-source:userset;mso-width-alt:2669;
-               width:55pt'>
-         <col width=191 style='mso-width-source:userset;mso-width-alt:6985;width:143pt'>
-         <col width=161 style='mso-width-source:userset;mso-width-alt:5888;width:121pt'>
-         <col width=164 style='mso-width-source:userset;mso-width-alt:5997;width:123pt'>
-         <tr height=38 style='mso-height-source:userset;height:28.5pt'>
-            <td colspan=6 height=38 class=xl8923682 width=765 style='height:28.5pt;
-                  width:574pt'>WORK EXPERIENCE &amp; GAPS ANALYSIS</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl6923682 style='height:15.0pt'>&nbsp;</td>
-            <td class=xl7023682>&nbsp;</td>
-            <td class=xl7023682>&nbsp;</td>
-            <td class=xl6923682>&nbsp;</td>
-            <td class=xl6923682>&nbsp;</td>
-            <td class=xl6923682>&nbsp;</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl6323682 style='height:15.0pt'>Company</td>
-            <td class=xl6423682 style='border-left:none'>Start Date</td>
-            <td class=xl6423682 style='border-left:none'>End Date</td>
-            <td class=xl6323682 style='border-left:none'>Working Period</td>
-            <td class=xl6323682 style='border-left:none'>Sum Up with Previous</td>
-            <td class=xl6323682 style='border-left:none'>Experience Per Company</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>SITEL</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>14-09-2010</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>30-03-2011</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>197</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>197</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 6 months
-               15 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- SITEL</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>SYMANTEC</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>04-04-2011</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>01-07-2011</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>88</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>285</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 2 months
-               28 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- SYMANTEC</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>DELL</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>05-07-2013</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>03-12-2013</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>151</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>436</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 4 months
-               30 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- DELL</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>MEDUSIND</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>05-12-2013</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>10-03-2015</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>460</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>896</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 3 months
-               4 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- MEDUSIND</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>GVW</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>23-03-2015</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>28-02-2017</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>708</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1604</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 11
-               months 8 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- GVW</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>ABCO /
-               OPTUM
-            </td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>17-05-2017</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>04-01-2019</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>597</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>2201</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 7 months
-               19 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- ABCO /
-               OPTUM</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>AMAZON</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>06-07-2020</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>24-08-2021</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>414</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>2615</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 1 months
-               17 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- AMAZON</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>GLOWTOUCH</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>19-09-2022</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>11-10-2023</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>387</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>3002</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 0 months
-               21 days
-            </td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>- GLOWTOUCH</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl7123682 style='height:15.75pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7123682 style='height:15.0pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7523682>Total Experience WO Current</td>
-            <td class=xl7923682 style='border-left:none'>8 years 2 months 20 days</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7123682 style='height:15.0pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7623682 style='border-top:none'>Total Experience</td>
-            <td class=xl8023682 style='border-top:none;border-left:none'>8 years 2 months
-               20 days
-            </td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl7123682 style='height:15.75pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7723682>Total Experience After MSC</td>
-            <td class=xl8123682 style='border-top:none'>7 years 5 months 9 days</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl7123682 style='height:15.75pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl6523682 style='height:15.0pt'>Company</td>
-            <td class=xl6623682 style='border-left:none'>Start Date</td>
-            <td class=xl6623682 style='border-left:none'>End Date</td>
-            <td class=xl6723682 style='border-left:none'>Working Period</td>
-            <td class=xl6723682 style='border-left:none'>Sum Up with Previous</td>
-            <td class=xl6823682 style='border-left:none'>Experience Per Company</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>SITEL</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>14-09-2010</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>30-03-2011</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>197</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>197</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 6 months
-               15 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>5</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8523682 style='border-top:none;border-left:none'>0 years 0 months
-               5 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>SYMANTEC</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>04-04-2011</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>01-07-2011</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>88</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>285</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 2 months
-               28 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>735</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8623682 style='border-top:none;border-left:none'>2 years 0 months
-               4 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>DELL</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>05-07-2013</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>03-12-2013</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>151</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>436</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>0 years 4 months
-               30 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>2</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8523682 style='border-top:none;border-left:none'>0 years 0 months
-               2 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>MEDUSIND</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>05-12-2013</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>10-03-2015</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>460</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>896</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 3 months
-               4 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>13</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8523682 style='border-top:none;border-left:none'>0 years 0 months
-               13 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>GVW</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>23-03-2015</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>28-02-2017</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>708</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1604</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 11
-               months 8 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>78</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8523682 style='border-top:none;border-left:none'>0 years 2 months
-               18 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>ABCO /
-               OPTUM
-            </td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>17-05-2017</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>04-01-2019</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>597</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>2201</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 7 months
-               19 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>549</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8723682 style='border-top:none;border-left:none'>1 years 6 months
-               2 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>AMAZON</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>06-07-2020</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>24-08-2021</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>414</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>2615</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 1 months
-               17 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>391</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8723682 style='border-top:none;border-left:none'>1 years 0 months
-               25 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7323682 style='height:15.0pt;border-top:none'>GLOWTOUCH</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>19-09-2022</td>
-            <td class=xl7423682 style='border-top:none;border-left:none'>11-10-2023</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>387</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>3002</td>
-            <td class=xl7323682 style='border-top:none;border-left:none'>1 years 0 months
-               21 days
-            </td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl8223682 style='height:15.0pt;border-top:none'>GAP</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8323682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>918</td>
-            <td class=xl8423682 style='border-top:none;border-left:none'>&nbsp;</td>
-            <td class=xl8723682 style='border-top:none;border-left:none'>2 years 6 months
-               16 days
-            </td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl7123682 style='height:15.75pt'>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl8223682 style='height:15.75pt'>GAP REASON:</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7523682>Total Gap</td>
-            <td class=xl7923682 style='border-left:none'>7 years 4 months 14 days</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl8623682 style='height:15.75pt;border-top:none'>MASTERS</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7823682 style='border-top:none'>Total Experience</td>
-            <td class=xl7923682 style='border-left:none'>8 years 2 months 20 days</td>
-            <td class=xl7123682>&nbsp;</td>
-         </tr>
-         <tr height=21 style='height:15.75pt'>
-            <td height=21 class=xl8723682 style='height:15.75pt;border-top:none'>HEALTH
-               ISSUES
-            </td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7223682>&nbsp;</td>
-            <td class=xl7723682 style='border-top:none'>Total Gap w/o MS</td>
-            <td class=xl7923682 style='border-left:none'>5 years 4 months 7 days</td>
-            <td class=xl8823682>&nbsp;</td>
-         </tr>
-         <tr height=20 style='height:15.0pt'>
-            <td height=20 class=xl7123682 style='height:15.0pt'>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl7123682>&nbsp;</td>
-            <td class=xl6723682>As on: April 16, 2026</td>
-         </tr>
-         <![if supportMisalignedColumns]>
-         <tr height=0 style='display:none'>
-            <td width=103 style='width:77pt'></td>
-            <td width=73 style='width:55pt'></td>
-            <td width=73 style='width:55pt'></td>
-            <td width=191 style='width:143pt'></td>
-            <td width=161 style='width:121pt'></td>
-            <td width=164 style='width:123pt'></td>
-         </tr>
-         <![endif]>
+   <div class="sheet" align="center">
+      <table>
+         <colgroup>
+            <col style="width:103px">
+            <col style="width:73px">
+            <col style="width:73px">
+            <col style="width:191px">
+            <col style="width:161px">
+            <col style="width:164px">
+         </colgroup>
+         <tbody id="sheet-body"></tbody>
       </table>
       <br><br>
-      <style>
-         .email {
-            display: inline-block;
-            background-color: black;
-            color: #39ff14;
-            /* Neon green color */
-            padding: 5px 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-            font-family: Arial, sans-serif;
-            /* Specify your desired font */
-         }
-
-         .email:hover {
-            background-color: #39ff14;
-            /* Neon green color */
-            color: black;
-         }
-      </style>
       <a class="email" href="../index.html" target="_blank"><b>&lt;&lt; GO BACK</b></a>
    </div>
-   <!----------------------------->
-   <!--END OF OUTPUT FROM EXCEL PUBLISH AS WEB PAGE WIZARD-->
-   <!----------------------------->
+
+   <script>
+      /* =====================================================================
+         EDIT ONLY THIS BLOCK
+         ---------------------------------------------------------------------
+         Add a company:    copy a line and change the values.
+         Remove a company: delete its line.
+         Dates:            use YYYY-MM-DD.
+         end:              "" or omit it if you are still working there
+                           (it will count up to today automatically).
+         gap:              optional reason for the gap BEFORE this company.
+                           "MASTERS" / "HEALTH ISSUES" only change the colour.
+         Gaps, totals and the "As on" date are calculated automatically.
+         ===================================================================== */
+      const companies = [
+         { name: "SITEL",        start: "2010-09-14", end: "2011-03-30" },
+         { name: "SYMANTEC",     start: "2011-04-04", end: "2011-07-01" },
+         { name: "DELL",         start: "2013-07-05", end: "2013-12-03", gap: "MASTERS" },
+         { name: "MEDUSIND",     start: "2013-12-05", end: "2015-03-10" },
+         { name: "GVW",          start: "2015-03-23", end: "2017-02-28" },
+         { name: "ABCO / OPTUM", start: "2017-05-17", end: "2019-01-04" },
+         { name: "AMAZON",       start: "2020-07-06", end: "2021-08-24", gap: "HEALTH ISSUES" },
+         { name: "GLOWTOUCH",    start: "2022-09-19", end: "2023-10-11", gap: "HEALTH ISSUES" }
+      ];
+
+      // Gap between the last company's end date and today.
+      const trailingGap = "HEALTH ISSUES";
+      /* ===================================================================== */
+
+      const DAY = 24 * 60 * 60 * 1000;
+      const now = new Date();
+      const TODAY = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+
+      function parseDate(value) {
+         const parts = value.split("-").map(Number);
+         return Date.UTC(parts[0], parts[1] - 1, parts[2]);
+      }
+
+      function diffDays(from, to) {
+         return Math.round((to - from) / DAY);
+      }
+
+      function formatDate(ms) {
+         const d = new Date(ms);
+         const dd = String(d.getUTCDate()).padStart(2, "0");
+         const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+         return dd + "-" + mm + "-" + d.getUTCFullYear();
+      }
+
+      function formatLongDate(ms) {
+         return new Date(ms).toLocaleDateString("en-US", {
+            timeZone: "UTC",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+         });
+      }
+
+      function toYearsMonthsDays(days) {
+         days = Math.max(0, Math.round(days));
+         let years = Math.floor(days / 365.25);
+         const afterYears = days - years * 365.25;
+         let months = Math.floor(afterYears / 30.4375);
+         let rest = Math.ceil(afterYears - months * 30.4375);
+         if (rest >= 31) {
+            rest = 0;
+            months += 1;
+         }
+         if (months >= 12) {
+            months -= 12;
+            years += 1;
+         }
+         return years + " years " + months + " months " + rest + " days";
+      }
+
+      function escapeHtml(value) {
+         return String(value).replace(/[&<>"']/g, function (ch) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+         });
+      }
+
+      function reasonClass(reason) {
+         const value = String(reason || "").toUpperCase();
+         if (value.indexOf("MASTER") !== -1) return "masters";
+         if (value.indexOf("HEALTH") !== -1) return "health";
+         return "";
+      }
+
+      const rows = companies
+         .map(function (company) {
+            return {
+               name: company.name,
+               start: company.start,
+               end: company.end || "",
+               gap: company.gap || "",
+               startMs: parseDate(company.start),
+               endMs: company.end ? parseDate(company.end) : TODAY
+            };
+         })
+         .sort(function (a, b) {
+            return a.startMs - b.startMs;
+         });
+
+      let cumulative = 0;
+      rows.forEach(function (row) {
+         row.days = Math.max(0, diffDays(row.startMs, row.endMs));
+         cumulative += row.days;
+         row.cumulative = cumulative;
+      });
+
+      const gaps = rows.map(function (row, index) {
+         const next = rows[index + 1];
+         if (next) {
+            const days = diffDays(row.endMs, next.startMs);
+            return days > 0
+               ? { from: row.endMs, to: next.startMs, days: days, reason: next.gap }
+               : null;
+         }
+         if (row.end) {
+            const days = diffDays(row.endMs, TODAY);
+            return days > 0
+               ? { from: row.endMs, to: TODAY, days: days, reason: trailingGap }
+               : null;
+         }
+         return null;
+      });
+
+      const actualGaps = gaps.filter(Boolean);
+      const totalGap = actualGaps.reduce(function (sum, gap) { return sum + gap.days; }, 0);
+      const mastersGap = actualGaps.filter(function (gap) { return reasonClass(gap.reason) === "masters"; })[0];
+      const mastersDays = mastersGap ? mastersGap.days : 0;
+      const totalGapWithoutMasters = totalGap - mastersDays;
+
+      const totalExperience = rows.reduce(function (sum, row) { return sum + row.days; }, 0);
+      const totalExperienceWithoutCurrent = rows
+         .filter(function (row) { return row.end; })
+         .reduce(function (sum, row) { return sum + row.days; }, 0);
+      const totalExperienceAfterMsc = mastersGap
+         ? rows
+            .filter(function (row) { return row.startMs >= mastersGap.to; })
+            .reduce(function (sum, row) { return sum + row.days; }, 0)
+         : totalExperience;
+
+      function cell(text, className) {
+         return "<td" + (className ? ' class="' + className + '"' : "") + ">" +
+            (text === "" || text === undefined ? "&nbsp;" : text) + "</td>";
+      }
+
+      function blankRow() {
+         return "<tr>" + cell("", "blank").repeat(6) + "</tr>";
+      }
+
+      function headerRow() {
+         return "<tr>" +
+            cell("Company", "head") +
+            cell("Start Date", "head") +
+            cell("End Date", "head") +
+            cell("Working Period", "head") +
+            cell("Sum Up with Previous", "head") +
+            cell("Experience Per Company", "head") +
+            "</tr>";
+      }
+
+      function summaryRow(label, value) {
+         return "<tr>" +
+            cell("", "blank") +
+            cell("", "blank") +
+            cell("", "blank") +
+            cell(label, "summary-label") +
+            cell(value, "summary-value") +
+            cell("", "blank") +
+            "</tr>";
+      }
+
+      function companyRow(row) {
+         return "<tr>" +
+            cell(escapeHtml(row.name), "company") +
+            cell(formatDate(row.startMs), "company") +
+            cell(row.end ? formatDate(row.endMs) : "Present", "company") +
+            cell(row.days, "company") +
+            cell(row.cumulative, "company") +
+            cell(toYearsMonthsDays(row.days), "company") +
+            "</tr>";
+      }
+
+      let html = "";
+      html += '<tr><td colspan="6" class="title">WORK EXPERIENCE &amp; GAPS ANALYSIS</td></tr>';
+      html += blankRow();
+      html += headerRow();
+
+      rows.forEach(function (row) {
+         html += companyRow(row);
+      });
+
+      html += blankRow();
+      html += summaryRow("Total Experience WO Current", toYearsMonthsDays(totalExperienceWithoutCurrent));
+      html += summaryRow("Total Experience", toYearsMonthsDays(totalExperience));
+      html += summaryRow("Total Experience After MSC", toYearsMonthsDays(totalExperienceAfterMsc));
+      html += blankRow();
+      html += headerRow();
+
+      rows.forEach(function (row, index) {
+         html += companyRow(row);
+         const gap = gaps[index];
+         if (gap) {
+            const gapClass = "gap " + reasonClass(gap.reason);
+            html += "<tr>" +
+               cell("GAP", gapClass) +
+               cell("", gapClass) +
+               cell("", gapClass) +
+               cell(gap.days, gapClass) +
+               cell("", gapClass) +
+               cell(toYearsMonthsDays(gap.days), gapClass) +
+               "</tr>";
+         }
+      });
+
+      html += blankRow();
+      html += "<tr>" +
+         cell("GAP REASON:", "gap") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("Total Gap", "summary-label") +
+         cell(toYearsMonthsDays(totalGap), "summary-value") +
+         cell("", "blank") +
+         "</tr>";
+      html += "<tr>" +
+         cell("MASTERS", "reason-masters") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("Total Experience", "summary-label") +
+         cell(toYearsMonthsDays(totalExperience), "summary-value") +
+         cell("", "blank") +
+         "</tr>";
+      html += "<tr>" +
+         cell("HEALTH ISSUES", "reason-health") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("Total Gap w/o MS", "summary-label") +
+         cell(toYearsMonthsDays(totalGapWithoutMasters), "summary-value") +
+         cell("", "blank") +
+         "</tr>";
+      html += "<tr>" +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("", "blank") +
+         cell("As on: " + formatLongDate(TODAY), "ason") +
+         "</tr>";
+
+      document.getElementById("sheet-body").innerHTML = html;
+   </script>
 </body>
 
 </html>
