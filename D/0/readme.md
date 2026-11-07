@@ -220,6 +220,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Learned Helplessness](./learned_helplessness/)
+**The Architecture of Learned Helplessness** — why a severed action–outcome contingency teaches organisms not merely to fail but to expect futility. Traces the construct from Seligman & Maier's 1967 triadic design and the three signature deficits through Abramson's attributional reformulation and Dweck's attributional retraining, the 2016 DRN/vmPFC paradigm shift (passivity is the default; control is what gets learned), BDNF histone silencing and ketamine synaptogenesis, to the Learned Helplessness Scale, organizational micromanagement and algorithmic helplessness in AI UX.
+
+- 📝 [The Full Report](./learned_helplessness/readme.md) — the long-form essay with 83 cited sources. (`readme.md`)
+- ⛓️ [Interactive Infographic](./learned_helplessness/index.html) — the complete warm stone & rose interactive page: classroom anagram simulator, triadic-design shuttle-box latency chart, attributional-matrix risk model, DRN-vs-vmPFC circuit simulator, ketamine-vs-SSRI spine-density timeline, LHS screener and algorithmic-UX agency lab. (`index.html`)
+
+---
+
 ### 📁 [Neuroplasticity & Procrastination](./neuroplasticity_n_procrastination/)
 **The Neuroscience of Action and Avoidance** — deconstructs the high-stakes productivity rhetoric ("skip one day and you wire your brain for avoidance," "only a karmic reckoning of willpower works") against empirical neuroscience: habit formation is asymptotic (median 66 days, Lally 2010), procrastination is an amygdala-driven emotional-regulation failure rather than a character flaw, and sleep is a mechanical prerequisite for prefrontal control. Synthesizes experience-dependent neuroplasticity, Schlüter et al.'s 2018 amygdala/dACC imaging, Schultz's reward prediction error, Loewenstein's hot-cold empathy gap, and Inzlicht's process model of self-control.
 

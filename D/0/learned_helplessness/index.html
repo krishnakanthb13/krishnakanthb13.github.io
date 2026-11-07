@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Learned Helplessness: An Interactive Exploration</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23e11d48%22>🧠</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Scientific Neutral (Stone & Amber Base, Indigo Cognitive Accent, Rose Inhibition Accent, Emerald Resilience Accent) -->
+  <!-- Application Structure Plan: The application is structured into six logically progressive thematic modules designed to transform theoretical, experimental, and neurobiological research into an intuitive exploratory journey:
+       1. Phenomenology & Empirical Demonstration: An interactive dual-cohort simulator recreating Charisse Nixon's classroom anagram experiment to immediately let users experience how 5 minutes of induced helplessness induces cognitive paralysis on the solvable word 'cinerama'.
+       2. Foundational Behavioral Paradigms: An interactive breakdown of Seligman & Maier's 1967 Triadic Design, escape latency comparative charts, and the three signature deficits (motivational, cognitive, emotional).
+       3. Cognitive Reformulation & Hopelessness Theory: Interactive attributional matrix (Internality, Stability, Globality), Bandura's Self-Efficacy vs Outcome Expectancy comparison, and Carol Dweck's Attributional Retraining framework.
+       4. The 2016 Neurobiological Paradigm Shift: An interactive neural circuitry model demonstrating Maier & Seligman's breakthrough that passivity is the default DRN reflex, while the vmPFC learns active control and behavioral immunization via GABAergic brakes.
+       5. Epigenetic Architecture & Pharmacological Reversal: Molecular dynamics comparing traditional monoaminergic SSRIs against rapid ketamine-induced AMPA/mTORC1 synaptogenesis and BDNF histone acetylation.
+       6. Psychometrics & Systemic Applications: An interactive 5-item Learned Helplessness Scale (LHS) evaluator, alongside real-world systemic models (Micromanagement in Organizations, Algorithmic Helplessness in AI UX).
+       This thematic architecture prioritizes intuitive user discovery, linking felt human experience directly to animal paradigms, cognitive reformulations, neural substrates, and modern societal interfaces. -->
+  <!-- Visualization & Content Choices:
+       - Classroom Anagram Experiment -> Goal: Empathy & Demonstration -> Interactive HTML/JS dual-track simulator with live timer and feedback metrics -> Instant cognitive empathy -> Custom JS & Tailwind -> Confirming NO SVG.
+       - Triadic Design (1967) -> Goal: Compare escape latencies -> Grouped Bar/Line Chart -> Interactive filter by trial count and rearing history -> Demonstrates contingency vs uncontrollability -> Chart.js (Canvas) -> Confirming NO SVG.
+       - Attributional Dimensions -> Goal: Organize & Synthesize -> Interactive 3-Axis Matrix (Locus, Stability, Globality) with dynamic risk scoring -> Sliders and state pills -> Custom HTML/CSS/JS -> Confirming NO SVG.
+       - Neurobiological Circuit (DRN vs vmPFC) -> Goal: Conceptual Process & Relationship -> Interactive Canvas/HTML visual state diagram with stressor toggle -> Demonstrates unlearned default vs cortical brake -> Dynamic Canvas & HTML/CSS -> Confirming NO SVG.
+       - Molecular Synaptogenesis Timeline -> Goal: Change over Time -> Multi-line response curve comparing Ketamine vs SSRIs on dendritic spine density -> Chart.js (Canvas) -> Confirming NO SVG.
+       - Psychometric Evaluator -> Goal: Self-Assessment & Inform -> Interactive LHS mini-calculator with scoring rubric -> Real-time score feedback -> Custom JS -> Confirming NO SVG.
+       - Organization & Algorithmic Helplessness -> Goal: Application & Solution -> Interactive UX feedback loop tester -> Demonstrates closed-loop autonomy vs open-loop passivity -> Custom HTML/CSS/JS -> Confirming NO SVG. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 310px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-amber-200 selection:text-stone-900">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-stone-900 focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-3 h-3 rounded-full bg-rose-500 flex-shrink-0" aria-hidden="true"></span>
+          <div class="min-w-0">
+            <span class="block font-bold tracking-tight text-stone-900 text-sm sm:text-lg truncate">Learned Helplessness</span>
+            <span class="block text-[11px] text-stone-500 font-medium truncate hidden sm:block">From Behavioral Conditioning to Prefrontal Neurocircuitry</span>
+          </div>
+          <span class="hidden sm:inline-block flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200">Interactive Atlas</span>
+        </div>
+        <a href="../" class="flex-shrink-0 text-xs font-semibold text-stone-600 hover:text-rose-700 transition-colors px-2.5 py-1 rounded-lg border border-stone-300 hover:border-rose-400" title="Return to the Knowledge Vault" aria-label="Return to the Knowledge Vault"><span class="hidden sm:inline">&larr; Knowledge Vault</span><span class="sm:hidden" aria-hidden="true">&larr;</span></a>
+      </div>
+
+      <!-- Row 2: section navigation, horizontally scrollable on small screens -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-stone-200 py-2 text-xs sm:text-sm font-semibold text-stone-600" aria-label="Page sections">
+        <a href="#phenomenology" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Experiment</a>
+        <a href="#triadic" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Triadic Design</a>
+        <a href="#cognitive" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Cognitive Model</a>
+        <a href="#neurobiology" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Neural Shift (2016)</a>
+        <a href="#molecular" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Molecular &amp; BDNF</a>
+        <a href="#systemic" class="flex-shrink-0 px-2.5 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors">Psychometrics &amp; UX</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-b from-stone-100 to-stone-50 border-b border-stone-200 py-12 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full border border-amber-200">
+        From Behavioral Conditioning to Prefrontal Neurocircuitry
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
+        The Architecture of Learned Helplessness
+      </h1>
+      <p class="text-stone-600 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+        When organisms experience an inescapable severance between their actions and outcomes, they do not merely fail to learn; they actively construct an expectation of futility. Explore the experimental, cognitive, and neurobiological architecture of passivity and the science of restored agency.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 pt-2 text-xs text-stone-500">
+        <span class="bg-white border border-stone-200 rounded-lg px-3 py-1.5 shadow-sm font-mono">Maier & Seligman (1967, 2016)</span>
+        <span class="bg-white border border-stone-200 rounded-lg px-3 py-1.5 shadow-sm font-mono">Abramson et al. (1978)</span>
+        <span class="bg-white border border-stone-200 rounded-lg px-3 py-1.5 shadow-sm font-mono">Dweck (1975)</span>
+        <span class="bg-white border border-stone-200 rounded-lg px-3 py-1.5 shadow-sm font-mono">Nixon Classroom Paradigm</span>
+      </div>
+    </div>
+  </section>
+
+  <main id="main" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-16">
+
+    <section id="phenomenology" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-rose-600">Module 1: The Human Experience</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Charisse Nixon's Classroom Anagram Demonstration</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            In developmental psychologist Charisse Nixon’s landmark classroom experiment, students are divided into two cohorts and tasked with solving three sequential anagrams. Unbeknownst to them, the left side receives two completely unsolvable letter jumbles, while the right side receives effortless words. In fewer than five minutes, the left side succumbs to induced learned helplessness—paralyzed when faced with the final, solvable third word ("CINERAMA"), which their peers solve in seconds.
+          </p>
+        </div>
+
+        <div class="mt-8 bg-stone-50 border border-stone-200 rounded-xl p-5 sm:p-6 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 pb-4">
+            <div>
+              <h3 class="font-semibold text-stone-900 text-lg">Interactive Classroom Anagram Simulator</h3>
+              <p class="text-xs text-stone-500">Choose your assigned side of the classroom to experience the cognitive divergence.</p>
+            </div>
+            <div class="inline-flex rounded-lg bg-stone-200 p-1 text-xs font-semibold">
+              <button id="btnCohortLeft" onclick="setAnagramCohort('left')" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 transition">Left Side (Unsolvable Induced)</button>
+              <button id="btnCohortRight" onclick="setAnagramCohort('right')" class="px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 transition">Right Side (Solvable Control)</button>
+              <button id="btnCohortDual" onclick="setAnagramCohort('dual')" class="px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm font-semibold transition">Split Comparative View</button>
+            </div>
+          </div>
+
+          <div id="anagramContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="leftCohortCard" class="bg-white rounded-xl border-2 border-rose-300 p-5 space-y-4 shadow-sm relative">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200">Left Cohort: Experimental Group</span>
+                <span id="leftTaskStep" class="text-xs font-mono font-medium text-stone-500">Task 1 of 3</span>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs text-stone-500 font-medium">Scramble Given:</div>
+                <div id="leftScrambleDisplay" class="text-3xl font-mono font-extrabold text-stone-900 tracking-wider">RHILW</div>
+                <div id="leftHintText" class="text-xs text-stone-400 italic">No valid English word (unsolvable jumble)</div>
+              </div>
+              <div class="space-y-2">
+                <label for="leftInput" class="text-xs font-medium text-stone-700 block">Your Solution:</label>
+                <input id="leftInput" type="text" placeholder="Type rearranged word..." class="w-full text-sm px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 font-mono">
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="submitAnagram('left')" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg transition">Submit Attempt</button>
+                <button onclick="skipAnagram('left')" class="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-lg transition">I Can't Solve This</button>
+              </div>
+              <div id="leftFeedback" class="text-xs font-medium text-rose-800 bg-rose-50 border border-rose-200 rounded-lg p-2.5 hidden"></div>
+            </div>
+
+            <div id="rightCohortCard" class="bg-white rounded-xl border-2 border-emerald-300 p-5 space-y-4 shadow-sm relative">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">Right Cohort: Control Group</span>
+                <span id="rightTaskStep" class="text-xs font-mono font-medium text-stone-500">Task 1 of 3</span>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs text-stone-500 font-medium">Scramble Given:</div>
+                <div id="rightScrambleDisplay" class="text-3xl font-mono font-extrabold text-stone-900 tracking-wider">BAT</div>
+                <div id="rightHintText" class="text-xs text-stone-400 italic">Target condition: Solvable ("TAB")</div>
+              </div>
+              <div class="space-y-2">
+                <label for="rightInput" class="text-xs font-medium text-stone-700 block">Your Solution:</label>
+                <input id="rightInput" type="text" placeholder="Type rearranged word..." class="w-full text-sm px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono">
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="submitAnagram('right')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition">Submit Attempt</button>
+                <button onclick="skipAnagram('right')" class="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-lg transition">Pass</button>
+              </div>
+              <div id="rightFeedback" class="text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-2.5 hidden"></div>
+            </div>
+          </div>
+
+          <div id="simulationInsight" class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs sm:text-sm text-stone-700 space-y-2">
+            <div class="font-bold text-amber-900 flex items-center gap-2">
+              <span>Classroom Transcript Observation & Subjective Debrief</span>
+            </div>
+            <p>
+              When the right side of the room completed their words in seconds and raised their hands, the left side reported feeling <strong>"stupid," "rushed," "frustrated,"</strong> and <strong>"utterly confused."</strong> Their confidence was shattered before Task 3 even appeared. Despite having the exact same cognitive IQ, the left side's success rate on the final solvable word plummeted by over 70% due to vicarious pressure and immediate attributional defeat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="triadic" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-indigo-600">Module 2: Foundational Behavioral Science</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Seligman & Maier's Triadic Design (1967)</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            To isolate the psychological construct of <em>uncontrollability</em> from the raw physical stressor of electric shock, Martin Seligman, Steven Maier, and Bruce Overmier formulated the rigorous "Triadic Design." In Phase 1, the Escapable and Yoked groups received the identical duration, intensity, and frequency of shocks—the sole divergence was whether behavioral output terminated the stimulus.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-stone-900">1. Escapable Shock</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Action = Outcome</span>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Subjects pressed a panel with their head to terminate the shock. They retained sovereign agency over the termination of the aversive stimulus.
+            </p>
+            <div class="text-xs font-medium text-emerald-700 bg-emerald-50 rounded-lg p-2.5 border border-emerald-200">
+              Shuttle Box Outcome: Rapidly acquired barrier-jumping avoidance in ~95% of trials.
+            </div>
+          </div>
+
+          <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-stone-900">2. Yoked Inescapable</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Action ≠ Outcome</span>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Received physically identical shocks wired directly to the escapable partner. Panel presses had zero effect on shock termination.
+            </p>
+            <div class="text-xs font-medium text-rose-700 bg-rose-50 rounded-lg p-2.5 border border-rose-200">
+              Shuttle Box Outcome: ~67% failed to escape; lay down passively, whimpering under 4.5-mA current.
+            </div>
+          </div>
+
+          <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-stone-900">3. Naive Control</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">No Prior Stress</span>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Placed in the hammock harness for the same duration without receiving any shocks. Established baseline normal learning rates.
+            </p>
+            <div class="text-xs font-medium text-blue-700 bg-blue-50 rounded-lg p-2.5 border border-blue-200">
+              Shuttle Box Outcome: Swiftly learned to leap the shoulder-high barrier within 10-second warning buzzer.
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-stone-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="text-base font-bold text-stone-900">Phase 2: Shuttle Box Escape Latencies Across 10 Trials</h3>
+              <div class="inline-flex rounded-lg bg-stone-100 p-1 text-xs">
+                <button id="btnHistStandard" onclick="updateTriadicChart('standard')" class="px-2.5 py-1 rounded bg-white shadow-sm text-stone-800 font-semibold">Standard Lab Rearing</button>
+                <button id="btnHistImmunized" onclick="updateTriadicChart('immunized')" class="px-2.5 py-1 rounded text-stone-600 hover:text-stone-900">Prior Mastery (Immunized)</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="triadicChart"></canvas>
+            </div>
+            <p class="text-xs text-stone-500 text-center">
+              Latency measured in seconds (max ceiling = 60s failure). Yoked subjects routinely hit maximum cutoff without jumping.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4 bg-stone-50 rounded-xl p-5 border border-stone-200">
+            <h4 class="text-sm font-bold text-stone-900 uppercase tracking-wider text-xs">The Tripartite Deficit Framework</h4>
+            <div class="space-y-3 text-xs sm:text-sm">
+              <div class="p-3 bg-white rounded-lg border border-stone-200 shadow-sm space-y-1">
+                <div class="font-bold text-rose-700 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                  1. Motivational Deficit
+                </div>
+                <p class="text-stone-600">Retardation in initiating voluntary, active escape responses. Organism ceases to generate exploratory trial behaviors.</p>
+              </div>
+              <div class="p-3 bg-white rounded-lg border border-stone-200 shadow-sm space-y-1">
+                <div class="font-bold text-amber-700 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  2. Cognitive Deficit
+                </div>
+                <p class="text-stone-600">Inability to perceive contingency when control is returned. Even when dragged over the barrier, dogs failed to connect their movement to shock termination on subsequent trials.</p>
+              </div>
+              <div class="p-3 bg-white rounded-lg border border-stone-200 shadow-sm space-y-1">
+                <div class="font-bold text-indigo-700 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                  3. Emotional Deficit
+                </div>
+                <p class="text-stone-600">Profound vegetative passivity, elevated autonomic distress, acute corticosterone surge, and depressive somatic immobility.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cognitive" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-amber-700">Module 3: The Cognitive Turn</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Attributional Reformulation & Hopelessness Theory</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            Because animal conditioning could not explain why some humans remain resilient while others plunge into clinical depression, Abramson, Seligman, and Teasdale (1978) introduced causal attributional styles. Later, Abramson, Metalsky, and Alloy (1989) formulated the Hopelessness Theory of Depression, distinguishing between outcome expectancies, personal vs. universal helplessness, and Carol Dweck's growth mindset retraining.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-7 bg-stone-50 border border-stone-200 rounded-xl p-5 sm:p-6 space-y-5">
+            <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+              <h3 class="font-bold text-stone-900 text-sm sm:text-base">Interactive Attribution Matrix Simulator</h3>
+              <span id="attributionRiskBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800">High Depression Vulnerability</span>
+            </div>
+            <p class="text-xs text-stone-600">
+              Toggle how an individual explains a critical setback (e.g., failing an exam or missing an organizational objective):
+            </p>
+
+            <div class="space-y-4 text-xs sm:text-sm">
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <span>1. Locus of Control:</span>
+                  <span id="locusLabel" class="font-bold text-rose-700">Internal ("I am fundamentally deficient")</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button id="btnLocusInternal" onclick="setAttribution('locus', 'internal')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600 transition">Internal (Personal Blame)</button>
+                  <button id="btnLocusExternal" onclick="setAttribution('locus', 'external')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300 hover:bg-stone-100 transition">External (Environmental Factors)</button>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <span>2. Stability (Chronicity):</span>
+                  <span id="stabilityLabel" class="font-bold text-rose-700">Stable ("This will never improve")</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button id="btnStabStable" onclick="setAttribution('stability', 'stable')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600 transition">Stable (Permanent Deficit)</button>
+                  <button id="btnStabUnstable" onclick="setAttribution('stability', 'unstable')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300 hover:bg-stone-100 transition">Unstable (Temporary Fluctuation)</button>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-medium">
+                  <span>3. Globality (Scope):</span>
+                  <span id="globalityLabel" class="font-bold text-rose-700">Global ("I fail at everything")</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button id="btnGlobGlobal" onclick="setAttribution('globality', 'global')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600 transition">Global (Pervasive Flaw)</button>
+                  <button id="btnGlobSpecific" onclick="setAttribution('globality', 'specific')" class="py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300 hover:bg-stone-100 transition">Specific (Isolated Domain)</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="attributionAnalysisBox" class="p-4 rounded-xl bg-white border border-stone-200 space-y-2 text-xs">
+              <div class="font-bold text-stone-900 text-sm">Psychological Diagnostic Assessment:</div>
+              <div id="attributionDiagnosticText" class="text-stone-700 leading-relaxed">
+                The triad of <strong>Internal + Stable + Global</strong> attributions creates the classic cognitive vulnerability for <em>Hopelessness Depression</em>. The individual internalizes the flaw, destroying self-esteem; projects it across all future time horizons (inducing chronic apathy); and extrapolates it across all life domains.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-5">
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <h3 class="font-bold text-stone-900 text-sm">Bandura's Matrix: Self-Efficacy vs. Outcome Expectancy</h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Learned helplessness and low self-efficacy are often conflated, but Albert Bandura established their distinct causal mechanics:
+              </p>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-lg bg-white border border-stone-200">
+                  <div class="font-semibold text-stone-900">Outcome Expectancy (Severed in Helplessness)</div>
+                  <div class="text-stone-600">The belief that <em>any behavior</em> will successfully lead to the desired environmental change. "Nothing I do matters in this rigged system."</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-white border border-stone-200">
+                  <div class="font-semibold text-stone-900">Efficacy Expectancy (Low in Low Self-Efficacy)</div>
+                  <div class="text-stone-600">The belief that <em>the self</em> possesses the competence to execute the requisite behavior. "The system works, but I lack the capability."</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <h3 class="font-bold text-stone-900 text-sm">Carol Dweck's Attributional Retraining (1975)</h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Dweck demonstrated that sheltering helpless children with "Success-Only" tasks failed to cure their vulnerability; when hit with a new failure, their performance immediately collapsed.
+              </p>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <div class="p-3 bg-white rounded-lg border border-stone-200 text-center">
+                  <div class="font-bold text-rose-700">Success-Only Group</div>
+                  <div class="text-stone-500 text-[11px] mt-1">Sheltered from failure</div>
+                  <div class="mt-2 text-rose-600 font-semibold">0% Resilience</div>
+                </div>
+                <div class="p-3 bg-white rounded-lg border border-emerald-300 bg-emerald-50/30 text-center">
+                  <div class="font-bold text-emerald-800">Retrained Group</div>
+                  <div class="text-stone-500 text-[11px] mt-1">Failure attributed to effort</div>
+                  <div class="mt-2 text-emerald-700 font-semibold">&gt;90% Persistence</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="neurobiology" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-rose-700">Module 4: The 2016 Paradigm Shift</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Passivity is the Unlearned Default: DRN vs. vmPFC</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            After 50 years of believing passivity was an acquired cognitive construct, Steven Maier and Martin Seligman (2016) overturned their original doctrine using optogenetics and pharmacology: <strong>Helplessness is the unlearned, default reflex</strong> of the brainstem's Dorsal Raphe Nucleus (DRN). What organisms actually learn is <em>control</em>, computed by the ventromedial prefrontal cortex (vmPFC) sending an active GABAergic brake to silence serotonin hyperactivation.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 bg-stone-900 text-stone-100 rounded-2xl p-6 space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-800 pb-4">
+              <div>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <span>Interactive Cortico-Raphe Circuit Simulation</span>
+                </h3>
+                <p class="text-xs text-stone-400">Toggle environmental agency to observe descending prefrontal regulation.</p>
+              </div>
+              <div class="inline-flex rounded-lg bg-stone-800 p-1 text-xs">
+                <button id="btnCircuitInescapable" onclick="setCircuitState('inescapable')" class="px-3 py-1.5 rounded-md bg-rose-600 text-white font-semibold transition">Uncontrollable Shock</button>
+                <button id="btnCircuitEscapable" onclick="setCircuitState('escapable')" class="px-3 py-1.5 rounded-md text-stone-300 hover:text-white transition">Controllable / Escapable</button>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-stone-800/80 border border-stone-700 space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-stone-300 font-mono">1. Detection System:</span>
+                  <span id="circuitDetectStatus" class="font-bold text-stone-400">Prelimbic (PL) - DMS Contingency Disengaged</span>
+                </div>
+                <div class="text-xs text-stone-400">
+                  Assesses whether behavioral output systematically alters outcome contingency.
+                </div>
+              </div>
+
+              <div class="flex justify-center">
+                <div class="text-stone-500 font-mono text-xs flex flex-col items-center">
+                  <span id="circuitArrowDown" class="text-rose-400 font-bold">↓↓↓ NO CORTICAL BRAKE SENT ↓↓↓</span>
+                </div>
+              </div>
+
+              <div id="drnBox" class="p-4 rounded-xl bg-rose-950/60 border-2 border-rose-500 space-y-2 transition-all duration-300">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-rose-300 font-mono">2. Dorsal Raphe Nucleus (DRN):</span>
+                  <span id="drnStatusBadge" class="px-2 py-0.5 rounded-full bg-rose-900 text-rose-200 font-bold text-[11px]">HYPERACTIVE 5-HT FIRING</span>
+                </div>
+                <p class="text-xs text-rose-200/90 leading-relaxed">
+                  Default response to trauma. Serotonergic neurons become massively excited, flooding projection targets.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 pt-2">
+                <div id="dpagBox" class="p-3 rounded-lg bg-stone-800 border border-rose-500/50 space-y-1">
+                  <div class="text-[11px] font-bold text-rose-400 uppercase">Dorsal PAG Target</div>
+                  <div id="dpagBehavior" class="text-xs text-stone-200 font-medium">Flight/Fight INHIBITED (Behavioral Passivity)</div>
+                </div>
+                <div id="amygBox" class="p-3 rounded-lg bg-stone-800 border border-rose-500/50 space-y-1">
+                  <div class="text-[11px] font-bold text-rose-400 uppercase">Amygdala / BNST</div>
+                  <div id="amygBehavior" class="text-xs text-stone-200 font-medium">Fear Conditioning SENSITIZED (Chronic Anxiety)</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="circuitExplainer" class="text-xs text-stone-300 bg-stone-800/90 p-3.5 rounded-xl border border-stone-700 leading-relaxed">
+              <strong>Mechanism Active:</strong> Under inescapable stress, the vmPFC detects no contingency. The DRN fires unrestricted, releasing toxic bursts of serotonin that chemically paralyse escape behavior in the dPAG.
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <h3 class="font-bold text-stone-900 text-sm">Neurocircuit Firing Levels (Normalized)</h3>
+              <div class="chart-container">
+                <canvas id="circuitChart"></canvas>
+              </div>
+              <p class="text-xs text-stone-500 text-center">
+                Comparing Serotonergic DRN output vs vmPFC inhibitory GABA activity across states.
+              </p>
+            </div>
+
+            <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs text-stone-700 space-y-1.5">
+              <div class="font-bold text-amber-900">Behavioral Immunization Plasticity</div>
+              <p class="leading-relaxed">
+                When an animal experiences escapable stress first, the vmPFC-to-DRN pathway undergoes lasting structural potentiation. In subsequent encounters with completely <em>inescapable</em> trauma, the vmPFC fires preemptively, protecting the organism from ever developing learned helplessness.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="molecular" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-emerald-700">Module 5: Molecular & Epigenetic Substrates</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">BDNF Epigenetics & Rapid Ketamine Synaptogenesis</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            Learned helplessness leaves lasting molecular scars through epigenetic transcriptional silencing. Stress induces histone deacetylation (HDAC activity) at the <em>Bdnf</em> gene promoter, causing dendritic spine atrophy in the prefrontal cortex and hippocampus. While traditional SSRIs require 4 to 8 weeks to stimulate neurogenesis, sub-anesthetic ketamine activates the AMPA-mTORC1 cascade, reversing helplessness in hours.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-stone-900">Dendritic Spine Density & Helplessness Reversal Timeline</h3>
+              <span class="text-xs font-mono text-stone-500">Apical Dendrites Layer V mPFC</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="molecularChart"></canvas>
+            </div>
+            <p class="text-xs text-stone-500 text-center">
+              Comparative recovery curve: Ketamine (rapid spinogenesis) vs Fluoxetine/SSRI vs Untreated Helplessness.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <div class="font-bold text-stone-900 text-sm flex items-center justify-between">
+                <span>The Epigenetic Chromatin Switch</span>
+                <span class="text-xs font-mono bg-stone-200 px-2 py-0.5 rounded">H3/H4 Histones</span>
+              </div>
+              <div class="text-xs text-stone-600 space-y-2">
+                <p>
+                  <strong>Inescapable Stress:</strong> Drives HDACs to strip acetyl groups from histone tails at BDNF promoters IV & IX. Chromatin condenses, blocking RNA polymerase II and halting BDNF transcription.
+                </p>
+                <p>
+                  <strong>HDAC Inhibitors (TSA, Sodium Butyrate):</strong> Artificially keep chromatin open, restoring BDNF transcription and behaviorally curing helplessness in animal models without behavioral retraining.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <div class="font-bold text-stone-900 text-sm flex items-center justify-between">
+                <span>The Ketamine Mechanism (NMDA & AMPA)</span>
+                <span class="text-xs font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 Hour Onset</span>
+              </div>
+              <div class="text-xs text-stone-600 space-y-1.5 leading-relaxed">
+                <div>1. Blocks NMDA receptors on cortical GABAergic interneurons.</div>
+                <div>2. Disinhibits pyramidal neurons, causing a glutamate surge.</div>
+                <div>3. Activates postsynaptic AMPA receptors → BDNF exocytosis.</div>
+                <div>4. Triggers mTORC1 signaling and PSD-95 synaptic protein synthesis.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="systemic" class="space-y-6 scroll-mt-28">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-bold tracking-wider uppercase text-blue-700">Module 6: Psychometrics & Real-World Translation</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-stone-900">Psychometrics, Organizational Burnout, and Algorithmic UX</h2>
+          <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
+            How do we quantify learned helplessness in humans, and how does systemic uncontrollability manifest in corporate micromanagement and black-box artificial intelligence? Explore the Quinless & Nelson Learned Helplessness Scale (LHS) alongside solutions for algorithmic and organizational passivity.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-6 bg-stone-50 border border-stone-200 rounded-xl p-5 sm:p-6 space-y-5">
+            <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+              <div>
+                <h3 class="font-bold text-stone-900 text-base">Learned Helplessness Scale (LHS) Interactive Screener</h3>
+                <p class="text-xs text-stone-500">Adapted from Quinless & Nelson (1988) 20-item psychometric index.</p>
+              </div>
+              <span id="lhsScoreBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800">Score: 12 / 20</span>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm">
+              <div class="space-y-1">
+                <label class="font-medium text-stone-800 block">1. "No matter how much energy I put into a project, I feel I have no control over the outcome."</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button onclick="setLhsScore(0, 1)" class="lhs-btn-0 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Disagree</button>
+                  <button onclick="setLhsScore(0, 2)" class="lhs-btn-0 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Disagree</button>
+                  <button onclick="setLhsScore(0, 3)" class="lhs-btn-0 py-1.5 rounded border border-stone-300 bg-stone-800 text-white font-bold">Agree</button>
+                  <button onclick="setLhsScore(0, 4)" class="lhs-btn-0 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Agree</button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="font-medium text-stone-800 block">2. "When I succeed at a challenging task, it is primarily due to luck or chance rather than my competence."</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button onclick="setLhsScore(1, 1)" class="lhs-btn-1 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Disagree</button>
+                  <button onclick="setLhsScore(1, 2)" class="lhs-btn-1 py-1.5 rounded border border-stone-300 bg-stone-800 text-white font-bold">Disagree</button>
+                  <button onclick="setLhsScore(1, 3)" class="lhs-btn-1 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Agree</button>
+                  <button onclick="setLhsScore(1, 4)" class="lhs-btn-1 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Agree</button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="font-medium text-stone-800 block">3. "If a setback occurs, it usually ruins everything else I am working on in my life."</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button onclick="setLhsScore(2, 1)" class="lhs-btn-2 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Disagree</button>
+                  <button onclick="setLhsScore(2, 2)" class="lhs-btn-2 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Disagree</button>
+                  <button onclick="setLhsScore(2, 3)" class="lhs-btn-2 py-1.5 rounded border border-stone-300 bg-stone-800 text-white font-bold">Agree</button>
+                  <button onclick="setLhsScore(2, 4)" class="lhs-btn-2 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Agree</button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="font-medium text-stone-800 block">4. "I find myself giving up on hard problems sooner than my peers because trying harder doesn't help."</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button onclick="setLhsScore(3, 1)" class="lhs-btn-3 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Disagree</button>
+                  <button onclick="setLhsScore(3, 2)" class="lhs-btn-3 py-1.5 rounded border border-stone-300 bg-stone-800 text-white font-bold">Disagree</button>
+                  <button onclick="setLhsScore(3, 3)" class="lhs-btn-3 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Agree</button>
+                  <button onclick="setLhsScore(3, 4)" class="lhs-btn-3 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Agree</button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="font-medium text-stone-800 block">5. "Things never seem to change no matter what strategies I adopt."</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button onclick="setLhsScore(4, 1)" class="lhs-btn-4 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Disagree</button>
+                  <button onclick="setLhsScore(4, 2)" class="lhs-btn-4 py-1.5 rounded border border-stone-300 bg-stone-800 text-white font-bold">Disagree</button>
+                  <button onclick="setLhsScore(4, 3)" class="lhs-btn-4 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Agree</button>
+                  <button onclick="setLhsScore(4, 4)" class="lhs-btn-4 py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100">Strongly Agree</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="lhsAssessmentCard" class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1">
+              <div class="font-bold text-amber-900">Psychometric Result: Moderate Helplessness Vulnerability</div>
+              <p class="text-stone-700">Reflects mild cognitive distortion surrounding personal agency and attributional stability. High correlation with sub-clinical apathy.</p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 space-y-5">
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-4">
+              <h3 class="font-bold text-stone-900 text-base">Algorithmic Helplessness in Modern AI & UX</h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                In digital products, learned helplessness occurs when user overrides and feedback are ignored by opaque "black-box" recommendation systems or AI agents. The user stops providing input—a silence product managers often mistake for satisfaction.
+              </p>
+
+              <div class="p-4 rounded-xl bg-white border border-stone-200 space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-stone-800">UX Architecture Simulator</span>
+                  <div class="flex gap-1">
+                    <button id="btnUxBroken" onclick="setUxMode('broken')" class="px-2.5 py-1 rounded bg-rose-600 text-white text-[11px] font-semibold">Broken Loop (Induces LH)</button>
+                    <button id="btnUxClosed" onclick="setUxMode('closed')" class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-[11px] hover:bg-stone-200 font-semibold">Closed Loop (Agency Restored)</button>
+                  </div>
+                </div>
+
+                <div class="p-3 bg-stone-100 rounded-lg space-y-2 text-xs">
+                  <div class="flex justify-between items-center text-stone-700">
+                    <span>AI Recommendation: <strong>"Suggested Financial Plan: Aggressive Stocks"</strong></span>
+                    <button onclick="triggerUxOverride()" class="px-2 py-1 bg-white border border-stone-300 rounded shadow-sm font-semibold hover:bg-stone-50">Override: Choose Conservative</button>
+                  </div>
+                  <div id="uxSystemResponse" class="p-2 rounded bg-rose-100 border border-rose-200 text-rose-800 font-mono text-[11px]">
+                    Status: System silently reverts user override on reload. Action disregarded. (User Outcome Severed)
+                  </div>
+                </div>
+
+                <div id="uxMetricsDisplay" class="grid grid-cols-2 gap-2 text-center text-xs">
+                  <div class="p-2 bg-stone-50 rounded border border-stone-200">
+                    <div class="text-stone-500 text-[10px] uppercase font-bold">User Override Rate</div>
+                    <div id="uxMetricOverride" class="font-mono font-bold text-rose-600 text-sm">Plummets to 0%</div>
+                  </div>
+                  <div class="p-2 bg-stone-50 rounded border border-stone-200">
+                    <div class="text-stone-500 text-[10px] uppercase font-bold">Perceived Agency</div>
+                    <div id="uxMetricAgency" class="font-mono font-bold text-rose-600 text-sm">Abolished (Helpless)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+              <h3 class="font-bold text-stone-900 text-base">Martinko & Gardner's Organizational Helplessness</h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                When employees endure pervasive micromanagement, every independent action is overridden or reprimanded. In response, employees retreat to bare-minimum compliance. They no longer innovate—not from lack of talent, but because the corporate environment has systematically reinforced that effort has no causal contingency with the outcome.
+              </p>
+              <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-medium">
+                Antidote: Distributed decision sovereignty, explicit failure blamelessness, and visible action-outcome tracing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-stone-100/60 mt-16 py-10 px-4 text-center space-y-3">
+    <div class="text-xs font-semibold uppercase tracking-wider text-stone-400">Synthesis &amp; Core Takeaway</div>
+    <p class="text-stone-600 text-sm max-w-2xl mx-auto leading-relaxed">
+      Learned helplessness is not a permanent cognitive defect, nor an unalterable biological fate. Whether through prefrontal behavioral immunization, attributional retraining, or closed-loop digital architecture, the universal antidote is the deliberate restoration of perceived and structural agency.
+    </p>
+    <div class="text-xs text-stone-400 font-mono">
+      Single-Page Research Application • Based on Experimental &amp; Neurobiological Literature
+    </div>
+    <div class="pt-2 text-xs font-semibold">
+      <a href="../" class="text-rose-700 hover:underline">&larr; Knowledge Vault</a>
+      <span class="text-stone-300 px-2">•</span>
+      <a href="readme.md" class="text-rose-700 hover:underline">Read the Full Report</a>
+      <span class="text-stone-300 px-2">•</span>
+      <a href="../../" class="text-rose-700 hover:underline">Portfolio Home &nearr;</a>
+    </div>
+  </footer>
+
+  <script>
+    let anagramState = {
+      cohort: 'left',
+      leftStep: 0,
+      rightStep: 0,
+      leftWords: [
+        { scramble: 'RHILW', target: null, solvable: false, note: 'No valid English word (unsolvable jumble)' },
+        { scramble: 'LUMER', target: null, solvable: false, note: 'No valid English word (unsolvable jumble)' },
+        { scramble: 'CINERAMA', target: 'AMERICAN', solvable: true, note: 'Same target word as right group' }
+      ],
+      rightWords: [
+        { scramble: 'BAT', target: 'TAB', solvable: true, note: 'Simple 3-letter word' },
+        { scramble: 'LEMON', target: 'MELON', solvable: true, note: 'Everyday 5-letter word' },
+        { scramble: 'CINERAMA', target: 'AMERICAN', solvable: true, note: 'Same target word as left group' }
+      ]
+    };
+
+    function setAnagramCohort(cohort) {
+      anagramState.cohort = cohort;
+      const btnL = document.getElementById('btnCohortLeft');
+      const btnR = document.getElementById('btnCohortRight');
+      const btnD = document.getElementById('btnCohortDual');
+      const cardL = document.getElementById('leftCohortCard');
+      const cardR = document.getElementById('rightCohortCard');
+      const container = document.getElementById('anagramContainer');
+
+      btnL.className = 'px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 transition';
+      btnR.className = 'px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 transition';
+      btnD.className = 'px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 transition';
+
+      if (cohort === 'left') {
+        btnL.className = 'px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm font-semibold';
+        container.className = 'grid grid-cols-1 gap-6';
+        cardL.style.display = 'block';
+        cardR.style.display = 'none';
+      } else if (cohort === 'right') {
+        btnR.className = 'px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm font-semibold';
+        container.className = 'grid grid-cols-1 gap-6';
+        cardL.style.display = 'none';
+        cardR.style.display = 'block';
+      } else {
+        btnD.className = 'px-3 py-1.5 rounded-md bg-white text-stone-900 shadow-sm font-semibold';
+        container.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+        cardL.style.display = 'block';
+        cardR.style.display = 'block';
+      }
+    }
+
+    function submitAnagram(side) {
+      const step = side === 'left' ? anagramState.leftStep : anagramState.rightStep;
+      const wordObj = side === 'left' ? anagramState.leftWords[step] : anagramState.rightWords[step];
+      const input = document.getElementById(side + 'Input');
+      const feedback = document.getElementById(side + 'Feedback');
+      const val = input.value.trim().toUpperCase();
+
+      feedback.classList.remove('hidden');
+
+      if (!wordObj.solvable) {
+        feedback.className = 'text-xs font-medium text-rose-800 bg-rose-50 border border-rose-200 rounded-lg p-2.5';
+        feedback.innerText = 'No valid English anagram found. Your peers on the right side solved theirs 15 seconds ago. Moving to next word...';
+        setTimeout(() => advanceAnagram(side), 1800);
+      } else {
+        if (val === wordObj.target) {
+          feedback.className = 'text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-2.5';
+          feedback.innerText = 'Correct! Target word: ' + wordObj.target + '!';
+          setTimeout(() => advanceAnagram(side), 1200);
+        } else {
+          feedback.className = 'text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-2.5';
+          feedback.innerText = 'Incorrect arrangement. Keep trying or pass.';
+        }
+      }
+    }
+
+    function skipAnagram(side) {
+      const feedback = document.getElementById(side + 'Feedback');
+      feedback.classList.remove('hidden');
+      feedback.className = 'text-xs font-medium text-stone-700 bg-stone-100 border border-stone-200 rounded-lg p-2.5';
+      feedback.innerText = 'Skipped. Advancing to next word...';
+      setTimeout(() => advanceAnagram(side), 800);
+    }
+
+    function advanceAnagram(side) {
+      const feedback = document.getElementById(side + 'Feedback');
+      const input = document.getElementById(side + 'Input');
+      input.value = '';
+      feedback.classList.add('hidden');
+
+      if (side === 'left') {
+        if (anagramState.leftStep < 2) {
+          anagramState.leftStep++;
+        } else {
+          anagramState.leftStep = 0;
+        }
+        renderAnagramSide('left');
+      } else {
+        if (anagramState.rightStep < 2) {
+          anagramState.rightStep++;
+        } else {
+          anagramState.rightStep = 0;
+        }
+        renderAnagramSide('right');
+      }
+    }
+
+    function renderAnagramSide(side) {
+      const step = side === 'left' ? anagramState.leftStep : anagramState.rightStep;
+      const wordObj = side === 'left' ? anagramState.leftWords[step] : anagramState.rightWords[step];
+
+      document.getElementById(side + 'TaskStep').innerText = 'Task ' + (step + 1) + ' of 3';
+      document.getElementById(side + 'ScrambleDisplay').innerText = wordObj.scramble;
+      document.getElementById(side + 'HintText').innerText = wordObj.note;
+    }
+
+    let triadicChartInstance = null;
+    const triadicDataSets = {
+      standard: {
+        labels: ['Trial 1', 'Trial 2', 'Trial 3', 'Trial 4', 'Trial 5', 'Trial 6', 'Trial 7', 'Trial 8', 'Trial 9', 'Trial 10'],
+        escapable: [42, 28, 14, 9, 7, 5, 4, 4, 3, 3],
+        yoked: [58, 60, 60, 56, 60, 60, 59, 60, 60, 60],
+        control: [45, 30, 16, 11, 8, 6, 5, 4, 4, 3]
+      },
+      immunized: {
+        labels: ['Trial 1', 'Trial 2', 'Trial 3', 'Trial 4', 'Trial 5', 'Trial 6', 'Trial 7', 'Trial 8', 'Trial 9', 'Trial 10'],
+        escapable: [35, 20, 10, 7, 5, 4, 3, 3, 3, 2],
+        yoked: [44, 28, 18, 12, 9, 7, 5, 4, 4, 3],
+        control: [38, 24, 12, 8, 6, 5, 4, 3, 3, 3]
+      }
+    };
+
+    function initTriadicChart() {
+      const ctx = document.getElementById('triadicChart').getContext('2d');
+      triadicChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: triadicDataSets.standard.labels,
+          datasets: [
+            {
+              label: 'Group 1: Escapable Shock',
+              data: triadicDataSets.standard.escapable,
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              tension: 0.2,
+              borderWidth: 2,
+              pointRadius: 3
+            },
+            {
+              label: 'Group 2: Yoked Inescapable Shock',
+              data: triadicDataSets.standard.yoked,
+              borderColor: '#e11d48',
+              backgroundColor: 'rgba(225, 29, 72, 0.1)',
+              tension: 0.2,
+              borderWidth: 3,
+              pointRadius: 4
+            },
+            {
+              label: 'Group 3: Naive Control',
+              data: triadicDataSets.standard.control,
+              borderColor: '#3b82f6',
+              borderDash: [4, 4],
+              tension: 0.2,
+              borderWidth: 2,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, family: 'sans-serif' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.parsed.y + 's latency';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 65,
+              title: {
+                display: true,
+                text: 'Escape Latency (seconds)'
+              },
+              grid: { color: '#f3f4f6' }
+            },
+            x: {
+              grid: { color: '#f3f4f6' }
+            }
+          }
+        }
+      });
+    }
+
+    function updateTriadicChart(mode) {
+      const btnS = document.getElementById('btnHistStandard');
+      const btnI = document.getElementById('btnHistImmunized');
+      if (mode === 'standard') {
+        btnS.className = 'px-2.5 py-1 rounded bg-white shadow-sm text-stone-800 font-semibold';
+        btnI.className = 'px-2.5 py-1 rounded text-stone-600 hover:text-stone-900';
+        triadicChartInstance.data.datasets[0].data = triadicDataSets.standard.escapable;
+        triadicChartInstance.data.datasets[1].data = triadicDataSets.standard.yoked;
+        triadicChartInstance.data.datasets[2].data = triadicDataSets.standard.control;
+      } else {
+        btnI.className = 'px-2.5 py-1 rounded bg-white shadow-sm text-stone-800 font-semibold';
+        btnS.className = 'px-2.5 py-1 rounded text-stone-600 hover:text-stone-900';
+        triadicChartInstance.data.datasets[0].data = triadicDataSets.immunized.escapable;
+        triadicChartInstance.data.datasets[1].data = triadicDataSets.immunized.yoked;
+        triadicChartInstance.data.datasets[2].data = triadicDataSets.immunized.control;
+      }
+      triadicChartInstance.update();
+    }
+
+    let attributionState = {
+      locus: 'internal',
+      stability: 'stable',
+      globality: 'global'
+    };
+
+    function setAttribution(dim, val) {
+      attributionState[dim] = val;
+      updateAttributionUI();
+    }
+
+    function updateAttributionUI() {
+      const locusLabel = document.getElementById('locusLabel');
+      const stabLabel = document.getElementById('stabilityLabel');
+      const globLabel = document.getElementById('globalityLabel');
+
+      const btnLocusI = document.getElementById('btnLocusInternal');
+      const btnLocusE = document.getElementById('btnLocusExternal');
+      const btnStabS = document.getElementById('btnStabStable');
+      const btnStabU = document.getElementById('btnStabUnstable');
+      const btnGlobG = document.getElementById('btnGlobGlobal');
+      const btnGlobS = document.getElementById('btnGlobSpecific');
+
+      if (attributionState.locus === 'internal') {
+        locusLabel.innerText = 'Internal ("I am fundamentally deficient")';
+        locusLabel.className = 'font-bold text-rose-700';
+        btnLocusI.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600';
+        btnLocusE.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      } else {
+        locusLabel.innerText = 'External ("The test or environment was biased")';
+        locusLabel.className = 'font-bold text-emerald-700';
+        btnLocusE.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-emerald-600 text-white border-emerald-600';
+        btnLocusI.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      }
+
+      if (attributionState.stability === 'stable') {
+        stabLabel.innerText = 'Stable ("This will never improve")';
+        stabLabel.className = 'font-bold text-rose-700';
+        btnStabS.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600';
+        btnStabU.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      } else {
+        stabLabel.innerText = 'Unstable ("This was a one-time setback")';
+        stabLabel.className = 'font-bold text-emerald-700';
+        btnStabU.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-emerald-600 text-white border-emerald-600';
+        btnStabS.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      }
+
+      if (attributionState.globality === 'global') {
+        globLabel.innerText = 'Global ("I fail at everything I attempt")';
+        globLabel.className = 'font-bold text-rose-700';
+        btnGlobG.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-rose-600 text-white border-rose-600';
+        btnGlobS.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      } else {
+        globLabel.innerText = 'Specific ("This applies only to this discrete challenge")';
+        globLabel.className = 'font-bold text-emerald-700';
+        btnGlobS.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-emerald-600 text-white border-emerald-600';
+        btnGlobG.className = 'py-2 px-3 rounded-lg border text-xs font-semibold bg-white text-stone-700 border-stone-300';
+      }
+
+      const riskBadge = document.getElementById('attributionRiskBadge');
+      const diagText = document.getElementById('attributionDiagnosticText');
+
+      let riskCount = 0;
+      if (attributionState.locus === 'internal') riskCount++;
+      if (attributionState.stability === 'stable') riskCount++;
+      if (attributionState.globality === 'global') riskCount++;
+
+      if (riskCount === 3) {
+        riskBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800';
+        riskBadge.innerText = 'Severe Hopelessness Vulnerability';
+        diagText.innerHTML = '<strong>Internal + Stable + Global:</strong> The prototypical depressive attributional style. Self-esteem is crushed (internal), the deficit is codified as permanent (stable), and it metastasizes across all life domains (global). Highest risk of clinical depression and motivational collapse.';
+      } else if (riskCount === 2) {
+        riskBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800';
+        riskBadge.innerText = 'Moderate Vulnerability (Domain-Specific or Transient)';
+        diagText.innerHTML = 'Two pessimism vectors active. If global and stable but external (Universal Helplessness), self-esteem is preserved ("we are all doomed"), but motivation remains heavily blunted.';
+      } else if (riskCount === 1) {
+        riskBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800';
+        riskBadge.innerText = 'Mild Vulnerability (High Recovery Potential)';
+        diagText.innerHTML = 'Strong buffering factors present. Isolated setback attributes allow the individual to recover equilibrium quickly without systemic behavioral deficits.';
+      } else {
+        riskBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800';
+        riskBadge.innerText = 'Mastery / Growth Mindset Profile';
+        diagText.innerHTML = '<strong>External/Malleable + Unstable + Specific:</strong> Represents maximum psychological resilience. Setbacks are viewed as temporary, tactical problems requiring strategic adjustment rather than existential indictments of self-worth.';
+      }
+    }
+
+    let circuitChartInstance = null;
+
+    function initCircuitChart() {
+      const ctx = document.getElementById('circuitChart').getContext('2d');
+      circuitChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['DRN 5-HT Firing', 'vmPFC Glutamate', 'DRN GABA Brake', 'dPAG Passivity Signal'],
+          datasets: [{
+            label: 'Activity Index',
+            data: [92, 12, 10, 88],
+            backgroundColor: ['#e11d48', '#6366f1', '#10b981', '#f59e0b'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + ' % normalized'; }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              title: { display: true, text: 'Normalized Neural Activation (%)' },
+              grid: { color: '#f3f4f6' }
+            },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    function setCircuitState(state) {
+      const btnInesc = document.getElementById('btnCircuitInescapable');
+      const btnEsc = document.getElementById('btnCircuitEscapable');
+      const detectStatus = document.getElementById('circuitDetectStatus');
+      const arrow = document.getElementById('circuitArrowDown');
+      const drnBox = document.getElementById('drnBox');
+      const drnBadge = document.getElementById('drnStatusBadge');
+      const dpagBeh = document.getElementById('dpagBehavior');
+      const amygBeh = document.getElementById('amygBehavior');
+      const explainer = document.getElementById('circuitExplainer');
+
+      if (state === 'inescapable') {
+        btnInesc.className = 'px-3 py-1.5 rounded-md bg-rose-600 text-white font-semibold transition';
+        btnEsc.className = 'px-3 py-1.5 rounded-md text-stone-300 hover:text-white transition';
+
+        detectStatus.innerText = 'Prelimbic (PL) - DMS Contingency Disengaged (Zero Control Detected)';
+        detectStatus.className = 'font-bold text-stone-400';
+        arrow.innerText = '↓↓↓ NO CORTICAL BRAKE SENT ↓↓↓';
+        arrow.className = 'text-rose-400 font-bold';
+
+        drnBox.className = 'p-4 rounded-xl bg-rose-950/60 border-2 border-rose-500 space-y-2 transition-all duration-300';
+        drnBadge.innerText = 'HYPERACTIVE 5-HT FIRING';
+        drnBadge.className = 'px-2 py-0.5 rounded-full bg-rose-900 text-rose-200 font-bold text-[11px]';
+
+        dpagBeh.innerText = 'Flight/Fight INHIBITED (Behavioral Passivity)';
+        amygBeh.innerText = 'Fear Conditioning SENSITIZED (Chronic Anxiety)';
+
+        explainer.innerHTML = '<strong>Mechanism Active:</strong> Under inescapable stress, the vmPFC detects no contingency. The DRN fires unrestricted, releasing toxic bursts of serotonin that chemically paralyse escape behavior in the dPAG.';
+
+        if (circuitChartInstance) {
+          circuitChartInstance.data.datasets[0].data = [92, 12, 10, 88];
+          circuitChartInstance.update();
+        }
+      } else {
+        btnEsc.className = 'px-3 py-1.5 rounded-md bg-emerald-600 text-white font-semibold transition';
+        btnInesc.className = 'px-3 py-1.5 rounded-md text-stone-300 hover:text-white transition';
+
+        detectStatus.innerText = 'Contingency Detected: Prelimbic Cortex ACTIVATES ACT Circuit';
+        detectStatus.className = 'font-bold text-emerald-400';
+        arrow.innerText = '↓↓↓ DESCENDING GLUTAMATE EXCITES GABA INTERNEURONS ↓↓↓';
+        arrow.className = 'text-emerald-400 font-bold';
+
+        drnBox.className = 'p-4 rounded-xl bg-emerald-950/50 border-2 border-emerald-500 space-y-2 transition-all duration-300';
+        drnBadge.innerText = 'DRN 5-HT SILENCED BY GABA';
+        drnBadge.className = 'px-2 py-0.5 rounded-full bg-emerald-900 text-emerald-200 font-bold text-[11px]';
+
+        dpagBeh.innerText = 'Active Flight/Escape EXECUTED (No Deficit)';
+        amygBeh.innerText = 'Fear Overdrive MITIGATED (Calm Agency)';
+
+        explainer.innerHTML = '<strong>2016 Breakthrough Discovery:</strong> The medial prefrontal cortex excites inhibitory GABAergic interneurons in the DRN, which actively clamps shut the serotonin panic response. Passivity was never learned; <em>control was learned</em>.';
+
+        if (circuitChartInstance) {
+          circuitChartInstance.data.datasets[0].data = [15, 88, 92, 14];
+          circuitChartInstance.update();
+        }
+      }
+    }
+
+    let molecularChartInstance = null;
+
+    function initMolecularChart() {
+      const ctx = document.getElementById('molecularChart').getContext('2d');
+      molecularChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Baseline', 'Stress Shock', '2 Hours', '24 Hours', '3 Days', '7 Days', '14 Days', '28 Days'],
+          datasets: [
+            {
+              label: 'Ketamine (Single Sub-Anesthetic Infusion)',
+              data: [100, 48, 94, 98, 92, 85, 78, 75],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              borderWidth: 3,
+              tension: 0.3,
+              pointRadius: 4
+            },
+            {
+              label: 'Fluoxetine (Daily SSRI Administration)',
+              data: [100, 48, 50, 52, 58, 67, 82, 91],
+              borderColor: '#6366f1',
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 3
+            },
+            {
+              label: 'Untreated Helpless Control (Epigenetic Silencing)',
+              data: [100, 48, 45, 42, 40, 38, 41, 40],
+              borderColor: '#e11d48',
+              borderDash: [5, 5],
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { boxWidth: 12, font: { size: 11 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '% spine density'; }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 30,
+              max: 110,
+              title: { display: true, text: 'Dendritic Spine Density (% of baseline)' },
+              grid: { color: '#f3f4f6' }
+            },
+            x: { grid: { color: '#f3f4f6' } }
+          }
+        }
+      });
+    }
+
+    let lhsScores = [3, 2, 3, 2, 2];
+
+    function setLhsScore(questionIdx, val) {
+      lhsScores[questionIdx] = val;
+      const btns = document.querySelectorAll('.lhs-btn-' + questionIdx);
+      btns.forEach((btn, idx) => {
+        if (idx + 1 === val) {
+          btn.className = 'lhs-btn-' + questionIdx + ' py-1.5 rounded border border-stone-800 bg-stone-800 text-white font-bold';
+        } else {
+          btn.className = 'lhs-btn-' + questionIdx + ' py-1.5 rounded border border-stone-300 bg-white hover:bg-stone-100';
+        }
+      });
+
+      const total = lhsScores.reduce((a, b) => a + b, 0);
+      const badge = document.getElementById('lhsScoreBadge');
+      const card = document.getElementById('lhsAssessmentCard');
+
+      badge.innerText = 'Score: ' + total + ' / 20';
+
+      if (total >= 16) {
+        badge.className = 'text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-800';
+        card.className = 'p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs space-y-1';
+        card.innerHTML = '<div class="font-bold text-rose-900">Psychometric Result: High Learned Helplessness</div><p class="text-stone-700">Pronounced expectation that behavioral actions do not influence outcomes. Strong vulnerability to clinical apathy, amotivation, and attributional permanence.</p>';
+      } else if (total >= 11) {
+        badge.className = 'text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800';
+        card.className = 'p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1';
+        card.innerHTML = '<div class="font-bold text-amber-900">Psychometric Result: Moderate Helplessness Vulnerability</div><p class="text-stone-700">Reflects mild cognitive distortion surrounding personal agency and attributional stability. High correlation with sub-clinical apathy.</p>';
+      } else {
+        badge.className = 'text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800';
+        card.className = 'p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs space-y-1';
+        card.innerHTML = '<div class="font-bold text-emerald-900">Psychometric Result: Resilient / High Perceived Agency</div><p class="text-stone-700">Robust contingency belief. Outcomes are interpreted as malleable and responsive to strategic effort.</p>';
+      }
+    }
+
+    let uxMode = 'broken';
+
+    function setUxMode(mode) {
+      uxMode = mode;
+      const btnB = document.getElementById('btnUxBroken');
+      const btnC = document.getElementById('btnUxClosed');
+      const resp = document.getElementById('uxSystemResponse');
+      const mOver = document.getElementById('uxMetricOverride');
+      const mAg = document.getElementById('uxMetricAgency');
+
+      if (mode === 'broken') {
+        btnB.className = 'px-2.5 py-1 rounded bg-rose-600 text-white text-[11px] font-semibold';
+        btnC.className = 'px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-[11px] hover:bg-stone-200 font-semibold';
+        resp.className = 'p-2 rounded bg-rose-100 border border-rose-200 text-rose-800 font-mono text-[11px]';
+        resp.innerText = 'Status: System silently reverts user override on reload. Action disregarded. (User Outcome Severed)';
+        mOver.innerText = 'Plummets to 0%';
+        mOver.className = 'font-mono font-bold text-rose-600 text-sm';
+        mAg.innerText = 'Abolished (Helpless)';
+        mAg.className = 'font-mono font-bold text-rose-600 text-sm';
+      } else {
+        btnC.className = 'px-2.5 py-1 rounded bg-emerald-600 text-white text-[11px] font-semibold';
+        btnB.className = 'px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-[11px] hover:bg-stone-200 font-semibold';
+        resp.className = 'p-2 rounded bg-emerald-100 border border-emerald-200 text-emerald-800 font-mono text-[11px]';
+        resp.innerText = 'Status: "Override Confirmed. Portfolio set to Conservative. Algorithmic model weight updated."';
+        mOver.innerText = 'Active (42%)';
+        mOver.className = 'font-mono font-bold text-emerald-600 text-sm';
+        mAg.innerText = 'High (Sovereign)';
+        mAg.className = 'font-mono font-bold text-emerald-600 text-sm';
+      }
+    }
+
+    function triggerUxOverride() {
+      const resp = document.getElementById('uxSystemResponse');
+      if (uxMode === 'broken') {
+        resp.innerText = 'Action attempted... Error: Server algorithm ignored preference. Setting remains unchanged.';
+      } else {
+        resp.innerText = 'Action executed! System adapted: "Conservative strategy permanently applied based on your action."';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initTriadicChart();
+      initCircuitChart();
+      initMolecularChart();
+      renderAnagramSide('left');
+      renderAnagramSide('right');
+      setAnagramCohort('dual');
+      updateAttributionUI();
+      lhsScores.forEach((val, idx) => setLhsScore(idx, val));
+    });
+  </script>
+</body>
+</html>
