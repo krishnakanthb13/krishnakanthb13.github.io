@@ -19,6 +19,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Breadcrumb Method](https://krishnakanthb13.github.io/D/0/breadcrumb_method/) - The Architecture of Micro-Progress
 		- [Bubble & Idea](https://krishnakanthb13.github.io/D/0/bubble_n_idea/) - The Architecture of the Spiral
 		- [Calves as Second Heart](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/) - The Neurocardiology of the Calf
+		- [Choice Paralysis](https://krishnakanthb13.github.io/D/0/choice_paralysis_analysis/) — The Anatomy of Choice Paralysis
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) - The Metacognitive Paradox
 		- [Connection Guilt](https://krishnakanthb13.github.io/D/0/connection_guilt/) - The Trajectory of Relational Recovery
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
@@ -212,6 +213,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/): Veno-muscular pump simulator, startle-latency race, nerve-conduction chart, H-reflex threat slider, bioenergetics/TCM sub-tabs, NMES cognitive-rescue lab & Stroop test.
 		- [Cold Feet: Freeze, Anxiety & Acute Leg Rescue](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/cold_feet.html): Anticipatory-stress vasoconstriction simulator, vasovagal faint-risk gauge, injury triage matrix, cryotherapy protocol & somatic grounding suite.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/calves_as_second_heart/readme.md): Long-form research essay with 101 cited sources.
+	- [Choice Paralysis](https://krishnakanthb13.github.io/D/0/choice_paralysis_analysis/): The Anatomy of Choice Paralysis — why a mind frozen between two equally weighted needs starves from the geometry of the trap, traced from Aristotle, Al-Ghazali and Buridan through Kierkegaard, Sartre, Miller's approach-avoidance gradients, STN theta-band braking and digital metastability to REBT/ACT resolution.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/choice_paralysis_analysis/): Six-module portal with a Buridan equilibrium canvas simulator (hunger, thirst, Leibnizian noise, will-leap), philosophical genealogy cards, Miller approach-avoidance chart, live "but"-to-"and" reframer with REBT dispute matrix, a 3-question ACT action audit, and a SQL deadlock banquet with lock ordering, waits-for graph & victim rollback.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/choice_paralysis_analysis/readme.md): Long-form research essay with 86 cited sources.
 	- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): The Metacognitive Paradox - why the least skilled are the most certain, and why the viral "Mount Stupid" curve is folklore rather than psychometric data.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/confidence_n_competence/): Meme-vs-1999 curve toggle, quartile bar chart, random-noise autocorrelation simulator, Dunning-Kruger vs. Impostor spectrum slider, domain-hazard tabs & syllogism calibration test.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/confidence_n_competence/readme.md): Long-form research essay with 60 cited sources.

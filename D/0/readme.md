@@ -108,6 +108,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Choice Paralysis](./choice_paralysis_analysis/)
+**The Anatomy of Choice Paralysis** — why an organism frozen between two equally weighted needs starves not from bad judgment but from the geometry of the trap. Traces Buridan's ass from Aristotle and Al-Ghazali through Spinoza, Leibniz's *petites perceptions*, Kierkegaard's dizziness of freedom and Sartre's bad faith, then maps the modern mechanisms—Miller's approach-avoidance gradients, regulatory focus, cognitive dissonance, Iyengar & Lepper's choice overload, STN theta-band braking and drift-diffusion models, and digital metastability—before resolving the deadlock through "but"-to-"and" reframing, REBT disputation and an ACT radical-acceptance protocol.
+
+- 📝 [The Full Report](./choice_paralysis_analysis/readme.md) — the long-form essay with 86 cited sources. (`readme.md`)
+- ⚖️ [Interactive Infographic](./choice_paralysis_analysis/index.html) — the warm parchment & espresso-slate interactive page: six-module portal with a Buridan equilibrium canvas simulator (hunger, thirst, Leibnizian noise, autonomous-will leap), filterable philosophical genealogy cards, Miller approach-avoidance gradient chart, live "but"-to-"and" linguistic reframer with an REBT dispute matrix, a three-question ACT action audit that generates a commitment brief, and a SQL deadlock banquet staging two transactions over shared rows (lock ordering, waits-for graph, victim rollback). (`index.html`)
+
+---
+
 ### 📁 [Confidence & Competence](./confidence_n_competence/)
 **The Metacognitive Paradox** — why the least skilled are so often the most certain, and why the viral "Mount Stupid" curve is internet folklore rather than psychometric data. Weighs Kruger & Dunning's 1999 dual-burden hypothesis against the statistical backlash (autocorrelation, regression to the mean, task-difficulty reversal, homoscedasticity), then traces the effect across WEIRD vs. East Asian self-enhancement and its cognitive mirror, Impostor Syndrome.
 

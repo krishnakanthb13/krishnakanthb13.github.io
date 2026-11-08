@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Anatomy of Choice Paralysis: Buridan’s Paradox to Radical Agency</title>
+  <meta name="description" content="A multidisciplinary interactive analysis of choice paralysis—Buridan's paradox, existential anxiety, approach-avoidance neurobiology, the syntax of 'but', SQL table-lock deadlocks, and the cognitive reframing that breaks the deadlock.">
+  <!-- Favicon: balanced scales on the page’s espresso-slate palette -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232D3142%22/><text x=%2250%22 y=%2273%22 font-size=%2262%22 text-anchor=%22middle%22>⚖️</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #2D3142;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- Chosen Palette: Warm Editorial Parchment, Espresso Slate, Muted Terracotta, and Sage Balance -->
+<!-- Application Structure Plan: The application is structured as a multidisciplinary interactive laboratory with six dedicated analytical modules designed for seamless exploratory progression: 1) Executive Synthesis & Buridan Physics Simulation (an interactive 2D canvas model allowing users to manipulate distance, hunger, thirst, and Leibnizian noise to break deterministic stasis); 2) Philosophical Genealogy (an interactive chronological matrix contrasting Aristotle, Al-Ghazali, Buridan, Spinoza, Leibniz, Kierkegaard, and Sartre); 3) Neurobiology & Psychodynamics (featuring Chart.js visualizations of Miller's Approach-Avoidance Gradient and a basal ganglia Subthalamic Nucleus drift-diffusion simulation); 4) The Syntax of Paralysis (a dynamic diagnostic tool that deconstructs the conjunction 'but' into cognitive-behavioral 'and' statements alongside Albert Ellis' REBT dispute engine); and 5) The Radical Protocol & Case Study (the narrative crisis of Barnaby the Painter and an interactive ACT 3-Brutal-Questions action auditor); and 6) The Table of Two Diners (a SQL lock/deadlock banquet that stages two transactions competing for the same rows, visualizes the waits-for cycle, demonstrates lock ordering versus victim rollback, and maps the four Coffman conditions and the maître d's scapegoat onto Hobbes, Locke, Sartre, Hegel, Camus and Girard). This thematic layout bridges ancient logic, modern neuroscience, systems engineering, and practical therapeutic execution. -->
+<!-- Visualization & Content Choices: 1. Buridan's Equilibrium Simulation -> Goal: Demonstrate fatal mechanical paralysis vs symmetry breaking -> Method: Interactive HTML5 Canvas animation with vector force displays, perturbation sliders, and hunger/thirst modifiers (NO SVG). 2. Miller's Approach-Avoidance Conflict -> Goal: Show why avoidance gradients spike faster than approach gradients -> Method: Chart.js dynamic line chart with intersection marker, interactive slope adjustments, and tooltips constrained in a styled container. 3. Philosophical Genealogy -> Goal: Compare intellectual determinism vs free will -> Method: Structured HTML grid with interactive comparative filters and detailed philosophical cards. 4. Linguistic Reframing Tool -> Goal: Transform paralyzing 'but' syntax into actionable 'and/with consequence' frames -> Method: Vanilla JS real-time string parser and REBT irrational 'must' deconstruction. 5. Interactive Hexaflex / Action Auditor -> Goal: Synthesize ACT principles and Sartre's renunciation -> Method: Responsive interactive step-audit producing a tailored commitment brief. 6. SQL Deadlock Banquet -> Goal: Translate circular-wait concurrency into the Buridan/Dining-Philosophers dilemma -> Method: DOM-based two-transaction state machine with lock chips, a pulsing circular-wait ring, lock-ordering toggle, victim rollback, and a narrative kitchen-ticket SQL log. All graphics rely purely on Canvas, Tailwind CSS, and Unicode glyphs. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <header class="border-b border-[#E8E2D9] bg-[#F4EFEA]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center gap-3 py-3">
+        <a href="../" class="flex-shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded border border-[#E2DBD1] bg-[#FAF7F2] text-[#5C6479] hover:text-[#8C5E3C] hover:border-[#D1C7BA] transition-colors" title="Return to the D/0 Knowledge Vault">&larr; Vault</a>
+        <span class="text-2xl select-none" aria-hidden="true">&#9878;</span>
+        <div class="min-w-0">
+          <h1 class="text-base sm:text-lg font-bold tracking-tight text-[#2D3142] truncate">Buridan’s Paradox &amp; Choice Paralysis</h1>
+          <p class="text-xs text-[#717786] truncate">A Multidisciplinary Interactive Analysis</p>
+        </div>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap hide-scrollbar border-t border-[#E8E2D9] py-2" aria-label="Page sections">
+        <button type="button" onclick="switchTab('simulation')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors bg-[#2D3142] text-[#FAF7F2]" data-tab="simulation">Equilibrium Sim</button>
+        <button type="button" onclick="switchTab('genealogy')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors text-[#5C6479] hover:bg-[#E8E2D9]" data-tab="genealogy">Philosophic History</button>
+        <button type="button" onclick="switchTab('neurobiology')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors text-[#5C6479] hover:bg-[#E8E2D9]" data-tab="neurobiology">Psych &amp; Brain</button>
+        <button type="button" onclick="switchTab('deadlock')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors text-[#5C6479] hover:bg-[#E8E2D9]" data-tab="deadlock">SQL Deadlock</button>
+        <button type="button" onclick="switchTab('syntax')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors text-[#5C6479] hover:bg-[#E8E2D9]" data-tab="syntax">The &ldquo;But&rdquo; Syntax</button>
+        <button type="button" onclick="switchTab('protocol')" class="nav-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-colors text-[#5C6479] hover:bg-[#E8E2D9]" data-tab="protocol">Clinical Action</button>
+        <a href="../../" class="flex-shrink-0 ml-auto pl-3 text-[11px] font-semibold text-[#717786] hover:text-[#8C5E3C] transition-colors">Portfolio Home &nearr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <section id="tab-simulation" class="tab-content block space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 1: Physical &amp; Cognitive Deadlock</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">The Mechanics of Buridan's Trap</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            In 14th-century scholastic philosophy, Jean Buridan articulated the dilemma of an organism endowed with complete freedom of movement yet placed equidistant between identical necessities (nourishment and hydration). Because moving toward one survival need inherently increases physical distance from the other, an intellectualist creature devoid of asymmetry cannot formulate a rational motive to prefer either option, resulting in fatal stasis. This physical paradox directly mirrors modern human choice paralysis: when mutually exclusive desires are pitted against each other, the illusion of safety in stillness causes psychological starvation.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <div class="lg:col-span-2 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-4 flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-2 px-2 text-xs font-semibold text-[#5C6479]">
+              <span class="flex items-center space-x-1"><span>&#129365;</span> <span>Carrot Pile (Hunger Drive)</span></span>
+              <span id="simStatus" class="font-mono text-[#A8422B] bg-[#FBEBE8] px-2 py-0.5 rounded">STATE: DEADLOCKED</span>
+              <span class="flex items-center space-x-1"><span>&#128167;</span> <span>Water Pail (Thirst Drive)</span></span>
+            </div>
+            <div class="w-full h-72 sm:h-80 bg-[#FFFFFF] border border-[#E2DBD1] rounded-md relative overflow-hidden flex items-center justify-center">
+              <canvas id="donkeyCanvas" class="w-full h-full block"></canvas>
+            </div>
+            <div class="w-full mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[#5C6479]">
+              <div class="flex items-center space-x-4">
+                <span>Vector Force Left: <strong id="forceLeftDisplay" class="font-mono text-[#2D3142]">50.0%</strong></span>
+                <span>Vector Force Right: <strong id="forceRightDisplay" class="font-mono text-[#2D3142]">50.0%</strong></span>
+              </div>
+              <div class="font-mono text-[11px] text-[#8C5E3C]" id="posDisplay">Position: 0.00 (Equidistant Zero)</div>
+            </div>
+          </div>
+
+          <div class="bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">Simulation Parameters</h3>
+              
+              <div>
+                <label class="block text-xs font-medium text-[#2D3142] mb-1 flex justify-between">
+                  <span>Hunger Drive (Left Attraction)</span>
+                  <span id="hungerVal" class="font-mono text-[#8C5E3C]">50</span>
+                </label>
+                <input id="hungerSlider" type="range" min="10" max="100" value="50" class="w-full h-1.5 bg-[#E2DBD1] rounded-lg appearance-none cursor-pointer accent-[#8C5E3C]" oninput="updateSimParameters()">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-[#2D3142] mb-1 flex justify-between">
+                  <span>Thirst Drive (Right Attraction)</span>
+                  <span id="thirstVal" class="font-mono text-[#8C5E3C]">50</span>
+                </label>
+                <input id="thirstSlider" type="range" min="10" max="100" value="50" class="w-full h-1.5 bg-[#E2DBD1] rounded-lg appearance-none cursor-pointer accent-[#8C5E3C]" oninput="updateSimParameters()">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-[#2D3142] mb-1 flex justify-between">
+                  <span>Leibnizian Noise (Petites Perceptions)</span>
+                  <span id="noiseVal" class="font-mono text-[#8C5E3C]">0%</span>
+                </label>
+                <input id="noiseSlider" type="range" min="0" max="50" value="0" class="w-full h-1.5 bg-[#E2DBD1] rounded-lg appearance-none cursor-pointer accent-[#8C5E3C]" oninput="updateSimParameters()">
+                <p class="text-[11px] text-[#717786] mt-1">Simulates microscopic subconscious variations breaking mathematical equilibrium.</p>
+              </div>
+
+              <div class="pt-2">
+                <label class="flex items-center space-x-2 text-xs text-[#2D3142] cursor-pointer">
+                  <input id="volitionToggle" type="checkbox" class="rounded text-[#8C5E3C] focus:ring-0" onchange="updateSimParameters()">
+                  <span class="font-semibold">Autonomous Will (Al-Ghazali Leap)</span>
+                </label>
+                <p class="text-[11px] text-[#717786] ml-5">Allows conscious agency to execute an arbitrary choice despite symmetrical values.</p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-[#E8E2D9] flex space-x-2">
+              <button onclick="resetSimulation()" class="flex-1 py-2 text-xs font-medium text-[#2D3142] bg-[#EAE2D7] hover:bg-[#DFD5C8] rounded transition-colors">Reset Center</button>
+              <button onclick="triggerKierkegaardLeap()" class="flex-1 py-2 text-xs font-medium text-[#FAF7F2] bg-[#8C5E3C] hover:bg-[#724C30] rounded transition-colors">Execute Leap</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-[#E8E2D9]">
+          <div class="p-3 bg-[#FAF7F2] rounded border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">The Symmetrical Illusion</h4>
+            <p class="text-xs text-[#5C6479] mt-1">Standing halfway feels neutral, but standing still is an active decision to die of both hunger and thirst simultaneously.</p>
+          </div>
+          <div class="p-3 bg-[#FAF7F2] rounded border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">The Distance Penalty</h4>
+            <p class="text-xs text-[#5C6479] mt-1">Every physical step toward hydration increases the immediate perceived distance from sustenance, triggering cognitive resistance.</p>
+          </div>
+          <div class="p-3 bg-[#FAF7F2] rounded border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">Sequential Resolution</h4>
+            <p class="text-xs text-[#5C6479] mt-1">The thought experiment ignores sequence: an active agent drinks first, then eats, accepting temporary deprivation of the second.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-genealogy" class="tab-content hidden space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 2: Historical Epistemology</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">The Philosophical Genealogy of Indecision</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            From classical antiquity through 20th-century existentialism, thinkers have grappled with what happens when a rational system faces balanced incentives. Aristotle used it to model cosmic equilibrium; Islamic theologians used it to prove autonomous free will; scholastic intellectuals demonstrated determinism; and existentialists recognized it as human bad faith. Explore how each philosophical era resolved or deepened the paradox below.
+          </p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-2 border-b border-[#E8E2D9] pb-3" id="philFilterGroup">
+          <button onclick="filterPhilosophy('all')" class="phil-filter px-3 py-1 rounded text-xs font-medium bg-[#2D3142] text-[#FAF7F2]" data-filter="all">All Thinkers</button>
+          <button onclick="filterPhilosophy('antiquity')" class="phil-filter px-3 py-1 rounded text-xs font-medium text-[#5C6479] hover:bg-[#EAE2D7]" data-filter="antiquity">Antiquity &amp; Medieval</button>
+          <button onclick="filterPhilosophy('enlightenment')" class="phil-filter px-3 py-1 rounded text-xs font-medium text-[#5C6479] hover:bg-[#EAE2D7]" data-filter="enlightenment">Enlightenment Determinism</button>
+          <button onclick="filterPhilosophy('existential')" class="phil-filter px-3 py-1 rounded text-xs font-medium text-[#5C6479] hover:bg-[#EAE2D7]" data-filter="existential">Existential Agency</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6" id="philGrid">
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="antiquity">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>Aristotle (c. 350 BCE)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Physics</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">Equilibrium of Cosmic Forces</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                Aristotle described a man equally hungry and thirsty placed between food and drink. He deployed the thought experiment not as cognitive psychology, but to refute planetary movement theories: arguing the Earth stays suspended because uniform forces leave no reason to fall in any one vector.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> Pure symmetry produces absolute physical stasis unless disturbed by an outside force.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="antiquity">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>Al-Ghazali (c. 1100)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Voluntarism</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">The Parable of the Two Dates</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                In <em>The Incoherence of the Philosophers</em>, a man faces two identical dates. Al-Ghazali argued that the man takes one effortlessly. He argued that the will possesses a specialized faculty to differentiate between equals arbitrarily, demonstrating divine and human free will beyond deterministic causality.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> The human will can break ties without requiring superior rational justification.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="antiquity">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>Jean Buridan (c. 1340)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Intellectualism</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">Intellectual Determinism &amp; The Dog</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                Buridan maintained that the human will is subordinate to the intellect. If the intellect evaluates two outcomes as exactly equal in value, judgment must be suspended until conditions shift. Critics satirized this doctrine by replacing his hypothetical starving dog with an ass.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> Subordinating action to perfect rational optimization leads to system death.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="enlightenment">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>Baruch Spinoza (c. 1677)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Causal Chains</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">The Acceptance of Fatal Inertia</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                In his <em>Ethics</em>, Spinoza accepted the fatal conclusion. When asked if a person in equilibrium who starves should be considered an ass, Spinoza replied that he evaluates them like someone who hangs themselves or succumbs to natural law: deterministic forces brook no exceptions.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> Denying autonomous free agency reduces conscious beings to helpless mechanical balance.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="enlightenment">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>G.W. Leibniz (c. 1710)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Sufficient Reason</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">Petites Perceptions &amp; Micro-Noise</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                Leibniz argued that absolute equilibrium is a mathematical fiction. In reality, microscopic subconscious inputs (<em>petites perceptions</em>)—a stray breeze, an uneven heartbeat, microscopic hay scents—incessantly introduce asymmetry, providing sufficient reason to choose.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> Stochastic subconscious micro-signals continually break theoretical paralysis.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between" data-era="existential">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>S&oslash;ren Kierkegaard (1844)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Anxiety</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">The Dizziness of Freedom</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                Kierkegaard defined anxiety not as a disorder, but as ontological vertigo when the human spirit gazes into its own infinite possibilities. The donkey freezes because reason exhausts itself; the human must execute a subjective "leap of faith" into imperfect commitment.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>Core Insight:</strong> True choice is self-defining and can never be guaranteed by prior intellectual calculation.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-[#E8E2D9] bg-[#FAF7F2] flex flex-col justify-between md:col-span-2 lg:col-span-3" data-era="existential">
+            <div>
+              <div class="flex items-center justify-between text-xs text-[#8C5E3C] font-semibold mb-1">
+                <span>Jean-Paul Sartre (1943)</span>
+                <span class="font-mono text-[10px] bg-[#EAE2D7] px-1.5 py-0.5 rounded text-[#2D3142]">Ontology &amp; Bad Faith</span>
+              </div>
+              <h3 class="text-sm font-bold text-[#2D3142]">Condemned to Be Free: Mauvaise Foi &amp; Renunciation</h3>
+              <p class="text-xs text-[#5C6479] mt-2 leading-relaxed">
+                Sartre asserted that "man is condemned to be free." Claiming to be paralyzed by equal options is <em>mauvaise foi</em> (Bad Faith)—pretending to be an inanimate object bound by external laws to evade the agonizing responsibility of agency. Furthermore, to choose is to murder alternate versions of oneself: selecting the creative life requires renouncing the tranquil, unjudged life. Indecision is not neutrality; it is the deliberate choice of slow spiritual decay.
+              </p>
+            </div>
+            <div class="mt-4 pt-2 border-t border-[#E8E2D9] flex flex-wrap justify-between items-center text-[11px] text-[#717786]">
+              <span><strong>The Tax of Deliberate Living:</strong> Grief over unlived alternatives proves that what was left behind mattered.</span>
+              <span class="font-mono text-[#8C5E3C]">"Not choosing is still a choice."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-neurobiology" class="tab-content hidden space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 3: Empirical &amp; Neural Mechanics</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">Why the Mind Freezes: Gradients &amp; Basal Ganglia</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            Choice paralysis is neither purely intellectual nor moral weakness; it is an evolutionarily conserved neurobiological mechanism. When an individual confronts an option possessing both desirable rewards (creative expression) and severe threats (social rejection), two distinct psychological gradients collide. As documented by Neal Miller in 1944, avoidance gradients possess a steeper slope than approach gradients. At the intersection of these gradients, the brain’s Subthalamic Nucleus (STN) engages a high-frequency theta-band brake, raising decision thresholds to prevent catastrophe.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <div class="lg:col-span-2 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-sm font-bold text-[#2D3142]">Miller’s Approach-Avoidance Conflict Gradient</h3>
+                <p class="text-xs text-[#717786]">Visualizing the psychological forces as an individual approaches execution</p>
+              </div>
+              <div class="text-xs bg-[#EAE2D7] text-[#8C5E3C] px-2 py-1 rounded font-mono">STN Active: Theta Braking</div>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="approachAvoidanceChart"></canvas>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E8E2D9] flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-[#4A7C59] inline-block"></span>
+                <span class="text-[#5C6479]">Approach Drive (Ambition/Gain)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-[#A8422B] inline-block"></span>
+                <span class="text-[#5C6479]">Avoidance Drive (Fear of Rejection)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 border-2 border-dashed border-[#2D3142] inline-block"></span>
+                <span class="font-bold text-[#2D3142]">Intersection = Paralysis Zone</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">Neurobiological Substrate</h3>
+              
+              <div class="space-y-4 mt-3">
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <h4 class="text-xs font-bold text-[#2D3142] flex items-center justify-between">
+                    <span>Subthalamic Nucleus (STN)</span>
+                    <span class="font-mono text-[10px] text-[#A8422B]">4&ndash;8 Hz Theta</span>
+                  </h4>
+                  <p class="text-xs text-[#5C6479] mt-1">Under high conflict, the STN signals the Globus Pallidus to elevate decision boundaries, deploying an automatic &ldquo;hold your horses&rdquo; brake.</p>
+                </div>
+
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <h4 class="text-xs font-bold text-[#2D3142]">Drift-Diffusion Deadlock</h4>
+                  <p class="text-xs text-[#5C6479] mt-1">Evidence accumulation wanders stochastically around the neutral center line. Because incoming sensory evidence for both poles is matched, the threshold is never breached.</p>
+                </div>
+
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <h4 class="text-xs font-bold text-[#2D3142]">Choice Overload (Iyengar &amp; Lepper)</h4>
+                  <p class="text-xs text-[#5C6479] mt-1">Expanding options from 6 to 24 jams reduced purchase rates from 30% to 3%. Hyper-optionality multiplies cognitive load and anticipated regret exponentially.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E8E2D9]">
+              <div class="text-[11px] text-[#717786] italic">
+                &ldquo;Refusing to choose is simply a passive, cowardly method of choosing ruin.&rdquo;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-[#E8E2D9]">
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">1. The Far Zone: Safe Daydreaming</h4>
+            <p class="text-xs text-[#5C6479] mt-1">Far from the deadline, ambition outstrips fear. People feel enthusiastic, plan grand projects, and purchase art supplies.</p>
+          </div>
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">2. The Threshold: Fear Escalation</h4>
+            <p class="text-xs text-[#5C6479] mt-1">As the public launch nears, the avoidance gradient spikes sharply. Social shame triggers ancient evolutionary alarms of tribal expulsion.</p>
+          </div>
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">3. The Oscillatory Trap</h4>
+            <p class="text-xs text-[#5C6479] mt-1">At the intersection point, retreating lowers fear (prompting approach again), while advancing spikes panic. The person vacillates forever.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-deadlock" class="tab-content hidden space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 5: Concurrency &amp; Moral Geometry</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">The Table of Two Diners: SQL Deadlocks as a Banquet</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            Buridan&rsquo;s donkey starved alone. A database deadlock requires a second guest. Two transactions sit at one table with two dishes&mdash;Row A and Row B&mdash;and each needs <em>both</em> to finish. One diner locks a row, the other locks the other, and then each reaches across the table for what the other is holding. Neither will let go. This is Dijkstra&rsquo;s <strong>Dining Philosophers</strong> (1965) wearing Buridan&rsquo;s mask: not a failure of appetite, but a failure of <em>ordering</em>. Stage the standoff below, watch the waits-for graph close into a cycle, and see how the database&rsquo;s ma&icirc;tre d&rsquo; breaks it&mdash;usually by choosing one diner to sacrifice.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <!-- ================= THE BANQUET ================= -->
+          <div class="lg:col-span-2 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-sm font-bold text-[#2D3142]">The Banquet &mdash; Live Lock Laboratory</h3>
+                <p class="text-xs text-[#717786]">Two diners, two dishes, one shared table.</p>
+              </div>
+              <span id="deadlockStatus" class="text-[11px] font-mono px-2 py-1 rounded bg-[#F4EFEA] text-[#717786]">TABLE: IDLE</span>
+            </div>
+
+            <div id="banquetTable" class="relative bg-gradient-to-b from-[#FAF4ED] to-[#F2EADF] border border-[#E2DBD1] rounded-xl p-4">
+              <div id="cycleRing" class="pointer-events-none absolute inset-1 rounded-xl border-2 border-dashed border-transparent"></div>
+
+              <div class="relative grid grid-cols-1 sm:grid-cols-3 gap-3 items-stretch">
+                <!-- Diner T1 -->
+                <div id="t1Card" class="flex flex-col justify-between rounded-lg border border-[#E8E2D9] bg-[#FFFFFF] p-3 transition-all duration-300">
+                  <div class="flex items-center gap-2">
+                    <span class="w-9 h-9 rounded-full bg-[#EAE2D7] flex items-center justify-center text-lg select-none" aria-hidden="true">&#129485;</span>
+                    <div>
+                      <h4 class="text-xs font-bold text-[#2D3142]">Diner T1</h4>
+                      <span id="t1State" class="text-[10px] font-mono uppercase text-[#717786]">idle</span>
+                    </div>
+                  </div>
+                  <p id="t1Intent" class="mt-2 text-[11px] text-[#5C6479] leading-snug min-h-[32px]">Waiting for the doors to open.</p>
+                </div>
+
+                <!-- The shared table -->
+                <div class="flex flex-col justify-center gap-2">
+                  <div id="dishA" class="rounded-lg border bg-[#FFFFFF] p-2.5 transition-colors duration-300 border-[#E2DBD1]">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-[11px] font-bold text-[#2D3142]"><span aria-hidden="true">&#129365;</span> Row A &middot; id=1</span>
+                      <span id="dishAState" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#F4EFEA] text-[#717786]">FREE</span>
+                    </div>
+                    <p id="dishADetail" class="mt-1 text-[10px] text-[#717786]">No lock held.</p>
+                  </div>
+                  <div class="text-center text-[9px] font-mono uppercase tracking-widest text-[#A8A29A]">shared row locks</div>
+                  <div id="dishB" class="rounded-lg border bg-[#FFFFFF] p-2.5 transition-colors duration-300 border-[#E2DBD1]">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-[11px] font-bold text-[#2D3142]"><span aria-hidden="true">&#128167;</span> Row B &middot; id=2</span>
+                      <span id="dishBState" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#F4EFEA] text-[#717786]">FREE</span>
+                    </div>
+                    <p id="dishBDetail" class="mt-1 text-[10px] text-[#717786]">No lock held.</p>
+                  </div>
+                </div>
+
+                <!-- Diner T2 -->
+                <div id="t2Card" class="flex flex-col justify-between rounded-lg border border-[#E8E2D9] bg-[#FFFFFF] p-3 transition-all duration-300">
+                  <div class="flex items-center gap-2">
+                    <span class="w-9 h-9 rounded-full bg-[#EAE2D7] flex items-center justify-center text-lg select-none" aria-hidden="true">&#129492;</span>
+                    <div>
+                      <h4 class="text-xs font-bold text-[#2D3142]">Diner T2</h4>
+                      <span id="t2State" class="text-[10px] font-mono uppercase text-[#717786]">idle</span>
+                    </div>
+                  </div>
+                  <p id="t2Intent" class="mt-2 text-[11px] text-[#5C6479] leading-snug min-h-[32px]">Waiting for the doors to open.</p>
+                </div>
+              </div>
+
+              <div class="relative mt-4 rounded-lg border border-[#E2DBD1] bg-[#FFFFFF]/85 px-3 py-2">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-[9px] font-bold uppercase tracking-widest text-[#8C5E3C]">waits-for graph</span>
+                  <span id="graphRibbon" class="text-[10px] font-mono text-[#717786]">no edges</span>
+                </div>
+              </div>
+            </div>
+
+            <p id="deadlockHint" class="mt-3 text-[11px] italic text-[#717786]">The dining room is empty. Press &ldquo;Next course&rdquo; to seat two transactions at the table.</p>
+
+            <div class="mt-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-[#8C5E3C]">Kitchen ticket &mdash; transaction log</span>
+                <span class="text-[10px] font-mono text-[#717786]">isolation: READ COMMITTED</span>
+              </div>
+              <ol id="deadlockLog" class="mt-2 space-y-1 text-[11px] font-mono text-[#5C6479] bg-[#FFFFFF] border border-[#E8E2D9] border-t-2 border-t-[#D1C7BA] rounded p-3 h-44 overflow-y-auto"></ol>
+            </div>
+
+            <div class="mt-4 flex flex-wrap items-center gap-2">
+              <button type="button" onclick="advanceDeadlock()" class="px-3 py-1.5 text-xs font-semibold text-[#FAF7F2] bg-[#2D3142] hover:bg-[#1E212D] rounded transition-colors">Next course &rsaquo;</button>
+              <button type="button" onclick="resolveDeadlock()" class="px-3 py-1.5 text-xs font-semibold text-[#FAF7F2] bg-[#A8422B] hover:bg-[#8D3624] rounded transition-colors">Ma&icirc;tre d&rsquo; breaks the cycle</button>
+              <button type="button" onclick="resetDeadlock()" class="px-3 py-1.5 text-xs font-semibold text-[#2D3142] bg-[#EAE2D7] hover:bg-[#DFD5C8] rounded transition-colors">New seating</button>
+              <label class="flex items-center gap-2 text-[11px] text-[#2D3142] cursor-pointer sm:ml-auto">
+                <input id="lockOrderingToggle" type="checkbox" onchange="resetDeadlock()" class="rounded text-[#8C5E3C] focus:ring-0">
+                <span class="font-semibold">House rule: always take Row A first</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- ================= LOCKING MENU ================= -->
+          <aside class="bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 space-y-4">
+            <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">The Locking Menu</h3>
+            <p class="text-[11px] text-[#717786]">A lock is a reservation. A row lock reserves one dish; a table lock reserves the whole room. Ending the transaction is how the bill gets settled.</p>
+
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8C5E3C] mb-1">PostgreSQL</div>
+              <pre class="bg-[#2D3142] text-[#F4EFEA] text-[10.5px] leading-relaxed p-3 rounded overflow-x-auto"><code>BEGIN;
+-- reserve the whole table
+LOCK TABLE accounts
+  IN ACCESS EXCLUSIVE MODE;
+
+-- or reserve one row
+SELECT * FROM accounts
+  WHERE id = 1 FOR UPDATE;
+
+COMMIT;    -- settle the bill
+ROLLBACK;  -- cancel the order</code></pre>
+            </div>
+
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8C5E3C] mb-1">MySQL</div>
+              <pre class="bg-[#2D3142] text-[#F4EFEA] text-[10.5px] leading-relaxed p-3 rounded overflow-x-auto"><code>-- non-transactional table lock
+LOCK TABLES accounts WRITE;
+-- ...work...
+UNLOCK TABLES;
+
+-- transactional (InnoDB)
+BEGIN;
+SELECT * FROM accounts
+  WHERE id = 1 FOR UPDATE;
+COMMIT;</code></pre>
+            </div>
+
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8C5E3C] mb-1">SQL Server</div>
+              <pre class="bg-[#2D3142] text-[#F4EFEA] text-[10.5px] leading-relaxed p-3 rounded overflow-x-auto"><code>BEGIN TRANSACTION;
+SELECT * FROM accounts
+  WITH (TABLOCKX);  -- exclusive
+COMMIT TRANSACTION;
+-- ROLLBACK TRANSACTION;</code></pre>
+            </div>
+
+            <p class="text-[11px] text-[#717786] border-t border-[#E8E2D9] pt-3"><strong class="text-[#2D3142]">Unlocking rule:</strong> in a transactional engine you rarely unlock by hand. <code>COMMIT</code> or <code>ROLLBACK</code> ends the transaction and releases every lock it holds. <code>UNLOCK TABLES</code> is MySQL&rsquo;s non-transactional escape hatch.</p>
+          </aside>
+        </div>
+
+        <!-- ================= FOUR CONDITIONS ================= -->
+        <div class="mt-6">
+          <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide">Four Conditions, Four Ways to Be Trapped at Dinner</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-3">
+            <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[#8C5E3C]">Coffman 1</div>
+              <h4 class="text-sm font-bold text-[#2D3142] mt-1">Mutual Exclusion</h4>
+              <p class="text-xs text-[#5C6479] mt-1">One dish, one diner. Everyone else must wait outside the reservation.</p>
+              <p class="text-[11px] text-[#717786] mt-2 pt-2 border-t border-[#E8E2D9]"><strong>Hobbes:</strong> sovereignty begins where ownership excludes.</p>
+            </div>
+            <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[#8C5E3C]">Coffman 2</div>
+              <h4 class="text-sm font-bold text-[#2D3142] mt-1">Hold &amp; Wait</h4>
+              <p class="text-xs text-[#5C6479] mt-1">I keep my plate while reaching for yours. Acquisition without renunciation.</p>
+              <p class="text-[11px] text-[#717786] mt-2 pt-2 border-t border-[#E8E2D9]"><strong>Sartre:</strong> bad faith is wanting both paths and paying for neither.</p>
+            </div>
+            <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[#8C5E3C]">Coffman 3</div>
+              <h4 class="text-sm font-bold text-[#2D3142] mt-1">No Preemption</h4>
+              <p class="text-xs text-[#5C6479] mt-1">No authority may seize a lock; it can only be surrendered by its owner.</p>
+              <p class="text-[11px] text-[#717786] mt-2 pt-2 border-t border-[#E8E2D9]"><strong>Locke:</strong> property is inviolable&mdash;which is precisely why sieges happen.</p>
+            </div>
+            <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[#8C5E3C]">Coffman 4</div>
+              <h4 class="text-sm font-bold text-[#2D3142] mt-1">Circular Wait</h4>
+              <p class="text-xs text-[#5C6479] mt-1">T1 waits for T2; T2 waits for T1. Each is the other&rsquo;s hostage.</p>
+              <p class="text-[11px] text-[#717786] mt-2 pt-2 border-t border-[#E8E2D9]"><strong>Hegel:</strong> mutual recognition collapses into mutual paralysis.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MAITRE D PROTOCOL ================= -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-[#E8E2D9] mt-6">
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">1. Detect the cycle</h4>
+            <p class="text-xs text-[#5C6479] mt-1">The engine builds a <strong>waits-for graph</strong>. A cycle is proof of deadlock, not a guess. Detection is cheap; absolution is not.</p>
+          </div>
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">2. Choose a scapegoat</h4>
+            <p class="text-xs text-[#5C6479] mt-1">The victim is usually the transaction with the least work, fewest locks, or lowest priority. Girard&rsquo;s scapegoat, executed in microseconds.</p>
+          </div>
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">3. Prevent recurrence</h4>
+            <p class="text-xs text-[#5C6479] mt-1">Global lock ordering, short transactions, <code>NOWAIT</code>, <code>SKIP LOCKED</code>, timeouts. Kant&rsquo;s test: acquire only in an order everyone else can follow.</p>
+          </div>
+          <div class="p-4 bg-[#FAF7F2] rounded-lg border border-[#E8E2D9]">
+            <h4 class="text-xs font-bold text-[#2D3142]">4. Let the victim retry</h4>
+            <p class="text-xs text-[#5C6479] mt-1">The rolled-back transaction is replayed with exponential backoff. Camus&rsquo;s answer: the rock rolls down, and you walk down after it.</p>
+          </div>
+        </div>
+
+        <!-- ================= THREE FAILURES ================= -->
+        <div class="mt-6 bg-[#FAF4ED] border border-[#E2DBD1] rounded-lg p-4">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[#8C5E3C]">The three ways a dinner service fails</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 text-xs text-[#5C6479]">
+            <p><strong class="text-[#2D3142]">Deadlock</strong> &mdash; nobody eats. Each diner holds the key to the other&rsquo;s plate. Buridan, exactly.</p>
+            <p><strong class="text-[#2D3142]">Livelock</strong> &mdash; everybody moves, nobody eats. Both diners apologize, withdraw their forks, and reach again in perfect useless rhythm.</p>
+            <p><strong class="text-[#2D3142]">Starvation</strong> &mdash; one diner never gets served. The dish is always granted to someone louder. Rawls would object.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-syntax" class="tab-content hidden space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 4: Cognitive Linguistics &amp; REBT</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">The Syntax of Paralysis: Deconstructing &ldquo;But&rdquo;</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            Human choice paralysis hinges on a single syntactic fulcrum: the conjunction &ldquo;but.&rdquo; When we whisper, &ldquo;I want a creative life, <em>but</em> I never want to get rejected,&rdquo; the word &ldquo;but&rdquo; silently creates absolute mutual exclusivity. It falsely asserts that the presence of risk invalidates the pursuit of the goal. In Rational Emotive Behavior Therapy (REBT), Albert Ellis showed that this stems from rigid, irrational demands (&ldquo;musts&rdquo;). Use the interactive diagnostic tool below to deconstruct paralyzing syntax into empowered commitment.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <div class="lg:col-span-7 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 space-y-4">
+            <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">Interactive Linguistic Reframer</h3>
+            
+            <div>
+              <label class="block text-xs font-medium text-[#2D3142] mb-1">Select or Compose a Paralyzing Dilemma:</label>
+              <select id="presetDilemma" onchange="loadPresetDilemma()" class="w-full text-xs bg-[#FFFFFF] border border-[#E2DBD1] rounded p-2 text-[#2D3142] focus:outline-none focus:border-[#8C5E3C]">
+                <option value="custom">-- Custom Dilemma --</option>
+                <option value="art" selected>Creative Life vs. Fear of Public Rejection</option>
+                <option value="venture">Founding a Startup vs. Financial Vulnerability</option>
+                <option value="intimacy">Vulnerable Relationship vs. Fear of Heartbreak</option>
+                <option value="authenticity">Speaking Candidly vs. Risk of Disapproval</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-[#4A7C59] mb-1">Primary Desire (Clause A)</label>
+                <input id="clauseA" type="text" value="I want to live an authentic, creative life" class="w-full text-xs bg-[#FFFFFF] border border-[#E2DBD1] rounded p-2 text-[#2D3142]" oninput="reframeSentence()">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-[#A8422B] mb-1">Avoidance Fear (Clause B)</label>
+                <input id="clauseB" type="text" value="I never want to experience the sting of rejection" class="w-full text-xs bg-[#FFFFFF] border border-[#E2DBD1] rounded p-2 text-[#2D3142]" oninput="reframeSentence()">
+              </div>
+            </div>
+
+            <div class="p-4 bg-[#FFFFFF] rounded border border-[#E8E2D9] space-y-3">
+              <div class="text-xs text-[#717786] font-semibold uppercase tracking-wider">The Paralyzing Formulation (Buridan's Cage)</div>
+              <div id="paralyzingDisplay" class="font-serif italic text-sm text-[#A8422B] bg-[#FBEBE8] p-3 rounded border border-[#F4D1CB]">
+                &ldquo;I want to live an authentic, creative life, <span class="font-bold underline">BUT</span> I never want to experience the sting of rejection.&rdquo;
+              </div>
+              <div class="text-xs text-[#5C6479]">
+                <strong>Syntactic Result:</strong> The &ldquo;but&rdquo; operates as an insurmountable psychological wall. It conceals the contradiction while justifying total immobility.
+              </div>
+            </div>
+
+            <div class="p-4 bg-[#FAF4ED] rounded border border-[#E2DBD1] space-y-3">
+              <div class="text-xs text-[#8C5E3C] font-semibold uppercase tracking-wider">The Empowered Reframe (ACT / REBT Synthesis)</div>
+              <div id="empoweredDisplay" class="font-serif italic text-sm text-[#2D3142] bg-[#FFFFFF] p-3 rounded border border-[#E2DBD1]">
+                &ldquo;I choose to pursue an authentic creative life, <span class="font-bold text-[#4A7C59]">AND</span> I accept that rejection is the natural tax of having stepped onto the field.&rdquo;
+              </div>
+              <div class="text-xs text-[#5C6479]">
+                <strong>Syntactic Result:</strong> Replaces absolute negation with radical acceptance. The avoidance fear is stripped of veto power and transformed into an accepted operational cost.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">Albert Ellis’ REBT Dispute Matrix</h3>
+              <div class="space-y-3 mt-3">
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <span class="text-[11px] font-bold text-[#A8422B] uppercase">Irrational Demand (Musturbation)</span>
+                  <p class="text-xs text-[#2D3142] mt-1">&ldquo;The universe MUST provide me a pathway where I obtain my highest creative potential without ever threatening my ego.&rdquo;</p>
+                </div>
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <span class="text-[11px] font-bold text-[#8C5E3C] uppercase">Socratic Dispute</span>
+                  <p class="text-xs text-[#2D3142] mt-1">&ldquo;Where is the universal law written that meaningful growth is entitled to be painless? What evidence exists that rejection destroys your intrinsic worth?&rdquo;</p>
+                </div>
+                <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                  <span class="text-[11px] font-bold text-[#4A7C59] uppercase">High Frustration Tolerance</span>
+                  <p class="text-xs text-[#2D3142] mt-1">&ldquo;Rejection is uncomfortable, embarrassing, and painful. But I can bear it. What I cannot bear is dying of thirst between two bales of hay.&rdquo;</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E8E2D9] text-xs text-[#717786]">
+              <strong>Rule of Agency:</strong> Drag the hidden &ldquo;but&rdquo; into daylight. When stated openly, irrational balancing acts collapse under their own weight.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-protocol" class="tab-content hidden space-y-8">
+      <div class="bg-[#FFFFFF] border border-[#E8E2D9] rounded-xl p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EAE2D7] text-[#8C5E3C] mb-2">Module 6: Clinical Protocol &amp; Parable</span>
+          <h2 class="text-2xl font-bold text-[#2D3142]">Breaking Deadlock: Radical Acceptance &amp; Committed Leap</h2>
+          <p class="mt-2 text-sm text-[#5C6479] leading-relaxed">
+            The traditional instinct when trapped in Buridan's trap is to seek an elusive third option where nothing is sacrificed. Philosophy and behavioral science prove this is a comforting illusion. Freedom requires renunciation. As demonstrated in the crisis of Barnaby the Painter, resolution demands walking into the dark while holding hands with regret. Complete the three-question audit below to metabolize cognitive dissonance into decisive action.
+          </p>
+        </div>
+
+        <div class="mt-6 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5">
+          <div class="flex items-center justify-between border-b border-[#E8E2D9] pb-3 mb-4">
+            <h3 class="text-sm font-bold text-[#2D3142] flex items-center space-x-2">
+              <span>&#127912;</span>
+              <span>The Parable of Barnaby &amp; Silas</span>
+            </h3>
+            <span class="text-xs font-mono text-[#8C5E3C] bg-[#EAE2D7] px-2 py-0.5 rounded">Case Study in Agency</span>
+          </div>
+          <div class="text-xs text-[#5C6479] leading-relaxed space-y-2">
+            <p>
+              Barnaby was an ambitious painter in a quiet coastal village whose studio canvases remained pristine white linen for years. Paralyzed by invisible chains, he dreamed of greatness yet painted nothing. One morning, the merchant Silas arrived with an invitation to the grand capital exhibition—offering mentorship, vibrant horizons, and public glory.
+            </p>
+            <p>
+              Halfway down the dirt crossroads, terror seized Barnaby's boots. Moving toward the capital meant exposing his tender spirit to scathing critics. Turning back meant safe, peaceful obscurity haunted by perpetual regret. He stood frozen equidistant between safety and acclaim, living out Buridan’s exact geometry.
+            </p>
+            <p>
+              Then an autumn gust threw his satchel open, blowing raw sketches across the dirt road. Travelers stopped—not with laughter, but with deep curiosity at his unhidden vulnerability. In that shivering instant, Barnaby realized: <em>fearing rejection was merely a slow, quiet ruin; hiding his voice was already death.</em> He abandoned absolute safety and stepped forward into the capital carriage.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <div class="lg:col-span-2 bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 space-y-5">
+            <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">The 3 Brutal Philosophical Questions</h3>
+
+            <div class="space-y-4">
+              <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                <label class="block text-xs font-bold text-[#2D3142] mb-1">
+                  1. Which path expands your capacity to suffer for what you love?
+                </label>
+                <p class="text-[11px] text-[#717786] mb-2">Every pathway possesses its own brand of misery. Do not ask what pleasure you want; ask which pain you are willing to sustain.</p>
+                <textarea id="q1Input" rows="2" class="w-full text-xs p-2 rounded border border-[#E2DBD1] focus:outline-none focus:border-[#8C5E3C]" placeholder="e.g., I would rather endure the sting of public critique than the bitter rot of an unlived gift."></textarea>
+              </div>
+
+              <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                <label class="block text-xs font-bold text-[#2D3142] mb-1">
+                  2. If forced to regret on your deathbed, which regret is more dignified?
+                </label>
+                <p class="text-[11px] text-[#717786] mb-2">Regret is unavoidable. Would you rather regret stumbling in the arena or the hollow safety of remaining a spectator?</p>
+                <textarea id="q2Input" rows="2" class="w-full text-xs p-2 rounded border border-[#E2DBD1] focus:outline-none focus:border-[#8C5E3C]" placeholder="e.g., Regretting a failed canvas is a badge of honor; regretting a blank canvas is a life squandered."></textarea>
+              </div>
+
+              <div class="p-3 bg-[#FFFFFF] rounded border border-[#E8E2D9]">
+                <label class="block text-xs font-bold text-[#2D3142] mb-1">
+                  3. What are you pretending not to know?
+                </label>
+                <p class="text-[11px] text-[#717786] mb-2">Deep down, agency already knows which choice matches our authentic nature. Indecision is our hiding place.</p>
+                <textarea id="q3Input" rows="2" class="w-full text-xs p-2 rounded border border-[#E2DBD1] focus:outline-none focus:border-[#8C5E3C]" placeholder="e.g., I know that staying quiet is not 'careful preparation'—it is cowardice disguised as patience."></textarea>
+              </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button onclick="generateActionManifesto()" class="px-4 py-2 text-xs font-bold text-[#FAF7F2] bg-[#2D3142] hover:bg-[#1E212D] rounded shadow-sm transition-colors">
+                Synthesize Committed Action Directive
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-[#FAF7F2] border border-[#E8E2D9] rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-[#2D3142] uppercase tracking-wide border-b border-[#E8E2D9] pb-2">Committed Action Brief</h3>
+              <div id="manifestoOutput" class="mt-4 p-4 bg-[#FFFFFF] rounded border border-[#E8E2D9] text-xs text-[#5C6479] min-h-[220px] flex flex-col justify-center items-center text-center">
+                <span class="text-2xl mb-2">&#9997;</span>
+                <p class="font-medium text-[#2D3142]">Audit Incomplete</p>
+                <p class="text-[11px] text-[#717786] mt-1">Answer the three philosophical questions and click Synthesize to generate your personalized action commitment brief.</p>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E8E2D9] text-[11px] text-[#717786]">
+              <strong>The Existential Truth:</strong> Every choice requires murder. Choose your sacrifice deliberately rather than letting time murder your possibilities by default.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#E8E2D9] bg-[#F4EFEA] py-6 mt-12 text-center text-xs text-[#717786]">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <span>The Architecture of Choice Paralysis</span> &bull; <span>Buridan, Sartre, Miller, ACT &amp; SQL Lock Protocols</span>
+      </div>
+      <div class="font-mono text-[11px]">
+        Single-Page Analytical Architecture
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let donkeyX = 0;
+    let donkeyVelocity = 0;
+    let hungerDrive = 50;
+    let thirstDrive = 50;
+    let noiseLevel = 0;
+    let autonomousWill = false;
+    let animationId = null;
+    let simResizeHandler = null;
+
+    let chartInstance = null;
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function initDonkeySimulation() {
+      const canvas = document.getElementById('donkeyCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+      resize();
+      if (simResizeHandler) window.removeEventListener('resize', simResizeHandler);
+      simResizeHandler = resize;
+      window.addEventListener('resize', simResizeHandler);
+
+      function render() {
+        const width = canvas.width / window.devicePixelRatio;
+        const height = canvas.height / window.devicePixelRatio;
+        ctx.clearRect(0, 0, width, height);
+
+        const centerY = height / 2;
+        const centerX = width / 2;
+        const laneWidth = width * 0.76;
+        const leftTargetX = centerX - laneWidth / 2;
+        const rightTargetX = centerX + laneWidth / 2;
+
+        ctx.strokeStyle = '#E2DBD1';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(leftTargetX, centerY + 20);
+        ctx.lineTo(rightTargetX, centerY + 20);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#D1C7BA';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY - 60);
+        ctx.lineTo(centerX, centerY + 50);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.font = '28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('\u{1F955}', leftTargetX, centerY + 18);
+        ctx.fillText('\u{1F4A7}', rightTargetX, centerY + 18);
+
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#8C5E3C';
+        ctx.fillText('CARROTS (HUNGER)', leftTargetX, centerY + 45);
+        ctx.fillStyle = '#4A7C59';
+        ctx.fillText('WATER (THIRST)', rightTargetX, centerY + 45);
+
+        let netNoise = 0;
+        if (noiseLevel > 0) {
+          netNoise = (Math.random() - 0.5) * (noiseLevel * 0.08);
+        }
+
+        let leftPull = hungerDrive;
+        let rightPull = thirstDrive;
+
+        if (autonomousWill) {
+          rightPull += 15;
+        }
+
+        const force = (rightPull - leftPull) * 0.03 + netNoise;
+        donkeyVelocity += force;
+        donkeyVelocity *= 0.88;
+        donkeyX += donkeyVelocity;
+
+        const maxOffset = laneWidth / 2 - 20;
+        if (donkeyX < -maxOffset) { donkeyX = -maxOffset; donkeyVelocity = 0; }
+        if (donkeyX > maxOffset) { donkeyX = maxOffset; donkeyVelocity = 0; }
+
+        const donkeyScreenX = centerX + donkeyX;
+        const donkeyScreenY = centerY - 10;
+
+        ctx.fillStyle = 'rgba(45, 49, 66, 0.08)';
+        ctx.beginPath();
+        ctx.ellipse(donkeyScreenX, centerY + 20, 24, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#FAF7F2';
+        ctx.strokeStyle = '#2D3142';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(donkeyScreenX, donkeyScreenY, 26, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = '26px sans-serif';
+        ctx.fillStyle = '#2D3142';
+        ctx.fillText('\u{1F434}', donkeyScreenX, donkeyScreenY + 2);
+
+        const leftVecLen = (leftPull / 100) * 50;
+        const rightVecLen = (rightPull / 100) * 50;
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#A8422B';
+        ctx.beginPath();
+        ctx.moveTo(donkeyScreenX - 28, donkeyScreenY);
+        ctx.lineTo(donkeyScreenX - 28 - leftVecLen, donkeyScreenY);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#4A7C59';
+        ctx.beginPath();
+        ctx.moveTo(donkeyScreenX + 28, donkeyScreenY);
+        ctx.lineTo(donkeyScreenX + 28 + rightVecLen, donkeyScreenY);
+        ctx.stroke();
+
+        const statusEl = document.getElementById('simStatus');
+        const posEl = document.getElementById('posDisplay');
+        const leftFEl = document.getElementById('forceLeftDisplay');
+        const rightFEl = document.getElementById('forceRightDisplay');
+
+        const normalizedPos = (donkeyX / maxOffset).toFixed(2);
+        posEl.textContent = `Position: ${normalizedPos} (${donkeyX < -5 ? 'Towards Nourishment' : donkeyX > 5 ? 'Towards Hydration' : 'Equidistant Zero'})`;
+        leftFEl.textContent = `${leftPull.toFixed(1)}%`;
+        rightFEl.textContent = `${rightPull.toFixed(1)}%`;
+
+        if (Math.abs(donkeyX) < 8 && Math.abs(donkeyVelocity) < 0.05) {
+          statusEl.textContent = 'STATE: DEADLOCKED (BURIDAN STASIS)';
+          statusEl.className = 'font-mono text-[#A8422B] bg-[#FBEBE8] px-2 py-0.5 rounded';
+        } else if (donkeyX <= -maxOffset + 5) {
+          statusEl.textContent = 'STATE: CONSUMING CARROTS (NOURISHED)';
+          statusEl.className = 'font-mono text-[#8C5E3C] bg-[#FAF4ED] px-2 py-0.5 rounded';
+        } else if (donkeyX >= maxOffset - 5) {
+          statusEl.textContent = 'STATE: DRINKING WATER (HYDRATED)';
+          statusEl.className = 'font-mono text-[#4A7C59] bg-[#EEF5F0] px-2 py-0.5 rounded';
+        } else {
+          statusEl.textContent = 'STATE: IN TRANSIT / ASYMMETRIC FLIGHT';
+          statusEl.className = 'font-mono text-[#2D3142] bg-[#EAE2D7] px-2 py-0.5 rounded';
+        }
+
+        animationId = requestAnimationFrame(render);
+      }
+
+      if (animationId) cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(render);
+    }
+
+    function updateSimParameters() {
+      hungerDrive = parseFloat(document.getElementById('hungerSlider').value);
+      thirstDrive = parseFloat(document.getElementById('thirstSlider').value);
+      noiseLevel = parseFloat(document.getElementById('noiseSlider').value);
+      autonomousWill = document.getElementById('volitionToggle').checked;
+
+      document.getElementById('hungerVal').textContent = hungerDrive;
+      document.getElementById('thirstVal').textContent = thirstDrive;
+      document.getElementById('noiseVal').textContent = noiseLevel + '%';
+    }
+
+    function resetSimulation() {
+      donkeyX = 0;
+      donkeyVelocity = 0;
+      document.getElementById('hungerSlider').value = 50;
+      document.getElementById('thirstSlider').value = 50;
+      document.getElementById('noiseSlider').value = 0;
+      document.getElementById('volitionToggle').checked = false;
+      updateSimParameters();
+    }
+
+    function triggerKierkegaardLeap() {
+      autonomousWill = true;
+      document.getElementById('volitionToggle').checked = true;
+      donkeyVelocity = (Math.random() > 0.5 ? 1 : -1) * 8.5;
+    }
+
+    function initApproachAvoidanceChart() {
+      const ctx = document.getElementById('approachAvoidanceChart');
+      if (!ctx) return;
+
+      const labels = [
+        '10. Far Planning',
+        '8. Brainstorm',
+        '6. Studio Work',
+        '4. Portfolio Ready',
+        '2. Final Submission',
+        '0. Public Exhibition'
+      ];
+
+      const approachData = [35, 45, 58, 70, 82, 95];
+      const avoidanceData = [12, 22, 38, 62, 88, 115];
+
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Approach Gradient (Desire for Art / Impact)',
+              data: approachData,
+              borderColor: '#4A7C59',
+              backgroundColor: 'rgba(74, 124, 89, 0.1)',
+              borderWidth: 3,
+              tension: 0.3,
+              fill: true,
+              pointBackgroundColor: '#4A7C59',
+              pointRadius: 4
+            },
+            {
+              label: 'Avoidance Gradient (Terror of Rejection)',
+              data: avoidanceData,
+              borderColor: '#A8422B',
+              backgroundColor: 'rgba(168, 66, 43, 0.1)',
+              borderWidth: 3,
+              tension: 0.3,
+              fill: true,
+              pointBackgroundColor: '#A8422B',
+              pointRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, family: '-apple-system, BlinkMacSystemFont, sans-serif' },
+                color: '#2D3142'
+              }
+            },
+            tooltip: {
+              backgroundColor: '#2D3142',
+              titleFont: { size: 12, weight: 'bold' },
+              bodyFont: { size: 11 },
+              padding: 10,
+              callbacks: {
+                footer: function(tooltipItems) {
+                  const idx = tooltipItems[0].dataIndex;
+                  if (idx === 3) {
+                    return 'CRITICAL INTERSECTION: Avoidance spikes past Approach! Paralysis triggers.';
+                  }
+                  return '';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 125,
+              title: {
+                display: true,
+                text: 'Psychological Drive Strength',
+                color: '#5C6479',
+                font: { size: 11 }
+              },
+              grid: { color: '#E8E2D9' },
+              ticks: { color: '#717786', font: { size: 10 } }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Psychological Distance to Action Event',
+                color: '#5C6479',
+                font: { size: 11 }
+              },
+              grid: { color: '#E8E2D9' },
+              ticks: {
+                color: '#717786',
+                font: { size: 10 },
+                callback: function(val, index) {
+                  const text = labels[index];
+                  return text.length > 16 ? text.substring(0, 16) + '...' : text;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function switchTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => {
+        content.classList.add('hidden');
+        content.classList.remove('block');
+      });
+
+      const selected = document.getElementById('tab-' + tabId);
+      if (selected) {
+        selected.classList.remove('hidden');
+        selected.classList.add('block');
+      }
+
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('bg-[#2D3142]', 'text-[#FAF7F2]');
+          btn.classList.remove('text-[#5C6479]', 'hover:bg-[#E8E2D9]');
+        } else {
+          btn.classList.remove('bg-[#2D3142]', 'text-[#FAF7F2]');
+          btn.classList.add('text-[#5C6479]', 'hover:bg-[#E8E2D9]');
+        }
+      });
+
+      if (tabId === 'simulation') {
+        setTimeout(initDonkeySimulation, 50);
+      } else {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+        if (tabId === 'neurobiology') {
+          setTimeout(() => {
+            if (!chartInstance) {
+              initApproachAvoidanceChart();
+            } else {
+              chartInstance.resize();
+            }
+          }, 50);
+        }
+      }
+    }
+
+    function filterPhilosophy(era) {
+      const filterBtns = document.querySelectorAll('.phil-filter');
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-filter') === era) {
+          btn.classList.add('bg-[#2D3142]', 'text-[#FAF7F2]');
+          btn.classList.remove('text-[#5C6479]', 'hover:bg-[#EAE2D7]');
+        } else {
+          btn.classList.remove('bg-[#2D3142]', 'text-[#FAF7F2]');
+          btn.classList.add('text-[#5C6479]');
+        }
+      });
+
+      const cards = document.querySelectorAll('#philGrid > div');
+      cards.forEach(card => {
+        if (era === 'all' || card.getAttribute('data-era') === era) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    const deadlockState = {
+      mode: 'cycle',
+      step: 0,
+      deadlock: false,
+      resolved: false,
+      log: [],
+      T1: { holds: [], waiting: null, status: 'idle', intent: 'Waiting for the doors to open.' },
+      T2: { holds: [], waiting: null, status: 'idle', intent: 'Waiting for the doors to open.' }
+    };
+
+    const DISH_STYLES = {
+      free: { border: 'border-[#E2DBD1]', badge: 'bg-[#F4EFEA] text-[#717786]' },
+      held: { border: 'border-[#4A7C59]', badge: 'bg-[#EEF5F0] text-[#4A7C59]' },
+      contested: { border: 'border-[#A8422B]', badge: 'bg-[#FBEBE8] text-[#A8422B]' }
+    };
+
+    const DINER_STYLES = {
+      idle: 'text-[#717786]',
+      active: 'text-[#4A7C59]',
+      blocked: 'text-[#A8422B]',
+      committed: 'text-[#4A7C59]',
+      rolledback: 'text-[#A8422B]'
+    };
+
+    function tx(name) {
+      return deadlockState[name];
+    }
+
+    function dlLog(who, text) {
+      deadlockState.log.push({ who: who, text: text });
+    }
+
+    function dlResetTx(name) {
+      deadlockState[name] = { holds: [], waiting: null, status: 'idle', intent: 'Waiting for the doors to open.' };
+    }
+
+    function dlAcquire(who, row, intent) {
+      const t = tx(who);
+      t.holds.push(row);
+      t.waiting = null;
+      t.status = 'active';
+      if (intent) t.intent = intent;
+    }
+
+    function dlWait(who, row, intent) {
+      const t = tx(who);
+      t.waiting = row;
+      t.status = 'blocked';
+      if (intent) t.intent = intent;
+    }
+
+    function dlRelease(who, status, intent) {
+      const t = tx(who);
+      t.holds = [];
+      t.waiting = null;
+      t.status = status;
+      if (intent) t.intent = intent;
+    }
+
+    function dlScript(mode) {
+      if (mode === 'ordered') {
+        return [
+          function () {
+            dlAcquire('T1', 'A', 'Takes Row A first, as the house rule demands.');
+            dlLog('T1', 'T1 reserves Row A.  SELECT * FROM accounts WHERE id = 1 FOR UPDATE;');
+          },
+          function () {
+            dlWait('T2', 'A', 'Reaches for Row A first — blocked by T1. Holds nothing.');
+            dlLog('T2', 'T2 requests Row A first.  -- blocked: T1 holds it. T2 holds nothing, so no cycle forms.');
+          },
+          function () {
+            dlAcquire('T1', 'B', 'Still holding Row A, now takes Row B.');
+            dlLog('T1', 'T1 reserves Row B.  SELECT * FROM accounts WHERE id = 2 FOR UPDATE;');
+          },
+          function () {
+            dlRelease('T1', 'committed', 'COMMIT — releases both rows.');
+            dlLog('T1', 'T1 COMMIT.  -- Row A and Row B are released.');
+            dlLog('SYSTEM', 'T2 was waiting, not holding. The queue moves.');
+          },
+          function () {
+            dlAcquire('T2', 'A', 'Wakes up: Row A is free at last.');
+            dlLog('T2', 'T2 acquires Row A.  -- no one is blocking it.');
+          },
+          function () {
+            dlAcquire('T2', 'B', 'Takes Row B.');
+            dlLog('T2', 'T2 reserves Row B.  SELECT * FROM accounts WHERE id = 2 FOR UPDATE;');
+          },
+          function () {
+            dlRelease('T2', 'committed', 'COMMIT — releases both rows.');
+            dlLog('T2', 'T2 COMMIT.  -- the table is clear.');
+            dlLog('SYSTEM', 'Serialized by ordering. One diner simply waited.');
+          }
+        ];
+      }
+      return [
+        function () {
+          dlAcquire('T1', 'A', 'Locks Row A. Holds one dish.');
+          dlLog('T1', 'T1 reserves Row A.  SELECT * FROM accounts WHERE id = 1 FOR UPDATE;');
+        },
+        function () {
+          dlAcquire('T2', 'B', 'Locks Row B. Holds the other dish.');
+          dlLog('T2', 'T2 reserves Row B.  SELECT * FROM accounts WHERE id = 2 FOR UPDATE;');
+        },
+        function () {
+          dlWait('T1', 'B', 'Reaches across for Row B — blocked by T2.');
+          dlLog('T1', 'T1 reaches for Row B.  UPDATE accounts SET balance = balance - 100 WHERE id = 2;  -- blocked by T2');
+        },
+        function () {
+          dlWait('T2', 'A', 'Reaches across for Row A — blocked by T1. Neither will let go.');
+          deadlockState.deadlock = true;
+          dlLog('T2', 'T2 reaches for Row A.  UPDATE accounts SET balance = balance - 100 WHERE id = 1;  -- blocked by T1');
+          dlLog('ENGINE', 'Waits-for graph: T1 → Row B (T2) and T2 → Row A (T1). Cycle found. DEADLOCK.');
+        }
+      ];
+    }
+
+    function advanceDeadlock() {
+      if (deadlockState.deadlock) {
+        dlLog('SYSTEM', 'No one can move. The maître d’ must choose a victim — or you can reseat the table.');
+        renderDeadlock();
+        return;
+      }
+      if (deadlockState.resolved) {
+        dlLog('SYSTEM', 'The table is settled. Press “New seating” to run it again.');
+        renderDeadlock();
+        return;
+      }
+      const script = dlScript(deadlockState.mode);
+      if (deadlockState.step >= script.length) {
+        dlLog('SYSTEM', 'No courses remain. Press “New seating” to run it again.');
+        renderDeadlock();
+        return;
+      }
+      script[deadlockState.step]();
+      deadlockState.step += 1;
+      renderDeadlock();
+    }
+
+    function resolveDeadlock() {
+      if (!deadlockState.deadlock) {
+        dlLog('ENGINE', 'No cycle to break. Advance the simulation until the waits-for graph closes.');
+        renderDeadlock();
+        return;
+      }
+      dlLog('ENGINE', 'Victim selection: T2 has done the least work and holds the fewest rows. T2 is rolled back.');
+      dlRelease('T2', 'rolledback', 'Rolled back by the maître d’ — the scapegoat.');
+      dlLog('T2', 'T2 ROLLBACK.  -- releases Row B');
+      dlAcquire('T1', 'B', 'Row B is free. T1 completes the transaction.');
+      dlLog('T1', 'T1 resumes.  UPDATE accounts SET balance = balance - 100 WHERE id = 2;');
+      dlRelease('T1', 'committed', 'COMMIT — releases both rows.');
+      dlLog('T1', 'T1 COMMIT.  -- Row A and Row B released.');
+      dlLog('SYSTEM', 'The application retries T2 with backoff. Order is restored at the cost of one transaction.');
+      deadlockState.deadlock = false;
+      deadlockState.resolved = true;
+      renderDeadlock();
+    }
+
+    function resetDeadlock() {
+      const toggle = document.getElementById('lockOrderingToggle');
+      deadlockState.mode = toggle && toggle.checked ? 'ordered' : 'cycle';
+      deadlockState.step = 0;
+      deadlockState.deadlock = false;
+      deadlockState.resolved = false;
+      deadlockState.log = [];
+      dlResetTx('T1');
+      dlResetTx('T2');
+      dlLog('SYSTEM', deadlockState.mode === 'ordered'
+        ? 'House rule announced: every diner takes Row A before Row B.'
+        : 'No house rule. Each diner reaches for whatever it needs, whenever it needs it.');
+      renderDeadlock();
+    }
+
+    function dlGraphText() {
+      if (deadlockState.resolved) return 'cycle broken · T2 rolled back';
+      const edges = [];
+      ['T1', 'T2'].forEach(function (name) {
+        const t = tx(name);
+        if (t.waiting) {
+          const other = name === 'T1' ? 'T2' : 'T1';
+          edges.push(name + ' → Row ' + t.waiting + ' (held by ' + other + ')');
+        }
+      });
+      if (deadlockState.deadlock) return edges.join('  ·  ') + '  ⇒  CYCLE';
+      return edges.length ? edges.join('  ·  ') : 'no edges';
+    }
+
+    function deadlockHintText(t1, t2, anyWaiting, anyHeld) {
+      if (deadlockState.deadlock) return 'The cycle closes: T1 waits for Row B, T2 waits for Row A, and neither may be preempted. Two diners, two locked dishes, zero courses served. This is Buridan’s stasis with better logging.';
+      if (deadlockState.resolved) return 'The maître d’ sacrificed T2. T1 committed; the victim will be retried with backoff. The table is orderly again — one transaction paid for both.';
+      if (t1.status === 'committed' && t2.status === 'committed') {
+        return deadlockState.mode === 'ordered'
+          ? 'Both diners announced the same order (Row A before Row B). No cycle could form; one simply waited for the other to finish.'
+          : 'Both transactions completed. A deadlock is a property of timing, not of data; here the schedule happened to avoid it.';
+      }
+      if (anyWaiting) return 'One diner now waits for a dish the other is holding. The waits-for graph is a straight line — still not a cycle.';
+      if (anyHeld) return 'Symmetry is broken: each diner holds one dish. Appetite is no longer the problem; possession is.';
+      return 'The dining room is empty. Press “Next course” to seat two transactions at the table.';
+    }
+
+    function paintDinerCard(name) {
+      const card = document.getElementById(name.toLowerCase() + 'Card');
+      if (!card) return;
+      const t = tx(name);
+      let extra = 'border-[#E8E2D9]';
+      if (t.status === 'rolledback') extra = 'border-dashed border-[#A8422B] opacity-60';
+      else if (t.status === 'committed') extra = 'border-[#4A7C59]';
+      card.className = 'flex flex-col justify-between rounded-lg border bg-[#FFFFFF] p-3 transition-all duration-300 ' + extra;
+    }
+
+    function paintDish(row) {
+      const card = document.getElementById(row === 'A' ? 'dishA' : 'dishB');
+      const badge = document.getElementById(row === 'A' ? 'dishAState' : 'dishBState');
+      const detail = document.getElementById(row === 'A' ? 'dishADetail' : 'dishBDetail');
+      if (!card || !badge || !detail) return;
+
+      const holders = ['T1', 'T2'].filter(function (name) { return tx(name).holds.indexOf(row) !== -1; });
+      const waiters = ['T1', 'T2'].filter(function (name) { return tx(name).waiting === row; });
+
+      let kind = 'free';
+      let badgeText = 'FREE';
+      let detailText = 'No lock held.';
+
+      if (holders.length) {
+        kind = waiters.length ? 'contested' : 'held';
+        badgeText = waiters.length ? 'CONTESTED' : 'LOCKED';
+        detailText = 'Held by ' + holders.join(', ') + '.';
+      }
+      if (waiters.length) {
+        detailText = (holders.length ? 'Held by ' + holders.join(', ') + ' · ' : '') + 'waited on by ' + waiters.join(', ') + '.';
+        if (!holders.length) { kind = 'contested'; badgeText = 'WAITED ON'; }
+      }
+      const finished = ['T1', 'T2'].some(function (name) {
+        const s = tx(name).status;
+        return s === 'committed' || s === 'rolledback';
+      });
+      if (!holders.length && !waiters.length && finished) {
+        detailText = 'Released by COMMIT / ROLLBACK.';
+      }
+
+      const style = DISH_STYLES[kind];
+      card.className = 'rounded-lg border bg-[#FFFFFF] p-2.5 transition-colors duration-300 ' + style.border;
+      badge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ' + style.badge;
+      badge.textContent = badgeText;
+      detail.textContent = detailText;
+    }
+
+    function renderDeadlock() {
+      const t1 = tx('T1');
+      const t2 = tx('T2');
+
+      ['T1', 'T2'].forEach(function (name) {
+        const t = tx(name);
+        const stateEl = document.getElementById(name.toLowerCase() + 'State');
+        const intentEl = document.getElementById(name.toLowerCase() + 'Intent');
+        if (stateEl) {
+          stateEl.textContent = t.status;
+          stateEl.className = 'text-[10px] font-mono uppercase ' + (DINER_STYLES[t.status] || 'text-[#717786]');
+        }
+        if (intentEl) intentEl.textContent = t.intent;
+        paintDinerCard(name);
+      });
+
+      paintDish('A');
+      paintDish('B');
+
+      const anyWaiting = !!(t1.waiting || t2.waiting);
+      const anyHeld = t1.holds.length > 0 || t2.holds.length > 0;
+
+      const statusEl = document.getElementById('deadlockStatus');
+      if (statusEl) {
+        let label = 'TABLE: IDLE';
+        let cls = 'bg-[#F4EFEA] text-[#717786]';
+        if (deadlockState.deadlock) {
+          label = 'TABLE: DEADLOCK';
+          cls = 'bg-[#FBEBE8] text-[#A8422B]';
+        } else if (deadlockState.resolved) {
+          label = 'TABLE: RESOLVED';
+          cls = 'bg-[#EEF5F0] text-[#4A7C59]';
+        } else if (t1.status === 'committed' && t2.status === 'committed') {
+          label = deadlockState.mode === 'ordered' ? 'TABLE: SERIALIZED' : 'TABLE: COMMITTED';
+          cls = 'bg-[#EEF5F0] text-[#4A7C59]';
+        } else if (anyWaiting) {
+          label = 'TABLE: CONTENDED';
+          cls = 'bg-[#FAF4ED] text-[#8C5E3C]';
+        } else if (anyHeld) {
+          label = 'TABLE: ACTIVE';
+          cls = 'bg-[#FAF4ED] text-[#8C5E3C]';
+        }
+        statusEl.textContent = label;
+        statusEl.className = 'text-[11px] font-mono px-2 py-1 rounded ' + cls;
+      }
+
+      const ring = document.getElementById('cycleRing');
+      if (ring) {
+        ring.className = deadlockState.deadlock
+          ? 'pointer-events-none absolute inset-1 rounded-xl border-2 border-dashed border-[#A8422B] animate-pulse'
+          : 'pointer-events-none absolute inset-1 rounded-xl border-2 border-dashed border-transparent';
+      }
+
+      const ribbon = document.getElementById('graphRibbon');
+      if (ribbon) {
+        ribbon.textContent = dlGraphText();
+        ribbon.className = 'text-[10px] font-mono ' + (deadlockState.deadlock ? 'text-[#A8422B] font-bold' : 'text-[#717786]');
+      }
+
+      const hint = document.getElementById('deadlockHint');
+      if (hint) hint.textContent = deadlockHintText(t1, t2, anyWaiting, anyHeld);
+
+      const logEl = document.getElementById('deadlockLog');
+      if (logEl) {
+        logEl.innerHTML = deadlockState.log.map(function (entry) {
+          const color = entry.who === 'ENGINE' ? '#A8422B' : (entry.who === 'SYSTEM' ? '#8C5E3C' : '#2D3142');
+          return '<li class="flex gap-2"><span class="font-bold shrink-0" style="color:' + color + '">[' + entry.who + ']</span><span>' + entry.text + '</span></li>';
+        }).join('');
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+    }
+
+    const dilemmas = {
+      art: {
+        a: "I want to live an authentic, creative life",
+        b: "I never want to experience the sting of rejection",
+        reframed: "I choose to create and share my authentic work, AND I accept that facing rejection is the natural tax of an unhidden life."
+      },
+      venture: {
+        a: "I desire to build my own independent venture",
+        b: "I refuse to endure unpredictable financial instability",
+        reframed: "I choose to launch my venture with deliberate focus, AND I accept the acute discomfort of financial ambiguity as the price of ownership."
+      },
+      intimacy: {
+        a: "I want deep, profound emotional intimacy",
+        b: "I must protect myself from ever feeling betrayed or abandoned",
+        reframed: "I choose to offer honest vulnerability to another, AND I courageously hold the possibility of heartbreak as the necessary condition for love."
+      },
+      authenticity: {
+        a: "I want to speak candidly and uphold my core values",
+        b: "I cannot tolerate peers disagreeing with or judging me",
+        reframed: "I choose to speak my unvarnished truth with dignity, AND I permit others the full freedom to disagree or disapprove."
+      }
+    };
+
+    function loadPresetDilemma() {
+      const select = document.getElementById('presetDilemma');
+      const val = select.value;
+      if (val === 'custom') {
+        reframeSentence();
+        return;
+      }
+      const data = dilemmas[val];
+      document.getElementById('clauseA').value = data.a;
+      document.getElementById('clauseB').value = data.b;
+      renderReframe(data.a, data.b, data.reframed);
+    }
+
+    function renderReframe(a, b, curated) {
+      document.getElementById('paralyzingDisplay').innerHTML =
+        `&ldquo;${escapeHtml(a)}, <span class="font-bold underline">BUT</span> ${escapeHtml(b)}.&rdquo;`;
+
+      let actionVerb = a
+        .replace(/^I want to /i, 'I choose to ')
+        .replace(/^I desire to /i, 'I commit to ')
+        .replace(/^I wish to /i, 'I choose to ');
+      if (!/^I (choose|commit)\b/i.test(actionVerb)) {
+        actionVerb = 'I choose to pursue this: ' + a;
+      }
+
+      const empowered = curated
+        ? curated.replace(/\bAND\b/, '<span class="font-bold text-[#4A7C59]">AND</span>')
+        : `${escapeHtml(actionVerb)}, <span class="font-bold text-[#4A7C59]">AND</span> I accept that this fear may come true: &ldquo;${escapeHtml(b)}.&rdquo; I choose the goal anyway&mdash;the risk is its price, not its prohibition.`;
+
+      document.getElementById('empoweredDisplay').innerHTML = `&ldquo;${empowered}&rdquo;`;
+    }
+
+    function reframeSentence() {
+      const a = document.getElementById('clauseA').value.trim() || 'I want this goal';
+      const b = document.getElementById('clauseB').value.trim() || 'I fear this consequence';
+      renderReframe(a, b, null);
+    }
+
+    function generateActionManifesto() {
+      const q1 = escapeHtml(document.getElementById('q1Input').value.trim() || 'Enduring the friction of creative vulnerability.');
+      const q2 = escapeHtml(document.getElementById('q2Input').value.trim() || 'Regretting stumbling in the arena rather than the quiet grave of inaction.');
+      const q3 = escapeHtml(document.getElementById('q3Input').value.trim() || 'That safe waiting is simply fear in disguise.');
+
+      const output = document.getElementById('manifestoOutput');
+      output.innerHTML = `
+        <div class="text-left w-full space-y-3">
+          <div class="border-b border-[#E8E2D9] pb-2 flex justify-between items-center">
+            <span class="font-bold text-[#2D3142] text-xs uppercase tracking-wider">Existential Action Protocol</span>
+            <span class="text-[10px] font-mono text-[#4A7C59] bg-[#EEF5F0] px-2 py-0.5 rounded">STATUS: COMMITTED</span>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase font-bold text-[#8C5E3C]">The Chosen Suffering</div>
+            <p class="text-xs text-[#2D3142] italic mt-0.5">&ldquo;${q1}&rdquo;</p>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase font-bold text-[#8C5E3C]">The Dignified Regret</div>
+            <p class="text-xs text-[#2D3142] italic mt-0.5">&ldquo;${q2}&rdquo;</p>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase font-bold text-[#8C5E3C]">Confronted Truth</div>
+            <p class="text-xs text-[#2D3142] italic mt-0.5">&ldquo;${q3}&rdquo;</p>
+          </div>
+          <div class="pt-2 border-t border-[#E8E2D9] text-[11px] font-semibold text-[#2D3142] bg-[#FAF4ED] p-2 rounded">
+            <strong>Verdict:</strong> The illusion of neutrality is revoked. You are taking your leap across the threshold today.
+          </div>
+        </div>
+      `;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initDonkeySimulation();
+      resetDeadlock();
+    });
+  </script>
+</body>
+</html>
