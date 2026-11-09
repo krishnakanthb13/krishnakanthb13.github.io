@@ -156,6 +156,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Emotional Memory](./emotional_memory/)
+**The Neurobiology of Emotional Bookmarks** — why emotion is a neurobiological bookmark—an arousal tag that makes salient experiences durable—and why keeping the feeling is not the same as keeping the lesson. Synthesizes amygdala–hippocampal consolidation and Damasio's somatic marker hypothesis, memory reconsolidation and prediction error, mood-congruent drift and allostatic load, Resick's CPT stuck points and fear extinction, Pennebaker's expressive writing, Feldman Barrett's emotional granularity, Gollwitzer's implementation intentions, and Hayes' ACT defusion.
+
+- 📝 [The Full Report](./emotional_memory/readme.md) — the long-form essay with 109 cited sources. (`readme.md`)
+- 🔖 [Interactive Infographic](./emotional_memory/index.html) — the complete warm editorial sand & terracotta interactive page: six-part portal with clickable BLA–hippocampus–vmPFC circuitry and consolidation chart, a reconsolidation lab contrasting rumination with prediction error, allostatic bar/radar dashboard, CPT stuck-point diagnostic, and an If-Then translation workshop with ACT defusion check. (`index.html`)
+
+---
+
 ### 📁 [Empathy & Discernment](./empathy_n_discernment/)
 **Understanding vs. Judging** — a neurobiological and clinical framework exploring the tension between empathy and discernment. Synthesizes the Opposing Domains Hypothesis (DMN/TPN reciprocal inhibition), DBT Wise Mind, Schema Therapy modes, and Pennebaker's expressive writing research to navigate the balance between understanding and protective judgment.
 

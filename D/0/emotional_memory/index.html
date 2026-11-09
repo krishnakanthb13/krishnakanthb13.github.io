@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Emotional Bookmarks: Decoupling Affect from Semantic Learning</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔖</text></svg>">
+  <meta name="description" content="Interactive synthesis of emotional memory: amygdala-hippocampal consolidation, reconsolidation and prediction error, allostatic load, CPT stuck points, and If-Then translation.">
+  <meta name="theme-color" content="#FAF8F5">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1ede6;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #d4c8b8;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #b5a490;
+    }
+    .stuck-card.is-active {
+      box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.55);
+    }
+    :focus-visible {
+      outline: 2px solid #b45309;
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#FAF8F5] text-stone-800 font-sans antialiased min-h-screen selection:bg-amber-100 selection:text-amber-900">
+
+<!-- Chosen Palette: Warm Editorial Sand & Terracotta Slate -->
+<!-- Application Structure Plan: The single-page application is structured into five cohesive, task-oriented modules designed for cognitive understanding: 1. Executive Synthesis & Core Axiom (introducing the bookmark metaphor, primary neurobiological paradox, and key metrics); 2. The Neurobiology of the Bookmark (exploring consolidation mechanisms, the BLA-Hippocampus axis, and Damasio's Somatic Marker Hypothesis); 3. The Malleability of the Page & Reconsolidation Lab (an interactive simulation demonstrating how retrieval without prediction error sours memory, while prediction error enables updating); 4. The Allostatic Toll of Retention (a physiological comparison dashboard illustrating the metabolic and neural costs of emotional suppression vs. cognitive reappraisal, including CPT stuck points); and 5. The Translation Workshop (an interactive algorithmic laboratory where users convert raw affect into Gollwitzer 'If-Then' implementation intentions using Pennebaker's LIWC insight shifts and ACT defusion). This architecture prioritizes non-linear, deep exploration over passive reading, moving from biological premise to clinical consequence and pragmatic behavioral formulation. -->
+<!-- Visualization & Content Choices: 1. Consolidation & Neuromodulator Impact -> Goal: Inform -> Interactive Multi-node Anatomical Schematic + Dynamic Bar Chart -> Interaction: Clickable brain hubs highlighting neurotransmitter cascades -> Justification: Clarifies how BLA potentiates hippocampal LTP without SVG -> Library: Chart.js Canvas & Tailwind CSS; 2. Memory Drift vs. Lesson Stability over Retrieval Cycles -> Goal: Change & Compare -> Interactive Dual-line Line Chart -> Interaction: Toggle prediction error vs. rumination with slider -> Justification: Graphically proves that replaying without updating degrades accuracy and elevates negative affect -> Library: Chart.js Canvas; 3. Physiological Cost: Suppression vs. Reappraisal -> Goal: Compare -> Radar & Stacked Comparative Chart -> Interaction: Metric switcher (HRV, Cortisol, Prefrontal Bandwidth, Amygdala Reactivity) -> Justification: Demonstrates the somatic toll of emotional retention -> Library: Chart.js Canvas; 4. Interactive Implementation Intention Distillation Lab -> Goal: Organize & Formulate -> Multi-step stateful algorithm builder -> Interaction: Inputs, tag selectors, and defusion test -> Justification: Directly converts theoretical insights into Gollwitzer/ACT procedural rules. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <header class="border-b border-stone-200 bg-[#FAF8F5]/95 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="flex-shrink-0 text-stone-500 hover:text-stone-900 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-stone-200" title="Return to the D/0 Knowledge Vault">← D/0</a>
+          <span class="w-8 h-8 flex-shrink-0 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-serif font-bold text-lg border border-amber-300" aria-hidden="true">&#182;</span>
+          <div class="min-w-0">
+            <span class="block text-base sm:text-lg font-serif font-bold text-stone-900 tracking-tight truncate">The Architecture of Emotional Bookmarks</span>
+            <span class="block text-[11px] text-stone-500 font-medium truncate">Decoupling Affective Valence from Semantic Learning</span>
+          </div>
+        </div>
+        <a href="./readme.md" class="hidden sm:inline-flex flex-shrink-0 items-center gap-1 text-xs font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100 px-3 py-1.5 rounded-md transition-colors">Full Report &#8594;</a>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-stone-200/80 py-2 text-xs font-medium text-stone-600 custom-scrollbar" aria-label="Page sections">
+        <button type="button" onclick="navigateToSection('section-overview')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap bg-stone-200 text-stone-900" data-target="section-overview" aria-current="page">Executive Summary</button>
+        <button type="button" onclick="navigateToSection('section-neurobiology')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap" data-target="section-neurobiology">1. Consolidation</button>
+        <button type="button" onclick="navigateToSection('section-reconsolidation')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap" data-target="section-reconsolidation">2. Reconsolidation Lab</button>
+        <button type="button" onclick="navigateToSection('section-allostatic')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap" data-target="section-allostatic">3. The Physiological Toll</button>
+        <button type="button" onclick="navigateToSection('section-workshop')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap" data-target="section-workshop">4. Distillation Workshop</button>
+        <button type="button" onclick="navigateToSection('section-matrix')" class="nav-btn px-2.5 py-1.5 rounded-md hover:bg-stone-200 hover:text-stone-900 transition-colors whitespace-nowrap" data-target="section-matrix">5. Theoretical Matrix</button>
+        <a href="./readme.md" class="sm:hidden flex-shrink-0 px-2.5 py-1.5 rounded-md text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors">Full Report &#8594;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <section id="section-overview" class="scroll-mt-32">
+      <div class="bg-white rounded-2xl border border-stone-200/90 shadow-sm p-6 sm:p-8 lg:p-10">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 border border-amber-200">The Cognitive Axiom</span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-900 leading-tight mb-4">
+            "Emotion is the bookmark, not the book. It marks the page where something mattered, but it isn't what you need to keep."
+          </h2>
+          <p class="text-base sm:text-lg text-stone-600 leading-relaxed mb-6">
+            Human memory evolved not as an infallible archival vault, but as a reconstructive survival algorithm. Emotional arousal serves as a vital neurobiological marker that accelerates learning from mistakes and danger. Yet, retaining the raw emotional state as the primary vehicle for that wisdom causes the lesson to sour, distort, and continuously tax your autonomic physiology.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-stone-100">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/60 hover:border-amber-300 transition-all">
+            <div class="flex items-center space-x-2 text-amber-700 font-semibold text-sm mb-2">
+              <span class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold">1</span>
+              <span>Encoding Potentiation</span>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-normal">
+              Arousal triggers basolateral amygdala (BLA) activation, flooding hippocampal networks with norepinephrine and glucocorticoids to cement salient experiences far faster than neutral instruction.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/60 hover:border-amber-300 transition-all">
+            <div class="flex items-center space-x-2 text-stone-700 font-semibold text-sm mb-2">
+              <span class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center text-xs font-bold">2</span>
+              <span>Reconsolidation Drift</span>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-normal">
+              Every retrieval destabilizes the synaptic trace via protein degradation (UPS). Replaying a feeling without new prediction errors rebuilds the memory around your present mood, souring the core lesson.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/60 hover:border-emerald-700 transition-all">
+            <div class="flex items-center space-x-2 text-emerald-800 font-semibold text-sm mb-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-800">3</span>
+              <span>Semantic Decoupling</span>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-normal">
+              Extracting the lesson into an "If-Then" implementation intention enables top-down prefrontal inhibition (vmPFC over ITCs), automating adaptive behavior while letting the affective bookmark extinguish.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="text-xs sm:text-sm text-amber-950">
+            <strong class="font-semibold text-amber-900">Explore the Research Evidence:</strong> Navigate through neurochemical mechanisms, simulate memory reconsolidation, examine allostatic load metrics, or utilize the interactive translation workshop below.
+          </div>
+          <button onclick="navigateToSection('section-reconsolidation')" class="px-4 py-2 bg-stone-900 text-stone-100 hover:bg-stone-800 rounded-lg text-xs font-semibold tracking-wide whitespace-nowrap shadow-sm transition-all">
+            Open Reconsolidation Lab &#8594;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-neurobiology" class="scroll-mt-32">
+      <div class="mb-6">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-800 bg-amber-100 px-2.5 py-1 rounded">Part I</span>
+        <h3 class="text-2xl font-serif font-bold text-stone-900 mt-2">The Neurobiology of the Bookmark: Consolidation & Somatic Markers</h3>
+        <p class="text-sm sm:text-base text-stone-600 mt-1 max-w-4xl">
+          This section investigates the cellular and systems-level neurobiology responsible for why emotional experiences hold disproportionate pedagogical power. We explore how basolateral amygdala activation shapes hippocampal long-term potentiation, alongside Antonio Damasio’s Somatic Marker Hypothesis, revealing both the evolutionary value and the structural rigidity of relying purely on visceral alarm signals.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h4 class="text-base font-serif font-bold text-stone-900 mb-2">Interactive Neural Circuitry</h4>
+            <p class="text-xs text-stone-500 mb-4">Click any physiological component to examine its role in tagging and encoding memory.</p>
+            
+            <div class="space-y-2.5">
+              <div onclick="selectNeuralNode('bla')" id="node-bla" class="neural-node cursor-pointer p-3 rounded-xl border border-amber-400 bg-amber-50 hover:bg-amber-50 hover:border-amber-300 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-stone-800">Basolateral Amygdala (BLA)</span>
+                  <span class="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-mono font-semibold">Salience Hub</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Modulates consolidation via high-frequency ripple coupling.</p>
+              </div>
+
+              <div onclick="selectNeuralNode('hippocampus')" id="node-hippocampus" class="neural-node cursor-pointer p-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-amber-50 hover:border-amber-300 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-stone-800">Dentate Gyrus & CA1 (Hippocampus)</span>
+                  <span class="text-xs bg-stone-200 text-stone-700 px-2 py-0.5 rounded font-mono font-semibold">Episodic Trace</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Synthesizes PKMzeta for structural synaptic consolidation.</p>
+              </div>
+
+              <div onclick="selectNeuralNode('vmpfc')" id="node-vmpfc" class="neural-node cursor-pointer p-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-amber-50 hover:border-amber-300 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-stone-800">Ventromedial Prefrontal Cortex (vmPFC)</span>
+                  <span class="text-xs bg-stone-200 text-stone-700 px-2 py-0.5 rounded font-mono font-semibold">Inhibitory Gate</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Interprets somatic markers and drives extinction through ITCs.</p>
+              </div>
+
+              <div onclick="selectNeuralNode('catecholamines')" id="node-catecholamines" class="neural-node cursor-pointer p-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-amber-50 hover:border-amber-300 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-stone-800">Neuromodulatory Surge (NE & Cortisol)</span>
+                  <span class="text-xs bg-stone-200 text-stone-700 px-2 py-0.5 rounded font-mono font-semibold">Endocrine Tag</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Prolongs synaptic plasticity window for tens of minutes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="neural-details-card" class="mt-4 p-4 rounded-xl bg-amber-50/80 border border-amber-200/70 text-stone-800 text-xs leading-relaxed">
+            <strong class="font-semibold block text-amber-950 mb-1" id="neural-detail-title">Basolateral Amygdala (BLA) Activation</strong>
+            <p id="neural-detail-body">
+              During emotionally arousing events, the BLA fires synchronously with the medial temporal lobe. High-frequency ripple-locked activity shapes memory-specific gamma oscillations that are deeply inscribed and selectively replayed during sleep.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div>
+              <h4 class="text-base font-serif font-bold text-stone-900">Synaptic Potentiation Comparison</h4>
+              <p class="text-xs text-stone-500">Relative synaptic persistence and encoding strength across learning modes.</p>
+            </div>
+            <div class="flex items-center space-x-2 text-xs">
+              <span class="inline-block w-3 h-3 rounded-sm bg-amber-600"></span>
+              <span class="text-stone-600 font-medium">LTP Duration & Recall Persistence</span>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="consolidationChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-stone-100 text-xs text-stone-500 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <span>Data indexed from rodent and human BLA-hippocampal stimulation protocols.</span>
+            <span class="font-mono text-stone-400">p &lt; 0.001 (Arousal vs. Didactic)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-reconsolidation" class="scroll-mt-32">
+      <div class="mb-6">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-800 bg-amber-100 px-2.5 py-1 rounded">Part II</span>
+        <h3 class="text-2xl font-serif font-bold text-stone-900 mt-2">The Malleability of the Page: Reconsolidation & Drift Simulation</h3>
+        <p class="text-sm sm:text-base text-stone-600 mt-1 max-w-4xl">
+          Memory does not reside in a static, tamper-proof repository. Upon retrieval, memory traces undergo ubiquitin-proteasome protein degradation, becoming biologically labile. If a memory is repeatedly replayed without a <strong class="text-stone-900">Prediction Error</strong> (mismatch between expectation and reality), it assimilates mood-congruent biases: the emotional charge intensifies while the actionable lesson erodes.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl bg-stone-50 border border-stone-200">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Retrieval Mode</label>
+            <div class="flex rounded-lg bg-stone-200/80 p-0.5">
+              <button onclick="setReconsolidationMode('rumination')" id="btn-mode-rumination" class="w-1/2 py-1.5 text-xs font-semibold rounded-md bg-white text-stone-900 shadow-sm transition-all">Rumination</button>
+              <button onclick="setReconsolidationMode('updating')" id="btn-mode-updating" class="w-1/2 py-1.5 text-xs font-semibold rounded-md text-stone-600 hover:text-stone-900 transition-all">Prediction Error</button>
+            </div>
+            <p class="text-[11px] text-stone-500 mt-1" id="mode-hint">Rumination repeats the affective state with zero cognitive mismatch.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Retrieval Repetitions</label>
+              <span id="label-retrieval-cycles" class="text-xs font-mono font-bold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded">Cycle 4</span>
+            </div>
+            <input type="range" id="slider-retrievals" min="1" max="10" value="4" oninput="updateReconsolidationSimulation()" class="w-full h-1.5 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-700">
+            <div class="flex justify-between text-[10px] text-stone-400 mt-1 font-mono">
+              <span>1 (Initial)</span>
+              <span>5 (Habitual)</span>
+              <span>10 (Chronic)</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Current Retrieval Mood</label>
+            <select id="select-current-mood" onchange="updateReconsolidationSimulation()" class="w-full text-xs bg-white border border-stone-300 rounded-md py-1.5 px-2 text-stone-700 focus:outline-none focus:ring-1 focus:ring-amber-500">
+              <option value="distressed">Distressed / Self-Critical (Negative)</option>
+              <option value="neutral">Neutral / Analytical</option>
+              <option value="adaptive">Growth-Oriented / Decoupled</option>
+            </select>
+            <p class="text-[11px] text-stone-500 mt-1">Mood congruency retroactively colors reconsolidating synapses.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-sm font-bold text-stone-800">Episodic Drift vs. Semantic Lesson Integrity</h4>
+              <span class="text-xs font-mono text-stone-500" id="reconsolidation-status-badge">Mode: Rumination (Zero Prediction Error)</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="reconsolidationChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 space-y-4">
+            <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/80">
+              <span class="text-[10px] font-mono uppercase font-bold text-stone-500">Molecular Trace State</span>
+              <div class="mt-2 space-y-2">
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span>PKMzeta Resynthesis Balance</span>
+                    <span id="metric-pkm" class="font-mono text-amber-800">42%</span>
+                  </div>
+                  <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar-pkm" class="bg-amber-600 h-1.5 rounded-full transition-all duration-300" style="width: 42%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span>Affective Souring & Distortion</span>
+                    <span id="metric-souring" class="font-mono text-rose-700">78%</span>
+                  </div>
+                  <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar-souring" class="bg-rose-600 h-1.5 rounded-full transition-all duration-300" style="width: 78%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span>Pragmatic Lesson Fidelity</span>
+                    <span id="metric-fidelity" class="font-mono text-emerald-800">25%</span>
+                  </div>
+                  <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar-fidelity" class="bg-emerald-600 h-1.5 rounded-full transition-all duration-300" style="width: 25%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-950 leading-relaxed">
+              <strong class="font-semibold block text-amber-900 mb-1" id="reconsolidation-insight-title">The Cost of Repetition</strong>
+              <p id="reconsolidation-insight-text">
+                Without prediction error, AMPA receptor endocytosis (GluA2) degrades synaptic scaffolding without updating semantic understanding. The feeling remains high-amplitude, but the practical insight drifts into chronic self-blame or fatalism.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-allostatic" class="scroll-mt-32">
+      <div class="mb-6">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-800 bg-amber-100 px-2.5 py-1 rounded">Part III</span>
+        <h3 class="text-2xl font-serif font-bold text-stone-900 mt-2">The Allostatic Toll: Holding the Feeling vs. Extracting the Rule</h3>
+        <p class="text-sm sm:text-base text-stone-600 mt-1 max-w-4xl">
+          Holding on to an emotion to safeguard a lesson incurs a continuous biological tariff. James Gross’s process model demonstrates that expressive suppression and chronic emotional vigilance drain cognitive bandwidth and provoke sympathetic hyperactivity. In contrast, cognitive reappraisal and semantic extraction engage top-down vmPFC-to-intercalated cell mass (ITC) gating, dampening central amygdala (CeA) alarm cascades.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+            <div>
+              <h4 class="text-base font-serif font-bold text-stone-900">Biometric & Cognitive Profile</h4>
+              <p class="text-xs text-stone-500">Physiological cost of holding onto affect vs. semantic extraction.</p>
+            </div>
+            <div class="flex space-x-1.5">
+              <button onclick="switchBioView('bar')" id="btn-bio-bar" class="px-2.5 py-1 rounded bg-stone-200 text-stone-900 text-xs font-semibold">Bar Chart</button>
+              <button onclick="switchBioView('radar')" id="btn-bio-radar" class="px-2.5 py-1 rounded hover:bg-stone-200 text-stone-600 text-xs font-semibold">Radar Profile</button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="allostaticChart"></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-stone-100 text-center">
+            <div class="p-2 rounded bg-stone-50 border border-stone-200/50">
+              <span class="text-[10px] text-stone-500 uppercase font-bold block">Sympathetic Tone</span>
+              <span class="text-xs font-bold text-rose-700">+145% in Retention</span>
+            </div>
+            <div class="p-2 rounded bg-stone-50 border border-stone-200/50">
+              <span class="text-[10px] text-stone-500 uppercase font-bold block">Heart Rate Var. (HRV)</span>
+              <span class="text-xs font-bold text-rose-700">-38% (Vagal Drop)</span>
+            </div>
+            <div class="p-2 rounded bg-stone-50 border border-stone-200/50">
+              <span class="text-[10px] text-stone-500 uppercase font-bold block">Prefrontal Reserve</span>
+              <span class="text-xs font-bold text-emerald-700">+82% in Decoupled</span>
+            </div>
+            <div class="p-2 rounded bg-stone-50 border border-stone-200/50">
+              <span class="text-[10px] text-stone-500 uppercase font-bold block">CeA Gating</span>
+              <span class="text-xs font-bold text-emerald-700">Optimal via ITCs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-base font-serif font-bold text-stone-900">CPT Stuck-Point Diagnostic</h4>
+              <span class="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded font-mono font-bold">Resick et al.</span>
+            </div>
+            <p class="text-xs text-stone-600 mb-4">
+              When lessons remain welded to emotions, cognitive processing collapses into two primary dysfunctions. Select a cognitive deformation to observe its structure:
+            </p>
+
+            <div class="space-y-3">
+              <div onclick="selectStuckPoint('assimilation')" id="stuck-assimilation" class="stuck-card is-active cursor-pointer p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:border-amber-400 transition-all">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-stone-900">Assimilation (Distorting the Event)</span>
+                  <span class="text-[10px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-semibold">Self-Blame</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">"If I had just been smarter, it wouldn't have happened. It's totally my fault."</p>
+              </div>
+
+              <div onclick="selectStuckPoint('overaccommodation')" id="stuck-overaccommodation" class="stuck-card cursor-pointer p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:border-amber-400 transition-all">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-stone-900">Over-Accommodation (Over-Generalizing)</span>
+                  <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Rigid Rule</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">"No one can ever be trusted again. Intimacy is always dangerous."</p>
+              </div>
+
+              <div onclick="selectStuckPoint('accommodation')" id="stuck-accommodation" class="stuck-card cursor-pointer p-3.5 rounded-xl border border-emerald-300 bg-emerald-50/50 hover:border-emerald-500 transition-all">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-emerald-950">Accommodation (Semantic Lesson)</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Decoupled Rule</span>
+                </div>
+                <p class="text-xs text-emerald-800 mt-1">"Specific indicators matter. When someone shows behavior X, I will establish boundary Y."</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="stuck-point-analysis" class="mt-4 p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-700 leading-normal">
+            <span class="font-bold text-stone-900 block mb-1" id="stuck-title">Diagnostic: Assimilation</span>
+            <p id="stuck-desc">
+              The individual forces the memory to fit prior ideals of total control, generating pervasive guilt. The emotion is retained as a permanent self-punishment to guarantee they never forget, perpetuating sympathetic arousal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-workshop" class="scroll-mt-32">
+      <div class="mb-6">
+        <span class="text-xs font-bold tracking-wider uppercase text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">Part IV</span>
+        <h3 class="text-2xl font-serif font-bold text-stone-900 mt-2">The Translation Workshop: Crystallizing Affect into Procedural Wisdom</h3>
+        <p class="text-sm sm:text-base text-stone-600 mt-1 max-w-4xl">
+          The sturdiest cognitive move is to extract the lesson as a plain sentence, write it down, and let the emotion extinguish. This interactive laboratory walks you through James Pennebaker's linguistic cognitive shift (LIWC), Lisa Feldman Barrett’s emotional granularity, and Peter Gollwitzer's implementation intentions (MCII/WOOP), culminating in Steven Hayes' ACT cognitive defusion test.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-center border-b border-stone-100 pb-6">
+          <div class="step-indicator p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900" id="step-ind-1">
+            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 block">Step 1</span>
+            <span class="text-xs font-bold">1. Episodic Raw Affect</span>
+          </div>
+          <div class="step-indicator p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-500" id="step-ind-2">
+            <span class="text-[10px] uppercase font-bold tracking-wider block">Step 2</span>
+            <span class="text-xs font-bold">2. Granular Labeling</span>
+          </div>
+          <div class="step-indicator p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-500" id="step-ind-3">
+            <span class="text-[10px] uppercase font-bold tracking-wider block">Step 3</span>
+            <span class="text-xs font-bold">3. Causal Distillation</span>
+          </div>
+          <div class="step-indicator p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-500" id="step-ind-4">
+            <span class="text-[10px] uppercase font-bold tracking-wider block">Step 4</span>
+            <span class="text-xs font-bold">4. Implementation Intention</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-7 space-y-5">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                Load a Real-World Scenario or Input Your Own
+              </label>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <button onclick="loadTemplate('career')" class="px-2.5 py-1 text-xs rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium">Scenario A: Public Speaking Failure</button>
+                <button onclick="loadTemplate('relationship')" class="px-2.5 py-1 text-xs rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium">Scenario B: Boundary Breach</button>
+                <button onclick="loadTemplate('financial')" class="px-2.5 py-1 text-xs rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium">Scenario C: Impulsive Investment</button>
+              </div>
+              <textarea id="input-episodic" rows="3" class="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-stone-800 leading-relaxed custom-scrollbar" placeholder="Describe the emotionally charged event or painful mistake..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                Apply Emotional Granularity (Feldman Barrett Active Inference)
+              </label>
+              <div class="flex flex-wrap gap-2" id="granularity-badges">
+                <button onclick="toggleGranularTag(this, 'humiliation')" class="tag-badge px-2.5 py-1 text-xs rounded-full border border-stone-200 bg-stone-50 text-stone-700 hover:border-amber-400">Humiliation</button>
+                <button onclick="toggleGranularTag(this, 'unpreparedness')" class="tag-badge px-2.5 py-1 text-xs rounded-full border border-stone-200 bg-stone-50 text-stone-700 hover:border-amber-400">Unpreparedness</button>
+                <button onclick="toggleGranularTag(this, 'resentment')" class="tag-badge px-2.5 py-1 text-xs rounded-full border border-stone-200 bg-stone-50 text-stone-700 hover:border-amber-400">Resentment</button>
+                <button onclick="toggleGranularTag(this, 'hypervigilance')" class="tag-badge px-2.5 py-1 text-xs rounded-full border border-stone-200 bg-stone-50 text-stone-700 hover:border-amber-400">Hypervigilance</button>
+                <button onclick="toggleGranularTag(this, 'grief')" class="tag-badge px-2.5 py-1 text-xs rounded-full border border-stone-200 bg-stone-50 text-stone-700 hover:border-amber-400">Grief of Disillusionment</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Trigger Cue (When Situation X Happens)
+                </label>
+                <input type="text" id="input-cue" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500" placeholder="e.g., I step up to present without notes">
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Automated Action (I Will Execute Action Y)
+                </label>
+                <input type="text" id="input-action" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500" placeholder="e.g., pause, anchor on slide 1, breathe for 4s">
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 pt-2">
+              <button onclick="synthesizeLesson()" class="px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-stone-100 rounded-xl text-xs font-semibold tracking-wide shadow-sm transition-all flex items-center space-x-2">
+                <span>Crystallize Semantic Algorithm</span>
+                <span>&#8594;</span>
+              </button>
+              <button onclick="resetWorkshop()" class="px-4 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-semibold transition-all">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-stone-50 p-6 rounded-2xl border border-stone-200 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono uppercase font-bold text-stone-500 block mb-1">Output Artifact</span>
+              <h4 class="text-base font-serif font-bold text-stone-900 mb-3">Extracted Semantic Heuristic</h4>
+              
+              <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-3">
+                <div class="flex items-start space-x-2">
+                  <span class="text-emerald-700 font-bold text-sm">&#10003;</span>
+                  <div>
+                    <span class="text-[11px] font-mono font-bold text-stone-400 uppercase">The Plain Sentence</span>
+                    <p id="output-algorithm" class="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 leading-snug">
+                      "When I step up to present without notes, I pause, anchor on slide 1, and take one four-second diaphragmatic breath."
+                    </p>
+                  </div>
+                </div>
+
+                <div class="pt-2 border-t border-stone-100 grid grid-cols-2 gap-2 text-[11px]">
+                  <div>
+                    <span class="text-stone-400 block font-mono">Cognitive Shift (LIWC):</span>
+                    <span id="output-liwc" class="font-semibold text-amber-800">Causal + Insight words high</span>
+                  </div>
+                  <div>
+                    <span class="text-stone-400 block font-mono">Autonomic Toll:</span>
+                    <span class="font-semibold text-emerald-700">Sympathetic firing gated</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 p-3.5 rounded-xl bg-white border border-stone-200/90 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-800">ACT Cognitive Defusion Check</span>
+                  <span id="defusion-badge" class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono font-bold">Passed</span>
+                </div>
+                <p class="text-[11px] text-stone-600 leading-normal">
+                  "Notice that this heuristic is a functional tool—a string of words to guide behavior—not an immutable emotional self-condemnation."
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 rounded-lg bg-amber-50/80 border border-amber-200/70 text-[11px] text-amber-950">
+              <strong class="font-semibold text-amber-900">The Paradox of Peace:</strong> Once this rule is committed to working memory and proceduralized, the emotional bookmark can be retired. The lesson stays; you stop paying for it with your nervous system.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-matrix" class="scroll-mt-32">
+      <div class="mb-6">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-800 bg-amber-100 px-2.5 py-1 rounded">Part V</span>
+        <h3 class="text-2xl font-serif font-bold text-stone-900 mt-2">Theoretical Synthesis & Clinical Boundary Checks</h3>
+        <p class="text-sm sm:text-base text-stone-600 mt-1 max-w-4xl">
+          Decoupling affect from learning unites diverse scientific traditions. Here we compare the foundational models that operationalize this transition, alongside a vital clinical distinction: discerning healthy semantic extraction from the pathology of <strong class="text-stone-900">intellectualization</strong>.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+          <div class="p-4 sm:p-5 border-b border-stone-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <h4 class="font-serif font-bold text-stone-900 text-base">Cross-Framework Modality Matrix</h4>
+            <div class="flex items-center space-x-2 text-xs">
+              <span class="text-stone-500">Filter by Primary Modality:</span>
+              <button onclick="filterMatrix('all')" class="matrix-filter-btn px-2 py-1 rounded bg-stone-900 text-white font-medium" data-filter="all">All</button>
+              <button onclick="filterMatrix('neuro')" class="matrix-filter-btn px-2 py-1 rounded bg-stone-100 text-stone-700 hover:bg-stone-200 font-medium" data-filter="neuro">Neurobiology</button>
+              <button onclick="filterMatrix('cognitive')" class="matrix-filter-btn px-2 py-1 rounded bg-stone-100 text-stone-700 hover:bg-stone-200 font-medium" data-filter="cognitive">Cognitive/Linguistic</button>
+              <button onclick="filterMatrix('behavioral')" class="matrix-filter-btn px-2 py-1 rounded bg-stone-100 text-stone-700 hover:bg-stone-200 font-medium" data-filter="behavioral">Behavioral/Action</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-stone-50 border-b border-stone-200 text-stone-500 font-mono text-[11px] uppercase">
+                  <th class="p-3.5 pl-6">Framework / Pioneer</th>
+                  <th class="p-3.5">Modality</th>
+                  <th class="p-3.5">Decoupling Mechanism</th>
+                  <th class="p-3.5">Target Neurobiology</th>
+                  <th class="p-3.5 pr-6">Primary Adaptive Outcome</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-100 text-stone-700" id="matrix-tbody">
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="cognitive">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Expressive Writing (Pennebaker)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[11px] font-medium">Cognitive/Linguistic</span></td>
+                  <td class="p-3.5">Narrative syntax using causal ("because") & insight ("realize") words.</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">Left PFC narrative restructuring; autonomic deceleration.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Immune T-cell enhancement; reduced medical visits.</td>
+                </tr>
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="cognitive">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Emotional Granularity (Feldman Barrett)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[11px] font-medium">Cognitive/Linguistic</span></td>
+                  <td class="p-3.5">Precision-weighting interoceptive signals to minimize prediction error.</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">Active inference; insula & anterior cingulate.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Down-regulates autonomic allostatic free-energy.</td>
+                </tr>
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="behavioral">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Implementation Intentions (Gollwitzer)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-medium">Behavioral/Action</span></td>
+                  <td class="p-3.5">Mental Contrasting (WOOP) yielding automated "If-Then" stimulus control.</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">Basal ganglia proceduralization; bypassing dlPFC fatigue.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Automates response execution without emotional reliance.</td>
+                </tr>
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="behavioral">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Cognitive Defusion / ACT (Hayes)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-medium">Behavioral/Action</span></td>
+                  <td class="p-3.5">Alters the function rather than content of thoughts; avoids rigid fusion.</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">Parietal meta-awareness; extinguishes conditioned fear.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Prevents over-accommodation; restores behavioral flexibility.</td>
+                </tr>
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="cognitive">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Cognitive Processing Therapy (Resick)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[11px] font-medium">Cognitive/Linguistic</span></td>
+                  <td class="p-3.5">Dismantles "stuck points" (assimilation vs. over-accommodation).</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">vmPFC recruitment; amygdaloid extinction memory.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Extinguishes hypervigilance; forms accommodated rules.</td>
+                </tr>
+                <tr class="matrix-row hover:bg-stone-50/80 transition-colors" data-type="neuro">
+                  <td class="p-3.5 pl-6 font-semibold text-stone-900">Somatic Marker Hypothesis (Damasio)</td>
+                  <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-[11px] font-medium">Neurobiology</span></td>
+                  <td class="p-3.5">Translates visceral autonomic signals into rapid preconscious decision bounds.</td>
+                  <td class="p-3.5 font-mono text-xs text-stone-500">vmPFC & somatosensory insular cortex.</td>
+                  <td class="p-3.5 pr-6 text-emerald-800 font-medium">Constrains choice spaces to avoid catastrophic risk.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
+            <div class="flex items-center space-x-2 text-emerald-800">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-xs">&#10003;</span>
+              <h4 class="font-serif font-bold text-base text-stone-900">Adaptive Semantic Extraction</h4>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              True semantic crystallization requires first confronting the emotional arousal, identifying the prediction error, and tolerating transient autonomic discomfort. The resulting sentence acknowledges the context without escaping bodily awareness, allowing the affect to genuinely extinguish.
+            </p>
+            <ul class="text-xs text-stone-600 space-y-1.5 pt-2 border-t border-stone-100">
+              <li class="flex items-center space-x-2">
+                <span class="text-emerald-700">&#8226;</span>
+                <span>Emotion is experienced, understood, then decoupled.</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-emerald-700">&#8226;</span>
+                <span>Rule is flexible and tested against new contexts.</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-emerald-700">&#8226;</span>
+                <span>Produces long-term reductions in sympathetic tone and cortisol.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-rose-200 shadow-sm space-y-3">
+            <div class="flex items-center space-x-2 text-rose-800">
+              <span class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center font-bold text-xs">&#9888;</span>
+              <h4 class="font-serif font-bold text-base text-stone-900">The Pathology of Intellectualization</h4>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Intellectualization is a psychodynamic defense mechanism where abstract theoretical analysis is mobilized as psychological avoidance to bypass feeling the pain of an error or loss entirely. Because the emotion is suppressed rather than processed, allostatic load continues to climb.
+            </p>
+            <ul class="text-xs text-stone-600 space-y-1.5 pt-2 border-t border-stone-100">
+              <li class="flex items-center space-x-2">
+                <span class="text-rose-600">&#8226;</span>
+                <span>Premature rush to rules to avoid somatic discomfort.</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-rose-600">&#8226;</span>
+                <span>Creates rigid, fragile over-accommodation.</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-rose-600">&#8226;</span>
+                <span>Underlying amygdala reactivity remains unresolved.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-[#FAF8F5] py-8 mt-16 text-stone-500 text-xs text-center">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="font-serif text-sm font-semibold text-stone-700">"The lesson stays, and you don't have to keep paying for it."</p>
+      <p>Interactive single-page synthesis grounded in neuroscience, memory reconsolidation paradigms, and cognitive therapies.</p>
+      <p class="pt-2">
+        <a href="../" class="font-semibold text-stone-600 hover:text-stone-900 underline decoration-stone-300 underline-offset-2 transition-colors">← D/0 Knowledge Vault</a>
+        <span class="mx-2 text-stone-300" aria-hidden="true">·</span>
+        <a href="./readme.md" class="font-semibold text-stone-600 hover:text-stone-900 underline decoration-stone-300 underline-offset-2 transition-colors">Read the full report</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let consolidationChartInstance = null;
+    let reconsolidationChartInstance = null;
+    let allostaticChartInstance = null;
+    let currentBioView = 'bar';
+    let reconsolidationMode = 'rumination';
+
+    const neuralData = {
+      bla: {
+        title: "Basolateral Amygdala (BLA) Activation",
+        body: "During emotionally arousing events, the BLA fires synchronously with the medial temporal lobe. High-frequency ripple-locked activity shapes memory-specific gamma oscillations that are deeply inscribed and selectively replayed during sleep."
+      },
+      hippocampus: {
+        title: "Hippocampal Long-Term Potentiation (LTP)",
+        body: "The dentate gyrus and CA1 subfields integrate spatial, temporal, and sensory coordinates. Emotion-induced catecholamines lower the threshold for LTP, triggering continuous synthesis of PKMzeta to maintain the memory trace."
+      },
+      vmpfc: {
+        title: "Ventromedial Prefrontal Gating (vmPFC)",
+        body: "The vmPFC processes autonomic somatic markers to guide decisions. Crucially, it projects excitatory glutamatergic pathways to intercalated GABAergic cells (ITCs), which suppress central amygdala (CeA) alarm output during emotional extinction."
+      },
+      catecholamines: {
+        title: "Neuromodulatory Surge (Norepinephrine & Cortisol)",
+        body: "Arousal elicits an acute flood of norepinephrine and glucocorticoids. This cascade keeps cortical and limbic networks in a heightened state of neuroplasticity for tens of minutes, biasing the encoding of adjacent environmental cues."
+      }
+    };
+
+    const stuckPointsData = {
+      assimilation: {
+        title: "Diagnostic: Assimilation (Distorting the Event)",
+        desc: "The individual forces the memory to fit prior ideals of total control, generating pervasive guilt. The emotion is retained as a permanent self-punishment to guarantee they never forget, perpetuating sympathetic arousal."
+      },
+      overaccommodation: {
+        title: "Diagnostic: Over-Accommodation (Rigid Over-Generalization)",
+        desc: "The individual changes their worldview so drastically that one negative occurrence turns into an absolute, untrusting dogma. The persistent fear serves as a defensive armor that severely impairs relational and psychological functioning."
+      },
+      accommodation: {
+        title: "Diagnostic: Accommodation (Decoupled Semantic Rule)",
+        desc: "The optimal resolution: the individual integrates the reality of the mistake or trauma without blaming themselves or over-generalizing. The experience yields a concrete, context-specific heuristic, and the emotional alarm extinguishes."
+      }
+    };
+
+    const scenarios = {
+      career: {
+        text: "I was delivering a critical quarterly presentation to the executive board. My slides froze, I panicked, my heart pounded, and I babbled disjointedly for three minutes before someone intervened. I felt intense shame and spent the next three months replaying every second, dreading public speaking.",
+        tags: ["humiliation", "unpreparedness"],
+        cue: "my presentation technology fails or freezes",
+        action: "pause, state the technical issue calmly, and walk through the core executive metric verbally"
+      },
+      relationship: {
+        text: "I loaned money to a close friend who promised repayment within a month. They stopped answering my messages and avoided me. I felt betrayed, angry, and spent months harboring bitter resentment, telling myself that no human being can ever be trusted again.",
+        tags: ["resentment", "grief"],
+        cue: "a friend or colleague requests a financial loan",
+        action: "evaluate whether I can afford to gift it entirely; if not, decline warmly and protect the relationship"
+      },
+      financial: {
+        text: "I bought into an overhyped speculative asset after seeing peers make quick profits. The market crashed 70% in two weeks. I obsessively checked my balance every twenty minutes with gut-wrenching dread, beating myself up for being greedy and foolish.",
+        tags: ["unpreparedness", "hypervigilance"],
+        cue: "I feel urgent FOMO to enter an unvetted investment",
+        action: "enforce an obligatory 72-hour cooling-off window and conduct a documented risk-to-drawdown calculation"
+      }
+    };
+
+    function wrapLabel(str) {
+      if (str.length <= 16) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let currentLine = '';
+      words.forEach(word => {
+        if ((currentLine + word).length > 16) {
+          if (currentLine) lines.push(currentLine.trim());
+          currentLine = word + ' ';
+        } else {
+          currentLine += word + ' ';
+        }
+      });
+      if (currentLine.trim()) lines.push(currentLine.trim());
+      return lines;
+    }
+
+    function initConsolidationChart() {
+      const canvas = document.getElementById('consolidationChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      const rawLabels = ['Neutral Lecture', 'Mild Relevance', 'Painful Mistake', 'Acute Threat Event'];
+      const processedLabels = rawLabels.map(wrapLabel);
+
+      consolidationChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: processedLabels,
+          datasets: [
+            {
+              label: 'Synaptic LTP Duration (Hours)',
+              data: [1.2, 3.8, 18.5, 48.0],
+              backgroundColor: '#d97706',
+              borderRadius: 6
+            },
+            {
+              label: 'Recall Persistence Index (0-100)',
+              data: [18, 35, 88, 97],
+              backgroundColor: '#44403c',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, family: 'sans-serif' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  return Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: '#f1ede6' },
+              ticks: { font: { size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function initReconsolidationChart() {
+      const canvas = document.getElementById('reconsolidationChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      const cycles = ['Initial (1)', 'Cycle 2', 'Cycle 3', 'Cycle 4', 'Cycle 5', 'Cycle 6', 'Cycle 7', 'Cycle 8', 'Cycle 9', 'Cycle 10'];
+      const wrappedCycles = cycles.map(wrapLabel);
+
+      reconsolidationChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: wrappedCycles,
+          datasets: [
+            {
+              label: 'Objective Lesson Fidelity (%)',
+              data: [95, 82, 68, 54, 42, 32, 24, 18, 12, 8],
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.08)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 4
+            },
+            {
+              label: 'Affective Souring & Mood Bias (%)',
+              data: [20, 38, 52, 66, 75, 83, 89, 93, 96, 98],
+              borderColor: '#e11d48',
+              backgroundColor: 'rgba(225, 29, 72, 0.08)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11 }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  return Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              grid: { color: '#f1ede6' },
+              ticks: {
+                font: { size: 10 },
+                callback: function(v) { return v + '%'; }
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function initAllostaticChart() {
+      const canvas = document.getElementById('allostaticChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      const rawLabels = ['Sympathetic Arousal', 'Cortisol Output', 'Cognitive Bandwidth Cost', 'Heart Rate Variability (Vagal)', 'Amygdala Reactivity'];
+      const processedLabels = rawLabels.map(wrapLabel);
+
+      allostaticChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: processedLabels,
+          datasets: [
+            {
+              label: 'Holding Emotion / Suppression',
+              data: [88, 82, 91, 28, 86],
+              backgroundColor: '#be123c',
+              borderRadius: 6
+            },
+            {
+              label: 'Semantic Extraction / Reappraisal',
+              data: [24, 28, 19, 79, 21],
+              backgroundColor: '#047857',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11 }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  return Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#f1ede6' },
+              ticks: { font: { size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function selectNeuralNode(nodeKey) {
+      document.querySelectorAll('.neural-node').forEach(el => {
+        el.classList.remove('bg-amber-50', 'border-amber-400');
+        el.classList.add('bg-stone-50', 'border-stone-200');
+      });
+      const activeEl = document.getElementById(`node-${nodeKey}`);
+      if (activeEl) {
+        activeEl.classList.remove('bg-stone-50', 'border-stone-200');
+        activeEl.classList.add('bg-amber-50', 'border-amber-400');
+      }
+
+      const item = neuralData[nodeKey];
+      if (item) {
+        document.getElementById('neural-detail-title').textContent = item.title;
+        document.getElementById('neural-detail-body').textContent = item.body;
+      }
+    }
+
+    function setReconsolidationMode(mode) {
+      reconsolidationMode = mode;
+      const btnRumination = document.getElementById('btn-mode-rumination');
+      const btnUpdating = document.getElementById('btn-mode-updating');
+      const hint = document.getElementById('mode-hint');
+
+      if (mode === 'rumination') {
+        btnRumination.className = 'w-1/2 py-1.5 text-xs font-semibold rounded-md bg-white text-stone-900 shadow-sm transition-all';
+        btnUpdating.className = 'w-1/2 py-1.5 text-xs font-semibold rounded-md text-stone-600 hover:text-stone-900 transition-all';
+        hint.textContent = 'Rumination repeats the affective state with zero cognitive mismatch.';
+        document.getElementById('reconsolidation-status-badge').textContent = 'Mode: Rumination (Zero Prediction Error)';
+      } else {
+        btnUpdating.className = 'w-1/2 py-1.5 text-xs font-semibold rounded-md bg-white text-stone-900 shadow-sm transition-all';
+        btnRumination.className = 'w-1/2 py-1.5 text-xs font-semibold rounded-md text-stone-600 hover:text-stone-900 transition-all';
+        hint.textContent = 'Prediction Error creates a discrepancy, forcing the memory trace into an updateable state.';
+        document.getElementById('reconsolidation-status-badge').textContent = 'Mode: Active Updating (Prediction Error Present)';
+      }
+
+      updateReconsolidationSimulation();
+    }
+
+    function updateReconsolidationSimulation() {
+      const cycles = parseInt(document.getElementById('slider-retrievals').value, 10);
+      const mood = document.getElementById('select-current-mood').value;
+      document.getElementById('label-retrieval-cycles').textContent = `Cycle ${cycles}`;
+
+      let fidelityData = [];
+      let souringData = [];
+
+      let moodBiasMultiplier = (mood === 'distressed') ? 1.3 : (mood === 'adaptive') ? 0.6 : 1.0;
+
+      if (reconsolidationMode === 'rumination') {
+        for (let i = 1; i <= 10; i++) {
+          let fid = Math.max(5, Math.round(95 * Math.pow(0.78, i - 1)));
+          let sour = Math.min(99, Math.round((20 + (i * 8.5)) * moodBiasMultiplier));
+          fidelityData.push(fid);
+          souringData.push(sour);
+        }
+        document.getElementById('reconsolidation-insight-title').textContent = 'The Degradation of Rumination';
+        document.getElementById('reconsolidation-insight-text').textContent = 'Because there is no mismatch between expected and actual experience, the UPS degrades synaptic scaffolding and resynthesizes PKMzeta around your current affective bias. The lesson souring accelerates with each cycle.';
+      } else {
+        for (let i = 1; i <= 10; i++) {
+          let fid = Math.min(98, Math.round(50 + (i * 5)));
+          let sour = Math.max(8, Math.round((60 - (i * 5.2)) * moodBiasMultiplier));
+          fidelityData.push(fid);
+          souringData.push(sour);
+        }
+        document.getElementById('reconsolidation-insight-title').textContent = 'Adaptive Synaptic Reconsolidation';
+        document.getElementById('reconsolidation-insight-text').textContent = 'By injecting a novel behavioral action or cognitive contrast, prediction error triggers GluN2B-mediated destabilization. The procedural algorithm solidifies while the raw negative valence depotentiates.';
+      }
+
+      if (reconsolidationChartInstance) {
+        reconsolidationChartInstance.data.datasets[0].data = fidelityData;
+        reconsolidationChartInstance.data.datasets[1].data = souringData;
+        reconsolidationChartInstance.update();
+      }
+
+      const currentFidelity = fidelityData[cycles - 1];
+      const currentSouring = souringData[cycles - 1];
+      const currentPKM = Math.round((currentFidelity + (100 - currentSouring)) / 2);
+
+      document.getElementById('metric-pkm').textContent = `${currentPKM}%`;
+      document.getElementById('bar-pkm').style.width = `${currentPKM}%`;
+
+      document.getElementById('metric-souring').textContent = `${currentSouring}%`;
+      document.getElementById('bar-souring').style.width = `${currentSouring}%`;
+
+      document.getElementById('metric-fidelity').textContent = `${currentFidelity}%`;
+      document.getElementById('bar-fidelity').style.width = `${currentFidelity}%`;
+    }
+
+    function switchBioView(type) {
+      currentBioView = type;
+      const btnBar = document.getElementById('btn-bio-bar');
+      const btnRadar = document.getElementById('btn-bio-radar');
+
+      if (type === 'bar') {
+        btnBar.className = 'px-2.5 py-1 rounded bg-stone-200 text-stone-900 text-xs font-semibold';
+        btnRadar.className = 'px-2.5 py-1 rounded hover:bg-stone-200 text-stone-600 text-xs font-semibold';
+      } else {
+        btnRadar.className = 'px-2.5 py-1 rounded bg-stone-200 text-stone-900 text-xs font-semibold';
+        btnBar.className = 'px-2.5 py-1 rounded hover:bg-stone-200 text-stone-600 text-xs font-semibold';
+      }
+
+      if (allostaticChartInstance) {
+        allostaticChartInstance.destroy();
+      }
+
+      const canvas = document.getElementById('allostaticChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const ctx = canvas.getContext('2d');
+      const rawLabels = ['Sympathetic Arousal', 'Cortisol Output', 'Cognitive Bandwidth Cost', 'Heart Rate Variability', 'Amygdala Reactivity'];
+      const processedLabels = rawLabels.map(wrapLabel);
+
+      if (type === 'bar') {
+        allostaticChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: processedLabels,
+            datasets: [
+              {
+                label: 'Holding Emotion / Suppression',
+                data: [88, 82, 91, 28, 86],
+                backgroundColor: '#be123c',
+                borderRadius: 6
+              },
+              {
+                label: 'Semantic Extraction / Reappraisal',
+                data: [24, 28, 19, 79, 21],
+                backgroundColor: '#047857',
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: { boxWidth: 12, font: { size: 11 } }
+              },
+              tooltip: {
+                callbacks: {
+                  title: function(items) {
+                    return Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: '#f1ede6' },
+                ticks: { font: { size: 10 } }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { size: 10 } }
+              }
+            }
+          }
+        });
+      } else {
+        allostaticChartInstance = new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: processedLabels,
+            datasets: [
+              {
+                label: 'Holding Emotion / Suppression',
+                data: [88, 82, 91, 28, 86],
+                backgroundColor: 'rgba(190, 18, 60, 0.2)',
+                borderColor: '#be123c',
+                pointBackgroundColor: '#be123c',
+                pointRadius: 3
+              },
+              {
+                label: 'Semantic Extraction / Reappraisal',
+                data: [24, 28, 19, 79, 21],
+                backgroundColor: 'rgba(4, 120, 87, 0.2)',
+                borderColor: '#047857',
+                pointBackgroundColor: '#047857',
+                pointRadius: 3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: { boxWidth: 12, font: { size: 11 } }
+              },
+              tooltip: {
+                callbacks: {
+                  title: function(items) {
+                    return Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label;
+                  }
+                }
+              }
+            },
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+                ticks: { display: false },
+                grid: { color: '#e7e5e4' },
+                pointLabels: {
+                  font: { size: 10 }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function selectStuckPoint(key) {
+      document.querySelectorAll('.stuck-card').forEach(el => {
+        el.classList.remove('is-active');
+      });
+      const selected = document.getElementById(`stuck-${key}`);
+      if (selected) {
+        selected.classList.add('is-active');
+      }
+
+      const item = stuckPointsData[key];
+      if (item) {
+        document.getElementById('stuck-title').textContent = item.title;
+        document.getElementById('stuck-desc').textContent = item.desc;
+      }
+    }
+
+    function loadTemplate(scenarioKey) {
+      const sc = scenarios[scenarioKey];
+      if (!sc) return;
+
+      document.getElementById('input-episodic').value = sc.text;
+      document.getElementById('input-cue').value = sc.cue;
+      document.getElementById('input-action').value = sc.action;
+
+      document.querySelectorAll('.tag-badge').forEach(el => {
+        el.classList.remove('bg-amber-100', 'border-amber-400', 'text-amber-900');
+        el.classList.add('bg-stone-50', 'border-stone-200', 'text-stone-700');
+      });
+
+      document.querySelectorAll('.tag-badge').forEach(el => {
+        sc.tags.forEach(t => {
+          if (el.textContent.toLowerCase().includes(t.toLowerCase())) {
+            el.classList.add('bg-amber-100', 'border-amber-400', 'text-amber-900');
+            el.classList.remove('bg-stone-50', 'border-stone-200', 'text-stone-700');
+          }
+        });
+      });
+
+      synthesizeLesson();
+    }
+
+    function toggleGranularTag(btn, tag) {
+      if (btn.classList.contains('bg-amber-100')) {
+        btn.classList.remove('bg-amber-100', 'border-amber-400', 'text-amber-900');
+        btn.classList.add('bg-stone-50', 'border-stone-200', 'text-stone-700');
+      } else {
+        btn.classList.add('bg-amber-100', 'border-amber-400', 'text-amber-900');
+        btn.classList.remove('bg-stone-50', 'border-stone-200', 'text-stone-700');
+      }
+    }
+
+    function synthesizeLesson() {
+      const cue = document.getElementById('input-cue').value.trim() || 'situation X occurs';
+      const action = document.getElementById('input-action').value.trim() || 'I perform behavior Y';
+
+      const cleanCue = cue.replace(/^(when|if)\s+/i, '');
+      const cleanAction = action.replace(/^(then|i will|i)\s+/i, '');
+
+      const synthesizedSentence = `"When ${cleanCue}, I will ${cleanAction}."`;
+      document.getElementById('output-algorithm').textContent = synthesizedSentence;
+
+      const activeTags = document.querySelectorAll('.tag-badge.bg-amber-100');
+      if (activeTags.length > 0) {
+        document.getElementById('output-liwc').textContent = `High Precision (${activeTags.length} granular tags bound to causal rule)`;
+      } else {
+        document.getElementById('output-liwc').textContent = 'Causal + Insight words high';
+      }
+
+      document.getElementById('defusion-badge').textContent = 'Decoupled & Active';
+    }
+
+    function resetWorkshop() {
+      document.getElementById('input-episodic').value = '';
+      document.getElementById('input-cue').value = '';
+      document.getElementById('input-action').value = '';
+      document.getElementById('output-algorithm').textContent = '"When situation X arises, I execute adaptive behavior Y."';
+      document.querySelectorAll('.tag-badge').forEach(el => {
+        el.classList.remove('bg-amber-100', 'border-amber-400', 'text-amber-900');
+        el.classList.add('bg-stone-50', 'border-stone-200', 'text-stone-700');
+      });
+      document.getElementById('output-liwc').textContent = 'Neutral baseline';
+      document.getElementById('defusion-badge').textContent = 'Awaiting Rule';
+    }
+
+    function filterMatrix(type) {
+      document.querySelectorAll('.matrix-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === type) {
+          btn.className = 'matrix-filter-btn px-2 py-1 rounded bg-stone-900 text-white font-medium';
+        } else {
+          btn.className = 'matrix-filter-btn px-2 py-1 rounded bg-stone-100 text-stone-700 hover:bg-stone-200 font-medium';
+        }
+      });
+
+      const rows = document.querySelectorAll('.matrix-row');
+      rows.forEach(row => {
+        if (type === 'all' || row.getAttribute('data-type') === type) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function setActiveNav(sectionId) {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-target') === sectionId;
+        btn.classList.toggle('bg-stone-200', isActive);
+        btn.classList.toggle('text-stone-900', isActive);
+        if (isActive) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function navigateToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      setActiveNav(sectionId);
+    }
+
+    const pageSections = ['section-overview', 'section-neurobiology', 'section-reconsolidation', 'section-allostatic', 'section-workshop', 'section-matrix'];
+    let navTicking = false;
+
+    window.addEventListener('scroll', () => {
+      if (navTicking) return;
+      navTicking = true;
+      window.requestAnimationFrame(() => {
+        const offset = 140;
+        let active = pageSections[0];
+
+        for (const id of pageSections) {
+          const sec = document.getElementById(id);
+          if (sec && sec.getBoundingClientRect().top <= offset) {
+            active = id;
+          }
+        }
+
+        setActiveNav(active);
+        navTicking = false;
+      });
+    }, { passive: true });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.neural-node, .stuck-card').forEach(el => {
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      initConsolidationChart();
+      initReconsolidationChart();
+      initAllostaticChart();
+      updateReconsolidationSimulation();
+    });
+  </script>
+</body>
+</html>

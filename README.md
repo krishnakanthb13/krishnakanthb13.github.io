@@ -25,6 +25,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
+		- [Emotional Memory](https://krishnakanthb13.github.io/D/0/emotional_memory/) — The Neurobiology of Emotional Bookmarks
 		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
 		- [Entitlement vs. Ambition](https://krishnakanthb13.github.io/D/0/entitlement_vs_ambition-deservingness/) — The Psychology of Deservingness
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
@@ -232,6 +233,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/): The Rationalist Fallacy in Human Bonding — why the brain devalues what comes free and obsesses over what costs effort.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/effort_paradox/): Relational investment simulator (dissonance, perceived value, entitlement risk), four classic-study charts (Aronson & Mills 1959, Jecker & Landy 1969, Aronson & Linder 1965, Walster 1973), a 5-question over-functioning audit & boundary-conditions framework.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/effort_paradox/readme.md): Long-form research essay with 27 cited sources.
+	- [Emotional Memory](https://krishnakanthb13.github.io/D/0/emotional_memory/): The Neurobiology of Emotional Bookmarks — why emotion is a neurobiological bookmark, and why keeping the feeling is not the same as keeping the lesson.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/emotional_memory/): Six-part portal with clickable BLA–hippocampus–vmPFC circuitry and consolidation chart, a reconsolidation lab contrasting rumination with prediction error, allostatic bar/radar dashboard, CPT stuck-point diagnostic & an If-Then translation workshop with ACT defusion check.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/emotional_memory/readme.md): Long-form research essay with 109 cited sources.
 	- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Understanding vs. Judging — a neurobiological and clinical framework exploring the tension between empathy and discernment.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Neural balance simulator, DBT mind states explorer, scenario tester, Pennebaker journaling lab, evolutionary arc & self-diagnostic checklist.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/readme.md): Long-form research essay with 56 cited sources.
