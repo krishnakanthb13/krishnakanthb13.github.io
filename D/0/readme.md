@@ -252,6 +252,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Let Them, Let Me](./let_them_let_me/)
+**The Psychology and Mechanics of the Let Them Theory** — why a two-word pop-psychology mantra became a global phenomenon. Frames Mel Robbins' framework as a dual-engine relational operating system: "Let Them" surrenders control over other adults' behavior, while "Let Me" reclaims agency for value-based action. Traces the lineage through Epictetus's dichotomy of control, Linehan's DBT radical acceptance, and Bowen's differentiation of self; explains the neurobiological payoff (amygdala down-regulation, PFC re-engagement, cybernetic error-signal termination) and the cybernetic model of discrepancy dissolution; then weighs the clinical failure modes—stonewalling, emotional cutoff, abuse enabling, structural resignation, and ADHD mislabeling—alongside the Cassie Phillips attribution controversy and the ethics of commodified pop-psychology.
+
+- 📝 [The Full Report](./let_them_let_me/readme.md) — the long-form essay with 77 cited sources. (`readme.md`)
+- 🧘 [Interactive Infographic](./let_them_let_me/index.html) — the warm neutral & amber clinical dashboard: five modules covering a dual-engine relational scenario simulator across four life domains, ANS arousal-recovery chart, cybernetic error-resolution model, Stoic/DBT/Bowen comparative lineage matrix, "Let-Name-Decide" clinical triage across safety contexts, attribution timeline and commodification balance sheet, and a live cognitive-reframing studio. (`index.html`)
+
+---
+
 ### 📁 [Linguistic Confinement](./linguistic_confinement/)
 **The Architecture of Linguistic Confinement** — why "the only way" and "a different way" are structurally identical locks forged from exclusion, and why a closed logical system cannot be escaped using its own vocabulary. Synthesizes linguistic relativity and Lakoff's framing, Derrida's *différance*, Wegner's ironic processes, relational frame theory, Bateson's double bind, Gödel and Heidegger, semantic gravity wells in LLMs, focusing constraints, somatic experiencing, and Wittgenstein's fly-bottle.
 
