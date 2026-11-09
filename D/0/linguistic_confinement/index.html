@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Linguistic Confinement</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔒</text></svg>">
+  <meta name="description" content="Why negations, closed logical systems, and rule-governed language trap both minds and neural networks — and how focusing constraints, somatic awareness, and silence offer a way out.">
+  <meta name="theme-color" content="#FAF8F5">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Minimalist Intellectual (Linen #FAF8F5, Sandstone #F1EBE4, Slate Charcoal #1E293B, Terracotta #C25E3B, Sage #4D7C6F, Warm Amber #D97706) -->
+  <!-- Application Structure Plan: An interactive single-page analytical dashboard structured into six progressive modules: (1) Epistemology & Framing of the NOT Condition, (2) Cognitive Engine & Ironic Processes (featuring interactive cognitive load and thought suppression simulator), (3) Algorithmic Mirror & LLM Negation Failures (featuring interactive prompt/logit comparison and layer override chart), (4) The Epistemological Wall & Somatic Override (comparing verbal loops with somatic nervous-system regulation), (5) Reconstructing the Exit via Focusing Constraints (an interactive constraint reframer and axiom auditor), and (6) The Meta-Linguistic Exit Generator (Wittgenstein fly-bottle and personal exit strategy builder). This progressive architecture guides the user from diagnosing the structural trap of negation, through its psychological and computational proofs, to actionable somatic and philosophical liberation. -->
+  <!-- Visualization & Content Choices: 
+    - Wegner Ironic Process Theory: Inform/Predict -> Canvas Line Chart via Chart.js -> Slider for mental load -> Demonstrates rebound spikes when operating system collapses -> Chart.js (NO SVG)
+    - LLM Mechanistic Interpretability: Compare/Analyze -> Canvas Layered Bar/Line Chart via Chart.js -> Layer-by-layer attention suppression vs FFN override -> Illustrates Rana's 87.5% priming vs 12.5% override mechanics -> Chart.js (NO SVG)
+    - Constraint Spectrum (Exclusionary vs Focusing): Compare -> Interactive HTML/Tailwind card matrix with dynamic state feedback -> Demonstrates bounded creative search spaces -> Vanilla JS & Tailwind (NO SVG)
+    - Somatic Pendulation & Titration: Process flow -> Canvas animated indicator & HTML state stepper -> Simulates physical nervous-system down-regulation bypassing verbal loops -> HTML5 Canvas & JS (NO SVG)
+    - Confirming NO SVG graphics used. NO Mermaid JS used.
+  -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1E293B;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    section[id] {
+      scroll-margin-top: 7.5rem;
+    }
+    :focus-visible {
+      outline: 2px solid #C25E3B;
+      outline-offset: 2px;
+    }
+    .nav-link[aria-current="true"]:not(.nav-cta) {
+      background-color: #F1EBE4;
+      color: #C25E3B;
+    }
+    .chart-container canvas {
+      max-height: 100%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-200">
+
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E7DFD5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return links -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="flex-shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-white border border-[#E7DFD5] text-slate-600 hover:text-[#C25E3B] hover:border-[#C25E3B]/40 transition" title="Return to the D/0 Knowledge Vault">← D/0</a>
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-[#C25E3B] text-white flex items-center justify-center font-bold text-sm" aria-hidden="true">NOT</span>
+          <div class="min-w-0">
+            <h1 class="font-serif font-bold text-slate-800 text-base sm:text-lg leading-tight truncate"><span class="hidden sm:inline">The Architecture of </span>Linguistic Confinement</h1>
+            <p class="text-xs text-slate-500 hidden sm:block truncate">Cognitive, Computational, and Somatic Escapes from Negation</p>
+          </div>
+        </div>
+        <a href="readme.md" class="hidden sm:inline-flex flex-shrink-0 items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1.5 rounded-md bg-white border border-[#E7DFD5] text-slate-600 hover:text-[#C25E3B] hover:border-[#C25E3B]/40 transition">📄 Full Report</a>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-t border-[#E7DFD5]/80 py-2 text-xs sm:text-sm font-medium text-slate-600" aria-label="Page sections">
+        <a href="#epistemology" data-nav-link="epistemology" class="nav-link flex-shrink-0 px-2 py-1 rounded-md hover:text-[#C25E3B] transition">Framing</a>
+        <a href="#cognitive" data-nav-link="cognitive" class="nav-link flex-shrink-0 px-2 py-1 rounded-md hover:text-[#C25E3B] transition">Psychology</a>
+        <a href="#algorithmic" data-nav-link="algorithmic" class="nav-link flex-shrink-0 px-2 py-1 rounded-md hover:text-[#C25E3B] transition">Algorithms</a>
+        <a href="#somatic" data-nav-link="somatic" class="nav-link flex-shrink-0 px-2 py-1 rounded-md hover:text-[#C25E3B] transition">Somatic</a>
+        <a href="#reframing" data-nav-link="reframing" class="nav-link flex-shrink-0 px-2 py-1 rounded-md hover:text-[#C25E3B] transition">Reframing</a>
+        <a href="#generator" data-nav-link="generator" class="nav-link nav-cta flex-shrink-0 px-2.5 py-1 rounded-md bg-[#C25E3B] text-white hover:bg-[#A94F31] transition shadow-sm font-semibold">Exit Builder</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <section id="overview" class="text-center py-6 border-b border-[#E7DFD5]">
+      <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#F1EBE4] text-[#C25E3B] mb-3">
+        Cognitive Traps &amp; Reframing Synthesis
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto">
+        When Words Form the Prison, Language Cannot Be the Key
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        Phrases like <span class="font-semibold text-slate-800">"the only way"</span> and <span class="font-semibold text-slate-800">"a different way"</span> appear distinct, yet both function identically: they are locks forged from negation. Discover why closed logical systems trap both human minds and neural networks, and how somatic awareness, positive constraints, and silence offer the true path out.
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-4xl mx-auto text-left">
+        <div class="bg-white p-4 rounded-xl border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-bold">Structural Trap</div>
+          <div class="text-lg font-serif font-bold text-[#C25E3B] mt-1">The "NOT" Condition</div>
+          <div class="text-xs text-slate-500 mt-1">Leaves the complement open, locking focus onto the forbidden hazard.</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-bold">Cognitive Rebound</div>
+          <div class="text-lg font-serif font-bold text-amber-700 mt-1">Wegner's Paradox</div>
+          <div class="text-xs text-slate-500 mt-1">Under stress, unconscious monitors flood awareness with suppressed thoughts.</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-bold">Algorithmic Parallel</div>
+          <div class="text-lg font-serif font-bold text-slate-700 mt-1">Gravity Wells</div>
+          <div class="text-xs text-slate-500 mt-1">87.5% of prompt negation failures occur because mentioning the hazard primes it.</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-bold">Physiological Exit</div>
+          <div class="text-lg font-serif font-bold text-[#4D7C6F] mt-1">Somatic Override</div>
+          <div class="text-xs text-slate-500 mt-1">Anger and physical sensations act as unrefutable data that bypass verbal deadlock.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="epistemology" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-[#C25E3B]">Section 01</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">The Epistemology of the "NOT" Condition</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          This section explores how language, syntax, and conceptual framing construct invisible boundaries. Drawing upon linguistic relativity, George Lakoff's neural framing, Alfred Korzybski's General Semantics, and Derrida's deconstruction, we examine why negations inherently reinforce the concepts they seek to dismantle.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-6 shadow-xs">
+          <h4 class="font-serif font-bold text-lg text-slate-800 border-b border-slate-100 pb-2">
+            Deconstructing Exclusionary Syntax: "Only Way" vs. "Different Way"
+          </h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Examine how identical structural mechanisms govern both rigid dogma and reactive opposition. Select a phrase below to observe how the cognitive frame collapses into negation.
+          </p>
+
+          <div class="flex space-x-2">
+            <button id="btn-phrase-only" onclick="selectPhrase('only')" class="flex-1 py-2 px-3 text-xs sm:text-sm font-semibold rounded-lg bg-[#C25E3B] text-white transition">
+              "The Only Way"
+            </button>
+            <button id="btn-phrase-diff" onclick="selectPhrase('different')" class="flex-1 py-2 px-3 text-xs sm:text-sm font-semibold rounded-lg bg-[#F1EBE4] text-slate-700 hover:bg-slate-200 transition">
+              "A Different Way"
+            </button>
+            <button id="btn-phrase-pos" onclick="selectPhrase('positive')" class="flex-1 py-2 px-3 text-xs sm:text-sm font-semibold rounded-lg bg-[#F1EBE4] text-slate-700 hover:bg-slate-200 transition">
+              "Positive Property"
+            </button>
+          </div>
+
+          <div id="phrase-display" class="p-5 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-3" aria-live="polite">
+            <div class="flex items-center justify-between">
+              <span id="phrase-type-tag" class="text-xs font-mono font-bold uppercase text-[#C25E3B]">Exclusion by Prohibition</span>
+              <span id="phrase-formula" class="text-xs font-mono bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-600">NOT (All other choices)</span>
+            </div>
+            <div id="phrase-quote" class="text-lg font-serif italic text-slate-800">
+              "This is the only way to proceed."
+            </div>
+            <p id="phrase-analysis" class="text-sm text-slate-600 leading-relaxed">
+              A lock constructed from pure exclusion. It defines the path by outlawing the entire remainder of reality. All alternatives are forbidden, forcing the mind into a singular corridor under the threat of invalidity.
+            </p>
+            <div id="phrase-consequence" class="p-3 bg-red-50 text-red-900 rounded-lg text-xs leading-normal border border-red-100">
+              <strong>Cognitive Impact:</strong> Total collapse of exploratory search. Heightens anxiety regarding any deviance, creating dogmatic adherence.
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">E-Prime Semantic Neutralizer (Korzybski &amp; Bourland)</h5>
+            <p class="text-xs text-slate-600 mb-3">
+              The "is of identity" traps individuals in static, absolute boxes ("He is lazy", "This is impossible"). Bourland's E-Prime strips away the verb "to be", restoring fluid empirical reality.
+            </p>
+            <div class="space-y-2">
+              <label for="eprime-select" class="block text-xs font-medium text-slate-700">Select an absolute "is" statement:</label>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <select id="eprime-select" onchange="applyEprimePreset()" class="text-xs bg-[#FAF8F5] border border-[#E7DFD5] rounded-lg px-2 py-1.5 text-slate-700 flex-1">
+                  <option value="0">"This argument is unresolvable."</option>
+                  <option value="1">"I am a failure at this relationship."</option>
+                  <option value="2">"Conforming is the only way to survive."</option>
+                  <option value="3">"This city is dangerous."</option>
+                  <option value="4">"My manager is toxic."</option>
+                </select>
+                <button onclick="transformEprime()" class="px-3 py-1.5 bg-slate-800 text-white rounded-lg text-xs font-semibold hover:bg-slate-700">Translate</button>
+              </div>
+              <div id="eprime-result" class="p-3 rounded-lg bg-[#4D7C6F]/10 border border-[#4D7C6F]/30 text-xs text-slate-800 space-y-1">
+                <div class="font-bold text-[#4D7C6F]">E-Prime Translation:</div>
+                <div id="eprime-output" class="italic" aria-live="polite">"We have not yet uncovered a shared framework that addresses our conflicting requirements."</div>
+                <div class="text-[11px] text-slate-500 mt-1">Converts a static ontological box into an ongoing empirical condition open to modification.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-6 rounded-2xl border border-[#E7DFD5] shadow-xs">
+            <h4 class="font-serif font-bold text-lg text-slate-800 mb-2">The Neural Framing Paradox</h4>
+            <div class="text-xs text-slate-500 mb-4">George Lakoff's Cognitive Linguistics</div>
+            
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-center space-y-3">
+              <div class="text-2xl font-serif font-bold text-amber-900">"Don't Think of an Elephant!"</div>
+              <div class="w-16 h-16 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl font-mono text-amber-800">
+                🐘
+              </div>
+              <p class="text-xs text-amber-800 text-left leading-relaxed">
+                To process the negation <span class="font-mono font-bold">NOT (Elephant)</span>, the prefrontal cortex must first activate the neural circuits encoding trunk, ears, and grey hide. The brain cannot suppress a frame without physically exciting its underlying synaptic pathways.
+              </p>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Why Oppositional Debates Fail</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                When you argue against a competitor's linguistic frame using their own vocabulary (e.g. arguing against "tax relief"), you reinforce their conceptual model. Relational difference (<em class="font-serif">différance</em>) ensures that defining yourself as "NOT that" anchors your identity to the very wall you fight.
+              </p>
+              <div class="p-3 bg-[#FAF8F5] rounded-lg border border-[#E7DFD5] text-xs text-slate-700">
+                <span class="font-semibold text-slate-900">The Takeaway:</span> Facts do not break frames. Only an entirely new, positively projected frame can establish independent cognitive gravity.
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-[#E7DFD5] shadow-xs">
+            <h4 class="font-serif font-bold text-lg text-slate-800 mb-1">Linguistic Relativity in Action</h4>
+            <div class="text-xs text-slate-500 mb-3">Boroditsky &amp; Sapir-Whorf Cross-Cultural Findings</div>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                <span class="font-semibold text-slate-800">Space (Kuuk Thaayorre):</span> Uses absolute cardinal directions (North/East) rather than relative terms. Time is spatialized East-to-West, binding physical topography to temporal memory.
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                <span class="font-semibold text-slate-800">Grammar &amp; Agency (English vs. Spanish):</span> English insists on assigning agency ("John broke the vase"). Spanish defaults to reflexive states ("The vase broke"), freeing memory to recall the event rather than blame the actor.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cognitive" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-700">Section 02</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">The Cognitive Engine of Confinement</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          How does the biological mind execute a negative constraint? This section demonstrates Daniel Wegner's Ironic Process Theory (IPT) and Steven Hayes' Relational Frame Theory (RFT), illustrating why conscious efforts to avoid thoughts under stress trigger uncontrollable cognitive rebounds and insensitivity to environmental contingencies.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-6 shadow-xs">
+          <div>
+            <h4 class="font-serif font-bold text-lg text-slate-800">Wegner's White Bear Simulator: Cognitive Load &amp; Ironic Rebound</h4>
+            <p class="text-xs text-slate-500 mt-1">
+              Adjust the slider to simulate increasing mental load, emotional fatigue, or acute stress. Observe how the conscious Operating Process buckles while the unconscious Monitoring Process floods awareness.
+            </p>
+          </div>
+
+          <div class="bg-[#FAF8F5] p-4 rounded-xl border border-[#E7DFD5] space-y-4">
+            <div class="flex items-center justify-between">
+              <label for="stress-slider" class="text-xs font-bold uppercase text-slate-700">
+                Cognitive Load / Stress Level: <span id="stress-value" class="text-base font-serif text-[#C25E3B]">35%</span>
+              </label>
+              <span id="load-status" class="text-xs px-2 py-0.5 rounded font-medium bg-amber-100 text-amber-800">Moderate Load</span>
+            </div>
+            <input id="stress-slider" type="range" min="0" max="100" value="35" oninput="updateStressSimulation(this.value)" class="w-full accent-[#C25E3B] cursor-pointer">
+            <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+              <span>0% (Full Relaxation)</span>
+              <span>50% (Busy Workday)</span>
+              <span>100% (Crisis / Exhaustion)</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-center">
+            <div class="p-3 rounded-lg bg-blue-50 border border-blue-200">
+              <div class="text-[11px] uppercase tracking-wider text-blue-700 font-bold">Intentional Operating Process</div>
+              <div id="stat-operating" class="text-xl font-bold font-serif text-blue-900 mt-1">65%</div>
+              <div class="text-[11px] text-blue-600 mt-0.5">Effortful search for distractors</div>
+            </div>
+            <div class="p-3 rounded-lg bg-rose-50 border border-rose-200">
+              <div class="text-[11px] uppercase tracking-wider text-rose-700 font-bold">Ironic Monitoring Process</div>
+              <div id="stat-monitoring" class="text-xl font-bold font-serif text-rose-900 mt-1">35%</div>
+              <div class="text-[11px] text-rose-600 mt-0.5">Autonomous scan for forbidden thought</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Ironic Intrusion Dynamics (Rebound Effect)</span>
+              <span class="text-xs text-slate-400">Intrusions / Minute</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="wegnerChart" role="img" aria-label="Line chart showing ironic thought intrusions rising sharply as cognitive load increases, peaking near 85 percent stress."></canvas>
+            </div>
+            <div class="mt-2 text-xs text-slate-500 text-center">
+              As stress exceeds 60%, the effortful operating process collapses. The ironic monitor continues its autonomous check, paradoxically generating maximum intrusions of the prohibited thought.
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-6 rounded-2xl border border-[#E7DFD5] shadow-xs space-y-4">
+            <h4 class="font-serif font-bold text-lg text-slate-800">Relational Frame Theory (RFT)</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Humans govern their lives through derived verbal rules rather than environmental reality. When trapped in closed rules, people exhibit <span class="font-semibold text-slate-800">rule-based insensitivity to contingencies</span>.
+            </p>
+
+            <div class="space-y-2">
+              <button onclick="inspectRule('pliance')" id="btn-rule-pliance" class="w-full text-left p-3 rounded-xl border border-amber-300 bg-amber-50/50 hover:bg-amber-50 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-900">1. Pliance (Compliance)</span>
+                  <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-amber-200 text-amber-800 rounded">Socially Mediated</span>
+                </div>
+                <div class="text-xs text-slate-600 mt-1">Rule followed solely to obtain social approval or avoid disapproval. "I must stay because others will judge me."</div>
+              </button>
+
+              <button onclick="inspectRule('tracking')" id="btn-rule-tracking" class="w-full text-left p-3 rounded-xl border border-[#E7DFD5] hover:bg-[#FAF8F5] transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-800">2. Tracking (Wayfinding)</span>
+                  <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded">Contingency Driven</span>
+                </div>
+                <div class="text-xs text-slate-600 mt-1">Rule followed because of direct physical coordination with reality. "Following this trail leads to water."</div>
+              </button>
+
+              <button onclick="inspectRule('augmenting')" id="btn-rule-augmenting" class="w-full text-left p-3 rounded-xl border border-[#E7DFD5] hover:bg-[#FAF8F5] transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-800">3. Augmenting (Value Attribution)</span>
+                  <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded">Value Transform</span>
+                </div>
+                <div class="text-xs text-slate-600 mt-1">Rule alters the rewarding value of an event. "Enduring this agony proves my moral character."</div>
+              </button>
+            </div>
+
+            <div id="rule-detail-box" class="p-3 bg-[#FAF8F5] rounded-lg border border-[#E7DFD5] text-xs text-slate-700 space-y-1" aria-live="polite">
+              <div class="font-bold text-[#C25E3B]">Practical Consequence:</div>
+              <p id="rule-detail-text">Pliance creates profound vulnerability to emotional abuse and cognitive paralysis. The individual remains trapped in an intolerable situation because the social rule overrides raw sensory evidence of harm.</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-[#E7DFD5] shadow-xs space-y-3">
+            <h4 class="font-serif font-bold text-lg text-slate-800">The Gregory Bateson Double Bind</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              A double bind occurs when primary and secondary injunctions conflict, and a tertiary injunction forbids escaping the arena or commenting on the paradox.
+            </p>
+            <div class="border-l-2 border-[#C25E3B] pl-3 py-1 space-y-1 text-xs text-slate-600">
+              <div><strong class="text-slate-800">Command 1:</strong> "Show genuine spontaneous affection!"</div>
+              <div><strong class="text-slate-800">Command 2:</strong> "Obeying a command to be spontaneous is artificial."</div>
+              <div><strong class="text-slate-800">Command 3:</strong> "Do not mention this contradiction."</div>
+            </div>
+            <p class="text-xs text-slate-500 italic">
+              When language contains mutually annihilating demands, rational deduction produces madness. The body must override the loop.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="algorithmic" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-slate-600">Section 03</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">The Algorithmic Mirror: Negations in Neural Networks</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          The failure of the "NOT condition" is not purely a human psychological quirk; it is mirrored mathematically in Large Language Models (LLMs). This section examines mechanistic interpretability research by Shailesh Rana, demonstrating how negative constraints trigger semantic gravity wells and layer-level feed-forward overrides.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-6 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <h4 class="font-serif font-bold text-lg text-slate-800">Mechanistic Interpretability: Attention vs. FFN Overrides</h4>
+              <p class="text-xs text-slate-500">Layer-by-layer suppression dynamics in transformer architectures (Rana, 2024)</p>
+            </div>
+            <span class="px-2 py-1 rounded bg-slate-100 font-mono text-xs font-bold text-slate-700 whitespace-nowrap">32-Layer LLM</span>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="llmLayerChart" role="img" aria-label="Line chart comparing attention suppression and feed-forward override pressure across 32 transformer layers."></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-orange-50/70 border border-orange-200">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-orange-900">Priming Failure</span>
+                <span class="text-xs font-mono font-bold bg-orange-200 text-orange-800 px-1.5 py-0.5 rounded">87.5%</span>
+              </div>
+              <p class="text-xs text-orange-800 mt-2 leading-relaxed">
+                The attention mechanism focuses heavily on the target token rather than the negation cue. Mentioning the forbidden word immediately primes its representation in latent space, pulling completions directly into the hazard.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-purple-900">Override Failure</span>
+                <span class="text-xs font-mono font-bold bg-purple-200 text-purple-800 px-1.5 py-0.5 rounded">12.5%</span>
+              </div>
+              <p class="text-xs text-purple-800 mt-2 leading-relaxed">
+                Attention successfully suppresses the target token across early and middle layers. However, at layers 21–27, the Feed-Forward Networks (FFNs) apply massive positive logit increments (up to 4x), forcibly overriding the suppression.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <h4 class="font-serif font-bold text-lg text-slate-800">Prompt Engineering Laboratory</h4>
+          <p class="text-xs text-slate-600">
+            Compare how an LLM handles exclusionary negative constraints versus affirmative positive projections.
+          </p>
+
+          <div class="space-y-3">
+            <div>
+              <span class="text-xs font-bold uppercase text-red-600">Negative Prompt (The Exclusion Trap)</span>
+              <div class="mt-1 p-3 rounded-lg bg-red-50/60 border border-red-200 text-xs font-mono text-slate-800">
+                "Write an executive summary. <strong class="text-red-700">DO NOT use bullet points</strong>, and avoid any technical jargon."
+              </div>
+              <div class="mt-1 text-[11px] text-slate-500">
+                <strong>Result:</strong> Token probabilities for "•" and "bullet" skyrocket due to semantic gravity wells. FFNs frequently emit lists regardless.
+              </div>
+            </div>
+
+            <div>
+              <span class="text-xs font-bold uppercase text-[#4D7C6F]">Positive Projection (Focusing Constraint)</span>
+              <div class="mt-1 p-3 rounded-lg bg-emerald-50/60 border border-emerald-200 text-xs font-mono text-slate-800">
+                "Write an executive summary <strong class="text-[#4D7C6F]">composed entirely of three flowing narrative paragraphs</strong> in plain conversational English."
+              </div>
+              <div class="mt-1 text-[11px] text-slate-500">
+                <strong>Result:</strong> Zero semantic activation of "bullet". The model's attention space is populated strictly with narrative structure markers.
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-2">
+            <div class="text-xs font-bold uppercase text-slate-700">The Mathematical Equivalence</div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Both artificial neural networks and biological brains suffer from the same geometric reality: a negation specifies a coordinate to avoid without giving an angle of travel. In a high-dimensional vector space, avoiding a single point leaves an infinite sphere of uncertainty.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="somatic" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-[#4D7C6F]">Section 04</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">The Epistemological Wall &amp; Somatic Exit</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          When an argument is constructed from premises that are individually valid, the system becomes sealed. You cannot out-think a box using the vocabulary that created it. This section examines Gödel's Incompleteness, Heidegger's breakdown of tools, and Peter Levine's Somatic Experiencing—revealing anger and bodily emotion as unrefutable data that shatters the verbal seal.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <div class="flex items-center space-x-2">
+            <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-bold font-mono">1</span>
+            <h4 class="font-serif font-bold text-lg text-slate-800">The Hermetically Sealed Verbal Box</h4>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Observe the endless circularity of rational defense. Every objection generated from within the box is already anticipated and neutralized by the system's own axioms.
+          </p>
+
+          <div class="p-4 bg-[#FAF8F5] rounded-xl border border-[#E7DFD5] space-y-3 font-mono text-xs">
+            <div class="flex items-start space-x-2">
+              <span class="text-red-500 font-bold">Trap:</span>
+              <span class="text-slate-800">"I must leave this situation; it is destroying me."</span>
+            </div>
+            <div class="pl-4 border-l-2 border-slate-300 space-y-2 text-slate-600">
+              <div>→ <em>"But you promised you would stay loyal."</em> (Axiom: Consistency)</div>
+              <div>→ <em>"If you leave, you are being entirely selfish."</em> (Axiom: Altruism)</div>
+              <div>→ <em>"You have no valid alternative planned."</em> (Axiom: Rational Control)</div>
+              <div>→ <em>"Therefore, leaving is irrational and wrong."</em></div>
+            </div>
+            <div class="pt-2 text-red-700 font-semibold text-[11px]">
+              Status: Trapped in closed loop. Cognitive restructuring fails because every deduction is logically sound within the premises.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200 text-xs space-y-2 text-slate-700">
+            <div class="font-bold text-amber-900">Gödel &amp; Heidegger: The Tool Breaks</div>
+            <p class="leading-relaxed">
+              Kurt Gödel proved that a formal axiomatic system cannot establish its own consistency from within. Martin Heidegger noted that tools are transparent (<em class="font-serif">zuhanden</em>) until they break. When logic leads to persistent paralysis, the verbal tool has broken (<em class="font-serif">vorhanden</em>). Arriving at an impasse requires stepping outside the formal vocabulary.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <div class="flex items-center space-x-2">
+            <span class="w-6 h-6 rounded-full bg-[#4D7C6F] text-white flex items-center justify-center text-xs font-bold font-mono">2</span>
+            <h4 class="font-serif font-bold text-lg text-slate-800">Peter Levine's Somatic Experiencing (SE)</h4>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Trauma and acute conflict lock the autonomic nervous system into hyperarousal or freeze. Somatic Experiencing does not argue with the mental narrative; it tracks interoceptive visceral data.
+          </p>
+
+          <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#4D7C6F] uppercase">Somatic Regulation Simulator</span>
+              <span id="somatic-step-label" class="text-xs font-mono text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">Phase: Over-Coupled</span>
+            </div>
+            
+            <div class="h-24 bg-white rounded-lg border border-emerald-100 flex items-center justify-center relative overflow-hidden">
+              <div id="somatic-pulse" class="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center transition-all duration-700">
+                <div id="somatic-core" class="w-6 h-6 rounded-full bg-rose-600 transition-all duration-700"></div>
+              </div>
+            </div>
+
+            <div class="flex space-x-2">
+              <button onclick="setSomaticPhase('trapped')" class="flex-1 py-1.5 text-xs rounded bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium">1. Locked Loop</button>
+              <button onclick="setSomaticPhase('pendulate')" class="flex-1 py-1.5 text-xs rounded bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium">2. Pendulation</button>
+              <button onclick="setSomaticPhase('titrate')" class="flex-1 py-1.5 text-xs rounded bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium">3. Titration / Discharge</button>
+            </div>
+
+            <div id="somatic-explanation" class="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded-lg border border-emerald-100" aria-live="polite">
+              <strong>Locked Loop:</strong> Cortical arguments continually justify the physical constriction. The nervous system remains frozen in fight-or-flight, but the intellect forbids physical anger or escape.
+            </div>
+          </div>
+
+          <div class="p-3.5 bg-[#FAF8F5] rounded-xl border border-[#E7DFD5] text-xs space-y-1.5 text-slate-700">
+            <div class="font-bold text-slate-900">Why Anger is the Body's Truth:</div>
+            <p class="leading-relaxed">
+              Anger is the one physiological signal the linguistic system cannot invalidate. You cannot refute an elevated pulse, a tight jaw, or a surge of adrenaline with a syllogism. It is the body's blunt notification: <em class="font-serif">"This system does not fit my life."</em> When acknowledged early as neutral data, anger need not escalate into catastrophic rupture.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reframing" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-amber-700">Section 05</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">Reconstructing the Exit: Focusing Constraints &amp; Reframing</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          Constraints do not destroy creativity; unconstrained freedom paralyzes it. However, exclusionary constraints ("Avoid X") fail because they lack informational density. This section details the IConIC model (Tromp &amp; Stokes), Kahneman &amp; Tversky's framing effect, and how to audit foundational axioms.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-6 shadow-xs">
+          <div>
+            <h4 class="font-serif font-bold text-lg text-slate-800">The IConIC Model: Exclusionary vs. Focusing Constraints</h4>
+            <p class="text-xs text-slate-500 mt-1">Catrinel Tromp &amp; Patricia Stokes (2018)</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl border border-red-200 bg-red-50/40 space-y-2">
+              <span class="text-xs font-bold uppercase text-red-700">Exclusionary Constraint</span>
+              <div class="font-serif font-bold text-slate-800 text-sm">"Do NOT use conventional methods."</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Points away from a single coordinate, leaving the entire infinite space of possibilities open. Generates cognitive fatigue, superficial scanning, and involuntary orbiting of the forbidden hazard.
+              </p>
+              <div class="text-[11px] text-red-800 font-semibold pt-1">Search Space: Diffuse &amp; Paralyzing</div>
+            </div>
+
+            <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/40 space-y-2">
+              <span class="text-xs font-bold uppercase text-[#4D7C6F]">Focusing Constraint</span>
+              <div class="font-serif font-bold text-slate-800 text-sm">"Must be 100% reversible in 48 hours."</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Points directly toward a positive, measurable property. Binds the problem space into a localized domain, enabling deep exploration and high creative novelty.
+              </p>
+              <div class="text-[11px] text-emerald-800 font-semibold pt-1">Search Space: Focused &amp; Actionable</div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-3">
+            <div class="text-xs font-bold uppercase text-slate-700">The Interactive Constraint Reframer</div>
+            <p class="text-xs text-slate-600">Convert an exclusionary paralysis trap into actionable positive constraints:</p>
+            
+            <div class="space-y-2">
+              <select id="reframer-input-select" onchange="runConstraintReframer()" class="w-full text-xs bg-white border border-[#E7DFD5] rounded-lg p-2 text-slate-800">
+                <option value="0">"I don't want to work at this exhausting corporate job anymore."</option>
+                <option value="1">"I don't want to get into another emotionally volatile relationship."</option>
+                <option value="2">"Do not write another boring, generic analytical essay."</option>
+              </select>
+
+              <div id="reframer-output" class="p-3 bg-white rounded-lg border border-[#E7DFD5] space-y-2">
+                <div class="text-xs font-bold text-[#C25E3B]">Positive Focusing Properties:</div>
+                <ul id="reframer-properties" class="text-xs text-slate-700 list-disc list-inside space-y-1">
+                  <li>Property 1: Asynchronous communication with &lt; 2 meetings/day</li>
+                  <li>Property 2: Direct revenue ownership over project deliverables</li>
+                  <li>Property 3: Hard cut-off at 35 hours per week</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <h4 class="font-serif font-bold text-lg text-slate-800">Axiom Auditing &amp; Prospect Theory</h4>
+          
+          <div class="space-y-3 text-xs text-slate-600">
+            <div class="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
+              <span class="font-bold text-amber-900 block mb-1">Tversky &amp; Kahneman Framing Effect:</span>
+              Human choices deviate predictably based on reference points. Loss frames ("avoid losing X") trigger desperate, risk-seeking panic. Gain frames ("secure property Y") promote stable, deliberate progress.
+            </div>
+
+            <div class="p-3 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-2">
+              <span class="font-bold text-slate-900 block">The Four Golden Axiom Audits:</span>
+              <p>Every closed box relies on one or two unexamined axioms. Attack the premises, and the scaffolding evaporates:</p>
+              <div class="space-y-1.5">
+                <div class="p-1.5 rounded bg-white border border-slate-200">
+                  <strong class="text-slate-800">1. The Axiom of Absolute Consistency:</strong> <em>"Must I remain bound today by decisions made with yesterday's information?"</em>
+                </div>
+                <div class="p-1.5 rounded bg-white border border-slate-200">
+                  <strong class="text-slate-800">2. The Axiom of Exhaustive Altruism:</strong> <em>"Does self-preservation genuinely equal malice?"</em>
+                </div>
+                <div class="p-1.5 rounded bg-white border border-slate-200">
+                  <strong class="text-slate-800">3. The Axiom of Linear Progression:</strong> <em>"Does pausing or reversing direction constitute defeat?"</em>
+                </div>
+                <div class="p-1.5 rounded bg-white border border-slate-200">
+                  <strong class="text-slate-800">4. The Axiom of Exhaustive Language:</strong> <em>"Does a reality exist that this vocabulary is simply inadequate to describe?"</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="generator" class="space-y-6 pt-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-[#C25E3B]">Section 06</span>
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">The Meta-Linguistic Escape &amp; Interactive Strategy Builder</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          The ultimate escape from linguistic confinement is to abandon language as the medium of resolution. In this final module, draw upon Ludwig Wittgenstein's fly-bottle, the silent inquiry of J. Krishnamurti (Vasanta Vihar), and the Vipassana somatic scanning of Dhamma Setu to build your personalized, non-linguistic exit strategy.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <h4 class="font-serif font-bold text-lg text-slate-800">The Philosophical Escape Hatch</h4>
+          
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2 text-xs text-amber-950">
+            <div class="font-serif font-bold text-sm text-amber-900">Wittgenstein's Fly-Bottle &amp; Ladder</div>
+            <p class="italic">“My propositions serve as elucidations in the following way: anyone who understands me eventually recognizes them as nonsensical, when he has used them—as steps—to climb up beyond them. (He must, so to speak, throw away the ladder after he has climbed up it.)”</p>
+            <p class="leading-relaxed">The fly-bottle is not a problem to solve but a grammar to abandon. The exit appears only when the frantic buzzing stops and the open neck becomes visible.</p>
+            <div class="pt-1 text-[11px] font-semibold text-amber-900">Tractatus 6.54 · Philosophical Investigations §309</div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#4D7C6F]/10 border border-[#4D7C6F]/30 space-y-2 text-xs">
+            <div class="font-serif font-bold text-sm text-[#4D7C6F]">Krishnamurti: The Retreat from Vocabulary</div>
+            <p class="text-slate-700 leading-relaxed">At Vasanta Vihar in Chennai, the Krishnamurti Foundation India hosts study retreats built around silent observation and informal dialogue rather than accumulating new concepts. The aim is a “complete break with the past”—auditing the axioms of a life without replacing them with another conceptual box.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-2 text-xs">
+            <div class="font-serif font-bold text-sm text-slate-800">Vipassana: Starving the Loop</div>
+            <p class="text-slate-700 leading-relaxed">At Dhamma Setu, silence and sustained interoceptive scanning interrupt the translation of sensation into language. Without words to sustain the paradox, Wegner's operating and monitoring processes lose their fuel, and the box dissolves into raw, unmediated territory.</p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-white border border-[#E7DFD5] text-xs text-slate-600">
+            <strong class="text-slate-800">The common thread:</strong> every meta-linguistic exit changes the medium. It does not win the argument; it leaves the arena in which the argument was compulsory.
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#E7DFD5] space-y-5 shadow-xs">
+          <div>
+            <h4 class="font-serif font-bold text-lg text-slate-800">Personal Exit Strategy Builder</h4>
+            <p class="text-xs text-slate-500 mt-1">Choose the trap and the medium of escape. The builder returns a three-step protocol drawn from the report.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="trap-select" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">The Trap</label>
+              <select id="trap-select" class="w-full text-xs bg-[#FAF8F5] border border-[#E7DFD5] rounded-lg p-2.5 text-slate-800">
+                <option value="relationship">A relationship I cannot justify leaving</option>
+                <option value="career">A career defined by what I refuse to become</option>
+                <option value="creative">A creative project paralysed by "don't do X"</option>
+                <option value="argument">An argument that is internally airtight</option>
+                <option value="self">A self-description built from "I am..."</option>
+              </select>
+            </div>
+            <div>
+              <label for="exit-select" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">The Exit Medium</label>
+              <select id="exit-select" class="w-full text-xs bg-[#FAF8F5] border border-[#E7DFD5] rounded-lg p-2.5 text-slate-800">
+                <option value="focus">Focusing constraint (language, rebuilt)</option>
+                <option value="somatic">Somatic override (body, first)</option>
+                <option value="meta">Meta-linguistic exit (silence, observation)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="not-input" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">The "NOT" Condition (optional)</label>
+            <input id="not-input" type="text" maxlength="140" placeholder='e.g. "I must not fail again."' class="w-full text-xs bg-[#FAF8F5] border border-[#E7DFD5] rounded-lg p-2.5 text-slate-800 placeholder:text-slate-400">
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="buildExitStrategy()" class="px-4 py-2 rounded-lg bg-[#C25E3B] text-white text-xs font-semibold hover:bg-[#A94F31] transition shadow-sm">Generate Exit Protocol</button>
+            <button type="button" onclick="resetExitStrategy()" class="px-4 py-2 rounded-lg bg-[#F1EBE4] text-slate-700 text-xs font-semibold hover:bg-slate-200 transition">Reset</button>
+          </div>
+
+          <div id="exit-output" class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E7DFD5] space-y-3" aria-live="polite">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#C25E3B]">Your protocol</div>
+            <ol id="exit-steps" class="text-xs text-slate-700 space-y-2 list-decimal list-inside">
+              <li>Name the exclusionary command in one sentence.</li>
+              <li>Translate it into one positive property the next step must satisfy.</li>
+              <li>Test the property in a small, reversible action within 24 hours.</li>
+            </ol>
+            <p id="exit-note" class="text-[11px] text-slate-500">The protocol is a scaffold, not a verdict. Change the medium when the loop returns.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200 text-xs text-amber-950 space-y-1">
+            <div class="font-bold text-amber-900">Design rule</div>
+            <p class="leading-relaxed">A usable exit is reversible, observable, and small enough to test before it becomes an identity. If a step requires you to win the argument first, it is still inside the box.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-white border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#C25E3B]">Exit 01 · Language</div>
+          <p class="mt-1 text-sm font-serif font-bold text-slate-800">Replace NOT with MUST</p>
+          <p class="mt-1 text-xs text-slate-600 leading-relaxed">Turn “do not fail” into “ship a reversible version by Friday.” A positive property gives the search an angle of travel.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-white border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#4D7C6F]">Exit 02 · Body</div>
+          <p class="mt-1 text-sm font-serif font-bold text-slate-800">Track, pendulate, titrate</p>
+          <p class="mt-1 text-xs text-slate-600 leading-relaxed">Notice the constriction without narrating it. Move attention between tension and calm, then discharge a microscopic amount at a time.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-white border border-[#E7DFD5] shadow-xs">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-600">Exit 03 · Silence</div>
+          <p class="mt-1 text-sm font-serif font-bold text-slate-800">Leave the vocabulary</p>
+          <p class="mt-1 text-xs text-slate-600 leading-relaxed">Stop trying to out-argue the box. Observe the mind, the breath, and the open neck of the fly-bottle without translating them into a new rule.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 text-center space-y-3">
+      <h3 class="text-2xl sm:text-3xl font-serif font-bold">The box is real. The exit is a change of medium.</h3>
+      <p class="text-sm text-slate-300 max-w-3xl mx-auto leading-relaxed">Negation can describe a hazard, but it cannot supply a direction. When the argument closes, stop asking language to unlock itself. Rebuild the constraint, read the body, or step into silence.</p>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#E7DFD5] bg-white py-8 text-center text-xs text-slate-500 mt-12">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="font-semibold text-slate-700">The Architecture of Linguistic Confinement</p>
+      <p>Cognitive, computational, and somatic escapes from the trap of negation.</p>
+      <p class="pt-2">
+        <a href="readme.md" class="text-[#C25E3B] hover:underline">Full Report</a> &nbsp;•&nbsp;
+        <a href="../" class="text-[#C25E3B] hover:underline">D/0 Knowledge Vault</a> &nbsp;•&nbsp;
+        <a href="../../" class="text-[#C25E3B] hover:underline">Portfolio Home</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Shared helpers ----------
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COLORS = {
+      terracotta: '#C25E3B',
+      sage: '#4D7C6F',
+      amber: '#D97706',
+      grid: 'rgba(30, 41, 59, 0.08)'
+    };
+
+    function showChartFallback(canvas, message) {
+      if (!canvas || !canvas.parentElement) return;
+      const box = canvas.parentElement;
+      const p = document.createElement('p');
+      p.className = 'h-full flex items-center justify-center text-center text-xs text-slate-500 px-4';
+      p.textContent = message;
+      canvas.remove();
+      box.appendChild(p);
+    }
+
+    // ---------- Section 01: phrase selector ----------
+    const phraseData = {
+      only: {
+        tag: 'Exclusion by Prohibition',
+        formula: 'NOT (All other choices)',
+        quote: '"This is the only way to proceed."',
+        analysis: 'A lock constructed from pure exclusion. It defines the path by outlawing the entire remainder of reality. All alternatives are forbidden, forcing the mind into a singular corridor under the threat of invalidity.',
+        consequence: '<strong>Cognitive Impact:</strong> Total collapse of exploratory search. Heightens anxiety regarding any deviance, creating dogmatic adherence.',
+        toneClass: 'bg-red-50 text-red-900 border-red-100'
+      },
+      different: {
+        tag: 'Exclusion by Reaction',
+        formula: 'NOT (Current state)',
+        quote: '"I just need a different way."',
+        analysis: 'This sounds like an exit, but the new path is still defined by the old one. Its identity is chained to what it rejects, so the forbidden state remains the centre of gravity.',
+        consequence: '<strong>Cognitive Impact:</strong> Reactive orbiting. The search stays wide and diffuse because the only specification is a negative one.',
+        toneClass: 'bg-amber-50 text-amber-900 border-amber-200'
+      },
+      positive: {
+        tag: 'Focusing Constraint',
+        formula: 'MUST (Specific property)',
+        quote: '"The new path must be reversible within 48 hours."',
+        analysis: 'A positive constraint names a property the next step must satisfy. It does not forbid the hazard; it gives attention a destination and makes the search space small enough to explore deeply.',
+        consequence: '<strong>Cognitive Impact:</strong> Localized, actionable search. The mind can test candidates against a criterion instead of orbiting an absence.',
+        toneClass: 'bg-emerald-50 text-emerald-900 border-emerald-200'
+      }
+    };
+
+    const phraseButtonMap = {
+      only: 'btn-phrase-only',
+      different: 'btn-phrase-diff',
+      positive: 'btn-phrase-pos'
+    };
+
+    function selectPhrase(key) {
+      const data = phraseData[key] || phraseData.only;
+      document.getElementById('phrase-type-tag').textContent = data.tag;
+      document.getElementById('phrase-formula').textContent = data.formula;
+      document.getElementById('phrase-quote').textContent = data.quote;
+      document.getElementById('phrase-analysis').textContent = data.analysis;
+
+      const consequence = document.getElementById('phrase-consequence');
+      consequence.innerHTML = data.consequence;
+      consequence.className = 'p-3 rounded-lg text-xs leading-normal border ' + data.toneClass;
+
+      Object.entries(phraseButtonMap).forEach(([name, id]) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        const active = name === key;
+        btn.classList.toggle('bg-[#C25E3B]', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-[#F1EBE4]', !active);
+        btn.classList.toggle('text-slate-700', !active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+
+    // ---------- Section 01: E-Prime translator ----------
+    const eprimePresets = [
+      '"We have not yet uncovered a shared framework that addresses our conflicting requirements."',
+      '"I have failed at specific tasks in this relationship, and I can learn from those failures."',
+      '"Survival may require conforming in specific situations; other strategies remain available to test."',
+      '"This city has recorded higher rates of reported crime in recent years."',
+      '"My manager has repeatedly behaved in ways that undermined trust in specific meetings."'
+    ];
+
+    function applyEprimePreset() {
+      const select = document.getElementById('eprime-select');
+      const output = document.getElementById('eprime-output');
+      if (!select || !output) return;
+      const idx = Number(select.value) || 0;
+      output.textContent = eprimePresets[idx] || eprimePresets[0];
+    }
+
+    function transformEprime() {
+      applyEprimePreset();
+      const output = document.getElementById('eprime-output');
+      if (!output) return;
+      output.classList.remove('opacity-60');
+      output.classList.add('opacity-100');
+    }
+
+    // ---------- Section 02: Wegner simulator ----------
+    let wegnerChart = null;
+    const stressLabels = Array.from({ length: 21 }, (_, i) => i * 5);
+
+    function intrusionRate(stress) {
+      const s = Math.max(0, Math.min(100, stress));
+      const rebound = 18 * Math.exp(-Math.pow(s - 85, 2) / (2 * Math.pow(12, 2)));
+      return Number((2.5 + s * 0.055 + rebound).toFixed(1));
+    }
+
+    function buildWegnerChart() {
+      const canvas = document.getElementById('wegnerChart');
+      if (!canvas) return;
+      if (typeof Chart === 'undefined') {
+        showChartFallback(canvas, 'Chart.js could not load. The operating and monitoring values above still update with the slider.');
+        return;
+      }
+
+      wegnerChart = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: stressLabels,
+          datasets: [
+            {
+              label: 'Ironic intrusions / min',
+              data: stressLabels.map(intrusionRate),
+              borderColor: COLORS.terracotta,
+              backgroundColor: 'rgba(194, 94, 59, 0.10)',
+              fill: true,
+              tension: 0.35,
+              pointRadius: 0,
+              borderWidth: 2
+            },
+            {
+              label: 'Current load',
+              data: [],
+              borderColor: COLORS.amber,
+              backgroundColor: COLORS.amber,
+              pointRadius: 5,
+              pointHoverRadius: 6,
+              showLine: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: reducedMotion ? false : { duration: 300 },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => 'Cognitive load: ' + items[0].label + '%',
+                label: (ctx) => ' ' + ctx.parsed.y + ' intrusions / min'
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: 'Cognitive load / stress (%)', color: '#64748b', font: { size: 11 } },
+              ticks: { color: '#94a3b8', maxTicksLimit: 6 },
+              grid: { color: COLORS.grid }
+            },
+            y: {
+              beginAtZero: true,
+              suggestedMax: 30,
+              title: { display: true, text: 'Intrusions per minute', color: '#64748b', font: { size: 11 } },
+              ticks: { color: '#94a3b8' },
+              grid: { color: COLORS.grid }
+            }
+          }
+        }
+      });
+
+      updateStressSimulation(document.getElementById('stress-slider')?.value || 35);
+    }
+
+    function updateStressSimulation(rawValue) {
+      const stress = Math.max(0, Math.min(100, Number(rawValue) || 0));
+      const operating = Math.max(0, 100 - stress);
+
+      const stressValue = document.getElementById('stress-value');
+      const statOperating = document.getElementById('stat-operating');
+      const statMonitoring = document.getElementById('stat-monitoring');
+      const status = document.getElementById('load-status');
+      if (stressValue) stressValue.textContent = stress + '%';
+      if (statOperating) statOperating.textContent = operating + '%';
+      if (statMonitoring) statMonitoring.textContent = stress + '%';
+
+      if (status) {
+        let label = 'Moderate Load';
+        let classes = 'bg-amber-100 text-amber-800';
+        if (stress < 25) {
+          label = 'Low Load';
+          classes = 'bg-emerald-100 text-emerald-800';
+        } else if (stress >= 60 && stress < 85) {
+          label = 'Operating Process Failing';
+          classes = 'bg-rose-100 text-rose-800';
+        } else if (stress >= 85) {
+          label = 'Ironic Flooding';
+          classes = 'bg-rose-200 text-rose-900';
+        }
+        status.textContent = label;
+        status.className = 'text-xs px-2 py-0.5 rounded font-medium ' + classes;
+      }
+
+      if (wegnerChart) {
+        const nearest = stressLabels.reduce((best, value) => (
+          Math.abs(value - stress) < Math.abs(best - stress) ? value : best
+        ), stressLabels[0]);
+        wegnerChart.data.datasets[1].data = stressLabels.map((value) => (
+          value === nearest ? intrusionRate(stress) : null
+        ));
+        wegnerChart.update();
+      }
+    }
+
+    // ---------- Section 03: LLM layer chart ----------
+    function buildLlmChart() {
+      const canvas = document.getElementById('llmLayerChart');
+      if (!canvas) return;
+      if (typeof Chart === 'undefined') {
+        showChartFallback(canvas, 'Chart.js could not load. The two failure-mode cards below still summarize the layer dynamics.');
+        return;
+      }
+
+      const layers = Array.from({ length: 32 }, (_, i) => i + 1);
+      const attention = layers.map((layer) => {
+        if (layer <= 8) return 18 + layer * 2;
+        if (layer <= 20) return 34 + (layer - 8) * 3;
+        return Math.max(20, 70 - (layer - 20) * 4);
+      });
+      const ffn = layers.map((layer) => {
+        if (layer < 18) return 8 + layer * 0.8;
+        if (layer <= 27) return 22 + Math.pow((layer - 18) / 9, 2) * 78;
+        return Math.max(18, 100 - (layer - 27) * 8);
+      });
+
+      new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: layers,
+          datasets: [
+            {
+              label: 'Attention suppression',
+              data: attention,
+              borderColor: COLORS.sage,
+              backgroundColor: 'rgba(77, 124, 111, 0.10)',
+              fill: true,
+              tension: 0.35,
+              pointRadius: 0,
+              borderWidth: 2
+            },
+            {
+              label: 'FFN override pressure',
+              data: ffn,
+              borderColor: COLORS.terracotta,
+              backgroundColor: 'rgba(194, 94, 59, 0.12)',
+              fill: true,
+              tension: 0.35,
+              pointRadius: 0,
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: reducedMotion ? false : { duration: 500 },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: { boxWidth: 12, boxHeight: 12, color: '#475569', font: { size: 11 } }
+            },
+            tooltip: {
+              callbacks: {
+                title: (items) => 'Transformer layer ' + items[0].label,
+                label: (ctx) => ' ' + ctx.dataset.label + ': ' + Math.round(ctx.parsed.y) + '%'
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: 'Layer (1 → 32)', color: '#64748b', font: { size: 11 } },
+              ticks: { color: '#94a3b8', maxTicksLimit: 8 },
+              grid: { color: COLORS.grid }
+            },
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: { display: true, text: 'Relative activation (%)', color: '#64748b', font: { size: 11 } },
+              ticks: { color: '#94a3b8' },
+              grid: { color: COLORS.grid }
+            }
+          }
+        }
+      });
+    }
+
+    // ---------- Section 02: RFT rule inspector ----------
+    const ruleData = {
+      pliance: {
+        button: 'btn-rule-pliance',
+        detail: 'Pliance creates profound vulnerability to emotional abuse and cognitive paralysis. The individual remains trapped in an intolerable situation because the social rule overrides raw sensory evidence of harm.'
+      },
+      tracking: {
+        button: 'btn-rule-tracking',
+        detail: 'Tracking stays connected to real consequences, so it can update when the environment changes. It becomes confinement only when a useful map is treated as the territory.'
+      },
+      augmenting: {
+        button: 'btn-rule-augmenting',
+        detail: 'Augmenting changes what a consequence is worth. It can create meaning and commitment, or inflate suffering into a moral identity that makes leaving feel like betrayal.'
+      }
+    };
+
+    function inspectRule(key) {
+      const data = ruleData[key] || ruleData.pliance;
+      const detail = document.getElementById('rule-detail-text');
+      if (detail) detail.textContent = data.detail;
+
+      Object.values(ruleData).forEach((item) => {
+        const btn = document.getElementById(item.button);
+        if (!btn) return;
+        const active = item.button === data.button;
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        btn.classList.toggle('border-amber-300', active);
+        btn.classList.toggle('bg-amber-50/50', active);
+        btn.classList.toggle('border-[#E7DFD5]', !active);
+      });
+    }
+
+    // ---------- Section 04: somatic phases ----------
+    const somaticData = {
+      trapped: {
+        label: 'Phase: Over-Coupled',
+        explanation: '<strong>Locked Loop:</strong> Cortical arguments continually justify the physical constriction. The nervous system remains frozen in fight-or-flight, but the intellect forbids physical anger or escape.',
+        pulseClasses: 'w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center transition-all duration-700 scale-90',
+        coreClasses: 'w-6 h-6 rounded-full bg-rose-600 transition-all duration-700'
+      },
+      pendulate: {
+        label: 'Phase: Pendulation',
+        explanation: '<strong>Pendulation:</strong> Attention moves gently between the area of tension and a patch of relative calm. The goal is not to dissolve the sensation but to show the nervous system that it can shift.',
+        pulseClasses: 'w-12 h-12 rounded-full bg-amber-400/25 flex items-center justify-center transition-all duration-700 scale-110',
+        coreClasses: 'w-6 h-6 rounded-full bg-amber-500 transition-all duration-700'
+      },
+      titrate: {
+        label: 'Phase: Titration / Discharge',
+        explanation: '<strong>Titration:</strong> A microscopic amount of survival energy is allowed to complete. The body, not the argument, finishes the interrupted response; the verbal loop loses its urgency.',
+        pulseClasses: 'w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center transition-all duration-700 scale-100',
+        coreClasses: 'w-6 h-6 rounded-full bg-emerald-600 transition-all duration-700'
+      }
+    };
+
+    function setSomaticPhase(key) {
+      const activeKey = somaticData[key] ? key : 'trapped';
+      const data = somaticData[activeKey];
+      const label = document.getElementById('somatic-step-label');
+      const explanation = document.getElementById('somatic-explanation');
+      const pulse = document.getElementById('somatic-pulse');
+      const core = document.getElementById('somatic-core');
+
+      if (label) label.textContent = data.label;
+      if (explanation) explanation.innerHTML = data.explanation;
+      if (pulse) pulse.className = data.pulseClasses;
+      if (core) core.className = data.coreClasses;
+
+      ['trapped', 'pendulate', 'titrate'].forEach((phase) => {
+        const btn = document.querySelector('[onclick="setSomaticPhase(\'' + phase + '\')"]');
+        if (!btn) return;
+        const active = phase === activeKey;
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        btn.classList.toggle('bg-slate-800', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-slate-100', !active);
+        btn.classList.toggle('text-slate-700', !active);
+      });
+    }
+
+    // ---------- Section 05: constraint reframer ----------
+    const reframerData = {
+      0: [
+        'Asynchronous communication with fewer than two meetings per day',
+        'Direct ownership of one revenue-linked deliverable',
+        'A hard weekly cutoff at 35 hours'
+      ],
+      1: [
+        'A conflict style that stays curious for at least ten minutes',
+        'A relationship pace with no major decisions in the first three months',
+        'A boundary that can be stated without blame'
+      ],
+      2: [
+        'One concrete claim per paragraph, supported by a specific example',
+        'A structure a reader can follow without prior context',
+        'A first draft finished in a single 25-minute sprint'
+      ]
+    };
+
+    function runConstraintReframer() {
+      const select = document.getElementById('reframer-input-select');
+      const list = document.getElementById('reframer-properties');
+      if (!select || !list) return;
+      const key = select.value || '0';
+      list.innerHTML = '';
+      (reframerData[key] || reframerData[0]).forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        list.appendChild(li);
+      });
+    }
+
+    // ---------- Section 06: exit strategy builder ----------
+    const exitData = {
+      relationship: {
+        label: 'a relationship you cannot justify leaving',
+        property: 'the next conversation must be honest, time-boxed, and free of threats',
+        somatic: 'Notice where the decision lives in your body — throat, chest, stomach, jaw. Let the sensation be there without turning it into a verdict.',
+        meta: 'Stop rehearsing the argument. Sit with the question, "What is actually here?" and let the answer arrive without a script.'
+      },
+      career: {
+        label: 'a career defined by what you refuse to become',
+        property: 'the next role must give you direct ownership of one deliverable and a sustainable weekly pace',
+        somatic: 'Notice the difference between dread and simple fatigue. Dread usually has a location and a posture; fatigue is heavier and more diffuse.',
+        meta: 'Stop asking what you should be. Observe what you actually do when no one is grading the answer.'
+      },
+      creative: {
+        label: 'a creative project paralysed by a prohibition',
+        property: 'the next draft must be produced in one 25-minute sprint with no editing or audience',
+        somatic: 'Notice the tightness around the prohibition. Let the impulse to make something exist alongside the fear of making it badly.',
+        meta: 'Leave the project without a verdict. Return only when a concrete next mark or sentence appears.'
+      },
+      argument: {
+        label: 'an argument that is internally airtight',
+        property: 'the next step must be testable against one real-world consequence within a week',
+        somatic: 'Notice the tension of needing to win. Let the body feel the unfinished argument without recruiting it into another round of proof.',
+        meta: 'Stop trying to find the missing premise. Observe the question itself and see whether it still demands an answer.'
+      },
+      self: {
+        label: 'a self-description built from "I am..."',
+        property: 'the next description must name a behaviour, a context, and a next experiment',
+        somatic: 'Notice how the label lands in the body. A fixed identity often feels heavy and closed; a behaviour usually feels more local and changeable.',
+        meta: 'Let the label be a thought rather than a fact. Watch it appear and disappear without asking it to define the whole person.'
+      }
+    };
+
+    const modeNotes = {
+      focus: 'Language is rebuilt, not abandoned: one positive property gives the next action a direction.',
+      somatic: 'The body is treated as data, not as a verdict. Pendulate and titrate so the nervous system can finish its interrupted response.',
+      meta: 'The argument is left intact, but it is no longer the medium of resolution. Observe without translating everything into a rule.'
+    };
+
+    function buildExitStrategy() {
+      const trapKey = document.getElementById('trap-select')?.value || 'relationship';
+      const mode = document.getElementById('exit-select')?.value || 'focus';
+      const data = exitData[trapKey] || exitData.relationship;
+      const notText = (document.getElementById('not-input')?.value || '').trim();
+      const subject = notText ? '"' + notText + '"' : data.label;
+      const steps = [];
+
+      if (mode === 'focus') {
+        steps.push('Name the exclusionary command' + (notText ? ' you wrote: ' + subject : ' inside ' + data.label) + '.');
+        steps.push('Translate it into one positive property: ' + data.property + '.');
+        steps.push('Take one small, reversible action that satisfies the property within 24 hours, then note what changed.');
+      } else if (mode === 'somatic') {
+        steps.push('Stop arguing with the content of this trap for two minutes: ' + subject + '.');
+        steps.push(data.somatic);
+        steps.push('Pendulate: move attention between the tension and a neutral sensation. Titrate: allow only a small amount at a time, then stop.');
+      } else {
+        steps.push('Leave the vocabulary of this trap for one unhurried period of silence: ' + subject + '.');
+        steps.push(data.meta);
+        steps.push('Return only when a concrete next action appears. If none appears, do not manufacture a new rule; observe again later.');
+      }
+
+      const list = document.getElementById('exit-steps');
+      if (list) {
+        list.innerHTML = '';
+        steps.forEach((step) => {
+          const li = document.createElement('li');
+          li.textContent = step;
+          list.appendChild(li);
+        });
+      }
+
+      const note = document.getElementById('exit-note');
+      if (note) note.textContent = modeNotes[mode];
+    }
+
+    function resetExitStrategy() {
+      const input = document.getElementById('not-input');
+      const trap = document.getElementById('trap-select');
+      const mode = document.getElementById('exit-select');
+      if (input) input.value = '';
+      if (trap) trap.value = 'relationship';
+      if (mode) mode.value = 'focus';
+
+      const list = document.getElementById('exit-steps');
+      if (list) {
+        list.innerHTML = '<li>Name the exclusionary command in one sentence.</li><li>Translate it into one positive property the next step must satisfy.</li><li>Test the property in a small, reversible action within 24 hours.</li>';
+      }
+      const note = document.getElementById('exit-note');
+      if (note) note.textContent = 'The protocol is a scaffold, not a verdict. Change the medium when the loop returns.';
+    }
+
+    // ---------- Navigation scroll-spy ----------
+    function initNavSpy() {
+      const links = Array.from(document.querySelectorAll('[data-nav-link]'));
+      const sections = links.map((link) => document.getElementById(link.dataset.navLink)).filter(Boolean);
+      if (!links.length || !sections.length) return;
+
+      let ticking = false;
+      function update() {
+        const offset = 160;
+        let current = sections[0].id;
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= offset) current = section.id;
+        });
+        links.forEach((link) => {
+          link.setAttribute('aria-current', link.dataset.navLink === current ? 'true' : 'false');
+        });
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    // ---------- Init ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavSpy();
+      buildWegnerChart();
+      buildLlmChart();
+      selectPhrase('only');
+      applyEprimePreset();
+      updateStressSimulation(document.getElementById('stress-slider')?.value || 35);
+      inspectRule('pliance');
+      setSomaticPhase('trapped');
+      runConstraintReframer();
+      resetExitStrategy();
+    });
+  </script>
+</body>
+</html>
+            

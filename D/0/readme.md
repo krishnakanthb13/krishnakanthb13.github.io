@@ -252,6 +252,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Linguistic Confinement](./linguistic_confinement/)
+**The Architecture of Linguistic Confinement** — why "the only way" and "a different way" are structurally identical locks forged from exclusion, and why a closed logical system cannot be escaped using its own vocabulary. Synthesizes linguistic relativity and Lakoff's framing, Derrida's *différance*, Wegner's ironic processes, relational frame theory, Bateson's double bind, Gödel and Heidegger, semantic gravity wells in LLMs, focusing constraints, somatic experiencing, and Wittgenstein's fly-bottle.
+
+- 📝 [The Full Report](./linguistic_confinement/readme.md) — the long-form essay with 86 cited sources. (`readme.md`)
+- 🔒 [Interactive Infographic](./linguistic_confinement/index.html) — the complete warm linen & terracotta interactive page: six progressive modules with a phrase-lock comparator, E-Prime translator, Wegner cognitive-load/rebound simulator and live chart, LLM attention-vs-FFN layer chart, RFT rule inspector, somatic pendulation simulator, IConIC constraint reframer and a personal exit-strategy builder. (`index.html`)
+
+---
+
 ### 📁 [Neuroplasticity & Procrastination](./neuroplasticity_n_procrastination/)
 **The Neuroscience of Action and Avoidance** — deconstructs the high-stakes productivity rhetoric ("skip one day and you wire your brain for avoidance," "only a karmic reckoning of willpower works") against empirical neuroscience: habit formation is asymptotic (median 66 days, Lally 2010), procrastination is an amygdala-driven emotional-regulation failure rather than a character flaw, and sleep is a mechanical prerequisite for prefrontal control. Synthesizes experience-dependent neuroplasticity, Schlüter et al.'s 2018 amygdala/dACC imaging, Schultz's reward prediction error, Loewenstein's hot-cold empathy gap, and Inzlicht's process model of self-control.
 

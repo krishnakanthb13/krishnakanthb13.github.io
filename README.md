@@ -37,6 +37,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 		- [Learned Helplessness](https://krishnakanthb13.github.io/D/0/learned_helplessness/) — The Architecture of Learned Helplessness
+		- [Linguistic Confinement](https://krishnakanthb13.github.io/D/0/linguistic_confinement/) — The Architecture of Linguistic Confinement
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
@@ -269,6 +270,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Learned Helplessness](https://krishnakanthb13.github.io/D/0/learned_helplessness/): The Architecture of Learned Helplessness — why a severed action–outcome contingency teaches organisms to expect futility, traced from the 1967 triadic design and attributional reformulation to the 2016 DRN/vmPFC paradigm shift, BDNF epigenetics, ketamine synaptogenesis, and organizational and algorithmic helplessness.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/learned_helplessness/): Six-module atlas with a classroom anagram simulator, triadic-design shuttle-box latency chart, attributional-matrix risk model, DRN-vs-vmPFC circuit simulator, ketamine-vs-SSRI spine-density timeline, LHS screener & algorithmic-UX agency lab.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/learned_helplessness/readme.md): Long-form research essay with 83 cited sources.
+	- [Linguistic Confinement](https://krishnakanthb13.github.io/D/0/linguistic_confinement/): The Architecture of Linguistic Confinement — why negations, closed logical systems, and rule-governed language trap both minds and neural networks, and how focusing constraints, somatic awareness, and silence offer a way out.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/linguistic_confinement/): Six-module warm editorial portal with a phrase-lock comparator, E-Prime translator, Wegner cognitive-load/rebound simulator, LLM layer-override chart, RFT rule inspector, somatic pendulation simulator, IConIC constraint reframer & personal exit-strategy builder.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/linguistic_confinement/readme.md): Long-form research essay with 86 cited sources.
 	- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): The Neuroscience of Action and Avoidance — why skipping a day doesn't rewire the brain, procrastination is emotional regulation not willpower, and rest is a prerequisite for prefrontal control.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/): Rhetoric-vs-empirics matrix, Lally habit-kinetics simulator, brain-architecture explorer, dopamine RPE lab, future-self empathy-gap analyzer & micro-action rehearsal generator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/readme.md): Long-form research essay with 64 cited sources.
