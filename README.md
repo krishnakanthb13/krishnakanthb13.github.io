@@ -42,6 +42,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
 		- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/) — The Interstitial Pause
+		- [Self-Blame Cycles](https://krishnakanthb13.github.io/D/0/self_blame_cycles/) — The Architecture of Self-Blame as a Locus of Control
 		- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/) — The Modern Paradigm of Absurdity
 		- [Sunk Cost Fallacy](https://krishnakanthb13.github.io/D/0/sunk_cost_fallacy/) — The Psychology and Economics of Sunk Costs
 		- [Time & Employment Dynamics](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/) — The Market for Time
@@ -285,6 +286,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/): The Interstitial Pause — why volitional maturity is not the eradication of emotion but the deliberate cultivation of a temporal and epistemic gap between raw affect and motor output.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/respond_vs_react/): Five-module tabbed portal with a dual-process radar/bar chart, Stoic–Buddhist–existential pause explorer, semiotic iconography cards, 90-second physiological-sigh timer, affect-labeling neural calculator, ACT Choice Point matrix & three-step volitional choice simulator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/respond_vs_react/readme.md): Long-form research essay with 54 cited sources.
+	- [Self-Blame Cycles](https://krishnakanthb13.github.io/D/0/self_blame_cycles/): The Architecture of Self-Blame as a Locus of Control — why the mind would rather manufacture guilt than endure helplessness, and how invented blame becomes an unpayable debt.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/self_blame_cycles/): Five-tab portal with an attribution framework matrix, counterfactual typology inspector, clickable HTML5 Canvas neural-circuit simulator, dopamine-burnout chart with cycle slider, CBT responsibility pie-chart builder, ACT cognitive-defusion stepper & CFT three-system emotional balancer.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/self_blame_cycles/readme.md): Long-form research essay with 71 cited sources.
 	- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/): The Modern Paradigm of Absurdity — from the trickster king who chained Death to Camus's absurd hero and Ariely's measured cost of meaningless labor.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/sisyphus/): Five-tab SPA with transgression stepper, character matrix, contrapasso table, Camus-vs-Sartre framework, three-responses explorer, Hour of Consciousness toggle, Ariely Bionicle & reservation-wage charts, workplace motivation simulator & alignment quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/sisyphus/readme.md): Long-form research essay with 51 cited sources.

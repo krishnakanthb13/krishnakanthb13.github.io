@@ -292,6 +292,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Self-Blame Cycles](./self_blame_cycles/)
+**The Architecture of Self-Blame as a Locus of Control** — why the mind would rather manufacture guilt than endure helplessness, and how invented blame becomes an unpayable debt. Distinguishes Janoff-Bulman's behavioral from characterological self-blame, then traces regret through Roese & Epstude's functional counterfactual typology and hindsight bias, the neurocircuitry of self-criticism and shame, and the dopaminergic burnout of introjected regulation—closing with CBT responsibility pie, ACT cognitive defusion, and Gilbert's CFT three-system rebalancing.
+
+- 📝 [The Full Report](./self_blame_cycles/readme.md) — the long-form essay with 71 cited sources. (`readme.md`)
+- 🔄 [Interactive Infographic](./self_blame_cycles/index.html) — the complete warm-cream, terracotta & slate interactive page: five-tab portal with an attribution framework matrix, counterfactual typology inspector, clickable HTML5 Canvas neural-circuit simulator, dopamine-burnout chart with cycle slider, CBT responsibility pie-chart builder, ACT three-stage cognitive-defusion stepper, and CFT three-system emotional balancer. (`index.html`)
+
+---
+
 ### 📁 [Sisyphus](./sisyphus/)
 **The Modern Paradigm of Absurdity** — why the king who cheated death twice became the West's defining archetype of pointless labor. Traces the figure of Sisyphus across three domains: his metis-fueled kingship of Ephyra and the violation of *xenia*, the contrapasso logic of his Tartarus sentence; Albert Camus's 1942 reinterpretation of the myth as the ultimate absurd hero ("one must imagine Sisyphus happy"); and Dan Ariely's behavioral-economics quantification of meaningless labor, which measures the "Sisyphus Condition" as a 32% productivity collapse and a doubled reservation wage.
 

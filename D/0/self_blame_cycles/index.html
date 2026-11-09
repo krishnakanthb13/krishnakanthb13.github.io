@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Anatomy of Self-Blame, Regret, and Cognitive Renewal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔄</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f0ea;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #d6d3cb;
+      border-radius: 3px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #b8b3a8;
+    }
+  </style>
+</head>
+<!-- Chosen Palette: Warm Minimalist Sanctuary (Stone, Warm Cream, Amber Terracotta, Muted Indigo, Sage Accent) -->
+<!-- Application Structure Plan:
+     1. Executive Header & Epistemic Overview: Establishes the psychological premise that self-blame is an attempt to manufacture control rather than endure helplessness.
+     2. Interactive Thematic Navigation: Tabs allow non-linear synthesis across 5 core dimensions:
+        - I. Architecture of Blame (Janoff-Bulman framework, Behavioral vs. Characterological, the Endless Debt loop).
+        - II. The Regret & Counterfactual Lab (The Roese & Epstude functional matrix, Hindsight Bias simulator, Action vs. Inaction dynamics).
+        - III. The Neurobiological Substrates (Interactive HTML5 Canvas brain circuit map visualizing OFC, dACC, DLPFC, Amygdala, and Insula activations under Threat vs. Affiliative Reassurance).
+        - IV. The Dopamine & Motivation Burnout Curve (Chart.js dynamic simulator demonstrating why introjected fuel triggers tonic dopamine droughts and why 'meaning goes flat').
+        - V. Clinical Restructuring Toolkit (Interactive Responsibility Pie Chart builder, ACT 3-Step Cognitive Defusion tool, and Gilbert's CFT 3-System Equilibrium Balancer).
+     3. Epistemic Synthesis & Keel Paradigm: Practical takeaway contrasting combustible narrative fuel with a structural keel.
+     This structure was chosen because it guides the user from the intuitive emotional trap (blame feels like control), through its mechanistic cognitive and neurochemical consequences, to actionable, evidence-based cognitive interventions. -->
+<!-- Visualization & Content Choices:
+     - Brain Circuit Mapping -> Goal: Relationships & Neuroanatomy -> Custom HTML5 Canvas renderer with node glow and state transitions -> Clickable emotional states (Self-Prosecution, Shame, Guilt, Compassion) -> Canvas provides zero-dependency, rich interactive neuro-mapping without forbidden SVG or Mermaid -> Pure Canvas API.
+     - Motivational Burnout & Tonic Dopamine -> Goal: Change over time & Dopaminergic depletion -> Chart.js Line Chart with dual dataset (Tonic Baseline vs. Phasic Spikes) -> Cycle step simulator slider -> Shows why novelty searches fail from the trough -> Chart.js.
+     - Responsibility Pie Chart -> Goal: Compare & Restructure attributions -> Chart.js Doughnut Chart -> Interactive item adder with weight redistribution -> Directly operationalizes CBT protocol reducing 100% false self-blame -> Chart.js.
+     - Counterfactual Typology Matrix -> Goal: Organize & Inform -> Interactive clickable matrix with dynamic card inspection -> Allows user to test additive vs. subtractive and upward vs. downward paths -> Vanilla DOM manipulation.
+     - CFT 3-System Balancer -> Goal: Inform & Balance -> Interactive 3-slider dynamic gauge with algorithmic diagnostic output -> Demonstrates need for Soothing system cultivation -> Structured HTML/CSS with JS state.
+     CONFIRMING: Zero SVG used. Zero Mermaid JS used. All graphics rendered via Canvas or styled HTML5/Unicode. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<body class="bg-[#fbfaf8] text-[#2c2b29] font-sans antialiased selection:bg-[#e8decb] selection:text-[#1e1c18]">
+
+  <header class="sticky top-0 z-40 border-b border-[#e6e2d8] bg-[#f5f3ee]/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="flex-shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-white border border-[#ded8cb] text-[#5c564b] hover:text-[#c2593f] hover:border-[#c2593f]/40 transition" title="Return to the D/0 Knowledge Vault">← D/0</a>
+          <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-[#c2593f] text-white flex items-center justify-center font-bold text-base shadow-sm" aria-hidden="true">↻</span>
+          <div class="min-w-0">
+            <h1 class="text-base sm:text-xl font-bold tracking-tight text-[#1c1b18] leading-tight truncate">The Anatomy of Self-Blame &amp; Renewal</h1>
+            <p class="text-[11px] sm:text-xs text-[#7a7467] truncate hidden sm:block">Cognitive Architecture &amp; Neurobiology</p>
+          </div>
+        </div>
+        <div class="flex flex-shrink-0 items-center gap-2">
+          <div class="hidden lg:flex items-center gap-2 text-xs font-medium text-[#5c564b] bg-[#ebe7dc] p-1.5 rounded-lg border border-[#ded8cb]">
+            <span class="px-2 py-1 bg-white rounded shadow-sm text-[#1c1b18]">Insight Engine</span>
+            <span class="px-2">Responsibility &ne; Punishment</span>
+            <span class="text-[#c2593f]">&bull;</span>
+            <span class="px-2">Fuel vs. Keel</span>
+          </div>
+          <a href="readme.md" class="text-[11px] font-semibold px-2.5 py-1.5 rounded-md bg-white border border-[#ded8cb] text-[#5c564b] hover:text-[#c2593f] hover:border-[#c2593f]/40 transition">📄 <span class="hidden sm:inline">Full Report</span></a>
+        </div>
+      </div>
+      <!-- Row 2: section navigation (tabs) -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-[#ded8cb]/80 py-2" aria-label="Page sections">
+        <button type="button" onclick="switchTab('architecture')" id="tab-btn-architecture" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors bg-white text-[#1c1b18] shadow-sm">
+          1. Architecture of Blame
+        </button>
+        <button type="button" onclick="switchTab('counterfactual')" id="tab-btn-counterfactual" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors text-[#5c564b] hover:text-[#1c1b18]">
+          2. Counterfactual &amp; Regret Lab
+        </button>
+        <button type="button" onclick="switchTab('neurobiology')" id="tab-btn-neurobiology" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors text-[#5c564b] hover:text-[#1c1b18]">
+          3. Neurobiological Substrates
+        </button>
+        <button type="button" onclick="switchTab('dopamine')" id="tab-btn-dopamine" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors text-[#5c564b] hover:text-[#1c1b18]">
+          4. Dopamine &amp; Fuel Engine
+        </button>
+        <button type="button" onclick="switchTab('toolkit')" id="tab-btn-toolkit" class="tab-btn flex-shrink-0 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors text-[#5c564b] hover:text-[#1c1b18]">
+          5. Clinical Restructuring
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
+    <section class="mb-10 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#f4f1ea] via-[#efebe2] to-[#e8e2d5] border border-[#ded8cb] shadow-sm">
+      <div class="max-w-3xl">
+        <div class="inline-block px-3 py-1 bg-[#ded8cb] text-[#4a453c] text-xs font-semibold rounded-full mb-3">Core Thesis</div>
+        <h2 class="text-2xl sm:text-3xl font-serif font-medium text-[#1e1c19] leading-snug">
+          Self-blame feels like control: most minds would rather carry guilt than face helplessness.
+        </h2>
+        <p class="mt-4 text-[#524d43] leading-relaxed text-sm sm:text-base">
+          When reality turns volatile through chance, systemic complexity, or external wills, assuming fault creates a retrospective illusion of sovereignty. If you caused the failure, then you had the power, and you can prevent disaster next time. Yet invented blame has no completion condition. It operates as introjected debt, exhausting dopamine, turning decisions into unfair trials, and reducing every pursuit to combustible fuel.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-[#ded8cb]/80">
+        <div class="bg-white/80 p-4 rounded-xl border border-[#ded8cb]">
+          <div class="text-xs uppercase tracking-wider text-[#7a7467] font-semibold">The Control Illusion</div>
+          <div class="text-base font-bold text-[#1c1b18] mt-1">Guilt Over Helplessness</div>
+          <div class="text-xs text-[#5c564b] mt-1 leading-relaxed">Manufacturing personal agency in an unpredictable reality to ward off existential terror.</div>
+        </div>
+        <div class="bg-white/80 p-4 rounded-xl border border-[#ded8cb]">
+          <div class="text-xs uppercase tracking-wider text-[#7a7467] font-semibold">The Debt Structure</div>
+          <div class="text-base font-bold text-[#1c1b18] mt-1">No Completion Condition</div>
+          <div class="text-xs text-[#5c564b] mt-1 leading-relaxed">Real mistakes can be remedied; made-up blame perpetually charges psychological interest.</div>
+        </div>
+        <div class="bg-white/80 p-4 rounded-xl border border-[#ded8cb]">
+          <div class="text-xs uppercase tracking-wider text-[#7a7467] font-semibold">The Dopamine Drought</div>
+          <div class="text-base font-bold text-[#1c1b18] mt-1">Meaning Goes Flat</div>
+          <div class="text-xs text-[#5c564b] mt-1 leading-relaxed">Depleted neurochemistry misinterprets anhedonia as an existential verdict of worthlessness.</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="tab-architecture" class="tab-content block space-y-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#e3dfd5] shadow-sm">
+        <h3 class="text-lg font-bold text-[#1c1b18] mb-2">Section Purpose & Foundational Attributions</h3>
+        <p class="text-sm text-[#524d43] leading-relaxed mb-6">
+          This section examines the psychological framework underlying self-reproach, drawing on Janoff-Bulman&rsquo;s foundational taxonomy of attribution styles. Explore how behavioral self-blame, originally conceived as an adaptive mechanism to preserve future agency, degenerates into an unpayable debt when severed from empirical reality.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-xl border border-[#ded8cb] bg-[#faf8f4] flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-[#e2ede4] text-[#2c5336]">Behavioral Self-Blame (BSB)</span>
+                <span class="text-xs text-[#7a7467] font-medium">Locus: Modifiable Action</span>
+              </div>
+              <h4 class="text-base font-bold text-[#1c1b18] mb-1.5">&ldquo;I should have executed differently.&rdquo;</h4>
+              <p class="text-xs text-[#524d43] leading-relaxed">
+                Focuses on specific, modifiable behaviors. In theory, it protects against the paralysis of perceived helplessness by implying that future outcomes remain under personal control.
+              </p>
+              <div class="mt-4 p-3 bg-white rounded-lg border border-[#e6e2d8] text-xs text-[#443f36]">
+                <strong class="text-[#2c5336]">&bull; Cognitive Mechanism:</strong> Defensive attribution hypothesis. Keeps the locus of control internal to ward off the horror of random catastrophe.
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#ded8cb] text-xs text-[#7a7467]">
+              Resolution: Possible if attached to an actual task; perpetual if the fault is invented.
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl border border-[#eedad3] bg-[#fdf8f6] flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-[#fae3dc] text-[#933420]">Characterological Self-Blame (CSB)</span>
+                <span class="text-xs text-[#7a7467] font-medium">Locus: Global Identity</span>
+              </div>
+              <h4 class="text-base font-bold text-[#1c1b18] mb-1.5">&ldquo;What is fundamentally wrong with me?&rdquo;</h4>
+              <p class="text-xs text-[#524d43] leading-relaxed">
+                Directs attribution toward non-modifiable, global, and stable traits. Heavily correlated with clinical depression, chronic shame, and systemic resignation.
+              </p>
+              <div class="mt-4 p-3 bg-white rounded-lg border border-[#fae3dc] text-xs text-[#443f36]">
+                <strong class="text-[#933420]">&bull; Cognitive Mechanism:</strong> Self-referential schema activation. The mind frames the self as inherently defective, dangerous, or unsuited for success.
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#eedad3] text-xs text-[#7a7467]">
+              Resolution: Impossible. Characterological blame lacks an actionable behavioral endpoint.
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-[#e3dfd5]">
+          <h4 class="text-base font-bold text-[#1c1b18] mb-3">The Anatomy of Responsibility vs. The Blame Trap</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl bg-[#f5f8f5] border border-[#d6e5d8]">
+              <div class="font-bold text-[#204929] mb-1">&#10003; Authentic Responsibility</div>
+              <ul class="space-y-1.5 text-[#35523a]">
+                <li>&bull; Asks: <em>&ldquo;What was genuinely mine to own, and what do I do next?&rdquo;</em></li>
+                <li>&bull; Finite: Ends cleanly when the corrective action or reparation is complete.</li>
+                <li>&bull; Motivator: Grounded in desired real-world outcomes and core values.</li>
+                <li>&bull; Psychological payoff: Authentic satisfaction, relief, and closure.</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-xl bg-[#faf5f4] border border-[#f0dbd6]">
+              <div class="font-bold text-[#9e331e] mb-1">&#10007; Invented Self-Blame</div>
+              <ul class="space-y-1.5 text-[#63291d]">
+                <li>&bull; Asks: <em>&ldquo;Why am I like this? Why didn&rsquo;t I choose the other path?&rdquo;</em></li>
+                <li>&bull; Infinite: Has no completion condition; renews automatically upon finish.</li>
+                <li>&bull; Motivator: Introjected fear of facing fault, shame, or helplessness.</li>
+                <li>&bull; Psychological payoff: Temporary postponement of judgment, then regret.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-[#f5f3ec] p-5 rounded-xl border border-[#ded8cb]">
+          <h5 class="text-xs uppercase tracking-wider font-bold text-[#6a6458] mb-2">Interactive Thought Experiment: Why Invented Blame Never Resolves</h5>
+          <div class="text-xs sm:text-sm text-[#443f36] space-y-3">
+            <p>
+              When an adverse event occurs due to pure chance, institutional failure, or another person&rsquo;s unpredictable agency, the psyche experiences acute vulnerability. Assuming responsibility (&ldquo;It failed because I didn&rsquo;t double-check enough&rdquo;) produces a transient spike of psychological relief because it converts helplessness into an actionable behavioral challenge.
+            </p>
+            <p class="font-medium text-[#1c1b18]">
+              The hidden cost: Because you did not actually cause the problem, fixing your execution cannot fundamentally secure future safety against random chance. Thus, the mind requires more vigilance, more blame, and an escalating cycle of introjected demands.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-counterfactual" class="tab-content hidden space-y-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#e3dfd5] shadow-sm">
+        <h3 class="text-lg font-bold text-[#1c1b18] mb-2">The Counterfactual Simulator & Hindsight Bias Engine</h3>
+        <p class="text-sm text-[#524d43] leading-relaxed mb-6">
+          This laboratory deconstructs the mechanics of regret based on the Functional Theory of Counterfactual Thinking (Roese &amp; Epstude, 2008). Regret thrives by pitting real, messy decisions against an idealized counterfactual where all costs have been magically deleted. Explore how counterfactual structures warp judgment and how hindsight bias creates an unfair retrospective prosecution.
+        </p>
+
+        <div class="bg-[#faf9f6] p-5 rounded-xl border border-[#ded8cb] mb-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#7a7467] mb-2">Interactive Counterfactual Matrix</div>
+          <p class="text-xs text-[#524d43] mb-4">Click a quadrant to inspect its cognitive architecture, emotional payload, and behavioral utility:</p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="cf-matrix-buttons">
+            <button onclick="selectCF('upward_sub')" id="cf-btn-upward_sub" class="cf-btn p-3 text-left rounded-lg border-2 border-[#c2593f] bg-white transition-all">
+              <span class="text-xs font-bold text-[#c2593f] block">Upward Subtractive</span>
+              <span class="text-xs text-[#33312c] font-medium">&ldquo;If only I hadn&rsquo;t taken this path...&rdquo;</span>
+            </button>
+            <button onclick="selectCF('upward_add')" id="cf-btn-upward_add" class="cf-btn p-3 text-left rounded-lg border border-[#ded8cb] bg-white hover:border-[#aaa393] transition-all">
+              <span class="text-xs font-bold text-[#5c564b] block">Upward Additive</span>
+              <span class="text-xs text-[#33312c] font-medium">&ldquo;If I had only added extra preparation...&rdquo;</span>
+            </button>
+            <button onclick="selectCF('downward_sub')" id="cf-btn-downward_sub" class="cf-btn p-3 text-left rounded-lg border border-[#ded8cb] bg-white hover:border-[#aaa393] transition-all">
+              <span class="text-xs font-bold text-[#5c564b] block">Downward Subtractive</span>
+              <span class="text-xs text-[#33312c] font-medium">&ldquo;If I hadn&rsquo;t backed up the files, all would be lost...&rdquo;</span>
+            </button>
+            <button onclick="selectCF('downward_add')" id="cf-btn-downward_add" class="cf-btn p-3 text-left rounded-lg border border-[#ded8cb] bg-white hover:border-[#aaa393] transition-all">
+              <span class="text-xs font-bold text-[#5c564b] block">Downward Additive</span>
+              <span class="text-xs text-[#33312c] font-medium">&ldquo;If the server had also crashed, disaster would ensue...&rdquo;</span>
+            </button>
+          </div>
+
+          <div id="cf-detail-box" class="mt-4 p-4 rounded-lg bg-white border border-[#ded8cb] text-xs sm:text-sm">
+            <div class="flex items-center gap-2 mb-2">
+              <span id="cf-tag" class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#fae3dc] text-[#933420]">Upward Subtractive</span>
+              <span id="cf-function" class="text-xs text-[#7a7467] font-medium">Primary Culprit in Chronic Regret</span>
+            </div>
+            <p id="cf-body" class="text-[#3a3731] leading-relaxed">
+              Mentally deleting an executed choice in favor of an untested phantom alternative. Because the unchosen alternative did not have to survive actual reality, friction, fatigue, and trade-offs, it can never lose. It guarantees that the lived choice is convicted of failure.
+            </p>
+            <div class="mt-3 pt-3 border-t border-[#f0ede6] flex flex-wrap gap-4 text-xs">
+              <div><strong class="text-[#1c1b18]">Affective Toll:</strong> <span id="cf-affect" class="text-[#7d3222]">Severe Depressive Regret & Rumination</span></div>
+              <div><strong class="text-[#1c1b18]">Adaptive Value:</strong> <span id="cf-adaptive" class="text-[#595346]">Extremely low when over-practiced; triggers behavioral freeze.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-xl border border-[#ded8cb] bg-[#faf8f5]">
+            <h4 class="text-sm font-bold text-[#1c1b18] mb-2 flex items-center gap-1.5">
+              <span>&#9878;</span> Hindsight Bias: The Unfair Trial
+            </h4>
+            <p class="text-xs text-[#524d43] leading-relaxed mb-3">
+              Hindsight bias causes you to project what you know <em>now</em> onto the moment you made the decision. You convict your past self using an omniscient perspective that was physically impossible to hold at the time.
+            </p>
+            <div class="p-3 bg-white rounded-lg border border-[#e6e2d8] space-y-2 text-xs">
+              <div class="flex justify-between items-center text-[#7a7467]">
+                <span>Information at Decision Time:</span>
+                <span class="font-bold text-[#1c1b18]">Restricted, Noisy, Ambiguous</span>
+              </div>
+              <div class="flex justify-between items-center text-[#7a7467]">
+                <span>Information in Retrospect:</span>
+                <span class="font-bold text-[#c2593f]">100% Outcome Certainty</span>
+              </div>
+              <p class="text-[11px] text-[#5c564b] pt-1 border-t border-[#f0ede6]">
+                Remedy: Always ask, &ldquo;What did I genuinely know then?&rdquo; rather than &ldquo;Why did I do this?&rdquo;
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl border border-[#ded8cb] bg-[#faf8f5]">
+            <h4 class="text-sm font-bold text-[#1c1b18] mb-2 flex items-center gap-1.5">
+              <span>&#8987;</span> Temporal Dynamics: Action vs. Inaction
+            </h4>
+            <p class="text-xs text-[#524d43] leading-relaxed mb-3">
+              Gilovich and Medvec&rsquo;s research demonstrates that regret shifts over temporal horizons:
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-white border border-[#e6e2d8]">
+                <strong class="text-[#1c1b18] block mb-0.5">Short-Term Horizon: Errors of Commission (Action)</strong>
+                <span class="text-[#524d43]">You feel sharp regret over things you did. These decay quickly through psychological repair and cognitive dissonance reduction.</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white border border-[#e6e2d8]">
+                <strong class="text-[#1c1b18] block mb-0.5">Long-Term Horizon: Errors of Omission (Inaction)</strong>
+                <span class="text-[#524d43]">Missed opportunities never decay because they remain pure, unblemished fantasies open to infinite upward idealization.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-neurobiology" class="tab-content hidden space-y-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#e3dfd5] shadow-sm">
+        <h3 class="text-lg font-bold text-[#1c1b18] mb-2">Neurobiological Substrates of the Self-Punishing Brain</h3>
+        <p class="text-sm text-[#524d43] leading-relaxed mb-6">
+          This section maps the structural brain circuits engaged during self-criticism, counterfactual regret, and compassionate reassurance, based on fMRI findings by Coricelli, Longe, and Takahashi. The self-critical brain processes personal mistakes as physiological threats, activating error-detection and social-pain networks that rapidly deplete neurochemical reserves.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 bg-[#faf9f6] p-4 sm:p-5 rounded-xl border border-[#ded8cb]">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#7a7467]">Interactive Neural Circuit Simulation</span>
+              <span class="text-[11px] text-[#857f73]">Pure Canvas Renderer &bull; Zero SVG</span>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 mb-3" id="neuro-state-toggles">
+              <button onclick="setNeuroState('criticism')" id="nstate-criticism" class="nstate-btn px-2.5 py-1 text-xs font-semibold rounded-md bg-[#c2593f] text-white transition-all shadow-xs">
+                Self-Prosecution / Threat
+              </button>
+              <button onclick="setNeuroState('regret')" id="nstate-regret" class="nstate-btn px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-[#ded8cb] text-[#5c564b] hover:bg-[#f0ede6] transition-all">
+                Counterfactual Regret
+              </button>
+              <button onclick="setNeuroState('shame')" id="nstate-shame" class="nstate-btn px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-[#ded8cb] text-[#5c564b] hover:bg-[#f0ede6] transition-all">
+                Characterological Shame
+              </button>
+              <button onclick="setNeuroState('reassurance')" id="nstate-reassurance" class="nstate-btn px-2.5 py-1 text-xs font-semibold rounded-md bg-white border border-[#ded8cb] text-[#5c564b] hover:bg-[#f0ede6] transition-all">
+                Affiliative Soothing
+              </button>
+            </div>
+
+            <div class="w-full bg-[#f4f2eb] rounded-lg border border-[#e2ddd1] overflow-hidden flex items-center justify-center p-2">
+              <canvas id="brainCanvas" width="580" height="340" class="max-w-full h-auto rounded block"></canvas>
+            </div>
+            <div class="text-[11px] text-center text-[#7a7467] mt-2">
+              Click individual nodes or buttons above to observe circuit recruitment and functional firing.
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div id="neuro-info-panel" class="bg-[#faf8f4] p-5 rounded-xl border border-[#ded8cb]">
+              <div class="flex items-center justify-between mb-2">
+                <span id="neuro-active-circuit" class="text-xs font-bold uppercase tracking-wider text-[#c2593f]">Error & Threat Network</span>
+                <span id="neuro-metabolic-burn" class="text-[11px] px-2 py-0.5 rounded font-bold bg-[#fae3dc] text-[#933420]">Metabolic Burn: High</span>
+              </div>
+              <h4 id="neuro-state-title" class="text-base font-bold text-[#1c1b18] mb-2">DLPFC + Dorsal ACC Overdrive</h4>
+              <p id="neuro-state-desc" class="text-xs text-[#524d43] leading-relaxed mb-4">
+                During self-criticism, the dorsolateral prefrontal cortex (DLPFC) and dorsal anterior cingulate cortex (dACC) fire vigorously. The dACC detects conflict and error discrepancies, while the DLPFC executes behavioral inhibition. The brain experiences your own thought as a literal hostile threat.
+              </p>
+              <div class="space-y-2 border-t border-[#ded8cb] pt-3 text-xs">
+                <div class="font-semibold text-[#1c1b18]">Dominant Activated Nodes:</div>
+                <div id="neuro-node-list" class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-0.5 bg-white border border-[#ded8cb] rounded text-[11px] font-medium text-[#443f36]">dACC (Conflict/Error)</span>
+                  <span class="px-2 py-0.5 bg-white border border-[#ded8cb] rounded text-[11px] font-medium text-[#443f36]">DLPFC (Inhibition/Threat)</span>
+                  <span class="px-2 py-0.5 bg-white border border-[#ded8cb] rounded text-[11px] font-medium text-[#443f36]">Amygdala (Vigilance)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-[#ded8cb] text-xs">
+              <strong class="text-[#1c1b18] block mb-1.5">Guilt vs. Shame Neural Divergence (fMRI)</strong>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div class="p-2 bg-[#f6f9f6] rounded border border-[#dae6db]">
+                  <strong class="text-[#204929] block">Guilt (Action-Centered)</strong>
+                  <span class="text-[#3c5740]">Left amygdala, fusiform, middle temporal gyrus. Promotes repair and adaptive approach.</span>
+                </div>
+                <div class="p-2 bg-[#fdf6f5] rounded border border-[#f2deda]">
+                  <strong class="text-[#9e331e] block">Shame (Self-Centered)</strong>
+                  <span class="text-[#69291b]">ACC, insula (social pain & visceral disgust), premotor cortex. Promotes hiding & paralysis.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-dopamine" class="tab-content hidden space-y-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#e3dfd5] shadow-sm">
+        <h3 class="text-lg font-bold text-[#1c1b18] mb-2">The Dopamine Engine &amp; The Motivational Burnout Curve</h3>
+        <p class="text-sm text-[#524d43] leading-relaxed mb-6">
+          This section demonstrates why searching for &ldquo;new meaning&rdquo; from the bottom of an exhaustion cycle inevitably collapses. Using Deci and Ryan&rsquo;s Self-Determination Theory (SDT) and Treadway&rsquo;s effort-based neurobiology, this dynamic model reveals how introjected regulation drains tonic striatal dopamine, causing once-vibrant meanings to go completely flat.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 flex flex-col items-center">
+            <div class="w-full flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#7a7467]">Neurochemical Dynamics Over Time</span>
+              <span class="text-xs text-[#5c564b] bg-[#f0ede6] px-2 py-0.5 rounded font-medium">Chart.js Simulation</span>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="dopamineChart"></canvas>
+            </div>
+
+            <div class="w-full mt-4 flex items-center gap-3 bg-[#faf9f6] p-3 rounded-xl border border-[#ded8cb]">
+              <span class="text-xs font-semibold text-[#5c564b] whitespace-nowrap">Simulate Cycles:</span>
+              <input type="range" id="dopamineSlider" min="1" max="5" value="3" step="1" oninput="updateDopamineSimulation(this.value)" class="w-full accent-[#c2593f] cursor-pointer">
+              <span id="cycleLabel" class="text-xs font-bold text-[#1c1b18] whitespace-nowrap">Cycle 3/5</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div class="p-4 rounded-xl bg-[#faf8f4] border border-[#ded8cb]">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#c2593f] mb-1">Tonic vs. Phasic Breakdown</div>
+              <h4 class="text-sm font-bold text-[#1c1b18] mb-2">Why Meaning Feels Empty at the Finish</h4>
+              <p class="text-xs text-[#524d43] leading-relaxed">
+                <strong>Phasic Dopamine</strong> gives sharp, short bursts of novelty when you latch onto a &ldquo;new reason&rdquo; to work. But <strong>Tonic Dopamine</strong> is your organism&rsquo;s background energetic baseline.
+              </p>
+              <p class="text-xs text-[#524d43] leading-relaxed mt-2">
+                When chronic self-blame drives action via <em>introjected regulation</em>, stress-induced inflammation (IL-6) oxidizes BH4, blocking dopamine synthesis. Tonic reserves plummet. The moment you finish a goal, phasic spikes vanish, dropping you into a dopaminergic drought.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white border border-[#ded8cb] text-xs">
+              <strong class="text-[#1c1b18] block mb-2">Self-Determination Theory (SDT) Continuum</strong>
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between p-1.5 rounded bg-[#fae5e0] text-[#8f2f1b] font-medium text-[11px]">
+                  <span>1. Introjected Regulation (Guilt/Blame Fuel)</span>
+                  <span>High Burnout</span>
+                </div>
+                <div class="flex items-center justify-between p-1.5 rounded bg-[#f4eedb] text-[#705c1a] font-medium text-[11px]">
+                  <span>2. Identified Regulation (Conscious Value)</span>
+                  <span>Moderate Resilience</span>
+                </div>
+                <div class="flex items-center justify-between p-1.5 rounded bg-[#e3ede5] text-[#24522e] font-medium text-[11px]">
+                  <span>3. Integrated Regulation (Stable Keel)</span>
+                  <span>Autonomous &amp; Durable</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-[#f4f2eb] border border-[#ded8cb]">
+          <h4 class="text-xs uppercase tracking-wider font-bold text-[#6a6458] mb-1.5">The Epistemic Takeaway</h4>
+          <p class="text-xs sm:text-sm text-[#443f36] leading-relaxed">
+            <strong>Do not treat the trough as a verdict.</strong> When you conclude that &ldquo;all old meanings are worthless,&rdquo; you are not experiencing a philosophical insight; you are experiencing an empty fuel tank. Never judge the value of life commitments from the bottom of an introjected crash. Wait for tonic reserves to recover before evaluating what matters.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-toolkit" class="tab-content hidden space-y-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#e3dfd5] shadow-sm">
+        <h3 class="text-lg font-bold text-[#1c1b18] mb-2">Evidence-Based Clinical Restructuring Toolkit</h3>
+        <p class="text-sm text-[#524d43] leading-relaxed mb-6">
+          This interactive suite translates cognitive-behavioral therapy (CBT), acceptance and commitment therapy (ACT), and compassion-focused therapy (CFT) into actionable digital tools. De-bias hindsight attributions, defuse from punishing internal language, and re-balance evolutionary emotional systems.
+        </p>
+
+        <div class="mb-10 p-6 rounded-2xl bg-[#faf9f5] border border-[#ded8cb]">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#c2593f]">CBT Protocol 1</span>
+              <h4 class="text-base font-bold text-[#1c1b18]">Interactive Responsibility Pie Chart</h4>
+            </div>
+            <span class="text-xs text-[#7a7467]">Decentering False 100% Attribution</span>
+          </div>
+
+          <p class="text-xs text-[#524d43] leading-relaxed mb-6">
+            When adverse events happen, self-blamers instinctively allocate near 100% causal weight to themselves. In reality, outcomes are determined by an intersecting matrix of systemic limits, missing information, other actors, and chance. Add causal factors below to recalibrate reality:
+          </p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6 flex flex-col items-center">
+              <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+              </div>
+              <div id="pieSummary" class="text-xs font-semibold text-center text-[#5c564b] mt-3">
+                Current Attribution: <span id="myShareText" class="text-[#c2593f] font-bold">100%</span> Sole Blame
+              </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-4">
+              <div class="p-3 bg-white rounded-xl border border-[#ded8cb] space-y-3">
+                <div class="text-xs font-bold text-[#1c1b18]">Add External &amp; Contextual Factors</div>
+                <div class="flex gap-2">
+                  <input type="text" id="factorName" placeholder="e.g. Incomplete information at start" class="flex-1 text-xs px-3 py-2 rounded-lg border border-[#ded8cb] focus:outline-none focus:border-[#c2593f]">
+                  <input type="number" id="factorWeight" placeholder="%" min="5" max="80" value="20" class="w-16 text-xs px-2 py-2 rounded-lg border border-[#ded8cb] focus:outline-none focus:border-[#c2593f]">
+                  <button onclick="addFactor()" class="px-3 py-2 bg-[#2c2b29] text-white rounded-lg text-xs font-semibold hover:bg-black transition-all">Add</button>
+                </div>
+              </div>
+
+              <div class="p-3 bg-white rounded-xl border border-[#ded8cb]">
+                <div class="text-xs font-bold text-[#1c1b18] mb-2">Active Causal Allocations</div>
+                <div id="factorList" class="space-y-1.5 max-h-40 overflow-y-auto custom-scroll text-xs">
+                </div>
+                <button onclick="resetPie()" class="mt-3 text-[11px] text-[#7a7467] hover:text-[#c2593f] font-semibold underline">
+                  Reset to 100% Blame Baseline
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div class="p-5 rounded-2xl bg-[#faf9f5] border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider text-[#3d5a80] mb-1">ACT Protocol 2</div>
+              <h4 class="text-base font-bold text-[#1c1b18] mb-2">3-Stage Cognitive Defusion Stepper</h4>
+              <p class="text-xs text-[#524d43] leading-relaxed mb-4">
+                When fused with a punitive thought, the mind reacts as if the catastrophic judgment were literal truth. Defusion inserts linguistic wedges between identity and narrative.
+              </p>
+
+              <div class="space-y-2">
+                <input type="text" id="defusionInput" value="I ruined everything by choosing this." oninput="updateDefusion()" class="w-full text-xs p-2.5 rounded-lg border border-[#ded8cb] focus:outline-none focus:border-[#3d5a80]">
+                
+                <div class="p-2.5 rounded-lg bg-white border border-[#ded8cb] text-xs">
+                  <div class="text-[10px] uppercase font-bold text-[#9e331e]">Stage 1: Absolute Fusion</div>
+                  <div id="defusionStage1" class="font-medium text-[#1c1b18] mt-0.5">&ldquo;I ruined everything by choosing this.&rdquo;</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-white border border-[#ded8cb] text-xs">
+                  <div class="text-[10px] uppercase font-bold text-[#705c1a]">Stage 2: Noticing the Thought</div>
+                  <div id="defusionStage2" class="font-medium text-[#524d43] mt-0.5">&ldquo;I am having the thought that I ruined everything.&rdquo;</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-white border border-[#ded8cb] text-xs">
+                  <div class="text-[10px] uppercase font-bold text-[#204929]">Stage 3: Witnessing the Mind</div>
+                  <div id="defusionStage3" class="font-medium text-[#204929] mt-0.5">&ldquo;I notice that my brain is currently generating a thought that I ruined everything.&rdquo;</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#ded8cb] text-[11px] text-[#7a7467]">
+              Linguistic distancing uncouples autonomic fight-or-flight triggers from internal self-talk.
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#faf9f5] border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider text-[#2c5336] mb-1">CFT Protocol 3 (Paul Gilbert)</div>
+              <h4 class="text-base font-bold text-[#1c1b18] mb-2">Tripartite Emotional Balancer</h4>
+              <p class="text-xs text-[#524d43] leading-relaxed mb-4">
+                Self-prosecuting minds suffer from hypertrophied Threat and Drive systems, with a starved Soothing system. Adjust the sliders to see your current dynamic equilibrium:
+              </p>
+
+              <div class="space-y-3 text-xs">
+                <div>
+                  <div class="flex justify-between font-semibold mb-1 text-[#933420]">
+                    <span>Threat System (Amygdala/HPA)</span>
+                    <span id="threatVal">85%</span>
+                  </div>
+                  <input type="range" id="threatSlider" min="0" max="100" value="85" oninput="updateCFT()" class="w-full accent-[#c2593f] cursor-pointer">
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-semibold mb-1 text-[#b58327]">
+                    <span>Drive System (Dopamine/Pursuit)</span>
+                    <span id="driveVal">75%</span>
+                  </div>
+                  <input type="range" id="driveSlider" min="0" max="100" value="75" oninput="updateCFT()" class="w-full accent-[#b58327] cursor-pointer">
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-semibold mb-1 text-[#2c5336]">
+                    <span>Soothing System (Opiates/Oxytocin)</span>
+                    <span id="sootheVal">15%</span>
+                  </div>
+                  <input type="range" id="sootheSlider" min="0" max="100" value="15" oninput="updateCFT()" class="w-full accent-[#2c5336] cursor-pointer">
+                </div>
+              </div>
+
+              <div id="cftAssessment" class="mt-4 p-3 rounded-lg bg-white border border-[#ded8cb] text-xs text-[#443f36]">
+                <strong class="text-[#c2593f] block mb-1">State: Chronic Exhaustion Loop</strong>
+                High threat vigilance driving anxious pursuit with near-zero affiliative safety. Shifting drive requires consciously cultivating the soothing system.
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#ded8cb] text-[11px] text-[#7a7467]">
+              Without soothing activation, effort remains hostage to threat avoidance.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="mt-12 p-8 rounded-2xl bg-[#f2efe6] border border-[#ded8cb] text-[#33312c]">
+      <div class="max-w-3xl">
+        <div class="text-xs font-bold uppercase tracking-wider text-[#7a7467] mb-2">Philosophical &amp; Practical Synthesis</div>
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-[#1c1b18] mb-3">
+          Trading the Combustible Fuel for a Resilient Keel
+        </h3>
+        <p class="text-sm leading-relaxed text-[#524d43] mb-4">
+          Fuel needs to be constantly acquired, ignited, and burned. When you use invented self-blame and novelty as fuel, you condemn yourself to perpetual debt payments. A <strong>keel</strong>, by contrast, is heavy, submerged, and unspectacular. It does not ignite. It consists of a few quiet, non-negotiable commitments to valued actions that hold you upright in stormy water, whether or not you feel inspired, and whether or not you feel at fault.
+        </p>
+        <p class="text-xs sm:text-sm font-medium text-[#1c1b18] border-l-2 border-[#c2593f] pl-3 py-0.5">
+          You do not need a bigger, grander meaning to justify your past decisions. You only need permission to act responsibly without punishment.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-16 border-t border-[#e6e2d8] py-8 bg-[#f5f3ee] text-center text-xs text-[#7a7467]">
+    <div class="max-w-6xl mx-auto px-4 space-y-1">
+      <p>Interactive Epistemic Model &bull; Grounded in Janoff-Bulman, Roese &amp; Epstude, Deci &amp; Ryan, and Paul Gilbert</p>
+      <p class="text-[11px] text-[#8e887c]">Pure Vanilla JS, Chart.js, HTML5 Canvas &bull; Accessible Single-Page Architecture</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentTab = 'architecture';
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-[#1c1b18]', 'shadow-sm');
+        btn.classList.add('text-[#5c564b]');
+      });
+      const activeContent = document.getElementById('tab-' + tabId);
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white', 'text-[#1c1b18]', 'shadow-sm');
+        activeBtn.classList.remove('text-[#5c564b]');
+      }
+
+      if (tabId === 'neurobiology') {
+        setTimeout(initBrainCanvas, 50);
+      } else if (tabId === 'dopamine') {
+        setTimeout(initDopamineChart, 50);
+      } else if (tabId === 'toolkit') {
+        setTimeout(initPieChart, 50);
+      }
+    }
+
+    const cfData = {
+      upward_sub: {
+        title: "Upward Subtractive",
+        tagClass: "bg-[#fae3dc] text-[#933420]",
+        subtitle: "Primary Culprit in Chronic Regret",
+        body: "Mentally deleting an executed choice in favor of an untested phantom alternative ('If only I had not chosen this'). Because the unchosen alternative did not have to survive actual reality, friction, fatigue, and trade-offs, it can never lose. It guarantees that the lived choice is convicted of failure.",
+        affect: "Severe Depressive Regret & Rumination",
+        adaptive: "Extremely low when over-practiced; triggers behavioral freeze."
+      },
+      upward_add: {
+        title: "Upward Additive",
+        tagClass: "bg-[#f5eeda] text-[#826a21]",
+        subtitle: "Preparatory Problem Solving",
+        body: "Mentally adding a new behavior that did not occur ('If I had brought an extra backup, I would have avoided this delay'). When moderate, it provides clear behavioral blueprints for future action, but when used excessively, it transforms into an impossible standard of omniscient perfectionism.",
+        affect: "Constructive Dissatisfaction / Anxiety",
+        adaptive: "High for future planning, provided hindsight bias is controlled."
+      },
+      downward_sub: {
+        title: "Downward Subtractive",
+        tagClass: "bg-[#e2ede4] text-[#2c5336]",
+        subtitle: "Affect Regulation & Relief",
+        body: "Imagining how removing an action would have made things much worse ('If I had not double checked at the last minute, the error would have gone live'). This structural counterfactual restores emotional perspective, mitigating acute distress.",
+        affect: "Relief, Gratitude, Equilibrium",
+        adaptive: "High for restoring emotional calm and preventing panic."
+      },
+      downward_add: {
+        title: "Downward Additive",
+        tagClass: "bg-[#e2ede4] text-[#2c5336]",
+        subtitle: "Contextual Reality Testing",
+        body: "Imagining worse additions to the scenario ('If the client had canceled simultaneously, we would be insolvent'). It counters the tendency to view the current circumstance as an unmitigated disaster.",
+        affect: "Perspective, Emotional Stabilization",
+        adaptive: "Protects against catastrophic over-generalization."
+      }
+    };
+
+    function selectCF(type) {
+      document.querySelectorAll('.cf-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-[#c2593f]');
+        btn.classList.add('border-[#ded8cb]');
+      });
+      const activeBtn = document.getElementById('cf-btn-' + type);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-[#ded8cb]');
+        activeBtn.classList.add('border-2', 'border-[#c2593f]');
+      }
+      const data = cfData[type];
+      if (!data) return;
+      document.getElementById('cf-tag').textContent = data.title;
+      document.getElementById('cf-tag').className = 'px-2 py-0.5 rounded text-[11px] font-bold ' + data.tagClass;
+      document.getElementById('cf-function').textContent = data.subtitle;
+      document.getElementById('cf-body').textContent = data.body;
+      document.getElementById('cf-affect').textContent = data.affect;
+      document.getElementById('cf-adaptive').textContent = data.adaptive;
+    }
+
+    const brainNodes = [
+      { id: 'dacc', label: 'dACC', x: 260, y: 110, r: 24, role: 'Conflict & Error Detection' },
+      { id: 'dlpfc', label: 'DLPFC', x: 160, y: 100, r: 26, role: 'Executive Self-Inhibition' },
+      { id: 'ofc', label: 'OFC', x: 150, y: 220, r: 24, role: 'Regret & Value Comparison' },
+      { id: 'amygdala', label: 'Amygdala', x: 280, y: 210, r: 22, role: 'Threat Vigilance & Guilt' },
+      { id: 'insula', label: 'Insula', x: 220, y: 175, r: 22, role: 'Social Pain & Visceral Disgust' },
+      { id: 'temppole', label: 'L. Temp Pole', x: 390, y: 190, r: 24, role: 'Compassion & Empathic Tone' }
+    ];
+
+    const neuroStates = {
+      criticism: {
+        title: "DLPFC + Dorsal ACC Overdrive",
+        circuitTag: "Error & Threat Network",
+        burn: "Metabolic Burn: High",
+        burnClass: "bg-[#fae3dc] text-[#933420]",
+        desc: "During self-criticism, the dorsolateral prefrontal cortex (DLPFC) and dorsal anterior cingulate cortex (dACC) fire vigorously. The dACC detects discrepancy and error, while the DLPFC exerts harsh behavioral inhibition. The brain interprets your own thoughts as an urgent, hostile threat requiring emergency defense.",
+        nodes: ['dacc', 'dlpfc', 'amygdala'],
+        nodeTags: ['dACC (Error Spike)', 'DLPFC (Inhibition)', 'Amygdala (Vigilance)'],
+        activeColor: '#c2593f'
+      },
+      regret: {
+        title: "Orbitofrontal-Amygdalar Regret Loop",
+        circuitTag: "Counterfactual Evaluation",
+        burn: "Metabolic Burn: Moderate-High",
+        burnClass: "bg-[#fae3dc] text-[#933420]",
+        desc: "Coricelli et al. revealed that comparing actual outcomes to hypothetical superior counterfactuals activates the medial OFC and basolateral amygdala. A hyperactive OFC seeks to alter decisions purely to evade future anticipated regret, creating paralyzing decision anxiety.",
+        nodes: ['ofc', 'amygdala', 'dacc'],
+        nodeTags: ['Medial OFC (Counterfactual)', 'Amygdala (Aversive Value)', 'dACC (Conflict)'],
+        activeColor: '#d97736'
+      },
+      shame: {
+        title: "Insula & ACC Social Pain Ignition",
+        circuitTag: "Characterological Scapegoating",
+        burn: "Metabolic Burn: Severe Exhaustion",
+        burnClass: "bg-[#fae3dc] text-[#933420]",
+        desc: "Shame shifts the attribution from action to core identity. Neuroimaging reveals robust engagement of the insula and anterior cingulate, mirroring physical pain and visceral disgust, coupled with premotor inhibition that induces an acute desire to withdraw and hide.",
+        nodes: ['insula', 'dacc', 'amygdala'],
+        nodeTags: ['Anterior Insula (Disgust/Pain)', 'dACC (Rejection)', 'Amygdala (Alarm)'],
+        activeColor: '#9e331e'
+      },
+      reassurance: {
+        title: "Left Temporal Pole & Insular Affiliation",
+        circuitTag: "Affiliative Soothing Network",
+        burn: "Metabolic Burn: Restorative",
+        burnClass: "bg-[#e2ede4] text-[#2c5336]",
+        desc: "Longe et al. proved that compassionate self-reassurance engages the left temporal pole and insula—the exact circuitry used when extending empathy to another suffering human. It downregulates amygdalar alarm and breaks the vicious cycle of self-punishment.",
+        nodes: ['temppole', 'insula'],
+        nodeTags: ['Left Temporal Pole (Empathy)', 'Insular Affiliation', 'Prefrontal Softening'],
+        activeColor: '#2c5336'
+      }
+    };
+
+    let activeNeuroKey = 'criticism';
+
+    function setNeuroState(stateKey) {
+      activeNeuroKey = stateKey;
+      document.querySelectorAll('.nstate-btn').forEach(btn => {
+        btn.classList.remove('bg-[#c2593f]', 'text-white', 'bg-[#2c5336]');
+        btn.classList.add('bg-white', 'text-[#5c564b]');
+      });
+      const activeBtn = document.getElementById('nstate-' + stateKey);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'text-[#5c564b]');
+        if (stateKey === 'reassurance') {
+          activeBtn.classList.add('bg-[#2c5336]', 'text-white');
+        } else {
+          activeBtn.classList.add('bg-[#c2593f]', 'text-white');
+        }
+      }
+
+      const st = neuroStates[stateKey];
+      if (st) {
+        document.getElementById('neuro-active-circuit').textContent = st.circuitTag;
+        document.getElementById('neuro-state-title').textContent = st.title;
+        document.getElementById('neuro-state-desc').textContent = st.desc;
+        const burnEl = document.getElementById('neuro-metabolic-burn');
+        burnEl.textContent = st.burn;
+        burnEl.className = 'text-[11px] px-2 py-0.5 rounded font-bold ' + st.burnClass;
+
+        const listContainer = document.getElementById('neuro-node-list');
+        listContainer.innerHTML = '';
+        st.nodeTags.forEach(t => {
+          const s = document.createElement('span');
+          s.className = 'px-2 py-0.5 bg-white border border-[#ded8cb] rounded text-[11px] font-medium text-[#443f36]';
+          s.textContent = t;
+          listContainer.appendChild(s);
+        });
+      }
+      drawBrain();
+    }
+
+    let brainCanvas, brainCtx;
+    function initBrainCanvas() {
+      brainCanvas = document.getElementById('brainCanvas');
+      if (!brainCanvas) return;
+      brainCtx = brainCanvas.getContext('2d');
+      drawBrain();
+
+      brainCanvas.onclick = function(e) {
+        const rect = brainCanvas.getBoundingClientRect();
+        const scaleX = brainCanvas.width / rect.width;
+        const scaleY = brainCanvas.height / rect.height;
+        const clickX = (e.clientX - rect.left) * scaleX;
+        const clickY = (e.clientY - rect.top) * scaleY;
+
+        brainNodes.forEach(node => {
+          const dist = Math.hypot(clickX - node.x, clickY - node.y);
+          if (dist <= node.r + 8) {
+            if (node.id === 'temppole') setNeuroState('reassurance');
+            else if (node.id === 'ofc') setNeuroState('regret');
+            else if (node.id === 'insula') setNeuroState('shame');
+            else setNeuroState('criticism');
+          }
+        });
+      };
+    }
+
+    function drawBrain() {
+      if (!brainCtx || !brainCanvas) return;
+      const ctx = brainCtx;
+      const w = brainCanvas.width;
+      const h = brainCanvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = "#faf8f2";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(110, 180);
+      ctx.bezierCurveTo(90, 80, 220, 30, 340, 45);
+      ctx.bezierCurveTo(460, 60, 510, 120, 500, 200);
+      ctx.bezierCurveTo(490, 260, 430, 280, 370, 270);
+      ctx.bezierCurveTo(340, 320, 260, 325, 230, 260);
+      ctx.bezierCurveTo(170, 270, 120, 240, 110, 180);
+      ctx.closePath();
+      ctx.fillStyle = '#eee9dc';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#d4cdbe';
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(180, 260);
+      ctx.quadraticCurveTo(280, 160, 440, 180);
+      ctx.strokeStyle = '#ded8ca';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+
+      const currentState = neuroStates[activeNeuroKey];
+      const activeIds = currentState.nodes;
+
+      ctx.save();
+      for (let i = 0; i < brainNodes.length; i++) {
+        for (let j = i + 1; j < brainNodes.length; j++) {
+          const n1 = brainNodes[i];
+          const n2 = brainNodes[j];
+          const bothActive = activeIds.includes(n1.id) && activeIds.includes(n2.id);
+
+          ctx.beginPath();
+          ctx.moveTo(n1.x, n1.y);
+          ctx.lineTo(n2.x, n2.y);
+          if (bothActive) {
+            ctx.strokeStyle = currentState.activeColor;
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([4, 3]);
+          } else {
+            ctx.strokeStyle = '#d9d3c5';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([]);
+          }
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+
+      brainNodes.forEach(node => {
+        const isActive = activeIds.includes(node.id);
+
+        if (isActive) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.r + 9, 0, Math.PI * 2);
+          ctx.fillStyle = currentState.activeColor + '28';
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        ctx.fillStyle = isActive ? (activeNeuroKey === 'reassurance' ? '#2c5336' : '#c2593f') : '#ffffff';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = isActive ? '#1c1b18' : '#aaa394';
+        ctx.stroke();
+
+        ctx.font = 'bold 10px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = isActive ? '#ffffff' : '#2c2b29';
+        ctx.fillText(node.label, node.x, node.y - 2);
+
+        ctx.font = '8px sans-serif';
+        ctx.fillStyle = isActive ? '#ffffffcc' : '#7a7467';
+        ctx.fillText(isActive ? 'ACTIVE' : 'IDLE', node.x, node.y + 7);
+      });
+    }
+
+    let dopamineChartInstance = null;
+
+    function initDopamineChart() {
+      const ctx = document.getElementById('dopamineChart');
+      if (!ctx) return;
+      if (dopamineChartInstance) dopamineChartInstance.destroy();
+
+      const labels = [
+        'Initial Drive', 'Blame & Debt', 'Panic Effort', 
+        'Task Relief', 'Tonic Crash (Trough)', 'Novelty Search', 
+        'New Fuel Burn', 'Deep Depletion'
+      ];
+
+      dopamineChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Phasic Dopamine Spikes (Novelty Fuel)',
+              data: [85, 40, 75, 20, 10, 80, 60, 15],
+              borderColor: '#c2593f',
+              backgroundColor: 'rgba(194, 89, 63, 0.08)',
+              borderWidth: 2.5,
+              tension: 0.35,
+              fill: true,
+              pointBackgroundColor: '#c2593f',
+              pointRadius: 4
+            },
+            {
+              label: 'Tonic Baseline (Sustained Energy Reserve)',
+              data: [80, 68, 55, 42, 28, 25, 18, 12],
+              borderColor: '#2c2b29',
+              borderWidth: 2,
+              borderDash: [5, 4],
+              tension: 0.25,
+              pointRadius: 3,
+              pointBackgroundColor: '#2c2b29'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, family: 'sans-serif' },
+                color: '#443f36'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.parsed.y + '% capacity';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              ticks: {
+                callback: function(v) { return v + '%'; },
+                font: { size: 10 },
+                color: '#7a7467'
+              },
+              grid: { color: '#eae6dc' }
+            },
+            x: {
+              ticks: {
+                font: { size: 10 },
+                color: '#7a7467',
+                callback: function(val, index) {
+                  const lbl = labels[index] || '';
+                  return lbl.length > 14 ? lbl.substr(0, 12) + '..' : lbl;
+                }
+              },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+
+      const slider = document.getElementById('dopamineSlider');
+      if (slider) updateDopamineSimulation(slider.value);
+    }
+
+    function updateDopamineSimulation(cycle) {
+      document.getElementById('cycleLabel').textContent = 'Cycle ' + cycle + '/5';
+      if (!dopamineChartInstance) return;
+
+      const factor = (6 - cycle) / 5;
+      const tonic = [80, 68 * factor + 10, 55 * factor + 8, 42 * factor + 6, 28 * factor + 4, 25 * factor + 4, 18 * factor + 3, 12 * factor + 2];
+      const phasic = [85, 40 * factor, 75 * factor, 20 * factor, 8, 80 * factor, 60 * factor, 10];
+
+      dopamineChartInstance.data.datasets[1].data = tonic;
+      dopamineChartInstance.data.datasets[0].data = phasic;
+      dopamineChartInstance.update();
+    }
+
+    let pieChartInstance = null;
+    let factorItems = [
+      { name: "Uncontrollable Environmental Variance", weight: 25 },
+      { name: "Other People's Decisions & Inactions", weight: 30 },
+      { name: "Incomplete Initial Information", weight: 20 }
+    ];
+
+    function initPieChart() {
+      const ctx = document.getElementById('pieChart');
+      if (!ctx) return;
+      if (pieChartInstance) pieChartInstance.destroy();
+
+      renderFactorList();
+      recalculatePieData();
+    }
+
+    function recalculatePieData() {
+      if (!document.getElementById('pieChart')) return;
+      const sumExternal = factorItems.reduce((acc, it) => acc + it.weight, 0);
+      let myShare = Math.max(0, 100 - sumExternal);
+
+      const labels = ['My Realistic Agency (Finite)'];
+      const data = [myShare];
+      const bgColors = ['#c2593f'];
+
+      const palette = ['#446b53', '#3d5a80', '#b58327', '#6f5e7c', '#7d7065'];
+
+      factorItems.forEach((it, idx) => {
+        labels.push(it.name);
+        data.push(it.weight);
+        bgColors.push(palette[idx % palette.length]);
+      });
+
+      document.getElementById('myShareText').textContent = myShare + '%';
+      if (myShare === 0) {
+        document.getElementById('myShareText').textContent = '0% (Outcome was entirely external)';
+      }
+
+      if (pieChartInstance) {
+        pieChartInstance.data.labels = labels;
+        pieChartInstance.data.datasets[0].data = data;
+        pieChartInstance.data.datasets[0].backgroundColor = bgColors;
+        pieChartInstance.update();
+      } else {
+        const ctx = document.getElementById('pieChart');
+        pieChartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: bgColors,
+              borderColor: '#ffffff',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  boxWidth: 10,
+                  font: { size: 10, family: 'sans-serif' },
+                  color: '#443f36'
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return ctx.label + ': ' + ctx.parsed + '% causality';
+                  }
+                }
+              }
+            },
+            cutout: '65%'
+          }
+        });
+      }
+    }
+
+    function renderFactorList() {
+      const container = document.getElementById('factorList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (factorItems.length === 0) {
+        container.innerHTML = '<div class="text-[#857f73] italic">No external factors yet. You are carrying 100% false blame.</div>';
+        return;
+      }
+
+      factorItems.forEach((it, idx) => {
+        const d = document.createElement('div');
+        d.className = 'flex items-center justify-between p-2 rounded bg-[#f5f3ec] border border-[#ded8cb]';
+
+        const name = document.createElement('span');
+        name.className = 'font-medium text-[#2c2b29] truncate max-w-[200px]';
+        name.textContent = it.name;
+
+        const right = document.createElement('div');
+        right.className = 'flex items-center gap-2';
+
+        const weight = document.createElement('span');
+        weight.className = 'font-bold text-[#443f36]';
+        weight.textContent = it.weight + '%';
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'text-[#c2593f] hover:text-[#933420] font-bold px-1';
+        remove.setAttribute('aria-label', 'Remove ' + it.name);
+        remove.textContent = '\u00D7';
+        remove.addEventListener('click', () => removeFactor(idx));
+
+        right.appendChild(weight);
+        right.appendChild(remove);
+        d.appendChild(name);
+        d.appendChild(right);
+        container.appendChild(d);
+      });
+    }
+
+    function addFactor() {
+      const nameInput = document.getElementById('factorName');
+      const weightInput = document.getElementById('factorWeight');
+      const name = nameInput.value.trim();
+      const weight = parseInt(weightInput.value, 10);
+
+      if (!name || isNaN(weight) || weight <= 0) return;
+
+      const currentTotal = factorItems.reduce((acc, it) => acc + it.weight, 0);
+      const allowedWeight = Math.min(weight, 100 - currentTotal);
+
+      if (allowedWeight <= 0) {
+        alert("Total external factors cannot exceed 100%. Remove an item to add this factor.");
+        return;
+      }
+
+      factorItems.push({ name: name, weight: allowedWeight });
+      nameInput.value = '';
+      weightInput.value = '20';
+      renderFactorList();
+      recalculatePieData();
+    }
+
+    function removeFactor(index) {
+      factorItems.splice(index, 1);
+      renderFactorList();
+      recalculatePieData();
+    }
+
+    function resetPie() {
+      factorItems = [];
+      renderFactorList();
+      recalculatePieData();
+    }
+
+    function updateDefusion() {
+      const input = document.getElementById('defusionInput').value.trim();
+      const clean = input ? input : 'I made a catastrophic choice.';
+      document.getElementById('defusionStage1').textContent = `\u201C${clean}\u201D`;
+      document.getElementById('defusionStage2').textContent = `\u201CI am having the thought that: ${clean}\u201D`;
+      document.getElementById('defusionStage3').textContent = `\u201CI notice that my brain is currently producing the thought: \u2018${clean}\u2019\u201D`;
+    }
+
+    function updateCFT() {
+      const t = parseInt(document.getElementById('threatSlider').value, 10);
+      const d = parseInt(document.getElementById('driveSlider').value, 10);
+      const s = parseInt(document.getElementById('sootheSlider').value, 10);
+
+      document.getElementById('threatVal').textContent = t + '%';
+      document.getElementById('driveVal').textContent = d + '%';
+      document.getElementById('sootheVal').textContent = s + '%';
+
+      const box = document.getElementById('cftAssessment');
+      if (t > 70 && s < 25) {
+        box.innerHTML = `
+          <strong class="text-[#c2593f] block mb-1">State: Chronic Exhaustion &amp; Self-Prosecution</strong>
+          High threat vigilance driving frantic effort with near-zero safety. Drive will collapse once task completes. Cultivating self-reassurance is urgent.
+        `;
+      } else if (s >= 50 && t <= 50) {
+        box.innerHTML = `
+          <strong class="text-[#204929] block mb-1">State: Resilient Homeostatic Balance</strong>
+          The soothing system is buffering autonomic alarms. Action can be sustained through autonomous integrated values rather than fear of failure.
+        `;
+      } else if (d > 70 && s < 40) {
+        box.innerHTML = `
+          <strong class="text-[#705c1a] block mb-1">State: Fragile High-Output Drive</strong>
+          Effort is high, but vulnerability to sudden depletion remains elevated. Add intentional calming anchors to solidify your keel.
+        `;
+      } else {
+        box.innerHTML = `
+          <strong class="text-[#3d5a80] block mb-1">State: Dynamic Recalibration</strong>
+          Systemic pressures are moderate. Continue decoupling personal self-worth from outcome certainty.
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      selectCF('upward_sub');
+      initBrainCanvas();
+      window.addEventListener('resize', () => {
+        if (currentTab === 'neurobiology') drawBrain();
+      });
+    });
+  </script>
+</body>
+</html>
