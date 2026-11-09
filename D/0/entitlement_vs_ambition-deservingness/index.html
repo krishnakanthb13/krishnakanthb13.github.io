@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Deservingness | Growth vs. Entitlement</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+  <meta name="description" content="An interactive organizational-psychology portal distinguishing growth-based ambition from psychological entitlement: equity theory, intellectual humility, implicit mindsets, pride, and psychological contract violation.">
+  <meta name="theme-color" content="#FAF8F5">
+  <!-- Chosen Palette: Warm Sand, Slate, Emerald, Rose, and Amber Neutrals -->
+  <!-- Application Structure Plan: The SPA is architected into 5 logical tiers to guide the user from theoretical understanding to personal self-assessment and organizational application. Tier 1 introduces the core paradigm of deservingness and the vital distinction between data and verdict. Tier 2 contrasts the Core Triad (Growth Ambition, Context Arrogance, and Entitlement) through an interactive comparative matrix and multi-attribute radar/bar comparison. Tier 3 details the Three Diagnostic Tests (Scrutiny & Intellectual Humility, The Ledger & Equity Sensitivity, and Refusal & Psychological Contract Violation) via interactive tabbed case analysis and dynamic balance simulations. Tier 4 visualizes the underlying psychological engines (Dweck's Implicit Mindset Theory and Tracy & Robins' Dual-Facet Pride model) via interactive metric charts. Tier 5 provides an interactive 'Deservingness Claim Diagnostic' simulator enabling users to stress-test their own career demands against the framework and receive behavioral prescriptions. This flow transforms an abstract conceptual essay into a progressive, reflective journey. -->
+  <!-- Visualization & Content Choices: 1. Core Triad Profile Chart (Chart.js): Compares Growth, Arrogance, and Entitlement across 5 psychological attributes (Evidence Basis, Humility, Resilience to 'No', Reciprocity, and Prestige vs Dominance) to clarify distinct behavioral profiles. 2. Equity Ledger Interactive Balance (HTML/CSS + JS): Visualizes Adams' equity ratios and Huseman's three profiles (Benevolent, Equity Sensitive, Entitled) dynamically updating outcomes vs inputs. 3. Dual-Facet Pride & Status Correlation Chart (Chart.js): Illustrates the divergence between Authentic Pride (prestige/OCB) and Hubristic Pride (dominance/CWB) using grouped bar visualizations. 4. Interactive Claim Diagnostic Engine (JS state calculation): Translates the report's diagnostic tests into a multi-factor slider assessment generating immediate categorization and growth feedback. NO SVG or Mermaid used; all visuals leverage Chart.js on Canvas or pure CSS/Unicode. -->
+  <!-- CONFIRMATION: NO inline SVG graphics used (the SVG favicon data URI is excluded). NO Mermaid JS used. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 310px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    :where(a, button, input):focus-visible {
+      outline: 2px solid #047857;
+      outline-offset: 2px;
+    }
+    [data-nav-link][aria-current="page"] {
+      background-color: #e7e5e4;
+      color: #1c1917;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#FAF8F5] text-stone-800 antialiased font-sans">
+
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="flex-shrink-0 text-stone-500 hover:text-stone-900 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-stone-200" title="Return to the D/0 Knowledge Vault">← D/0</a>
+          <div class="w-8 h-8 flex-shrink-0 rounded-lg bg-stone-900 text-amber-50 flex items-center justify-center font-bold text-sm tracking-wider" aria-hidden="true">
+            AD
+          </div>
+          <div class="min-w-0">
+            <span class="block font-semibold text-stone-900 tracking-tight text-base sm:text-lg truncate">Architecture of Deservingness</span>
+            <span class="block text-[11px] text-stone-500 truncate">Growth vs. Entitlement</span>
+          </div>
+        </div>
+        <a href="./readme.md" class="hidden sm:inline-flex flex-shrink-0 items-center gap-1 text-xs font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100 px-3 py-1.5 rounded-md transition-colors">Full Report ↗</a>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-stone-200/80 py-2 text-xs font-medium text-stone-600" aria-label="Page sections">
+        <a href="#overview" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">Framework</a>
+        <a href="#triad" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">The Triad</a>
+        <a href="#tests" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">Diagnostic Tests</a>
+        <a href="#engines" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">Psychological Engines</a>
+        <a href="#audit" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">Self-Audit Simulator</a>
+        <a href="#organizational" data-nav-link class="flex-shrink-0 px-2.5 py-1.5 rounded-md hover:text-stone-900 hover:bg-stone-100 aria-[current=page]:bg-stone-200 aria-[current=page]:text-stone-900 transition-colors">Organizational Costs</a>
+        <a href="./readme.md" class="sm:hidden flex-shrink-0 px-2.5 py-1.5 rounded-md text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors">Full Report ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <section id="overview" class="pt-4 scroll-mt-32">
+      <div class="max-w-4xl mx-auto text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-stone-200/70 text-stone-700">
+          <span>●</span>
+          <span>Organizational Psychology & Cognitive Dynamics</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
+          As We Grow, We Think We Deserve More.
+          <span class="block text-stone-500 font-serif italic text-2xl sm:text-4xl mt-2 font-normal">
+            Is that the same as Entitlement?
+          </span>
+        </h1>
+        <p class="text-base sm:text-lg text-stone-600 leading-relaxed max-w-3xl mx-auto">
+          The difference is in what the <span class="font-semibold text-stone-900">"more"</span> is anchored to. 
+          Feeling you have outgrown a context is <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">essential data</span>. 
+          Believing you are automatically owed what you desire is a <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-semibold">premature conclusion</span>. 
+          The feeling alone cannot bridge that gap.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div class="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:border-emerald-300 transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">The Work-Anchor</span>
+            <span class="text-stone-400 font-mono text-sm">01</span>
+          </div>
+          <h2 class="text-lg font-bold text-stone-900 mb-2">Growth-Based Wanting</h2>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            Tied to something built: accrued skill, measurable contribution, assumed responsibility. It produces a claim you can defend with concrete evidence and stays receptive to constructive refusal.
+          </p>
+          <div class="mt-4 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Internal logic: <span class="text-stone-800 italic">"I have become more capable, so I should seek more."</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:border-amber-300 transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">The Context Failure</span>
+            <span class="text-stone-400 font-mono text-sm">02</span>
+          </div>
+          <h2 class="text-lg font-bold text-stone-900 mb-2">Contextual Arrogance</h2>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            Outgrowing an environment and becoming too proud to admit it still has things to teach you. Past growth is fossilized to demand current deference, blinding the self to new baseline limitations.
+          </p>
+          <div class="mt-4 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Internal logic: <span class="text-stone-800 italic">"I have conquered this space, so I have nothing left to learn here."</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:border-rose-300 transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-md">The Self-Anchor</span>
+            <span class="text-stone-400 font-mono text-sm">03</span>
+          </div>
+          <h2 class="text-lg font-bold text-stone-900 mb-2">Psychological Entitlement</h2>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            Tied directly to identity, tenure, or unexamined self-worth. The claim operates on an internal ledger of receiving, requires no empirical backing, and treats any refusal as a moral injustice.
+          </p>
+          <div class="mt-4 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Internal logic: <span class="text-stone-800 italic">"I deserve more because I am me, or because I have been here."</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="triad" class="space-y-6 pt-8 border-t border-stone-200 scroll-mt-32">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-stone-500">Comparative Architecture</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The Core Triad: Deep Profiling</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          This section analyzes the structural anatomy across growth, arrogance, and entitlement. By examining how each profile establishes its cognitive anchor, verifies its claims, processes organizational friction, and executes status pursuit, we uncover why legitimate ambition enhances collective capability while entitlement induces institutional decay.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex gap-2 p-1 bg-stone-200/60 rounded-xl" role="tablist" aria-label="Triad profiles">
+            <button id="btn-tab-growth" role="tab" tabindex="0" aria-selected="true" aria-controls="triad-card" onclick="switchTriad('growth')" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-all bg-white text-stone-900 shadow-sm">
+              Growth Ambition
+            </button>
+            <button id="btn-tab-arrogance" role="tab" tabindex="-1" aria-selected="false" aria-controls="triad-card" onclick="switchTriad('arrogance')" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-all text-stone-600 hover:text-stone-900">
+              Arrogance
+            </button>
+            <button id="btn-tab-entitlement" role="tab" tabindex="-1" aria-selected="false" aria-controls="triad-card" onclick="switchTriad('entitlement')" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-all text-stone-600 hover:text-stone-900">
+              Entitlement
+            </button>
+          </div>
+
+          <div id="triad-card" role="tabpanel" aria-labelledby="btn-tab-growth" aria-live="polite" class="bg-white rounded-2xl border border-stone-200 p-6 space-y-4 shadow-sm transition-all">
+            <div class="flex items-center justify-between">
+              <h3 id="triad-title" class="text-xl font-bold text-emerald-800">Growth-Based Ambition</h3>
+              <span id="triad-badge" class="text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-100 text-emerald-800">Adaptive &amp; Reciprocal</span>
+            </div>
+            <p id="triad-description" class="text-sm text-stone-600 leading-relaxed">
+              Anchored to built capability, expanded capacity, and tangible contribution. The claim survives scrutiny because it points to concrete evidence, and the individual remains fully receptive to constructive refusal as developmental data.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-100">
+                <span class="block text-xs font-bold uppercase text-stone-400">Primary Anchor</span>
+                <span id="triad-anchor" class="text-sm font-semibold text-stone-800">Built Capability, Acquired Skills & Output</span>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-100">
+                <span class="block text-xs font-bold uppercase text-stone-400">Response to Rejection / 'No'</span>
+                <span id="triad-rejection" class="text-sm font-semibold text-stone-800">"Not yet; what is the empirical gap to close?"</span>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-100">
+                <span class="block text-xs font-bold uppercase text-stone-400">Psychological Ledger</span>
+                <span id="triad-ledger" class="text-sm font-semibold text-stone-800">Outward-facing: focus on what has been given and built</span>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-100">
+                <span class="block text-xs font-bold uppercase text-stone-400">Social Status Pathway</span>
+                <span id="triad-status" class="text-sm font-semibold text-stone-800">Prestige (freely conferred by peers for demonstrated competence)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base font-bold text-stone-900">Psychological Profile Attributes</h3>
+              <span class="text-xs text-stone-500">Comparative Scale (0 - 100)</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-4">
+              Visualizing the five key psychological markers across the triad: Evidence Defense, Intellectual Humility, Constructive Refusal, Reciprocity Focus, and Prestige Orientation.
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="triadChart" role="img" aria-label="Radar chart comparing Growth Ambition, Contextual Arrogance, and Psychological Entitlement across evidence basis, intellectual humility, resilience to refusal, outward reciprocity, and prestige pathway."></canvas>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-stone-100 text-center text-xs">
+            <div class="text-emerald-700 font-medium">■ Growth Ambition</div>
+            <div class="text-amber-700 font-medium">■ Contextual Arrogance</div>
+            <div class="text-rose-700 font-medium">■ Psychological Entitlement</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tests" class="space-y-6 pt-8 border-t border-stone-200 scroll-mt-32">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-stone-500">Diagnostic Verification</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The Three Quick Tests</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Because growth generates a legitimate pull toward more, individuals must inspect whether their feeling represents objective data or an unevidenced conclusion. Explore the three diagnostic criteria that separate sustainable career progression from cognitive delusion.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div class="border-b border-stone-200 bg-stone-50/70 p-2 sm:p-4">
+          <div class="flex flex-wrap gap-2" role="tablist" aria-label="Diagnostic tests">
+            <button id="test-tab-1" role="tab" tabindex="0" aria-selected="true" aria-controls="test-content-1" onclick="selectTestTab(1)" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-stone-900 text-white shadow-sm transition-all">
+              Test 1: Does the Claim Survive Scrutiny?
+            </button>
+            <button id="test-tab-2" role="tab" tabindex="-1" aria-selected="false" aria-controls="test-content-2" onclick="selectTestTab(2)" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 transition-all">
+              Test 2: Is it the Work or the Ledger?
+            </button>
+            <button id="test-tab-3" role="tab" tabindex="-1" aria-selected="false" aria-controls="test-content-3" onclick="selectTestTab(3)" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 transition-all">
+              Test 3: How Do You Handle No?
+            </button>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8">
+          <div id="test-content-1" role="tabpanel" aria-labelledby="test-tab-1" tabindex="0" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-stone-100 text-stone-700">
+                  <span>Theoretical Base: Comprehensive Intellectual Humility Scale (CIHS)</span>
+                </div>
+                <h3 class="text-xl font-bold text-stone-900">Concrete Evidence vs. Abstract Identity</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                  When asked to substantiate the request for "more," growth-based wanting points to verifiable, externally observable contributions: project deliveries, operational masteries, or measurable value generation. Entitlement relies on abstract tenure or inherent self-importance.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/50">
+                    <span class="text-xs font-bold uppercase text-stone-500 block mb-1">1. Ego-Intellect Independence</span>
+                    <p class="text-xs text-stone-600">The ability to decouple core personal identity from workplace proposals or current rank, preventing feedback from being processed as ego trauma.</p>
+                  </div>
+                  <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/50">
+                    <span class="text-xs font-bold uppercase text-stone-500 block mb-1">2. Openness to Revision</span>
+                    <p class="text-xs text-stone-600">Cognitive willingness to lower demands or adjust career milestones when presented with compelling counter-evidence or benchmark deficits.</p>
+                  </div>
+                  <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/50">
+                    <span class="text-xs font-bold uppercase text-stone-500 block mb-1">3. Respect for Others' Viewpoints</span>
+                    <p class="text-xs text-stone-600">Evaluating organizational evaluation metrics as legitimate peer assessments rather than biased obstructionism.</p>
+                  </div>
+                  <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/50">
+                    <span class="text-xs font-bold uppercase text-stone-500 block mb-1">4. Absence of Overconfidence</span>
+                    <p class="text-xs text-stone-600">Mitigating the illusion of mastery, acknowledging that past achievements within one context do not guarantee immediate mastery of the next.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 bg-stone-50 rounded-2xl border border-stone-200 p-6 space-y-4">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-stone-800">Scrutiny Simulation</h4>
+                <p class="text-xs text-stone-500">Select a claim justification to inspect its viability under institutional scrutiny:</p>
+
+                <div class="space-y-2">
+                  <button onclick="inspectClaim(1)" class="w-full text-left p-3 rounded-xl border border-stone-200 bg-white hover:border-emerald-400 text-xs transition-all">
+                    <span class="font-semibold text-stone-800 block">"I have built the new data pipeline that reduced churn by 18%."</span>
+                    <span class="text-stone-400 text-[11px]">Work & Evidence Anchor</span>
+                  </button>
+                  <button onclick="inspectClaim(2)" class="w-full text-left p-3 rounded-xl border border-stone-200 bg-white hover:border-amber-400 text-xs transition-all">
+                    <span class="font-semibold text-stone-800 block">"I have conquered this role and my teammates have nothing to teach me."</span>
+                    <span class="text-stone-400 text-[11px]">Context Arrogance Anchor</span>
+                  </button>
+                  <button onclick="inspectClaim(3)" class="w-full text-left p-3 rounded-xl border border-stone-200 bg-white hover:border-rose-400 text-xs transition-all">
+                    <span class="font-semibold text-stone-800 block">"I have been here four years and I deserve senior title treatment."</span>
+                    <span class="text-stone-400 text-[11px]">Tenure & Identity Anchor</span>
+                  </button>
+                </div>
+
+                <div id="scrutiny-result" aria-live="polite" class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 space-y-1">
+                  <span class="font-bold block">Defensible Under Scrutiny: High</span>
+                  <p>Points directly to verified, measurable output. If the company requests further audit, tangible artifacts exist to substantiate the value add.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="test-content-2" role="tabpanel" aria-labelledby="test-tab-2" tabindex="0" class="space-y-6 hidden">
+            <div class="max-w-3xl space-y-2">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-stone-100 text-stone-700">
+                <span>Theoretical Base: Adams' Equity Theory & Huseman's Equity Sensitivity Construct</span>
+              </div>
+              <h3 class="text-xl font-bold text-stone-900">Outward Contribution vs. Inward Scorekeeping</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">
+                Deservingness points outward at what you have provided to the system. Entitlement keeps score of what you have received, operating on an internal ledger where the self is perpetually under-compensated.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
+              <div onclick="setLedgerProfile('benevolent')" class="p-5 rounded-2xl border-2 border-stone-200 bg-stone-50 cursor-pointer hover:border-stone-400 transition-all text-center space-y-2" id="card-benevolent">
+                <span class="text-xs font-bold uppercase tracking-wider text-stone-500">Benevolents</span>
+                <div class="text-2xl font-black text-stone-800">Inputs &gt; Outcomes</div>
+                <p class="text-xs text-stone-600">Derives satisfaction from giving. Tolerant of under-reward; deeply motivated by intrinsic mission and team contribution.</p>
+              </div>
+
+              <div onclick="setLedgerProfile('sensitive')" class="p-5 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 cursor-pointer transition-all text-center space-y-2" id="card-sensitive">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Equity Sensitives</span>
+                <div class="text-2xl font-black text-emerald-900">Inputs = Outcomes</div>
+                <p class="text-xs text-stone-600">Growth-based baseline. Desires balanced reciprocity. Compensates fairly for verified value built and seeks parity.</p>
+              </div>
+
+              <div onclick="setLedgerProfile('entitled')" class="p-5 rounded-2xl border-2 border-stone-200 bg-stone-50 cursor-pointer hover:border-rose-400 transition-all text-center space-y-2" id="card-entitled">
+                <span class="text-xs font-bold uppercase tracking-wider text-rose-700">Entitleds</span>
+                <div class="text-2xl font-black text-rose-900">Outcomes &gt; Inputs</div>
+                <p class="text-xs text-stone-600">Satisfied only when over-rewarded. High inward scorekeeping, continually discounting organizational costs and peer inputs.</p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-sm font-bold text-stone-900">Interactive Equity Balance Simulation</h4>
+                <span id="ledger-profile-label" class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Active Profile: Equity Sensitive</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs text-stone-600 mb-1">
+                    <span>Perceived Contributed Inputs (Effort, Skill, Diligence)</span>
+                    <span id="input-val" class="font-bold">75</span>
+                  </div>
+                  <div class="w-full bg-stone-200 rounded-full h-3 overflow-hidden">
+                    <div id="bar-inputs" class="bg-emerald-600 h-3 rounded-full transition-all duration-300" style="width: 75%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs text-stone-600 mb-1">
+                    <span>Demanded / Expected Outcomes (Pay, Status, Autonomy)</span>
+                    <span id="output-val" class="font-bold">75</span>
+                  </div>
+                  <div class="w-full bg-stone-200 rounded-full h-3 overflow-hidden">
+                    <div id="bar-outputs" class="bg-stone-800 h-3 rounded-full transition-all duration-300" style="width: 75%"></div>
+                  </div>
+                </div>
+
+                <div id="ledger-interpretation" aria-live="polite" class="p-4 rounded-xl bg-white border border-stone-200 text-xs text-stone-700 leading-relaxed">
+                  <span class="font-bold text-stone-900 block mb-1">Balance State: Reciprocal Equity</span>
+                  Demands track directly with verified inputs. The employee recognizes that seeking higher outcomes necessitates expanding demonstrable organizational inputs.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="test-content-3" role="tabpanel" aria-labelledby="test-tab-3" tabindex="0" class="space-y-6 hidden">
+            <div class="max-w-3xl space-y-2">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-stone-100 text-stone-700">
+                <span>Theoretical Base: Morrison & Robinson Psychological Contract Violation & Attribution Theory</span>
+              </div>
+              <h3 class="text-xl font-bold text-stone-900">Breach vs. Violation: The Crucible of "No"</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">
+                Growth hears a refusal as <span class="font-semibold text-stone-900">"not yet; here is the developmental gap."</span> Entitlement hears <span class="font-semibold text-rose-800">"how dare you."</span> The divergence dictates whether refusal fuels competency expansion or workplace sabotage.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div class="p-6 rounded-2xl bg-white border border-stone-200 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded">Growth Reaction</span>
+                  <span class="text-xs font-semibold text-stone-500">Cognitive Contract Breach</span>
+                </div>
+                <h4 class="text-base font-bold text-stone-900">Refusal Processed as Diagnostic Information</h4>
+                <p class="text-xs text-stone-600 leading-relaxed">
+                  The employee evaluates the denied promotion as a cognitive calculation. They detach ego from the conversation and activate Feedback-Seeking Behavior (FSB).
+                </p>
+                <div class="space-y-2 pt-2 text-xs">
+                  <div class="p-2.5 rounded-lg bg-stone-50 border border-stone-100 text-stone-700 flex items-start gap-2">
+                    <span class="text-emerald-600 font-bold">✓</span>
+                    <span><strong>Attribution Style:</strong> Controllable and internal ("I need to demonstrate strategic cross-functional influence").</span>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-stone-50 border border-stone-100 text-stone-700 flex items-start gap-2">
+                    <span class="text-emerald-600 font-bold">✓</span>
+                    <span><strong>Action Plan:</strong> Inquire about specific readiness criteria, recalibrate timeline, continue mastery pursuit.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white border border-stone-200 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded">Entitlement Reaction</span>
+                  <span class="text-xs font-semibold text-stone-500">Affective Contract Violation</span>
+                </div>
+                <h4 class="text-base font-bold text-stone-900">Refusal Processed as Moral Injustice & Ego Threat</h4>
+                <p class="text-xs text-stone-600 leading-relaxed">
+                  Because self-worth is tethered to identity, denial bypasses analytical evaluation and detonates into hostile affective violation and entitlement rage.
+                </p>
+                <div class="space-y-2 pt-2 text-xs">
+                  <div class="p-2.5 rounded-lg bg-rose-50/50 border border-rose-100 text-rose-900 flex items-start gap-2">
+                    <span class="text-rose-600 font-bold">✕</span>
+                    <span><strong>Attribution Style:</strong> Hostile and external ("Management is corrupt, threatened by my excellence, or incompetent").</span>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-rose-50/50 border border-rose-100 text-rose-900 flex items-start gap-2">
+                    <span class="text-rose-600 font-bold">✕</span>
+                    <span><strong>Retaliatory Action:</strong> Withdrawal of discretionary effort (OCB), time theft, cynical toxicity, and turnover threats.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="engines" class="space-y-6 pt-8 border-t border-stone-200 scroll-mt-32">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-stone-500">Underlying Drivers</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">The Psychological Engines: Mindsets & Pride</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Why does one person anchor their wanting to effort while another anchors it to their ego? This section synthesizes Carol Dweck's Implicit Theories of Intelligence with Tracy and Robins' Dual-Facet Model of Pride to illustrate the affective engines governing workplace claims.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 space-y-5 shadow-sm">
+          <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+            <h3 class="text-base font-bold text-stone-900">Implicit Theories of Intelligence</h3>
+            <span class="text-xs font-mono text-stone-500">Carol Dweck</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-emerald-50/40 border border-emerald-200/60 space-y-2">
+              <span class="font-bold text-emerald-800 text-sm block">Incremental Theory (Growth)</span>
+              <p class="text-stone-600 leading-relaxed">
+                Believes capability is malleable and developed through effort. Effort is welcomed as the necessary vehicle for mastery.
+              </p>
+              <div class="pt-2 text-stone-700">
+                <span class="font-semibold block text-stone-900">Goal Orientation:</span>
+                Mastery goals (focus on acquiring competence, not just demonstrating it).
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-100 border border-stone-200 space-y-2">
+              <span class="font-bold text-stone-800 text-sm block">Entity Theory (Fixed)</span>
+              <p class="text-stone-600 leading-relaxed">
+                Believes talent is innate and unalterable. Needing effort is interpreted as a shameful defect revealing a lack of inherent genius.
+              </p>
+              <div class="pt-2 text-stone-700">
+                <span class="font-semibold block text-stone-900">Goal Orientation:</span>
+                Performance validation (demanding praise and status to validate static identity).
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70 text-xs text-stone-600 leading-relaxed">
+            <span class="font-bold text-stone-800 block mb-1">Impact on "Deservingness":</span>
+            Entity theorists demand reward because they view themselves as inherently exceptional. Incremental theorists view rewards as contingent on the concrete milestones their deliberate practice has yielded.
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 space-y-5 shadow-sm">
+          <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+            <h3 class="text-base font-bold text-stone-900">Dual-Facet Pride & Status Pathways</h3>
+            <span class="text-xs font-mono text-stone-500">Tracy & Robins</span>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="prideChart" role="img" aria-label="Grouped bar chart comparing authentic pride and hubristic pride across conscientious effort, discretionary citizenship behaviors, dominance tactics, and workplace deviance."></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs pt-2">
+            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+              <span class="font-bold text-emerald-800 block">Authentic Pride</span>
+              <span class="text-stone-500 text-[11px]">Attribution: Unstable, controllable effort ("I did well because I prepared rigorously"). Leads to Prestige.</span>
+            </div>
+            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+              <span class="font-bold text-rose-800 block">Hubristic Pride</span>
+              <span class="text-stone-500 text-[11px]">Attribution: Global, stable identity ("I did well because I am inherently superior"). Leads to Dominance.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="audit" class="space-y-6 pt-8 border-t border-stone-200 scroll-mt-32">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-stone-500">Interactive Diagnostic Engine</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Self-Audit: Stress-Test Your Claim for "More"</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Are you seeking advancement from authentic growth, flirting with contextual arrogance, or sliding into psychological entitlement? Adjust the diagnostic sliders below according to your current career claim to inspect your cognitive anchor and receive calibrated guidance.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 space-y-6">
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <label for="slider-evidence" class="font-bold text-stone-800">1. Evidence Basis of the Claim</label>
+                <span id="label-evidence" class="text-stone-500 font-mono">Quantifiable Output (80%)</span>
+              </div>
+              <input id="slider-evidence" type="range" min="0" max="100" value="80" oninput="calculateAudit()" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900">
+              <div class="flex justify-between text-[11px] text-stone-400">
+                <span>Abstract (Tenure / Identity)</span>
+                <span>Balanced</span>
+                <span>Concrete (Artifacts / Metrics)</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <label for="slider-refusal" class="font-bold text-stone-800">2. Processing a "No" from Leadership</label>
+                <span id="label-refusal" class="text-stone-500 font-mono">Gap Analysis (85%)</span>
+              </div>
+              <input id="slider-refusal" type="range" min="0" max="100" value="85" oninput="calculateAudit()" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900">
+              <div class="flex justify-between text-[11px] text-stone-400">
+                <span>Moral Outrage ("How dare you")</span>
+                <span>Disappointment</span>
+                <span>Curiosity ("Where is the gap?")</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <label for="slider-ledger" class="font-bold text-stone-800">3. Psychological Ledger Orientation</label>
+                <span id="label-ledger" class="text-stone-500 font-mono">Outward Contribution (75%)</span>
+              </div>
+              <input id="slider-ledger" type="range" min="0" max="100" value="75" oninput="calculateAudit()" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900">
+              <div class="flex justify-between text-[11px] text-stone-400">
+                <span>Inward Scorekeeping (What I'm owed)</span>
+                <span>Reciprocal</span>
+                <span>Outward Contribution (What I've built)</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <label for="slider-humility" class="font-bold text-stone-800">4. Contextual Teachability</label>
+                <span id="label-humility" class="text-stone-500 font-mono">Open to Environment (80%)</span>
+              </div>
+              <input id="slider-humility" type="range" min="0" max="100" value="80" oninput="calculateAudit()" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900">
+              <div class="flex justify-between text-[11px] text-stone-400">
+                <span>"Nothing left to learn here"</span>
+                <span>Selective</span>
+                <span>"Still has valuable lessons"</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-5 bg-stone-50 rounded-2xl border border-stone-200 p-6 space-y-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-stone-400">Diagnostic Verdict</span>
+            
+            <div class="space-y-1">
+              <div class="text-3xl font-black text-emerald-800 tracking-tight" id="audit-verdict-title">Growth-Anchored Ambition</div>
+              <div class="text-xs font-semibold text-emerald-700" id="audit-score-badge">Integrity Score: 80 / 100 (Robust)</div>
+            </div>
+
+            <p id="audit-verdict-desc" class="text-xs text-stone-600 leading-relaxed">
+              Your claim is firmly anchored to verifiable capability and output. You view refusal as constructive feedback rather than an existential attack. Continue documenting your evidence and maintain your outward focus on contribution.
+            </p>
+
+            <div class="p-4 rounded-xl bg-white border border-stone-200 space-y-2">
+              <span class="text-xs font-bold text-stone-800 uppercase block">Actionable Recommendation</span>
+              <p id="audit-recommendation" class="text-xs text-stone-600 leading-relaxed">
+                Submit your claim by pairing each requested compensation or status adjustment directly with the quantifiable value metric or systemic project you delivered.
+              </p>
+            </div>
+
+            <div class="pt-2 text-[11px] text-stone-400 border-t border-stone-200/60 flex items-center justify-between">
+              <span>Diagnostic Engine: v2.4</span>
+              <span>Based on PES & CIHS models</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="organizational" class="space-y-6 pt-8 border-t border-stone-200 pb-12 scroll-mt-32">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold tracking-wider uppercase text-stone-500">Systemic Reality</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Organizational Costs & The Leadership Playbook</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          When unevidenced entitlement permeates a workplace, it metastasizes into Counterproductive Workplace Behaviors (CWB). Organizations must design explicit systems that reward intellectual humility and extinguish unearned claims.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-white border border-stone-200 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 font-bold flex items-center justify-center text-sm">
+            01
+          </div>
+          <h3 class="text-base font-bold text-stone-900">Discretionary Effort Withdrawal</h3>
+          <p class="text-xs text-stone-600 leading-relaxed">
+            When entitled individuals perceive unmet claims, they unilaterally rebalance their equity ledger by revoking Organizational Citizenship Behaviors (OCBs)—refusing to mentor juniors, collaborate across silos, or put in discretionary care.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-stone-200 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 font-bold flex items-center justify-center text-sm">
+            02
+          </div>
+          <h3 class="text-base font-bold text-stone-900">Psychological Tax Collection</h3>
+          <p class="text-xs text-stone-600 leading-relaxed">
+            Believing the company owes them for their mere presence, entitled employees justify unauthorized breaks, personal use of resources, and time theft as righteous compensation for their unvalidated worth.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-stone-200 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 font-bold flex items-center justify-center text-sm">
+            03
+          </div>
+          <h3 class="text-base font-bold text-stone-900">Entitlement Rage Contagion</h3>
+          <p class="text-xs text-stone-600 leading-relaxed">
+            The hostile attributions of entitled workers generate persistent interpersonal conflict and cynicism, infecting surrounding talent and precipitating turnover contagion among high-performing contributors.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-stone-900 text-stone-100 rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Institutional Strategy</span>
+          <h3 class="text-xl sm:text-2xl font-bold mt-1 text-white">The Four Pillars of Entitlement-Resistant Culture</h3>
+          <p class="text-xs sm:text-sm text-stone-400 mt-2">
+            How leaders and HR architects decouple career progression from tenure and identity to cultivate growth-anchored ambition:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-stone-800/80 border border-stone-700/60 space-y-2">
+            <span class="font-bold text-amber-300 block">1. Transparent Milestone Ledgers</span>
+            <p class="text-stone-300">Replace ambiguous promotions with publicly documented capability thresholds that mandate concrete work artifacts.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-800/80 border border-stone-700/60 space-y-2">
+            <span class="font-bold text-amber-300 block">2. Normalize Constructive "No"</span>
+            <p class="text-stone-300">Train management to deliver gap-focused refusals with explicit developmental roadmaps, transforming refusal into developmental data.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-800/80 border border-stone-700/60 space-y-2">
+            <span class="font-bold text-amber-300 block">3. Reward Intellectual Humility</span>
+            <p class="text-stone-300">Elevate individuals who openly audit their own knowledge gaps and demonstrate ego-intellect separation in peer reviews.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-800/80 border border-stone-700/60 space-y-2">
+            <span class="font-bold text-amber-300 block">4. Extinguish Tenure As Worth</span>
+            <p class="text-stone-300">Explicitly decouple compensation increases from time served alone, firmly establishing that only expanded inputs warrant expanded outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-stone-500 space-y-2">
+      <p class="font-medium text-stone-700">The Architecture of Deservingness: Interactive Synthesis System</p>
+      <p>Synthesizing Equity Theory, Psychological Contract Violation, Implicit Mindsets, and Intellectual Humility.</p>
+      <p class="text-[11px] text-stone-400">Feeling you've outgrown something is data. Being owed what you want is a conclusion.</p>
+      <p class="pt-2">
+        <a href="../" class="text-stone-600 hover:text-stone-900 underline underline-offset-2">← D/0 Knowledge Vault</a> &nbsp;•&nbsp;
+        <a href="./readme.md" class="text-stone-600 hover:text-stone-900 underline underline-offset-2">Read the Full Report</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const triadData = {
+      growth: {
+        title: "Growth-Based Ambition",
+        badge: "Adaptive & Reciprocal",
+        badgeClass: "bg-emerald-100 text-emerald-800",
+        description: "Anchored to built capability, expanded capacity, and tangible contribution. The claim survives scrutiny because it points to concrete evidence, and the individual remains fully receptive to constructive refusal as developmental data.",
+        anchor: "Built Capability, Acquired Skills & Measurable Output",
+        rejection: "'Not yet; where is the empirical gap to close?'",
+        ledger: "Outward-facing: Focus on value given and challenges solved",
+        status: "Prestige (freely conferred by colleagues for demonstrated competence)",
+        chartValues: [95, 90, 90, 95, 90]
+      },
+      arrogance: {
+        title: "Contextual Arrogance",
+        badge: "Growth Maladaptation",
+        badgeClass: "bg-amber-100 text-amber-800",
+        description: "Outgrowing an immediate environment and becoming too proud to acknowledge it still possesses things to teach you. Achievements are authentic, but past data is fossilized into an unassailable conclusion of perpetual superiority.",
+        anchor: "Fossilized Past Achievements & Mastery Over Local Context",
+        rejection: "'This environment is too primitive to recognize my level'",
+        ledger: "Self-focused: Convinced past contributions justify current exemption",
+        status: "Prestige transitioning to Dominance when challenged",
+        chartValues: [70, 25, 40, 50, 45]
+      },
+      entitlement: {
+        title: "Psychological Entitlement",
+        badge: "Maladaptive & Toxic",
+        badgeClass: "bg-rose-100 text-rose-800",
+        description: "Tied directly to the self, subjective tenure, or unexamined identity. Operates with an insatiable getting orientation, demanding preferential reward without proportional contribution and treating refusal as moral injustice.",
+        anchor: "Identity, Tenure ('I have been here'), and Inherent Specialness",
+        rejection: "'How dare you; management is corrupt and unfair'",
+        ledger: "Inward scorekeeping: Constantly tracking what is owed",
+        status: "Dominance (coercion, aggressive demand for deference)",
+        chartValues: [15, 10, 10, 15, 10]
+      }
+    };
+
+    let triadChartInstance = null;
+    let prideChartInstance = null;
+
+    function initTriadChart() {
+      if (typeof Chart === 'undefined') return;
+      const ctx = document.getElementById('triadChart').getContext('2d');
+      triadChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: [
+            ['Evidence', 'Basis'],
+            ['Intellectual', 'Humility'],
+            ['Resilience', 'to Refusal'],
+            ['Outward', 'Reciprocity'],
+            ['Prestige', 'Pathway']
+          ],
+          datasets: [
+            {
+              label: 'Growth Ambition',
+              data: [95, 90, 90, 95, 90],
+              borderColor: '#047857',
+              backgroundColor: 'rgba(4, 120, 87, 0.15)',
+              borderWidth: 2,
+              pointBackgroundColor: '#047857',
+              pointRadius: 3
+            },
+            {
+              label: 'Context Arrogance',
+              data: [70, 25, 40, 50, 45],
+              borderColor: '#b45309',
+              backgroundColor: 'rgba(180, 83, 9, 0.15)',
+              borderWidth: 2,
+              pointBackgroundColor: '#b45309',
+              pointRadius: 3
+            },
+            {
+              label: 'Entitlement',
+              data: [15, 10, 10, 15, 10],
+              borderColor: '#be123c',
+              backgroundColor: 'rgba(190, 18, 60, 0.15)',
+              borderWidth: 2,
+              pointBackgroundColor: '#be123c',
+              pointRadius: 3
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: {
+                display: false,
+                stepSize: 25
+              },
+              grid: {
+                color: '#e7e5e4'
+              },
+              angleLines: {
+                color: '#e7e5e4'
+              },
+              pointLabels: {
+                font: {
+                  size: 11,
+                  family: 'ui-sans-serif, system-ui, sans-serif'
+                },
+                color: '#44403c'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: '#1c1917',
+              titleFont: { size: 12 },
+              bodyFont: { size: 11 },
+              padding: 10,
+              cornerRadius: 8
+            }
+          }
+        }
+      });
+    }
+
+    function initPrideChart() {
+      if (typeof Chart === 'undefined') return;
+      const ctx = document.getElementById('prideChart').getContext('2d');
+      prideChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [
+            ['Conscientious', 'Effort'],
+            ['Discretionary', 'OCBs'],
+            ['Dominance', 'Tactics'],
+            ['Workplace', 'Deviance (CWB)']
+          ],
+          datasets: [
+            {
+              label: 'Authentic Pride (Doing)',
+              data: [88, 84, 18, 12],
+              backgroundColor: '#047857',
+              borderRadius: 6
+            },
+            {
+              label: 'Hubristic Pride (Being)',
+              data: [26, 18, 86, 78],
+              backgroundColor: '#be123c',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                color: '#78716c',
+                font: { size: 10 }
+              },
+              grid: {
+                color: '#f5f5f4'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#44403c',
+                font: { size: 11 }
+              },
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11 },
+                color: '#292524'
+              }
+            },
+            tooltip: {
+              backgroundColor: '#1c1917',
+              padding: 10,
+              cornerRadius: 8
+            }
+          }
+        }
+      });
+    }
+
+    function switchTriad(type) {
+      const item = triadData[type];
+      document.getElementById('triad-title').textContent = item.title;
+      document.getElementById('triad-badge').textContent = item.badge;
+      document.getElementById('triad-badge').className = 'text-xs px-2.5 py-1 rounded-full font-medium ' + item.badgeClass;
+      document.getElementById('triad-description').textContent = item.description;
+      document.getElementById('triad-anchor').textContent = item.anchor;
+      document.getElementById('triad-rejection').textContent = item.rejection;
+      document.getElementById('triad-ledger').textContent = item.ledger;
+      document.getElementById('triad-status').textContent = item.status;
+
+      const tabs = ['growth', 'arrogance', 'entitlement'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('btn-tab-' + t);
+        btn.setAttribute('aria-selected', t === type ? 'true' : 'false');
+        btn.setAttribute('tabindex', t === type ? '0' : '-1');
+        if (t === type) {
+          btn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-all bg-white text-stone-900 shadow-sm';
+        } else {
+          btn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold transition-all text-stone-600 hover:text-stone-900';
+        }
+      });
+      document.getElementById('triad-card').setAttribute('aria-labelledby', 'btn-tab-' + type);
+    }
+
+    function selectTestTab(index) {
+      for (let i = 1; i <= 3; i++) {
+        const tabBtn = document.getElementById('test-tab-' + i);
+        const content = document.getElementById('test-content-' + i);
+        tabBtn.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        tabBtn.setAttribute('tabindex', i === index ? '0' : '-1');
+        if (i === index) {
+          tabBtn.className = 'px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-stone-900 text-white shadow-sm transition-all';
+          content.classList.remove('hidden');
+        } else {
+          tabBtn.className = 'px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 transition-all';
+          content.classList.add('hidden');
+        }
+      }
+    }
+
+    function initTabKeyboard() {
+      document.querySelectorAll('[role="tablist"]').forEach(list => {
+        list.addEventListener('keydown', event => {
+          const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+          if (!keys.includes(event.key)) return;
+          const tabs = Array.from(list.querySelectorAll('[role="tab"]'));
+          const current = tabs.indexOf(document.activeElement);
+          if (current === -1) return;
+          event.preventDefault();
+          let next = current;
+          if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+          if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          tabs[next].focus();
+          tabs[next].click();
+        });
+      });
+    }
+
+    function initNavSpy() {
+      const links = Array.from(document.querySelectorAll('[data-nav-link]'));
+      const sections = links
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+      if (!sections.length) return;
+
+      let ticking = false;
+      const update = () => {
+        const offset = 130;
+        let active = sections[0];
+        sections.forEach(section => {
+          if (section.getBoundingClientRect().top <= offset) active = section;
+        });
+        links.forEach(link => {
+          if (link.getAttribute('href') === '#' + active.id) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+        ticking = false;
+      };
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
+    }
+
+    function inspectClaim(type) {
+      const box = document.getElementById('scrutiny-result');
+      if (type === 1) {
+        box.className = 'p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 space-y-1';
+        box.innerHTML = '<span class="font-bold block">Defensible Under Scrutiny: High</span><p>Points directly to verified, measurable output. If the company requests further audit, tangible artifacts exist to substantiate the value add.</p>';
+      } else if (type === 2) {
+        box.className = 'p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1';
+        box.innerHTML = '<span class="font-bold block">Defensible Under Scrutiny: Questionable</span><p>Conflates local mastery with global indispensability. The claim overlooks that higher tiers require completely distinct competencies like humility and mentorship.</p>';
+      } else {
+        box.className = 'p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900 space-y-1';
+        box.innerHTML = '<span class="font-bold block">Defensible Under Scrutiny: Fails</span><p>Anchored solely to elapsed time and self-worth. When asked for concrete ROI or skill evolution, it offers only an emotional expectation of compensation.</p>';
+      }
+    }
+
+    function setLedgerProfile(profile) {
+      const cardB = document.getElementById('card-benevolent');
+      const cardS = document.getElementById('card-sensitive');
+      const cardE = document.getElementById('card-entitled');
+      const label = document.getElementById('ledger-profile-label');
+      const inVal = document.getElementById('input-val');
+      const outVal = document.getElementById('output-val');
+      const barIn = document.getElementById('bar-inputs');
+      const barOut = document.getElementById('bar-outputs');
+      const interp = document.getElementById('ledger-interpretation');
+
+      cardB.className = 'p-5 rounded-2xl border-2 border-stone-200 bg-stone-50 cursor-pointer hover:border-stone-400 transition-all text-center space-y-2';
+      cardS.className = 'p-5 rounded-2xl border-2 border-stone-200 bg-stone-50 cursor-pointer hover:border-stone-400 transition-all text-center space-y-2';
+      cardE.className = 'p-5 rounded-2xl border-2 border-stone-200 bg-stone-50 cursor-pointer hover:border-stone-400 transition-all text-center space-y-2';
+
+      if (profile === 'benevolent') {
+        cardB.className = 'p-5 rounded-2xl border-2 border-stone-900 bg-white cursor-pointer transition-all text-center space-y-2 shadow-sm';
+        label.textContent = 'Active Profile: Benevolent';
+        label.className = 'text-xs font-semibold px-2.5 py-1 rounded bg-stone-200 text-stone-800';
+        inVal.textContent = '90';
+        outVal.textContent = '40';
+        barIn.style.width = '90%';
+        barOut.style.width = '40%';
+        interp.innerHTML = '<span class="font-bold text-stone-900 block mb-1">Balance State: Altruistic Under-Reward</span>Tolerates asymmetric giving. The individual derives psychological satisfaction from service and mission, frequently under-negotiating for what they have legitimately earned.';
+      } else if (profile === 'sensitive') {
+        cardS.className = 'p-5 rounded-2xl border-2 border-emerald-500 bg-white cursor-pointer transition-all text-center space-y-2 shadow-sm';
+        label.textContent = 'Active Profile: Equity Sensitive (Growth Baseline)';
+        label.className = 'text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800';
+        inVal.textContent = '75';
+        outVal.textContent = '75';
+        barIn.style.width = '75%';
+        barOut.style.width = '75%';
+        interp.innerHTML = '<span class="font-bold text-stone-900 block mb-1">Balance State: Reciprocal Equity</span>Demands track directly with verified inputs. The employee recognizes that seeking higher outcomes necessitates expanding demonstrable organizational inputs.';
+      } else {
+        cardE.className = 'p-5 rounded-2xl border-2 border-rose-500 bg-white cursor-pointer transition-all text-center space-y-2 shadow-sm';
+        label.textContent = 'Active Profile: Entitled';
+        label.className = 'text-xs font-semibold px-2.5 py-1 rounded bg-rose-100 text-rose-800';
+        inVal.textContent = '35';
+        outVal.textContent = '95';
+        barIn.style.width = '35%';
+        barOut.style.width = '95%';
+        interp.innerHTML = '<span class="font-bold text-rose-900 block mb-1">Balance State: Asymmetric Over-Reward Demand</span>Demands maximum status and pay while minimizing actual labor. When an equitable distribution is offered, the entitled individual experiences it as deep injustice and hostility.';
+      }
+    }
+
+    function calculateAudit() {
+      const ev = parseInt(document.getElementById('slider-evidence').value, 10);
+      const rf = parseInt(document.getElementById('slider-refusal').value, 10);
+      const lg = parseInt(document.getElementById('slider-ledger').value, 10);
+      const hm = parseInt(document.getElementById('slider-humility').value, 10);
+
+      document.getElementById('label-evidence').textContent = ev > 66 ? 'Quantifiable Output (' + ev + '%)' : ev > 33 ? 'Mixed Indicators (' + ev + '%)' : 'Tenure / Identity (' + ev + '%)';
+      document.getElementById('label-refusal').textContent = rf > 66 ? 'Gap Analysis (' + rf + '%)' : rf > 33 ? 'Mild Resistance (' + rf + '%)' : 'Moral Outrage (' + rf + '%)';
+      document.getElementById('label-ledger').textContent = lg > 66 ? 'Outward Focus (' + lg + '%)' : lg > 33 ? 'Reciprocal Check (' + lg + '%)' : 'Inward Scorekeeping (' + lg + '%)';
+      document.getElementById('label-humility').textContent = hm > 66 ? 'Open to Environment (' + hm + '%)' : hm > 33 ? 'Selective Teachable (' + hm + '%)' : 'Closed / Superior (' + hm + '%)';
+
+      const avgScore = Math.round((ev + rf + lg + hm) / 4);
+
+      const titleEl = document.getElementById('audit-verdict-title');
+      const badgeEl = document.getElementById('audit-score-badge');
+      const descEl = document.getElementById('audit-verdict-desc');
+      const recEl = document.getElementById('audit-recommendation');
+
+      if (avgScore >= 70) {
+        titleEl.textContent = 'Growth-Anchored Ambition';
+        titleEl.className = 'text-3xl font-black text-emerald-800 tracking-tight';
+        badgeEl.textContent = 'Integrity Score: ' + avgScore + ' / 100 (Adaptive)';
+        badgeEl.className = 'text-xs font-semibold text-emerald-700';
+        descEl.textContent = 'Your desire for more is solidly anchored to accrued skill, verifiable contribution, and intellectual humility. You use refusal as diagnostic gap data rather than treating it as an existential injustice.';
+        recEl.textContent = 'Structure your advancement proposal around concrete project outcomes and explicitly invite executive scrutiny of your work product.';
+      } else if (avgScore >= 45) {
+        if (hm < 40 && ev > 60) {
+          titleEl.textContent = 'Contextual Arrogance Risk';
+          titleEl.className = 'text-3xl font-black text-amber-800 tracking-tight';
+          badgeEl.textContent = 'Integrity Score: ' + avgScore + ' / 100 (Vulnerable)';
+          badgeEl.className = 'text-xs font-semibold text-amber-700';
+          descEl.textContent = 'You have built authentic capability, but you are falling into the trap of believing your current context has nothing left to teach you. Past success is blinding you to the nuances of organizational collaboration.';
+          recEl.textContent = 'Before seeking a promotion or exit, actively identify two senior colleagues you can learn from and solicit feedback on your blind spots.';
+        } else {
+          titleEl.textContent = 'Transitional / Ambiguous Claim';
+          titleEl.className = 'text-3xl font-black text-stone-800 tracking-tight';
+          badgeEl.textContent = 'Integrity Score: ' + avgScore + ' / 100 (Uncalibrated)';
+          badgeEl.className = 'text-xs font-semibold text-stone-600';
+          descEl.textContent = 'Your claim contains legitimate growth impulses mixed with inward scorekeeping or tenure-based expectations. Clarify the boundary between what you have built and what you feel you are owed.';
+          recEl.textContent = 'Conduct an audit of your past six months. Discard tenure as a justification and focus exclusively on verifiable value generated.';
+        }
+      } else {
+        titleEl.textContent = 'Psychological Entitlement Trap';
+        titleEl.className = 'text-3xl font-black text-rose-800 tracking-tight';
+        badgeEl.textContent = 'Integrity Score: ' + avgScore + ' / 100 (Maladaptive)';
+        badgeEl.className = 'text-xs font-semibold text-rose-700';
+        descEl.textContent = 'Your claim is heavily anchored to identity and an inward-facing ledger of scorekeeping. Any organizational denial is being processed as a moral assault rather than useful capability data.';
+        recEl.textContent = 'Pause your advancement demands. Shift from an internal ledger of receiving to an outward orientation of contributing, and decouple your self-worth from title validation.';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initTriadChart();
+      initPrideChart();
+      calculateAudit();
+      initTabKeyboard();
+      initNavSpy();
+    });
+  </script>
+</body>
+</html>

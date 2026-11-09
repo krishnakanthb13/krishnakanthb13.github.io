@@ -164,6 +164,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Entitlement vs. Ambition](./entitlement_vs_ambition-deservingness/)
+**The Psychology of Deservingness** — why the same upward pull toward "more" can be either growth-based ambition or psychological entitlement, distinguished by what the claim is anchored to: built capability and demonstrable contribution versus identity, tenure, and an inward ledger of owed-ness. Synthesizes Campbell's Psychological Entitlement Scale, Adams' Equity Theory and Huseman's equity-sensitivity profiles, Krumrei-Mancuso & Rouse's Comprehensive Intellectual Humility Scale, Dweck's implicit theories, Tracy & Robins' authentic and hubristic pride, and Morrison & Robinson's psychological contract breach-versus-violation distinction.
+
+- 📝 [The Full Report](./entitlement_vs_ambition-deservingness/readme.md) — the long-form essay with 63 cited sources. (`readme.md`)
+- ⚖️ [Interactive Infographic](./entitlement_vs_ambition-deservingness/index.html) — the complete warm sand & slate interactive page: six-section portal with a tabbed triad profiler and five-axis radar chart, scrutiny simulation, Huseman equity-ledger balance lab, breach-vs-violation comparison, Dweck mindset and dual-facet pride charts, a four-slider deservingness self-audit, and an entitlement-resistant leadership playbook. (`index.html`)
+
+---
+
 ### 📁 [Fear & Courage](./fear_n_courage/)
 **The Architecture of Courage** — a cognitive, rhetorical, and clinical analysis of fear, acceptance, and the punctuation of emotion: how a single comma becomes "a pause and a permission," how affect labeling inhibits the amygdala, and how ACT and DBT dismantle experiential avoidance. Synthesizes literary phenomenology, Adorno's philosophy of punctuation, affective neuroscience (Damasio, Lieberman), and third-wave cognitive-behavioral paradigms.
 

@@ -26,6 +26,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
 		- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/) — Understanding vs. Judging
+		- [Entitlement vs. Ambition](https://krishnakanthb13.github.io/D/0/entitlement_vs_ambition-deservingness/) — The Psychology of Deservingness
 		- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/) — The Architecture of Courage
 		- [Ghosting](https://krishnakanthb13.github.io/D/0/ghosting/) — Silence as Behavioral Data
 		- [Growth & Comparison Joy](https://krishnakanthb13.github.io/D/0/growth_comparison_joy/) — The Architecture of Evaluation
@@ -234,6 +235,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Empathy & Discernment](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Understanding vs. Judging — a neurobiological and clinical framework exploring the tension between empathy and discernment.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/): Neural balance simulator, DBT mind states explorer, scenario tester, Pennebaker journaling lab, evolutionary arc & self-diagnostic checklist.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/empathy_n_discernment/readme.md): Long-form research essay with 56 cited sources.
+	- [Entitlement vs. Ambition](https://krishnakanthb13.github.io/D/0/entitlement_vs_ambition-deservingness/): The Psychology of Deservingness — why the same upward pull toward "more" can be growth-based ambition or psychological entitlement, distinguished by whether the claim is anchored to built capability and evidence or to identity, tenure, and an inward ledger of owed-ness.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/entitlement_vs_ambition-deservingness/): Six-section portal with a tabbed triad profiler and five-axis radar chart, scrutiny simulation, Huseman equity-ledger balance lab, breach-vs-violation comparison, Dweck mindset and dual-facet pride charts, a four-slider self-audit & entitlement-resistant leadership playbook.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/entitlement_vs_ambition-deservingness/readme.md): Long-form research essay with 63 cited sources.
 	- [Fear & Courage](https://krishnakanthb13.github.io/D/0/fear_n_courage/): The Architecture of Courage — how a comma, affect labeling, and radical acceptance turn fear from a verdict into a signal.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/fear_n_courage/): Comma cadence lab, archetype radar, fMRI affect-labeling simulator, ACT hexaflex & DBT suffering calculator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/fear_n_courage/readme.md): Long-form research essay with 60 cited sources.
