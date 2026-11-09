@@ -265,6 +265,7 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 - 📝 [The Full Report](./linguistic_confinement/readme.md) — the long-form essay with 86 cited sources. (`readme.md`)
 - 🔒 [Interactive Infographic](./linguistic_confinement/index.html) — the complete warm linen & terracotta interactive page: six progressive modules with a phrase-lock comparator, E-Prime translator, Wegner cognitive-load/rebound simulator and live chart, LLM attention-vs-FFN layer chart, RFT rule inspector, somatic pendulation simulator, IConIC constraint reframer and a personal exit-strategy builder. (`index.html`)
+- ☀️ [Interactive Variant 1: Trap Diagnostics & Reframing Lab](./linguistic_confinement/1.html) — the diagnostics-first companion page: ironic rebound machine with a cognitive-load slider, Wegner IPT rebound curve, syntax-of-imprisonment deconstructor, LLM failure-distribution chart, negative-vs-positive prompt lab, somatic and fly-bottle panels, constraint inverter, axiom auditor and search-space radar. (`1.html`)
 
 ---
 
