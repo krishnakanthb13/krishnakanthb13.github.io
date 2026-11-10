@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Authentic Connection: Synthesizing Kindness &amp; Boundaries</title>
+  <meta name="description" content="An interactive synthesis of kindness and boundaries across social neuroscience, Self-Determination Theory, Bowen family systems, psychoneuroimmunology, DBT and Nonviolent Communication.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 360px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+        max-height: 400px;
+      }
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F1EFE9;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 3px;
+    }
+    section[id] {
+      scroll-margin-top: 7.5rem;
+    }
+    .nav-tab:focus-visible,
+    .quad-btn:focus-visible,
+    select:focus-visible,
+    input[type="range"]:focus-visible {
+      outline: 2px solid #4A7C59;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<!-- Chosen Palette: Warm Sand & Slate Sage (Calm warm neutrals: #FBF9F5 background, #1E293B text/slate, #4A7C59 sage green for integrated compassion, #C85A32 terracotta for boundary friction, #E2DDD5 neutral cards) -->
+<!-- Application Structure Plan: The application synthesizes the multidisciplinary research report into 5 cohesive interactive spaces rather than a linear academic paper. It opens with an 'Executive Dialectic Matrix' establishing the central thesis that kindness and boundaries are one thing seen from two sides. Users can interactively toggle between the 4 relational quadrants (Authentic Connection, Resentful Compliance, Weaponized Cutoff, Chronic Chaos). The second section explores 'Neurobiology & Somatics' using dynamic Chart.js visualizations to compare Tania Singer's Empathy vs. Compassion brain circuits and Gross's autonomic suppression costs alongside Gabor Maté's psychoneuroimmunology findings. The third section addresses 'Systems & Motivation', translating Ryan & Deci's SDT continuum and Bowen's Differentiation of Self into interactive comparative models, including cross-cultural connected autonomy. The fourth section deconstructs 'Therapy Speak & Shadow Culture', contrasting defensive weaponization with embodied limits (Prentis Hemphill). The final section provides a hands-on 'Clinical Integration Toolkit' featuring an interactive NVC reframe engine, DBT FAST/GIVE scenario simulator, and the 2-Question Practical Test ('No without contempt / Yes without resentment') with real-time diagnostic synthesis. This non-linear, task-oriented layout invites deep personal reflection, clinical understanding, and immediate practical application. -->
+<!-- Visualization & Content Choices: 
+1. The 4-State Relational Quadrant -> Inform & Organize -> Interactive clickable 2x2 coordinate matrix with dynamic feedback -> Shows why kindness without boundaries curdles and boundaries without kindness harden -> Pure HTML/Tailwind/JS.
+2. Empathy vs Compassion Neural Circuitry -> Compare & Inform -> Chart.js Horizontal Bar Chart comparing Anterior Insula/aMCC activation against mOFC/Striatum activation with interactive cognitive-boundary toggle -> Clarifies Tania Singer's finding that boundaries prevent empathic distress -> Chart.js Canvas.
+3. Physiological Cost of Emotional Suppression -> Compare & Change -> Chart.js Grouped Radar/Bar Chart comparing Expressive Suppression vs Authentic Expression on blood pressure, amygdala load, and cardiac interbeat interval -> Grounded in James Gross and Gabor Maté psychophysiological data -> Chart.js Canvas.
+4. Motivation Continuum & Resentment Index -> Inform & Organize -> SDT step-by-step interactive tier (External to Intrinsic) with real-time resentment-o-meter -> Chart.js Doughnut/Bar + JS state updates.
+5. Interactive Practical Test Diagnostic -> Synthesize & Assess -> 2-slider interactive simulator ('No without Contempt', 'Yes without Resentment') providing dynamic clinical diagnosis, Bowen differentiation status, and actionable reframe -> Pure JS/DOM manipulation.
+All visual components adhere strictly to Canvas and HTML/CSS semantics without SVG or Mermaid JS. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<body class="bg-[#FBF9F5] text-slate-800 antialiased selection:bg-[#4A7C59]/20 selection:text-slate-900 min-h-screen flex flex-col font-sans">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#4A7C59] focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+  <header class="border-b border-[#E7E2D8] bg-[#F7F4EE]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity, return link, report link -->
+      <div class="flex items-center justify-between gap-4 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="flex-shrink-0 text-slate-700 hover:text-[#4A7C59] transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-[#E5E0D5]" title="Return to the Knowledge Vault">← Vault</a>
+          <span class="inline-flex items-center justify-center w-9 h-9 flex-shrink-0 rounded-full bg-[#4A7C59] text-white font-serif font-bold text-base shadow-sm" aria-hidden="true">⚖</span>
+          <div class="min-w-0">
+            <h1 class="text-sm sm:text-base font-semibold tracking-tight text-slate-900 leading-tight truncate">The Architecture of Authentic Connection</h1>
+            <p class="text-[11px] sm:text-xs text-slate-500 truncate">Kindness &amp; Boundaries in Psychology, Neurobiology, and Clinical Systems</p>
+          </div>
+        </div>
+        <a href="readme.md" class="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#4A7C59]/10 text-[#4A7C59] hover:bg-[#4A7C59] hover:text-white transition-colors" title="Read the full written report">
+          <span aria-hidden="true">📝</span> <span class="hidden sm:inline">Full Report</span>
+        </a>
+      </div>
+      <!-- Row 2: section navigation (always visible, horizontally scrollable) -->
+      <nav id="section-nav" class="flex items-center gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-[#E7E2D8] py-2 text-xs font-medium" aria-label="Page sections">
+        <button type="button" onclick="navigateTab('matrix')" id="nav-matrix" aria-current="page" class="nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-900 bg-white shadow-sm border border-slate-200 font-semibold">The 4 States</button>
+        <button type="button" onclick="navigateTab('neuro')" id="nav-neuro" class="nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-600 border border-transparent hover:text-slate-900 hover:bg-stone-200/60">Neuro &amp; Body</button>
+        <button type="button" onclick="navigateTab('systems')" id="nav-systems" class="nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-600 border border-transparent hover:text-slate-900 hover:bg-stone-200/60">Systems &amp; SDT</button>
+        <button type="button" onclick="navigateTab('shadow')" id="nav-shadow" class="nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-600 border border-transparent hover:text-slate-900 hover:bg-stone-200/60">Therapy Speak</button>
+        <button type="button" onclick="navigateTab('toolkit')" id="nav-toolkit" class="nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-600 border border-transparent hover:text-slate-900 hover:bg-stone-200/60">Practical Test</button>
+        <a href="readme.md" class="flex-shrink-0 px-3 py-1.5 rounded-md text-slate-600 hover:text-[#4A7C59] transition-colors sm:hidden">Full Report</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
+
+    <section class="bg-gradient-to-br from-[#F5F1E8] via-[#F8F5EE] to-[#EFEAE0] rounded-2xl p-6 sm:p-8 border border-[#E3DDD1] shadow-sm">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#4A7C59]/10 text-[#4A7C59] text-xs font-semibold mb-3 tracking-wide uppercase">
+          Unified Construct Paradigm
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 tracking-tight leading-snug">
+          "They are not two virtues that need balancing. They are one thing seen from two sides."
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-700 leading-relaxed">
+          Kindness without boundaries inevitably curdles into forced compliance and chronic resentment—a covert psychological enslavement. Boundaries without kindness harden into rigid walls, turning limits into weaponized rejection. A boundary makes kindness <strong class="text-slate-900 font-semibold">credible</strong>; kindness makes a boundary <strong class="text-slate-900 font-semibold">legible</strong>.
+        </p>
+        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-4 border-t border-[#DFD8CA]">
+          <div class="bg-white/70 backdrop-blur rounded-xl p-3.5 border border-[#E5E0D5]">
+            <div class="text-xs uppercase font-semibold text-[#4A7C59] tracking-wider">The Credibility Axiom</div>
+            <div class="text-sm font-medium text-slate-800 mt-1">When someone who can refuse says yes, the yes means something. When someone who cannot refuse says yes, it is merely compliance wearing a smile.</div>
+          </div>
+          <div class="bg-white/70 backdrop-blur rounded-xl p-3.5 border border-[#E5E0D5]">
+            <div class="text-xs uppercase font-semibold text-[#C85A32] tracking-wider">The Legibility Axiom</div>
+            <div class="text-sm font-medium text-slate-800 mt-1">"No" delivered with care says: <em>"I am limiting what I give, not withdrawing my regard for you."</em> Without kindness, people hear rejection instead of a limit.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: THE 4 RELATIONAL STATES MATRIX -->
+    <section id="sec-matrix" class="space-y-6">
+      <div class="border-b border-stone-200 pb-3">
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 flex items-center gap-2">
+          <span>✦</span> Section 1: The Relational Topology Matrix
+        </h3>
+        <p class="text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+          This section maps the structural dynamics that emerge when kindness and boundaries exist in harmony or in isolation. Interpersonal dysfunctions are rarely random; they are predictable systemic states determined by an individual's capacity for assertive self-definition versus compassionate other-regard. Click any quadrant below to inspect its behavioral mechanics, physiological footprint, clinical profile, and transition path.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Interactive Coordinate Space</span>
+            <span class="text-xs text-slate-400">Select a quadrant to explore</span>
+          </div>
+
+          <div class="bg-[#FAF8F4] border border-stone-200 rounded-xl p-4 sm:p-6">
+            <div class="text-center text-[11px] font-bold text-[#4A7C59] uppercase tracking-wider mb-3">
+              ▲ High Kindness (Regard &amp; Warmth)
+            </div>
+
+            <div class="flex items-stretch gap-2 sm:gap-3">
+              <!-- Left axis label: own gutter so it never overlaps the cards -->
+              <div class="hidden sm:flex items-center justify-center w-4 flex-shrink-0" aria-hidden="true">
+                <span style="writing-mode: vertical-rl; transform: rotate(180deg);" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+                  Low Boundaries (Compliance)
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 sm:gap-4 flex-1 min-w-0">
+                <!-- Quad 1: Kindness without Boundaries -->
+                <button type="button" onclick="selectQuadrant('pleasing')" id="btn-pleasing" aria-pressed="false" class="quad-btn text-left p-3 sm:p-4 rounded-xl border-2 transition-all bg-white hover:border-amber-400 border-amber-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-amber-700 uppercase">Top Left</span>
+                    <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold">Harriet Braiker</span>
+                  </div>
+                  <div class="text-base font-bold text-slate-900 mt-1">Resentful Compliance</div>
+                  <div class="text-xs text-slate-600 mt-1">High Kindness · Low Boundaries</div>
+                  <div class="text-[11px] text-amber-900/80 mt-2 italic">"Conscripted yes; hidden slavery; curdling generosity."</div>
+                </button>
+
+                <!-- Quad 2: Integrated -->
+                <button type="button" onclick="selectQuadrant('authentic')" id="btn-authentic" aria-pressed="true" class="quad-btn text-left p-3 sm:p-4 rounded-xl border-2 transition-all bg-[#F3F7F4] border-[#4A7C59] ring-2 ring-[#4A7C59]/20 shadow-sm">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-[#4A7C59] uppercase">Top Right</span>
+                    <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">Ideal Integration</span>
+                  </div>
+                  <div class="text-base font-bold text-slate-900 mt-1">Authentic Connection</div>
+                  <div class="text-xs text-[#4A7C59] font-medium mt-1">High Kindness · High Boundaries</div>
+                  <div class="text-[11px] text-slate-700 mt-2 italic">"No without contempt; yes without resentment; credible love."</div>
+                </button>
+
+                <!-- Quad 3: Chaos -->
+                <button type="button" onclick="selectQuadrant('chaos')" id="btn-chaos" aria-pressed="false" class="quad-btn text-left p-3 sm:p-4 rounded-xl border-2 transition-all bg-white hover:border-stone-400 border-stone-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Bottom Left</span>
+                    <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">Dysregulation</span>
+                  </div>
+                  <div class="text-base font-bold text-slate-900 mt-1">Endless Rudeness &amp; Chaos</div>
+                  <div class="text-xs text-slate-600 mt-1">Low Kindness · Low Boundaries</div>
+                  <div class="text-[11px] text-slate-600 mt-2 italic">"Late violent explosions; cruelty as a delayed boundary."</div>
+                </button>
+
+                <!-- Quad 4: Weaponized -->
+                <button type="button" onclick="selectQuadrant('weaponized')" id="btn-weaponized" aria-pressed="false" class="quad-btn text-left p-3 sm:p-4 rounded-xl border-2 transition-all bg-white hover:border-[#C85A32] border-stone-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1">
+                    <span class="text-xs font-bold text-[#C85A32] uppercase">Bottom Right</span>
+                    <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded bg-orange-100 text-[#C85A32] font-semibold">Therapy Speak</span>
+                  </div>
+                  <div class="text-base font-bold text-slate-900 mt-1">Weaponized Cutoff</div>
+                  <div class="text-xs text-slate-600 mt-1">Low Kindness · High Boundaries</div>
+                  <div class="text-[11px] text-[#C85A32] mt-2 italic">"Boundaries hardened into walls; safe but profoundly alone."</div>
+                </button>
+              </div>
+
+              <!-- Right axis label: own gutter so it never overlaps the cards -->
+              <div class="hidden sm:flex items-center justify-center w-4 flex-shrink-0" aria-hidden="true">
+                <span style="writing-mode: vertical-rl;" class="text-[10px] font-bold text-[#C85A32] uppercase tracking-wider whitespace-nowrap">
+                  High Boundaries (Assertive Agency)
+                </span>
+              </div>
+            </div>
+
+            <div class="text-center text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-3">
+              ▼ Low Kindness (Contempt &amp; Coldness)
+            </div>
+            <div class="text-center text-[11px] text-slate-500 mt-2 pt-2 border-t border-stone-200/70">
+              Theoretical Foundation: Bowen Family Systems Theory &amp; Self-Determination Theory (Ryan &amp; Deci)
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm" id="quadrant-detail-card">
+          <div class="flex items-center justify-between pb-3 border-b border-stone-200">
+            <div>
+              <span id="qd-badge" class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Integrated State</span>
+              <h4 id="qd-title" class="text-xl font-serif font-bold text-slate-900 mt-1">Authentic Connection</h4>
+            </div>
+            <span id="qd-icon" class="text-3xl">🌿</span>
+          </div>
+
+          <div class="mt-4 space-y-3.5 text-sm">
+            <div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Core Clinical Dynamic</div>
+              <p id="qd-dynamic" class="text-slate-800 mt-0.5 leading-relaxed">
+                Boundaries and kindness operate as a single unified construct. When this individual says "no," it communicates factual personal capacity without threatening the relational bond. When they say "yes," it arises from genuine autonomous motivation, protecting the generosity from decaying into resentment.
+              </p>
+            </div>
+
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200/80">
+              <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">The Somatic & Relational Test</div>
+              <div id="qd-test" class="text-slate-900 font-medium mt-1">
+                "Can you say NO without contempt, and YES without resentment?" → Both answered affirmatively with physiological ease.
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Psychological Failure Mode / Risk</div>
+              <p id="qd-risk" class="text-slate-700 mt-0.5 leading-relaxed">
+                Sustainable equilibrium. The only risk is temporary interpersonal friction from peers accustomed to extracting compliant 'yes' responses.
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-stone-100">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Clinical Action / Transition Directive</div>
+              <p id="qd-directive" class="text-slate-800 font-medium mt-0.5">
+                Maintain differentiation. Model compassionate clarity using DBT GIVE and FAST skills simultaneously.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: NEUROBIOLOGY & SOMATICS -->
+    <section id="sec-neuro" class="space-y-6">
+      <div class="border-b border-stone-200 pb-3">
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 flex items-center gap-2">
+          <span>☵</span> Section 2: The Biological Architecture (Neurobiology & Psychoneuroimmunology)
+        </h3>
+        <p class="text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+          Boundaries are not merely abstract linguistic agreements; they are autonomic and neurobiological states. This section illustrates research from social neuroscientist Tania Singer (Max Planck Institute) on empathy versus compassion, James Gross's Process Model of Emotion Regulation, and Gabor Maté's psychoneuroimmunological findings on the physical costs of chronic boundary suppression.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Card 1: Empathy vs Compassion Chart -->
+        <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-base font-bold text-slate-900">Tania Singer: Empathic Distress vs. Compassion</h4>
+              <span class="text-xs bg-stone-100 text-slate-600 px-2 py-0.5 rounded font-mono">fMRI Neural Activation</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              "Compassion fatigue" is clinically a misnomer; compassion does not fatigue. Exhaustion stems from <strong class="text-slate-900 font-semibold">unboundaried empathy</strong>, which hyper-activates the brain's physical pain matrices (Anterior Insula / aMCC). A cognitive boundary (self-other distinction) routes neural energy to dopaminergic reward and maternal care networks (mOFC / Striatum).
+            </p>
+            <div class="chart-container">
+              <canvas id="chart-neuro" role="img" aria-label="Horizontal bar chart comparing empathic distress activation in the anterior insula and aMCC against compassion activation in the mOFC and ventral striatum."></canvas>
+            </div>
+          </div>
+          <div class="mt-4 p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-slate-700 flex items-center justify-between gap-3">
+            <div>
+              <span class="font-bold text-slate-900">Key Finding:</span> Boundaries are the exact cognitive mechanism transforming debilitating shared pain into sustainable prosocial action.
+            </div>
+            <button type="button" id="btn-circuit-toggle" onclick="toggleCircuitFocus()" aria-live="polite" class="ml-2 text-xs font-semibold px-2.5 py-1 bg-white border border-stone-300 rounded shadow-sm hover:bg-stone-50 text-slate-800 whitespace-nowrap">View: Both</button>
+          </div>
+        </div>
+
+        <!-- Card 2: Autonomic Burden of Suppression -->
+        <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-base font-bold text-slate-900">James Gross & Gabor Maté: Cost of Suppression</h4>
+              <span class="text-xs bg-orange-100 text-[#C85A32] px-2 py-0.5 rounded font-mono">Autonomic Stress Index</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              When an individual suppresses an authentic "no" in pursuit of pleasant compliance, the nervous system enters acute sympathetic hyperarousal. Gabor Maté demonstrates that when conscious limits are repressed, the hypothalamic-pituitary-adrenal (HPA) axis elevates cortisol, ultimately manifesting in autoimmune dysfunction.
+            </p>
+            <div class="chart-container">
+              <canvas id="chart-suppression" role="img" aria-label="Grouped bar chart comparing expressive suppression with authentic expression across blood pressure, amygdala arousal, cortisol flux, dmPFC strain and parasympathetic braking."></canvas>
+            </div>
+          </div>
+          <div class="mt-4 p-3 bg-orange-50/70 rounded-xl border border-orange-200/60 text-xs text-slate-800">
+            <span class="font-bold text-[#C85A32]">Autoimmune Metaphor:</span> When the conscious self cannot distinguish "self" from "non-self" (boundary failure), the biological immune system loses the same distinction, attacking host tissue.
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparative Table of Somatic States -->
+      <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm overflow-hidden">
+        <h4 class="text-base font-bold text-slate-900 mb-3">Somatic & Biomarker Breakdown Across Interpersonal Paradigms</h4>
+        <div class="overflow-x-auto custom-scroll">
+          <table class="w-full text-left text-xs text-slate-700 border-collapse">
+            <thead>
+              <tr class="bg-stone-100/80 border-b border-stone-200 text-slate-800 font-semibold uppercase tracking-wider text-[11px]">
+                <th class="py-2.5 px-3">Behavioral Stance</th>
+                <th class="py-2.5 px-3">Prefrontal / Amygdala State</th>
+                <th class="py-2.5 px-3">Cardiovascular & SNS Metric</th>
+                <th class="py-2.5 px-3">HPA Axis & Immune Consequence</th>
+                <th class="py-2.5 px-3">Partner Subconscious Perception</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-100">
+              <tr class="hover:bg-stone-50/70">
+                <td class="py-3 px-3 font-semibold text-amber-800">Chronic People-Pleasing (Expressive Suppression)</td>
+                <td class="py-3 px-3">High dmPFC inhibitory load; sustained Amygdala alarm</td>
+                <td class="py-3 px-3">Elevated Systolic/Diastolic BP; decreased IBI (Tachycardia)</td>
+                <td class="py-3 px-3">Chronic Cortisol; disarmed NK cellular defense; high autoimmune incidence</td>
+                <td class="py-3 px-3">Rated as less authentic, less warm; partner SNS elevates in response</td>
+              </tr>
+              <tr class="hover:bg-stone-50/70">
+                <td class="py-3 px-3 font-semibold text-[#C85A32]">Weaponized Cutoff (Hyper-Independence)</td>
+                <td class="py-3 px-3">Prefrontal detachment; deactivated empathy pain matrix</td>
+                <td class="py-3 px-3">Vagal shutdown; social isolation bradycardia/tachycardia oscillations</td>
+                <td class="py-3 px-3">Elevated baseline inflammation from chronic social isolation</td>
+                <td class="py-3 px-3">Rated as intimidating, emotionally sterile, and rejection-oriented</td>
+              </tr>
+              <tr class="hover:bg-stone-50/70 bg-[#F4F8F5]">
+                <td class="py-3 px-3 font-semibold text-[#4A7C59]">Embodied Compassionate Autonomy (Integrated)</td>
+                <td class="py-3 px-3">vmPFC down-regulation; mOFC/Striatum activation</td>
+                <td class="py-3 px-3">High Heart Rate Variability (HRV); robust parasympathetic brake</td>
+                <td class="py-3 px-3">Normalized cortisol diurnal rhythm; optimized cellular repair</td>
+                <td class="py-3 px-3">Rated as deeply trustworthy, legible, emotionally secure, and calming</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SYSTEMS & MOTIVATION -->
+    <section id="sec-systems" class="space-y-6">
+      <div class="border-b border-stone-200 pb-3">
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 flex items-center gap-2">
+          <span>⇄</span> Section 3: Systems Theory & The Motivational Mechanics of Resentment
+        </h3>
+        <p class="text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+          Why does giving without boundaries inevitably turn into resentment? Self-Determination Theory (Ryan & Deci) proves that when an action is controlled rather than autonomous, vitality drains rapidly. Bowen Family Systems Theory deepens this: individuals with low Differentiation of Self oscillate violently between enmeshed fusion (false kindness) and abrupt cutoff (violent boundaries).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- SDT Interactive Ladder -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-slate-900">Self-Determination Theory Motivation Continuum</h4>
+            <span class="text-xs bg-stone-100 text-slate-600 px-2 py-0.5 rounded">Ryan & Deci Framework</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            A boundary is the catalyst that shifts relational labor from controlled compliance (external/introjected) to autonomous endorsement (identified/intrinsic). Select a regulatory style below to see its psychological cost:
+          </p>
+
+          <div class="space-y-2.5">
+            <button onclick="setMotivationStyle('external')" id="mbtn-external" class="w-full text-left p-3 rounded-xl border transition-all border-stone-200 hover:border-amber-400 bg-white">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-amber-800 uppercase">1. External Regulation (Controlled)</span>
+                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Resentment Risk: 95%</span>
+              </div>
+              <div class="text-sm font-semibold text-slate-800 mt-1">"I say yes because I fear conflict, anger, or abandonment."</div>
+            </button>
+
+            <button onclick="setMotivationStyle('introjected')" id="mbtn-introjected" class="w-full text-left p-3 rounded-xl border transition-all border-amber-300 bg-amber-50/50">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-amber-800 uppercase">2. Introjected Regulation (Controlled)</span>
+                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Resentment Risk: 80%</span>
+              </div>
+              <div class="text-sm font-semibold text-slate-800 mt-1">"I say yes to avoid guilt, shame, and feeling like a bad person."</div>
+            </button>
+
+            <button onclick="setMotivationStyle('identified')" id="mbtn-identified" class="w-full text-left p-3 rounded-xl border transition-all border-stone-200 hover:border-emerald-400 bg-white">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-emerald-800 uppercase">3. Identified Regulation (Autonomous)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Resentment Risk: 10%</span>
+              </div>
+              <div class="text-sm font-semibold text-slate-800 mt-1">"I consciously value this relationship, so I choose to give within my real capacity."</div>
+            </button>
+
+            <button onclick="setMotivationStyle('intrinsic')" id="mbtn-intrinsic" class="w-full text-left p-3 rounded-xl border transition-all border-stone-200 hover:border-emerald-400 bg-white">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-emerald-800 uppercase">4. Intrinsic Motivation (Autonomous)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Resentment Risk: 0%</span>
+              </div>
+              <div class="text-sm font-semibold text-slate-800 mt-1">"Generosity arises spontaneously and joyfully without internal coercion."</div>
+            </button>
+          </div>
+
+          <div id="m-output-box" class="p-4 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-2">
+            <div class="font-bold text-slate-900" id="m-output-title">Introjected Regulation Analysis</div>
+            <p class="text-slate-700 leading-relaxed" id="m-output-desc">
+              The individual acts under an internal dictator. Because the "yes" is conscripted by shame, subjective vitality drains rapidly. The individual secretly tallies emotional ledgers, creating an invisible debt the other person never agreed to pay.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bowen Differentiation & Cross Cultural Context -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-5 border border-stone-200 shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-base font-bold text-slate-900">Bowen Differentiation & Connected Autonomy</h4>
+              <span class="text-xs bg-stone-100 text-slate-600 px-2 py-0.5 rounded">Family Systems</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Murray Bowen's construct of Differentiation is the capacity to hold onto an independent "I" within an emotionally charged "We". In collectivist contexts (e.g., India), differentiation manifests not as Western hyper-independence, but as <strong class="text-slate-900 font-semibold">Connected Autonomy</strong>.
+            </p>
+
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="font-bold text-slate-800">The False Peace of Fusion (Low Differentiation)</div>
+                <div class="text-slate-600 mt-0.5">Family members suppress differences to keep the peace. When discomfort peaks, it swings violently into emotional cutoff. "Cruelty is a boundary spoken too late."</div>
+              </div>
+              <div class="p-3 rounded-xl bg-[#F3F7F4] border border-[#4A7C59]/30">
+                <div class="font-bold text-[#4A7C59]">Connected Autonomy in Collectivist Paradigms</div>
+                <div class="text-slate-700 mt-0.5">Elders and traditions are honored deeply (high relatedness) while personal life trajectory and private emotional boundaries remain clear and intact without reactive cutoff.</div>
+              </div>
+              <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-200/60">
+                <div class="font-bold text-[#C85A32]">Institutional Validation: SCARF India & CCF</div>
+                <div class="text-slate-700 mt-0.5">At Chennai's SCARF First Episode Psychosis program, caregiver survival hinges on establishing structural limits with loved ones to prevent the burnout that leads to institutionalization.</div>
+              </div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 italic text-center pt-2 border-t border-stone-100">
+            "Differentiation is loving the self and the other simultaneously."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: THERAPY SPEAK & SHADOW CULTURE -->
+    <section id="sec-shadow" class="space-y-6">
+      <div class="border-b border-stone-200 pb-3">
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 flex items-center gap-2">
+          <span>🛡</span> Section 4: The Weaponization of Boundaries & "Therapy Speak"
+        </h3>
+        <p class="text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+          In contemporary culture, boundaries without kindness frequently masquerade as mental health enlightenment. Clinical vocabulary is co-opted to establish epistemic authority, shut down dialogue, and discard human relationships under the banner of "protecting one's peace." This section deconstructs modern therapy speak versus authentic embodied boundaries.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl p-5 border border-red-200/80 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-red-600 uppercase tracking-wider">The Sterile Rejection</span>
+            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded font-mono">Therapy Speak</span>
+          </div>
+          <blockquote class="text-sm font-mono bg-stone-50 p-3 rounded-lg border border-stone-200 text-slate-800">
+            "I don't have the emotional bandwidth to hold space for your dysregulation right now. It is crossing my boundaries."
+          </blockquote>
+          <div class="text-xs text-slate-600 leading-relaxed">
+            <strong class="text-slate-900 font-semibold">Underlying Dynamic:</strong> Epistemic authority and "psychwashing." Uses detached psychological diagnostics to evade discomfort, leaving the recipient feeling pathologized and humiliated rather than cared for.
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-[#4A7C59]/40 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-[#4A7C59] uppercase tracking-wider">Legible Care</span>
+            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono">Authentic Boundary</span>
+          </div>
+          <blockquote class="text-sm font-mono bg-[#F6FAF7] p-3 rounded-lg border border-[#4A7C59]/20 text-slate-800">
+            "I care about you and want to hear this, but I am exhausted right now and cannot listen well. Can we talk tomorrow at 10 AM over coffee?"
+          </blockquote>
+          <div class="text-xs text-slate-600 leading-relaxed">
+            <strong class="text-slate-900 font-semibold">Underlying Dynamic:</strong> Limits what is given without withdrawing regard. Preserves the relational connection while stating genuine personal capacity with transparency.
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-3 md:col-span-2 lg:col-span-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-stone-600 uppercase tracking-wider">Somatic Definition</span>
+            <span class="text-xs bg-stone-100 text-slate-700 px-2 py-0.5 rounded font-mono">Prentis Hemphill</span>
+          </div>
+          <div class="text-sm font-serif italic text-slate-900 bg-stone-50 p-3 rounded-lg border border-stone-200">
+            "Boundaries are the distance at which I can love you and me simultaneously."
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Embodied boundaries are felt in the physical soma—tightening throat, heavy chest, or clenching jaw. When respected early, limits avoid the explosive violence of prolonged endurance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CLINICAL TOOLKIT & INTERACTIVE DIAGNOSTIC -->
+    <section id="sec-toolkit" class="space-y-6">
+      <div class="border-b border-stone-200 pb-3">
+        <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 flex items-center gap-2">
+          <span>⚙</span> Section 5: Clinical Integration Toolkit & The Practical Test
+        </h3>
+        <p class="text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+          How do we operationalize these principles in daily friction? This interactive lab combines the DBT FAST and GIVE interpersonal effectiveness frameworks with Marshall Rosenberg's Nonviolent Communication (NVC) and the practical diagnostic test: <em>Can you say NO without contempt, and YES without resentment?</em>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Interactive Diagnostic Simulator -->
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-slate-900">The 2-Question Practical Test Simulator</h4>
+            <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Diagnostic Tool</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Adjust the sliders to reflect your current relational habit with a challenging partner, colleague, or family member:
+          </p>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-800">1. Ability to say "NO" without Contempt:</span>
+                <span id="slider-no-val" class="text-[#4A7C59] font-bold">50%</span>
+              </div>
+              <input type="range" id="slider-no" min="0" max="100" value="50" oninput="updateDiagnostic()" aria-label="Ability to say no without contempt" class="w-full accent-[#4A7C59] cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-400 mt-0.5">
+                <span>Contemptuous / Passive-Aggressive</span>
+                <span>Calm, Caring & Firm</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-800">2. Ability to say "YES" without Resentment:</span>
+                <span id="slider-yes-val" class="text-[#4A7C59] font-bold">50%</span>
+              </div>
+              <input type="range" id="slider-yes" min="0" max="100" value="50" oninput="updateDiagnostic()" aria-label="Ability to say yes without resentment" class="w-full accent-[#4A7C59] cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-400 mt-0.5">
+                <span>Forced Compliance / Bitter</span>
+                <span>Freely Chosen & Endorsed</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="diagnostic-result-box" aria-live="polite" class="p-4 rounded-xl border border-stone-200 bg-stone-50 transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500" id="diag-status-badge">Equilibrium State</span>
+              <span class="text-lg" id="diag-icon">⚖</span>
+            </div>
+            <div class="text-base font-serif font-bold text-slate-900" id="diag-title">Balanced Exploration</div>
+            <p class="text-xs text-slate-700 leading-relaxed" id="diag-summary">
+              You are navigating the midpoint. At times your 'yes' still carries obligation, or your 'no' risks defensiveness. Moving both higher achieves compassionate autonomy.
+            </p>
+          </div>
+        </div>
+
+        <!-- DBT & NVC Interactive Reframe Generator -->
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-slate-900">DBT FAST/GIVE & NVC Reframe Engine</h4>
+            <span class="text-xs bg-stone-100 text-slate-600 px-2 py-0.5 rounded">Interpersonal Skills</span>
+          </div>
+
+          <div class="space-y-3">
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide">Select a Challenging Relational Trigger:</label>
+            <select id="trigger-select" onchange="updateReframeScenario()" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#4A7C59]">
+              <option value="overtime">Workplace: Colleague asks you to take their weekend shift unexpectedly</option>
+              <option value="family">Family: Parent demands attendance at an exhausting gathering during recovery</option>
+              <option value="friend">Friendship: Friend calls daily for hours to vent about the same drama</option>
+              <option value="partner">Intimate Partner: Partner asks for immediate emotional processing while you are flooded</option>
+            </select>
+          </div>
+
+          <div class="space-y-2.5 pt-1">
+            <div class="p-3 rounded-xl border border-red-200 bg-red-50/50 text-xs">
+              <span class="font-bold text-red-800 uppercase block mb-0.5">Failure Mode (Cruelty or Slavery):</span>
+              <span id="rf-failure" class="text-slate-800 font-mono">"Fine, I will work it, like always..." (Internal rage, passive aggression on Monday).</span>
+            </div>
+
+            <div class="p-3 rounded-xl border border-stone-200 bg-stone-50 text-xs">
+              <span class="font-bold text-stone-700 uppercase block mb-0.5">DBT Framework Application:</span>
+              <span id="rf-dbt" class="text-slate-700"><strong>FAST:</strong> Stick to values, No over-apologies. <strong>GIVE:</strong> Gentle tone, Validate their jam.</span>
+            </div>
+
+            <div class="p-3 rounded-xl border border-emerald-200 bg-[#F3F8F5] text-xs">
+              <span class="font-bold text-[#4A7C59] uppercase block mb-0.5">Integrated NVC & Credible Delivery:</span>
+              <span id="rf-nvc" class="text-slate-900 font-semibold italic">"I understand you are in a tight spot, but I have personal commitments this weekend so I cannot cover for you. I hope you find cover."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-12 border-t border-stone-200 bg-[#F7F4EE] py-6 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div>
+        <p class="font-medium text-slate-700">The Architecture of Authentic Connection</p>
+        <p class="text-[11px] text-slate-500">Synthesizing Self-Determination Theory, Bowen Family Systems, Social Neuroscience & Somatics</p>
+      </div>
+      <div class="text-[11px] text-slate-400">
+        Informational clinical analysis. Not a substitute for formal psychotherapy or medical counsel.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const quadrantData = {
+      pleasing: {
+        title: "Resentful Compliance (The Disease to Please)",
+        badge: "Unboundaried Kindness",
+        badgeClass: "bg-amber-100 text-amber-800",
+        icon: "🎭",
+        dynamic: "Harriet Braiker's 'Disease to Please'. Kindness devoid of the capacity to refuse. The individual uses compliance as an unconscious defense to purchase immunity from rejection. Because the 'yes' is conscripted by fear, the psychological space fills with resentment, breeding a covert psychological enslavement.",
+        test: "Says YES with deep internal resentment; cannot say NO without catastrophic fear.",
+        risk: "Eventual emotional exhaustion, somatic collapse, autoimmune vulnerability, and sudden eruptions of delayed cruelty.",
+        directive: "Develop tolerance for interpersonal disappointment. Practice low-stakes refusals using DBT FAST skills without over-apologizing."
+      },
+      authentic: {
+        title: "Authentic Connection (Compassionate Autonomy)",
+        badge: "Integrated Ideal",
+        badgeClass: "bg-emerald-100 text-emerald-800",
+        icon: "🌿",
+        dynamic: "Boundaries and kindness operate as a single unified construct. When this individual says 'no', it communicates factual personal capacity without withdrawing regard. When they say 'yes', it arises from autonomous endorsement (Self-Determination Theory), keeping generosity credible and alive.",
+        test: "Can say NO without contempt, and YES without resentment. Regulated autonomic nervous system.",
+        risk: "Sustainable equilibrium. The only risk is temporary friction from enmeshed peers unaccustomed to clean boundaries.",
+        directive: "Maintain differentiation of self. Continue practicing connected autonomy and clear, nonviolent communication."
+      },
+      chaos: {
+        title: "Endless Rudeness & Chaos",
+        badge: "Systemic Collapse",
+        badgeClass: "bg-stone-200 text-slate-800",
+        icon: "⚡",
+        dynamic: "The late, violent arrival of a boundary that was never spoken early enough. The person who endured chronic compliance finally exhausts their regulatory bandwidth, resulting in an explosive outburst of rudeness, contempt, or unilateral cutoff.",
+        test: "Says NO with volatile contempt; says YES with passive-aggressive bitterness.",
+        risk: "Relational destruction, trauma cycles, high physiological distress, and cardiovascular burden.",
+        directive: "Intervene before the threshold of explosion. Recognize bodily somatic warning signs (chest tightening, jaw clenching) days earlier."
+      },
+      weaponized: {
+        title: "Weaponized Cutoff (Sterile Therapy Speak)",
+        badge: "Unkind Boundaries",
+        badgeClass: "bg-orange-100 text-[#C85A32]",
+        icon: "🗡",
+        dynamic: "Boundaries hardened into defensive walls. Clinical vocabulary ('bandwidth', 'dysregulation', 'toxic') is co-opted to establish epistemic authority, evade accountability, and punish relational bids. Safe from conflict, but profoundly isolated.",
+        test: "Says NO with clinical contempt and superior detachment; rarely offers an openhearted YES.",
+        risk: "Hyper-individualism, avoidant attachment, profound loneliness, and deterioration of intimate bonds.",
+        directive: "Reintroduce kindness and vulnerability. Understand that boundaries should define parameters for connection, not build emotional prisons."
+      }
+    };
+
+    function selectQuadrant(key) {
+      const data = quadrantData[key];
+      if (!data) return;
+
+      document.querySelectorAll('.quad-btn').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-[#4A7C59]/20', 'border-[#4A7C59]', 'bg-[#F3F7F4]');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+
+      const activeBtn = document.getElementById('btn-' + key);
+      if (activeBtn) {
+        activeBtn.classList.add('ring-2', 'ring-[#4A7C59]/20', 'border-[#4A7C59]');
+        if (key === 'authentic') activeBtn.classList.add('bg-[#F3F7F4]');
+        activeBtn.setAttribute('aria-pressed', 'true');
+      }
+
+      document.getElementById('qd-title').innerText = data.title;
+      document.getElementById('qd-badge').innerText = data.badge;
+      document.getElementById('qd-badge').className = "text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded " + data.badgeClass;
+      document.getElementById('qd-icon').innerText = data.icon;
+      document.getElementById('qd-dynamic').innerText = data.dynamic;
+      document.getElementById('qd-test').innerText = data.test;
+      document.getElementById('qd-risk').innerText = data.risk;
+      document.getElementById('qd-directive').innerText = data.directive;
+    }
+
+    const motivationDetails = {
+      external: {
+        title: "1. External Regulation (Pure Compliance)",
+        desc: "Driven by fear of punishment, anger, or abandonment. Autonomy is virtually zero. Leads directly to rapid burnout, cognitive exhaustion, and deep feelings of conscripted relational slavery."
+      },
+      introjected: {
+        title: "2. Introjected Regulation (Guilt & Shame Engine)",
+        desc: "Driven by an internal dictator. The individual accommodates to avoid self-reproach or feeling unworthy. Resentment accumulates quietly, as emotional ledgers are kept without the partner's knowledge."
+      },
+      identified: {
+        title: "3. Identified Regulation (Conscious Endorsement)",
+        desc: "The task may not be inherently fun, but the individual consciously values the relationship or goal. They say yes with personal volition, making the sacrifice sustainable and entirely free of resentment."
+      },
+      intrinsic: {
+        title: "4. Intrinsic Motivation (Spontaneous Joy)",
+        desc: "Generosity arises naturally out of genuine care and spontaneous delight. Autonomy, competence, and relatedness are fully satisfied, creating deep relational harmony and biological vitality."
+      }
+    };
+
+    function setMotivationStyle(type) {
+      const info = motivationDetails[type];
+      if (!info) return;
+
+      ['external', 'introjected', 'identified', 'intrinsic'].forEach(t => {
+        const btn = document.getElementById('mbtn-' + t);
+        if (btn) {
+          btn.classList.remove('border-amber-400', 'border-emerald-400', 'bg-amber-50/50', 'bg-emerald-50/50');
+        }
+      });
+
+      const curBtn = document.getElementById('mbtn-' + type);
+      if (curBtn) {
+        if (type === 'external' || type === 'introjected') {
+          curBtn.classList.add('border-amber-400', 'bg-amber-50/50');
+        } else {
+          curBtn.classList.add('border-emerald-400', 'bg-emerald-50/50');
+        }
+      }
+
+      document.getElementById('m-output-title').innerText = info.title;
+      document.getElementById('m-output-desc').innerText = info.desc;
+    }
+
+    const scenarioData = {
+      overtime: {
+        failure: "\"Fine, I guess I'll cancel my plans and work it...\" (Proceeds to sulk, sabotage tasks, and post passive-aggressive statuses).",
+        dbt: "FAST: Maintain self-respect, no false promises. GIVE: Gentle tone, show empathy for the staffing crisis.",
+        nvc: "\"I see how stressful this schedule shortage is for the team. However, I have non-negotiable personal obligations this weekend and cannot take the shift. I'm available Monday morning at 8 AM.\""
+      },
+      family: {
+        failure: "\"You always force me into these things! You don't care about my mental health at all!\" (Late violent explosion after years of silent obedience).",
+        dbt: "FAST: Be fair, truth-telling. GIVE: Validate family connection while holding the boundary.",
+        nvc: "\"I love this family and value our time together. I am currently running on zero energy and need rest this Sunday to stay healthy. I will join you for dinner next weekend instead.\""
+      },
+      friend: {
+        failure: "Listening for 2 hours while quietly fuming, checking watch, and feeling used as an unpaid therapist.",
+        dbt: "FAST: Values alignment, stick to time limits. GIVE: Warm interest without self-abandonment.",
+        nvc: "\"I value our friendship and want to be fully present with you. I have 15 minutes before I need to transition to other tasks. Let's focus on the most important thing on your mind right now.\""
+      },
+      partner: {
+        failure: "\"You're gaslighting me and crossing my boundaries by talking right now! Leave me alone!\" (Weaponized clinical speak as a weapon).",
+        dbt: "FAST: Emotional honesty. GIVE: Reassurance of love and future reconnection.",
+        nvc: "\"I care deeply about resolving this with you, but my nervous system is flooded right now and I cannot listen with the kindness you deserve. I need 30 minutes to take a walk, and then I will come back so we can talk.\""
+      }
+    };
+
+    function updateReframeScenario() {
+      const select = document.getElementById('trigger-select');
+      const item = scenarioData[select.value];
+      if (!item) return;
+
+      document.getElementById('rf-failure').innerText = item.failure;
+      document.getElementById('rf-dbt').innerHTML = item.dbt;
+      document.getElementById('rf-nvc').innerText = item.nvc;
+    }
+
+    function updateDiagnostic() {
+      const noVal = parseInt(document.getElementById('slider-no').value, 10);
+      const yesVal = parseInt(document.getElementById('slider-yes').value, 10);
+
+      document.getElementById('slider-no-val').innerText = noVal + '%';
+      document.getElementById('slider-yes-val').innerText = yesVal + '%';
+
+      const statusBadge = document.getElementById('diag-status-badge');
+      const title = document.getElementById('diag-title');
+      const summary = document.getElementById('diag-summary');
+      const icon = document.getElementById('diag-icon');
+      const box = document.getElementById('diagnostic-result-box');
+
+      if (noVal >= 65 && yesVal >= 65) {
+        statusBadge.innerText = "Integrated State (High Differentiation)";
+        statusBadge.className = "text-xs font-bold uppercase tracking-wider text-emerald-800";
+        title.innerText = "Compassionate Autonomy";
+        icon.innerText = "🌿";
+        box.className = "p-4 rounded-xl border border-emerald-300 bg-[#F4F9F5] transition-all space-y-2";
+        summary.innerText = "Your 'no' is credible and free of contempt, meaning limits are communicated factually without threatening connection. Your 'yes' is autonomous, ensuring giving is an authentic act of generosity that preserves your vitality.";
+      } else if (noVal < 40 && yesVal < 40) {
+        statusBadge.innerText = "Dysregulated State (Boundary Exhaustion)";
+        statusBadge.className = "text-xs font-bold uppercase tracking-wider text-red-700";
+        title.innerText = "Chronic Resentment & Volatility";
+        icon.innerText = "⚡";
+        box.className = "p-4 rounded-xl border border-red-200 bg-red-50/60 transition-all space-y-2";
+        summary.innerText = "Refusal feels dangerous or triggers aggressive reactivity, while giving feels coerced and burdensome. You are in the acute burnout zone. Immediate focus on somatic nervous system stabilization and simple, early refusals is required.";
+      } else if (noVal < 50 && yesVal >= 50) {
+        statusBadge.innerText = "Compliance Vulnerability";
+        statusBadge.className = "text-xs font-bold uppercase tracking-wider text-amber-800";
+        title.innerText = "Resentful Giver Pattern";
+        icon.innerText = "🎭";
+        box.className = "p-4 rounded-xl border border-amber-200 bg-amber-50/60 transition-all space-y-2";
+        summary.innerText = "You find warmth and generosity rewarding, but your inability to refuse cleanly leaves you vulnerable to over-extension. Because you struggle to say 'no' without guilt or contempt, your 'yes' is at risk of curdling into silent resentment.";
+      } else if (noVal >= 50 && yesVal < 50) {
+        statusBadge.innerText = "Protective Guarding";
+        statusBadge.className = "text-xs font-bold uppercase tracking-wider text-[#C85A32]";
+        title.innerText = "Hyper-Independent Guarding";
+        icon.innerText = "🛡";
+        box.className = "p-4 rounded-xl border border-orange-200 bg-orange-50/60 transition-all space-y-2";
+        summary.innerText = "You protect your territory firmly, but giving feels precarious or draining. You risk using boundaries as defensive walls rather than doorways for collaborative relationship. Practice pairing firmness with proactive warmth.";
+      } else {
+        statusBadge.innerText = "Transitional Dynamic";
+        statusBadge.className = "text-xs font-bold uppercase tracking-wider text-slate-600";
+        title.innerText = "Balanced Exploration";
+        icon.innerText = "⚖";
+        box.className = "p-4 rounded-xl border border-stone-200 bg-stone-50 transition-all space-y-2";
+        summary.innerText = "You are balancing between conscious self-definition and relational accommodation. With intentional practice of DBT FAST/GIVE skills, you can bring both metrics above 70%.";
+      }
+    }
+
+    const navSections = ['matrix', 'neuro', 'systems', 'shadow', 'toolkit'];
+
+    function setActiveNav(sectionId) {
+      navSections.forEach(tab => {
+        const btn = document.getElementById('nav-' + tab);
+        if (!btn) return;
+        const isActive = tab === sectionId;
+        btn.className = isActive
+          ? "nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-900 bg-white shadow-sm border border-slate-200 font-semibold"
+          : "nav-tab flex-shrink-0 px-3 py-1.5 rounded-md transition-all text-slate-600 border border-transparent hover:text-slate-900 hover:bg-stone-200/60";
+        if (isActive) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function navigateTab(sectionId) {
+      const el = document.getElementById('sec-' + sectionId);
+      const header = document.querySelector('header');
+
+      if (el) {
+        const offset = (header ? header.offsetHeight : 0) + 16;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({
+          top: Math.max(top, 0),
+          behavior: 'smooth'
+        });
+      }
+
+      setActiveNav(sectionId);
+    }
+
+    let navTicking = false;
+
+    function updateNavOnScroll() {
+      if (navTicking) return;
+      navTicking = true;
+
+      window.requestAnimationFrame(() => {
+        const header = document.querySelector('header');
+        const probe = (header ? header.offsetHeight : 0) + 96;
+        let current = navSections[0];
+
+        navSections.forEach(tab => {
+          const sec = document.getElementById('sec-' + tab);
+          if (sec && sec.getBoundingClientRect().top <= probe) current = tab;
+        });
+
+        setActiveNav(current);
+        navTicking = false;
+      });
+    }
+
+    let neuroChartInstance = null;
+    let suppressionChartInstance = null;
+    let neuroMode = 0;
+
+    function initCharts() {
+      const wrapLabel = (str, maxLen = 16) => {
+        if (str.length <= maxLen) return str;
+        const words = str.split(' ');
+        const lines = [];
+        let cur = '';
+        words.forEach(w => {
+          if ((cur + ' ' + w).trim().length <= maxLen) {
+            cur = (cur + ' ' + w).trim();
+          } else {
+            if (cur) lines.push(cur);
+            cur = w;
+          }
+        });
+        if (cur) lines.push(cur);
+        return lines;
+      };
+
+      const ctxNeuro = document.getElementById('chart-neuro').getContext('2d');
+      neuroChartInstance = new Chart(ctxNeuro, {
+        type: 'bar',
+        data: {
+          labels: [
+            wrapLabel("Anterior Insula (Pain Matrix)", 16),
+            wrapLabel("aMCC (Distress Circuit)", 16),
+            wrapLabel("mOFC (Warm Affiliation)", 16),
+            wrapLabel("Ventral Striatum (Reward)", 16)
+          ],
+          datasets: [
+            {
+              label: 'Unboundaried Empathy (Empathic Distress)',
+              data: [86, 78, 22, 18],
+              backgroundColor: 'rgba(200, 90, 50, 0.85)',
+              borderColor: '#C85A32',
+              borderWidth: 1,
+              borderRadius: 4
+            },
+            {
+              label: 'Compassion (Kindness + Cognitive Boundary)',
+              data: [24, 28, 88, 82],
+              backgroundColor: 'rgba(74, 124, 89, 0.85)',
+              borderColor: '#4A7C59',
+              borderWidth: 1,
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                font: { size: 10, family: 'sans-serif' },
+                color: '#334155'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(tooltipItems) {
+                  const raw = tooltipItems[0].label;
+                  return Array.isArray(raw) ? raw.join(' ') : raw;
+                },
+                label: function(context) {
+                  return ` ${context.dataset.label}: ${context.parsed.x} % fMRI signal change`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#E2DDD5' },
+              ticks: { font: { size: 10 }, color: '#64748B' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 10 }, color: '#1E293B' }
+            }
+          }
+        }
+      });
+
+      const ctxSupp = document.getElementById('chart-suppression').getContext('2d');
+      suppressionChartInstance = new Chart(ctxSupp, {
+        type: 'bar',
+        data: {
+          labels: [
+            wrapLabel("Systolic BP Elevation", 14),
+            wrapLabel("Amygdala Threat Arousal", 14),
+            wrapLabel("Cortisol HPA Flux", 14),
+            wrapLabel("dmPFC Inhibitory Strain", 14),
+            wrapLabel("Parasympathetic Brake", 14)
+          ],
+          datasets: [
+            {
+              label: 'Expressive Suppression (Forced Yes)',
+              data: [82, 88, 76, 92, 18],
+              backgroundColor: 'rgba(217, 119, 6, 0.85)',
+              borderColor: '#D97706',
+              borderWidth: 1,
+              borderRadius: 4
+            },
+            {
+              label: 'Authentic Expression (Clean Boundary)',
+              data: [32, 35, 28, 30, 84],
+              backgroundColor: 'rgba(74, 124, 89, 0.85)',
+              borderColor: '#4A7C59',
+              borderWidth: 1,
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                font: { size: 10, family: 'sans-serif' },
+                color: '#334155'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(tooltipItems) {
+                  const raw = tooltipItems[0].label;
+                  return Array.isArray(raw) ? raw.join(' ') : raw;
+                },
+                label: function(context) {
+                  return ` ${context.dataset.label}: ${context.parsed.y} Index Units`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#E2DDD5' },
+              ticks: { font: { size: 10 }, color: '#64748B' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 9 }, color: '#1E293B' }
+            }
+          }
+        }
+      });
+    }
+
+    function toggleCircuitFocus() {
+      if (!neuroChartInstance) return;
+      neuroMode = (neuroMode + 1) % 3;
+
+      if (neuroMode === 1) {
+        neuroChartInstance.data.datasets[0].hidden = false;
+        neuroChartInstance.data.datasets[1].hidden = true;
+      } else if (neuroMode === 2) {
+        neuroChartInstance.data.datasets[0].hidden = true;
+        neuroChartInstance.data.datasets[1].hidden = false;
+      } else {
+        neuroChartInstance.data.datasets[0].hidden = false;
+        neuroChartInstance.data.datasets[1].hidden = false;
+      }
+      neuroChartInstance.update();
+
+      const toggleBtn = document.getElementById('btn-circuit-toggle');
+      if (toggleBtn) {
+        toggleBtn.innerText = ['View: Both', 'View: Empathic Distress', 'View: Compassion'][neuroMode];
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initCharts();
+      updateDiagnostic();
+      updateReframeScenario();
+      updateNavOnScroll();
+      window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+      window.addEventListener('resize', updateNavOnScroll, { passive: true });
+    });
+  </script>
+</body>
+</html>

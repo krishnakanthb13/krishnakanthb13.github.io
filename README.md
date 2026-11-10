@@ -35,6 +35,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Happy or Content](https://krishnakanthb13.github.io/D/0/happy_or_content/) — The Psychology of Enough
 		- [Identity Habit Formation](https://krishnakanthb13.github.io/D/0/identity_habit_formation/) — The Architecture of Self-Transformation
 		- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/) — The Epistemology of Deception
+		- [Kindness & Boundaries](https://krishnakanthb13.github.io/D/0/kindness_n_boundaries/) — The Architecture of Authentic Connection
 		- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/) — The Epistemology and Somatics of Surrender
 		- [Learned Helplessness](https://krishnakanthb13.github.io/D/0/learned_helplessness/) — The Architecture of Learned Helplessness
 		- [Let Them, Let Me](https://krishnakanthb13.github.io/D/0/let_them_let_me/) — The Psychology and Mechanics of the Let Them Theory
@@ -266,6 +267,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Infidelity & Betrayal](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): The Epistemology of Deception — why cheating defers the guaranteed cost of leaving and how sustained deception shatters the betrayed partner's sense of reality.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/): Cost & friction asymmetry chart, motivation filter, Bandura moral-disengagement explorer, shattered-assumptions toggle, PISD severity radar, somatic map & radical-transparency checklist.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/infidelity_n_betrayal/readme.md): Long-form research essay with 44 cited sources.
+	- [Kindness & Boundaries](https://krishnakanthb13.github.io/D/0/kindness_n_boundaries/): The Architecture of Authentic Connection — why kindness without boundaries curdles into resentful compliance and boundaries without kindness harden into weaponized cutoff, resolved through Self-Determination Theory, Bowen differentiation, Singer's compassion neuroscience, Gross and Maté's physiology, and DBT/NVC practice.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/kindness_n_boundaries/): Four-quadrant relational topology matrix, empathy-vs-compassion neural chart, suppression-cost chart, somatic biomarker table, SDT motivation continuum, 2-question diagnostic simulator & DBT FAST/GIVE + NVC reframe engine.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/kindness_n_boundaries/readme.md): Long-form research essay with 86 cited sources.
 	- [Knowing vs. Accepting](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): The Epistemology and Somatics of Surrender — why intellectual knowing fails to change behavior and how embodied acceptance liberates energy.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/): Dual radar profiles, time-lag bar chart, empathy-gap simulator, energy calculator, somatic pipeline & diagnostic quiz.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/knowing_vs_accepting/readme.md): Long-form research essay with 63 cited sources.

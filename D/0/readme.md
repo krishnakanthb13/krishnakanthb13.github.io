@@ -236,6 +236,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Kindness & Boundaries](./kindness_n_boundaries/)
+**The Architecture of Authentic Connection** — why kindness and boundaries are not two competing virtues requiring a transactional balance but a single unified mechanism seen from two vantage points. Kindness without boundaries curdles into conscripted compliance and covert resentment; boundaries without kindness calcify into weaponized cutoff and isolation. Synthesizes Braiker's "disease to please," Ryan & Deci's Self-Determination Theory continuum, Gross's process model of emotion regulation, Singer's empathy-versus-compassion neuroscience, Maté's psychoneuroimmunology, Bowen's differentiation of self and connected autonomy, and DBT FAST/GIVE with Rosenberg's Nonviolent Communication.
+
+- 📝 [The Full Report](./kindness_n_boundaries/readme.md) — the long-form essay with 86 cited sources. (`readme.md`)
+- 🌿 [Interactive Infographic](./kindness_n_boundaries/index.html) — the warm sand & sage interactive page: clickable four-quadrant relational topology matrix with clinical profiles, Singer empathy-vs-compassion neural chart with circuit toggle, Gross/Maté suppression-cost chart, somatic biomarker table, SDT motivation continuum, 2-question diagnostic simulator, and a DBT FAST/GIVE + NVC reframe engine. (`index.html`)
+
+---
+
 ### 📁 [Knowing vs. Accepting](./knowing_vs_accepting/)
 **The Epistemology and Somatics of Surrender** — why intellectual "knowing" routinely fails to change behavior, and why acceptance is the costly, embodied act of translating a fact into the nervous system. Synthesizes cognitive psychology (hot-cold empathy gap, cognitive dissonance, knowing-doing gap), somatic psychotherapy (EFT, Gendlin's Focusing, DBT Radical Acceptance), and contemplative epistemologies (Advaita Vedanta's *Paroksha → Aparoksha*, Buddhism's three stages of wisdom).
 
