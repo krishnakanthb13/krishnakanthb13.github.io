@@ -116,6 +116,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Comfortable Complacency Paradox](./comfortable_complacency_paradox/)
+**The Chasm of Comfortable Complacency** — why passable situations trap us longer than catastrophes: a merely mediocre job, relationship, or body never crosses the distress threshold that would mobilize the psychological immune system, so the mind rationalizes instead of exiting. Blends Chris Williamson's "Travel Paradox" with Daniel Gilbert's Region-Beta studies, Taylor's Mobilization-Minimization hypothesis, affective forecasting, status-quo bias and loss aversion, cognitive dissonance, Solomon's paradox, and a strategic escape lab.
+
+- 📝 [The Full Report](./comfortable_complacency_paradox/readme.md) — the long-form essay with 84 cited sources. (`readme.md`)
+- 🛋️ [Interactive Infographic](./comfortable_complacency_paradox/index.html) — the warm sand & terracotta interactive page: five-tab analytical portal with a Walk-vs-Drive travel-paradox simulator and threshold slider, mobilization-minimization and hormesis curves, affective-forecasting scenario analyzer, cognitive-dissonance matrix, Solomon first/third-person perspective switcher, Gilbert et al. 2004 transgression chart, anti-vision synthesizer, two-minute friction reducer, and Ulysses precommitment contract generator. (`index.html`)
+
+---
+
 ### 📁 [Confidence & Competence](./confidence_n_competence/)
 **The Metacognitive Paradox** — why the least skilled are so often the most certain, and why the viral "Mount Stupid" curve is internet folklore rather than psychometric data. Weighs Kruger & Dunning's 1999 dual-burden hypothesis against the statistical backlash (autocorrelation, regression to the mean, task-difficulty reversal, homoscedasticity), then traces the effect across WEIRD vs. East Asian self-enhancement and its cognitive mirror, Impostor Syndrome.
 

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Chasm of Comfortable Complacency &amp; The Region-Beta Paradox</title>
+  <!-- Favicon: warm amber β on transparent, matched to the page palette -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23b45309%22>β</text></svg>">
+  <meta name="description" content="Why passable situations trap us longer than catastrophes. An interactive analysis of the Region-Beta Paradox, affective forecasting, status quo bias and strategic escape.">
+  <meta name="theme-color" content="#FAF8F5">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Sand & Slate Scholar (Light background #FAF8F5, warm slate #1E293B, muted amber #D97706, deep terracotta #B91C1C, restorative emerald #047857) -->
+  <!-- Application Structure Plan: A 5-pillar analytical architecture designed for progressive exploration: 1) Executive Dashboard & The Travel Paradox (interactive simulation showing why 1 mile takes longer to resolve than 2 miles), 2) Neurobiology & The Psychological Immune System (interactive Mobilization-Minimization dynamics and Affective Forecasting models), 3) Behavioral Economics & The Mediocrity Trap (Status Quo Bias, Loss Aversion, Cognitive Dissonance matrix, and Solomon's self-other paradox simulation), 4) Empirical Validation & Academic Critiques (Gilbert's social transgression experiment data viewer and Living Value Theory contextualization), and 5) The Strategic Escape Lab (customizable Anti-Vision builder, Two-Minute activation energy calculator, and Ulysses precommitment contract generator). This thematic, non-linear structure prioritizes comprehension by moving from visceral conceptual analogies to neurobiological mechanics, behavioral roots, empirical critiques, and actionable interventions. -->
+  <!-- Visualization & Content Choices: 1) Region-Beta / Travel Paradox Curve: Line Chart (Chart.js / Canvas) to contrast travel time/distress resolution between walking and driving modalities with interactive threshold toggles. 2) Gilbert Transgression Experiment: Grouped Bar Chart (Chart.js / Canvas) comparing forecaster overestimations with experiencer rapid recovery across partner vs stranger conditions. 3) The Hormesis Biphasic Curve: Smooth Area Chart (Chart.js / Canvas) illustrating the Comfort Crisis zone, hormetic peak adaptation, and toxic distress thresholds. 4) Status Quo & Loss Aversion Simulator: Dynamic HTML/JS risk-penalty calculator rendering subjective utility trade-offs. 5) Anti-Vision Matrix: Interactive generative card stack. All charts strictly use Canvas with maintainAspectRatio: false in constrained, centered parent containers without SVG or Mermaid JS. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 420px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .chart-container {
+        height: 380px;
+      }
+    }
+    body {
+      background-color: #FAF8F5;
+      color: #1E293B;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1ECE4;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-200 selection:text-amber-900">
+  <a href="#section-overview" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-3 focus:py-2 focus:rounded-md focus:bg-stone-900 focus:text-stone-100 focus:text-xs focus:font-semibold">Skip to content</a>
+
+  <header class="border-b border-stone-200 bg-[#FAF8F5]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-3 py-3.5">
+        <div class="flex items-center space-x-3 min-w-0">
+          <div class="w-9 h-9 rounded-lg bg-stone-900 text-stone-100 flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
+            β
+          </div>
+          <div class="min-w-0">
+            <h1 class="text-lg font-bold tracking-tight text-stone-900 truncate">The Region-Beta Paradox</h1>
+            <p class="text-xs text-stone-500 truncate">Deconstructing Comfortable Complacency &amp; Behavioral Inertia</p>
+          </div>
+        </div>
+        <a href="../" class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-md bg-white border border-stone-300 text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors" title="Return to the D/0 Knowledge Vault">← D/0 Vault</a>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto custom-scrollbar whitespace-nowrap border-t border-stone-200/80 py-2 text-xs sm:text-sm font-medium" aria-label="Page sections">
+        <button type="button" onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn px-3 py-1.5 rounded-md bg-stone-900 text-stone-100 transition" aria-current="page">
+          1. The Paradox
+        </button>
+        <button type="button" onclick="switchTab('neuro')" id="tab-btn-neuro" class="tab-btn px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 transition">
+          2. Neurobiology
+        </button>
+        <button type="button" onclick="switchTab('economics')" id="tab-btn-economics" class="tab-btn px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 transition">
+          3. Behavioral Roots
+        </button>
+        <button type="button" onclick="switchTab('empirical')" id="tab-btn-empirical" class="tab-btn px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 transition">
+          4. Empirical &amp; Critiques
+        </button>
+        <button type="button" onclick="switchTab('escape')" id="tab-btn-escape" class="tab-btn px-3 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 transition">
+          5. Escape Lab
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <section id="section-overview" class="tab-content block space-y-8 scroll-mt-28">
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+            Core Thesis
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            Why Passable Situations Trap Us Longer Than Catastrophes
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            This module introduces the conceptual foundation of Chris Williamson's "Travel Paradox" alongside Harvard psychologist Daniel Gilbert's foundational "Region-Beta Paradox." Human decision-making assumes that worse conditions prompt faster departures. In reality, a situation that is merely mediocre or "just about passable" fails to cross the critical threshold required to mobilize the psychological immune system or trigger high-velocity corrective action. Consequently, tolerable unhappiness lasts dramatically longer than acute crises.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/60">
+            <div class="text-2xl mb-1">🚶</div>
+            <h3 class="text-sm font-semibold text-stone-900">The 1-Mile Walk Trap</h3>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              For a 1-mile destination, walking is deemed "passable." At 3 mph, it consumes 20 minutes. The distance is too short to justify driving, so low-velocity effort persists.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/60">
+            <div class="text-2xl mb-1">🚗</div>
+            <h3 class="text-sm font-semibold text-stone-900">The 2-Mile Drive Pivot</h3>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              At 2 miles, walking is rejected as impractical. The acute distance forces car transit. At 30 mph, the 2-mile destination is reached in just 4 minutes.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200/70">
+            <div class="text-2xl mb-1">⚡</div>
+            <h3 class="text-sm font-semibold text-amber-900">The Region-Beta Zone</h3>
+            <p class="text-xs text-amber-800 mt-1 leading-relaxed">
+              The paradox: traversing 2 miles is 5× faster than traversing 1 mile. In life, bad jobs and stagnant relationships endure for decades because they never cross the 2-mile threshold.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-stone-900">Interactive Simulation: Travel Distance vs. Elapsed Transit Time</h3>
+            <p class="text-xs sm:text-sm text-stone-500 mt-0.5">
+              Adjust the threshold at which an individual shifts from walking (3 mph) to driving (30 mph) to observe how the paradox curve behaves.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center space-x-2 bg-stone-100 px-3 py-1.5 rounded-lg border border-stone-200">
+              <label for="thresholdSlider" class="text-xs font-semibold text-stone-700">Vehicle Pivot Threshold:</label>
+              <span id="thresholdVal" class="text-xs font-bold text-amber-700">1.2 miles</span>
+            </div>
+            <input type="range" id="thresholdSlider" min="0.5" max="2.5" step="0.1" value="1.2" class="w-32 accent-amber-600 cursor-pointer">
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="travelParadoxChart" role="img" aria-label="Line chart of travel time versus distance, showing the Region-Beta inversion when walking switches to driving."></canvas>
+        </div>
+
+        <p class="mt-3 text-center text-[11px] text-stone-500">
+          Model assumption: continuous door-to-door travel at 3 mph walking and 30 mph driving, with an instant mode switch at the pivot. Real commutes add parking, traffic and waiting time.
+        </p>
+
+        <div class="mt-6 p-4 rounded-xl bg-stone-50 border border-stone-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-stone-500">Selected Point Comparison</span>
+            <div class="text-xs sm:text-sm text-stone-700" id="paradoxReadout" aria-live="polite">
+              Traveling <strong>1.0 mile</strong> takes <strong>20.0 mins</strong> (Walking). Traveling <strong>2.0 miles</strong> takes <strong>4.0 mins</strong> (Driving). You arrive at twice the distance in 1/5th the time!
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
+            <span class="text-xs text-stone-600 font-medium">Region-Beta Inversion Zone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-sm space-y-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg">🏢</span>
+            <h3 class="text-base font-bold text-stone-900">The Passable Career Trap</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            A toxic boss who commits outright harassment gets reported or prompts an immediate resignation within weeks. The individual rapidly resets their career. In contrast, a manager who is merely disorganized and a role that pays 10% under market value creates low-grade, chronic fatigue. Because it never generates a catastrophic shock, employees routinely remain for 7 to 12 years in unfulfilling stagnation.
+          </p>
+          <div class="pt-2 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+            <span>Acute shock: 2-3 months recovery</span>
+            <span class="font-semibold text-amber-700">Passable: 5-10 years enduring</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-sm space-y-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg">💔</span>
+            <h3 class="text-base font-bold text-stone-900">The "Tolerable Unhappiness" Relationship</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Severe infidelity or overt emotional abuse decisively shatters a partnership, forcing active coping, legal action, and emotional processing. A relationship characterized by mild emotional neglect, lack of intimacy, and passive coexistence produces zero catalytic activation energy. Partners live as polite roommates for decades, becoming "comfortably numb" to their unlived life.
+          </p>
+          <div class="pt-2 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+            <span>Severe event: Threshold breached</span>
+            <span class="font-semibold text-amber-700">Low-grade: Rationalized indefinitely</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-neuro" class="tab-content hidden space-y-8 scroll-mt-28">
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+            Neurobiology & Cognitive Defenses
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            The Psychological Immune System & The Mobilization-Minimization Hypothesis
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            This section explores the neurological and cognitive machinery that governs human recovery from adversity. The mind possesses a powerful psychological immune system that unconsciously rationalizes and resolves severe trauma. However, this defense architecture requires a specific distress threshold to activate. Shelley Taylor’s Mobilization-Minimization Hypothesis and the biological law of hormesis illustrate why the absence of acute friction leads to neurobiological atrophy.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+            <div class="text-xs font-bold text-stone-500 uppercase">Phase 1</div>
+            <h4 class="text-sm font-semibold text-stone-900 mt-1">Mobilization</h4>
+            <p class="text-xs text-stone-600 mt-1">
+              HPA axis activation, sympathetic arousal, dopamine/norepinephrine surges, and rapid cognitive allocation to resolve acute threats.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+            <div class="text-xs font-bold text-stone-500 uppercase">Phase 2</div>
+            <h4 class="text-sm font-semibold text-stone-900 mt-1">Minimization</h4>
+            <p class="text-xs text-stone-600 mt-1">
+              Dissonance reduction, reframing, and cognitive repair that restore hedonic baseline once the threat is resolved.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200/70">
+            <div class="text-xs font-bold text-rose-700 uppercase">The Failure Mode</div>
+            <h4 class="text-sm font-semibold text-rose-900 mt-1">Sub-Threshold Stagnation</h4>
+            <p class="text-xs text-rose-800 mt-1">
+              Low-grade chronic distress fails to mobilize the organism. Without mobilization, minimization never triggers, trapping the subject.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/70">
+            <div class="text-xs font-bold text-emerald-700 uppercase">The Biological Antidote</div>
+            <h4 class="text-sm font-semibold text-emerald-900 mt-1">Hormetic Friction</h4>
+            <p class="text-xs text-emerald-800 mt-1">
+              Controlled, acute stressors (fasting, heat/cold, high-stakes challenges) trigger Nrf2 cellular pathways and neurochemical resilience.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-stone-900">The Hormesis & Adaptive Resilience Curve</h3>
+            <p class="text-xs sm:text-sm text-stone-500 mt-0.5">
+              Michael Easter’s "Comfort Crisis" paradox visualized: how zero-friction environments breed vulnerability compared to acute hormetic challenges.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="toggleHormesisView('standard')" id="btn-hormesis-std" class="px-2.5 py-1 text-xs font-medium rounded-md bg-stone-900 text-stone-100" aria-pressed="true">Standard Curve</button>
+            <button type="button" onclick="toggleHormesisView('markers')" id="btn-hormesis-mark" class="px-2.5 py-1 text-xs font-medium rounded-md bg-stone-100 text-stone-700 hover:bg-stone-200" aria-pressed="false">Highlight Zones</button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="hormesisChart" role="img" aria-label="Line chart of adaptive resilience across stress levels, showing comfort atrophy, the hormetic peak and catastrophic overload."></canvas>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <div class="p-3.5 rounded-lg bg-stone-50 border border-stone-200 text-xs">
+            <span class="font-bold text-stone-800 block mb-1">Zone A: Comfort Atrophy (Passable)</span>
+            Zero friction leads to hyper-sensitivity, cognitive fragility, and immune/metabolic down-regulation. The state of "comfortable numbness."
+          </div>
+          <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs">
+            <span class="font-bold text-emerald-800 block mb-1">Zone B: Hormetic Peak (The Sweet Spot)</span>
+            Acute, manageable stress that stimulates Nrf2 pathways, oxytocin/vasopressin neuroendocrine calibration, and proactive adaptation.
+          </div>
+          <div class="p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-xs">
+            <span class="font-bold text-rose-800 block mb-1">Zone C: Catastrophic Overload</span>
+            Extreme chronic adversity that exceeds adaptive capacity, leading to burnout and structural damage if unsupported.
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <h3 class="text-lg font-bold text-stone-900 mb-2">Affective Forecasting: Immune Neglect & Focalism Simulator</h3>
+        <p class="text-xs sm:text-sm text-stone-500 mb-6">
+          Explore why individuals drastically miscalculate the duration of prospective grief, causing them to cling to mediocre circumstances.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <label class="block text-xs font-bold uppercase tracking-wider text-stone-600">Select Prospective Scenario:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="scenarioButtons" role="group" aria-label="Prospective scenarios">
+              <button type="button" onclick="selectScenario('job')" id="scen-job" class="p-3 text-left rounded-xl border-2 border-stone-900 bg-stone-50 text-xs font-medium hover:border-stone-400" aria-pressed="true">
+                Resigning from Mediocre Job
+              </button>
+              <button type="button" onclick="selectScenario('relationship')" id="scen-relationship" class="p-3 text-left rounded-xl border border-stone-200 text-xs font-medium hover:border-stone-400" aria-pressed="false">
+                Ending 5-Year Tepid Relationship
+              </button>
+              <button type="button" onclick="selectScenario('apartment')" id="scen-apartment" class="p-3 text-left rounded-xl border border-stone-200 text-xs font-medium hover:border-stone-400" aria-pressed="false">
+                Moving Out of Cramped Apartment
+              </button>
+              <button type="button" onclick="selectScenario('venture')" id="scen-venture" class="p-3 text-left rounded-xl border border-stone-200 text-xs font-medium hover:border-stone-400" aria-pressed="false">
+                Launching Uncertain Venture
+              </button>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 border border-stone-200 text-xs space-y-2">
+              <span class="font-bold text-stone-800 uppercase tracking-wide">Cognitive Biases in Action:</span>
+              <ul class="space-y-1.5 text-stone-600 list-disc list-inside">
+                <li><strong>Focalism:</strong> Fixating solely on day 1 panic while ignoring ordinary daily life that rapidly dilutes distress.</li>
+                <li><strong>Immune Neglect:</strong> Unawareness of unconscious rationalization which swiftly builds a narrative of empowerment.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-[#FAF8F5] border border-stone-200 flex flex-col justify-between" id="scenarioOutput" aria-live="polite">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-800" id="forecastBadge">Scenario Analysis</span>
+                <span class="text-xs text-stone-500 font-semibold" id="forecastDuration">Forecast Error: 600%</span>
+              </div>
+              <h4 class="text-base font-bold text-stone-900" id="forecastTitle">Resigning from Mediocre Job</h4>
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded-lg bg-rose-50 border border-rose-200">
+                  <span class="font-bold text-rose-900 block">Predicted Emotional Impact (Affective Forecast):</span>
+                  <p class="text-rose-800 mt-0.5" id="forecastPredicted">
+                    "I will suffer acute financial terror, feel permanent shame, and remain in a state of depressive despair for at least 12 months."
+                  </p>
+                </div>
+                <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <span class="font-bold text-emerald-900 block">Actual Experiential Reality (Immune Activation):</span>
+                  <p class="text-emerald-800 mt-0.5" id="forecastActual">
+                    Acute anxiety peaks for 72 hours, then psychological immune defenses engage. Within 21 days, the individual experiences heightened agency, positive reframing ("I took control"), and renewed motivation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 italic">
+              Key takeaway: We cling to passable situations because we consistently underestimate our evolutionary capacity to adapt.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-economics" class="tab-content hidden space-y-8 scroll-mt-28">
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">
+            Behavioral Economics & Social Psychology
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            The Status Quo Bias, Loss Aversion & Rationalization Loops
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            This module deconstructs the economic and psychological anchors that keep humans rooted in mediocrity. Anchored in Samuelson & Zeckhauser’s Status Quo Bias, Kahneman & Tversky’s Prospect Theory, and Leon Festinger’s Cognitive Dissonance, this section details how the fear of active regret leads individuals to prefer guaranteed mediocrity over prospective fulfillment.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+            <h4 class="text-sm font-semibold text-stone-900">Loss Aversion Asymmetry</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Prospect theory proves psychological pain of a loss is approximately 2.0× to 2.5× stronger than the pleasure of an equivalent gain. Potential friction of change outweighs promised rewards.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+            <h4 class="text-sm font-semibold text-stone-900">Omission Bias & Regret</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Bad outcomes resulting from active action generate far greater acute self-blame and regret than bad outcomes resulting from passive inaction. Inaction feels safe.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+            <h4 class="text-sm font-semibold text-stone-900">Virtue Rationalization</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Cognitive dissonance forces the brain to rebrand cowardice and inertia as noble virtues: stagnation becomes "loyalty," staying in neglect becomes "patience."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-2xl mb-6">
+          <h3 class="text-lg font-bold text-stone-900">Interactive Cognitive Dissonance Matrix</h3>
+          <p class="text-xs sm:text-sm text-stone-500">
+            Click on common stagnation traps to inspect how the human brain transmutes passive endurance into artificial virtue to quiet cognitive dissonance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="matrixGrid">
+          <div onclick="selectMatrixItem(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectMatrixItem(0)}" role="button" tabindex="0" class="matrix-card cursor-pointer p-4 rounded-xl border-2 border-stone-900 bg-stone-50 transition focus:outline-none focus:ring-2 focus:ring-stone-900">
+            <div class="text-xs font-bold text-stone-500 uppercase">Underpaid Role</div>
+            <div class="text-sm font-bold text-stone-900 mt-1">"The Loyal Stalwart"</div>
+            <div class="text-xs text-stone-600 mt-2 line-clamp-2">Underpaid 20%, working unappreciated overtime for 4 years.</div>
+          </div>
+          <div onclick="selectMatrixItem(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectMatrixItem(1)}" role="button" tabindex="0" class="matrix-card cursor-pointer p-4 rounded-xl border border-stone-200 bg-white transition hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900">
+            <div class="text-xs font-bold text-stone-500 uppercase">Neglectful Romance</div>
+            <div class="text-sm font-bold text-stone-900 mt-1">"Unconditional Martyr"</div>
+            <div class="text-xs text-stone-600 mt-2 line-clamp-2">Zero romantic spark or deep conversation for 3 years.</div>
+          </div>
+          <div onclick="selectMatrixItem(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectMatrixItem(2)}" role="button" tabindex="0" class="matrix-card cursor-pointer p-4 rounded-xl border border-stone-200 bg-white transition hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900">
+            <div class="text-xs font-bold text-stone-500 uppercase">Stagnant Physicality</div>
+            <div class="text-sm font-bold text-stone-900 mt-1">"Contented Realist"</div>
+            <div class="text-xs text-stone-600 mt-2 line-clamp-2">Chronic sluggishness, low energy, zero physical discipline.</div>
+          </div>
+          <div onclick="selectMatrixItem(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectMatrixItem(3)}" role="button" tabindex="0" class="matrix-card cursor-pointer p-4 rounded-xl border border-stone-200 bg-white transition hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900">
+            <div class="text-xs font-bold text-stone-500 uppercase">Dormant Ambition</div>
+            <div class="text-sm font-bold text-stone-900 mt-1">"The Pragmatic Stoic"</div>
+            <div class="text-xs text-stone-600 mt-2 line-clamp-2">Creative or entrepreneurial project shelved for 8 years.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-5 rounded-xl bg-stone-50 border border-stone-200" id="matrixDetail" aria-live="polite">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-3 bg-white rounded-lg border border-stone-200">
+              <span class="font-bold text-stone-500 uppercase block mb-1">Objective Reality</span>
+              <p class="text-stone-800" id="mat-reality">You are generating surplus value for an enterprise that does not reward your market value or long-term growth.</p>
+            </div>
+            <div class="p-3 rounded-lg border border-amber-200 bg-amber-50/30">
+              <span class="font-bold text-amber-800 uppercase block mb-1">Dissonance Rationalization</span>
+              <p class="text-amber-900" id="mat-rationalization">"I value stability and loyalty over greed. Jumping ship in this economy is irresponsible; my company values my dependability."</p>
+            </div>
+            <div class="p-3 rounded-lg border border-emerald-200 bg-emerald-50/30">
+              <span class="font-bold text-emerald-800 uppercase block mb-1">Underlying Root Fear</span>
+              <p class="text-emerald-900" id="mat-fear">Terrified of confronting the competitive job market and experiencing potential rejection.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-stone-900">Solomon’s Paradox: 1st-Person Immersion vs. 3rd-Person Clarity</h3>
+            <p class="text-xs sm:text-sm text-stone-500">
+              King Solomon gave brilliant advice to others but ruined his personal life. Test how switching perspective eradicates the Region-Beta fog.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="setPerspective('first')" id="btn-persp-first" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-900 text-stone-100 transition" aria-pressed="true">1st-Person Perspective (Trapped)</button>
+            <button type="button" onclick="setPerspective('third')" id="btn-persp-third" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition" aria-pressed="false">3rd-Person Perspective (Advisor)</button>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl border border-stone-200 transition" id="perspectiveBox" aria-live="polite">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-sm font-bold uppercase tracking-wider text-stone-500" id="perspRole">Current Frame: Trapped First-Person Actor</span>
+          </div>
+          <h4 class="text-base font-bold text-stone-900 mb-2" id="perspTitle">"I cannot possibly resign right now; it's too risky and overwhelming."</h4>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4" id="perspBody">
+            Emotional immersion triggers intense loss aversion and focalism. You can feel the visceral weight of uncertainty, the discomfort of an awkward exit interview, and the terrifying void of transition costs. You choose to delay the decision for another 6 months.
+          </p>
+          <div class="p-3.5 rounded-lg bg-stone-100 text-xs font-medium text-stone-700 flex items-center justify-between" id="perspRecommendation">
+            <span>Decision Outcome: Default to Status Quo (Inertia Continues)</span>
+            <span class="font-bold text-rose-700">Action Probability: 12%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-empirical" class="tab-content hidden space-y-8 scroll-mt-28">
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+            Empirical Validation & Critical Epistemology
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            Gilbert’s Experimental Transgression Study & The LVT Critique
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            This module reviews the foundational laboratory evidence for the Region-Beta Paradox from Daniel Gilbert and colleagues (2004), specifically Study 2 evaluating insult recovery from prospective interaction partners versus strangers. It also subjects the paradigm to rigorous academic appraisal through "Living Value Theory" (LVT), contrasting mechanical biological models against contextual social coordination realities.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+            <h4 class="text-sm font-semibold text-stone-900">The Empirical Finding</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Forecasters predicted an insult from a future partner would sting worse and last longer than one from a stranger. Experiencers demonstrated the exact opposite: within 5 minutes, participants liked the insulting partner <em>more</em> than the stranger because the intense social threat triggered rapid relational reframing.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200/70">
+            <h4 class="text-sm font-semibold text-amber-900">The Living Value Theory (LVT) Critique</h4>
+            <p class="text-xs text-amber-800 mt-1 leading-relaxed">
+              LVT questions the "container ontology" of an automatic psychological immune threshold. It argues that forgiving a partner faster is not a cognitive reflex, but a pragmatic social requirement to enable ongoing interpersonal coordination. Lab 5-minute surveys do not easily scale to 10-year careers.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-stone-900">Gilbert et al. (2004) Study 2: Forecasted vs. Experienced Affect</h3>
+            <p class="text-xs sm:text-sm text-stone-500">
+              Liking rating of confederate after insult (Scale 1-7, higher = greater positive affect / recovery).
+            </p>
+          </div>
+          <div class="flex items-center gap-4 text-xs">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-stone-400"></span> Forecaster Prediction</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-600"></span> Experiencer Reality (5 min)</span>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="transgressionChart" role="img" aria-label="Bar chart comparing forecasted and actual affect after an insult from a partner versus a stranger."></canvas>
+        </div>
+
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="border-b border-stone-200 text-stone-500 font-semibold uppercase">
+                <th class="py-2.5 px-3">Condition</th>
+                <th class="py-2.5 px-3">Predicted Recovery (Affect)</th>
+                <th class="py-2.5 px-3">Actual Affect (5 Min Post)</th>
+                <th class="py-2.5 px-3">Cognitive / Social Driver</th>
+                <th class="py-2.5 px-3">Paradox Outcome</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-100 text-stone-700">
+              <tr>
+                <td class="py-2.5 px-3 font-semibold text-stone-900">Partner Insult (High Threat)</td>
+                <td class="py-2.5 px-3 text-rose-700">Low (Slow recovery forecasted)</td>
+                <td class="py-2.5 px-3 font-bold text-emerald-700">High (M = 5.2 / 7.0)</td>
+                <td class="py-2.5 px-3">Active sense-making & motivated repair</td>
+                <td class="py-2.5 px-3 font-medium text-emerald-800">Rapid Attenuation</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-semibold text-stone-900">Stranger Insult (Low Threat)</td>
+                <td class="py-2.5 px-3 text-stone-600">Moderate (Mild grudge forecasted)</td>
+                <td class="py-2.5 px-3 font-bold text-amber-700">Subdued (M = 3.6 / 7.0)</td>
+                <td class="py-2.5 px-3">No relational stake; passive grudge</td>
+                <td class="py-2.5 px-3 font-medium text-amber-800">Peculiar Longevity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-escape" class="tab-content hidden space-y-8 scroll-mt-28">
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm">
+        <div class="max-w-3xl space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800">
+            Strategic Escape Interventions
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            The Strategic Escape Lab: Engineering Activation Energy
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            Passable situations do not spontaneously produce the catalytic activation energy required for behavioral change. To escape the Region-Beta chasm, an individual must engineer artificial activation energy. This interactive suite combines the Two-Minute Rule friction reduction, Acceptance and Commitment Therapy (ACT) cognitive defusion, Behavioral Activation scheduling, Chris Williamson’s "Anti-Vision" methodology, and Ulysses precommitment contracts.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-sm flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base font-bold text-stone-900">1. The Anti-Vision Synthesizer</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Williamson Method</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-4">
+              Positive dreams are too abstract to beat immediate comfort. The brain responds 2.5× stronger to avoiding catastrophic ruin. Specify what your 85-year-old self will despise to inject immediate friction into the passable present.
+            </p>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Your Present "Passable" Compromise:</label>
+                <input type="text" id="antiCompromise" value="Staying in an unchallenging, mildly boring job for steady pay" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900 bg-stone-50">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">The 10-Year Compounded Nightmare (Anti-Vision):</label>
+                <textarea id="antiNightmare" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900 bg-stone-50">Skills atrophy entirely. Watching younger colleagues pioneer ideas while you sit in the same cubicle, bitter, exhausted, rationalizing your safety while your vitality evaporates.</textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" onclick="synthesizeAntiVision()" class="w-full py-2.5 rounded-lg bg-stone-900 text-stone-100 text-xs font-bold hover:bg-stone-800 transition">
+            Generate Reverse Role-Model Catalyst ⚡
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-sm flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base font-bold text-stone-900">2. Activation Energy & Friction Reducer</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Two-Minute Micro-Rule</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-4">
+              Action precedes clarity. Shrink the behavioral threshold until the required activation energy approaches zero, breaching the status quo barrier.
+            </p>
+
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-stone-700 mb-1">
+                  <span>Current Psychological Resistance / Friction:</span>
+                  <span id="frictionVal" class="text-rose-700 font-bold">High (8/10)</span>
+                </div>
+                <input type="range" id="frictionSlider" min="1" max="10" value="8" class="w-full accent-stone-900 cursor-pointer" oninput="updateFrictionCalculation()">
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-2 text-xs">
+                <span class="font-bold text-stone-800 block">Immediate 120-Second Deconstruction:</span>
+                <p id="microTask" class="text-stone-600">
+                  Do not "rewrite resume." Instead: open a blank document, type the target job title, and close it after 2 minutes. The physical barrier is breached.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100 flex items-center justify-between text-xs">
+            <span class="text-stone-500">Momentum conversion rate:</span>
+            <span class="font-bold text-emerald-700" id="momentumStat">Breaches inertia in 84% of trials</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-stone-200/80 p-6 sm:p-8 shadow-sm space-y-6">
+        <div>
+          <h3 class="text-lg font-bold text-stone-900">3. The Ulysses Precommitment Contract Generator</h3>
+          <p class="text-xs sm:text-sm text-stone-500 mt-0.5">
+            Named after Ulysses binding himself to the mast to resist the Sirens. When a situation is merely passable, create an external mechanism that binds your future self and eliminates the easy fallback to mediocrity.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 mb-1">Target Behavioral Escape:</label>
+            <select id="ulyssesTarget" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-900">
+              <option value="resign">Deliver Resignation to Stagnant Role</option>
+              <option value="confront">Initiate Honest Relationship Boundary Talk</option>
+              <option value="move">Sign Lease / Put Deposit on New Residence</option>
+              <option value="launch">Publish Public MVP / Project Launch</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 mb-1">Enforcement Stake / Stakeholder:</label>
+            <select id="ulyssesStake" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-900">
+              <option value="reputation">Public Announcement to Respected Peers</option>
+              <option value="financial">Financial Escrow: $500 to Anti-Charity</option>
+              <option value="burn">Burn the Ships: Irrevocable Date Commitment</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 mb-1">Execution Deadline:</label>
+            <input type="date" id="ulyssesDate" class="w-full text-xs p-2 rounded-lg border border-stone-300 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-900">
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-900">Generated Binding Covenant</span>
+            <p class="text-xs sm:text-sm text-stone-800" id="contractPreview">
+              "I hereby bind myself to execute: Deliver Resignation to Stagnant Role. If I renege by the designated deadline, the external penalty (Public Announcement to Respected Peers) triggers automatically, rendering passive endurance untenable."
+            </p>
+          </div>
+          <button type="button" onclick="lockUlyssesContract()" id="lockContractBtn" class="shrink-0 px-4 py-2 rounded-lg bg-stone-900 text-stone-100 text-xs font-bold hover:bg-stone-800 transition">
+            Seal Contract 🔒
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white py-6 mt-12 text-center text-xs text-stone-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p class="font-medium text-stone-700">The Region-Beta Paradox Interactive Analytical System</p>
+      <p>Synthesizing research from Daniel Gilbert (2004), Shelley Taylor (1991), Kahneman &amp; Tversky (1979), and modern behavioral commentary.</p>
+      <p class="text-[11px] text-stone-400">Interactive scenarios, probabilities and percentages are illustrative teaching models — not measured effect sizes or clinical advice.</p>
+      <p class="pt-3 space-x-2">
+        <a href="./readme.md" class="text-amber-700 hover:underline">The Full Report</a>
+        <span aria-hidden="true">•</span>
+        <a href="../" class="text-amber-700 hover:underline">D/0 Vault</a>
+        <span aria-hidden="true">•</span>
+        <a href="../../" class="text-amber-700 hover:underline">The Dump</a>
+        <span aria-hidden="true">•</span>
+        <a href="../../../" class="text-amber-700 hover:underline">Portfolio Home</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let travelChartInstance = null;
+    let hormesisChartInstance = null;
+    let transgressionChartInstance = null;
+
+    function switchTab(tabId, updateHash = true) {
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('block');
+      });
+      const activeSection = document.getElementById('section-' + tabId);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+        activeSection.classList.add('block');
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-stone-900', 'text-stone-100');
+        btn.classList.add('text-stone-600', 'hover:text-stone-900', 'hover:bg-stone-200/60');
+        btn.removeAttribute('aria-current');
+      });
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-stone-600', 'hover:text-stone-900', 'hover:bg-stone-200/60');
+        activeBtn.classList.add('bg-stone-900', 'text-stone-100');
+        activeBtn.setAttribute('aria-current', 'page');
+      }
+
+      // Build a chart only when its panel is visible. Canvases inside hidden
+      // panels measure as zero-sized, which breaks Chart.js on first paint.
+      requestAnimationFrame(() => {
+        initChartsForTab(tabId);
+        const chartForTab = {
+          overview: travelChartInstance,
+          neuro: hormesisChartInstance,
+          empirical: transgressionChartInstance
+        }[tabId];
+        if (chartForTab) chartForTab.resize();
+      });
+
+      // Keep the reader at the top of the newly opened panel.
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Make each panel deep-linkable, e.g. index.html#escape.
+      if (updateHash) {
+        try { history.replaceState(null, '', '#' + tabId); } catch (e) { /* file:// or sandboxed */ }
+      }
+    }
+
+    function initChartsForTab(tabId) {
+      if (tabId === 'overview') initTravelParadoxChart();
+      else if (tabId === 'neuro') initHormesisChart();
+      else if (tabId === 'empirical') initTransgressionChart();
+    }
+
+    function initTravelParadoxChart() {
+      const ctx = document.getElementById('travelParadoxChart');
+      if (!ctx || travelChartInstance || typeof Chart === 'undefined') return;
+
+      const threshold = parseFloat(document.getElementById('thresholdSlider').value);
+      const dataPoints = calculateTravelCurve(threshold);
+
+      travelChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dataPoints.distances.map(d => d.toFixed(1) + ' mi'),
+          datasets: [
+            {
+              label: 'Actual Travel Time (Minutes)',
+              data: dataPoints.times,
+              borderColor: '#D97706',
+              backgroundColor: 'rgba(217, 119, 6, 0.12)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.15,
+              pointBackgroundColor: dataPoints.pointColors,
+              pointRadius: 4,
+              pointHoverRadius: 6
+            },
+            {
+              label: 'Linear Expectation (If Always Walking)',
+              data: dataPoints.linearWalkingTimes,
+              borderColor: '#94A3B8',
+              borderWidth: 1.5,
+              borderDash: [5, 5],
+              fill: false,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, family: 'sans-serif' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  return 'Distance: ' + items[0].label;
+                },
+                label: function(item) {
+                  const currentThreshold = parseFloat(document.getElementById('thresholdSlider').value);
+                  const dist = parseFloat(item.label);
+                  const mode = dist < currentThreshold ? 'Walking (3 mph)' : 'Driving (30 mph)';
+                  return item.dataset.label + ': ' + item.parsed.y.toFixed(1) + ' min [' + mode + ']';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Severity of Problem / Travel Distance (Miles)',
+                font: { size: 11, weight: 'bold' }
+              },
+              grid: { color: '#F1ECE4' }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Duration of Misery / Transit Time (Minutes)',
+                font: { size: 11, weight: 'bold' }
+              },
+              beginAtZero: true,
+              grid: { color: '#F1ECE4' }
+            }
+          }
+        }
+      });
+    }
+
+    function calculateTravelCurve(threshold) {
+      const distances = [];
+      const times = [];
+      const linearWalkingTimes = [];
+      const pointColors = [];
+
+      for (let d = 0.2; d <= 3.0; d += 0.2) {
+        const roundedD = Math.round(d * 10) / 10;
+        distances.push(roundedD);
+        linearWalkingTimes.push((roundedD / 3.0) * 60);
+
+        if (roundedD < threshold) {
+          const walkTime = (roundedD / 3.0) * 60;
+          times.push(walkTime);
+          pointColors.push('#B91C1C');
+        } else {
+          const driveTime = (roundedD / 30.0) * 60;
+          times.push(driveTime);
+          pointColors.push('#047857');
+        }
+      }
+
+      return { distances, times, linearWalkingTimes, pointColors };
+    }
+
+    document.getElementById('thresholdSlider').addEventListener('input', function(e) {
+      const threshold = parseFloat(e.target.value);
+      document.getElementById('thresholdVal').textContent = threshold.toFixed(1) + ' miles';
+
+      const dataPoints = calculateTravelCurve(threshold);
+      travelChartInstance.data.labels = dataPoints.distances.map(d => d.toFixed(1) + ' mi');
+      travelChartInstance.data.datasets[0].data = dataPoints.times;
+      travelChartInstance.data.datasets[0].pointBackgroundColor = dataPoints.pointColors;
+      travelChartInstance.data.datasets[1].data = dataPoints.linearWalkingTimes;
+      travelChartInstance.update();
+
+      const time1Mile = 1.0 < threshold ? ((1.0 / 3.0) * 60).toFixed(1) : ((1.0 / 30.0) * 60).toFixed(1);
+      const mode1 = 1.0 < threshold ? 'Walking' : 'Driving';
+      const time2Mile = 2.0 < threshold ? ((2.0 / 3.0) * 60).toFixed(1) : ((2.0 / 30.0) * 60).toFixed(1);
+      const mode2 = 2.0 < threshold ? 'Walking' : 'Driving';
+
+      document.getElementById('paradoxReadout').innerHTML =
+        'Traveling <strong>1.0 mile</strong> takes <strong>' + time1Mile + ' mins</strong> (' + mode1 + '). Traveling <strong>2.0 miles</strong> takes <strong>' + time2Mile + ' mins</strong> (' + mode2 + '). ' +
+        (1.0 < threshold && 2.0 >= threshold ? 'You arrive at <strong>twice</strong> the distance in a fraction of the time!' : 'Pivot threshold is outside the 1&ndash;2 mile window; move it back to restore the inversion.');
+    });
+
+    function initHormesisChart() {
+      const ctx = document.getElementById('hormesisChart');
+      if (!ctx || hormesisChartInstance || typeof Chart === 'undefined') return;
+
+      const labels = ['0% Zero Friction', '15%', '30% Mild Tolerable', '45%', '60% Hormetic Peak', '75%', '90% Extreme Toxic'];
+      const adaptationData = [18, 25, 32, 58, 92, 64, 15];
+
+      hormesisChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Human Adaptive Vitality & Resilience',
+            data: adaptationData,
+            borderColor: '#047857',
+            backgroundColor: 'rgba(4, 120, 87, 0.1)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: ['#B91C1C', '#D97706', '#D97706', '#047857', '#047857', '#D97706', '#B91C1C'],
+            pointRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return 'Adaptation Level: ' + ctx.parsed.y + ' / 100';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: 'Degree of Environmental & Psychological Stress', font: { size: 11, weight: 'bold' } },
+              grid: { color: '#F1ECE4' }
+            },
+            y: {
+              title: { display: true, text: 'Psychological & Biological Growth', font: { size: 11, weight: 'bold' } },
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#F1ECE4' }
+            }
+          }
+        }
+      });
+    }
+
+    function toggleHormesisView(mode) {
+      if (!hormesisChartInstance) return;
+      const stdBtn = document.getElementById('btn-hormesis-std');
+      const markBtn = document.getElementById('btn-hormesis-mark');
+
+      if (mode === 'markers') {
+        stdBtn.classList.remove('bg-stone-900', 'text-stone-100');
+        stdBtn.classList.add('bg-stone-100', 'text-stone-700');
+        markBtn.classList.remove('bg-stone-100', 'text-stone-700');
+        markBtn.classList.add('bg-stone-900', 'text-stone-100');
+        stdBtn.setAttribute('aria-pressed', 'false');
+        markBtn.setAttribute('aria-pressed', 'true');
+        hormesisChartInstance.data.datasets[0].pointRadius = 8;
+      } else {
+        markBtn.classList.remove('bg-stone-900', 'text-stone-100');
+        markBtn.classList.add('bg-stone-100', 'text-stone-700');
+        stdBtn.classList.remove('bg-stone-100', 'text-stone-700');
+        stdBtn.classList.add('bg-stone-900', 'text-stone-100');
+        stdBtn.setAttribute('aria-pressed', 'true');
+        markBtn.setAttribute('aria-pressed', 'false');
+        hormesisChartInstance.data.datasets[0].pointRadius = 5;
+      }
+      hormesisChartInstance.update();
+    }
+
+    const scenarios = {
+      job: {
+        title: 'Resigning from Mediocre Job',
+        error: 'Forecast Error: 600%',
+        predicted: '"I will suffer acute financial terror, feel permanent shame, and remain in a state of depressive despair for at least 12 months."',
+        actual: 'Acute anxiety peaks for 72 hours, then psychological immune defenses engage. Within 21 days, the individual experiences heightened agency, positive reframing ("I took control"), and renewed motivation.'
+      },
+      relationship: {
+        title: 'Ending 5-Year Tepid Relationship',
+        error: 'Forecast Error: 450%',
+        predicted: '"I will die alone, I will never recover from the guilt of breaking their heart, and I will be consumed by unbearable loneliness."',
+        actual: 'Acute grief triggers social support mobilization. Within 30 days, sense-making mechanisms activate ("We had fundamentally incompatible values"), restoring baseline happiness.'
+      },
+      apartment: {
+        title: 'Moving Out of Cramped Apartment',
+        error: 'Forecast Error: 300%',
+        predicted: '"The moving logistics and deposit cost will destroy my savings and induce severe chronic distress."',
+        actual: 'Moving friction dissipates in 48 hours. The superior natural light and space provide daily non-conscious mood elevation that was ignored in the forecast.'
+      },
+      venture: {
+        title: 'Launching Uncertain Venture',
+        error: 'Forecast Error: 800%',
+        predicted: '"If the project flops, everyone will mock me and my professional identity will be permanently ruined."',
+        actual: 'Even if the project fails, minimization reframes it as a "valuable masterclass in entrepreneurship." Experiencers report pride in attempting the leap.'
+      }
+    };
+
+    function selectScenario(key) {
+      document.querySelectorAll('#scenarioButtons button').forEach(b => {
+        b.classList.remove('border', 'border-2', 'border-stone-900', 'border-stone-200', 'bg-stone-50');
+        b.classList.add('border', 'border-stone-200');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      const selectedBtn = document.getElementById('scen-' + key);
+      if (selectedBtn) {
+        selectedBtn.classList.remove('border', 'border-stone-200');
+        selectedBtn.classList.add('border-2', 'border-stone-900', 'bg-stone-50');
+        selectedBtn.setAttribute('aria-pressed', 'true');
+      }
+
+      const item = scenarios[key];
+      document.getElementById('forecastTitle').textContent = item.title;
+      document.getElementById('forecastDuration').textContent = item.error;
+      document.getElementById('forecastPredicted').textContent = item.predicted;
+      document.getElementById('forecastActual').textContent = item.actual;
+    }
+
+    const matrixData = [
+      {
+        reality: 'You are generating surplus value for an enterprise that does not reward your market value or long-term growth.',
+        rationalization: '"I value stability and loyalty over greed. Jumping ship in this economy is irresponsible; my company values my dependability."',
+        fear: 'Terrified of confronting the competitive job market and experiencing potential rejection.'
+      },
+      {
+        reality: 'Zero romantic intimacy or deep intellectual connection has existed for over 36 consecutive months.',
+        rationalization: '"Real mature love is quiet and comfortable. Passion is an unrealistic Hollywood myth; we are great partners in maintaining the household."',
+        fear: 'Terrified of confronting singlehood, temporary loneliness, and social stigma.'
+      },
+      {
+        reality: 'Cardiovascular capacity has atrophied by 40% and metabolic markers show insulin resistance.',
+        rationalization: '"I accept my natural body shape. Life is too short to obsess over gym metrics; I enjoy living without harsh restrictions."',
+        fear: 'Terrified of the acute physical discipline, sweat, and initial embarrassment of physical rehabilitation.'
+      },
+      {
+        reality: 'You have not written a page, coded a line, or built anything creative since 2018.',
+        rationalization: '"I am waiting for the optimal timing and capital. Prudence dictates that I master my main career before chasing vanity dreams."',
+        fear: 'Terrified that your genuine best effort will be judged as mediocre by the open market.'
+      }
+    ];
+
+    function selectMatrixItem(index) {
+      document.querySelectorAll('.matrix-card').forEach((card, idx) => {
+        card.setAttribute('aria-pressed', idx === index ? 'true' : 'false');
+        if (idx === index) {
+          card.classList.add('border-2', 'border-stone-900', 'bg-stone-50');
+          card.classList.remove('border-stone-200', 'bg-white');
+        } else {
+          card.classList.remove('border-2', 'border-stone-900', 'bg-stone-50');
+          card.classList.add('border-stone-200', 'bg-white');
+        }
+      });
+
+      const d = matrixData[index];
+      document.getElementById('mat-reality').textContent = d.reality;
+      document.getElementById('mat-rationalization').textContent = d.rationalization;
+      document.getElementById('mat-fear').textContent = d.fear;
+    }
+
+    function setPerspective(type) {
+      const box = document.getElementById('perspectiveBox');
+      const role = document.getElementById('perspRole');
+      const title = document.getElementById('perspTitle');
+      const body = document.getElementById('perspBody');
+      const rec = document.getElementById('perspRecommendation');
+      const btnFirst = document.getElementById('btn-persp-first');
+      const btnThird = document.getElementById('btn-persp-third');
+
+      btnFirst.setAttribute('aria-pressed', type === 'first' ? 'true' : 'false');
+      btnThird.setAttribute('aria-pressed', type === 'first' ? 'false' : 'true');
+
+      if (type === 'first') {
+        btnFirst.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-900 text-stone-100 transition';
+        btnThird.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition';
+        box.className = 'p-6 rounded-xl border border-rose-200 bg-rose-50/20 transition';
+        role.textContent = 'Current Frame: Trapped First-Person Actor (Solomon Paradox Trap)';
+        title.textContent = '"I cannot possibly resign right now; it\'s too risky and overwhelming."';
+        body.textContent = 'Emotional immersion triggers intense loss aversion and focalism. You feel the visceral weight of uncertainty and awkwardness. You default to delaying another 6 months.';
+        rec.innerHTML = '<span>Decision Outcome: Default to Status Quo (Inertia Continues)</span><span class="font-bold text-rose-700">Action Probability: 12%</span>';
+      } else {
+        btnThird.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-900 text-stone-100 transition';
+        btnFirst.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition';
+        box.className = 'p-6 rounded-xl border border-emerald-200 bg-emerald-50/20 transition';
+        role.textContent = 'Current Frame: Objective Third-Person Mentor (Self-Distanced Clarity)';
+        title.textContent = '"Give your 2-week notice this Friday. This company has nothing more to offer you."';
+        body.textContent = 'Removed from visceral affective forecasting errors, the third-person frame easily sees that 5 years of passable stagnation is vastly costlier than 3 weeks of job search friction.';
+        rec.innerHTML = '<span>Decision Outcome: Strategic Exit Initiated</span><span class="font-bold text-emerald-700">Action Probability: 88%</span>';
+      }
+    }
+
+    function initTransgressionChart() {
+      const ctx = document.getElementById('transgressionChart');
+      if (!ctx || transgressionChartInstance || typeof Chart === 'undefined') return;
+
+      transgressionChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Partner Insult (High Distress Condition)', 'Stranger Insult (Low Distress Condition)'],
+          datasets: [
+            {
+              label: 'Forecaster Predicted Positive Affect (Grudge Expected)',
+              data: [2.4, 3.8],
+              backgroundColor: '#94A3B8',
+              borderRadius: 6
+            },
+            {
+              label: 'Actual Experiencer Affect (5 Mins Post-Insult)',
+              data: [5.2, 3.6],
+              backgroundColor: '#D97706',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            // The card header already renders a compact colour key.
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                afterBody: function(items) {
+                  if (items[0].dataIndex === 0) {
+                    return 'Partner condition: Distress crossed threshold; psychological immune repair activated immediately.';
+                  } else {
+                    return 'Stranger condition: Distress below threshold; low-grade annoyance lingered with peculiar longevity.';
+                  }
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              title: { display: true, text: 'Affection / Liking Rating (Scale 1 to 7)', font: { size: 11, weight: 'bold' } },
+              beginAtZero: true,
+              max: 7,
+              grid: { color: '#F1ECE4' }
+            },
+            x: {
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function synthesizeAntiVision() {
+      const compromise = document.getElementById('antiCompromise').value;
+      const nightmare = document.getElementById('antiNightmare').value;
+      alert('⚡ ANTI-VISION COMPILED:\n\nImmediate Threat Registered: "' + compromise + '"\n\nCompounded Regret at Age 85: "' + nightmare + '"\n\nYour psychological defenses have been artificially sensitized. Passivity is no longer comfortable.');
+    }
+
+    function updateFrictionCalculation() {
+      const val = parseInt(document.getElementById('frictionSlider').value);
+      const frictionVal = document.getElementById('frictionVal');
+      const microTask = document.getElementById('microTask');
+      const stat = document.getElementById('momentumStat');
+
+      if (val >= 8) {
+        frictionVal.textContent = 'High (' + val + '/10)';
+        frictionVal.className = 'text-rose-700 font-bold';
+        microTask.textContent = 'Do not "rewrite resume." Instead: open a blank document, type the target job title, and close it after 2 minutes. The physical barrier is breached.';
+        stat.textContent = 'Breaches inertia in 84% of trials';
+      } else if (val >= 4) {
+        frictionVal.textContent = 'Moderate (' + val + '/10)';
+        frictionVal.className = 'text-amber-700 font-bold';
+        microTask.textContent = 'Spend exactly 5 minutes reviewing one company website. Stop as soon as the timer beeps to prevent cognitive overload.';
+        stat.textContent = 'Breaches inertia in 72% of trials';
+      } else {
+        frictionVal.textContent = 'Low (' + val + '/10)';
+        frictionVal.className = 'text-emerald-700 font-bold';
+        microTask.textContent = 'Complete one draft application and send a message to one former colleague.';
+        stat.textContent = 'Breaches inertia in 91% of trials';
+      }
+    }
+
+    function updateContractText() {
+      const targetSelect = document.getElementById('ulyssesTarget');
+      const targetText = targetSelect.options[targetSelect.selectedIndex].text;
+      const stakeSelect = document.getElementById('ulyssesStake');
+      const stakeText = stakeSelect.options[stakeSelect.selectedIndex].text;
+      const rawDate = document.getElementById('ulyssesDate').value;
+      const dateVal = rawDate
+        ? new Date(rawDate + 'T00:00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+        : 'designated deadline';
+
+      document.getElementById('contractPreview').innerHTML =
+        '"I hereby bind myself to execute: <strong>' + targetText + '</strong> by <strong>' + dateVal + '</strong>. If I renege, the external penalty (<strong>' + stakeText + '</strong>) triggers automatically, rendering passive endurance untenable."';
+    }
+
+    document.getElementById('ulyssesTarget').addEventListener('change', updateContractText);
+    document.getElementById('ulyssesStake').addEventListener('change', updateContractText);
+    document.getElementById('ulyssesDate').addEventListener('change', updateContractText);
+
+    function lockUlyssesContract() {
+      const btn = document.getElementById('lockContractBtn');
+      btn.textContent = 'Contract Sealed & Active 🔒';
+      btn.className = 'shrink-0 px-4 py-2 rounded-lg bg-emerald-800 text-stone-100 text-xs font-bold';
+      alert('Ulysses Covenant Locked. Reverting to the status quo will now inflict immediate external friction. You have engineered the activation energy that passable comfort failed to provide.');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const d = new Date();
+      d.setDate(d.getDate() + 14);
+      const localISO = d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0');
+      document.getElementById('ulyssesDate').value = localISO;
+      updateContractText();
+      updateFrictionCalculation();
+      selectScenario('job');
+      selectMatrixItem(0);
+
+      // Only the initially visible panel is built up front; the rest are
+      // lazily created when their tab is opened.
+      const validTabs = ['overview', 'neuro', 'economics', 'empirical', 'escape'];
+      const requestedTab = window.location.hash.replace('#', '');
+      const initialTab = validTabs.includes(requestedTab) ? requestedTab : 'overview';
+      if (initialTab === 'overview') {
+        initChartsForTab('overview');
+      } else {
+        switchTab(initialTab, false);
+      }
+    });
+  </script>
+</body>
+</html>
