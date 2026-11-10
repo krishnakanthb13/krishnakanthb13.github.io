@@ -957,7 +957,7 @@
             tooltip: {
               callbacks: {
                 title: function(items) {
-                  return items[0].label.replace('\n', ' ');
+                  return items[0].label.replace(/\n/g, ' ');
                 },
                 label: function(ctx) {
                   return `Prevalence: ${ctx.parsed.x}% of backfired negative constraints`;
