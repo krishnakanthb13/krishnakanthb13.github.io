@@ -1057,8 +1057,24 @@
       const cue = ifInput.value.trim() || '[specified cue occurs]';
       const act = thenInput.value.trim() || '[initiate target behavior]';
       const fric = frictionInput.value.trim() || '[pre-configured environment]';
-      document.getElementById('compiled-intention').innerHTML = `&#8220;<strong>IF</strong> ${cue}, <strong>THEN</strong> I will ${act}.&#8221;`;
-      document.getElementById('compiled-friction').innerHTML = `<strong>Channel Factor Default:</strong> ${fric}`;
+
+      const bold = text => {
+        const el = document.createElement('strong');
+        el.textContent = text;
+        return el;
+      };
+
+      const intention = document.getElementById('compiled-intention');
+      intention.replaceChildren(
+        '\u201C',
+        bold('IF'),
+        ` ${cue}, `,
+        bold('THEN'),
+        ` I will ${act}.\u201D`
+      );
+
+      const friction = document.getElementById('compiled-friction');
+      friction.replaceChildren(bold('Channel Factor Default:'), ` ${fric}`);
     }
 
     [ifInput, thenInput, frictionInput].forEach(el => el.addEventListener('input', updateIntention));
