@@ -357,4 +357,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Winning & Losing](./winning_n_losing/)
+**The Architecture of Defeat** — why a comic strip about a boy predestined to fail became a fifty-year philosophical monument. Unpacks the 1969 *A Boy Named Charlie Brown* tic-tac-toe monologue, then reads *Peanuts* through Camus's Sisyphus, Sartrean radical freedom, Senecan daily dread, Umberto Eco's semiotics and Robert L. Short's Theology of the Cross—grounded in Schulz's mother's death, unrequited love, and the essential tremor that made every ink line a seismograph of the soul.
+
+- 📝 [The Full Report](./winning_n_losing/readme.md) — the long-form essay with 53 cited sources. (`readme.md`)
+- 🥜 [Interactive Infographic](./winning_n_losing/index.html) — the complete newsprint & ink interactive page: four-section monograph (The 1969 Paradox, Character Archetypes, Philosophical Lenses, Schulz's Crucible) with a dialogue & dirt tic-tac-toe scene simulator, "wisdom vs. victory" Chart.js arc, character-archetype radar, three-lens motif decoder, biography milestone explorer, 2007 Michaelis debate toggle, and an essential-tremor "seismograph of the soul" chart. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*

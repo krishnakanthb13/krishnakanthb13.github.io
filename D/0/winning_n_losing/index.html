@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Architecture of Defeat: Philosophy &amp; Anatomy of Peanuts</title>
+  <meta name="description" content="An interactive monograph on A Boy Named Charlie Brown (1969) and Charles M. Schulz's Peanuts — existentialism, semiotics, theology, and the biography behind the architecture of defeat." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥜</text></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Newsprint & Ink Calm (Warm Ivory #FAF7F2, Soft Cream #F2ECE1, Charcoal Ink #262422, Muted Slate #57534E, Ochre Sweater Accent #C87D32, Blanket Blue Accent #5B7C99) -->
+  <!-- Application Structure Plan: The SPA is organized into four thematic, non-linear exploration modules accessible via a sticky navigation bar: (1) The Paradox & 1969 Film Arc, featuring an interactive recreation of the Tic-Tac-Toe monologue and Spelling Bee trajectory; (2) Character Archetypes Explorer, translating the report's comparative matrix into an interactive profile switcher and ideological radar chart; (3) Theoretical Lenses, synthesizing Existentialism/Stoicism, Umberto Eco's Semiotics, and Robert L. Short's Theology via interactive gag decoders; and (4) The Creator's Crucible, pairing Schulz's biographical milestones and the Michaelis biography debate with a Canvas visualization of his Essential Tremor ("Seismograph of the Soul"). This structure transforms dense literary and philosophical analysis into active, progressive discovery while keeping all text grounded in the source report. -->
+  <!-- Visualization & Content Choices: 
+       1. Interactive Tic-Tac-Toe & Dialogue Stepper (HTML/CSS Grid + Vanilla JS) -> Demonstrates the report's core thesis: Linus's verbal consolation ("One of these days, you'll win") is simultaneously disproven by immediate empirical defeat on the dirt grid.
+       2. Spelling Bee & Paradox Trajectory Chart (Chart.js Line/Bar Canvas) -> Visualizes Charlie Brown's inverse relationship between accumulated "wisdom from losing" and actual victory across the 99-game streak, local spelling bee wins ("insecure", "perceive"), and the devastating "B-E-A-G-E-L" 2nd-place finish.
+       3. Character Archetype Ideological Profile (Chart.js Radar Canvas + Interactive Cards) -> Maps Charlie Brown, Snoopy, Linus, and Lucy across Stoic Endurance, Imaginative Freedom, Intellectual/Theological Depth, and Cynical Realism based on the report's synthesis table.
+       4. Essential Tremor "Seismograph of the Soul" Chart (Chart.js Line Canvas) -> Illustrates the progression of Schulz's neurological tremor from 1950 to 1999 alongside key biographical events, visually mirroring how his Esterbrook 914 ink lines evolved into trembling vulnerability.
+       CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #262422;
+      font-family: 'Georgia', 'Times New Roman', serif;
+    }
+    .font-sans-ui {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 300px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    .zigzag-border {
+      background-image: repeating-linear-gradient(
+        135deg,
+        #262422 0px,
+        #262422 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      height: 6px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-[#C87D32]/20 selection:text-[#262422]">
+
+  <header class="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur border-b border-[#E2DAD0]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-3 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" title="Return to the D/0 Knowledge Vault" class="font-sans-ui flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded-md bg-[#F2ECE1] border border-[#E2DAD0] text-[#57534E] hover:text-[#262422] hover:bg-white transition-colors">← D/0 Vault</a>
+          <div class="min-w-0">
+            <span class="font-sans-ui text-xs uppercase tracking-widest text-[#C87D32] font-bold block">Interactive Monograph</span>
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-[#262422] truncate">The Architecture of Defeat</h1>
+          </div>
+        </div>
+        <span class="font-sans-ui hidden sm:inline-flex text-xs px-2.5 py-1 rounded-full bg-[#F2ECE1] text-[#57534E] border border-[#E2DAD0] flex-shrink-0">🥜 Peanuts Study</span>
+      </div>
+      <!-- Row 2: section navigation -->
+      <nav aria-label="Primary Sections" class="flex flex-wrap gap-1.5 sm:gap-2 font-sans-ui text-xs sm:text-sm border-t border-[#E2DAD0] py-2">
+        <a href="#section-paradox" data-nav="paradox" class="nav-btn px-3 py-1.5 rounded-md font-medium bg-[#262422] text-[#FAF7F2] transition-colors" aria-current="true">1. The Paradox &amp; 1969 Film</a>
+        <a href="#section-archetypes" data-nav="archetypes" class="nav-btn px-3 py-1.5 rounded-md font-medium bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors">2. Character Matrix</a>
+        <a href="#section-lenses" data-nav="lenses" class="nav-btn px-3 py-1.5 rounded-md font-medium bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors">3. Philosophical Lenses</a>
+        <a href="#section-crucible" data-nav="crucible" class="nav-btn px-3 py-1.5 rounded-md font-medium bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors">4. Schulz's Crucible</a>
+      </nav>
+    </div>
+    <div class="zigzag-border opacity-80"></div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-16">
+
+    <section class="bg-[#F2ECE1] rounded-2xl p-6 sm:p-10 border border-[#E2DAD0] shadow-sm">
+      <div class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E2DAD0] font-sans-ui text-xs text-[#57534E]">
+          <span>🎬</span>
+          <span>Source Context: <em>A Boy Named Charlie Brown</em> (1969) &amp; 50 Years of Syndication</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold leading-tight text-[#262422]">
+          "We learn more from losing than we do from winning." — "I guess that makes me the smartest person in the whole world."
+        </h2>
+        <p class="text-base sm:text-lg text-[#44403C] leading-relaxed">
+          Against mid-century America's ethos of relentless optimism and upward mobility, Charles M. Schulz constructed a subversive universe centered on a round-headed child predestined to fail. Explore how a single contradictory pep talk on Charlie Brown's front steps anchors fifty years of existential philosophy, Christian theology, semiotic theory, and Schulz's own personal wounds.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-8 pt-6 border-t border-[#E2DAD0] font-sans-ui">
+        <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+          <div class="text-2xl font-bold text-[#C87D32]">99</div>
+          <div class="text-xs text-[#57534E] mt-1">Consecutive baseball losses triggering the 1969 monologue</div>
+        </div>
+        <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+          <div class="text-2xl font-bold text-[#5B7C99]">1943</div>
+          <div class="text-xs text-[#57534E] mt-1">Death of Schulz's mother &amp; WWII draft in the same weekend</div>
+        </div>
+        <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+          <div class="text-2xl font-bold text-[#262422]">47 Yrs</div>
+          <div class="text-xs text-[#57534E] mt-1">Annual autumn football gag (1952–1999) without a single kick</div>
+        </div>
+        <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+          <div class="text-2xl font-bold text-[#C87D32]">B-E-A-G-E-L</div>
+          <div class="text-xs text-[#57534E] mt-1">The fatal misspelling that turns 2nd place into total defeat</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-paradox" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl space-y-2">
+        <span class="font-sans-ui text-xs uppercase tracking-wider font-bold text-[#C87D32]">Section 01 · The Contradiction of Consolation</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#262422]">The 1969 Film &amp; The Dirt Tic-Tac-Toe Paradox</h2>
+        <p class="text-[#44403C] leading-relaxed">
+          This section reconstructs the exact dramatic irony of the 1969 animated feature <em>A Boy Named Charlie Brown</em>. Step through the famous dialogue between Linus van Pelt and Charlie Brown to witness how Schulz pairs verbal consolation with simultaneous visual defeat, and examine how that paradox drives Charlie Brown's subsequent rise and fall in the National Spelling Bee.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-[#E2DAD0] pb-3 mb-4">
+              <div>
+                <h3 class="font-bold text-lg text-[#262422]">Interactive Scene Simulator</h3>
+                <p class="font-sans-ui text-xs text-[#57534E]">Advance the dialogue to observe the simultaneous dirt Tic-Tac-Toe game.</p>
+              </div>
+              <span id="dialogue-step-badge" class="font-sans-ui text-xs font-semibold px-2.5 py-1 rounded bg-[#F2ECE1] text-[#262422]">Beat 1 of 6</span>
+            </div>
+
+            <div class="bg-[#FAF7F2] rounded-xl p-4 border border-[#E2DAD0] min-h-[145px] flex flex-col justify-center" role="status" aria-live="polite">
+              <div class="flex items-center gap-2 mb-2 font-sans-ui">
+                <span id="speaker-icon" class="text-lg">⚾</span>
+                <span id="speaker-name" class="text-xs font-bold uppercase tracking-wider text-[#C87D32]">Charlie Brown</span>
+              </div>
+              <p id="dialogue-line" class="text-base sm:text-lg italic text-[#262422] leading-relaxed">
+                "I think it would be kind of fun to win once in a while."
+              </p>
+              <p id="dialogue-note" class="font-sans-ui text-xs text-[#57534E] mt-3 pt-2 border-t border-[#E2DAD0]">
+                Context: Sitting on the front steps after his baseball team's 99th consecutive loss.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-[#F2ECE1]/60 p-4 rounded-xl border border-[#E2DAD0]">
+            <div>
+              <h4 class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#262422] mb-1">Sketched in the Dirt</h4>
+              <p id="board-status" class="font-sans-ui text-xs text-[#57534E] leading-relaxed">
+                Linus (✕) and Charlie Brown (○) casually mark moves in the dirt as Linus begins his pep talk.
+              </p>
+            </div>
+            <div id="ttt-grid" class="grid grid-cols-3 gap-1.5 w-36 h-36 mx-auto bg-[#D6CCB8] p-1.5 rounded-lg border border-[#B8AC96]" aria-label="Tic-Tac-Toe board in the dirt">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-3 pt-2 font-sans-ui">
+            <button id="prev-beat-btn" class="px-4 py-2 rounded-lg text-xs font-semibold border border-[#E2DAD0] bg-[#FAF7F2] text-[#262422] hover:bg-[#F2ECE1] disabled:opacity-40 transition-colors">
+              ← Previous Beat
+            </button>
+            <button id="next-beat-btn" class="px-4 py-2 rounded-lg text-xs font-semibold bg-[#C87D32] text-white hover:bg-[#B06B26] transition-colors">
+              Next Beat →
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#E2DAD0] pb-3 mb-4">
+              <div>
+                <h3 class="font-bold text-lg text-[#262422]">The "Wisdom vs. Victory" Arc</h3>
+                <p class="font-sans-ui text-xs text-[#57534E]">Charting Charlie Brown's inverse curve of empirical success vs. accumulated defeat-wisdom.</p>
+              </div>
+              <select id="arc-view-selector" aria-label="Select arc metric" class="font-sans-ui text-xs border border-[#E2DAD0] rounded-lg px-2.5 py-1.5 bg-[#FAF7F2] text-[#262422]">
+                <option value="both">Compare Wisdom &amp; Standing</option>
+                <option value="standing">Social &amp; Competitive Standing</option>
+                <option value="wisdom">Accumulated "Defeat Wisdom"</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="paradoxChart"></canvas>
+            </div>
+          </div>
+          <div class="bg-[#FAF7F2] p-3.5 rounded-xl border border-[#E2DAD0] font-sans-ui text-xs text-[#44403C] leading-relaxed">
+            <strong class="text-[#262422]">Key Takeaway:</strong> Charlie Brown spells <em>"insecure"</em> and <em>"perceive"</em> to reach the National Spelling Bee finals, discovering that winning replaces dread with paralyzing pressure. Misspelling <em>"beagle"</em> drops him to 2nd place—equated with total failure in the American success myth—until Linus's final realization: <em>"The world didn't come to an end."</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-archetypes" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl space-y-2">
+        <span class="font-sans-ui text-xs uppercase tracking-wider font-bold text-[#5B7C99]">Section 02 · Structural Synthesis</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#262422]">Character Archetypes &amp; Ideological Functions</h2>
+        <p class="text-[#44403C] leading-relaxed">
+          In the report's synthesis of existential, semiotic, and theological scholarship, the children of <em>Peanuts</em> operate as distinct philosophical archetypes rather than simple comic caricatures. Select any character below to inspect their philosophical framework, semiotic or theological function, and narrative role alongside a comparative radar profile.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-sans-ui" role="group" aria-label="Select Peanuts Character">
+            <button data-char="charlie" class="char-tab p-3 rounded-xl border-2 border-[#C87D32] bg-white text-left shadow-sm transition-all">
+              <div class="text-xl mb-1">⚾</div>
+              <div class="font-bold text-xs text-[#262422]">Charlie Brown</div>
+              <div class="text-[11px] text-[#57534E]">Stoic Sisyphus</div>
+            </button>
+            <button data-char="snoopy" class="char-tab p-3 rounded-xl border border-[#E2DAD0] bg-[#F2ECE1]/70 text-left hover:bg-white transition-all">
+              <div class="text-xl mb-1">🐕</div>
+              <div class="font-bold text-xs text-[#262422]">Snoopy</div>
+              <div class="text-[11px] text-[#57534E]">Existential Rebel</div>
+            </button>
+            <button data-char="linus" class="char-tab p-3 rounded-xl border border-[#E2DAD0] bg-[#F2ECE1]/70 text-left hover:bg-white transition-all">
+              <div class="text-xl mb-1">🧣</div>
+              <div class="font-bold text-xs text-[#262422]">Linus van Pelt</div>
+              <div class="text-[11px] text-[#57534E]">Theologian</div>
+            </button>
+            <button data-char="lucy" class="char-tab p-3 rounded-xl border border-[#E2DAD0] bg-[#F2ECE1]/70 text-left hover:bg-white transition-all">
+              <div class="text-xl mb-1">🏈</div>
+              <div class="font-bold text-xs text-[#262422]">Lucy van Pelt</div>
+              <div class="text-[11px] text-[#57534E]">Cynical Realist</div>
+            </button>
+          </div>
+
+          <div id="char-detail-card" class="bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#E2DAD0] pb-4">
+              <div>
+                <span id="char-tag" class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#C87D32]">The American Everyman</span>
+                <h3 id="char-title" class="text-2xl font-bold text-[#262422] mt-0.5">Charlie Brown</h3>
+              </div>
+              <span id="char-motto" class="font-sans-ui text-xs italic px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E2DAD0] text-[#44403C]">
+                "I only dread one day at a time."
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+                <h4 class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#5B7C99] mb-1.5">Philosophical / Existential</h4>
+                <p id="char-phil" class="text-sm text-[#262422] leading-relaxed">
+                  Absurdism &amp; Stoicism; persistent agency despite guaranteed failure. Echoes Albert Camus's Sisyphus and Seneca's resilience.
+                </p>
+              </div>
+              <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+                <h4 class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#C87D32] mb-1.5">Semiotic / Theological</h4>
+                <p id="char-theo" class="text-sm text-[#262422] leading-relaxed">
+                  Umberto Eco's pure-hearted "American Everyman"; Robert L. Short's emblem of Original Sin, vulnerability, and the Theology of the Cross.
+                </p>
+              </div>
+              <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0]">
+                <h4 class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">Narrative Representation</h4>
+                <p id="char-narr" class="text-sm text-[#262422] leading-relaxed">
+                  Managing a baseball team on a 99-game losing streak; flying kites into the kite-eating tree; eternal victim of the pulled football.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm space-y-3">
+          <div>
+            <h3 class="font-bold text-lg text-[#262422]">Archetype Trait Comparison</h3>
+            <p class="font-sans-ui text-xs text-[#57534E]">Comparing how the selected character balances key philosophical responses to a chaotic world.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="archetypeRadarChart"></canvas>
+          </div>
+          <p class="font-sans-ui text-xs text-[#57534E] pt-2 border-t border-[#E2DAD0]">
+            Notice the sharp polarity: Charlie Brown maximizes <strong>Stoic Endurance</strong>, whereas Snoopy maximizes <strong>Imaginative Rebellion</strong>, and Lucy embodies <strong>Cynical Bad Faith</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-lenses" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl space-y-2">
+        <span class="font-sans-ui text-xs uppercase tracking-wider font-bold text-[#C87D32]">Section 03 · Critical Frameworks</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#262422]">Three Academic Lenses on a Four-Panel Strip</h2>
+        <p class="text-[#44403C] leading-relaxed">
+          Schulz’s minimalist comic strip attracted rigorous scrutiny from mid-century philosophers, European semioticians, and American theologians. Switch between the three critical traditions below and click any recurring <em>Peanuts</em> motif to decode how each framework interprets its deeper meaning.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm space-y-6">
+        <div class="flex flex-wrap gap-2 border-b border-[#E2DAD0] pb-4 font-sans-ui">
+          <button data-lens="existential" class="lens-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#262422] text-[#FAF7F2] transition-colors">
+            Existentialism &amp; Stoicism (Camus, Sartre, Seneca)
+          </button>
+          <button data-lens="semiotics" class="lens-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors">
+            Semiotics &amp; Irony (Umberto Eco, 1985)
+          </button>
+          <button data-lens="theology" class="lens-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors">
+            Theology of Defeat (Robert L. Short, 1965)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-6 space-y-4">
+            <div class="inline-block font-sans-ui text-xs font-semibold px-2.5 py-1 rounded bg-[#F2ECE1] text-[#57534E]" id="lens-source">
+              Key Thinkers: Albert Camus (1942), Jean-Paul Sartre, Seneca
+            </div>
+            <h3 id="lens-headline" class="text-xl sm:text-2xl font-bold text-[#262422]">
+              Enduring the Absurd &amp; Choosing Radical Freedom
+            </h3>
+            <p id="lens-summary" class="text-sm sm:text-base text-[#44403C] leading-relaxed">
+              Peanuts stages two distinct existential responses to a universe without guaranteed cosmic justice. Charlie Brown embodies Camus's Sisyphus and Senecan Stoicism—choosing to act despite knowing defeat is certain. Conversely, Snoopy embodies Sartrean existential rebellion, rejecting his biological "essence" as a dog to author his own identity atop his doghouse.
+            </p>
+            <blockquote id="lens-quote" class="p-4 rounded-xl bg-[#FAF7F2] border-l-4 border-[#C87D32] italic text-sm text-[#262422]">
+              "The meaning of Charlie Brown's life is not derived from successfully kicking the football, but from the persistent refusal to surrender to despair. The act of trying is the philosophical victory."
+            </blockquote>
+          </div>
+
+          <div class="lg:col-span-6 bg-[#FAF7F2] p-5 rounded-xl border border-[#E2DAD0] space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-sans-ui text-xs font-bold uppercase tracking-wider text-[#262422]">Interactive Motif Decoder</h4>
+              <span class="font-sans-ui text-[11px] text-[#57534E]">Click a motif to decode via active lens</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 font-sans-ui" id="motif-buttons">
+              <button data-motif="football" class="motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border-2 border-[#C87D32] text-[#262422]">
+                🏈 The Pulled Football
+              </button>
+              <button data-motif="doghouse" class="motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border border-[#E2DAD0] text-[#57534E] hover:text-[#262422]">
+                🐕 Top of the Doghouse
+              </button>
+              <button data-motif="booth" class="motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border border-[#E2DAD0] text-[#57534E] hover:text-[#262422]">
+                🪙 5¢ Psychiatric Booth
+              </button>
+              <button data-motif="mound" class="motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border border-[#E2DAD0] text-[#57534E] hover:text-[#262422]">
+                ⚾ The Pitcher's Mound
+              </button>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-[#E2DAD0] space-y-1.5">
+              <div id="motif-title" class="font-sans-ui text-xs font-bold text-[#C87D32]">Motif Analysis: The Pulled Football</div>
+              <p id="motif-analysis" class="text-sm text-[#262422] leading-relaxed">
+                Charlie Brown is the American Sisyphus and Lucy's football is his boulder. Knowing her history of deception, his annual choice to run toward the ball is a conscious assertion of human agency in a hostile universe.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-crucible" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl space-y-2">
+        <span class="font-sans-ui text-xs uppercase tracking-wider font-bold text-[#5B7C99]">Section 04 · Biography &amp; Physiology</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#262422]">Schulz’s Biographical Crucible &amp; The Trembling Line</h2>
+        <p class="text-[#44403C] leading-relaxed">
+          Charlie Brown’s chronic inadequacy was neither accidental nor purely comedic—it flowed directly from Charles M. Schulz’s personal traumas and physical neurology. Explore the biographical events that forged the "born loser" ethos, compare perspectives on his inner life, and examine how his Essential Tremor turned every pen stroke into a "seismograph of the soul."
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <div class="border-b border-[#E2DAD0] pb-3 mb-4">
+              <h3 class="font-bold text-lg text-[#262422]">Seismograph of the Soul: Essential Tremor (1950–2000)</h3>
+              <p class="font-sans-ui text-xs text-[#57534E]">
+                Refusing ghost artists, Schulz inked every panel with discontinued Esterbrook Radio 914 nibs as his neurological tremor progressed.
+              </p>
+            </div>
+            <div class="chart-container">
+              <canvas id="tremorChart"></canvas>
+            </div>
+          </div>
+          <div class="bg-[#FAF7F2] p-3.5 rounded-xl border border-[#E2DAD0] font-sans-ui text-xs text-[#44403C] leading-relaxed">
+            <strong class="text-[#262422]">Medium as Message:</strong> While beta-blockers partially suppressed the shaking, fine hatching on Snoopy's doghouse and Lucy's hair visibly wobbled in the 1980s–90s. Forcing a shaking hand to draw Charlie Brown's round head mirrored Charlie Brown's own persistence on the pitcher's mound.
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E2DAD0] shadow-sm flex flex-col justify-between space-y-5">
+          <div class="space-y-4">
+            <div class="border-b border-[#E2DAD0] pb-3">
+              <h3 class="font-bold text-lg text-[#262422]">Foundational Wounds &amp; The Biography Debate</h3>
+              <p class="font-sans-ui text-xs text-[#57534E]">Select a biographical milestone or toggle critical perspectives on Schulz's melancholy.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 font-sans-ui" id="bio-milestones">
+              <button data-bio="youth" class="bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#262422] text-[#FAF7F2]">High School Rejections</button>
+              <button data-bio="1943" class="bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F2ECE1] text-[#262422]">March 1, 1943 &amp; WWII</button>
+              <button data-bio="1950" class="bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F2ECE1] text-[#262422]">1950 Proposal Rejection</button>
+              <button data-bio="rules" class="bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F2ECE1] text-[#262422]">Immutable Strip Rules</button>
+            </div>
+
+            <div class="bg-[#FAF7F2] p-4 rounded-xl border border-[#E2DAD0] space-y-1.5">
+              <h4 id="bio-title" class="font-bold text-base text-[#262422]">St. Paul Isolation &amp; Yearbook Rejections</h4>
+              <p id="bio-text" class="text-sm text-[#44403C] leading-relaxed">
+                Skipping two grades left young "Sparky" Schulz the smallest and youngest in his St. Paul classes. Every drawing he submitted to his high school yearbook was rejected—a formative defeat echoed across Charlie Brown's entire existence.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-t border-[#E2DAD0] pt-4 space-y-3">
+            <div class="flex items-center justify-between font-sans-ui">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#57534E]">The 2007 Biography Controversy</span>
+              <div class="inline-flex rounded-lg bg-[#F2ECE1] p-0.5 border border-[#E2DAD0]">
+                <button data-view="michaelis" class="debate-btn px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-[#262422] shadow-sm">David Michaelis Thesis</button>
+                <button data-view="family" class="debate-btn px-2.5 py-1 rounded-md text-xs font-semibold text-[#57534E]">Schulz Family Response</button>
+              </div>
+            </div>
+            <p id="debate-text" class="text-xs sm:text-sm text-[#44403C] bg-[#F2ECE1]/50 p-3.5 rounded-xl border border-[#E2DAD0] leading-relaxed">
+              Biographer David Michaelis argued Schulz was chronically depressed, locked in adolescent longing, and used Peanuts to exact subtle revenge on his life (such as casting his first wife Joyce as the aggressive Lucy).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#E2DAD0] bg-[#F2ECE1] mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-sans-ui text-xs text-[#57534E]">
+      <div class="space-y-1 max-w-xl">
+        <div class="font-bold text-[#262422]">The Architecture of Defeat: Existentialism, Consolation, and the Philosophy of Charles M. Schulz’s Peanuts</div>
+        <p>Synthesizing analysis of <em>A Boy Named Charlie Brown</em> (1969), Albert Camus, Jean-Paul Sartre, Umberto Eco, Robert L. Short, and David Michaelis.</p>
+        <p class="pt-1">
+          <a href="./readme.md" class="font-semibold text-[#C87D32] hover:underline">Read the full report →</a>
+          <span class="mx-1.5 text-[#B8AC96]">•</span>
+          <a href="../" class="text-[#5B7C99] hover:underline">D/0 Vault</a>
+          <span class="mx-1.5 text-[#B8AC96]">•</span>
+          <a href="../../" class="text-[#5B7C99] hover:underline">Portfolio Home ↗</a>
+        </p>
+      </div>
+      <button id="back-to-top" class="px-3.5 py-2 rounded-lg bg-[#FAF7F2] border border-[#E2DAD0] text-[#262422] font-semibold hover:bg-white transition-colors">
+        ↑ Back to Top
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    const dialogueBeats = [
+      {
+        speaker: "Charlie Brown",
+        icon: "⚾",
+        line: '"I think it would be kind of fun to win once in a while."',
+        note: "Context: Sitting on the front steps after his baseball team's 99th consecutive loss.",
+        board: ["X", "", "", "", "O", "", "", "", ""],
+        boardStatus: "Move 1–2: Linus marks the top-left corner (✕); Charlie Brown takes the center (○)."
+      },
+      {
+        speaker: "Linus van Pelt",
+        icon: "🧣",
+        line: '"Winning isn\'t everything."',
+        note: "Linus initiates a classic cultural platitude intended to soften the sting of failure.",
+        board: ["X", "X", "", "", "O", "", "", "", ""],
+        boardStatus: "Move 3: Linus casually places a second ✕ in the top-center while speaking."
+      },
+      {
+        speaker: "Charlie Brown",
+        icon: "⚾",
+        line: '"Losing isn\'t anything."',
+        note: "Charlie Brown counters with stark realism: if winning isn't everything, perpetual losing offers nothing.",
+        board: ["X", "X", "", "O", "O", "", "", "", ""],
+        boardStatus: "Move 4: Charlie Brown marks middle-left (○), briefly threatening a horizontal row."
+      },
+      {
+        speaker: "Linus van Pelt",
+        icon: "🧣",
+        line: '"Look at it this way, Charlie Brown, we learn more from losing than we do from winning."',
+        note: "The philosophical pivot: framing suffering and defeat as an epistemic advantage.",
+        board: ["X", "X", "", "O", "O", "X", "", "", ""],
+        boardStatus: "Move 5: Linus blocks Charlie Brown's row on the middle-right (✕)."
+      },
+      {
+        speaker: "Charlie Brown",
+        icon: "🎓",
+        line: '"I guess that makes me the smartest person in the whole world."',
+        note: "Devastating self-parody: applying Linus's optimistic logic to his own track record proves him an unmatched genius of failure.",
+        board: ["X", "X", "", "O", "O", "X", "O", "", ""],
+        boardStatus: "Move 6: Charlie Brown plays bottom-left (○), leaving the top-right corner open."
+      },
+      {
+        speaker: "Linus van Pelt",
+        icon: "🏆",
+        line: '"I just don\'t think it\'s possible for someone to lose everything all the time. One of these days, you\'ll win."',
+        note: "VISUAL CONTRADICTION: At the exact second Linus promises eventual victory, he completes three-in-a-row to defeat Charlie Brown.",
+        board: ["X", "X", "X", "O", "O", "X", "O", "", ""],
+        boardStatus: "GAME OVER: Linus connects ✕-✕-✕ across the top row, effortlessly disproving his own pep talk."
+      }
+    ];
+
+    let currentBeat = 0;
+
+    function renderBeat() {
+      const beat = dialogueBeats[currentBeat];
+      document.getElementById("dialogue-step-badge").textContent = `Beat ${currentBeat + 1} of ${dialogueBeats.length}`;
+      document.getElementById("speaker-icon").textContent = beat.icon;
+      document.getElementById("speaker-name").textContent = beat.speaker;
+      document.getElementById("dialogue-line").textContent = beat.line;
+      document.getElementById("dialogue-note").textContent = beat.note;
+      document.getElementById("board-status").textContent = beat.boardStatus;
+
+      const grid = document.getElementById("ttt-grid");
+      grid.innerHTML = "";
+      beat.board.forEach((cell, idx) => {
+        const div = document.createElement("div");
+        const isWinningCell = currentBeat === 5 && (idx === 0 || idx === 1 || idx === 2);
+        div.className = `flex items-center justify-center rounded font-sans-ui font-bold text-lg select-none transition-all ${
+          isWinningCell
+            ? "bg-[#C87D32] text-white shadow-inner"
+            : "bg-[#FAF7F2] text-[#262422]"
+        }`;
+        div.textContent = cell === "X" ? "✕" : cell === "O" ? "○" : "";
+        div.setAttribute("aria-hidden", "true");
+        grid.appendChild(div);
+      });
+
+      document.getElementById("prev-beat-btn").disabled = currentBeat === 0;
+      document.getElementById("next-beat-btn").textContent = currentBeat === dialogueBeats.length - 1 ? "Restart Scene ↺" : "Next Beat →";
+    }
+
+    document.getElementById("prev-beat-btn").addEventListener("click", () => {
+      if (currentBeat > 0) {
+        currentBeat--;
+        renderBeat();
+      }
+    });
+
+    document.getElementById("next-beat-btn").addEventListener("click", () => {
+      currentBeat = (currentBeat + 1) % dialogueBeats.length;
+      renderBeat();
+    });
+
+    renderBeat();
+
+    const paradoxLabels = [
+      ["99th Baseball", "Loss"],
+      ["Front Steps", "Tic-Tac-Toe"],
+      ["Spells 'Insecure'", "& 'Perceive'"],
+      ["NYC Spelling", "Bee Finals"],
+      ["Misspells", "'B-E-A-G-E-L'"],
+      ["'World Didn't", "End' Insight"]
+    ];
+
+    const paradoxCtx = document.getElementById("paradoxChart").getContext("2d");
+    const paradoxChart = new Chart(paradoxCtx, {
+      type: "line",
+      data: {
+        labels: paradoxLabels,
+        datasets: [
+          {
+            label: "Competitive & Social Standing",
+            data: [10, 8, 75, 92, 5, 35],
+            borderColor: "#5B7C99",
+            backgroundColor: "rgba(91, 124, 153, 0.15)",
+            borderWidth: 3,
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: "#5B7C99"
+          },
+          {
+            label: "Accumulated 'Defeat Wisdom'",
+            data: [85, 90, 60, 50, 95, 100],
+            borderColor: "#C87D32",
+            backgroundColor: "rgba(200, 125, 50, 0.12)",
+            borderWidth: 3,
+            borderDash: [5, 5],
+            tension: 0.3,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: "#C87D32"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              font: { family: "system-ui", size: 11 },
+              color: "#262422"
+            }
+          },
+          tooltip: {
+            callbacks: {
+              title: (items) => items[0].label.replace(",", " ")
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 105,
+            ticks: { color: "#57534E", font: { size: 10 } },
+            grid: { color: "#E2DAD0" }
+          },
+          x: {
+            ticks: { color: "#262422", font: { size: 10 } },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    document.getElementById("arc-view-selector").addEventListener("change", (e) => {
+      const val = e.target.value;
+      paradoxChart.data.datasets[0].hidden = val === "wisdom";
+      paradoxChart.data.datasets[1].hidden = val === "standing";
+      paradoxChart.update();
+    });
+
+    const characterData = {
+      charlie: {
+        tag: "The American Everyman",
+        title: "Charlie Brown",
+        motto: '"I only dread one day at a time."',
+        phil: "Absurdism & Stoicism; persistent agency despite guaranteed failure. Echoes Albert Camus's Sisyphus and Seneca's resilience.",
+        theo: "Umberto Eco's pure-hearted 'American Everyman'; Robert L. Short's emblem of Original Sin, vulnerability, and the Theology of the Cross.",
+        narr: "Managing a baseball team on a 99-game losing streak; flying kites into the kite-eating tree; eternal victim of the pulled football.",
+        scores: [98, 20, 45, 10, 95]
+      },
+      snoopy: {
+        tag: "The Existential Rebel",
+        title: "Snoopy",
+        motto: '"Curse you, Red Baron!"',
+        phil: "Sartrean radical freedom; rejecting his predetermined biological essence as a dog to define himself through imaginative action.",
+        theo: "Robert L. Short's 'Hound of Heaven'—representing persistent joy and psychological survival through creative transcendence.",
+        narr: "Adopting personas (WWI Flying Ace, Joe Cool, famous author); spatial rebellion by sleeping on top of his doghouse rather than inside.",
+        scores: [40, 98, 35, 25, 85]
+      },
+      linus: {
+        tag: "The Vulnerable Theologian",
+        title: "Linus van Pelt",
+        motto: '"The world didn\'t come to an end."',
+        phil: "Tension between lofty intellectualism and deep emotional dependency; attempting to rationalize chaos while clutching comfort.",
+        theo: "The resident theologian quoting scripture (Luke 2) while simultaneously acting as an idolater clutching a false security blanket.",
+        narr: "Delivering profound philosophical and biblical monologues while obsessively holding his blue blanket and awaiting the Great Pumpkin.",
+        scores: [60, 55, 96, 20, 80]
+      },
+      lucy: {
+        tag: "The Architect of Bad Faith",
+        title: "Lucy van Pelt",
+        motto: '"Welcome home, Charlie Brown."',
+        phil: "Cynicism, Realpolitik, and Sartrean 'bad faith'—enforcing harsh social hierarchies and rejecting self-doubt.",
+        theo: "Commodification of empathy and systemic cruelty; blinded by hubris in contrast to Charlie Brown's grace-inducing humility.",
+        narr: "Operating a 5-cent psychiatric booth; diagnosing Charlie Brown's 'failure face'; pulling the football away every autumn for 47 years.",
+        scores: [30, 40, 50, 98, 25]
+      }
+    };
+
+    const radarCtx = document.getElementById("archetypeRadarChart").getContext("2d");
+    const archetypeRadarChart = new Chart(radarCtx, {
+      type: "radar",
+      data: {
+        labels: [
+          ["Stoic", "Endurance"],
+          ["Imaginative", "Freedom"],
+          ["Intellectual /", "Theological"],
+          ["Cynical", "Realpolitik"],
+          ["Sincerity &", "Vulnerability"]
+        ],
+        datasets: [
+          {
+            label: "Charlie Brown",
+            data: characterData.charlie.scores,
+            backgroundColor: "rgba(200, 125, 50, 0.22)",
+            borderColor: "#C87D32",
+            pointBackgroundColor: "#C87D32",
+            borderWidth: 2.5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { font: { family: "system-ui", size: 11 }, color: "#262422" }
+          }
+        },
+        scales: {
+          r: {
+            min: 0,
+            max: 100,
+            ticks: { display: false },
+            pointLabels: { color: "#262422", font: { family: "system-ui", size: 10 } },
+            grid: { color: "#E2DAD0" },
+            angleLines: { color: "#E2DAD0" }
+          }
+        }
+      }
+    });
+
+    document.querySelectorAll(".char-tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-char");
+        const data = characterData[key];
+
+        document.querySelectorAll(".char-tab").forEach((b) => {
+          b.className = "char-tab p-3 rounded-xl border border-[#E2DAD0] bg-[#F2ECE1]/70 text-left hover:bg-white transition-all";
+        });
+        btn.className = "char-tab p-3 rounded-xl border-2 border-[#C87D32] bg-white text-left shadow-sm transition-all";
+
+        document.getElementById("char-tag").textContent = data.tag;
+        document.getElementById("char-title").textContent = data.title;
+        document.getElementById("char-motto").textContent = data.motto;
+        document.getElementById("char-phil").textContent = data.phil;
+        document.getElementById("char-theo").textContent = data.theo;
+        document.getElementById("char-narr").textContent = data.narr;
+
+        archetypeRadarChart.data.datasets[0].label = data.title;
+        archetypeRadarChart.data.datasets[0].data = data.scores;
+        archetypeRadarChart.update();
+      });
+    });
+
+    const lensesData = {
+      existential: {
+        source: "Key Thinkers: Albert Camus (1942), Jean-Paul Sartre, Seneca",
+        headline: "Enduring the Absurd & Choosing Radical Freedom",
+        summary: "Peanuts stages two distinct existential responses to a universe without guaranteed cosmic justice. Charlie Brown embodies Camus's Sisyphus and Senecan Stoicism—choosing to act despite knowing defeat is certain. Conversely, Snoopy embodies Sartrean existential rebellion, rejecting his biological 'essence' as a dog to author his own identity atop his doghouse.",
+        quote: '"The meaning of Charlie Brown\'s life is not derived from successfully kicking the football, but from the persistent refusal to surrender to despair. The act of trying is the philosophical victory."',
+        motifs: {
+          football: {
+            title: "Existential Analysis: The Pulled Football",
+            text: "Charlie Brown is the American Sisyphus and Lucy's football is his boulder. Knowing her history of deception, his annual choice to run toward the ball is a conscious assertion of human agency in a hostile universe."
+          },
+          doghouse: {
+            title: "Existential Analysis: Top of the Doghouse",
+            text: "By sleeping on top of his doghouse rather than inside it, Snoopy performs a Sartrean spatial rebellion—refusing his predetermined animal essence to define himself through free choice."
+          },
+          booth: {
+            title: "Existential Analysis: 5¢ Psychiatric Booth",
+            text: "Lucy embodies Sartrean 'bad faith'—reducing complex existential dread into simplistic, authoritarian platitudes while charging five cents for the illusion of psychological cure."
+          },
+          mound: {
+            title: "Existential Analysis: The Pitcher's Mound",
+            text: "Standing on the mound after giving up nine consecutive home runs, Charlie Brown practices Senecan stoicism: compartmentalizing anxiety ('I only dread one day at a time') to endure the next inning."
+          }
+        }
+      },
+      semiotics: {
+        source: "Key Thinker: Umberto Eco ('On Krazy Kat and Peanuts', 1985)",
+        headline: "The Microcosm of the 'Little Human Comedy'",
+        summary: "Italian semiotician Umberto Eco elevated Peanuts from daily entertainment to literary critique, describing it as a 'microcosm, a little human comedy for the innocent reader and for the sophisticated.' Through slow, decades-long repetition in minimalist spaces, Schulz's children become mythic archetypes oscillating between profound sincerity and abrupt irony.",
+        quote: '"The brilliant suspicion slowly dawns on the reader: Charlie Brown is not inferior; he is absolutely normal—pure of heart in a consumer world dominated by bad faith."',
+        motifs: {
+          football: {
+            title: "Semiotic Analysis: The Pulled Football",
+            text: "In Eco's framework, the power of the gag requires serial syndication: decades of identical annual repetition elevate a simple slapstick prank into a mythic ritual of trust betrayed."
+          },
+          doghouse: {
+            title: "Semiotic Analysis: Top of the Doghouse",
+            text: "Rather than George Herriman's shifting surrealist landscapes in Krazy Kat, Schulz uses a minimalist recurring sign—the red doghouse profile—as a stage for limitless imaginative transformations."
+          },
+          booth: {
+            title: "Semiotic Analysis: 5¢ Psychiatric Booth",
+            text: "A parody of lemonade stands that illustrates the dialectic of sincerity and irony: Charlie Brown brings genuine existential agony to a commercialized parody of modern therapy."
+          },
+          mound: {
+            title: "Semiotic Analysis: The Pitcher's Mound",
+            text: "A fixed, minimalist geometric space where the 'American Everyman' is perpetually disappointed by the product of life yet refuses to abandon the game."
+          }
+        }
+      },
+      theology: {
+        source: "Key Thinker: Robert L. Short ('The Gospel According to Peanuts', 1965)",
+        headline: "Original Sin & The Theology of the Cross",
+        summary: "Theologian Robert L. Short interpreted Peanuts as a modern parable illustrating Christian anthropology. The characters' inability to change their ingrained flaws mirrors Original Sin, while Charlie Brown's constant humiliation reflects a 'Theology of the Cross'—where weakness strips away hubris and becomes a prerequisite for grace.",
+        quote: '"Because Charlie Brown is intimately acquainted with defeat, he is free of blinding hubris—embodying the biblical paradox that the meek shall inherit the earth."',
+        motifs: {
+          football: {
+            title: "Theological Analysis: The Pulled Football",
+            text: "Illustrates humanity's fallen state and persistent faith despite repeated betrayal: Lucy cannot stop pulling the ball away, and Charlie Brown cannot stop trusting."
+          },
+          doghouse: {
+            title: "Theological Analysis: Top of the Doghouse",
+            text: "Short likened Snoopy to Francis Thompson's 'Hound of Heaven'—a figure of boundless joy and pursuing grace transcending the weighted, sin-burdened lives of the human children."
+          },
+          booth: {
+            title: "Theological Analysis: 5¢ Psychiatric Booth",
+            text: "Represents the failure of secular self-help and human pride to cure what Cardinal Newman called humanity's 'terrible aboriginal calamity' of spiritual brokenness."
+          },
+          mound: {
+            title: "Theological Analysis: The Pitcher's Mound",
+            text: "When a line drive strips Charlie Brown of his clothes on the mound, he becomes an emblem of total vulnerability—debating the Book of Job with his infielders."
+          }
+        }
+      }
+    };
+
+    let activeLens = "existential";
+    let activeMotif = "football";
+
+    function updateLensAndMotif() {
+      const lens = lensesData[activeLens];
+      document.getElementById("lens-source").textContent = lens.source;
+      document.getElementById("lens-headline").textContent = lens.headline;
+      document.getElementById("lens-summary").textContent = lens.summary;
+      document.getElementById("lens-quote").textContent = lens.quote;
+
+      const motifObj = lens.motifs[activeMotif];
+      document.getElementById("motif-title").textContent = motifObj.title;
+      document.getElementById("motif-analysis").textContent = motifObj.text;
+    }
+
+    document.querySelectorAll(".lens-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeLens = btn.getAttribute("data-lens");
+        document.querySelectorAll(".lens-btn").forEach((b) => {
+          b.className = "lens-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8] transition-colors";
+        });
+        btn.className = "lens-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#262422] text-[#FAF7F2] transition-colors";
+        updateLensAndMotif();
+      });
+    });
+
+    document.querySelectorAll(".motif-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeMotif = btn.getAttribute("data-motif");
+        document.querySelectorAll(".motif-btn").forEach((b) => {
+          b.className = "motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border border-[#E2DAD0] text-[#57534E] hover:text-[#262422]";
+        });
+        btn.className = "motif-btn p-2.5 rounded-lg text-left text-xs font-semibold bg-white border-2 border-[#C87D32] text-[#262422]";
+        updateLensAndMotif();
+      });
+    });
+
+    const tremorCtx = document.getElementById("tremorChart").getContext("2d");
+    new Chart(tremorCtx, {
+      type: "line",
+      data: {
+        labels: ["1950 Launch", "1960s Peak", "1970s", "1980s Onset", "1990s Tremor", "2000 Finale"],
+        datasets: [
+          {
+            label: "Line Smoothness & Steadiness",
+            data: [95, 92, 85, 62, 38, 25],
+            borderColor: "#5B7C99",
+            backgroundColor: "rgba(91, 124, 153, 0.12)",
+            borderWidth: 2.5,
+            tension: 0.35,
+            fill: true
+          },
+          {
+            label: "Visible Tremor & Line Fragility",
+            data: [5, 8, 15, 42, 74, 88],
+            borderColor: "#C87D32",
+            backgroundColor: "rgba(200, 125, 50, 0.15)",
+            borderWidth: 2.5,
+            tension: 0.35,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { font: { family: "system-ui", size: 11 }, color: "#262422" }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            ticks: { color: "#57534E", font: { size: 10 } },
+            grid: { color: "#E2DAD0" }
+          },
+          x: {
+            ticks: { color: "#262422", font: { size: 10 } },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    const bioMilestonesData = {
+      youth: {
+        title: "St. Paul Isolation & Yearbook Rejections",
+        text: "Skipping two grades left young 'Sparky' Schulz the smallest and youngest in his St. Paul classes. Every drawing he submitted to his high school yearbook was rejected—a formative defeat echoed across Charlie Brown's entire existence."
+      },
+      1943: {
+        title: "March 1, 1943: Grief & The 20th Armored Division",
+        text: "On the exact weekend his mother Dena died of colon cancer, 20-year-old Schulz was drafted into the U.S. Army. Returning from combat in Germany to his father's barbershop, no one stopped working to celebrate his return—establishing anticlimax as his emotional baseline."
+      },
+      1950: {
+        title: "Donna Mae Johnson & Unrequited Love",
+        text: "Shortly before launching Peanuts in 1950, Schulz proposed to red-haired accountant Donna Mae Johnson, who turned him down to marry another man. She became immortalized as the unattainable Little Red-Haired Girl."
+      },
+      rules: {
+        title: "Schulz's Immutable Rules of the Strip",
+        text: "Schulz codified his own worldview into permanent narrative law: 'All the loves in the strip are unrequited; all the baseball games are lost; all the test scores are D-minuses; the Great Pumpkin never comes; and the football is always pulled away.'"
+      }
+    };
+
+    document.querySelectorAll(".bio-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-bio");
+        document.querySelectorAll(".bio-btn").forEach((b) => {
+          b.className = "bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F2ECE1] text-[#262422]";
+        });
+        btn.className = "bio-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#262422] text-[#FAF7F2]";
+        document.getElementById("bio-title").textContent = bioMilestonesData[key].title;
+        document.getElementById("bio-text").textContent = bioMilestonesData[key].text;
+      });
+    });
+
+    const debateTexts = {
+      michaelis: "Biographer David Michaelis (2007) argued Schulz was chronically depressed, locked in adolescent longing, and used Peanuts to exact subtle revenge on his life (such as casting his first wife Joyce as the aggressive Lucy).",
+      family: "Schulz's children Monte and Amy denounced Michaelis's portrait as 'preposterous and deceitful,' emphasizing their father's warmth, humor, and heroism in overcoming inner gloom—while widow Jean acknowledged he was a complicated artist who embedded his anxieties onto the page."
+    };
+
+    document.querySelectorAll(".debate-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const view = btn.getAttribute("data-view");
+        document.querySelectorAll(".debate-btn").forEach((b) => {
+          b.className = "debate-btn px-2.5 py-1 rounded-md text-xs font-semibold text-[#57534E]";
+        });
+        btn.className = "debate-btn px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-[#262422] shadow-sm";
+        document.getElementById("debate-text").textContent = debateTexts[view];
+      });
+    });
+
+    const navButtons = document.querySelectorAll(".nav-btn");
+
+    function setActiveNav(target) {
+      navButtons.forEach((btn) => {
+        const isActive = btn.getAttribute("data-nav") === target;
+        btn.className = `nav-btn px-3 py-1.5 rounded-md font-medium transition-colors ${
+          isActive
+            ? "bg-[#262422] text-[#FAF7F2]"
+            : "bg-[#F2ECE1] text-[#262422] hover:bg-[#E6DEC8]"
+        }`;
+        if (isActive) {
+          btn.setAttribute("aria-current", "true");
+        } else {
+          btn.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setActiveNav(btn.getAttribute("data-nav"));
+      });
+    });
+
+    // Keep the active nav pill in sync while the reader scrolls.
+    if ("IntersectionObserver" in window) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveNav(entry.target.id.replace("section-", ""));
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      );
+      document
+        .querySelectorAll("main section[id^='section-']")
+        .forEach((section) => sectionObserver.observe(section));
+    }
+
+    document.getElementById("back-to-top").addEventListener("click", () => {
+      setActiveNav("paradox");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
