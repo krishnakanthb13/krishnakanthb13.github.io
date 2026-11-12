@@ -140,6 +140,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Consistency & Success](./consistency_n_success/)
+**The Architecture of Adaptive Consistency** — why consistency is a scalar multiplier rather than a directional vector: it compounds whatever it is fed, including efficient failure. Synthesizes ergodicity economics (ensemble vs. time averages), Gittins Index bandit logic, corticostriatal action chunking and Lally's 66-day automaticity curve, Mauboussin's paradox of skill, Argyris's double-loop learning, Leventhal's channel factors and Gollwitzer's implementation intentions, then closes with Meijman & Mulder's effort-recovery model and allostatic-load design.
+
+- 📝 [The Full Report](./consistency_n_success/readme.md) — the long-form essay with 93 cited sources. (`readme.md`)
+- ♾️ [Interactive Infographic](./consistency_n_success/index.html) — the complete warm alabaster & sage-slate interactive page: 4-phase adaptive-cycle stepper, ergodicity coin-toss lab (log-scale ensemble vs. time average), Gittins Index bandit explorer, Lally habit-curve simulator with missed-day toggle, model-based/model-free reinforcement-system switcher, implementation-intention compiler, pathology diagnostic tabs, and an allostatic-load recovery audit. (`index.html`)
+
+---
+
 ### 📁 [Counter-Dependency Paradox](./counter_dependency_paradox/)
 **The Architecture of the Isolated Self** — why extreme self-reliance is often a rigid, compulsive defense mechanism rather than resilience: the individuals who appear to require absolutely no one are consistently the ones who harbor the most acute terror of interpersonal connection. Synthesizes the Weinhold developmental model, attachment theory (Bowlby, Ainsworth), Polyvagal Theory (Porges), Internal Family Systems (Schwartz), Schema Therapy (Young), and Feeney's empirical dependency paradox.
 

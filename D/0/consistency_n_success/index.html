@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Architecture of Adaptive Consistency</title>
+  <!-- Favicon: sage-teal infinity mark on transparent, matched to the page palette -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232A6F68%22>∞</text></svg>">
+  <meta name="description" content="Why consistency is a scalar multiplier, not a directional vector. An interactive synthesis of ergodicity economics, Gittins Index exploration, corticostriatal habit chunking, environment design and strategic recovery.">
+  <meta name="theme-color" content="#FAF9F6">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #FAF9F6;
+      color: #1E293B;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 290px;
+      max-height: 360px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 330px;
+      }
+    }
+    .glass-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E6E2D8;
+      box-shadow: 0 4px 20px -2px rgba(30, 41, 59, 0.04);
+    }
+    .warm-panel {
+      background-color: #F3F1EC;
+      border: 1px solid #E2DDD2;
+    }
+    .nav-pill.active {
+      background-color: #2A6F68 !important;
+      color: #FFFFFF !important;
+    }
+    .nav-pill.active:hover {
+      background-color: #215852 !important;
+      color: #FFFFFF !important;
+    }
+    .phase-btn.active {
+      border-color: #2A6F68;
+      background-color: #EFF6F5;
+      box-shadow: 0 4px 12px rgba(42, 111, 104, 0.12);
+    }
+    header nav::-webkit-scrollbar {
+      height: 4px;
+    }
+    header nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    header nav::-webkit-scrollbar-thumb {
+      background: #D8D3C8;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-teal-100 selection:text-teal-900">
+
+<!-- Chosen Palette: Warm Alabaster & Sage Slate (#FAF9F6 warm paper background, #F3F1EC soft stone secondary panels, #FFFFFF crisp cards, #1E293B deep slate ink, #2A6F68 calm sage-teal primary accent, #C87D32 warm ochre secondary accent, #B84A39 terracotta warning accent) -->
+
+<!-- Application Structure Plan: The SPA reorganizes the report's interdisciplinary research into a 5-part thematic learning journey: (1) Executive Thesis & The 4-Phase Adaptive Cycle (synthesizing the report's culminating algorithm upfront so users grasp the whole system immediately), (2) Ergodicity & The Mathematics of Compounding (interactive simulation proving why consistency is a scalar multiplier that fails in non-ergodic traps), (3) Exploration vs. Exploitation (Multi-Armed Bandit & Gittins Index interactive explorer showing when to pivot vs. lock in), (4) Neurobiology & Habit Formation (interactive Corticostriatal Transfer diagram and Lally's 66-day asymptotic habit curve simulator), and (5) Pathologies, Environment Design & Recovery (Single vs. Double-loop diagnostics, Channel Factors data visualization, Implementation Intention builder, and Allostatic Load calculator). This non-linear, simulation-driven structure turns dense academic concepts into experiential mental models. -->
+
+<!-- Visualization & Content Choices: 
+1. 4-Phase Adaptive Cycle -> Goal: Organize & Synthesize -> Interactive HTML/CSS Stepper + Dynamic State Card -> Click phases to inspect neurobiology, math, and key actions -> Clarifies how exploration, design, exploitation, and recovery interlock -> Pure HTML/Tailwind/JS.
+2. Ergodicity Coin-Toss Simulator -> Goal: Change & Compare -> Multi-line Chart (Ensemble Average vs. Median & Individual Time-Average Trajectories) -> Buttons to re-roll sample trajectories and adjust rounds -> Visually proves that positive ensemble EV (+5%) still leads to ruin (~ -5.1% geometric mean) for a consistent individual -> Chart.js Canvas.
+3. Gittins Index & Bandit Explorer -> Goal: Relationships & Compare -> Bar/Line Hybrid Chart comparing Empirical Mean + Uncertainty Premium -> Slider to adjust trials/uncertainty -> Demonstrates why high uncertainty inflates the Gittins Index to justify exploration before locking into consistency -> Chart.js Canvas.
+4. Lally's Asymptotic Habit Curve -> Goal: Change & Inform -> Interactive Line Chart -> Sliders for Behavior Complexity & Missed Days toggle -> Shows the 66-day median curve (range 18-254 days) and resilience to a single missed rep -> Chart.js Canvas.
+5. Corticostriatal Transfer & Channel Factors -> Goal: Compare & Inform -> Interactive HTML/CSS Toggle Matrix (PFC/Model-Based vs. Striatum/Model-Free) + Bar Chart of Leventhal's Vaccination Study (3% vs. 28%) & Gollwitzer's Implementation Intention Effect Size -> Highlights environment design over willpower -> HTML/Tailwind + Chart.js Canvas.
+6. Double-Loop Diagnostic & If-Then Builder -> Goal: Organize & Engage -> Interactive Form & Pathology Switcher -> Users diagnose rigid traps (Sunk Cost, Survivorship Bias, Single-Loop) and generate custom Implementation Intentions -> Pure HTML/Tailwind/JS. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-3 focus:py-2 focus:rounded-md focus:bg-[#2A6F68] focus:text-white focus:text-xs focus:font-semibold">Skip to content</a>
+
+  <header class="sticky top-0 z-50 bg-[#FAF9F6]/95 backdrop-blur border-b border-[#E6E2D8]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Row 1: identity and return link -->
+      <div class="flex items-center justify-between gap-3 py-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-lg bg-[#2A6F68] text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0" aria-hidden="true">&#8734;</div>
+          <div class="min-w-0">
+            <span class="block text-[10px] font-bold uppercase tracking-widest text-[#2A6F68]">Interdisciplinary Synthesis</span>
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight truncate">The Architecture of Adaptive Consistency</h1>
+          </div>
+        </div>
+        <a href="../" class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-md bg-white border border-[#E6E2D8] text-slate-600 hover:text-slate-900 hover:border-[#C9C2B4] transition" title="Return to the D/0 Knowledge Vault">&larr; D/0 Vault</a>
+      </div>
+      <!-- Row 2: section navigation (own row) -->
+      <nav aria-label="Page sections" class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-[#E6E2D8]/80 py-2 text-xs sm:text-sm font-medium">
+        <a href="#cycle" class="nav-pill shrink-0 px-3 py-1.5 rounded-full text-slate-700 hover:bg-[#EAE6DC] transition" aria-current="true">1. 4-Phase Cycle</a>
+        <a href="#ergodicity" class="nav-pill shrink-0 px-3 py-1.5 rounded-full text-slate-700 hover:bg-[#EAE6DC] transition">2. Ergodicity Lab</a>
+        <a href="#bandits" class="nav-pill shrink-0 px-3 py-1.5 rounded-full text-slate-700 hover:bg-[#EAE6DC] transition">3. Explore vs. Exploit</a>
+        <a href="#neurobiology" class="nav-pill shrink-0 px-3 py-1.5 rounded-full text-slate-700 hover:bg-[#EAE6DC] transition">4. Neurobiology</a>
+        <a href="#design" class="nav-pill shrink-0 px-3 py-1.5 rounded-full text-slate-700 hover:bg-[#EAE6DC] transition">5. Design &amp; Recovery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-16">
+
+    <!-- HERO / THESIS OVERVIEW -->
+    <section class="glass-card rounded-2xl p-6 sm:p-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFF6F5] text-[#2A6F68] text-xs font-semibold mb-4">
+          <span>&#9670;</span> Core Thesis: Scalar Multiplier, Not Directional Vector
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
+          Consistency compounds whatever you feed it—including strategic failure.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+          Popular success narratives treat consistency as an unconditional virtue and a test of raw willpower. Synthesis across cognitive neuroscience, behavioral economics, and organizational psychology reveals a sharper truth: <strong>consistency is a phase-dependent design problem</strong>. Optimal performance requires exploring until you discover an asymmetric, positive-sum game, engineering low-friction environments to automate execution, and scheduling deliberate recovery to prevent rigid entrapment.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-[#E6E2D8]">
+        <div class="warm-panel rounded-xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#2A6F68] mb-1">Mathematics</div>
+          <div class="text-xl font-bold text-slate-900 mb-1">Non-Ergodic Time</div>
+          <p class="text-xs text-slate-600 leading-relaxed">Individuals live in sequential time, not parallel ensembles. Surviving absorbing barriers is mandatory for compounding.</p>
+        </div>
+        <div class="warm-panel rounded-xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#C87D32] mb-1">Decision Theory</div>
+          <div class="text-xl font-bold text-slate-900 mb-1">Gittins Index</div>
+          <p class="text-xs text-slate-600 leading-relaxed">High uncertainty carries an exploration premium. Lock into rigid exploitation only after uncertainty collapses.</p>
+        </div>
+        <div class="warm-panel rounded-xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#2A6F68] mb-1">Neurobiology</div>
+          <div class="text-xl font-bold text-slate-900 mb-1">66-Day Median</div>
+          <p class="text-xs text-slate-600 leading-relaxed">Action chunking shifts control from energy-expensive prefrontal cortex to automated striatal loops.</p>
+        </div>
+        <div class="warm-panel rounded-xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#B84A39] mb-1">Behavioral Design</div>
+          <div class="text-xl font-bold text-slate-900 mb-1">9.3&times; Compliance</div>
+          <p class="text-xs text-slate-600 leading-relaxed">Environmental channel factors raised vaccination action from 3% to 28% without extra persuasion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: THE 4-PHASE ADAPTIVE CONSISTENCY CYCLE -->
+    <section id="cycle" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#2A6F68]">Section 01 &bull; Unified Operating System</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-3">The 4-Phase Adaptive Consistency Cycle</h2>
+        <p class="text-slate-600 leading-relaxed">
+          Rather than treating discipline as a permanent, unchanging identity, the report models high performance as a repeating four-stage cycle. Select each phase below to examine its governing cognitive system, primary objective, and structural risks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="phase-selector">
+        <button type="button" data-phase="0" class="phase-btn active text-left p-4 rounded-xl border-2 border-[#E6E2D8] bg-white transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#C87D32]">Phase 01</span>
+            <span class="text-lg">&#129517;</span>
+          </div>
+          <div class="font-bold text-slate-900 text-base">Exploration</div>
+          <div class="text-xs text-slate-500 mt-1">Model-Based Search &amp; Variance</div>
+        </button>
+
+        <button type="button" data-phase="1" class="phase-btn text-left p-4 rounded-xl border-2 border-[#E6E2D8] bg-white transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2A6F68]">Phase 02</span>
+            <span class="text-lg">&#128736;</span>
+          </div>
+          <div class="font-bold text-slate-900 text-base">Architecture</div>
+          <div class="text-xs text-slate-500 mt-1">Channel Factors &amp; If-Then Plans</div>
+        </button>
+
+        <button type="button" data-phase="2" class="phase-btn text-left p-4 rounded-xl border-2 border-[#E6E2D8] bg-white transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2A6F68]">Phase 03</span>
+            <span class="text-lg">&#9881;</span>
+          </div>
+          <div class="font-bold text-slate-900 text-base">Exploitation</div>
+          <div class="text-xs text-slate-500 mt-1">Model-Free Striatal Chunking</div>
+        </button>
+
+        <button type="button" data-phase="3" class="phase-btn text-left p-4 rounded-xl border-2 border-[#E6E2D8] bg-white transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#B84A39]">Phase 04</span>
+            <span class="text-lg">&#128260;</span>
+          </div>
+          <div class="font-bold text-slate-900 text-base">Evaluation &amp; Recovery</div>
+          <div class="text-xs text-slate-500 mt-1">Double-Loop Audit &amp; Detachment</div>
+        </button>
+      </div>
+
+      <div id="phase-detail-card" class="glass-card rounded-2xl p-6 sm:p-8 transition-all" aria-live="polite">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 2: MATHEMATICS & PHYSICS OF CONSISTENCY -->
+    <section id="ergodicity" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#2A6F68]">Section 02 &bull; Mathematics &amp; Physics</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-3">Ergodicity Lab: Why Time Averages Govern Compounding</h2>
+        <p class="text-slate-600 leading-relaxed">
+          In Ole Peters' ergodicity economics, an <strong>ensemble average</strong> (the average outcome across millions of parallel players at once) frequently diverges from a <strong>time average</strong> (the geometric compounding experienced by a single person iterating over time). Explore the multiplicative coin-toss simulation below (+50% on heads, &minus;40% on tails) to see why consistency in a flawed structure guarantees ruin despite a positive expected value.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-8 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg">Multiplicative Coin-Toss Simulation (100% Wager)</h3>
+              <p class="text-xs text-slate-500">Heads: &times;1.50 (+50%) &bull; Tails: &times;0.60 (&minus;40%) &bull; Starting Capital: $100</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="reroll-ergodicity" type="button" class="px-3.5 py-1.5 rounded-lg bg-[#2A6F68] text-white text-xs font-semibold hover:bg-[#215852] transition cursor-pointer">
+                &#8635; Simulate New Cohort
+              </button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="ergodicityChart"></canvas>
+          </div>
+
+          <div class="warm-panel rounded-xl p-3.5 text-xs text-slate-700 leading-relaxed">
+            <strong>Key Takeaway:</strong> Across an infinite ensemble, wealth grows by <strong>+5.0% per round</strong> (<span class="font-mono">0.5&times;1.5 + 0.5&times;0.6 = 1.05</span>). Yet for a single consistent individual, the geometric time-average multiplier is <span class="font-mono">(1.5 &times; 0.6)<sup>0.5</sup> &approx; 0.9487</span> (<strong>&minus;5.13% decay per round</strong>). Consistency only compounds wealth when bet sizing (Kelly Criterion) prevents absorbing barriers.
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <h3 class="font-bold text-slate-900 text-base">Ensemble vs. Time Reality</h3>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-lg bg-[#EFF6F5] border border-[#CBE3DF]">
+                <div class="font-bold text-[#2A6F68] uppercase tracking-wider mb-0.5">Ensemble Expected Value</div>
+                <div class="text-lg font-extrabold text-slate-900" id="ensemble-final">$1,146.74</div>
+                <div class="text-slate-600 mt-0.5">Theoretical average after 50 rounds across infinite parallel universes.</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[#FDF3F1] border border-[#F2D3CD]">
+                <div class="font-bold text-[#B84A39] uppercase tracking-wider mb-0.5">Time-Average Trajectory</div>
+                <div class="text-lg font-extrabold text-slate-900" id="time-final">$7.19</div>
+                <div class="text-slate-600 mt-0.5">Deterministic geometric path experienced by a single actor over 50 rounds.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-slate-900 text-base">The Paradox of Skill</h3>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Mauboussin</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              As competitive cohorts become uniformly more skilled and consistent, the variance in skill shrinks—which paradoxically <strong>increases the relative role of luck</strong> in separating winners from runners-up.
+            </p>
+            <div class="pt-1">
+              <label for="cohort-skill-slider" class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                <span>Cohort Consistency Level</span>
+                <span id="cohort-skill-label">Elite (85%)</span>
+              </label>
+              <input id="cohort-skill-slider" type="range" min="10" max="98" value="85" class="w-full accent-[#2A6F68] cursor-pointer" />
+              <div class="mt-2 p-2.5 rounded-lg warm-panel text-xs text-slate-700" id="paradox-output">
+                At <strong>85% cohort consistency</strong>, showing up 300 days/year is merely the entry fee. Outlier outcomes are ~85% driven by timing, variance, and positioning.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: EXPLORATION VS. EXPLOITATION -->
+    <section id="bandits" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#2A6F68]">Section 03 &bull; Algorithmic Decision Theory</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-3">Exploration vs. Exploitation: The Gittins Index</h2>
+        <p class="text-slate-600 leading-relaxed">
+          When should you explore novel options versus lock into rigid consistency? Multi-Armed Bandit algorithms formalize this dilemma. John Gittins proved that optimal choice assigns an <strong>uncertainty premium</strong> to unexplored options. Adjust the exploration sampling slider below to watch how gathering data shrinks uncertainty, lowers the Gittins Index of inferior bets, and signals the optimal moment to commit.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg">Gittins Index Decomposition Across 4 Life/Career Paths</h3>
+              <p class="text-xs text-slate-500">Total Index = Known Expected Reward + Uncertainty Option Value</p>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="banditChart"></canvas>
+          </div>
+
+          <div class="pt-2 space-y-2">
+            <label for="exploration-slider" class="flex justify-between text-xs font-semibold text-slate-700">
+              <span>Exploration Trials Completed (Information Gathered)</span>
+              <span id="exploration-trials-label" class="text-[#2A6F68]">15 Trials (Early Search)</span>
+            </label>
+            <input id="exploration-slider" type="range" min="0" max="100" value="15" class="w-full accent-[#2A6F68] cursor-pointer" />
+            <p id="bandit-insight" class="text-xs text-slate-600 warm-panel p-3 rounded-xl leading-relaxed">
+              <strong>Current Recommendation:</strong> Keep exploring <em>Asymmetric Venture</em>. Even though its proven reward is lower right now, its high variance inflates its Gittins Index above the safe corporate path.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-slate-900 text-base sm:text-lg">Algorithmic Strategies for Human Behavior</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Different bandit algorithms map directly to practical life and career strategies for balancing novelty with routine.
+          </p>
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl warm-panel">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 text-sm">&epsilon;-Greedy Strategy</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-white border border-[#E2DDD2] text-slate-700">1&minus;&epsilon; Exploit / &epsilon; Explore</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Dedicate 85&ndash;90% of effort to your proven core routine while reserving 10&ndash;15% for random low-stakes experiments, side projects, or novel social environments.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl warm-panel">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 text-sm">Upper Confidence Bound (UCB)</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-white border border-[#E2DDD2] text-slate-700">Optimism in Uncertainty</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Prioritize novel opportunities specifically because their upside variance is untested. As you sample an option, its uncertainty bonus shrinks naturally.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl warm-panel">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-slate-900 text-sm">Gittins Index Policy</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-white border border-[#E2DDD2] text-slate-700">Seasonal Lock-In</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Quantifies the exact "fair tax" where learning value equals guaranteed payout—validating the strategy of exploring aggressively in seasons, then locking in completely.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: NEUROBIOLOGY OF CONSISTENCY -->
+    <section id="neurobiology" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#2A6F68]">Section 04 &bull; Cognitive Neuroscience</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-3">Neurobiology: Corticostriatal Transfer &amp; Action Chunking</h2>
+        <p class="text-slate-600 leading-relaxed">
+          Consistency feels effortless once the brain physically transfers control from the energy-hungry <strong>Prefrontal Cortex (Model-Based)</strong> to the automated <strong>Dorsolateral Striatum (Model-Free)</strong>. Ann Graybiel's research shows continuous neural firing collapses into cue-and-reward "action chunks," while Phillippa Lally's longitudinal study reveals how automaticity grows asymptotically over a median of 66 days.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Lally's Habit Curve -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg">Asymptotic Habit Automaticity Curve (Lally et al.)</h3>
+              <p class="text-xs text-slate-500">95% Automaticity Range: 18 to 254 Days &bull; Empirical Median: 66 Days</p>
+            </div>
+            <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 bg-[#F3F1EC] px-3 py-1.5 rounded-lg cursor-pointer">
+              <input id="missed-day-toggle" type="checkbox" class="accent-[#B84A39] rounded cursor-pointer" />
+              <span>Simulate Single Missed Day (Day 22)</span>
+            </label>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="habitChart"></canvas>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div>
+              <label for="habit-complexity-slider" class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                <span>Behavior Complexity</span>
+                <span id="habit-complexity-label" class="text-[#2A6F68]">Moderate (66d)</span>
+              </label>
+              <input id="habit-complexity-slider" type="range" min="18" max="254" value="66" class="w-full accent-[#2A6F68] cursor-pointer" />
+            </div>
+            <div class="warm-panel rounded-xl p-3 text-xs text-slate-700 leading-relaxed" id="habit-note">
+              <strong>Resilience Insight:</strong> Missing a single repetition creates a negligible, temporary dip and does <em>not</em> reset neural encoding, provided cumulative consistency resumes immediately.
+            </div>
+          </div>
+        </div>
+
+        <!-- Model-Based vs Model-Free Interactive Comparison -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Dual Reinforcement Systems</h3>
+            <div class="inline-flex rounded-lg bg-[#F3F1EC] p-1 text-xs font-semibold">
+              <button type="button" id="btn-mb" aria-pressed="true" class="px-2.5 py-1 rounded-md bg-white text-slate-900 shadow-sm cursor-pointer">Model-Based</button>
+              <button type="button" id="btn-mf" aria-pressed="false" class="px-2.5 py-1 rounded-md text-slate-600 cursor-pointer">Model-Free</button>
+            </div>
+          </div>
+
+          <div id="rl-system-panel" class="space-y-3">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="border-t border-[#E6E2D8] pt-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Graybiel's Action Chunking Signal</div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-lg bg-[#EFF6F5] border border-[#2A6F68]/30">
+                <div class="font-bold text-[#2A6F68]">1. Cue Trigger</div>
+                <div class="text-slate-600 mt-0.5">Spike in Striatal Firing</div>
+              </div>
+              <div class="p-2.5 rounded-lg warm-panel">
+                <div class="font-bold text-slate-700">2. Execution</div>
+                <div class="text-slate-500 mt-0.5">Neural Silence (Autopilot)</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[#EFF6F5] border border-[#2A6F68]/30">
+                <div class="font-bold text-[#2A6F68]">3. Reward</div>
+                <div class="text-slate-600 mt-0.5">Spike &amp; Loop Lock-In</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: PATHOLOGIES, ENVIRONMENT DESIGN & RECOVERY -->
+    <section id="design" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#2A6F68]">Section 05 &bull; Behavioral Engineering &amp; Safeguards</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-3">Environment Design, Pathologies &amp; Strategic Recovery</h2>
+        <p class="text-slate-600 leading-relaxed">
+          Multi-lab replication failures dismantled the "ego depletion" willpower myth: mental fatigue is an <strong>opportunity-cost signal</strong>, not an empty fuel tank. Consequently, durable consistency relies on environmental <strong>channel factors</strong>, pre-loaded <strong>implementation intentions</strong>, <strong>double-loop feedback</strong> to escape sunk-cost traps, and <strong>psychological detachment</strong> to prevent allostatic overload.
+        </p>
+      </div>
+
+      <!-- Row 1: Channel Factors Chart + Implementation Intention Builder -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Why Design Beats Motivation: Empirical Effect Sizes</h3>
+            <p class="text-xs text-slate-500">Leventhal Channel Factors (1965) &amp; Gollwitzer Implementation Intentions (94 Studies)</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="designChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 warm-panel p-3 rounded-xl leading-relaxed">
+            <strong>Evidence Summary:</strong> Fear-based persuasion changed attitudes but yielded only <strong>3%</strong> vaccination action; adding a campus map and schedule prompt (a channel factor) lifted action to <strong>28%</strong>. Similarly, "If-Then" plans produce a <strong>d = 0.65</strong> effect size by delegating initiation to environmental cues.
+          </p>
+        </div>
+
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2A6F68]">Interactive Tool</span>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Strategic Automaticity: Implementation Intention Builder</h3>
+            <p class="text-xs text-slate-600 mt-1">
+              Bridge the 66-day habit gap immediately by pre-loading bottom-up cue-action logic before willpower is tested.
+            </p>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label for="if-cue" class="block font-semibold text-slate-700 mb-1">1. Situational Cue ("IF / WHEN...")</label>
+              <input id="if-cue" type="text" value="I pour my morning coffee at 7:30 AM at my desk" class="w-full px-3 py-2 rounded-lg border border-[#D8D3C8] bg-[#FAF9F6] text-slate-900 focus:outline-none focus:border-[#2A6F68]" />
+            </div>
+            <div>
+              <label for="then-action" class="block font-semibold text-slate-700 mb-1">2. Target Behavior ("THEN I WILL...")</label>
+              <input id="then-action" type="text" value="open my manuscript and write 300 words before checking messages" class="w-full px-3 py-2 rounded-lg border border-[#D8D3C8] bg-[#FAF9F6] text-slate-900 focus:outline-none focus:border-[#2A6F68]" />
+            </div>
+            <div>
+              <label for="channel-friction" class="block font-semibold text-slate-700 mb-1">3. Channel Factor (Friction Removal)</label>
+              <input id="channel-friction" type="text" value="Leave manuscript open the night before and put phone in another room" class="w-full px-3 py-2 rounded-lg border border-[#D8D3C8] bg-[#FAF9F6] text-slate-900 focus:outline-none focus:border-[#2A6F68]" />
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#EFF6F5] border border-[#2A6F68]/30 space-y-1.5">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#2A6F68]">Compiled Cue-Action Protocol</div>
+            <p id="compiled-intention" class="text-sm font-medium text-slate-900 leading-relaxed" aria-live="polite"></p>
+            <p id="compiled-friction" class="text-xs text-slate-600"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Pathologies Diagnostic & Recovery Model -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg">Diagnostic: When Consistency Becomes Pathological</h3>
+              <p class="text-xs text-slate-500">Select a failure mode to inspect its psychological mechanism and double-loop antidote</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2" id="pathology-tabs">
+            <button type="button" data-path="0" class="path-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#B84A39] text-white cursor-pointer">1. Single-Loop Trap</button>
+            <button type="button" data-path="1" class="path-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F3F1EC] text-slate-700 cursor-pointer">2. Escalation of Commitment</button>
+            <button type="button" data-path="2" class="path-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F3F1EC] text-slate-700 cursor-pointer">3. Survivorship &amp; Selection Neglect</button>
+          </div>
+
+          <div id="pathology-content" class="warm-panel rounded-xl p-4 sm:p-5 space-y-3" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#C87D32]">Meijman, Mulder &amp; Sonnentag</span>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Allostatic Load &amp; Recovery Audit</h3>
+            <p class="text-xs text-slate-600 mt-1">
+              Treating a sprint as a permanent lifestyle accumulates catecholamines and cortisol into <strong>allostatic overload</strong>. Check the recovery experiences you actively protect:
+            </p>
+          </div>
+
+          <div class="space-y-2 text-xs" id="recovery-checklist">
+            <label class="flex items-start gap-2.5 p-2.5 rounded-lg warm-panel cursor-pointer">
+              <input type="checkbox" checked class="rec-check mt-0.5 accent-[#2A6F68] cursor-pointer" />
+              <span><strong>Psychological Detachment:</strong> Complete cognitive disengagement from work rumination during off-hours.</span>
+            </label>
+            <label class="flex items-start gap-2.5 p-2.5 rounded-lg warm-panel cursor-pointer">
+              <input type="checkbox" checked class="rec-check mt-0.5 accent-[#2A6F68] cursor-pointer" />
+              <span><strong>Low-Activation Relaxation:</strong> Down-regulating sympathetic nervous system arousal.</span>
+            </label>
+            <label class="flex items-start gap-2.5 p-2.5 rounded-lg warm-panel cursor-pointer">
+              <input type="checkbox" class="rec-check mt-0.5 accent-[#2A6F68] cursor-pointer" />
+              <span><strong>Non-Work Mastery:</strong> Engaging in challenging, novel hobbies unrelated to core career KPIs.</span>
+            </label>
+            <label class="flex items-start gap-2.5 p-2.5 rounded-lg warm-panel cursor-pointer">
+              <input type="checkbox" class="rec-check mt-0.5 accent-[#2A6F68] cursor-pointer" />
+              <span><strong>Leisure Autonomy:</strong> Sovereign control over how recovery seasons and off-hours are structured.</span>
+            </label>
+          </div>
+
+          <div id="recovery-status" class="p-3.5 rounded-xl border text-xs leading-relaxed" aria-live="polite">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#E6E2D8] bg-[#F3F1EC] py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-600">
+      <div>
+        <strong class="text-slate-900">The Architecture of Adaptive Consistency</strong> &mdash; Interactive Research Synthesis
+      </div>
+      <div>
+        Synthesizing Ergodicity Economics, Multi-Armed Bandits, Corticostriatal Neurobiology &amp; Organizational Learning.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function wrapLabel(str, maxLen) {
+      if (str.length <= maxLen) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let currentLine = '';
+      words.forEach(word => {
+        if ((currentLine + ' ' + word).trim().length <= maxLen) {
+          currentLine = (currentLine + ' ' + word).trim();
+        } else {
+          if (currentLine) lines.push(currentLine);
+          currentLine = word;
+        }
+      });
+      if (currentLine) lines.push(currentLine);
+      return lines;
+    }
+
+    const phasesData = [
+      {
+        badge: "Phase 01 • Exploration (Model-Based Search)",
+        title: "Explore Until You Locate an Asymmetric, Positive-Sum Game",
+        summary: "Deploy the Prefrontal Cortex to navigate uncertainty. Use multi-armed bandit logic—accepting short-term inefficiency and high variance—to sample environments until you find a domain where your geometric time-average growth rate is genuinely positive.",
+        neural: "Prefrontal Cortex (PFC) & Dorsomedial Striatum (DMS) running forward simulations.",
+        metric: "High Gittins Index Uncertainty Premium; deliberate variance sampling.",
+        trap: "Locking in prematurely to a negative time-average game (efficient failure)."
+      },
+      {
+        badge: "Phase 02 • Architecture (Environment & Friction Design)",
+        title: "Engineer Defaults and Pre-Load Cue-Action Logic",
+        summary: "Because willpower is an opportunity-cost signal rather than a renewable fuel tank, redesign your physical and digital environment using channel factors so the target behavior becomes the path of least resistance.",
+        neural: "Bottom-up cue-driven processing via Gollwitzer's Implementation Intentions (d = 0.65).",
+        metric: "Friction reduction & environmental triggers (up to 9.3x compliance boost).",
+        trap: "Relying on daily motivation or high-effort moral discipline to initiate action."
+      },
+      {
+        badge: "Phase 03 • Exploitation (Model-Free Consistency)",
+        title: "Execute Routines Until the Basal Ganglia Chunks the Sequence",
+        summary: "Repeat the validated behavior consistently across stable cues until neural control transfers to the dorsolateral striatum. Once chunked, execution requires minimal glucose and compounds exponentially across time.",
+        neural: "Dorsolateral Striatum (DLS) action chunking; continuous firing collapses into cue/reward brackets.",
+        metric: "Asymptotic automaticity curve reaching 95% plateau around a 66-day median.",
+        trap: "Treating a single missed day as total failure or abandoning a winning compounding loop too early."
+      },
+      {
+        badge: "Phase 04 • Evaluation & Recovery (Double-Loop Learning)",
+        title: "Detach to Prevent Allostatic Overload & Re-Interrogate Strategy",
+        summary: "Periodically sever the routine to achieve true psychological detachment, replenishing neurochemical baselines. Simultaneously apply double-loop learning to question whether your underlying goals still match reality.",
+        neural: "HPA-axis cortisol recovery & restoration of PFC executive oversight over rigid striatal habits.",
+        metric: "Low Need for Recovery (NfR); dynamic capability to pivot when environments shift.",
+        trap: "Chronic rumination (allostatic overload) or sunk-cost escalation in an obsolete strategy."
+      }
+    ];
+
+    const phaseButtons = document.querySelectorAll('.phase-btn');
+    const phaseDetailCard = document.getElementById('phase-detail-card');
+
+    function renderPhase(idx) {
+      const p = phasesData[idx];
+      phaseButtons.forEach((btn, i) => {
+        const isActive = i === idx;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      phaseDetailCard.innerHTML = `
+        <div class="space-y-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2A6F68]">${p.badge}</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">${p.title}</h3>
+          </div>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed">${p.summary}</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div class="warm-panel rounded-xl p-4">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Neural Substrate</div>
+              <div class="text-xs sm:text-sm font-medium text-slate-800">${p.neural}</div>
+            </div>
+            <div class="warm-panel rounded-xl p-4">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#2A6F68] mb-1">Key Mechanism</div>
+              <div class="text-xs sm:text-sm font-medium text-slate-800">${p.metric}</div>
+            </div>
+            <div class="rounded-xl p-4 bg-[#FDF3F1] border border-[#F2D3CD]">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#B84A39] mb-1">Primary Failure Mode</div>
+              <div class="text-xs sm:text-sm font-medium text-slate-800">${p.trap}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    phaseButtons.forEach(btn => {
+      btn.addEventListener('click', () => renderPhase(parseInt(btn.dataset.phase, 10)));
+    });
+    renderPhase(0);
+
+    // SECTION 2: ERGODICITY CHART
+    const ergodicityCtx = document.getElementById('ergodicityChart').getContext('2d');
+    let ergodicityChart;
+
+    function generateErgodicityData() {
+      const rounds = 50;
+      const labels = Array.from({ length: rounds + 1 }, (_, i) => `R${i}`);
+      const ensemble = [100];
+      const timeAvg = [100];
+      const sim1 = [100];
+      const sim2 = [100];
+      // Keep significant digits instead of fixed 2-decimals: rounding tiny
+      // post-crash balances to 0 breaks the logarithmic y-axis.
+      const precise = v => +v.toPrecision(6);
+
+      for (let t = 1; t <= rounds; t++) {
+        ensemble.push(+(ensemble[t - 1] * 1.05).toFixed(2));
+        timeAvg.push(+(timeAvg[t - 1] * Math.sqrt(1.5 * 0.6)).toFixed(2));
+        sim1.push(precise(sim1[t - 1] * (Math.random() < 0.5 ? 1.5 : 0.6)));
+        sim2.push(precise(sim2[t - 1] * (Math.random() < 0.5 ? 1.5 : 0.6)));
+      }
+
+      document.getElementById('ensemble-final').textContent = `$${ensemble[rounds].toLocaleString()}`;
+      document.getElementById('time-final').textContent = `$${timeAvg[rounds].toFixed(2)}`;
+
+      return { labels, ensemble, timeAvg, sim1, sim2 };
+    }
+
+    const formatMoney = v => {
+      if (v >= 100) return `$${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+      if (v >= 1) return `$${v.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+      return `$${v.toPrecision(3)}`;
+    };
+
+    function initErgodicityChart() {
+      const data = generateErgodicityData();
+      ergodicityChart = new Chart(ergodicityCtx, {
+        type: 'line',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Ensemble Average (+5%/rd)',
+              data: data.ensemble,
+              borderColor: '#2A6F68',
+              backgroundColor: 'rgba(42, 111, 104, 0.08)',
+              borderWidth: 2.5,
+              pointRadius: 0,
+              tension: 0.2
+            },
+            {
+              label: 'Time Average (-5.1%/rd)',
+              data: data.timeAvg,
+              borderColor: '#B84A39',
+              borderWidth: 2.5,
+              borderDash: [6, 4],
+              pointRadius: 0,
+              tension: 0.2
+            },
+            {
+              label: 'Individual Actor A',
+              data: data.sim1,
+              borderColor: '#C87D32',
+              borderWidth: 1.5,
+              pointRadius: 0,
+              tension: 0.1
+            },
+            {
+              label: 'Individual Actor B',
+              data: data.sim2,
+              borderColor: '#64748B',
+              borderWidth: 1.5,
+              pointRadius: 0,
+              tension: 0.1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+            tooltip: {
+              callbacks: {
+                label: ctx => `${ctx.dataset.label}: ${formatMoney(ctx.parsed.y)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              type: 'logarithmic',
+              title: { display: true, text: 'Wealth ($ Log Scale)', font: { size: 11 } },
+              grid: { color: '#EFECE6' }
+            },
+            x: {
+              ticks: { maxTicksLimit: 10, font: { size: 10 } },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    initErgodicityChart();
+
+    document.getElementById('reroll-ergodicity').addEventListener('click', () => {
+      const fresh = generateErgodicityData();
+      ergodicityChart.data.datasets[2].data = fresh.sim1;
+      ergodicityChart.data.datasets[3].data = fresh.sim2;
+      ergodicityChart.update();
+    });
+
+    const skillSlider = document.getElementById('cohort-skill-slider');
+    skillSlider.addEventListener('input', () => {
+      const val = parseInt(skillSlider.value, 10);
+      document.getElementById('cohort-skill-label').textContent = `${val >= 80 ? 'Elite' : val >= 50 ? 'Competitive' : 'Amateur'} (${val}%)`;
+      document.getElementById('paradox-output').innerHTML = `At <strong>${val}% cohort consistency</strong>, showing up daily is ${val >= 75 ? 'merely the baseline entry fee' : 'a major differentiator'}. Outlier outcomes are ~<strong>${val}%</strong> driven by timing, variance, and strategic positioning.`;
+    });
+
+    // SECTION 3: GITTINS INDEX BANDIT CHART
+    const banditCtx = document.getElementById('banditChart').getContext('2d');
+    const banditLabels = [
+      wrapLabel('Familiar Stable Role', 16),
+      wrapLabel('Asymmetric New Venture', 16),
+      wrapLabel('Creative Deep Craft', 16),
+      wrapLabel('Low-Yield Distraction', 16)
+    ];
+
+    function calcBanditValues(trials) {
+      const decay = Math.exp(-trials / 32);
+      const known = [62, 46 + (1 - decay) * 34, 54 + (1 - decay) * 16, 30];
+      const uncertainty = [
+        +(8 * decay).toFixed(1),
+        +(48 * decay).toFixed(1),
+        +(28 * decay).toFixed(1),
+        +(14 * decay).toFixed(1)
+      ];
+      return {
+        known: known.map(v => +v.toFixed(1)),
+        uncertainty
+      };
+    }
+
+    const initialBandit = calcBanditValues(15);
+    const banditChart = new Chart(banditCtx, {
+      type: 'bar',
+      data: {
+        labels: banditLabels,
+        datasets: [
+          {
+            label: 'Empirical Expected Reward',
+            data: initialBandit.known,
+            backgroundColor: '#2A6F68',
+            borderRadius: 4
+          },
+          {
+            label: 'Uncertainty Option Premium (Gittins)',
+            data: initialBandit.uncertainty,
+            backgroundColor: '#C87D32',
+            borderRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              footer: items => {
+                const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
+                return `Total Gittins Index: ${total.toFixed(1)}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } },
+          y: {
+            stacked: true,
+            max: 110,
+            title: { display: true, text: 'Gittins Index Score', font: { size: 11 } },
+            grid: { color: '#EFECE6' }
+          }
+        }
+      }
+    });
+
+    const explorationSlider = document.getElementById('exploration-slider');
+    explorationSlider.addEventListener('input', () => {
+      const t = parseInt(explorationSlider.value, 10);
+      const vals = calcBanditValues(t);
+      banditChart.data.datasets[0].data = vals.known;
+      banditChart.data.datasets[1].data = vals.uncertainty;
+      banditChart.update();
+
+      const labelEl = document.getElementById('exploration-trials-label');
+      const insightEl = document.getElementById('bandit-insight');
+      if (t < 30) {
+        labelEl.textContent = `${t} Trials (Early Exploration)`;
+        insightEl.innerHTML = `<strong>Current Recommendation:</strong> Keep exploring <em>Asymmetric New Venture</em>. High uncertainty inflates its Gittins Index above the familiar stable role.`;
+      } else if (t < 70) {
+        labelEl.textContent = `${t} Trials (Signal Convergence)`;
+        insightEl.innerHTML = `<strong>Current Recommendation:</strong> Uncertainty is shrinking as evidence accumulates. Begin reducing random sampling and preparing environmental defaults for your top option.`;
+      } else {
+        labelEl.textContent = `${t} Trials (Exploitation Lock-In)`;
+        insightEl.innerHTML = `<strong>Current Recommendation:</strong> Uncertainty has collapsed. Transition into <strong>boringly consistent exploitation</strong> on the proven highest-yield path.`;
+      }
+    });
+
+    // SECTION 4: HABIT AUTOMATICITY CURVE
+    const habitCtx = document.getElementById('habitChart').getContext('2d');
+
+    function buildHabitSeries(daysTo95, missedDay) {
+      // Stretch the timeline for long-habit choices so the plateau is visible
+      // instead of clipping the curve at a fixed 140 days.
+      const totalDays = Math.max(140, Math.ceil((daysTo95 + 20) / 10) * 10);
+      const step = totalDays > 200 ? 5 : 2;
+      const labels = [];
+      const values = [];
+      const k = -Math.log(0.05) / daysTo95;
+
+      for (let d = 0; d <= totalDays; d += step) {
+        labels.push(`Day ${d}`);
+        let auto = 100 * (1 - Math.exp(-k * d));
+        if (missedDay && d >= 22) {
+          const penalty = 5.5 * Math.exp(-(d - 22) / 14);
+          auto = Math.max(0, auto - penalty);
+        }
+        values.push(+auto.toFixed(1));
+      }
+      return { labels, values };
+    }
+
+    const initHabit = buildHabitSeries(66, false);
+    const habitChart = new Chart(habitCtx, {
+      type: 'line',
+      data: {
+        labels: initHabit.labels,
+        datasets: [
+          {
+            label: 'Behavioral Automaticity (%)',
+            data: initHabit.values,
+            borderColor: '#2A6F68',
+            backgroundColor: 'rgba(42, 111, 104, 0.12)',
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 0,
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => `Automaticity: ${ctx.parsed.y}%`
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            title: { display: true, text: 'Automaticity (%)', font: { size: 11 } },
+            grid: { color: '#EFECE6' }
+          },
+          x: {
+            ticks: { maxTicksLimit: 8, font: { size: 10 } },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    const complexitySlider = document.getElementById('habit-complexity-slider');
+    const missedToggle = document.getElementById('missed-day-toggle');
+
+    function updateHabitChart() {
+      const targetDays = parseInt(complexitySlider.value, 10);
+      const missed = missedToggle.checked;
+      const tier = targetDays <= 35 ? 'Simple Cue' : targetDays <= 90 ? 'Moderate' : 'High Friction';
+      document.getElementById('habit-complexity-label').textContent = `${tier} (${targetDays}d)`;
+
+      const updated = buildHabitSeries(targetDays, missed);
+      habitChart.data.labels = updated.labels;
+      habitChart.data.datasets[0].data = updated.values;
+      habitChart.update();
+    }
+
+    complexitySlider.addEventListener('input', updateHabitChart);
+    missedToggle.addEventListener('change', updateHabitChart);
+
+    // Model-Based vs Model-Free Toggle
+    const rlSystems = {
+      mb: {
+        title: "Model-Based System (Prefrontal Cortex & DMS)",
+        role: "Ideal for Phase 1 Exploration & Phase 4 Strategic Pivots",
+        rows: [
+          ["Metabolic Cost", "Extremely high glucose & working-memory demand"],
+          ["Mechanism", "Builds cognitive map & simulates future decision trees"],
+          ["Flexibility", "Adapts instantaneously when goals or rewards change"],
+          ["Stress Response", "Degrades rapidly under fatigue or acute stress"]
+        ]
+      },
+      mf: {
+        title: "Model-Free System (Basal Ganglia & DLS)",
+        role: "Ideal for Phase 3 High-Frequency Exploitation",
+        rows: [
+          ["Metabolic Cost", "Hyper-efficient, low-energy automated execution"],
+          ["Mechanism", "Caches dopamine reward prediction errors into chunks"],
+          ["Flexibility", "Structurally rigid; persists even if reward is devalued"],
+          ["Stress Response", "Entrenches further—habits take over under stress"]
+        ]
+      }
+    };
+
+    const btnMb = document.getElementById('btn-mb');
+    const btnMf = document.getElementById('btn-mf');
+    const rlPanel = document.getElementById('rl-system-panel');
+
+    function renderRlSystem(type) {
+      const sys = rlSystems[type];
+      btnMb.className = type === 'mb'
+        ? 'px-2.5 py-1 rounded-md bg-white text-slate-900 shadow-sm cursor-pointer'
+        : 'px-2.5 py-1 rounded-md text-slate-600 cursor-pointer';
+      btnMf.className = type === 'mf'
+        ? 'px-2.5 py-1 rounded-md bg-white text-slate-900 shadow-sm cursor-pointer'
+        : 'px-2.5 py-1 rounded-md text-slate-600 cursor-pointer';
+      btnMb.setAttribute('aria-pressed', type === 'mb' ? 'true' : 'false');
+      btnMf.setAttribute('aria-pressed', type === 'mf' ? 'true' : 'false');
+
+      rlPanel.innerHTML = `
+        <div class="p-3 rounded-xl bg-[#EFF6F5] border border-[#CBE3DF]">
+          <div class="font-bold text-slate-900 text-sm">${sys.title}</div>
+          <div class="text-xs text-[#2A6F68] font-medium mt-0.5">${sys.role}</div>
+        </div>
+        <div class="space-y-2 text-xs">
+          ${sys.rows.map(([k, v]) => `
+            <div class="flex justify-between gap-3 p-2.5 rounded-lg warm-panel">
+              <span class="font-bold text-slate-700 shrink-0">${k}</span>
+              <span class="text-slate-600 text-right">${v}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    btnMb.addEventListener('click', () => renderRlSystem('mb'));
+    btnMf.addEventListener('click', () => renderRlSystem('mf'));
+    renderRlSystem('mb');
+
+    // SECTION 5: CHANNEL FACTORS CHART
+    const designCtx = document.getElementById('designChart').getContext('2d');
+    new Chart(designCtx, {
+      type: 'bar',
+      data: {
+        labels: [
+          wrapLabel('Fear Persuasion Only (Leventhal)', 18),
+          wrapLabel('Persuasion + Map & Schedule Cue', 18),
+          wrapLabel('Standard Goal Intention', 18),
+          wrapLabel('If-Then Implementation Plan', 18)
+        ],
+        datasets: [
+          {
+            label: 'Behavioral Action / Attainment Rate (%)',
+            data: [3, 28, 36, 62],
+            backgroundColor: ['#94A3B8', '#2A6F68', '#94A3B8', '#C87D32'],
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => `Action / Attainment Rate: ${ctx.parsed.y}%`
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 75,
+            title: { display: true, text: 'Action Rate (%)', font: { size: 11 } },
+            grid: { color: '#EFECE6' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 10 } }
+          }
+        }
+      }
+    });
+
+    // Implementation Intention Live Compiler
+    const ifInput = document.getElementById('if-cue');
+    const thenInput = document.getElementById('then-action');
+    const frictionInput = document.getElementById('channel-friction');
+
+    function updateIntention() {
+      const cue = ifInput.value.trim() || '[specified cue occurs]';
+      const act = thenInput.value.trim() || '[initiate target behavior]';
+      const fric = frictionInput.value.trim() || '[pre-configured environment]';
+      document.getElementById('compiled-intention').innerHTML = `&#8220;<strong>IF</strong> ${cue}, <strong>THEN</strong> I will ${act}.&#8221;`;
+      document.getElementById('compiled-friction').innerHTML = `<strong>Channel Factor Default:</strong> ${fric}`;
+    }
+
+    [ifInput, thenInput, frictionInput].forEach(el => el.addEventListener('input', updateIntention));
+    updateIntention();
+
+    // Pathologies Interactive Diagnostic
+    const pathologies = [
+      {
+        title: "Single-Loop Learning Trap (Chris Argyris)",
+        symptom: "Optimizing tactical execution ('Are we doing things right?') while never questioning flawed governing assumptions ('Are we doing the right things?').",
+        example: "Spending five years consistently polishing a software product nobody wants with exceptional daily discipline.",
+        antidote: "Schedule quarterly Double-Loop Audits to challenge core goals, metrics, and market hypotheses before continuing execution."
+      },
+      {
+        title: "Escalation of Commitment & Sunk Cost Entrapment (Barry Staw)",
+        symptom: "Doubling down on a failing strategy to protect ego, reduce cognitive dissonance, and avoid admitting an initial mistake.",
+        example: "Continuing to pour capital and hours into a negative-yield project solely because you personally initiated it.",
+        antidote: "Use pre-committed 'kill criteria' and view decisions from an outsider's perspective without prior sunk-cost attachment."
+      },
+      {
+        title: "Survivorship Bias & Selection Neglect (Jerker Denrell)",
+        symptom: "Observing only visible winners (e.g., billionaire interviews) while ignoring the thousands who executed identical habits and failed.",
+        example: "Assuming daily routine alone caused an outlier outcome while discounting timing, variance, and asymmetric positioning.",
+        antidote: "Study base rates and failure cohorts alongside survivors; focus consistency on controllable positive-expectancy processes."
+      }
+    ];
+
+    const pathBtns = document.querySelectorAll('.path-btn');
+    const pathContent = document.getElementById('pathology-content');
+
+    function renderPathology(idx) {
+      const item = pathologies[idx];
+      pathBtns.forEach((btn, i) => {
+        const isActive = i === idx;
+        btn.className = isActive
+          ? 'path-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#B84A39] text-white cursor-pointer'
+          : 'path-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#F3F1EC] text-slate-700 cursor-pointer';
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      pathContent.innerHTML = `
+        <div class="font-bold text-slate-900 text-base">${item.title}</div>
+        <div class="text-xs text-slate-700 leading-relaxed"><strong>Mechanism:</strong> ${item.symptom}</div>
+        <div class="text-xs text-slate-600 leading-relaxed"><strong>Concrete Example:</strong> ${item.example}</div>
+        <div class="p-3 rounded-lg bg-[#EFF6F5] border border-[#CBE3DF] text-xs text-slate-800 leading-relaxed">
+          <strong class="text-[#2A6F68]">Double-Loop Antidote:</strong> ${item.antidote}
+        </div>
+      `;
+    }
+
+    pathBtns.forEach(btn => {
+      btn.addEventListener('click', () => renderPathology(parseInt(btn.dataset.path, 10)));
+    });
+    renderPathology(0);
+
+    // Recovery Checklist Audit
+    const recChecks = document.querySelectorAll('.rec-check');
+    const recStatus = document.getElementById('recovery-status');
+
+    function updateRecoveryStatus() {
+      const checkedCount = Array.from(recChecks).filter(c => c.checked).length;
+      if (checkedCount <= 1) {
+        recStatus.className = 'p-3.5 rounded-xl border border-[#F2D3CD] bg-[#FDF3F1] text-xs text-slate-800 leading-relaxed';
+        recStatus.innerHTML = `<strong>High Allostatic Overload Risk (${checkedCount}/4 Protected):</strong> Persistent cortisol/catecholamine elevation without psychological detachment will erode executive function and collapse consistency.`;
+      } else if (checkedCount <= 3) {
+        recStatus.className = 'p-3.5 rounded-xl border border-amber-200 bg-amber-50 text-xs text-slate-800 leading-relaxed';
+        recStatus.innerHTML = `<strong>Moderate Resilience (${checkedCount}/4 Protected):</strong> Solid baseline recovery, though adding non-work mastery or sovereign leisure seasons will further buffer against burnout.`;
+      } else {
+        recStatus.className = 'p-3.5 rounded-xl border border-[#CBE3DF] bg-[#EFF6F5] text-xs text-slate-800 leading-relaxed';
+        recStatus.innerHTML = `<strong>Optimal Effort-Recovery Balance (4/4 Protected):</strong> Seasonal disengagement and full detachment restore neural resources for sustained multi-year exploitation.`;
+      }
+    }
+
+    recChecks.forEach(c => c.addEventListener('change', updateRecoveryStatus));
+    updateRecoveryStatus();
+
+    // NAV SCROLL-SPY: keep the pill row in sync with the section in view
+    const navPills = Array.from(document.querySelectorAll('.nav-pill'));
+    const navSections = navPills
+      .map(pill => document.querySelector(pill.getAttribute('href')))
+      .filter(Boolean);
+
+    function setActiveNav(id) {
+      navPills.forEach(pill => {
+        const isActive = pill.getAttribute('href') === `#${id}`;
+        pill.classList.toggle('active', isActive);
+        if (isActive) {
+          pill.setAttribute('aria-current', 'true');
+        } else {
+          pill.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function updateActiveNav() {
+      if (!navSections.length) return;
+      const headerOffset = 150;
+      let current = navSections[0];
+
+      navSections.forEach(section => {
+        if (section.getBoundingClientRect().top <= headerOffset) current = section;
+      });
+
+      // At the very bottom of the page, highlight the final section.
+      const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
+      if (atBottom) current = navSections[navSections.length - 1];
+
+      setActiveNav(current.id);
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    window.addEventListener('resize', updateActiveNav);
+    updateActiveNav();
+  </script>
+</body>
+</html>

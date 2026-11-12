@@ -23,6 +23,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Comfortable Complacency Paradox](https://krishnakanthb13.github.io/D/0/comfortable_complacency_paradox/) — The Chasm of Comfortable Complacency
 		- [Confidence & Competence](https://krishnakanthb13.github.io/D/0/confidence_n_competence/) - The Metacognitive Paradox
 		- [Connection Guilt](https://krishnakanthb13.github.io/D/0/connection_guilt/) - The Trajectory of Relational Recovery
+		- [Consistency & Success](https://krishnakanthb13.github.io/D/0/consistency_n_success/) — The Architecture of Adaptive Consistency
 		- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/) — The Architecture of the Isolated Self
 		- [Dopamine vs. Discipline](https://krishnakanthb13.github.io/D/0/dopamine_vs_discipline/) — The Neurobiology of Goal Pursuit
 		- [Effort Paradox](https://krishnakanthb13.github.io/D/0/effort_paradox/) — The Rationalist Fallacy in Human Bonding
@@ -232,6 +233,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Connection Guilt](https://krishnakanthb13.github.io/D/0/connection_guilt/): The Trajectory of Relational Recovery — why the drive to connect swings between absolute withdrawal and boundaryless enmeshment before resolving into earned secure attachment, traced through polyvagal biology, Control-Mastery guilt typologies, ACT/CFT and Chennai's collectivist family system.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/connection_guilt/): Three-stage recovery simulator, polyvagal activation chart, CMT guilt-typology radar, Porges-vs-Grossman debate accordion, ACT/CFT/CMT therapy tabs, filterable Chennai resource directory & boundary-defusion practice tool.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/connection_guilt/readme.md): Long-form research essay with 97 cited sources.
+	- [Consistency & Success](https://krishnakanthb13.github.io/D/0/consistency_n_success/): The Architecture of Adaptive Consistency — why consistency is a scalar multiplier rather than a directional vector, and why optimal performance is a phase-dependent design problem spanning ergodicity, bandit exploration, striatal chunking, environment design and strategic recovery.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/consistency_n_success/): 4-phase adaptive-cycle stepper, ergodicity coin-toss simulator, Gittins Index bandit explorer, Lally habit-curve lab, model-based/model-free switcher, implementation-intention compiler, pathology diagnostic & allostatic-load recovery audit.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/consistency_n_success/readme.md): Long-form research essay with 93 cited sources.
 	- [Counter-Dependency Paradox](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): The Architecture of the Isolated Self — why compulsive self-reliance is a developmental flight from intimacy, not strength.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/): Weinhold stage explorer, pursuer-distancer loop simulator, diagnostic matrices, polyvagal explorer, somatic map & dependency-paradox chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/counter_dependency_paradox/readme.md): Long-form research essay with 63 cited sources.
