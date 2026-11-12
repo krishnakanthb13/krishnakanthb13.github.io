@@ -365,4 +365,12 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Genius vs. 1 Idiot](./win_genius_vs_1_idiot/)
+**The Architecture of Irrationality** — why a room of Bayesian, self-correcting experts is easier to persuade than one doxastically closed ego. Reads Bonhoeffer's 1943 sociology of stupidity and Cipolla's four-quadrant behavioral matrix against Dunning–Kruger, dysrationalia and cognitive miserliness, then measures Brandolini's bullshit asymmetry with the MIT virality data and the AI "slopaganda" multiplier—before dismantling the backfire-effect myth and rebuilding a toolkit from Street Epistemology, the Fact Sandwich and psychological inoculation.
+
+- 📝 [The Full Report](./win_genius_vs_1_idiot/readme.md) — the long-form essay with 108 cited sources. (`readme.md`)
+- ⚖️ [Interactive Infographic](./win_genius_vs_1_idiot/index.html) — the complete warm-alabaster & teal interactive page: four-module portal with a clickable Cipolla quadrant chart, Dunning–Kruger 1999 vs. 2020 toggle, three-question Cognitive Reflection Test with live scoring and reset, MIT truth-vs-falsehood virality chart, Brandolini asymmetry case simulator, backfire-effect replication chart, and Street Epistemology / Fact Sandwich / prebunking playbooks. (`index.html`)
+
+---
+
 *More folders will be added here as they're earned. Each new topic gets the same treatment: an essay, an interactive page, and a link in this index.*

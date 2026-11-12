@@ -51,8 +51,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Sunk Cost Fallacy](https://krishnakanthb13.github.io/D/0/sunk_cost_fallacy/) — The Psychology and Economics of Sunk Costs
 		- [Time & Employment Dynamics](https://krishnakanthb13.github.io/D/0/time_n_employment_dynamics/) — The Market for Time
 		- [Winning & Losing](https://krishnakanthb13.github.io/D/0/winning_n_losing/) — The Architecture of Defeat
+		- [Genius vs. 1 Idiot](https://krishnakanthb13.github.io/D/0/win_genius_vs_1_idiot/) — The Architecture of Irrationality
 	- **1**: [TechXConf 2026 — AI, Cloud & Data Conference](https://krishnakanthb13.github.io/D/1/techxconf26/) — single-file event page: agenda, themes, speakers & venue (tickets closed)
-		- [CDC50 — Confluence](https://krishnakanthb13.github.io/D/1/cdc50-confluence/) — Chennai Data Circle's 50th event: 14 Nov 2026 at Ford GTBC, Chennai. Countdown, agenda, partners, venue & registration.
+		- [CDC50 — Confluence](https://krishnakanthb13.github.io/D/1/cdc50-confluence/) — Chennai Data Circle's 50th event: 14 Nov 2026 at Ford GTBC, Chennai. Countdown, agenda, partners, venue & registration..
 - **F**: [Anki Flashcards Repo](https://krishnakanthb13.github.io/F/)
 - **H**: [Personal Horoscope Data](https://krishnakanthb13.github.io/H/)
 - **L**: [Charm School & Flirt Engine](https://krishnakanthb13.github.io/L/) — AI-powered conversation coaching tools ([details](https://github.com/krishnakanthb13/krishnakanthb13.github.io/blob/master/L/README.md))
@@ -319,6 +320,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Winning & Losing](https://krishnakanthb13.github.io/D/0/winning_n_losing/): The Architecture of Defeat — why a comic strip about a boy predestined to fail became a fifty-year philosophical monument, read through Camus, Sartre, Seneca, Umberto Eco and Robert L. Short.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/winning_n_losing/): Four-section newsprint monograph with a 1969 dialogue & dirt tic-tac-toe scene simulator, "wisdom vs. victory" Chart.js arc, character-archetype radar, three-lens motif decoder, biography milestone explorer, 2007 Michaelis debate toggle & essential-tremor "seismograph of the soul" chart.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/winning_n_losing/readme.md): Long-form research essay with 53 cited sources.
+	- [Genius vs. 1 Idiot](https://krishnakanthb13.github.io/D/0/win_genius_vs_1_idiot/): The Architecture of Irrationality — why a room of Bayesian, self-correcting experts is easier to persuade than one doxastically closed ego, read through Bonhoeffer's sociology of stupidity, Cipolla's four-quadrant matrix, Dunning-Kruger and Brandolini's bullshit asymmetry.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/win_genius_vs_1_idiot/): Four-module warm-alabaster portal with a clickable Cipolla quadrant chart, Dunning-Kruger 1999 vs. 2020 toggle, Cognitive Reflection Test, MIT truth-vs-falsehood virality chart, asymmetry case simulator, backfire-effect replication chart & three intervention playbooks.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/win_genius_vs_1_idiot/readme.md): Long-form research essay with 108 cited sources.
 
 ---
 

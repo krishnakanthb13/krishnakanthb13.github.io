@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Why it is easier to debate 100 geniuses than one idiot: an interactive report on Cipolla's archetypes, Bonhoeffer's stupidity, Dunning-Kruger, Brandolini's law, AI slopaganda, and evidence-based debunking.">
+    <title>The Architecture of Irrationality &amp; the Asymmetry of Discourse</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #1E293B;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 340px;
+            }
+        }
+        .tab-active {
+            border-bottom: 2px solid #0F766E;
+            color: #0F766E;
+            font-weight: 600;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -9px;
+            height: 2px;
+            border-radius: 2px;
+            background-color: transparent;
+            transition: background-color 0.2s ease;
+        }
+        .nav-link.is-active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+        .nav-link.is-active::after {
+            background-color: #0F766E;
+        }
+        .card-warm {
+            background-color: #FFFFFF;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+        }
+        :focus-visible {
+            outline: 2px solid #0F766E;
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-3 focus:py-2 focus:rounded focus:bg-teal-700 focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+<!-- Chosen Palette: Warm Alabaster & Stone Neutrals (#FAF8F5 background, #FFFFFF cards, #E7E5E4 borders) paired with Deep Slate text (#1E293B), Calm Teal (#0F766E) for rational/epistemological frameworks, and Muted Amber/Terracotta (#B45309) for cognitive traps and asymmetry metrics. -->
+
+<!-- Application Structure Plan: The SPA is organized into four thematic, progressive modules rather than mirroring the linear academic report: (1) Societal & Moral Paradigms (framing the Genius vs. Idiot divide through Bonhoeffer and Cipolla's economic matrix), (2) Cognitive Mechanics of the Closed Mind (exploring Dunning-Kruger, Dysrationalia, and an interactive Cognitive Reflection Test), (3) Brandolini's Law & Digital Virality (quantifying the energy asymmetry of misinformation and AI slopaganda), and (4) Evidence-Based Interventions (debunking the Backfire Effect and providing interactive tools for the Fact Sandwich, Street Epistemology, and Inoculation). This task-oriented architecture moves the user from diagnosis to structural dynamics and finally to actionable communication strategies. -->
+
+<!-- Visualization & Content Choices: 1. Cipolla's 4 Archetypes -> Goal: Organize/Compare -> Interactive Scatter/Bubble Quadrant Chart (Chart.js Canvas) + clickable archetype cards -> Allows users to map self-gain vs. social-gain visually. 2. Dunning-Kruger Curve -> Goal: Compare/Inform -> Interactive Line Chart (Chart.js Canvas) with toggle between Metacognitive Deficit (1999) and Statistical Artifact (2020) -> Teaches psychometric nuance dynamically. 3. Cognitive Reflection Test -> Goal: Engage/Inform -> Interactive 3-question JS quiz -> Lets users experience System 1 vs. System 2 cognitive miserliness firsthand. 4. Brandolini's Law & MIT Virality -> Goal: Compare/Change -> Interactive Bar Chart (Chart.js Canvas) comparing creation vs. debunking effort and truth vs. falsehood diffusion -> Quantifies energy asymmetry. 5. Backfire Effect Replication -> Goal: Inform -> Horizontal Bar Chart (Chart.js Canvas) showing Wood & Porter's 10,100-subject findings -> Replaces fear of correction with empirical confidence. 6. Strategic Playbooks -> Goal: Organize -> Interactive Fact Sandwich generator & Street Epistemology stepper -> Translates theory into practice. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: identity and return link -->
+            <div class="flex items-center justify-between gap-3 py-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <a href="../" class="flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded bg-white border border-stone-300 text-stone-600 hover:text-teal-700 hover:border-teal-400 transition-colors" title="Return to the Knowledge Vault">← Vault</a>
+                    <span class="text-xl" aria-hidden="true">⚖️</span>
+                    <span class="font-bold text-stone-800 tracking-tight text-sm sm:text-base truncate">Asymmetry of Discourse</span>
+                </div>
+                <a href="./readme.md" class="flex-shrink-0 text-xs font-semibold text-teal-800 hover:text-teal-600 transition-colors">Full Report ↗</a>
+            </div>
+            <!-- Row 2: section navigation -->
+            <nav id="section-nav" class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-t border-stone-200 py-2.5 text-sm font-medium text-stone-600" aria-label="Page sections">
+                <a href="#paradigms" class="nav-link flex-shrink-0 hover:text-teal-700">1. Societal Matrix</a>
+                <a href="#cognition" class="nav-link flex-shrink-0 hover:text-teal-700">2. Closed Mind</a>
+                <a href="#brandolini" class="nav-link flex-shrink-0 hover:text-teal-700">3. Brandolini's Law</a>
+                <a href="#interventions" class="nav-link flex-shrink-0 hover:text-teal-700">4. Interventions</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+
+        <section class="card-warm rounded-2xl p-6 sm:p-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold mb-4">
+                    <span>EPISTEMOLOGICAL ANALYSIS</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight leading-tight mb-4">
+                    Why It Is Easier to Debate 100 Geniuses Than One Idiot
+                </h1>
+                <p class="text-base sm:text-lg text-stone-600 leading-relaxed mb-6">
+                    This interactive report synthesizes historical sociology, cognitive psychology, and network data science to explain why rational arguments fail against dogmatic certainty—and how to strategically navigate modern information asymmetry.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-stone-100">
+                <div class="bg-teal-50/60 border border-teal-200/80 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-teal-900 text-base">🧠 The Genius Mindset (Truth-Seeking)</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 bg-teal-100 text-teal-800 rounded">Bayesian Updating</span>
+                    </div>
+                    <ul class="text-sm text-stone-700 space-y-2 mt-3">
+                        <li><strong>• Epistemological Humility:</strong> Frequently says <em>"it depends"</em> and calibrates confidence to evidence.</li>
+                        <li><strong>• Reframing Error:</strong> Being proven wrong is experienced as acquiring new knowledge, not a personal defeat.</li>
+                        <li><strong>• Actively Open-Minded Thinking (AOT):</strong> Actively searches for counter-evidence to avoid blind spots.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-amber-50/60 border border-amber-200/80 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-amber-900 text-base">🛡️ The Idiot Mindset (Ego-Preservation)</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 bg-amber-100 text-amber-800 rounded">Doxastic Closure</span>
+                    </div>
+                    <ul class="text-sm text-stone-700 space-y-2 mt-3">
+                        <li><strong>• Absolute Certainty:</strong> Never admits uncertainty; mocks nuance as weakness or dishonesty.</li>
+                        <li><strong>• Adversarial Framing:</strong> Debates strictly to avoid losing rather than to discover objective truth.</li>
+                        <li><strong>• Reflexive Dismissal:</strong> Rejects empirical data and examples outright without cognitive engagement.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="paradigms" class="scroll-mt-28 space-y-6">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl font-bold text-stone-900">1. Historical & Sociological Paradigms</h2>
+                <p class="text-stone-600 mt-2 leading-relaxed">
+                    In academic philosophy and economic history, "stupidity" is not defined by a low IQ score, but as a dangerous behavioral and sociological phenomenon. Explore Dietrich Bonhoeffer's theory of moral surrender alongside Carlo M. Cipolla's interactive 4-quadrant economic matrix below to see why irrational actors pose greater systemic risks than malicious ones.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div class="lg:col-span-7 card-warm rounded-xl p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                        <div>
+                            <h3 class="font-bold text-stone-800 text-lg">Cipolla's Basic Laws: The Behavioral Matrix</h3>
+                            <p class="text-xs text-stone-500">Click any quadrant button or chart point to inspect behavioral outcomes (X = Self Gain/Loss, Y = Others Gain/Loss).</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="cipollaChart" role="img" aria-label="Scatter chart plotting Cipolla's four archetypes: intelligent, helpless, bandit and stupid, by impact on self and impact on others."></canvas>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                        <button type="button" data-archetype="intelligent" aria-pressed="true" class="archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-teal-600 bg-teal-700 text-white transition">
+                            Intelligent (+/+)
+                        </button>
+                        <button type="button" data-archetype="helpless" aria-pressed="false" class="archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100 transition">
+                            Helpless (-/+)
+                        </button>
+                        <button type="button" data-archetype="bandit" aria-pressed="false" class="archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100 transition">
+                            Bandit (+/-)
+                        </button>
+                        <button type="button" data-archetype="stupid" aria-pressed="false" class="archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100 transition">
+                            Stupid (-/-)
+                        </button>
+                    </div>
+
+                    <div id="archetype-detail" aria-live="polite" class="mt-4 p-4 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-700">
+                        <strong class="text-teal-900 block mb-1">Intelligent Archetype (Positive Self Gain, Positive Social Gain):</strong>
+                        Actions result in reciprocal benefits, contributing to mutual societal wealth, scientific progress, and systemic homeostasis.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 card-warm rounded-xl p-6 space-y-4">
+                    <div class="inline-block px-2.5 py-1 bg-stone-100 text-stone-700 rounded text-xs font-semibold">
+                        SOCIOLOGY OF POWER (1943)
+                    </div>
+                    <h3 class="font-bold text-stone-800 text-lg">Bonhoeffer’s Theory of Stupidity</h3>
+                    <p class="text-sm text-stone-600 leading-relaxed">
+                        Writing from prison in 1943, theologian Dietrich Bonhoeffer argued that stupidity is a far more dangerous enemy of the good than malice. Malice can be exposed and reasoned with because it follows rational self-interest; stupidity is impervious to facts.
+                    </p>
+                    <div class="space-y-3 pt-2">
+                        <div class="p-3.5 rounded-lg bg-amber-50/70 border border-amber-200/70">
+                            <h4 class="font-semibold text-amber-950 text-xs uppercase tracking-wider mb-1">Surrender of Inner Independence</h4>
+                            <p class="text-xs text-stone-700 leading-relaxed">
+                                Stupidity is rarely an innate intellectual defect; it is a sociological infection caused by groupthink and rising power. Even individuals of "remarkably agile intellect" become stupid when subsumed by ideological slogans.
+                            </p>
+                        </div>
+                        <div class="p-3.5 rounded-lg bg-stone-50 border border-stone-200">
+                            <h4 class="font-semibold text-stone-800 text-xs uppercase tracking-wider mb-1">Why Facts Fail</h4>
+                            <p class="text-xs text-stone-700 leading-relaxed">
+                                Contradictory facts are simply pushed aside as inconsequential. When pressed with irrefutable logic, the closed individual becomes irritated and goes on the attack, requiring moral emancipation rather than debate.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cognition" class="scroll-mt-28 space-y-6">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl font-bold text-stone-900">2. Cognitive Mechanics of the Closed Mind</h2>
+                <p class="text-stone-600 mt-2 leading-relaxed">
+                    Modern psychometrics reveals three distinct cognitive mechanisms behind the rejection of evidence: metacognitive blindness (the Dunning-Kruger effect), high-IQ rationalization (dysrationalia), and simple cognitive laziness. Interact with the Dunning-Kruger model and test your own System 2 reflection below.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-7 card-warm rounded-xl p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                        <div>
+                            <h3 class="font-bold text-stone-800 text-lg">The Dunning-Kruger Debate</h3>
+                            <p class="text-xs text-stone-500">Toggle between the 1999 Metacognitive Hypothesis and the 2020 Statistical Artifact critique.</p>
+                        </div>
+                        <div class="inline-flex flex-shrink-0 rounded-lg border border-stone-200 p-1 bg-stone-50 self-start">
+                            <button type="button" id="dk-btn-1999" aria-pressed="true" class="px-3 py-1 rounded-md text-xs font-semibold bg-white text-teal-800 shadow-sm transition whitespace-nowrap">
+                                1999 Classic
+                            </button>
+                            <button type="button" id="dk-btn-2020" aria-pressed="false" class="px-3 py-1 rounded-md text-xs font-semibold text-stone-600 hover:text-stone-900 transition whitespace-nowrap">
+                                2020 Artifact
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="dkChart" role="img" aria-label="Line chart comparing perceived ability with actual test scores across four skill quartiles."></canvas>
+                    </div>
+
+                    <div id="dk-explanation" aria-live="polite" class="mt-4 p-4 rounded-lg bg-teal-50/50 border border-teal-200/70 text-xs sm:text-sm text-stone-700 leading-relaxed">
+                        <strong>Metacognitive Deficit Hypothesis (Kruger & Dunning, 1999):</strong> Bottom-quartile performers (12th percentile actual) estimated their ability at the 62nd percentile. They suffer a "dual burden": lacking the skill to produce right answers and lacking the metacognitive insight to recognize their own errors.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 card-warm rounded-xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded">Interactive Diagnostic</span>
+                            <span class="text-xs text-stone-500">Pennycook & Rand (2019)</span>
+                        </div>
+                        <h3 class="font-bold text-stone-800 text-lg mb-2">Cognitive Reflection Test (CRT)</h3>
+                        <p class="text-xs text-stone-600 mb-4 leading-relaxed">
+                            Research shows susceptibility to fake news is driven largely by <strong>cognitive laziness</strong> (defaulting to intuitive System 1 guesses) rather than partisan bias. Test your System 2 override below:
+                        </p>
+
+                        <div class="space-y-3" id="crt-container">
+                            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+                                <p class="text-xs font-medium text-stone-800 mb-2">1. A bat and a ball cost $1.10 total. The bat costs $1.00 more than the ball. How much is the ball?</p>
+                                <div class="flex gap-2">
+                                    <button onclick="checkCRT(1, false, this)" class="crt-opt-1 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">10 cents</button>
+                                    <button onclick="checkCRT(1, true, this)" class="crt-opt-1 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">5 cents</button>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+                                <p class="text-xs font-medium text-stone-800 mb-2">2. If 5 machines take 5 minutes to make 5 widgets, how long for 100 machines to make 100 widgets?</p>
+                                <div class="flex gap-2">
+                                    <button onclick="checkCRT(2, false, this)" class="crt-opt-2 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">100 mins</button>
+                                    <button onclick="checkCRT(2, true, this)" class="crt-opt-2 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">5 mins</button>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+                                <p class="text-xs font-medium text-stone-800 mb-2">3. A lily pad patch doubles daily. If it covers a lake in 48 days, when is it half-covered?</p>
+                                <div class="flex gap-2">
+                                    <button onclick="checkCRT(3, false, this)" class="crt-opt-3 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">Day 24</button>
+                                    <button type="button" onclick="checkCRT(3, true, this)" class="crt-opt-3 flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white hover:bg-stone-100">Day 47</button>
+                                </div>
+                            </div>
+                            <button type="button" id="crt-reset" onclick="resetCRT()" class="w-full py-1.5 px-2 text-xs font-semibold rounded border border-stone-300 bg-white text-stone-600 hover:bg-stone-100 transition">Reset test</button>
+                        </div>
+                    </div>
+
+                    <div id="crt-feedback" aria-live="polite" class="mt-4 p-3 rounded-lg bg-stone-100 text-xs text-stone-700 hidden"></div>
+                </div>
+            </div>
+
+            <div class="card-warm rounded-xl p-6 bg-stone-50/70">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-bold text-stone-900 text-sm mb-1">🧠 Dysrationalia (Keith Stanovich)</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            High IQ does not guarantee rationality. Smart individuals can harbor "contaminated mindware" (pseudoscience or conspiracy theories) and suffer from low Rationality Quotients (RQ).
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-stone-900 text-sm mb-1">⚖️ Myside Bias & The Intelligence Trap</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            David Robson notes that higher intelligence often increases the "bias blind spot." Smart dogmatists use their intellect as a defense lawyer for their ego, crafting elaborate post-hoc rationalizations.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-stone-900 text-sm mb-1">🔋 Cognitive Miserliness</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Analytical evaluation requires metabolic and mental effort. In Frederick's study of 3,428 respondents, 33% scored zero on the CRT, defaulting entirely to effortless intuition.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="brandolini" class="scroll-mt-28 space-y-6">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl font-bold text-stone-900">3. Brandolini’s Law & Digital Virality</h2>
+                <p class="text-stone-600 mt-2 leading-relaxed">
+                    Coined by Alberto Brandolini in 2013, the <strong>Bullshit Asymmetry Principle</strong> states that the energy required to refute nonsense is an order of magnitude greater than that needed to produce it. When combined with social media algorithms and Generative AI, this asymmetry overwhelms traditional fact-checking.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-6 card-warm rounded-xl p-6">
+                    <h3 class="font-bold text-stone-800 text-lg mb-1">MIT Diffusion Study: Truth vs. Falsehood</h3>
+                    <p class="text-xs text-stone-500 mb-4">Vosoughi, Roy & Aral (<em>Science</em>, 2018) analyzed 126,000+ rumor cascades on Twitter (2006–2017).</p>
+
+                    <div class="chart-container">
+                        <canvas id="viralityChart" role="img" aria-label="Bar chart comparing the relative time falsehoods and verified truth need to reach 1,500 people and a cascade depth of ten."></canvas>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-3 text-center">
+                        <div class="p-3 rounded-lg bg-amber-50 border border-amber-200">
+                            <span class="block text-xl font-extrabold text-amber-900">6x Faster</span>
+                            <span class="text-xs text-amber-800">Falsehoods reach 1,500 people compared to truth</span>
+                        </div>
+                        <div class="p-3 rounded-lg bg-amber-50 border border-amber-200">
+                            <span class="block text-xl font-extrabold text-amber-900">20x Faster</span>
+                            <span class="text-xs text-amber-800">Falsehoods reach cascade depth of 10 hops</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 card-warm rounded-xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-stone-800 text-lg mb-1">The Asymmetry Simulator & AI Multiplier</h3>
+                        <p class="text-xs text-stone-500 mb-4">Select a real-world case study from the report to compare Creation Effort vs. Refutation Cost.</p>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <button type="button" data-case="covid" aria-pressed="true" onclick="selectCaseStudy('covid')" class="case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-700 text-white transition">
+                                COVID Video (2020)
+                            </button>
+                            <button type="button" data-case="wakefield" aria-pressed="false" onclick="selectCaseStudy('wakefield')" class="case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+                                MMR Study (1998)
+                            </button>
+                            <button type="button" data-case="boston" aria-pressed="false" onclick="selectCaseStudy('boston')" class="case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+                                Boston Rumor (2013)
+                            </button>
+                            <button type="button" data-case="ai" aria-pressed="false" onclick="selectCaseStudy('ai')" class="case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+                                AI Slopaganda (Modern)
+                            </button>
+                        </div>
+
+                        <div id="case-display" aria-live="polite" class="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+                            <div class="flex justify-between items-center border-b border-stone-200 pb-2">
+                                <span class="font-bold text-stone-900 text-sm" id="case-title">Radio-Canada COVID-19 Pineapple Importer Video</span>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900" id="case-ratio">288x Energy Ratio</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div class="p-2.5 bg-white rounded border border-stone-200">
+                                    <span class="text-stone-400 block uppercase font-semibold text-[10px]">Production Effort</span>
+                                    <strong class="text-stone-800 text-sm" id="case-create">15 Minutes</strong>
+                                </div>
+                                <div class="p-2.5 bg-white rounded border border-stone-200">
+                                    <span class="text-stone-400 block uppercase font-semibold text-[10px]">Debunking Effort</span>
+                                    <strong class="text-amber-800 text-sm" id="case-refute">3 Full Days (72 Hours)</strong>
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-600 leading-relaxed" id="case-desc">
+                                A pineapple importer recorded a 15-minute YouTube video spreading medical misinformation. A Radio-Canada journalist spent three exhausting days calling virologists, transcribing interviews, and verifying clinical data to refute it.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 rounded-xl bg-stone-900 text-stone-100 text-xs space-y-1.5">
+                        <div class="font-bold text-amber-400 flex items-center gap-1.5">
+                            <span>⚡ The Liar's Dividend & Slopaganda</span>
+                        </div>
+                        <p class="text-stone-300 leading-relaxed">
+                            Generative AI reduces creation friction to near zero ("slopaganda") while creating a <strong>Liar's Dividend</strong>: bad-faith actors can now dismiss authentic video or empirical data as "AI-generated fakes," insulating themselves entirely from reality.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interventions" class="scroll-mt-28 space-y-6">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl font-bold text-stone-900">4. Strategic Interventions: When to Walk Away vs. How to Engage</h2>
+                <p class="text-stone-600 mt-2 leading-relaxed">
+                    While walking away from a one-on-one argument with a bad-faith actor saves energy, public silence leaves bystanders unprotected. Crucially, large-scale replications prove the dreaded <strong>"Backfire Effect" is a myth</strong>—factual corrections do work when structured properly. Explore the data and interactive playbooks below.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 card-warm rounded-xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-teal-800 bg-teal-100 px-2.5 py-0.5 rounded">Empirical Replication</span>
+                        <h3 class="font-bold text-stone-800 text-lg mt-2 mb-1">The Fall of the Backfire Effect</h3>
+                        <p class="text-xs text-stone-500 mb-4">Wood & Porter (2019) tested 52 contentious political issues across 10,100+ subjects.</p>
+
+                        <div class="chart-container">
+                            <canvas id="backfireChart" role="img" aria-label="Horizontal bar chart of Wood and Porter's 2019 replication: 52 political issues tested and zero instances of factual backfire."></canvas>
+                        </div>
+                    </div>
+
+                    <p class="mt-4 text-xs text-stone-600 leading-relaxed bg-stone-50 p-3 rounded-lg border border-stone-200">
+                        <strong>Key Takeaway:</strong> Across 52 issues, researchers found <strong>0 instances</strong> of factual backfire. Corrections reliably moved audiences toward accuracy, proving that public fact-checking protects bystanders rather than hardening false beliefs.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7 card-warm rounded-xl p-6">
+                    <div class="flex gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-b border-stone-200 mb-5" role="tablist" aria-label="Intervention playbooks">
+                        <button type="button" role="tab" aria-selected="true" aria-controls="playbook-se" onclick="switchPlaybook('se')" id="tab-se" class="flex-shrink-0 pb-2.5 text-sm tab-active transition">
+                            1. Street Epistemology
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="playbook-sandwich" onclick="switchPlaybook('sandwich')" id="tab-sandwich" class="flex-shrink-0 pb-2.5 text-sm text-stone-500 hover:text-stone-800 transition">
+                            2. Fact Sandwich
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="playbook-inoculation" onclick="switchPlaybook('inoculation')" id="tab-inoculation" class="flex-shrink-0 pb-2.5 text-sm text-stone-500 hover:text-stone-800 transition">
+                            3. Prebunking
+                        </button>
+                    </div>
+
+                    <div id="playbook-se" role="tabpanel" aria-labelledby="tab-se" tabindex="0" class="space-y-4">
+                        <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                            Instead of attacking claims with facts (which triggers ego defense), <strong>Street Epistemology</strong> uses Socratic questions to examine the <em>reliability of the method</em> used to form the belief. Validated by a 2024 <em>Harvard Kennedy School</em> study reducing conspiracy conviction.
+                        </p>
+                        <div class="space-y-2.5" id="se-steps">
+                            <div class="p-3 rounded-lg bg-teal-50/60 border border-teal-200">
+                                <span class="font-bold text-teal-900 text-xs">Step 1: Rapport & Consent</span>
+                                <p class="text-xs text-stone-700 mt-0.5">Ask permission to explore the topic calmly without judgment to disarm adversarial posturing.</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+                                <span class="font-bold text-stone-800 text-xs">Step 2: Steelman & Quantify Confidence</span>
+                                <p class="text-xs text-stone-700 mt-0.5">Summarize their view in its strongest form and ask: <em>"On a scale of 0–100, how confident are you?"</em></p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200">
+                                <span class="font-bold text-stone-800 text-xs">Step 3: Examine the Epistemology & Falsifiability</span>
+                                <p class="text-xs text-stone-700 mt-0.5">Ask: <em>"Could someone use that exact same method (e.g., gut instinct) to reach an opposite conclusion? What evidence would lower your score?"</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="playbook-sandwich" role="tabpanel" aria-labelledby="tab-sandwich" tabindex="0" class="hidden space-y-4">
+                        <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                            Recommended by <em>The Debunking Handbook 2020</em> (Lewandowsky et al.) for public forums. Never repeat a myth excessively, as familiarity breeds the <strong>Illusory Truth Effect</strong>.
+                        </p>
+                        <div class="space-y-2.5">
+                            <div class="p-3 rounded-lg bg-teal-50 border border-teal-200">
+                                <span class="text-xs font-bold uppercase text-teal-900">1. Top Slice: Lead With The Fact</span>
+                                <p class="text-xs text-stone-700 mt-1">"Clinical trials across 14 million children confirm the MMR vaccine has zero link to autism."</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-amber-50 border border-amber-200">
+                                <span class="text-xs font-bold uppercase text-amber-900">2. Filling: State Myth Once & Explain Why It's Wrong</span>
+                                <p class="text-xs text-stone-700 mt-1">"A retracted 1998 paper falsely claimed a link, but investigators proved the data was falsified and the author's medical license was revoked."</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-teal-50 border border-teal-200">
+                                <span class="text-xs font-bold uppercase text-teal-900">3. Bottom Slice: Reinforce The Fact</span>
+                                <p class="text-xs text-stone-700 mt-1">"Vaccination safely prevents measles outbreaks without causing developmental disorders."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="playbook-inoculation" role="tabpanel" aria-labelledby="tab-inoculation" tabindex="0" class="hidden space-y-4">
+                        <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                            Developed by Sander van der Linden and Jon Roozenbeek (Cambridge), <strong>Psychological Inoculation</strong> acts like a vaccine: exposing people to weakened manipulation tactics generates "cognitive antibodies" before falsehoods strike.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3.5 rounded-lg bg-stone-50 border border-stone-200">
+                                <h4 class="font-bold text-stone-900 text-xs mb-1">🎮 Active Inoculation (Bad News Game)</h4>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    Players step into the shoes of a disinformation creator using polarization, fake experts, and emotional outrage—significantly reducing susceptibility across all political ideologies.
+                                </p>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-stone-50 border border-stone-200">
+                                <h4 class="font-bold text-stone-900 text-xs mb-1">📺 Passive Prebunking (Micro-Videos)</h4>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    Short 30-second video ads explaining logical fallacies (such as scapegoating or false dichotomies) scale cognitive immunity to millions at a fraction of fact-checking costs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="border-t border-stone-200 pt-8 pb-12 text-center space-y-3">
+            <p class="text-sm font-semibold text-stone-800">
+                Summary Decision Rule: Engage to educate the audience or uncover truth; walk away when an opponent debates solely to protect their ego.
+            </p>
+            <p class="text-xs text-stone-500">
+                Synthesized from research by Bonhoeffer (1943), Cipolla (1976), Kruger & Dunning (1999), Stanovich (2013), Brandolini (2013), Vosoughi et al. (2018), Wood & Porter (2019), and van der Linden (2020).
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const archetypeInfo = {
+            intelligent: {
+                title: "Intelligent Archetype (Positive Self Gain, Positive Social Gain):",
+                desc: "Actions result in reciprocal benefits, contributing to mutual societal wealth, scientific progress, and systemic homeostasis.",
+                style: "bg-teal-50/70 border-teal-200 text-stone-700",
+                titleColor: "text-teal-900"
+            },
+            helpless: {
+                title: "Helpless / Naive Archetype (Negative Self Loss, Positive Social Gain):",
+                desc: "Actions benefit others at the expense of the individual. Includes extreme altruism, often exploited by bandits or charlatans.",
+                style: "bg-blue-50/70 border-blue-200 text-stone-700",
+                titleColor: "text-blue-900"
+            },
+            bandit: {
+                title: "Bandit / Malicious Archetype (Positive Self Gain, Negative Social Loss):",
+                desc: "Actions maximize personal gain by exploiting others. Highly rational and predictable, allowing society to build defenses against it.",
+                style: "bg-stone-100 border-stone-300 text-stone-700",
+                titleColor: "text-stone-900"
+            },
+            stupid: {
+                title: "Stupid Archetype (Negative Self Loss, Negative Social Loss):",
+                desc: "Actions cause widespread damage and chaos with zero benefit—and often active harm—to the actor. Unpredictable and impossible to reason with.",
+                style: "bg-amber-50/80 border-amber-300 text-stone-800",
+                titleColor: "text-amber-950"
+            }
+        };
+
+        function updateArchetypeUI(key) {
+            const info = archetypeInfo[key];
+            const detailBox = document.getElementById('archetype-detail');
+            detailBox.className = `mt-4 p-4 rounded-lg border text-sm transition-all ${info.style}`;
+            detailBox.innerHTML = `<strong class="${info.titleColor} block mb-1">${info.title}</strong>${info.desc}`;
+
+            document.querySelectorAll('.archetype-btn').forEach(btn => {
+                const isActive = btn.dataset.archetype === key;
+                btn.setAttribute('aria-pressed', String(isActive));
+                if (isActive) {
+                    btn.className = "archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-teal-600 bg-teal-700 text-white transition";
+                } else {
+                    btn.className = "archetype-btn px-3 py-2 rounded-lg text-xs font-semibold border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100 transition";
+                }
+            });
+        }
+
+        document.querySelectorAll('.archetype-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateArchetypeUI(btn.dataset.archetype));
+        });
+
+        updateArchetypeUI('intelligent');
+
+        const cipollaCtx = document.getElementById('cipollaChart').getContext('2d');
+        const quadrantPlugin = {
+            id: 'quadrantLines',
+            beforeDraw(chart) {
+                const { ctx, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
+                const midX = x.getPixelForValue(0);
+                const midY = y.getPixelForValue(0);
+                ctx.save();
+                ctx.strokeStyle = '#CBD5E1';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(midX, top);
+                ctx.lineTo(midX, bottom);
+                ctx.moveTo(left, midY);
+                ctx.lineTo(right, midY);
+                ctx.stroke();
+                ctx.restore();
+            }
+        };
+
+        const cipollaChart = new Chart(cipollaCtx, {
+            type: 'bubble',
+            data: {
+                datasets: [
+                    { label: 'Intelligent (+/+)', data: [{ x: 7, y: 7, r: 16 }], backgroundColor: 'rgba(15, 118, 110, 0.8)' },
+                    { label: 'Helpless (-/+)', data: [{ x: -6, y: 6, r: 14 }], backgroundColor: 'rgba(59, 130, 246, 0.75)' },
+                    { label: 'Bandit (+/-)', data: [{ x: 6, y: -6, r: 14 }], backgroundColor: 'rgba(100, 116, 139, 0.8)' },
+                    { label: 'Stupid (-/-)', data: [{ x: -7, y: -7, r: 18 }], backgroundColor: 'rgba(180, 83, 9, 0.85)' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick: (e, elements) => {
+                    if (elements.length > 0) {
+                        const idx = elements[0].datasetIndex;
+                        const keys = ['intelligent', 'helpless', 'bandit', 'stupid'];
+                        updateArchetypeUI(keys[idx]);
+                    }
+                },
+                scales: {
+                    x: {
+                        min: -10, max: 10,
+                        title: { display: true, text: 'Self: Loss ← → Gain', font: { size: 11, weight: 'bold' } },
+                        grid: { color: '#F1F5F9' }
+                    },
+                    y: {
+                        min: -10, max: 10,
+                        title: { display: true, text: 'Others: Loss ← → Gain', font: { size: 11, weight: 'bold' } },
+                        grid: { color: '#F1F5F9' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `${ctx.dataset.label}: Self (${ctx.raw.x}), Others (${ctx.raw.y})`
+                        }
+                    }
+                }
+            },
+            plugins: [quadrantPlugin]
+        });
+
+        const dkCtx = document.getElementById('dkChart').getContext('2d');
+        const dkData1999 = {
+            perceived: [62, 65, 68, 74],
+            actual: [12, 37, 62, 87],
+            explanation: "<strong>Metacognitive Deficit Hypothesis (Kruger & Dunning, 1999):</strong> Bottom-quartile performers (12th percentile actual) estimated their ability at the 62nd percentile. They suffer a 'dual burden': lacking the skill to produce right answers and lacking the metacognitive insight to recognize their own errors."
+        };
+        const dkData2020 = {
+            perceived: [60, 62, 65, 68],
+            actual: [12, 37, 62, 87],
+            explanation: "<strong>Statistical Artifact Critique (Gignac & Zajenkowski, 2020):</strong> Nonlinear regression and homoscedasticity tests suggest people across all skill levels mispredict their intelligence by roughly the same margin due to regression to the mean and the 'better-than-average' heuristic."
+        };
+
+        const dkChart = new Chart(dkCtx, {
+            type: 'line',
+            data: {
+                labels: ['Bottom Quartile', '2nd Quartile', '3rd Quartile', 'Top Quartile'],
+                datasets: [
+                    {
+                        label: 'Perceived Ability (Percentile)',
+                        data: dkData1999.perceived,
+                        borderColor: '#B45309',
+                        backgroundColor: 'rgba(180, 83, 9, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false
+                    },
+                    {
+                        label: 'Actual Test Score (Percentile)',
+                        data: dkData1999.actual,
+                        borderColor: '#0F766E',
+                        backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                        borderWidth: 3,
+                        borderDash: [5, 5],
+                        tension: 0.3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: 0, max: 100,
+                        title: { display: true, text: 'Percentile Ranking (%)', font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { size: 11 } } }
+                }
+            }
+        });
+
+        function setDkVersion(year) {
+            const is1999 = year === '1999';
+            const activeBtn = document.getElementById(`dk-btn-${year}`);
+            const idleBtn = document.getElementById(is1999 ? 'dk-btn-2020' : 'dk-btn-1999');
+            activeBtn.className = "px-3 py-1 rounded-md text-xs font-semibold bg-white text-teal-800 shadow-sm transition whitespace-nowrap";
+            idleBtn.className = "px-3 py-1 rounded-md text-xs font-semibold text-stone-600 hover:text-stone-900 transition whitespace-nowrap";
+            activeBtn.setAttribute('aria-pressed', 'true');
+            idleBtn.setAttribute('aria-pressed', 'false');
+            const model = is1999 ? dkData1999 : dkData2020;
+            dkChart.data.datasets[0].data = model.perceived;
+            dkChart.update();
+            document.getElementById('dk-explanation').innerHTML = model.explanation;
+        }
+
+        document.getElementById('dk-btn-1999').addEventListener('click', () => setDkVersion('1999'));
+        document.getElementById('dk-btn-2020').addEventListener('click', () => setDkVersion('2020'));
+        document.getElementById('dk-explanation').innerHTML = dkData1999.explanation;
+
+        let crtAnswered = { 1: null, 2: null, 3: null };
+
+        function renderCRTFeedback() {
+            const answered = Object.values(crtAnswered).filter(v => v !== null).length;
+            const correctCount = Object.values(crtAnswered).filter(v => v === true).length;
+            const fb = document.getElementById('crt-feedback');
+            if (answered === 0) {
+                fb.classList.add('hidden');
+                return;
+            }
+            fb.classList.remove('hidden');
+            const verdict = answered < 3
+                ? `${3 - answered} question${3 - answered === 1 ? '' : 's'} left.`
+                : correctCount === 3
+                    ? 'All three correct — you overrode every intuitive trap.'
+                    : 'You still defaulted to System 1 on at least one item — that is exactly the cognitive laziness Pennycook & Rand measured.';
+            fb.innerHTML = `<strong>Score: ${correctCount}/${answered} answered</strong> (${answered}/3 attempted). ${verdict}<br><span class="text-stone-500">Correct answers: <strong>5 cents</strong> ($1.05 + $0.05 = $1.10), <strong>5 minutes</strong> (1 machine = 1 widget in 5 mins), and <strong>Day 47</strong> (doubles on Day 48).</span>`;
+        }
+
+        function checkCRT(qNum, isCorrect, btnEl) {
+            crtAnswered[qNum] = isCorrect;
+            document.querySelectorAll(`.crt-opt-${qNum}`).forEach(b => {
+                b.setAttribute('aria-pressed', 'false');
+                b.className = `crt-opt-${qNum} flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white text-stone-600 hover:bg-stone-100`;
+            });
+            btnEl.setAttribute('aria-pressed', 'true');
+            if (isCorrect) {
+                btnEl.className = `crt-opt-${qNum} flex-1 py-1.5 px-2 text-xs rounded border border-teal-600 bg-teal-600 text-white font-semibold`;
+            } else {
+                btnEl.className = `crt-opt-${qNum} flex-1 py-1.5 px-2 text-xs rounded border border-amber-600 bg-amber-600 text-white font-semibold`;
+            }
+            renderCRTFeedback();
+        }
+
+        function resetCRT() {
+            crtAnswered = { 1: null, 2: null, 3: null };
+            [1, 2, 3].forEach(n => {
+                document.querySelectorAll(`.crt-opt-${n}`).forEach(b => {
+                    b.setAttribute('aria-pressed', 'false');
+                    b.className = `crt-opt-${n} flex-1 py-1.5 px-2 text-xs rounded border border-stone-300 bg-white text-stone-600 hover:bg-stone-100`;
+                });
+            });
+            renderCRTFeedback();
+        }
+
+        const viralityCtx = document.getElementById('viralityChart').getContext('2d');
+        new Chart(viralityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Reach 1,500 Users', 'Reach Cascade Depth 10'],
+                datasets: [
+                    {
+                        label: 'Falsehoods (baseline time)',
+                        data: [1, 1],
+                        backgroundColor: '#B45309',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Verified truth (time multiplier)',
+                        data: [6, 20],
+                        backgroundColor: '#0F766E',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Relative time to reach threshold (× falsehood baseline)', font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { size: 11 } } },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => ctx.datasetIndex === 0
+                                ? `${ctx.dataset.label}: 1× (baseline)`
+                                : `${ctx.dataset.label}: ${ctx.raw}× slower than falsehoods`
+                        }
+                    }
+                }
+            }
+        });
+
+        const caseStudies = {
+            covid: {
+                title: "Radio-Canada COVID-19 Pineapple Importer Video",
+                ratio: "288x Energy Ratio",
+                create: "15 Minutes",
+                refute: "3 Full Days (72 Hours)",
+                desc: "A pineapple importer recorded a 15-minute YouTube video spreading medical misinformation. A Radio-Canada journalist spent three exhausting days calling virologists, transcribing interviews, and verifying clinical data to refute it."
+            },
+            wakefield: {
+                title: "1998 Fraudulent MMR-Autism Paper (Andrew Wakefield)",
+                ratio: "Decades of Global Effort",
+                create: "1 Fraudulent Paper (n=12)",
+                refute: "20+ Years & Millions Spent",
+                desc: "A single falsified study triggered global vaccine hesitancy. Refuting it required dozens of multi-million-dollar cohort studies, full journal retraction, and revocation of medical licensure—yet the myth persists."
+            },
+            boston: {
+                title: "2013 Boston Marathon Bombing Rumor",
+                ratio: "92,000+ Shares in Hours",
+                create: "Seconds (Single Post)",
+                refute: "Days of Newsroom Corrections",
+                desc: "A false rumor claimed a Sandy Hook survivor died in the Boston blast. Despite immediate official debunking, over 92,000 users and major outlets amplified the emotional falsehood."
+            },
+            ai: {
+                title: "Generative AI 'Slopaganda' & Mass Personalization",
+                ratio: "Near-Infinite Asymmetry",
+                create: "< 2 Seconds per Article/Video",
+                refute: "Hours of Forensic Verification",
+                desc: "Large Language Models generate persuasive, hyper-personalized disinformation at zero marginal cost, flooding the attention economy faster than human fact-checkers can read."
+            }
+        };
+
+        function selectCaseStudy(key) {
+            const c = caseStudies[key];
+            document.getElementById('case-title').textContent = c.title;
+            document.getElementById('case-ratio').textContent = c.ratio;
+            document.getElementById('case-create').textContent = c.create;
+            document.getElementById('case-refute').textContent = c.refute;
+            document.getElementById('case-desc').textContent = c.desc;
+
+            document.querySelectorAll('.case-btn').forEach(btn => {
+                const isActive = btn.dataset.case === key;
+                btn.setAttribute('aria-pressed', String(isActive));
+                if (isActive) {
+                    btn.className = "case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-700 text-white transition";
+                } else {
+                    btn.className = "case-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition";
+                }
+            });
+        }
+
+        const backfireCtx = document.getElementById('backfireChart').getContext('2d');
+        const barValuePlugin = {
+            id: 'barValueLabels',
+            afterDatasetsDraw(chart) {
+                const { ctx } = chart;
+                ctx.save();
+                ctx.font = '600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.fillStyle = '#1E293B';
+                ctx.textAlign = 'center';
+                chart.getDatasetMeta(0).data.forEach((bar, i) => {
+                    ctx.fillText(String(chart.data.datasets[0].data[i]), bar.x, bar.y - 6);
+                });
+                ctx.restore();
+            }
+        };
+        new Chart(backfireCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Issues tested', 'Backfire instances'],
+                datasets: [{
+                    label: 'Count (Wood & Porter, 2019)',
+                    data: [52, 0],
+                    backgroundColor: ['#0F766E', '#B45309'],
+                    borderRadius: 4,
+                    maxBarThickness: 72
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true, max: 60,
+                        title: { display: true, text: 'Number of Political Issues (Total = 52)', font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            },
+            plugins: [barValuePlugin]
+        });
+
+        function switchPlaybook(tab) {
+            ['se', 'sandwich', 'inoculation'].forEach(t => {
+                const isActive = t === tab;
+                const panel = document.getElementById(`playbook-${t}`);
+                const btn = document.getElementById(`tab-${t}`);
+                panel.classList.toggle('hidden', !isActive);
+                panel.setAttribute('aria-hidden', String(!isActive));
+                btn.setAttribute('aria-selected', String(isActive));
+                btn.className = isActive
+                    ? "flex-shrink-0 pb-2.5 text-sm tab-active transition"
+                    : "flex-shrink-0 pb-2.5 text-sm text-stone-500 hover:text-stone-800 transition";
+            });
+        }
+
+        switchPlaybook('se');
+
+        // Scroll-spy: keep the nav link for the section in view highlighted
+        const spyLinks = Array.from(document.querySelectorAll('#section-nav a[href^="#"]'));
+        const spySections = spyLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        const spyHeader = document.querySelector('header');
+        let spyQueued = false;
+
+        function updateActiveSection() {
+            spyQueued = false;
+            if (!spySections.length) return;
+
+            const offset = spyHeader.offsetHeight + 24;
+            let activeId = null;
+            for (const section of spySections) {
+                if (section.getBoundingClientRect().top <= offset) activeId = section.id;
+            }
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+                activeId = spySections[spySections.length - 1].id;
+            }
+
+            spyLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === `#${activeId}`;
+                link.classList.toggle('is-active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'location');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function queueActiveSectionUpdate() {
+            if (!spyQueued) {
+                spyQueued = true;
+                requestAnimationFrame(updateActiveSection);
+            }
+        }
+
+        window.addEventListener('scroll', queueActiveSectionUpdate, { passive: true });
+        window.addEventListener('resize', queueActiveSectionUpdate);
+        window.addEventListener('hashchange', queueActiveSectionUpdate);
+        updateActiveSection();
+    </script>
+</body>
+</html>
