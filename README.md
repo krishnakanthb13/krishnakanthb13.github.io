@@ -45,6 +45,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
+		- [Relationship Seesaw](https://krishnakanthb13.github.io/D/0/relationship_seesaw/) — The Architecture of Adversarial Courtship
 		- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/) — The Interstitial Pause
 		- [Self-Blame Cycles](https://krishnakanthb13.github.io/D/0/self_blame_cycles/) — The Architecture of Self-Blame as a Locus of Control
 		- [Sisyphus](https://krishnakanthb13.github.io/D/0/sisyphus/) — The Modern Paradigm of Absurdity
@@ -302,6 +303,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
+	- [Relationship Seesaw](https://krishnakanthb13.github.io/D/0/relationship_seesaw/): The Architecture of Adversarial Courtship — why the internet's three zero-sum "seesaws" (value/comfort, leverage/cooperation, sex/purpose) mix real relational findings with paranoid bookkeeping, and what attachment science, interdependence theory and self-determination theory prescribe instead.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/relationship_seesaw/): Three-stage genealogy explorer, Buss 37-culture vs. adversarial-distortion chart, three live seesaw calibration labs with outcome meters, Rusbult-vs-SDT matrices, hyper-vigilant accountant paradox chart & adversarial-rule translator.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/relationship_seesaw/readme.md): Long-form research essay with 49 cited sources.
 	- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/): The Interstitial Pause — why volitional maturity is not the eradication of emotion but the deliberate cultivation of a temporal and epistemic gap between raw affect and motor output.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/respond_vs_react/): Five-module tabbed portal with a dual-process radar/bar chart, Stoic–Buddhist–existential pause explorer, semiotic iconography cards, 90-second physiological-sigh timer, affect-labeling neural calculator, ACT Choice Point matrix & three-step volitional choice simulator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/respond_vs_react/readme.md): Long-form research essay with 54 cited sources.

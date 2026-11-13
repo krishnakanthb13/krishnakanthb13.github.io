@@ -317,6 +317,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Relationship Seesaw](./relationship_seesaw/)
+**The Architecture of Adversarial Courtship** — a psychological deconstruction of the internet "seesaw" model that reduces intimacy to three zero-sum ratios: Value vs. Comfort, Leverage vs. Cooperation, and Sex vs. Purpose. Traces the metaphor from James Tobin's clinical relational seesaw through the Mystery Method's M3 phases to Rollo Tomassi's "Iron Rules," audits its evolutionary claims against Buss's 37-culture data and Gould & Lewontin's "just-so" critique, then dismantles each seesaw through Attachment Theory (Mikulincer & Shaver), Esther Perel's differentiation, Interdependence Theory (Rusbult; Stanley & Rhoades), Gottman's 5:1 ratio, and Self-Determination Theory—ending with the self-refuting paradox of the hyper-vigilant accountant and a "sharper" model of authentic self-determination.
+
+- 📝 [The Full Report](./relationship_seesaw/readme.md) — the long-form essay with 49 cited sources. (`readme.md`)
+- 🎚️ [Interactive Infographic](./relationship_seesaw/index.html) — the complete warm-alabaster & slate-sage interactive page: clickable three-stage genealogy of the metaphor, Buss 37-culture vs. adversarial-distortion chart toggle, three live seesaw calibration labs with interpolated outcome meters and verdict zones, Rusbult-vs-SDT comparison matrices, hyper-vigilant accountant paradox chart, and an adversarial-rule translator. (`index.html`)
+
+---
+
 ### 📁 [Respond vs. React](./respond_vs_react/)
 **The Interstitial Pause** — why volitional maturity is not the eradication of emotion but the cultivation of a temporal and epistemic gap between raw affect and motor output. Synthesizes dual-process neurobiology (amygdala/ventral striatum vs. ACC/dlPFC/vlPFC), Gross's emotion-regulation model, Stoic *synkatathesis*, Buddhist *sati*, Rollo May's existential pause, Lieberman's affect-labeling findings, the 90-second neurochemical window, physiological-sigh breathwork, and the ACT Choice Point—then treats the storm-versus-compass artwork as a cognitive prime for real-world self-regulation.
 

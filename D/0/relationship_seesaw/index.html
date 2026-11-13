@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Architecture of Adversarial Courtship — Psychological Deconstruction</title>
+  <meta name="description" content="An interactive psychological deconstruction of the adversarial relationship 'seesaw' model: genealogy, evolutionary fact-checking, three calibration labs, and a sharper self-determination framework." />
+  <meta name="theme-color" content="#FAF8F5" />
+  <!-- Favicon (rel=icon, restyled to this page's palette) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚️</text></svg>">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Alabaster & Slate Sage (Background: #FAF8F5, Surface: #FFFFFF / #F3EFEA, Text: #1E293B / #475569, Empirical Accent: #3B6E6C, Adversarial Accent: #B85D43, Neutral Bronze: #8C7A5B) -->
+  <!-- Application Structure Plan: The SPA is organized into four progressive analytical modules designed to move the user from cultural context to empirical deconstruction and practical synthesis, rather than merely mirroring linear prose. 1) Epistemological Origins & Evolutionary Audit traces how clinical concepts mutated into PUA/Red Pill rules and audits their biological claims against David Buss's 37-culture data. 2) The Three Seesaws Interactive Deconstruction Lab allows users to manipulate sliders for Value/Comfort, Leverage/Cooperation, and Sex/Purpose to observe the divergence between adversarial predictions and empirical outcomes (Attachment Theory, Gottman's 5:1 Ratio, Interdependence Theory, Self-Determination Theory). 3) Theoretical Frameworks Matrix compares Rusbult's Investment Model and Deci & Ryan's SDT side-by-side across Adversarial vs. Authentic paradigms. 4) The Self-Refuting Paradox & The Sharper Version synthesizes the cognitive load of "hyper-vigilant accounting" via a comparative chart and an interactive Rule-to-Reality translator. This structure fosters active exploration and directly illuminates the core paradox of the source report. -->
+  <!-- Visualization & Content Choices: 1) Buss Cross-Cultural Mate Preferences (Horizontal Bar Chart via Chart.js Canvas) -> Compare empirical rankings vs. adversarial myths -> Interactive toggle to highlight Status vs. Core Relational Traits -> Justifies why "hypergamy-only" models distort biology. 2) Three Seesaws Dynamic Simulator (Interactive Range Sliders + Dynamic Line/Bar Chart via Chart.js Canvas) -> Demonstrate non-linear empirical outcomes (e.g., how manufacturing anxiety spikes attachment hyperactivation while destroying long-term desire, or how Gottman's positive-to-negative ratio collapses under weaponized withdrawal) -> Interactive tab & slider controls -> Makes abstract psychological critiques tangible. 3) Cognitive Load & Autonomy Profile (Grouped Bar/Radar Comparison via Chart.js Canvas) -> Visualize the "Self-Refuting Paradox" comparing the Anxious Over-Texter, the Seesaw Accountant, and the Self-Determined Partner -> Interactive archetype selector -> Visually proves that running three seesaws requires maximum external preoccupation. 4) Structured HTML/CSS/Tailwind Interactive Grids & Cards (Unicode icons only) -> Used for Genealogy Timeline, Rusbult/SDT Matrices, and Playbook Translator -> Strictly NO inline SVG chart graphics and NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO inline SVG chart graphics used (the favicon data-URI is the only SVG). NO Mermaid JS used. -->
+  <!-- Layout Convention: the sticky header uses TWO rows — Row 1 = brand, back-to-Vault link and page actions; Row 2 = section navigation on its own row (scrolls horizontally on small screens, with scroll-spy highlighting). -->
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1E293B;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 290px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    input[type="range"] {
+      accent-color: #3B6E6C;
+    }
+    .nav-link.active {
+      color: #3B6E6C;
+      background-color: #F3EFEA;
+      font-weight: 600;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F3EFEA;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .metric-bar {
+      transition: width 180ms ease-out;
+    }
+    @media print {
+      header, footer, nav, input[type="range"] {
+        display: none !important;
+      }
+      .chart-container {
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-[#3B6E6C] selection:text-white">
+
+  <header class="sticky top-0 z-30 bg-[#FAF8F5]/95 backdrop-blur border-b border-[#E5DFD5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: brand, back-to-Vault link and page actions -->
+      <div class="py-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <a href="../" class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#F3EFEA] border border-[#E5DFD5] text-[#475569] hover:text-[#3B6E6C] hover:border-[#3B6E6C]/40 transition" title="Back to the D/0 Knowledge Vault">← Vault</a>
+          <span class="text-2xl shrink-0" aria-hidden="true">🎚️</span>
+          <div class="min-w-0">
+            <span class="block text-[10px] font-semibold uppercase tracking-widest text-[#8C7A5B]">Psychological Deconstruction</span>
+            <h1 class="text-base sm:text-xl font-bold text-[#1E293B] tracking-tight truncate">The Architecture of Adversarial Courtship</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="./readme.md" class="hidden sm:inline-block text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg bg-white border border-[#E5DFD5] text-[#3B6E6C] hover:border-[#3B6E6C]/50 hover:bg-[#3B6E6C]/5 transition whitespace-nowrap">Read Essay</a>
+          <a href="#seesaws" class="text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg bg-[#3B6E6C] text-white hover:bg-[#315C5A] shadow-sm transition whitespace-nowrap">Open the Lab</a>
+        </div>
+      </div>
+      <!-- Row 2: section navigation (own row, scrolls horizontally on small screens) -->
+      <nav class="custom-scrollbar flex items-center gap-1 overflow-x-auto whitespace-nowrap border-t border-[#E5DFD5] py-2 text-xs sm:text-sm font-medium text-[#475569]" aria-label="Page sections">
+        <a href="#overview" class="nav-link px-3 py-1.5 rounded-lg hover:text-[#3B6E6C] hover:bg-[#F3EFEA] transition">Overview</a>
+        <a href="#origins" class="nav-link px-3 py-1.5 rounded-lg hover:text-[#3B6E6C] hover:bg-[#F3EFEA] transition">1. Origins &amp; Evolution</a>
+        <a href="#seesaws" class="nav-link px-3 py-1.5 rounded-lg hover:text-[#3B6E6C] hover:bg-[#F3EFEA] transition">2. Three Seesaws Lab</a>
+        <a href="#frameworks" class="nav-link px-3 py-1.5 rounded-lg hover:text-[#3B6E6C] hover:bg-[#F3EFEA] transition">3. Empirical Matrices</a>
+        <a href="#paradox" class="nav-link px-3 py-1.5 rounded-lg hover:text-[#3B6E6C] hover:bg-[#F3EFEA] transition">4. Paradox &amp; Pivot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+
+    <section id="overview" class="scroll-mt-32 bg-white rounded-2xl border border-[#E5DFD5] p-6 sm:p-10 shadow-sm">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3EFEA] text-[#8C7A5B] text-xs font-semibold mb-4">
+          <span>&#9878;</span>
+          <span>Executive Synthesis</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#1E293B] leading-tight mb-4">
+          Separating Valid Relational Psychology from Paranoid Bookkeeping
+        </h2>
+        <p class="text-[#475569] text-base sm:text-lg leading-relaxed mb-6">
+          Internet relationship subcultures frequently distill human intimacy into three zero-sum mechanical seesaws: <strong>Value vs. Comfort</strong>, <strong>Leverage vs. Cooperation</strong>, and <strong>Sex vs. Purpose</strong>. While this model correctly observes that anxious neediness erodes attraction and personal autonomy matters, it wraps those truths in an adversarial framework of hostage negotiation and evolutionary storytelling—turning the practitioner into a hyper-vigilant emotional accountant.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-[#F3EFEA]">
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5]">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#3B6E6C] mb-1">&#10003; What Holds Up</div>
+          <p class="text-sm text-[#334155]">Anxious over-pursuit spirals are self-defeating; collapsing your entire identity into a partner stifles erotic differentiation and mutual admiration.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5]">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#B85D43] mb-1">&#10007; Where It Breaks</div>
+          <p class="text-sm text-[#334155]">Conflating psychological security with complacency, mistaking coercion for cooperation, and relying on unfalsifiable "150,000-year-old" myths.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5]">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#8C7A5B] mb-1">&#8634; The Core Paradox</div>
+          <p class="text-sm text-[#334155]">Preaching unbothered detachment while demanding constant micro-monitoring of levers makes the practitioner more externally preoccupied than an over-texter.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-[#F3EFEA] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <p class="text-xs text-[#64748B] max-w-2xl">
+          <strong class="text-[#1E293B]">Method note:</strong> every plotted score is an illustrative composite synthesized from the cited literature; it is a teaching model, not a measured effect size.
+        </p>
+        <a href="./readme.md" class="shrink-0 text-xs sm:text-sm font-semibold text-[#3B6E6C] hover:text-[#2C5654] transition">Read the full report (49 sources) →</a>
+      </div>
+    </section>
+
+    <section id="origins" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8C7A5B]">Section 01 &bull; Genealogy &amp; Biology</span>
+        <h2 class="text-2xl font-bold text-[#1E293B] mt-1 mb-3">Epistemological Origins &amp; Evolutionary Reality Check</h2>
+        <p class="text-[#475569] leading-relaxed">
+          This section traces how a clinical systems metaphor evolved into rigid seduction dogma, and audits the model's claim that "women worked this out 150,000 years ago." Explore the three-stage ideological lineage below and inspect the empirical data from David Buss's 37-culture mate preference study alongside Gould and Lewontin's critique of evolutionary "just-so" stories.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-[#E5DFD5] p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-[#1E293B] mb-2">Lineage of the Seesaw Metaphor</h3>
+            <p class="text-xs text-[#64748B] mb-4">Click each stage to trace how systemic psychology was repurposed into adversarial rules.</p>
+            <div class="space-y-3" id="lineage-buttons">
+              <button type="button" data-stage="0" aria-pressed="true" class="lineage-btn w-full text-left p-3.5 rounded-xl border-2 border-[#3B6E6C] bg-[#3B6E6C]/5 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase text-[#3B6E6C]">Stage 1 &bull; Clinical Psychology</span>
+                  <span class="text-xs text-[#64748B]">Systemic Polarity</span>
+                </div>
+                <div class="font-semibold text-[#1E293B] mt-0.5">James Tobin's Relational Seesaw</div>
+              </button>
+              <button type="button" data-stage="1" aria-pressed="false" class="lineage-btn w-full text-left p-3.5 rounded-xl border border-[#E5DFD5] bg-[#FAF8F5] hover:border-[#8C7A5B] transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase text-[#8C7A5B]">Stage 2 &bull; Seduction Community</span>
+                  <span class="text-xs text-[#64748B]">Sequential Phases</span>
+                </div>
+                <div class="font-semibold text-[#1E293B] mt-0.5">Mystery Method (M3 Model)</div>
+              </button>
+              <button type="button" data-stage="2" aria-pressed="false" class="lineage-btn w-full text-left p-3.5 rounded-xl border border-[#E5DFD5] bg-[#FAF8F5] hover:border-[#B85D43] transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase text-[#B85D43]">Stage 3 &bull; Red Pill Codification</span>
+                  <span class="text-xs text-[#64748B]">Zero-Sum Dogma</span>
+                </div>
+                <div class="font-semibold text-[#1E293B] mt-0.5">Rollo Tomassi &amp; "Iron Rules"</div>
+              </button>
+            </div>
+          </div>
+
+          <div id="lineage-detail" class="mt-5 p-4 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5] text-sm text-[#334155] leading-relaxed">
+            <strong class="text-[#3B6E6C] block mb-1">Unconscious Systemic Polarization:</strong>
+            Clinical psychologists like James Tobin use the "relational seesaw" to describe how one partner's rigid hyper-rationality unconsciously pushes the other partner into carrying the dyad's emotional ambivalence. It is a diagnostic observation of systemic imbalance, not a tactical weapon.
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-[#E5DFD5] p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <h3 class="text-lg font-bold text-[#1E293B]">Empirical Mate Preferences vs. The "Hypergamy" Myth</h3>
+              <div class="inline-flex rounded-lg bg-[#F3EFEA] p-1 text-xs font-medium">
+                <button type="button" id="btn-evo-empirical" aria-pressed="true" class="px-2.5 py-1 rounded-md bg-[#3B6E6C] text-white transition">Buss 37-Culture Data</button>
+                <button type="button" id="btn-evo-myth" aria-pressed="false" class="px-2.5 py-1 rounded-md text-[#475569] hover:text-[#1E293B] transition">Adversarial Distortion</button>
+              </div>
+            </div>
+            <p id="evo-caption" class="text-xs sm:text-sm text-[#475569] mb-4">
+              David Buss's cross-cultural research (10,047 participants across 37 cultures) shows both sexes rank <strong>Kindness, Intelligence, and Mutual Attraction</strong> highest. While women value resource potential relatively more than men, reducing attraction to status/dread is a "Panglossian" just-so story.
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="evolutionChart" role="img" aria-label="Horizontal bar chart comparing Buss cross-cultural mate preferences with the adversarial distortion"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[#F3EFEA] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#64748B]">
+            <span><strong>Key Critique (Gould &amp; Lewontin):</strong> Unfalsifiable retroactive storytelling explains every outcome after the fact.</span>
+            <span class="font-semibold text-[#3B6E6C]">Source: Buss (1989) · scores illustrative</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seesaws" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8C7A5B]">Section 02 &bull; Interactive Laboratory</span>
+        <h2 class="text-2xl font-bold text-[#1E293B] mt-1 mb-3">The Three Seesaws: Prescriptive Myth vs. Empirical Reality</h2>
+        <p class="text-[#475569] leading-relaxed">
+          Select each of the three behavioral seesaws below and adjust the calibration slider. The simulator contrasts the adversarial playbook's predicted outcome against longitudinal findings from <strong>Attachment Theory (Mikulincer &amp; Shaver)</strong>, <strong>Esther Perel's Differentiation</strong>, <strong>John Gottman's 5:1 Ratio</strong>, and <strong>Self-Determination Theory (Deci &amp; Ryan)</strong>.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-[#E5DFD5] p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-wrap gap-2 border-b border-[#E5DFD5] pb-4 mb-6" role="group" aria-label="Choose a seesaw">
+          <button type="button" data-seesaw="0" aria-pressed="true" class="seesaw-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#3B6E6C] text-white transition">
+            Seesaw 1: Value vs. Comfort
+          </button>
+          <button type="button" data-seesaw="1" aria-pressed="false" class="seesaw-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#F3EFEA] text-[#475569] hover:text-[#1E293B] transition">
+            Seesaw 2: Leverage vs. Cooperation
+          </button>
+          <button type="button" data-seesaw="2" aria-pressed="false" class="seesaw-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#F3EFEA] text-[#475569] hover:text-[#1E293B] transition">
+            Seesaw 3: Sex vs. Purpose
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 space-y-5">
+            <div class="p-5 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5]">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 mb-2">
+                <span id="slider-left-label" class="text-xs font-bold uppercase text-[#3B6E6C]">Secure Base / Comfort</span>
+                <span id="slider-value-badge" class="self-start px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1E293B] text-white">80% Value / 20% Comfort</span>
+                <span id="slider-right-label" class="text-xs font-bold uppercase text-[#B85D43] sm:text-right">80/20 Dread / Value</span>
+              </div>
+              <input id="seesaw-slider" type="range" min="10" max="95" value="80" aria-label="Seesaw calibration" aria-describedby="slider-hint" class="w-full h-2 bg-[#E5DFD5] rounded-lg cursor-pointer my-2" />
+              <div id="slider-hint" class="flex justify-between text-[11px] text-[#64748B]">
+                <span>Secure / Authentic Pole</span>
+                <span>Adversarial Prescribed Zone &rarr;</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#B85D43]/5 border border-[#B85D43]/25">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#B85D43] mb-1">Adversarial Playbook Claim</div>
+              <p id="adversarial-claim-text" class="text-sm text-[#334155] leading-relaxed"></p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#3B6E6C]/5 border border-[#3B6E6C]/25">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#3B6E6C] mb-1">Empirical Psychological Reality</div>
+              <p id="empirical-reality-text" class="text-sm text-[#334155] leading-relaxed"></p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 flex flex-col justify-between bg-[#FAF8F5] rounded-xl border border-[#E5DFD5] p-5">
+            <div class="mb-3">
+              <h3 id="seesaw-chart-title" class="text-base font-bold text-[#1E293B]">Simulated Relational Trajectory Across Calibration Levels</h3>
+              <p id="seesaw-chart-subtitle" class="text-xs text-[#64748B]">Comparing manufactured anxiety spikes against sustainable erotic desire and relational stability.</p>
+            </div>
+            <div class="chart-container">
+              <canvas id="seesawChart" role="img" aria-label="Line chart comparing authentic desire, attachment anxiety and long-term stability across calibration levels"></canvas>
+            </div>
+
+            <!-- Live readout driven by the calibration slider -->
+            <div class="mt-4 p-4 rounded-xl bg-white border border-[#E5DFD5] space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#8C7A5B]">Live Calibration Readout</span>
+                <span id="seesaw-verdict-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#F3EFEA] text-[#475569]">Mixed Zone</span>
+              </div>
+              <div class="space-y-2">
+                <div>
+                  <div class="flex justify-between text-[11px] font-semibold gap-3">
+                    <span id="metric-label-0" class="text-[#3B6E6C]">Authentic Erotic Desire</span>
+                    <span id="metric-value-0" class="text-[#1E293B]">—</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[#E5DFD5] mt-1 overflow-hidden">
+                    <div id="metric-bar-0" class="metric-bar h-full bg-[#3B6E6C]" style="width:0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-[11px] font-semibold gap-3">
+                    <span id="metric-label-1" class="text-[#B85D43]">Attachment Anxiety / Dread</span>
+                    <span id="metric-value-1" class="text-[#1E293B]">—</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[#E5DFD5] mt-1 overflow-hidden">
+                    <div id="metric-bar-1" class="metric-bar h-full bg-[#B85D43]" style="width:0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-[11px] font-semibold gap-3">
+                    <span id="metric-label-2" class="text-[#8C7A5B]">Long-Term Stability</span>
+                    <span id="metric-value-2" class="text-[#1E293B]">—</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-[#E5DFD5] mt-1 overflow-hidden">
+                    <div id="metric-bar-2" class="metric-bar h-full bg-[#8C7A5B]" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <p id="seesaw-verdict" class="text-xs text-[#475569] leading-relaxed" aria-live="polite">Move the slider to see how the three metrics diverge at your chosen calibration.</p>
+            </div>
+
+            <div id="seesaw-takeaway" class="mt-4 pt-3 border-t border-[#E5DFD5] text-xs text-[#334155]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="frameworks" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8C7A5B]">Section 03 &bull; Structural Comparison</span>
+        <h2 class="text-2xl font-bold text-[#1E293B] mt-1 mb-3">Empirical Theoretical Matrices: Interdependence &amp; Motivation</h2>
+        <p class="text-[#475569] leading-relaxed">
+          To understand why the seesaw model collapses in long-term practice, inspect how its tactics map onto two foundational psychological frameworks: <strong>Caryl Rusbult's Investment Model of Commitment</strong> (Interdependence Theory) and <strong>Deci &amp; Ryan's Self-Determination Theory (SDT)</strong>. Toggle between frameworks below to examine every structural dimension.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-[#E5DFD5] p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div class="inline-flex rounded-xl bg-[#F3EFEA] p-1">
+            <button type="button" id="btn-matrix-rusbult" aria-pressed="true" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#3B6E6C] text-white transition">
+              Rusbult's Investment Model (Leverage)
+            </button>
+            <button type="button" id="btn-matrix-sdt" aria-pressed="false" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#1E293B] transition">
+              Self-Determination Theory (Purpose)
+            </button>
+          </div>
+          <span id="matrix-badge" class="text-xs font-medium text-[#64748B]">Showing 4 Components of Interdependence Theory</span>
+        </div>
+
+        <div id="matrix-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <section id="paradox" class="scroll-mt-32 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8C7A5B]">Section 04 &bull; Synthesis &amp; Resolution</span>
+        <h2 class="text-2xl font-bold text-[#1E293B] mt-1 mb-3">The Self-Refuting Paradox &amp; The "Sharper Version"</h2>
+        <p class="text-[#475569] leading-relaxed">
+          The central flaw of the seesaw model is its self-refuting paradox: preaching unbothered detachment while demanding constant vigilance over behavioral ratios. Below, compare the psychological profile of the <strong>Seesaw Accountant</strong> against the <strong>Anxious Over-Texter</strong> and the <strong>Self-Determined Partner</strong>, then use the Playbook Translator to convert adversarial rules into authentic self-determination.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-[#E5DFD5] p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-[#1E293B] mb-1">The Hyper-Vigilant Accountant Paradox</h3>
+            <p class="text-xs sm:text-sm text-[#475569] mb-4">
+              Running three simultaneous seesaws requires massive cognitive load centered entirely on the partner's reactions—producing higher external preoccupation than simple anxious over-texting.
+            </p>
+          </div>
+          <div class="chart-container">
+            <canvas id="paradoxChart" role="img" aria-label="Grouped bar chart comparing partner preoccupation, performative cognitive load, attachment security and authentic autonomy across three archetypes"></canvas>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#F3EFEA] text-xs text-[#64748B]">
+            <strong>Analytical Insight:</strong> True independence requires no ledger. Authentic autonomy naturally yields high Quality of Alternatives (CLalt) without weaponizing withdrawal.
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-[#E5DFD5] p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-[#1E293B] mb-1">The "Sharper Version" Translator</h3>
+            <p class="text-xs sm:text-sm text-[#475569] mb-4">
+              Click any adversarial rule below to strip away the paranoid bookkeeping and reveal the grounded psychological principle underneath.
+            </p>
+            <div id="translator-list" class="space-y-3"></div>
+          </div>
+
+          <div class="mt-5 p-4 rounded-xl bg-[#3B6E6C] text-white text-sm leading-relaxed">
+            <div class="text-xs font-bold uppercase tracking-wider text-white/80 mb-1">Core Thesis</div>
+            "Build a life you'd be fine living alone, choose someone who's glad to join it, and tell the truth about what you want."
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-[#E5DFD5] bg-[#F3EFEA] py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-xs text-[#64748B]">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <strong class="text-[#1E293B]">The Architecture of Adversarial Courtship</strong> &bull; Interactive Analytical Synthesis
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="./readme.md" class="font-semibold text-[#3B6E6C] hover:text-[#2C5654] transition">Read the full report →</a>
+          <a href="../" class="font-semibold text-[#3B6E6C] hover:text-[#2C5654] transition">← Back to the Vault</a>
+          <a href="#overview" class="font-semibold text-[#3B6E6C] hover:text-[#2C5654] transition">↑ Top</a>
+        </div>
+      </div>
+      <div class="pt-3 border-t border-[#E5DFD5]">
+        Grounded in Attachment Theory, Interdependence Theory, The Gottman Method, and Self-Determination Theory. Plotted scores are illustrative teaching composites, not measured effect sizes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function wrapLabel(str, maxLen = 16) {
+      if (str.length <= maxLen) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let current = '';
+      words.forEach(word => {
+        if ((current + ' ' + word).trim().length <= maxLen) {
+          current = (current + ' ' + word).trim();
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    const lineageData = [
+      {
+        title: "Unconscious Systemic Polarization:",
+        color: "#3B6E6C",
+        text: "Clinical psychologists like James Tobin use the 'relational seesaw' to describe how one partner's rigid hyper-rationality unconsciously pushes the other partner into carrying the dyad's emotional ambivalence. It is a diagnostic observation of systemic imbalance, not a tactical weapon."
+      },
+      {
+        title: "Sequential Phase Compartmentalization:",
+        color: "#8C7A5B",
+        text: "Erik von Markovik's M3 Model ('Mystery Method') divided courtship into Attraction, Comfort, and Seduction—advising practitioners to demonstrate high value and disinterest before building rapport. The seesaw model hardens this sequence into a permanent zero-sum tug-of-war."
+      },
+      {
+        title: "Zero-Sum Biological Dogma:",
+        color: "#B85D43",
+        text: "Rollo Tomassi's 'The Rational Male' codified these ideas into 'Iron Rules,' claiming comfort and security are intrinsically anti-seductive. This mandates permanent 'dread' and leverage hoarding to simulate passion through manufactured abandonment anxiety."
+      }
+    ];
+
+    document.querySelectorAll('.lineage-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-stage'), 10);
+        document.querySelectorAll('.lineage-btn').forEach((b, i) => {
+          b.setAttribute('aria-pressed', i === idx ? 'true' : 'false');
+          if (i === idx) {
+            b.className = 'lineage-btn w-full text-left p-3.5 rounded-xl border-2 border-[#3B6E6C] bg-[#3B6E6C]/5 transition';
+          } else {
+            b.className = 'lineage-btn w-full text-left p-3.5 rounded-xl border border-[#E5DFD5] bg-[#FAF8F5] hover:border-[#8C7A5B] transition';
+          }
+        });
+        const item = lineageData[idx];
+        const detailBox = document.getElementById('lineage-detail');
+        detailBox.innerHTML = `<strong style="color:${item.color}" class="block mb-1">${item.title}</strong>${item.text}`;
+      });
+    });
+
+    const evoCtx = document.getElementById('evolutionChart').getContext('2d');
+    const evoLabels = [
+      wrapLabel('Mutual Attraction & Love'),
+      wrapLabel('Kindness & Understanding'),
+      wrapLabel('Intelligence & Wit'),
+      wrapLabel('Emotional Stability'),
+      wrapLabel('Financial & Resource Status'),
+      wrapLabel('Manufactured Dread / Jealousy')
+    ];
+
+    const evoEmpiricalData = [96, 94, 90, 88, 68, 12];
+    const evoMythData = [15, 10, 25, 15, 95, 92];
+
+    const evolutionChart = new Chart(evoCtx, {
+      type: 'bar',
+      data: {
+        labels: evoLabels,
+        datasets: [{
+          label: 'Empirical Priority Score (Buss 37-Culture Synthesis)',
+          data: evoEmpiricalData,
+          backgroundColor: ['#3B6E6C', '#3B6E6C', '#3B6E6C', '#3B6E6C', '#8C7A5B', '#CBD5E1'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: items => items[0].label.replace(/,/g, ' '),
+              label: ctx => `Relative Weighting: ${ctx.raw}/100`
+            }
+          }
+        },
+        scales: {
+          x: {
+            min: 0,
+            max: 100,
+            grid: { color: '#F1ECE4' },
+            ticks: { color: '#64748B', font: { size: 11 } }
+          },
+          y: {
+            grid: { display: false },
+            ticks: { color: '#1E293B', font: { size: 11, weight: '600' } }
+          }
+        }
+      }
+    });
+
+    const btnEvoEmpirical = document.getElementById('btn-evo-empirical');
+    const btnEvoMyth = document.getElementById('btn-evo-myth');
+    const evoCaption = document.getElementById('evo-caption');
+    const evoDataset = evolutionChart.data.datasets[0];
+
+    function setEvolutionMode(mode) {
+      const empirical = mode === 'empirical';
+      btnEvoEmpirical.setAttribute('aria-pressed', empirical ? 'true' : 'false');
+      btnEvoMyth.setAttribute('aria-pressed', empirical ? 'false' : 'true');
+      btnEvoEmpirical.className = empirical
+        ? 'px-2.5 py-1 rounded-md bg-[#3B6E6C] text-white transition'
+        : 'px-2.5 py-1 rounded-md text-[#475569] hover:text-[#1E293B] transition';
+      btnEvoMyth.className = empirical
+        ? 'px-2.5 py-1 rounded-md text-[#475569] hover:text-[#1E293B] transition'
+        : 'px-2.5 py-1 rounded-md bg-[#B85D43] text-white transition';
+
+      evoDataset.label = empirical
+        ? 'Illustrative Empirical Priority (Buss 37-Culture Synthesis)'
+        : 'Adversarial Distortion (Manosphere Framing)';
+      evoDataset.data = empirical ? evoEmpiricalData : evoMythData;
+      evoDataset.backgroundColor = empirical
+        ? ['#3B6E6C', '#3B6E6C', '#3B6E6C', '#3B6E6C', '#8C7A5B', '#CBD5E1']
+        : ['#CBD5E1', '#CBD5E1', '#CBD5E1', '#CBD5E1', '#B85D43', '#B85D43'];
+
+      evoCaption.innerHTML = empirical
+        ? 'David Buss\'s cross-cultural research (10,047 participants across 37 cultures) shows both sexes rank <strong>Kindness, Intelligence, and Mutual Attraction</strong> highest. While women value resource potential relatively more than men, reducing attraction to status/dread is a "Panglossian" just-so story.'
+        : 'The adversarial model cherry-picks resource data and invents an unfalsifiable "150,000-year-old" algorithm: treating kindness as weak "beta behavior" and elevating status plus manufactured jealousy ("dread") as the sole drivers of attraction.';
+      evolutionChart.update();
+    }
+
+    btnEvoEmpirical.addEventListener('click', () => setEvolutionMode('empirical'));
+    btnEvoMyth.addEventListener('click', () => setEvolutionMode('myth'));
+
+    const seesawConfigs = [
+      {
+        leftLabel: 'Secure Base / Comfort',
+        rightLabel: '80/20 Dread / Value',
+        unitFormatter: v => `${v}% Value / ${100 - v}% Comfort`,
+        claim: 'Aim for 80% Value and 20% Comfort. Telling her you will never leave eradicates attraction and causes cheating; making her jealous ("sees you with other beautiful women") boosts desire.',
+        reality: 'Mikulincer & Shaver prove attachment security frees cognitive load for sexual playfulness. Comfort only kills desire when it decays into behavioral complacency (loss of Esther Perel\'s healthy differentiation). Manufacturing dread triggers anxious hyperactivation, eroding satisfaction.',
+        chartTitle: 'Value vs. Comfort Calibration: Desire, Anxiety & Stability',
+        chartSubtitle: 'How shifting from Secure Differentiation toward 80/20 Manufactured Dread alters relationship health.',
+        labels: ['20% Value (Fusion)', '40% Value (Balanced)', '60% Value (Differentiated)', '80% Value (80/20 Rule)', '95% Value (Chronic Dread)'],
+        datasets: [
+          { label: 'Authentic Erotic Desire', data: [42, 76, 88, 45, 22], borderColor: '#3B6E6C', backgroundColor: '#3B6E6C', tension: 0.35 },
+          { label: 'Attachment Anxiety / Dread', data: [20, 18, 22, 84, 96], borderColor: '#B85D43', backgroundColor: '#B85D43', tension: 0.35 },
+          { label: 'Long-Term Stability', data: [55, 85, 90, 32, 12], borderColor: '#8C7A5B', backgroundColor: '#8C7A5B', borderDash: [5, 5], tension: 0.35 }
+        ],
+        takeaway: '<strong>Empirical Takeaway:</strong> Peak erotic desire occurs around 60% differentiation paired with high security—not at the adversarial 80/20 dread threshold.'
+      },
+      {
+        leftLabel: 'Mutual Reciprocity',
+        rightLabel: 'Hoarded Leverage',
+        unitFormatter: v => `${v}% Leverage / ${100 - v}% Reciprocity`,
+        claim: 'Whoever holds the leverage (credible threat to walk away) receives cooperation. Never buy cooperation with kindness; when she pulls back, withdraw to force compliance.',
+        reality: 'Stanley & Rhoades show Asymmetrically Committed Relationships breed aggression and entrapment. Secure partners recognize hostage posturing and leave, selecting only for insecure partners. Gottman\'s research proves stability requires a 5:1 positive-to-negative ratio and "turning toward" bids, whereas weaponized withdrawal triggers Stonewalling and Contempt.',
+        chartTitle: 'Leverage Hoarding vs. Gottman\'s Reciprocity Mechanics',
+        chartSubtitle: 'Impact of asymmetric commitment and weaponized withdrawal on partner retention and dyadic quality.',
+        labels: ['15% (Over-Invested)', '35% (Balanced)', '50% (Equal Boundaries)', '75% (Leverage Posture)', '90% (Hostage Frame)'],
+        datasets: [
+          { label: 'Authentic Cooperation & Trust', data: [48, 82, 92, 34, 15], borderColor: '#3B6E6C', backgroundColor: '#3B6E6C', tension: 0.35 },
+          { label: 'Gottman Contempt / Stonewalling', data: [25, 14, 10, 78, 94], borderColor: '#B85D43', backgroundColor: '#B85D43', tension: 0.35 },
+          { label: 'Retention of Secure Partners', data: [45, 84, 94, 24, 8], borderColor: '#8C7A5B', backgroundColor: '#8C7A5B', borderDash: [5, 5], tension: 0.35 }
+        ],
+        takeaway: '<strong>Empirical Takeaway:</strong> Hoarding leverage acts as an adverse selection filter—driving away self-respecting partners and leaving only anxious compliance.'
+      },
+      {
+        leftLabel: 'Intrinsic Mission',
+        rightLabel: 'Performative Purpose',
+        unitFormatter: v => `${v}% Tactical / ${100 - v}% Intrinsic`,
+        claim: 'Set your purpose far from sex so women judge you as valuable to the world. Guard against her "tipping" your seesaw with guilt and lust to pull you toward the middle.',
+        reality: 'Self-Determination Theory (Deci & Ryan) distinguishes intrinsic autonomy from introjected/extrinsic regulation. Pursuing a mission as a tactic to manage female attraction makes your competence fragile and externally anchored. Viewing a partner\'s desire for affection as sabotage destroys Relatedness.',
+        chartTitle: 'Self-Determination Theory: Intrinsic vs. Tactical Purpose',
+        chartSubtitle: 'Measuring psychological resilience and relational authenticity across motivational styles.',
+        labels: ['15% (Purely Intrinsic)', '35% (Grounded)', '50% (Mixed Motives)', '75% (Image-Driven)', '90% (Purely Tactical)'],
+        datasets: [
+          { label: 'Genuine Autonomy & Resilience', data: [94, 86, 62, 30, 14], borderColor: '#3B6E6C', backgroundColor: '#3B6E6C', tension: 0.35 },
+          { label: 'Performative Fragility / Paranoia', data: [12, 20, 48, 82, 95], borderColor: '#B85D43', backgroundColor: '#B85D43', tension: 0.35 },
+          { label: 'Healthy Relatedness', data: [88, 84, 58, 28, 12], borderColor: '#8C7A5B', backgroundColor: '#8C7A5B', borderDash: [5, 5], tension: 0.35 }
+        ],
+        takeaway: '<strong>Empirical Takeaway:</strong> Purpose only generates authentic attractiveness when it is something you would pursue relentlessly even if no one were watching.'
+      }
+    ];
+
+    let activeSeesaw = 0;
+    const seesawSlider = document.getElementById('seesaw-slider');
+    const seesawCtx = document.getElementById('seesawChart').getContext('2d');
+
+    function cloneDatasets(cfg) {
+      return cfg.datasets.map(ds => ({ ...ds, data: [...ds.data] }));
+    }
+
+    function parsePositions(labels) {
+      return labels.map(label => {
+        const match = label.match(/(\d+)\s*%/);
+        return match ? parseInt(match[1], 10) : null;
+      });
+    }
+
+    function interpolateAt(positions, values, x) {
+      if (x <= positions[0]) return values[0];
+      for (let i = 1; i < positions.length; i++) {
+        if (x <= positions[i]) {
+          const span = positions[i] - positions[i - 1];
+          const t = span === 0 ? 0 : (x - positions[i - 1]) / span;
+          return Math.round(values[i - 1] + t * (values[i] - values[i - 1]));
+        }
+      }
+      return values[values.length - 1];
+    }
+
+    function nearestIndex(positions, x) {
+      let best = 0;
+      let bestGap = Infinity;
+      positions.forEach((position, i) => {
+        const gap = Math.abs(position - x);
+        if (gap < bestGap) {
+          bestGap = gap;
+          best = i;
+        }
+      });
+      return best;
+    }
+
+    const seesawChart = new Chart(seesawCtx, {
+      type: 'line',
+      data: {
+        labels: seesawConfigs[0].labels.map(l => wrapLabel(l, 14)),
+        datasets: cloneDatasets(seesawConfigs[0])
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 250 },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 12, font: { size: 11 }, color: '#334155' }
+          },
+          tooltip: {
+            callbacks: {
+              title: items => items[0].label.replace(/,/g, ' '),
+              label: ctx => `${ctx.dataset.label}: ${ctx.raw}/100`
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: '#E5DFD5' },
+            ticks: { color: '#64748B', font: { size: 11 } }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { color: '#1E293B', font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    function updateSeesawReadout() {
+      const cfg = seesawConfigs[activeSeesaw];
+      const x = parseInt(seesawSlider.value, 10);
+      const positions = parsePositions(cfg.labels);
+      const datasets = seesawChart.data.datasets;
+      const values = datasets.map(ds => interpolateAt(positions, ds.data, x));
+      const markerIndex = nearestIndex(positions, x);
+
+      document.getElementById('slider-value-badge').textContent = cfg.unitFormatter(x);
+      seesawSlider.setAttribute('aria-valuetext', cfg.unitFormatter(x));
+
+      values.forEach((value, i) => {
+        document.getElementById(`metric-label-${i}`).textContent = cfg.datasets[i].label;
+        document.getElementById(`metric-value-${i}`).textContent = `${value}/100`;
+        document.getElementById(`metric-bar-${i}`).style.width = `${value}%`;
+      });
+
+      // Make the live calibration visible on the chart by enlarging the nearest node.
+      datasets.forEach(ds => {
+        ds.pointRadius = ds.data.map((_, j) => (j === markerIndex ? 6 : 3));
+        ds.pointHoverRadius = 7;
+        ds.pointBorderWidth = 2;
+        ds.pointBackgroundColor = '#FFFFFF';
+        ds.pointBorderColor = ds.borderColor;
+      });
+      seesawChart.update('none');
+
+      const primary = cfg.datasets[0].label;
+      const risk = cfg.datasets[1].label;
+      const secondary = cfg.datasets[2].label;
+      const [primaryValue, riskValue, secondaryValue] = values;
+
+      let badgeText;
+      let badgeClasses;
+      let verdictText;
+      if (riskValue >= 70) {
+        badgeText = 'Adversarial Zone';
+        badgeClasses = 'bg-[#B85D43]/10 text-[#B85D43] border border-[#B85D43]/30';
+        verdictText = `The adversarial setting scores high only on ${risk.toLowerCase()}. ${primary} has fallen to ${primaryValue} and ${secondary} to ${secondaryValue} — short-term vigilance is being purchased with long-term trust.`;
+      } else if (primaryValue >= 78 && secondaryValue >= 78) {
+        badgeText = 'Empirical Sweet Spot';
+        badgeClasses = 'bg-[#3B6E6C]/10 text-[#3B6E6C] border border-[#3B6E6C]/30';
+        verdictText = `Security without stagnation: ${primary} sits at ${primaryValue}, ${risk} at ${riskValue}, and ${secondary} at ${secondaryValue}. This is the region where attachment security and differentiation let intimacy compound.`;
+      } else {
+        badgeText = 'Mixed Zone';
+        badgeClasses = 'bg-[#8C7A5B]/10 text-[#8C7A5B] border border-[#8C7A5B]/30';
+        verdictText = `${primary} is ${primaryValue}, ${risk} is ${riskValue}, and ${secondary} is ${secondaryValue}. Away from the poles, the outcome depends on whether distance is healthy differentiation or leveraged withdrawal.`;
+      }
+
+      const badge = document.getElementById('seesaw-verdict-badge');
+      badge.textContent = badgeText;
+      badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ' + badgeClasses;
+      document.getElementById('seesaw-verdict').textContent = verdictText;
+    }
+
+    function renderSeesaw(idx) {
+      activeSeesaw = idx;
+      const cfg = seesawConfigs[idx];
+      document.getElementById('slider-left-label').textContent = cfg.leftLabel;
+      document.getElementById('slider-right-label').textContent = cfg.rightLabel;
+      document.getElementById('adversarial-claim-text').textContent = cfg.claim;
+      document.getElementById('empirical-reality-text').textContent = cfg.reality;
+      document.getElementById('seesaw-chart-title').textContent = cfg.chartTitle;
+      document.getElementById('seesaw-chart-subtitle').textContent = cfg.chartSubtitle;
+      document.getElementById('seesaw-takeaway').innerHTML = cfg.takeaway;
+
+      seesawChart.data.labels = cfg.labels.map(l => wrapLabel(l, 14));
+      seesawChart.data.datasets = cloneDatasets(cfg);
+      updateSeesawReadout();
+    }
+
+    document.querySelectorAll('.seesaw-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = parseInt(tab.getAttribute('data-seesaw'), 10);
+        document.querySelectorAll('.seesaw-tab').forEach((t, i) => {
+          t.setAttribute('aria-pressed', i === idx ? 'true' : 'false');
+          if (i === idx) {
+            t.className = 'seesaw-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#3B6E6C] text-white transition';
+          } else {
+            t.className = 'seesaw-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#F3EFEA] text-[#475569] hover:text-[#1E293B] transition';
+          }
+        });
+        renderSeesaw(idx);
+      });
+    });
+
+    seesawSlider.addEventListener('input', updateSeesawReadout);
+
+    renderSeesaw(0);
+
+    const matrices = {
+      rusbult: {
+        badge: 'Showing 4 Components of Rusbult\'s Investment Model (Interdependence Theory)',
+        items: [
+          {
+            title: 'Satisfaction Level',
+            subtitle: 'Rewards minus costs experienced in the dyad',
+            adversarial: 'Withheld intentionally; affection and warmth are rationed conditionally as rewards for partner compliance.',
+            authentic: 'Cultivated generously through Gottman\'s 5:1 positive interaction ratio and consistent emotional attunement.'
+          },
+          {
+            title: 'Quality of Alternatives (CLalt)',
+            subtitle: 'Perceived desirability of life outside the relationship',
+            adversarial: 'Artificially inflated via flirting and triangulation to induce "dread" while trying to shrink the partner\'s options.',
+            authentic: 'Organically high because you have built a fulfilling life you genuinely enjoy living alone—requiring zero theater.'
+          },
+          {
+            title: 'Investment Size',
+            subtitle: 'Intrinsic emotional & extrinsic shared resources',
+            adversarial: 'Practitioner minimizes personal emotional vulnerability while attempting to maximize the partner\'s sunk costs.',
+            authentic: 'Mutual, transparent investment that deepens trust without keeping a transactional ledger of who cares less.'
+          },
+          {
+            title: 'Commitment Level',
+            subtitle: 'Intent to persist and psychological attachment',
+            adversarial: 'Treated as a dangerous liability; absolute commitment is avoided to preserve the credible threat of walking away.',
+            authentic: 'Chosen freely from a position of strength, creating the secure base required for long-term erotic vitality.'
+          }
+        ]
+      },
+      sdt: {
+        badge: 'Showing 3 Basic Psychological Needs of Self-Determination Theory (Deci & Ryan)',
+        items: [
+          {
+            title: 'Autonomy',
+            subtitle: 'Being the genuine author of one\'s own actions',
+            adversarial: 'Thwarted: "Purpose" is adopted extrinsically as a performative tactic to manage female attraction and hold leverage.',
+            authentic: 'Fulfilled: Purpose is pursued intrinsically because it aligns with core personal values, regardless of who is watching.'
+          },
+          {
+            title: 'Competence',
+            subtitle: 'Experiencing mastery and self-efficacy in the world',
+            adversarial: 'Fragile: Self-worth depends on the partner\'s reaction; if she "tips the seesaw," competence collapses.',
+            authentic: 'Robust: Mastery is anchored in real-world craft and mission; setbacks are learning opportunities, not relational losses.'
+          },
+          {
+            title: 'Relatedness',
+            subtitle: 'Deep connection and being unconditionally valued',
+            adversarial: 'Thwarted: The partner is framed as an adversary trying to derail your mission with "guilt and lust."',
+            authentic: 'Fulfilled: The partner is embraced as a supportive ally who respects your mission, enabling secure intimacy.'
+          }
+        ]
+      }
+    };
+
+    function renderMatrix(key) {
+      const data = matrices[key];
+      document.getElementById('matrix-badge').textContent = data.badge;
+      const grid = document.getElementById('matrix-grid');
+      grid.innerHTML = data.items.map(item => `
+        <div class="p-5 rounded-xl bg-[#FAF8F5] border border-[#E5DFD5] flex flex-col justify-between space-y-4">
+          <div>
+            <h4 class="font-bold text-[#1E293B] text-base">${item.title}</h4>
+            <p class="text-xs text-[#64748B]">${item.subtitle}</p>
+          </div>
+          <div class="space-y-2.5 text-xs sm:text-sm">
+            <div class="p-3 rounded-lg bg-white border-l-4 border-[#B85D43]">
+              <span class="font-bold text-[#B85D43] block text-[11px] uppercase">Adversarial Seesaw Model</span>
+              <span class="text-[#334155]">${item.adversarial}</span>
+            </div>
+            <div class="p-3 rounded-lg bg-white border-l-4 border-[#3B6E6C]">
+              <span class="font-bold text-[#3B6E6C] block text-[11px] uppercase">Authentic "Sharper" Version</span>
+              <span class="text-[#334155]">${item.authentic}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const btnMatrixRusbult = document.getElementById('btn-matrix-rusbult');
+    const btnMatrixSdt = document.getElementById('btn-matrix-sdt');
+
+    btnMatrixRusbult.addEventListener('click', () => {
+      btnMatrixRusbult.setAttribute('aria-pressed', 'true');
+      btnMatrixSdt.setAttribute('aria-pressed', 'false');
+      btnMatrixRusbult.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#3B6E6C] text-white transition';
+      btnMatrixSdt.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#1E293B] transition';
+      renderMatrix('rusbult');
+    });
+
+    btnMatrixSdt.addEventListener('click', () => {
+      btnMatrixSdt.setAttribute('aria-pressed', 'true');
+      btnMatrixRusbult.setAttribute('aria-pressed', 'false');
+      btnMatrixSdt.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#3B6E6C] text-white transition';
+      btnMatrixRusbult.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#1E293B] transition';
+      renderMatrix('sdt');
+    });
+
+    renderMatrix('rusbult');
+
+    const paradoxCtx = document.getElementById('paradoxChart').getContext('2d');
+    const paradoxLabels = [
+      wrapLabel('Partner Preoccupation'),
+      wrapLabel('Performative Cognitive Load'),
+      wrapLabel('Attachment Security'),
+      wrapLabel('Authentic Autonomy')
+    ];
+
+    new Chart(paradoxCtx, {
+      type: 'bar',
+      data: {
+        labels: paradoxLabels,
+        datasets: [
+          {
+            label: 'Anxious Over-Texter',
+            data: [82, 55, 20, 25],
+            backgroundColor: '#8C7A5B',
+            borderRadius: 5
+          },
+          {
+            label: 'Seesaw Accountant (3 Levers)',
+            data: [95, 96, 18, 22],
+            backgroundColor: '#B85D43',
+            borderRadius: 5
+          },
+          {
+            label: 'Self-Determined Partner',
+            data: [22, 15, 92, 94],
+            backgroundColor: '#3B6E6C',
+            borderRadius: 5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 12, font: { size: 11 }, color: '#334155' }
+          },
+          tooltip: {
+            callbacks: {
+              title: items => items[0].label.replace(/,/g, ' '),
+              label: ctx => `${ctx.dataset.label}: ${ctx.raw}/100`
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: '#F1ECE4' },
+            ticks: { color: '#64748B', font: { size: 11 } }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { color: '#1E293B', font: { size: 11, weight: '600' } }
+          }
+        }
+      }
+    });
+
+    const translations = [
+      {
+        rule: '"Maintain an 80/20 Value-to-Comfort ratio so she fears losing you."',
+        sharper: 'Offer deep emotional security without lapsing into personal stagnation; keep your own passions and friendships alive so desire has space to breathe.'
+      },
+      {
+        rule: '"Hold the leverage by making her easier to replace than you are."',
+        sharper: 'Build a life you genuinely enjoy living alone. That gives you real self-respect and boundaries without turning intimacy into a hostage negotiation.'
+      },
+      {
+        rule: '"Set your purpose far from sex so she sees your worth to the world."',
+        sharper: 'Pursue a mission you would care about even if no one were watching, and choose a partner who celebrates that drive rather than viewing her affection as a trap.'
+      }
+    ];
+
+    const translatorList = document.getElementById('translator-list');
+    translatorList.innerHTML = translations.map((t, i) => `
+      <div class="rounded-xl border border-[#E5DFD5] bg-[#FAF8F5] overflow-hidden">
+        <button type="button" data-tidx="${i}" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="trans-body-${i}" class="trans-toggle w-full text-left p-3.5 flex items-start justify-between gap-3 hover:bg-[#F3EFEA] transition">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#B85D43] block">Adversarial Rule #${i + 1}</span>
+            <span class="text-xs sm:text-sm font-semibold text-[#1E293B]">${t.rule}</span>
+          </div>
+          <span class="toggle-label text-xs font-bold text-[#3B6E6C] shrink-0 mt-1">${i === 0 ? 'Hide' : 'Translate'}</span>
+        </button>
+        <div id="trans-body-${i}" class="${i === 0 ? '' : 'hidden'} px-3.5 pb-3.5 pt-2 border-t border-[#E5DFD5] bg-white text-xs sm:text-sm text-[#334155]">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-[#3B6E6C] block mb-0.5">The Sharper Version</span>
+          ${t.sharper}
+        </div>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.trans-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.getAttribute('data-tidx');
+        const body = document.getElementById(`trans-body-${idx}`);
+        const label = btn.querySelector('.toggle-label');
+        const isHidden = body.classList.contains('hidden');
+        if (isHidden) {
+          body.classList.remove('hidden');
+          label.textContent = 'Hide';
+          btn.setAttribute('aria-expanded', 'true');
+        } else {
+          body.classList.add('hidden');
+          label.textContent = 'Translate';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Scroll-spy: highlight the section link for whatever is currently in view.
+    const sectionLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const sectionTargets = Array.from(document.querySelectorAll('main section[id]'));
+
+    function markActiveSection(id) {
+      sectionLinks.forEach(link => {
+        const active = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('active', active);
+        if (active) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) markActiveSection(entry.target.id);
+        });
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+      sectionTargets.forEach(section => observer.observe(section));
+    }
+    markActiveSection('overview');
+  </script>
+</body>
+</html>
