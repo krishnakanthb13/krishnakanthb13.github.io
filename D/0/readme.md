@@ -252,6 +252,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Keeper of Perspective](./keeper_of_perspective/)
+**The Architecture of Psychological Equilibrium** — why unilateral self-help turns toxic: "believe in yourself" inflates arrogance when you are already grandiose, while "stay humble" deepens despair when you feel worthless. Uses John Cena's broken, dual-engraved pocket watch—"Comparison is the thief of joy" on one face, "Memento mori" on the other—to trace Festinger's Social Comparison Theory, Gilbert's Social Rank Theory, Adlerian inferiority/superiority complexes, fragile versus secure self-esteem and Neff's self-compassion, mortality salience, Winnicott's transitional objects and embodied cognition, and the SCENT-R cross-cultural model of self-enhancement.
+
+- 📝 [The Full Report](./keeper_of_perspective/readme.md) — the long-form essay with 78 cited sources. (`readme.md`)
+- 🕰️ [Interactive Infographic](./keeper_of_perspective/index.html) — the warm-stone, burnished-bronze interactive page: flip-animated dual-faced pocket-watch simulator, ego-pendulum diagnostic with toxic-advice vs. corrective-action panels, self-worth radar comparing fragile and secure self-esteem against self-compassion, Festinger comparison matrix, era-filtered intellectual lineage explorer, four-stage System 1/System 2 interruption pathway, ego-oscillation dampening chart, and a SCENT-R individualist/collectivist culture toggle. (`index.html`)
+
+---
+
 ### 📁 [Kindness & Boundaries](./kindness_n_boundaries/)
 **The Architecture of Authentic Connection** — why kindness and boundaries are not two competing virtues requiring a transactional balance but a single unified mechanism seen from two vantage points. Kindness without boundaries curdles into conscripted compliance and covert resentment; boundaries without kindness calcify into weaponized cutoff and isolation. Synthesizes Braiker's "disease to please," Ryan & Deci's Self-Determination Theory continuum, Gross's process model of emotion regulation, Singer's empathy-versus-compassion neuroscience, Maté's psychoneuroimmunology, Bowen's differentiation of self and connected autonomy, and DBT FAST/GIVE with Rosenberg's Nonviolent Communication.
 

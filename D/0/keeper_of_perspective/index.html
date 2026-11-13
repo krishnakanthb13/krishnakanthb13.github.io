@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive research SPA on the dual-faced perspective anchor: why comparison is the thief of joy and memento mori correct the ego in opposite directions." />
+  <title>The Architecture of Psychological Equilibrium | Perspective Anchor</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230F766E%22>⚖</text></svg>">
+  <!-- Chosen Palette: Warm Stoic Stone & Burnished Bronze (Alabaster #FAF8F5 background, Warm Sand #F2EFE9 secondary surfaces, Charcoal #1C1917 primary text, Slate Teal #0F766E for Self-Compassion/Measurement, Burnished Bronze #B45309 for Memento Mori/Scale) -->
+  <!-- Application Structure Plan: Designed as a non-linear, experiential SPA divided into five cohesive thematic modules: (1) Interactive Perspective Watch & Ego Pendulum Simulator at the hero so users immediately experience how unilateral advice fails while a dual-faced physical anchor restores equilibrium; (2) Social Rank & Comparison Dynamics featuring an interactive Chart.js profile comparing Fragile Self-Esteem, Secure Self-Esteem, and Self-Compassion alongside a 2x2 Comparison Matrix; (3) Dual-Face Deconstruction & Historical Lineage comparing "Comparison is the thief of joy" (Measurement) vs. "Memento mori" (Scale) with filterable philosophical milestones; (4) Embodied Cognition & Neural Circuit Breaker featuring a dynamic Chart.js oscillation simulation and a 4-stage System 1 to System 2 interactive pathway; and (5) Cross-Cultural Universality (SCENT-R Model) comparing individualistic vs. collectivistic ego dynamics. This structure transforms dense interdisciplinary research into active exploration and self-diagnosis. -->
+  <!-- Visualization & Content Choices: (1) Interactive Pocket Watch & Ego Drift Slider -> Goal: Demonstrate dual-directional correction & unilateral toxicity -> Method: HTML/CSS/JS interactive dial & flip card -> Justification: Enacts the physical metacognitive pause described in the report. (2) Self-Worth Architecture Radar Chart -> Goal: Compare Fragile High Self-Esteem, Secure Self-Esteem, and Self-Compassion across 5 clinical dimensions -> Library: Chart.js (Canvas) -> Justification: Clarifies why self-compassion outperforms global self-esteem. (3) Emotional Oscillation Dampening Line Chart -> Goal: Visualize how unilateral self-help overshoots vs. how the dual-faced anchor stabilizes mood swings -> Library: Chart.js (Canvas) with interactive trigger buttons -> Justification: Makes the pendulum metaphor concrete and testable. (4) 2x2 Social Comparison & Neural Correlates Matrix + System 1/2 Pathway + SCENT-R Cultural Toggle -> Goal: Organize qualitative findings -> Method: Structured Tailwind grids + JS state updates. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .serif-display {
+      font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 310px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    .watch-perspective {
+      perspective: 1200px;
+    }
+    .watch-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+    .watch-flipped {
+      transform: rotateY(180deg);
+    }
+    .watch-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .watch-back {
+      transform: rotateY(180deg);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 10px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #0F766E 0%, #D6D3D1 50%, #B45309 100%);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -7px;
+      background-color: #1C1917;
+      border: 3px solid #FAF8F5;
+      height: 24px;
+      width: 24px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    input[type="range"]::-moz-range-track {
+      height: 10px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #0F766E 0%, #D6D3D1 50%, #B45309 100%);
+    }
+    input[type="range"]::-moz-range-thumb {
+      background-color: #1C1917;
+      border: 3px solid #FAF8F5;
+      height: 18px;
+      width: 18px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    /* Scroll-spy highlight for the Row 2 section navigation */
+    .nav-link.active {
+      color: #0F766E;
+      background-color: #E7E5E4;
+      box-shadow: inset 0 -2px 0 #0F766E;
+      font-weight: 600;
+    }
+    /* Visible keyboard focus for every interactive control */
+    a:focus-visible,
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    input[type="range"]:focus-visible {
+      outline: 3px solid #0F766E;
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+    /* Honor reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .watch-inner { transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-stone-900 overflow-x-hidden">
+
+  <a href="#simulator" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-stone-900 focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+  <!-- Layout Convention: the sticky header uses TWO rows — Row 1 = back-to-Vault link, brand and read-essay action; Row 2 = section navigation on its own row (always visible, scrolls horizontally on small screens, with scroll-spy highlighting). -->
+  <header class="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: back link + brand + page action -->
+      <div class="flex items-center justify-between gap-3 h-16">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <a href="../" class="shrink-0 text-stone-500 hover:text-teal-800 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-stone-300 whitespace-nowrap" title="Return to the D/0 Knowledge Vault">← Vault</a>
+          <span class="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-stone-900 text-amber-400 text-sm font-bold" aria-hidden="true">⚖</span>
+          <div class="min-w-0">
+            <span class="block font-semibold tracking-tight text-stone-900 text-sm sm:text-base truncate">Perspective Anchor</span>
+            <span class="hidden sm:block text-xs text-stone-500 truncate">Psychological Equilibrium Research</span>
+          </div>
+        </div>
+        <a href="./readme.md" class="shrink-0 text-xs font-semibold px-3 py-2 rounded-lg bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 transition whitespace-nowrap" title="Read the full long-form report">📄 <span class="hidden sm:inline">Read Essay</span><span class="sm:hidden">Essay</span></a>
+      </div>
+      <!-- Row 2: section navigation (always visible, scrolls horizontally on small screens, with scroll-spy highlighting) -->
+      <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-stone-200 py-1.5 text-xs sm:text-sm font-medium" aria-label="Page sections">
+        <a href="#simulator" class="nav-link shrink-0 px-2.5 py-1.5 rounded-lg text-stone-700 hover:bg-stone-200/70 transition">Simulator</a>
+        <a href="#rank-theory" class="nav-link shrink-0 px-2.5 py-1.5 rounded-lg text-stone-700 hover:bg-stone-200/70 transition">Rank &amp; Esteem</a>
+        <a href="#dual-faces" class="nav-link shrink-0 px-2.5 py-1.5 rounded-lg text-stone-700 hover:bg-stone-200/70 transition">Two Faces</a>
+        <a href="#embodied" class="nav-link shrink-0 px-2.5 py-1.5 rounded-lg text-stone-700 hover:bg-stone-200/70 transition">Neural Ritual</a>
+        <a href="#culture" class="nav-link shrink-0 px-2.5 py-1.5 rounded-lg text-stone-700 hover:bg-stone-200/70 transition">Culture</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-24">
+
+    <section id="simulator" class="space-y-8 scroll-mt-28">
+      <div class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-200/80 text-stone-700 text-xs font-semibold uppercase tracking-wider">
+          <span>Interactive Behavioral Artifact</span>
+          <span>•</span>
+          <span>Design Thinking &amp; Clinical Psychology</span>
+        </div>
+        <h1 class="serif-display text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 leading-tight">
+          Not a Keeper of Time, But a Keeper of Perspective
+        </h1>
+        <p class="text-base sm:text-lg text-stone-600 leading-relaxed">
+          Traditional self-help pushes in only one direction: <em>"believe in yourself"</em> inflates arrogance when you are already grandiose, while <em>"stay humble"</em> deepens despair when you feel worthless. Explore how a broken, dual-engraved pocket watch—carried by public figure John Cena—acts as a bidirectional circuit breaker for the oscillating human ego.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#F2EFE9] border border-stone-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-5">
+          <div class="text-xs font-semibold uppercase tracking-widest text-stone-500">
+            Click Watch to Physically Turn Over
+          </div>
+
+          <div id="watchCard" role="button" tabindex="0" aria-pressed="false" aria-label="Flip pocket watch to the opposite inscription" class="watch-perspective w-64 h-64 sm:w-72 sm:h-72 cursor-pointer select-none group">
+            <div id="watchInner" class="watch-inner">
+              <div class="watch-face rounded-full bg-gradient-to-br from-teal-900 via-teal-800 to-stone-900 border-8 border-stone-300 shadow-xl flex flex-col items-center justify-center p-6 text-center text-stone-50">
+                <span class="text-[11px] uppercase tracking-[0.2em] text-teal-200/90 mb-2">Face I • Antidote to Deflation</span>
+                <p class="serif-display text-xl sm:text-2xl italic font-medium leading-snug text-white">
+                  “Comparison is the thief of joy.”
+                </p>
+                <div class="w-12 h-px bg-teal-400/50 my-3"></div>
+                <p class="text-xs text-teal-100/90 leading-relaxed">
+                  Attacks the <strong>measurement</strong>. Drops someone else’s ruler. Reminds you that you are enough.
+                </p>
+                <span class="mt-3 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-teal-950/70 text-teal-200 border border-teal-600/40">
+                  Tap to Flip ↻
+                </span>
+              </div>
+
+              <div class="watch-face watch-back rounded-full bg-gradient-to-br from-amber-900 via-stone-900 to-stone-950 border-8 border-amber-600/70 shadow-xl flex flex-col items-center justify-center p-6 text-center text-stone-50">
+                <span class="text-[11px] uppercase tracking-[0.2em] text-amber-300/90 mb-2">Face II • Antidote to Inflation</span>
+                <p class="serif-display text-2xl sm:text-3xl tracking-wide font-semibold text-amber-100">
+                  MEMENTO MORI
+                </p>
+                <div class="w-12 h-px bg-amber-400/50 my-3"></div>
+                <p class="text-xs text-amber-100/90 leading-relaxed">
+                  Attacks the <strong>scale</strong>. Shrinks hubris via mortality salience and warm gratitude for those who support you.
+                </p>
+                <span class="mt-3 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-amber-950/80 text-amber-200 border border-amber-500/40">
+                  Tap to Flip ↻
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="btnFaceComparison" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-teal-800 text-white shadow-sm transition">
+              Face I: Inadequacy
+            </button>
+            <button id="btnFaceMemento" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300 hover:bg-stone-100 transition">
+              Face II: Hubris
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-xl border border-stone-200 p-5 sm:p-6 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="text-lg font-bold text-stone-900">Ego Pendulum Diagnostic</h2>
+            <span id="stateBadge" aria-live="polite" class="px-3 py-1 rounded-full text-xs font-semibold bg-stone-100 text-stone-800">
+              Equilibrium (0)
+            </span>
+          </div>
+
+          <p class="text-sm text-stone-600">
+            Slide the pendulum below to simulate an emotional drift toward <strong>inferiority</strong> or <strong>superiority</strong>. Notice how generic unilateral advice becomes toxic at the wrong pole, while the watch forces a metacognitive pause.
+          </p>
+
+          <div class="space-y-2 pt-1">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-teal-800">← Deflation ("I am below everyone")</span>
+              <span class="text-stone-400">0</span>
+              <span class="text-amber-800">Inflation ("I am above everyone") →</span>
+            </div>
+            <input id="egoSlider" type="range" min="-100" max="100" value="-45" aria-label="Ego pendulum drift slider" class="w-full" />
+          </div>
+
+          <div id="diagnosticPanel" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-rose-50/80 border border-rose-200/80 space-y-1.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-rose-800">✕ Toxic Unilateral Advice</div>
+              <p id="toxicAdviceTitle" class="text-sm font-semibold text-stone-900">“Stay humble &amp; know your place”</p>
+              <p id="toxicAdviceDesc" class="text-xs text-stone-600 leading-relaxed">
+                Applying humbling rhetoric during an inadequacy spiral validates depressive defeat and deepens self-loathing.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-teal-50/80 border border-teal-200/80 space-y-1.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-teal-800">✓ Watch Corrective Action</div>
+              <p id="correctiveTitle" class="text-sm font-semibold text-stone-900">Turn to: “Comparison is the thief of joy”</p>
+              <p id="correctiveDesc" class="text-xs text-stone-600 leading-relaxed">
+                Engages cognitive defusion. Rather than trying to out-rank others, you drop the external measuring ruler entirely.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-stone-500">
+            <span>Core Insight: Both extremes stem from obsessing over social rank.</span>
+            <button id="btnAutoAlign" class="self-start sm:self-auto whitespace-nowrap font-semibold text-stone-900 underline hover:text-amber-800">
+              Align Watch to Drift
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rank-theory" class="space-y-8 scroll-mt-28">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-800">01 • Evolutionary &amp; Clinical Foundations</span>
+        <h2 class="serif-display text-2xl sm:text-4xl font-bold text-stone-900">
+          The Pathology of Social Rank &amp; Fragile Self-Worth
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+          Drawing on Leon Festinger’s <em>Social Comparison Theory</em> (1954), Paul Gilbert’s <em>Social Rank Theory</em>, and Alfred Adler’s <em>Individual Psychology</em>, this section reveals why inferiority and superiority complexes are two sides of the same coin. Explore the structural differences between fragile self-esteem, secure self-esteem, and Kristin Neff’s model of self-compassion.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-7 bg-white border border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-stone-900 text-base sm:text-lg">Self-Worth Architecture Profile</h3>
+              <p class="text-xs text-stone-500">Comparing Michael Kernis’s Optimal Self-Esteem &amp; Kristin Neff’s Self-Compassion (0–100 Index)</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button data-dataset="0" class="toggle-ds px-2.5 py-1 rounded text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300">Fragile High SE</button>
+              <button data-dataset="1" class="toggle-ds px-2.5 py-1 rounded text-xs font-semibold bg-stone-200 text-stone-800 border border-stone-300">Secure High SE</button>
+              <button data-dataset="2" class="toggle-ds px-2.5 py-1 rounded text-xs font-semibold bg-teal-100 text-teal-900 border border-teal-300">Self-Compassion</button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="selfWorthChart"></canvas>
+          </div>
+
+          <div class="bg-[#F2EFE9] rounded-xl p-4 text-xs text-stone-700 leading-relaxed">
+            <strong>Key Clinical Takeaway:</strong> Traditional Western self-esteem often relies on feeling <em>“better than average,”</em> locking individuals into upward/downward social comparisons. Self-compassion (Self-Kindness, Common Humanity, Mindfulness) buffers against ego-threats without requiring superiority over others.
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-5">
+          <div class="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-stone-900 text-base">Festinger’s Comparison Matrix</h3>
+              <span class="text-xs text-stone-500">Click a quadrant</span>
+            </div>
+            <p class="text-xs text-stone-600">
+              Neuroimaging shows social comparison activates primary reward regions (<strong>Ventral Striatum &amp; vmPFC</strong>) when favorable, and pain/conflict centers (<strong>dACC &amp; Anterior Insula</strong>) when unfavorable.
+            </p>
+
+            <div class="grid grid-cols-2 gap-2.5 text-left">
+              <button class="comp-quadrant p-3.5 rounded-xl border-2 border-teal-700 bg-teal-50/70 transition" data-quad="up-contrast">
+                <div class="text-[11px] font-bold uppercase text-teal-800">Upward • Contrast</div>
+                <div class="font-semibold text-sm text-stone-900 mt-0.5">Compare Despair</div>
+                <div class="text-[11px] text-stone-600 mt-1">Target seems unreachable; triggers inadequacy.</div>
+              </button>
+              <button class="comp-quadrant p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 transition" data-quad="up-assim">
+                <div class="text-[11px] font-bold uppercase text-stone-500">Upward • Assimilation</div>
+                <div class="font-semibold text-sm text-stone-900 mt-0.5">Inspiration &amp; Hope</div>
+                <div class="text-[11px] text-stone-600 mt-1">Target’s success feels attainable; motivates growth.</div>
+              </button>
+              <button class="comp-quadrant p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 transition" data-quad="down-contrast">
+                <div class="text-[11px] font-bold uppercase text-amber-800">Downward • Contrast</div>
+                <div class="font-semibold text-sm text-stone-900 mt-0.5">Defensive Ego Boost</div>
+                <div class="text-[11px] text-stone-600 mt-1">Feels superior; fuels arrogance &amp; complacency.</div>
+              </button>
+              <button class="comp-quadrant p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 transition" data-quad="down-assim">
+                <div class="text-[11px] font-bold uppercase text-stone-500">Downward • Assimilation</div>
+                <div class="font-semibold text-sm text-stone-900 mt-0.5">Status Anxiety</div>
+                <div class="text-[11px] text-stone-600 mt-1">Fear of sliding down into the target’s misfortune.</div>
+              </button>
+            </div>
+
+            <div id="quadrantDetail" class="p-4 rounded-xl bg-stone-900 text-stone-100 space-y-1.5 text-xs">
+              <div class="font-bold text-teal-300">Upward Contrast Effect &amp; DBS Collapse</div>
+              <p class="text-stone-300 leading-relaxed">
+                Accelerated by curated social media feeds, upward contrast activates the dorsal anterior cingulate cortex (social pain) and triggers a submissive defeat response in Paul Gilbert’s Dominance Behavioral System (DBS). Watch intervention: <strong>Drop the ruler</strong>.
+              </p>
+            </div>
+          </div>
+
+          <blockquote class="bg-[#F2EFE9] border-l-4 border-amber-700 p-4 rounded-r-xl text-xs sm:text-sm text-stone-700 italic space-y-1">
+            <p>“Pride gets no pleasure out of having something, only out of having more of it than the next man... It is the comparison that makes you proud: the pleasure of being above the rest.”</p>
+            <footer class="not-italic font-semibold text-stone-900 text-xs">— C.S. Lewis, <em>Mere Christianity</em> (“The Great Sin”)</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="dual-faces" class="space-y-8 scroll-mt-28">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-800">02 • Semiotic &amp; Philosophical Deconstruction</span>
+        <h2 class="serif-display text-2xl sm:text-4xl font-bold text-stone-900">
+          Attacking the Measurement vs. Attacking the Scale
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+          The two inscriptions operate through distinct cognitive mechanisms. One dismantles the external yardstick used to judge self-worth; the other shrinks the inflated illusion of cosmic importance while anchoring humility in gratitude.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border-t-4 border-teal-700 border-x border-b border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md bg-teal-50 text-teal-800 text-xs font-bold">FACE I • MEASUREMENT</span>
+            <span class="text-xs text-stone-400">Cognitive Defusion (ACT)</span>
+          </div>
+          <h3 class="serif-display text-2xl font-bold text-stone-900">“Comparison is the thief of joy”</h3>
+          <ul class="space-y-2.5 text-sm text-stone-700">
+            <li class="flex items-start gap-2">
+              <span class="text-teal-700 font-bold">◈</span>
+              <span><strong>True Provenance:</strong> Often misattributed to Theodore Roosevelt or Mark Twain, Quote Investigator traces the exact phrasing to Dr. Ray Cummings (2003) and Curt Cloninger (2004), echoing 2 Corinthians 10:12.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-700 font-bold">◈</span>
+              <span><strong>Cognitive Mechanism:</strong> Instead of forced positive affirmations (“I am the best”), it prompts <em>cognitive defusion</em>—stepping outside the ranking game entirely.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-teal-700 font-bold">◈</span>
+              <span><strong>Emotional Outcome:</strong> Restores unconditional self-acceptance (“I am enough and worthy of love”) independent of external rank.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white border-t-4 border-amber-700 border-x border-b border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md bg-amber-50 text-amber-800 text-xs font-bold">FACE II • SCALE</span>
+            <span class="text-xs text-stone-400">Mortality Salience &amp; Gratitude</span>
+          </div>
+          <h3 class="serif-display text-2xl font-bold text-stone-900">“Memento mori”</h3>
+          <ul class="space-y-2.5 text-sm text-stone-700">
+            <li class="flex items-start gap-2">
+              <span class="text-amber-700 font-bold">◈</span>
+              <span><strong>Roman Triumph Ritual:</strong> Recorded by Tertullian (2nd c. CE), an attendant whispered behind victorious generals: <em>“Respice post te! Hominem te esse memento!”</em> (“Remember you are a man!”).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-700 font-bold">◈</span>
+              <span><strong>Cognitive Mechanism:</strong> Overactive Dominance Behavioral System (DBS) and Adlerian superiority complexes inflate the present ego. Mortality shrinks grandiosity to human scale.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-700 font-bold">◈</span>
+              <span><strong>Warm Humility:</strong> Paired with remembering one’s roots and support system (“I don’t do it alone”), gratitude keeps humility prosocial rather than grim.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-[#F2EFE9] border border-stone-200 rounded-2xl p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="font-bold text-stone-900 text-base">Intellectual &amp; Historical Lineage Explorer</h3>
+            <p class="text-xs text-stone-600">Filter the philosophical and psychological milestones synthesized inside this single object</p>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <button data-era="all" class="era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-stone-900 text-white">All Eras</button>
+            <button data-era="antiquity" class="era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300">Antiquity</button>
+            <button data-era="psychology" class="era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300">20th c. Psychology</button>
+            <button data-era="modern" class="era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300">Modern Synthesis</button>
+          </div>
+        </div>
+        <div id="lineageGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+      </div>
+    </section>
+
+    <section id="embodied" class="space-y-8 scroll-mt-28">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-stone-600">03 • Embodied Cognition &amp; Neurobiology</span>
+        <h2 class="serif-display text-2xl sm:text-4xl font-bold text-stone-900">
+          Why Physicality Matters: The Tactile Circuit Breaker
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+          An engraving never touched is merely jewelry; turning a physical object over at the exact moment of emotional pull transforms philosophy into an embodied habit. Based on Donald Winnicott’s <em>Transitional Objects</em> (1953) and Daniel Kahneman’s <em>Dual-Process Theory</em>, simulate how the ritual dampens emotional volatility.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 space-y-3">
+          <h3 class="font-bold text-stone-900 text-base">4-Stage Neuro-Behavioral Interruption</h3>
+          <div id="ritualSteps" class="space-y-2.5">
+            <div class="ritual-step p-4 rounded-xl bg-white border-2 border-stone-900 shadow-sm cursor-pointer" data-step="0">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-800">STAGE 1 • AUTONOMIC HIJACK</span>
+                <span class="text-xs font-semibold text-stone-400">System 1</span>
+              </div>
+              <h4 class="font-bold text-sm text-stone-900 mt-1">Amygdala Status/Threat Spike</h4>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+                Rapid, automatic social evaluation triggers either a cortisol-driven shame spiral or a dopamine-fueled dominance surge.
+              </p>
+            </div>
+
+            <div class="ritual-step p-4 rounded-xl bg-white border border-stone-200 hover:border-stone-400 cursor-pointer" data-step="1">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-teal-800">STAGE 2 • SOMATOSENSORY GROUNDING</span>
+                <span class="text-xs font-semibold text-stone-400">Transitional Object</span>
+              </div>
+              <h4 class="font-bold text-sm text-stone-900 mt-1">Tactile Weight &amp; Temperature</h4>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+                Reaching for the pocket watch introduces immediate physical sensation, down-regulating autonomic arousal and improving Heart Rate Variability (HRV).
+              </p>
+            </div>
+
+            <div class="ritual-step p-4 rounded-xl bg-white border border-stone-200 hover:border-stone-400 cursor-pointer" data-step="2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-stone-800">STAGE 3 • METACOGNITIVE PAUSE</span>
+                <span class="text-xs font-semibold text-stone-400">System 2 Override</span>
+              </div>
+              <h4 class="font-bold text-sm text-stone-900 mt-1">“Which Way Am I Drifting?”</h4>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+                Because the two remedies sit on opposite sides, physically turning the watch requires conscious System 2 diagnosis before viewing the inscription.
+              </p>
+            </div>
+
+            <div class="ritual-step p-4 rounded-xl bg-white border border-stone-200 hover:border-stone-400 cursor-pointer" data-step="3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-800">STAGE 4 • PREFRONTAL MODULATION</span>
+                <span class="text-xs font-semibold text-stone-400">vmPFC Regulation</span>
+              </div>
+              <h4 class="font-bold text-sm text-stone-900 mt-1">Cognitive Restructuring &amp; Equilibrium</h4>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+                The ventromedial prefrontal cortex (vmPFC) inhibits amygdala reactivity, restoring grounded perspective and halting the stopped clock of external measurement.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white border border-stone-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="font-bold text-stone-900 text-base sm:text-lg">Ego Oscillation Dampening Simulation</h3>
+              <p class="text-xs text-stone-500">Test how unilateral pep-talks overshoot compared to the dual-faced anchor</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="btnTriggerShame" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-50 text-teal-900 border border-teal-300 hover:bg-teal-100 transition">
+                + Trigger Shame Dip
+              </button>
+              <button id="btnTriggerHubris" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition">
+                + Trigger Ego Spike
+              </button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="oscillationChart"></canvas>
+          </div>
+
+          <div id="oscillationNote" class="bg-[#F2EFE9] rounded-xl p-4 text-xs text-stone-700 leading-relaxed">
+            <strong>Simulation Insight:</strong> Notice how <em>Unilateral Self-Help</em> reacts to a shame dip with hyper-confidence (“You’re the best!”), which rebounds into grandiose hubris—and then crashes harder when criticized. The <em>Dual-Faced Watch</em> dampens amplitude in both directions toward stable equilibrium.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="culture" class="space-y-8 scroll-mt-28">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-800">04 • Pancultural Universality</span>
+        <h2 class="serif-display text-2xl sm:text-4xl font-bold text-stone-900">
+          Beyond Western Individualism: The SCENT-R Model
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+          Does a tool built to curb ego and comparison work across cultures? Research by Constantine Sedikides (SCENT-R model: <em>Self-Centrality Breeds Self-Enhancement</em>) resolves the classic debate with Steven Heine: the motive to self-enhance and monitor social rank is universal, though its tactical expression shifts by cultural values.
+        </p>
+      </div>
+
+      <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-100 pb-4">
+          <div class="flex gap-2">
+            <button id="btnCultureWest" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-900 text-white transition">
+              Individualistic Contexts
+            </button>
+            <button id="btnCultureEast" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+              Collectivistic Contexts
+            </button>
+          </div>
+          <span class="text-xs font-medium text-stone-500">Select cultural lens to inspect rank dynamics</span>
+        </div>
+
+        <div id="cultureContent" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-4 rounded-xl bg-[#FAF8F5] border border-stone-200 space-y-2">
+            <div class="text-xs font-bold uppercase text-stone-500">Primary Enhancement Domain</div>
+            <div id="cultDomain" class="font-bold text-base text-stone-900">Personal Achievement &amp; Autonomy</div>
+            <p id="cultDomainDesc" class="text-xs text-stone-600 leading-relaxed">
+              Individuals self-enhance on traits of independence, exceptional talent, and standing out above the crowd.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-teal-50/60 border border-teal-200/80 space-y-2">
+            <div class="text-xs font-bold uppercase text-teal-800">How “Comparison” Traps the Self</div>
+            <div id="cultComp" class="font-bold text-base text-stone-900">Status &amp; Accomplishment Envy</div>
+            <p id="cultCompDesc" class="text-xs text-stone-600 leading-relaxed">
+              Upward comparison against peers’ wealth, fame, or milestones generates acute personal inadequacy and imposter syndrome.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
+            <div class="text-xs font-bold uppercase text-amber-800">How “Memento Mori” Grounds Ego</div>
+            <div id="cultMemento" class="font-bold text-base text-stone-900">Dissolving Individualistic Hubris</div>
+            <p id="cultMementoDesc" class="text-xs text-stone-600 leading-relaxed">
+              Counters the illusion of the self-made titan by recalling mortality and gratitude for unseen mentors and supporters.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-stone-900 text-stone-100 rounded-2xl p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-2xl">
+          <div class="text-xs font-bold uppercase tracking-widest text-amber-400">The Ultimate Irony</div>
+          <h3 class="serif-display text-xl sm:text-2xl font-bold text-white">
+            Stopping the Clock to Reclaim the Self
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">
+            Time is the relentless metric that measures human decay and propels us toward the very mortality the watch warns of. By carrying a broken pocket watch that no longer ticks, the artifact enacts its own philosophy: it halts external measurement and turns attention inward to enduring stability.
+          </p>
+        </div>
+        <a href="#simulator" class="shrink-0 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm transition">
+          Return to Watch Simulator ↑
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-[#F2EFE9] py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+      <span>Synthesized from <em>The Architecture of Psychological Equilibrium: An Exhaustive Analysis of the Dual-Faced Perspective Anchor</em>.</span>
+      <div class="flex items-center gap-4">
+        <a href="./readme.md" class="font-semibold text-stone-700 hover:text-teal-800 transition-colors">Read the Full Report</a>
+        <a href="../" class="font-semibold text-stone-700 hover:text-teal-800 transition-colors">← Back to D/0 Vault</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const watchInner = document.getElementById('watchInner');
+    const watchCard = document.getElementById('watchCard');
+    const btnFaceComparison = document.getElementById('btnFaceComparison');
+    const btnFaceMemento = document.getElementById('btnFaceMemento');
+    const egoSlider = document.getElementById('egoSlider');
+    const stateBadge = document.getElementById('stateBadge');
+    const toxicAdviceTitle = document.getElementById('toxicAdviceTitle');
+    const toxicAdviceDesc = document.getElementById('toxicAdviceDesc');
+    const correctiveTitle = document.getElementById('correctiveTitle');
+    const correctiveDesc = document.getElementById('correctiveDesc');
+    const btnAutoAlign = document.getElementById('btnAutoAlign');
+
+    let isFlipped = false;
+
+    function setWatchFace(flipped) {
+      isFlipped = flipped;
+      watchCard.setAttribute('aria-pressed', String(isFlipped));
+      if (isFlipped) {
+        watchInner.classList.add('watch-flipped');
+        btnFaceMemento.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-800 text-white shadow-sm transition';
+        btnFaceComparison.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300 hover:bg-stone-100 transition';
+      } else {
+        watchInner.classList.remove('watch-flipped');
+        btnFaceComparison.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-teal-800 text-white shadow-sm transition';
+        btnFaceMemento.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300 hover:bg-stone-100 transition';
+      }
+    }
+
+    watchCard.addEventListener('click', () => setWatchFace(!isFlipped));
+    watchCard.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setWatchFace(!isFlipped);
+      }
+    });
+    btnFaceComparison.addEventListener('click', () => setWatchFace(false));
+    btnFaceMemento.addEventListener('click', () => setWatchFace(true));
+
+    function updateEgoDiagnostic(val) {
+      const num = parseInt(val, 10);
+      egoSlider.setAttribute('aria-valuetext', num < -15 ? `Deflation drift ${Math.abs(num)}` : num > 15 ? `Inflation drift ${num}` : `Equilibrium ${num}`);
+      if (num < -15) {
+        stateBadge.textContent = `Deflation Drift (${num})`;
+        stateBadge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-900';
+        toxicAdviceTitle.textContent = '“Stay humble & know your place”';
+        toxicAdviceDesc.textContent = 'Applying humbling rhetoric during an inadequacy spiral validates depressive defeat and deepens self-loathing.';
+        correctiveTitle.textContent = 'Turn to: “Comparison is the thief of joy”';
+        correctiveDesc.textContent = 'Engages cognitive defusion. Rather than trying to out-rank others, you drop the external measuring ruler entirely.';
+      } else if (num > 15) {
+        stateBadge.textContent = `Inflation Drift (+${num})`;
+        stateBadge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900';
+        toxicAdviceTitle.textContent = '“Believe in yourself—you’re unstoppable!”';
+        toxicAdviceDesc.textContent = 'Confidence pep-talks during an ego surge pour fuel on narcissistic hubris and blind you to blind spots.';
+        correctiveTitle.textContent = 'Turn to: “Memento mori”';
+        correctiveDesc.textContent = 'Introduces mortality salience and warm gratitude for those who helped you, shrinking grandiosity back to human scale.';
+      } else {
+        stateBadge.textContent = `Equilibrium (${num > 0 ? '+' + num : num})`;
+        stateBadge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-stone-200 text-stone-900';
+        toxicAdviceTitle.textContent = 'Unnecessary Extreme Intervention';
+        toxicAdviceDesc.textContent = 'When centered, reactive self-help creates artificial swings. Quiet awareness maintains steady footing.';
+        correctiveTitle.textContent = 'Metacognitive Readiness';
+        correctiveDesc.textContent = 'The watch rests in your pocket—ready to interrupt whichever direction the pendulum swings next.';
+      }
+    }
+
+    egoSlider.addEventListener('input', (e) => updateEgoDiagnostic(e.target.value));
+    btnAutoAlign.addEventListener('click', () => {
+      const num = parseInt(egoSlider.value, 10);
+      if (num > 15) {
+        setWatchFace(true);
+      } else if (num < -15) {
+        setWatchFace(false);
+      }
+      // Inside the equilibrium dead zone neither inscription is a correction,
+      // so leave the watch on its current face instead of flipping arbitrarily.
+    });
+    updateEgoDiagnostic(egoSlider.value);
+
+    const quadrantDetails = {
+      'up-contrast': {
+        title: 'Upward Contrast Effect & DBS Collapse',
+        body: 'Accelerated by curated social media feeds, upward contrast activates the dorsal anterior cingulate cortex (social pain) and triggers a submissive defeat response in Paul Gilbert’s Dominance Behavioral System (DBS). Watch intervention: Drop the ruler.'
+      },
+      'up-assim': {
+        title: 'Upward Assimilation Effect (Constructive Role Modeling)',
+        body: 'When psychological safety is high, observing someone better off inspires hope and learning. However, if fragile self-esteem is threatened, assimilation rapidly flips into demoralizing contrast.'
+      },
+      'down-contrast': {
+        title: 'Downward Contrast Effect (Defensive Superiority)',
+        body: 'Comparing oneself to someone worse off provides a rapid ventral striatum reward signal, temporarily soothing a fragile ego while fostering arrogance, complacency, and lack of empathy. Watch intervention: Memento mori.'
+      },
+      'down-assim': {
+        title: 'Downward Assimilation Effect (Status Vulnerability)',
+        body: 'Seeing another person fail triggers anxiety that one’s own status is precarious (“That could be me”), prompting frantic overcompensation or obsessive rank-guarding.'
+      }
+    };
+
+    document.querySelectorAll('.comp-quadrant').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.comp-quadrant').forEach((b) => {
+          b.className = 'comp-quadrant p-3.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 transition text-left';
+        });
+        btn.className = 'comp-quadrant p-3.5 rounded-xl border-2 border-teal-700 bg-teal-50/70 transition text-left';
+        const info = quadrantDetails[btn.dataset.quad];
+        document.getElementById('quadrantDetail').innerHTML = `
+          <div class="font-bold text-teal-300">${info.title}</div>
+          <p class="text-stone-300 leading-relaxed">${info.body}</p>
+        `;
+      });
+    });
+
+    const lineageItems = [
+      { era: 'antiquity', year: '~55 CE', title: '2 Corinthians 10:12', desc: 'Warns that those who measure and compare themselves by one another act “without understanding.”' },
+      { era: 'antiquity', year: '~170 CE', title: 'Marcus Aurelius & Tertullian', desc: 'Stoic mortality contemplation and the Roman Triumph attendant whispering “Remember you are a man.”' },
+      { era: 'psychology', year: '1927', title: 'Alfred Adler', desc: 'Demonstrates that the superiority complex is an overcompensatory mask for deep inferiority feelings.' },
+      { era: 'psychology', year: '1953', title: 'Donald Winnicott', desc: 'Introduces the Transitional Object—physical anchors that bridge internal anxiety and external reality.' },
+      { era: 'psychology', year: '1954', title: 'Leon Festinger', desc: 'Formulates Social Comparison Theory, explaining the innate human drive to evaluate rank against peers.' },
+      { era: 'modern', year: '2003', title: 'Kristin Neff & Ray Cummings', desc: 'Neff operationalizes Self-Compassion; Cummings publishes the modern phrasing “Comparison is the thief of joy.”' },
+      { era: 'modern', year: '2003', title: 'Michael Kernis', desc: 'Distinguishes fragile, contingent high self-esteem from secure, non-defensive optimal self-esteem.' },
+      { era: 'modern', year: '2011', title: 'Daniel Kahneman', desc: 'Maps System 1 (automatic emotional reactivity) vs. System 2 (deliberate metacognitive override).' }
+    ];
+
+    function renderLineage(filterEra) {
+      const grid = document.getElementById('lineageGrid');
+      const filtered = filterEra === 'all' ? lineageItems : lineageItems.filter((i) => i.era === filterEra);
+      grid.innerHTML = filtered.map((item) => `
+        <div class="bg-white rounded-xl p-4 border border-stone-200 shadow-sm space-y-1.5">
+          <div class="flex items-center justify-between text-[11px] font-bold">
+            <span class="text-amber-800">${item.year}</span>
+            <span class="uppercase tracking-wider text-stone-400">${item.era}</span>
+          </div>
+          <h4 class="font-bold text-sm text-stone-900">${item.title}</h4>
+          <p class="text-xs text-stone-600 leading-relaxed">${item.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.era-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.era-btn').forEach((b) => {
+          b.className = 'era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-stone-700 border border-stone-300';
+        });
+        btn.className = 'era-btn px-3 py-1 rounded-lg text-xs font-semibold bg-stone-900 text-white';
+        renderLineage(btn.dataset.era);
+      });
+    });
+    renderLineage('all');
+
+    document.querySelectorAll('.ritual-step').forEach((card) => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.ritual-step').forEach((c) => {
+          c.className = 'ritual-step p-4 rounded-xl bg-white border border-stone-200 hover:border-stone-400 cursor-pointer';
+        });
+        card.className = 'ritual-step p-4 rounded-xl bg-white border-2 border-stone-900 shadow-sm cursor-pointer';
+      });
+    });
+
+    const cultureData = {
+      west: {
+        domain: 'Personal Achievement & Autonomy',
+        domainDesc: 'Individuals self-enhance on traits of independence, exceptional talent, and standing out above the crowd.',
+        comp: 'Status & Accomplishment Envy',
+        compDesc: 'Upward comparison against peers’ wealth, fame, or milestones generates acute personal inadequacy and imposter syndrome.',
+        memento: 'Dissolving Individualistic Hubris',
+        mementoDesc: 'Counters the illusion of the self-made titan by recalling mortality and gratitude for unseen mentors and supporters.'
+      },
+      east: {
+        domain: 'Collectivistic Loyalty & Harmony',
+        domainDesc: 'Individuals self-enhance on group-central virtues such as cooperation, filial duty, self-sacrifice, and social cohesion.',
+        comp: 'Face-Loss & In-Group Comparison',
+        compDesc: 'Measuring one’s family or social standing against peers induces acute shame and fear of failing collective expectations.',
+        memento: 'Curbing Tactical Modesty & Rank Pride',
+        mementoDesc: 'Even where modesty is used tactically to gain social approval, mortality salience dissolves hidden status competition.'
+      }
+    };
+
+    const btnCultureWest = document.getElementById('btnCultureWest');
+    const btnCultureEast = document.getElementById('btnCultureEast');
+
+    function setCulture(key) {
+      const d = cultureData[key];
+      document.getElementById('cultDomain').textContent = d.domain;
+      document.getElementById('cultDomainDesc').textContent = d.domainDesc;
+      document.getElementById('cultComp').textContent = d.comp;
+      document.getElementById('cultCompDesc').textContent = d.compDesc;
+      document.getElementById('cultMemento').textContent = d.memento;
+      document.getElementById('cultMementoDesc').textContent = d.mementoDesc;
+
+      if (key === 'west') {
+        btnCultureWest.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-900 text-white transition';
+        btnCultureEast.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition';
+      } else {
+        btnCultureEast.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-900 text-white transition';
+        btnCultureWest.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition';
+      }
+    }
+
+    btnCultureWest.addEventListener('click', () => setCulture('west'));
+    btnCultureEast.addEventListener('click', () => setCulture('east'));
+
+    function wrapLabel(str, maxLen = 16) {
+      if (str.length <= maxLen) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let current = '';
+      words.forEach((word) => {
+        if ((current + ' ' + word).trim().length <= maxLen) {
+          current = (current + ' ' + word).trim();
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    const radarEl = document.getElementById('selfWorthChart');
+    const radarCtx = radarEl ? radarEl.getContext('2d') : null;
+    const radarLabels = [
+      'Temporal Stability',
+      'Low Defensiveness',
+      'Non-Contingent Worth',
+      'Egalitarian Stance',
+      'Failure Resilience'
+    ].map((l) => wrapLabel(l, 16));
+
+    const selfWorthChart = (radarCtx && typeof Chart !== 'undefined') ? new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: radarLabels,
+        datasets: [
+          {
+            label: 'Fragile High Self-Esteem',
+            data: [30, 25, 20, 35, 30],
+            borderColor: '#B45309',
+            backgroundColor: 'rgba(180, 83, 9, 0.14)',
+            pointBackgroundColor: '#B45309',
+            borderWidth: 2
+          },
+          {
+            label: 'Secure Optimal Self-Esteem',
+            data: [82, 78, 80, 75, 80],
+            borderColor: '#44403C',
+            backgroundColor: 'rgba(68, 64, 60, 0.12)',
+            pointBackgroundColor: '#44403C',
+            borderWidth: 2
+          },
+          {
+            label: 'Self-Compassion Model',
+            data: [90, 92, 95, 94, 93],
+            borderColor: '#0F766E',
+            backgroundColor: 'rgba(15, 118, 110, 0.18)',
+            pointBackgroundColor: '#0F766E',
+            borderWidth: 2.5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            min: 0,
+            max: 100,
+            ticks: { stepSize: 25, backdropColor: 'transparent', font: { size: 10 } },
+            pointLabels: { font: { size: 11, weight: '600' }, color: '#1C1917' },
+            grid: { color: '#E7E5E4' }
+          }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: {
+            callbacks: {
+              title: (items) => {
+                const lbl = items[0].label;
+                return Array.isArray(lbl) ? lbl.join(' ') : lbl;
+              }
+            }
+          }
+        }
+      }
+    }) : null;
+
+    if (!selfWorthChart && radarEl) {
+      radarEl.outerHTML = '<p class="text-xs text-stone-500 text-center py-10">The interactive chart could not load (Chart.js unavailable). The full comparison is documented in the essay.</p>';
+    }
+
+    document.querySelectorAll('.toggle-ds').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (!selfWorthChart) return;
+        const idx = parseInt(btn.dataset.dataset, 10);
+        const visible = selfWorthChart.isDatasetVisible(idx);
+        selfWorthChart.setDatasetVisibility(idx, !visible);
+        selfWorthChart.update();
+        btn.style.opacity = visible ? '0.45' : '1';
+      });
+    });
+
+    const oscEl = document.getElementById('oscillationChart');
+    const oscCtx = oscEl ? oscEl.getContext('2d') : null;
+    const timeLabels = ['T0', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8'];
+    let unilateralSeries = [-65, 55, -75, 70, -60, 62, -55, 50, -45];
+    let anchorSeries = [-65, -22, -8, 12, -5, 4, -2, 3, 0];
+
+    const oscillationChart = (oscCtx && typeof Chart !== 'undefined') ? new Chart(oscCtx, {
+      type: 'line',
+      data: {
+        labels: timeLabels,
+        datasets: [
+          {
+            label: 'Unilateral Self-Help (Overshoots)',
+            data: [...unilateralSeries],
+            borderColor: '#B45309',
+            backgroundColor: 'rgba(180, 83, 9, 0.08)',
+            borderDash: [5, 5],
+            tension: 0.35,
+            borderWidth: 2
+          },
+          {
+            label: 'Dual-Faced Watch Anchor (Equilibrium)',
+            data: [...anchorSeries],
+            borderColor: '#0F766E',
+            backgroundColor: 'rgba(15, 118, 110, 0.14)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            min: -100,
+            max: 100,
+            title: { display: true, text: 'Ego Drift (-Deflation / +Inflation)', font: { size: 11 } },
+            grid: { color: (ctx) => (ctx.tick.value === 0 ? '#78716C' : '#F5F5F4') }
+          },
+          x: {
+            title: { display: true, text: 'Metacognitive Check-Ins Over Time', font: { size: 11 } },
+            grid: { display: false }
+          }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+        }
+      }
+    }) : null;
+
+    if (!oscillationChart && oscEl) {
+      oscEl.outerHTML = '<p class="text-xs text-stone-500 text-center py-10">The oscillation simulation could not load (Chart.js unavailable). The narrative explanation below still applies.</p>';
+    }
+
+    function triggerPerturbation(type) {
+      if (!oscillationChart) return;
+      if (type === 'shame') {
+        oscillationChart.data.datasets[0].data = [-80, 68, -85, 72, -70, 60, -65, 55, -50];
+        oscillationChart.data.datasets[1].data = [-80, -30, -10, 5, -4, 2, -1, 1, 0];
+        document.getElementById('oscillationNote').innerHTML =
+          '<strong>Shame Dip Triggered (-80):</strong> Unilateral pep-talks overcompensate into fragile bravado (+68) before crashing again. Turning the watch to <em>“Comparison is the thief of joy”</em> gently returns the nervous system to zero.';
+      } else {
+        oscillationChart.data.datasets[0].data = [85, -70, 78, -65, 70, -60, 62, -55, 50];
+        oscillationChart.data.datasets[1].data = [85, 28, 9, -4, 3, -2, 1, 0, 0];
+        document.getElementById('oscillationNote').innerHTML =
+          '<strong>Ego Spike Triggered (+85):</strong> Harsh self-humiliation crashes confidence into shame (-70). Turning the watch to <em>“Memento mori”</em> pairs mortality with warm gratitude, restoring calm equilibrium.';
+      }
+      oscillationChart.update();
+    }
+
+    document.getElementById('btnTriggerShame').addEventListener('click', () => triggerPerturbation('shame'));
+    document.getElementById('btnTriggerHubris').addEventListener('click', () => triggerPerturbation('hubris'));
+
+    // ---------- Navigation scroll-spy ----------
+    const sectionLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const sectionTargets = Array.from(document.querySelectorAll('main section[id]'));
+    let activeSectionId = 'simulator';
+
+    function markActiveSection(id) {
+      const changed = activeSectionId !== id;
+      activeSectionId = id;
+      let activeLink = null;
+      sectionLinks.forEach((link) => {
+        const active = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('active', active);
+        if (active) {
+          activeLink = link;
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+      // Keep the highlighted tab visible when the nav row scrolls on small screens.
+      if (changed && activeLink) {
+        activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+    }
+
+
+    // Immediate feedback when a nav link is clicked.
+    sectionLinks.forEach((link) => {
+      link.addEventListener('click', () => markActiveSection(link.getAttribute('href').slice(1)));
+    });
+
+    function updateActiveSection() {
+      if (!sectionTargets.length) return;
+      // A section becomes active once its top crosses the upper third of the viewport.
+      const probe = window.innerHeight * 0.35;
+      let current = sectionTargets[0];
+      sectionTargets.forEach((section) => {
+        if (section.getBoundingClientRect().top <= probe) current = section;
+      });
+      // At the very bottom of the page, always light up the final section.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom) current = sectionTargets[sectionTargets.length - 1];
+      markActiveSection(current.id);
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    updateActiveSection();
+  </script>
+</body>
+</html>
