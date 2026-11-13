@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Daily Intake Protocol — Multidimensional Intake &amp; Neurobiological Structuring</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Scroll-spy highlight for the Row 2 section navigation */
+        .nav-link {
+            border-radius: 0.5rem;
+        }
+        .nav-link.active {
+            color: #FFFFFF;
+            background-color: #2F6F5E;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 290px;
+            max-height: 360px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 330px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#FAF8F5] text-[#1E2522] font-sans antialiased selection:bg-[#2F6F5E] selection:text-white">
+
+<a href="#axiom" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#2F6F5E] focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+<!-- Chosen Palette: Warm Alabaster & Botanical Sage (Background: #FAF8F5, Cards: #FFFFFF, Primary Accent: #2F6F5E, Secondary Accent: #C86D51, Neutral Text: #1E2522 & #525B56) -->
+
+<!-- Application Structure Plan: 
+The SPA is structured as an interactive "Systemic Gatekeeper Dashboard" rather than a linear academic paper. It organizes the report into four logical, user-driven functional workspaces:
+1. Hero & Core Axiom: Establishes the foundational principle ("Input becomes structure; nothing is neutral") with a quick-jump navigation bar.
+2. The 4 Intake Channels (Interactive Explorer): A tabbed workspace covering Nutritional, Gustatory, Visual, and Auditory intake. Users switch channels to inspect both the biological mechanisms (interactive Chart.js visualizations of bioavailability, taste receptor turnover, circadian melanopic lux, and auditory spectral/neurogenesis impacts) and actionable levers (interactive simulators/calculators like the Taste Reset Timeline and Bioavailability Processor).
+3. The 3-Question Triage Filter (Interactive Audit Tool): Translates Phase 5's filtration logic into a live decision-support tool where users test any real-world habit/input against the 3 core questions to see its compounding 30% structural impact.
+4. Integrated Daily Protocol (Chronobiological Timeline): An interactive phase-based schedule (Morning, Active, Evening) allowing users to filter by intake channel and inspect exact physiological actions, mechanisms, and restrictions.
+This architecture prioritizes active synthesis, self-audit, and daily implementation over passive reading. -->
+
+<!-- Visualization & Content Choices:
+1. Nutritional Bioavailability -> Goal: Compare -> Grouped Bar Chart -> Interactive toggle between Iron, Zinc, and Calcium absorption across Raw, Soaked, Sprouted, and Fermented states -> Clearly illustrates how biochemical processing degrades IP6 phytic acid to unlock mineral bioavailability -> Chart.js (Canvas).
+2. Gustatory Recalibration -> Goal: Change -> Line/Area Chart -> Interactive 14-day slider showing Lgr5+ taste bud turnover and sensory threshold recovery after cutting UPFs/NNS -> Visualizes the biological timeline of taste retraining -> Chart.js (Canvas).
+3. Visual Circadian & Attentional Impact -> Goal: Inform/Compare -> Horizontal Bar Chart -> Compares Melanopic Lux thresholds (1.5 lux initiation vs 305 lux saturation vs Morning Sun vs Evening Screen) -> Grounds light hygiene in concrete biological thresholds -> Chart.js (Canvas).
+4. Auditory Neurogenesis & Stress -> Goal: Compare -> Bar Chart -> Compares relative hippocampal precursor proliferation & autonomic calm across Silence, Pink Noise (1/f), Natural Soundscapes, and Outrage/High-Cortisol Audio -> Demonstrates why silence acts as a neurobiological nutrient -> Chart.js (Canvas).
+5. Triage Filter & Daily Protocol -> Goal: Organize/Interact -> Interactive HTML/Tailwind decision matrix & filterable timeline cards -> Pure HTML/CSS/JS state management -> Zero SVG/Mermaid used. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Layout Convention: the sticky header uses TWO rows — Row 1 = back-to-Vault link, brand and read-essay action; Row 2 = section navigation on its own row (always visible, scrolls horizontally on small screens, with scroll-spy highlighting). -->
+    <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E5E0D8]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Row 1: back link + brand + page action -->
+            <div class="flex items-center justify-between gap-3 h-16">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <a href="../" class="shrink-0 text-[#525B56] hover:text-[#2F6F5E] transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-[#E5E0D8] whitespace-nowrap" title="Return to the D/0 Knowledge Vault">← Vault</a>
+                    <span class="inline-block w-3 h-3 shrink-0 rounded-full bg-[#2F6F5E]" aria-hidden="true"></span>
+                    <div class="min-w-0">
+                        <span class="block font-bold tracking-tight text-[#1E2522] text-sm sm:text-lg truncate">INTAKE<span class="font-normal text-[#525B56]">LOGIC</span></span>
+                        <span class="hidden sm:block text-xs text-[#525B56] truncate">Intake, Sensation &amp; Neurobiology</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="#triage" class="hidden sm:inline-flex text-xs font-semibold px-3 py-2 rounded-lg bg-white hover:bg-[#F0F4F2] border border-[#E5E0D8] text-[#1E2522] transition whitespace-nowrap">Audit an Input</a>
+                    <a href="./readme.md" class="text-xs font-semibold px-3 py-2 rounded-lg bg-[#2F6F5E] hover:bg-[#245649] text-white transition whitespace-nowrap" title="Read the full long-form report">📄 <span class="hidden sm:inline">Read Essay</span><span class="sm:hidden">Essay</span></a>
+                </div>
+            </div>
+            <!-- Row 2: section navigation (always visible, scrolls horizontally on small screens, with scroll-spy highlighting) -->
+            <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-[#E5E0D8] py-1.5 text-xs sm:text-sm font-medium text-[#525B56]" aria-label="Page sections">
+                <a href="#axiom" class="nav-link shrink-0 px-2.5 py-1.5 hover:text-[#2F6F5E] transition-colors">Core Axiom</a>
+                <a href="#channels" class="nav-link shrink-0 px-2.5 py-1.5 hover:text-[#2F6F5E] transition-colors">4 Intake Channels</a>
+                <a href="#triage" class="nav-link shrink-0 px-2.5 py-1.5 hover:text-[#2F6F5E] transition-colors">Triage Filter</a>
+                <a href="#protocol" class="nav-link shrink-0 px-2.5 py-1.5 hover:text-[#2F6F5E] transition-colors">Daily Protocol</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+
+        <section id="axiom" class="bg-white rounded-2xl p-6 sm:p-10 border border-[#E5E0D8] shadow-sm scroll-mt-28">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#F0F4F2] text-[#2F6F5E] text-xs font-semibold uppercase tracking-wider mb-4">
+                    <span>Systemic Optimization Framework</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[#1E2522] leading-tight mb-4">
+                    Input Becomes Structure: You Are the Gatekeeper of an Absorbing System
+                </h1>
+                <p class="text-[#525B56] text-base sm:text-lg leading-relaxed mb-6">
+                    Your body and mind operate as continuous processing engines physically and neurologically rebuilt from whatever substrates pass through them. Across nutrition, taste, vision, and sound, the operational logic is identical: <strong>nothing is neutral intake</strong>. Every stimulus either builds structural integrity, maintains homeostasis, or actively degrades capacity. Healthy intake is not arbitrary restriction—it is rigorous curation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-[#F0ECE4]">
+                <div class="p-4 rounded-xl bg-[#F4F7F5] border border-[#DCE6E1]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#2F6F5E]">State 01 • Constructive</span>
+                        <span class="text-lg">▲</span>
+                    </div>
+                    <h3 class="font-bold text-[#1E2522] mb-1">Builds Structure</h3>
+                    <p class="text-sm text-[#525B56]">Supplies bioavailable amino acids, anthocyanins, morning melanopic light, and silence for neurogenesis and tissue synthesis.</p>
+                </div>
+                <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E5E0D8]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#525B56]">State 02 • Homeostatic</span>
+                        <span class="text-lg">■</span>
+                    </div>
+                    <h3 class="font-bold text-[#1E2522] mb-1">Maintains Equilibrium</h3>
+                    <p class="text-sm text-[#525B56]">Supports aqueous cellular transport, ocular relaxation at optical infinity, and autonomic baseline stability.</p>
+                </div>
+                <div class="p-4 rounded-xl bg-[#FDF6F3] border border-[#F2DCD4]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#C86D51]">State 03 • Entropic</span>
+                        <span class="text-lg">▼</span>
+                    </div>
+                    <h3 class="font-bold text-[#1E2522] mb-1">Degrades Capacity</h3>
+                    <p class="text-sm text-[#525B56]">Hijacks D2 dopamine receptors via ultra-processed bliss points, fragments attention via short-form feeds, and elevates cortisol.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="channels" class="space-y-6 scroll-mt-28">
+            <div class="max-w-3xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#1E2522] mb-2">The Four Channels of Structural Intake</h2>
+                <p class="text-[#525B56] text-base leading-relaxed">
+                    Explore how external inputs are converted into cellular architecture and neural wiring across all four sensory and metabolic pathways. Select a channel below to inspect its underlying neurobiology, interact with quantitative data models, and examine actionable curation protocols.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 border-b border-[#E5E0D8] pb-3" role="tablist" aria-label="Intake channels">
+                <button type="button" onclick="switchChannel('nutrition')" id="tab-nutrition" role="tab" aria-selected="true" aria-controls="panel-nutrition" class="channel-tab px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-[#2F6F5E] text-white shadow-sm">
+                    1. Nutritional & Metabolic
+                </button>
+                <button type="button" onclick="switchChannel('taste')" id="tab-taste" role="tab" aria-selected="false" aria-controls="panel-taste" class="channel-tab px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-white text-[#525B56] border border-[#E5E0D8] hover:border-[#2F6F5E]">
+                    2. Gustatory Interface (Taste)
+                </button>
+                <button type="button" onclick="switchChannel('visual')" id="tab-visual" role="tab" aria-selected="false" aria-controls="panel-visual" class="channel-tab px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-white text-[#525B56] border border-[#E5E0D8] hover:border-[#2F6F5E]">
+                    3. Visual & Attentional
+                </button>
+                <button type="button" onclick="switchChannel('auditory')" id="tab-auditory" role="tab" aria-selected="false" aria-controls="panel-auditory" class="channel-tab px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-white text-[#525B56] border border-[#E5E0D8] hover:border-[#2F6F5E]">
+                    4. Auditory & Autonomic
+                </button>
+            </div>
+
+            <div id="panel-nutrition" role="tabpanel" aria-labelledby="tab-nutrition" class="channel-panel bg-white rounded-2xl p-6 sm:p-8 border border-[#E5E0D8] shadow-sm space-y-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-block px-2.5 py-1 rounded bg-[#F0F4F2] text-[#2F6F5E] text-xs font-bold uppercase">Fuel & Raw Material</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#1E2522]">Eat for the Body You Want in a Year</h3>
+                        <p class="text-sm sm:text-base text-[#525B56] leading-relaxed">
+                            Your somatic tissues are literally reconstructed every few months from ingested proteins, lipids, and micronutrients. Ultra-processed foods (UPFs) are engineered around a sugar-fat-salt "bliss point" that dysregulates dopamine D2 receptors in the nucleus accumbens and overrides natural satiety.
+                        </p>
+                        <div class="bg-[#FAF8F5] p-4 rounded-xl border border-[#E5E0D8] space-y-3">
+                            <h4 class="font-bold text-sm text-[#1E2522]">Unlocking Whole-Food Bioavailability</h4>
+                            <p class="text-xs sm:text-sm text-[#525B56]">
+                                Native grains and millets offer dense micronutrients and anthocyanins (such as C3G in Karuppu Kavuni black rice), but contain <strong>phytic acid (IP6)</strong> which chelates minerals. Traditional preparation degrades IP6 to unlock absorption:
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                                <div class="p-2.5 bg-white rounded-lg border border-[#E5E0D8]">
+                                    <div class="font-bold text-xs text-[#2F6F5E]">Soaking</div>
+                                    <div class="text-xs text-[#525B56] mt-1">Activates endogenous phytases; boosts Fe/Zn solubility up to 23%.</div>
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-[#E5E0D8]">
+                                    <div class="font-bold text-xs text-[#2F6F5E]">Germination</div>
+                                    <div class="text-xs text-[#525B56] mt-1">Catabolizes tannins; elevates B-vitamins & improves glycemic response.</div>
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-[#E5E0D8]">
+                                    <div class="font-bold text-xs text-[#2F6F5E]">Fermentation</div>
+                                    <div class="text-xs text-[#525B56] mt-1">Microbial phytases & low pH yield peak Ca, Fe, Zn & amino acid uptake.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-[#F4F7F5] border border-[#DCE6E1] text-xs sm:text-sm text-[#1E2522]">
+                            <strong>Silent Macronutrients:</strong> Hydration drives aqueous enzymatic breakdown and nutrient transport, while slow-wave sleep triggers growth hormone release to assimilate circulating amino acids into tissue.
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 flex flex-col justify-between bg-[#FAF8F5] p-5 rounded-xl border border-[#E5E0D8]">
+                        <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h4 class="font-bold text-sm text-[#1E2522]">Mineral Bioavailability Index by Preparation</h4>
+                                <p class="text-xs text-[#525B56]">Relative intestinal absorption potential after IP6 degradation</p>
+                            </div>
+                            <select id="mineralSelect" aria-label="Mineral to compare" onchange="updateNutritionChart()" class="text-xs bg-white border border-[#D5CFC4] rounded-lg px-2.5 py-1.5 font-medium text-[#1E2522] focus:outline-none focus:border-[#2F6F5E]">
+                                <option value="all">All Key Minerals</option>
+                                <option value="iron">Iron (Fe) Solubility</option>
+                                <option value="zinc">Zinc (Zn) Bioavailability</option>
+                                <option value="calcium">Calcium (Ca) Release</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="nutritionChart"></canvas>
+                        </div>
+                        <p class="text-xs text-[#525B56] mt-3 text-center">
+                            Interactive: Filter by mineral to compare how soaking, sprouting, and fermentation overcome phytic acid chelation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-taste" role="tabpanel" aria-labelledby="tab-taste" class="channel-panel hidden bg-white rounded-2xl p-6 sm:p-8 border border-[#E5E0D8] shadow-sm space-y-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-block px-2.5 py-1 rounded bg-[#FDF6F3] text-[#C86D51] text-xs font-bold uppercase">The Sensory Interface</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#1E2522]">Taste Is the Interface, Not the Goal</h3>
+                        <p class="text-sm sm:text-base text-[#525B56] leading-relaxed">
+                            Evolution designed taste to evaluate nutrient density. Modern food decouples <em>"tastes good"</em> from <em>"is good."</em> Worse, non-nutritive sweeteners (NNS) activate T1R2/T1R3 sweet receptors without delivering calories, causing metabolic mismatch, reward prediction errors, and aberrant insulin signaling.
+                        </p>
+                        <div class="bg-[#FAF8F5] p-4 rounded-xl border border-[#E5E0D8] space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm text-[#1E2522]">Interactive 14-Day Taste Recalibration Simulator</h4>
+                                <span id="tasteDayBadge" class="px-2.5 py-0.5 rounded-full bg-[#2F6F5E] text-white text-xs font-bold">Day 14</span>
+                            </div>
+                            <p class="text-xs text-[#525B56]">
+                                Slide to simulate removing hyper-palatable UPFs, NNS, and excess sodium. Taste bud cells (driven by Lgr5+ progenitors) physically turn over every <strong>10–14 days</strong>.
+                            </p>
+                            <input type="range" id="tasteSlider" min="1" max="14" value="14" aria-label="Taste recalibration day" oninput="updateTasteSimulator(this.value)" class="w-full accent-[#2F6F5E] cursor-pointer">
+                            <div class="flex justify-between text-[11px] font-medium text-[#525B56]">
+                                <span>Day 1 (Desensitized)</span>
+                                <span>Day 7 (Turnover Midpoint)</span>
+                                <span>Day 14 (Recalibrated)</span>
+                            </div>
+                            <div id="tasteStatusBox" class="p-3 bg-white rounded-lg border border-[#DCE6E1] text-xs text-[#1E2522]">
+                                <strong>Day 14 State:</strong> Full Lgr5+ epithelial renewal complete. ENaC salt and T1R2/T1R3 sweet thresholds are resensitized; subtle flavors in whole foods register as rich and rewarding.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 flex flex-col justify-between bg-[#FAF8F5] p-5 rounded-xl border border-[#E5E0D8]">
+                        <div class="mb-3">
+                            <h4 class="font-bold text-sm text-[#1E2522]">Taste Receptor Sensitivity vs. Craving Intensity</h4>
+                            <p class="text-xs text-[#525B56]">Biological trajectory during a 14-day hyper-palatable reset</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="tasteChart"></canvas>
+                        </div>
+                        <p class="text-xs text-[#525B56] mt-3 text-center">
+                            As newly generated taste cells emerge without sensory saturation, whole-food palatability rises sharply.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-visual" role="tabpanel" aria-labelledby="tab-visual" class="channel-panel hidden bg-white rounded-2xl p-6 sm:p-8 border border-[#E5E0D8] shadow-sm space-y-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-block px-2.5 py-1 rounded bg-[#F0F4F2] text-[#2F6F5E] text-xs font-bold uppercase">Attentional & Circadian Architecture</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#1E2522]">What You Look At Shapes What Your Brain Becomes</h3>
+                        <p class="text-sm sm:text-base text-[#525B56] leading-relaxed">
+                            Endless short-form video feeds exploit intermittent dopamine rewards, altering dorsolateral prefrontal cortex (DLPFC) activity and eroding sustained focus. Simultaneously, light entering retinal ipRGCs governs your master circadian clock (SCN).
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5E0D8]">
+                                <div class="text-xs font-bold text-[#2F6F5E] uppercase mb-1">20-20-20 Optical Reset</div>
+                                <p class="text-xs text-[#525B56]">
+                                    Near-field screens lock ciliary muscles in contraction and cut blink rates by 25%. Every <strong>20 mins</strong>, view an object <strong>20 ft</strong> away (optical infinity) for <strong>20 secs</strong> to relax accommodation and restore tear film.
+                                </p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5E0D8]">
+                                <div class="text-xs font-bold text-[#2F6F5E] uppercase mb-1">Optic Flow & Amygdala</div>
+                                <p class="text-xs text-[#525B56]">
+                                    Forward walking generates lateral optic flow across the retina, triggering horizontal eye movements that directly inhibit amygdala fear circuitry and lower systemic cortisol.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-[#FDF6F3] border border-[#F2DCD4] text-xs text-[#1E2522]">
+                            <strong>Circadian Rule:</strong> Morning sunlight (>1,000+ melanopic lux) anchors daytime cortisol and sets a 14–16 hour timer for sleep. Evening screens exceed the 1.5 melanopic lux threshold, suppressing melatonin.
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 flex flex-col justify-between bg-[#FAF8F5] p-5 rounded-xl border border-[#E5E0D8]">
+                        <div class="mb-3">
+                            <h4 class="font-bold text-sm text-[#1E2522]">Melanopic Lux Thresholds & Circadian Signaling</h4>
+                            <p class="text-xs text-[#525B56]">Logarithmic comparison of retinal ipRGC stimulation levels</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="visualChart"></canvas>
+                        </div>
+                        <p class="text-xs text-[#525B56] mt-3 text-center">
+                            Even dim evening screens surpass the 1.5 lux threshold that begins suppressing restorative melatonin.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-auditory" role="tabpanel" aria-labelledby="tab-auditory" class="channel-panel hidden bg-white rounded-2xl p-6 sm:p-8 border border-[#E5E0D8] shadow-sm space-y-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-block px-2.5 py-1 rounded bg-[#F0F4F2] text-[#2F6F5E] text-xs font-bold uppercase">Nervous System Baseline</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#1E2522]">Silence Is a Neurobiological Nutrient</h3>
+                        <p class="text-sm sm:text-base text-[#525B56] leading-relaxed">
+                            Sound sets the baseline arousal of your autonomic nervous system. Constant background media keeps you trapped in externally focused networks, preventing the <strong>Default Mode Network (DMN)</strong> from performing narrative integration and memory consolidation.
+                        </p>
+                        <div class="space-y-2.5">
+                            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5E0D8]">
+                                <h4 class="font-bold text-xs text-[#1E2522]">Hippocampal Neurogenesis via Silence</h4>
+                                <p class="text-xs text-[#525B56] mt-1">
+                                    Research (Kirste et al.) shows that periods of complete silence stimulate precursor cell proliferation and newborn neuron survival in the hippocampus—an effect white noise fails to replicate.
+                                </p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5E0D8]">
+                                <h4 class="font-bold text-xs text-[#1E2522]">Acoustic Contagion & Your Inner Voice</h4>
+                                <p class="text-xs text-[#525B56] mt-1">
+                                    Elevated cortisol physically alters vocal pitch and formants. Listening to outrage-driven podcasts or chronically stressed voices triggers autonomic co-regulation, elevating your own stress baseline.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 flex flex-col justify-between bg-[#FAF8F5] p-5 rounded-xl border border-[#E5E0D8]">
+                        <div class="mb-3">
+                            <h4 class="font-bold text-sm text-[#1E2522]">Neuro-Autonomic Impact by Acoustic Environment</h4>
+                            <p class="text-xs text-[#525B56]">Relative support for hippocampal plasticity & parasympathetic recovery</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="auditoryChart"></canvas>
+                        </div>
+                        <p class="text-xs text-[#525B56] mt-3 text-center">
+                            Scheduled auditory fasting (silence) and 1/f pink noise optimize neural recovery and slow-wave sleep.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="triage" class="bg-white rounded-2xl p-6 sm:p-10 border border-[#E5E0D8] shadow-sm space-y-6 scroll-mt-28">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FDF6F3] text-[#C86D51] text-xs font-semibold uppercase tracking-wider mb-3">
+                    <span>Cross-Channel Decision Engine</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#1E2522] mb-2">The 3-Question Intake Triage Filter</h2>
+                <p class="text-[#525B56] text-sm sm:text-base leading-relaxed">
+                    Before consuming any food, media stream, soundscape, or conversation, pass it through this universal filter. Test a preset example or enter your own daily habit below to evaluate its compounding structural impact.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-semibold text-[#525B56] self-center mr-1">Quick Presets:</span>
+                <button onclick="loadPreset('Scrolling short-form reels in bed', 'visual', 'drain', 'captured', 'no')" class="text-xs px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] hover:border-[#2F6F5E] text-[#1E2522] transition-colors">
+                    Reels in Bed
+                </button>
+                <button onclick="loadPreset('Fermented millet & whole-food lunch', 'nutrition', 'build', 'chosen', 'yes')" class="text-xs px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] hover:border-[#2F6F5E] text-[#1E2522] transition-colors">
+                    Fermented Whole Meal
+                </button>
+                <button onclick="loadPreset('Outrage news podcast during commute', 'auditory', 'drain', 'captured', 'no')" class="text-xs px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] hover:border-[#2F6F5E] text-[#1E2522] transition-colors">
+                    Outrage Podcast
+                </button>
+                <button onclick="loadPreset('15-min morning walk without phone', 'visual', 'build', 'chosen', 'yes')" class="text-xs px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] hover:border-[#2F6F5E] text-[#1E2522] transition-colors">
+                    Morning Sunlight Walk
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div class="lg:col-span-7 bg-[#FAF8F5] p-5 sm:p-6 rounded-xl border border-[#E5E0D8] space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold uppercase text-[#525B56] mb-1">Input Under Evaluation</label>
+                            <input type="text" id="triageName" value="Scrolling short-form reels in bed" oninput="evaluateTriage()" class="w-full px-3.5 py-2 bg-white border border-[#D5CFC4] rounded-lg text-sm text-[#1E2522] focus:outline-none focus:border-[#2F6F5E]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-[#525B56] mb-1">Channel</label>
+                            <select id="triageChannel" onchange="evaluateTriage()" class="w-full px-3 py-2 bg-white border border-[#D5CFC4] rounded-lg text-sm text-[#1E2522] focus:outline-none focus:border-[#2F6F5E]">
+                                <option value="visual">Visual / Screen</option>
+                                <option value="nutrition">Food / Drink</option>
+                                <option value="auditory">Audio / Conversation</option>
+                                <option value="taste">Taste / Hyper-palatable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 pt-2 border-t border-[#E5E0D8]">
+                        <div>
+                            <label class="block text-xs font-bold text-[#1E2522] mb-1.5">1. Does it build me, maintain me, or drain me?</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button type="button" onclick="setTriageQ('q1', 'build')" id="q1-build" class="q1-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#D5CFC4] bg-white text-[#525B56]">Builds (+2)</button>
+                                <button type="button" onclick="setTriageQ('q1', 'maintain')" id="q1-maintain" class="q1-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#D5CFC4] bg-white text-[#525B56]">Maintains (+1)</button>
+                                <button type="button" onclick="setTriageQ('q1', 'drain')" id="q1-drain" class="q1-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#C86D51] bg-[#C86D51] text-white">Drains (-2)</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#1E2522] mb-1.5">2. Did I actively choose it, or was it designed to capture me?</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" onclick="setTriageQ('q2', 'chosen')" id="q2-chosen" class="q2-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#D5CFC4] bg-white text-[#525B56]">Deliberately Chosen (+2)</button>
+                                <button type="button" onclick="setTriageQ('q2', 'captured')" id="q2-captured" class="q2-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#C86D51] bg-[#C86D51] text-white">Engineered Capture (-2)</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#1E2522] mb-1.5">3. Would I want this input to represent 30% of my life?</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" onclick="setTriageQ('q3', 'yes')" id="q3-yes" class="q3-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#D5CFC4] bg-white text-[#525B56]">Yes, Compound It (+2)</button>
+                                <button type="button" onclick="setTriageQ('q3', 'no')" id="q3-no" class="q3-btn py-2 px-3 rounded-lg text-xs font-semibold border border-[#C86D51] bg-[#C86D51] text-white">No, Reject It (-2)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="triageVerdictCard" class="lg:col-span-5 rounded-xl p-6 border flex flex-col justify-between bg-[#FDF6F3] border-[#F2DCD4]">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span id="verdictBadge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#C86D51] text-white">
+                                Gatekeeper Verdict: Reject / Gate
+                            </span>
+                            <span id="verdictScore" class="text-sm font-bold text-[#C86D51]">Score: -6 / +6</span>
+                        </div>
+                        <h3 id="verdictTitle" class="text-lg font-bold text-[#1E2522]">High Entropic Drag Detected</h3>
+                        <p id="verdictExplanation" class="text-sm text-[#525B56] leading-relaxed">
+                            "Scrolling short-form reels in bed" is engineered to hijack dopaminergic reward prediction and suppress evening melatonin via ipRGC light exposure. Compounded to 30% of your life, it erodes prefrontal executive control and sleep architecture.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-[#E5E0D8]/70">
+                        <div class="text-xs font-bold uppercase text-[#1E2522] mb-1">Recommended Curation Swap</div>
+                        <p id="verdictSwap" class="text-xs sm:text-sm text-[#2F6F5E] font-medium">
+                            Replace with 15 minutes of low-light print reading or 1/f pink noise to protect slow-wave sleep architecture.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="protocol" class="space-y-6 scroll-mt-28">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div class="max-w-2xl">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#1E2522] mb-2">Integrated Daily Operating Protocol</h2>
+                    <p class="text-[#525B56] text-sm sm:text-base leading-relaxed">
+                        A chronobiological blueprint synchronizing light, silence, nutrient bioavailability, and optic flow across the three phases of your day. Filter by intake channel to isolate specific habits.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5">
+                    <button onclick="filterProtocol('all')" class="proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1E2522] text-white" data-filter="all">All Channels</button>
+                    <button onclick="filterProtocol('visual')" class="proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E5E0D8] text-[#525B56]" data-filter="visual">Visual & Light</button>
+                    <button onclick="filterProtocol('auditory')" class="proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E5E0D8] text-[#525B56]" data-filter="auditory">Auditory</button>
+                    <button onclick="filterProtocol('nutrition')" class="proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E5E0D8] text-[#525B56]" data-filter="nutrition">Food & Taste</button>
+                </div>
+            </div>
+
+            <div id="protocolGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-[#E5E0D8] bg-white mt-16 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#525B56]">
+            <div>
+                <strong class="text-[#1E2522]">Multidimensional Intake &amp; Neurobiological Structuring</strong> — Interactive Synthesis
+            </div>
+            <div>
+                Core Axiom: Healthy intake is not restriction; it is deliberate curation.
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="./readme.md" class="font-semibold text-[#2F6F5E] hover:underline">📄 Read the Full Report</a>
+                <span aria-hidden="true">•</span>
+                <a href="../" class="font-semibold text-[#2F6F5E] hover:underline">← Back to Vault</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function wrapLabel(label, maxChars = 16) {
+            if (label.length <= maxChars) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length <= maxChars) {
+                    currentLine = (currentLine + ' ' + word).trim();
+                } else {
+                    if (currentLine) lines.push(currentLine);
+                    currentLine = word;
+                }
+            });
+            if (currentLine) lines.push(currentLine);
+            return lines;
+        }
+
+        const commonTooltip = {
+            backgroundColor: '#1E2522',
+            titleColor: '#FAF8F5',
+            bodyColor: '#E5E0D8',
+            padding: 10,
+            cornerRadius: 8
+        };
+
+        let nutritionChartInstance = null;
+        let tasteChartInstance = null;
+        let visualChartInstance = null;
+        let auditoryChartInstance = null;
+
+        const nutritionDataSets = {
+            iron: {
+                label: 'Iron (Fe) Bioavailability Index',
+                data: [22, 42, 68, 88],
+                backgroundColor: '#2F6F5E'
+            },
+            zinc: {
+                label: 'Zinc (Zn) Bioavailability Index',
+                data: [25, 45, 72, 91],
+                backgroundColor: '#4A8B7A'
+            },
+            calcium: {
+                label: 'Calcium (Ca) Bioavailability Index',
+                data: [30, 48, 70, 94],
+                backgroundColor: '#C86D51'
+            }
+        };
+
+        function initCharts() {
+            const ctxNut = document.getElementById('nutritionChart').getContext('2d');
+            const rawLabels = ['Raw / Unsoaked Grain', 'Soaked (12h Hydration)', 'Germinated (Sprouted)', 'Naturally Fermented'];
+            nutritionChartInstance = new Chart(ctxNut, {
+                type: 'bar',
+                data: {
+                    labels: rawLabels.map(l => wrapLabel(l, 16)),
+                    datasets: [
+                        nutritionDataSets.iron,
+                        nutritionDataSets.zinc,
+                        nutritionDataSets.calcium
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: commonTooltip
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Relative Bioavailability (%)', font: { size: 11 } },
+                            grid: { color: '#EAE5DC' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            const ctxTaste = document.getElementById('tasteChart').getContext('2d');
+            const days = Array.from({ length: 14 }, (_, i) => `Day ${i + 1}`);
+            tasteChartInstance = new Chart(ctxTaste, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [
+                        {
+                            label: 'Whole-Food Flavor Sensitivity (%)',
+                            data: [20, 22, 26, 31, 38, 46, 55, 64, 72, 79, 85, 90, 94, 98],
+                            borderColor: '#2F6F5E',
+                            backgroundColor: 'rgba(47, 111, 94, 0.12)',
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Hyper-Palatable Craving Drive (%)',
+                            data: [95, 92, 88, 82, 74, 65, 56, 47, 39, 32, 26, 21, 17, 14],
+                            borderColor: '#C86D51',
+                            backgroundColor: 'transparent',
+                            borderDash: [5, 5],
+                            tension: 0.35,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: commonTooltip
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#EAE5DC' }
+                        },
+                        x: { grid: { display: false }, ticks: { maxTicksLimit: 7 } }
+                    }
+                }
+            });
+
+            const ctxVis = document.getElementById('visualChart').getContext('2d');
+            const visLabels = [
+                'Melatonin Suppression Start',
+                'Evening Smartphone Screen',
+                'Melatonin Saturation Limit',
+                'Overcast Morning Outdoors',
+                'Direct Morning Sunlight'
+            ];
+            visualChartInstance = new Chart(ctxVis, {
+                type: 'bar',
+                data: {
+                    labels: visLabels.map(l => wrapLabel(l, 16)),
+                    datasets: [{
+                        label: 'Melanopic Lux (Log Scale Equivalent)',
+                        data: [1.5, 45, 305, 1500, 10000],
+                        backgroundColor: ['#D5CFC4', '#C86D51', '#B85A3E', '#4A8B7A', '#2F6F5E'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: commonTooltip
+                    },
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            min: 1,
+                            max: 20000,
+                            title: { display: true, text: 'Melanopic Lux (Logarithmic Scale)', font: { size: 11 } },
+                            grid: { color: '#EAE5DC' }
+                        },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+
+            const ctxAud = document.getElementById('auditoryChart').getContext('2d');
+            const audLabels = [
+                'Outrage Media / Stressed Speech',
+                'Continuous White Noise',
+                '1/f Pink Noise & Nature Audio',
+                'Complete Deliberate Silence'
+            ];
+            auditoryChartInstance = new Chart(ctxAud, {
+                type: 'bar',
+                data: {
+                    labels: audLabels.map(l => wrapLabel(l, 16)),
+                    datasets: [
+                        {
+                            label: 'Neuroplasticity & DMN Integration',
+                            data: [15, 35, 78, 96],
+                            backgroundColor: '#2F6F5E',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Sympathetic Stress Arousal',
+                            data: [90, 55, 22, 12],
+                            backgroundColor: '#C86D51',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: commonTooltip
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#EAE5DC' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function updateNutritionChart() {
+            const val = document.getElementById('mineralSelect').value;
+            if (val === 'all') {
+                nutritionChartInstance.data.datasets = [
+                    nutritionDataSets.iron,
+                    nutritionDataSets.zinc,
+                    nutritionDataSets.calcium
+                ];
+            } else {
+                nutritionChartInstance.data.datasets = [nutritionDataSets[val]];
+            }
+            nutritionChartInstance.update();
+        }
+
+        function updateTasteSimulator(day) {
+            day = parseInt(day, 10);
+            document.getElementById('tasteDayBadge').textContent = `Day ${day}`;
+            const statusBox = document.getElementById('tasteStatusBox');
+            if (day <= 4) {
+                statusBox.innerHTML = `<strong>Day ${day} State (Withdrawal & Blunted Receptors):</strong> Prior UPF and sodium saturation keep ENaC and T1R2/T1R3 thresholds high. Whole foods may temporarily taste bland while legacy taste cells await turnover.`;
+            } else if (day <= 9) {
+                statusBox.innerHTML = `<strong>Day ${day} State (Lgr5+ Progenitor Turnover):</strong> Roughly half of your taste bud cells have regenerated via Wnt/β-catenin signaling. Dopaminergic cravings decline and natural sweetness in whole grains emerges.`;
+            } else {
+                statusBox.innerHTML = `<strong>Day ${day} State (Recalibrated Interface):</strong> Full 10–14 day cellular renewal complete. Taste receptors are resensitized; subtle flavors in whole foods register as rich and rewarding without metabolic mismatch.`;
+            }
+        }
+
+        function switchChannel(channelId) {
+            document.querySelectorAll('.channel-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`panel-${channelId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.channel-tab').forEach(btn => {
+                btn.classList.remove('bg-[#2F6F5E]', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-[#525B56]', 'border', 'border-[#E5E0D8]');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            const activeBtn = document.getElementById(`tab-${channelId}`);
+            activeBtn.classList.remove('bg-white', 'text-[#525B56]', 'border', 'border-[#E5E0D8]');
+            activeBtn.classList.add('bg-[#2F6F5E]', 'text-white', 'shadow-sm');
+            activeBtn.setAttribute('aria-selected', 'true');
+
+            // A canvas in a hidden panel can measure zero width; re-measure after revealing it.
+            const charts = {
+                nutrition: nutritionChartInstance,
+                taste: tasteChartInstance,
+                visual: visualChartInstance,
+                auditory: auditoryChartInstance
+            };
+            if (charts[channelId]) charts[channelId].resize();
+        }
+
+        const triageState = {
+            q1: 'drain',
+            q2: 'captured',
+            q3: 'no'
+        };
+
+        function setTriageQ(question, value) {
+            triageState[question] = value;
+            updateTriageButtons();
+            evaluateTriage();
+        }
+
+        function updateTriageButtons() {
+            ['build', 'maintain', 'drain'].forEach(opt => {
+                const btn = document.getElementById(`q1-${opt}`);
+                btn.className = 'q1-btn py-2 px-3 rounded-lg text-xs font-semibold border transition-colors ';
+                if (triageState.q1 === opt) {
+                    btn.className += opt === 'drain'
+                        ? 'border-[#C86D51] bg-[#C86D51] text-white'
+                        : 'border-[#2F6F5E] bg-[#2F6F5E] text-white';
+                } else {
+                    btn.className += 'border-[#D5CFC4] bg-white text-[#525B56]';
+                }
+            });
+
+            ['chosen', 'captured'].forEach(opt => {
+                const btn = document.getElementById(`q2-${opt}`);
+                btn.className = 'q2-btn py-2 px-3 rounded-lg text-xs font-semibold border transition-colors ';
+                if (triageState.q2 === opt) {
+                    btn.className += opt === 'captured'
+                        ? 'border-[#C86D51] bg-[#C86D51] text-white'
+                        : 'border-[#2F6F5E] bg-[#2F6F5E] text-white';
+                } else {
+                    btn.className += 'border-[#D5CFC4] bg-white text-[#525B56]';
+                }
+            });
+
+            ['yes', 'no'].forEach(opt => {
+                const btn = document.getElementById(`q3-${opt}`);
+                btn.className = 'q3-btn py-2 px-3 rounded-lg text-xs font-semibold border transition-colors ';
+                if (triageState.q3 === opt) {
+                    btn.className += opt === 'no'
+                        ? 'border-[#C86D51] bg-[#C86D51] text-white'
+                        : 'border-[#2F6F5E] bg-[#2F6F5E] text-white';
+                } else {
+                    btn.className += 'border-[#D5CFC4] bg-white text-[#525B56]';
+                }
+            });
+        }
+
+        function loadPreset(name, channel, q1, q2, q3) {
+            document.getElementById('triageName').value = name;
+            document.getElementById('triageChannel').value = channel;
+            triageState.q1 = q1;
+            triageState.q2 = q2;
+            triageState.q3 = q3;
+            updateTriageButtons();
+            evaluateTriage();
+        }
+
+        function evaluateTriage() {
+            const name = document.getElementById('triageName').value.trim() || 'This input';
+            const channel = document.getElementById('triageChannel').value;
+
+            let score = 0;
+            score += triageState.q1 === 'build' ? 2 : (triageState.q1 === 'maintain' ? 1 : -2);
+            score += triageState.q2 === 'chosen' ? 2 : -2;
+            score += triageState.q3 === 'yes' ? 2 : -2;
+
+            const card = document.getElementById('triageVerdictCard');
+            const badge = document.getElementById('verdictBadge');
+            const scoreEl = document.getElementById('verdictScore');
+            const title = document.getElementById('verdictTitle');
+            const exp = document.getElementById('verdictExplanation');
+            const swap = document.getElementById('verdictSwap');
+
+            const swaps = {
+                visual: 'Replace with long-form print reading, 20-20-20 distance gaze breaks, or outdoor morning sunlight.',
+                nutrition: 'Replace with soaked/fermented whole grains, clean protein, and unflavored hydration.',
+                auditory: 'Replace with 15 minutes of pure auditory fasting (silence), 1/f pink noise, or calm dialogue.',
+                taste: 'Cut hyper-palatable UPFs/NNS for 14 days to allow Lgr5+ taste bud turnover to resensitize.'
+            };
+
+            scoreEl.textContent = `Score: ${score > 0 ? '+' + score : score} / +6`;
+
+            if (score >= 4) {
+                card.className = 'lg:col-span-5 rounded-xl p-6 border flex flex-col justify-between bg-[#F4F7F5] border-[#DCE6E1]';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#2F6F5E] text-white';
+                badge.textContent = 'Gatekeeper Verdict: Admit & Compound';
+                scoreEl.className = 'text-sm font-bold text-[#2F6F5E]';
+                title.textContent = 'Constructive Structural Substrate';
+                exp.textContent = `"${name}" aligns with deliberate curation. Compounded to 30% of your daily intake, it reinforces cellular integrity, executive control, and autonomic equilibrium.`;
+                swap.textContent = 'Protect this habit in your daily schedule and prevent algorithmic or processed substitutes from displacing it.';
+            } else if (score >= 0) {
+                card.className = 'lg:col-span-5 rounded-xl p-6 border flex flex-col justify-between bg-[#FAF8F5] border-[#E5E0D8]';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#525B56] text-white';
+                badge.textContent = 'Gatekeeper Verdict: Moderate / Cap';
+                scoreEl.className = 'text-sm font-bold text-[#525B56]';
+                title.textContent = 'Neutral-to-Mixed Structural Yield';
+                exp.textContent = `"${name}" offers partial maintenance but carries capture or compounding risks if left unchecked. Keep it strictly bounded below 10% of your intake.`;
+                swap.textContent = swaps[channel];
+            } else {
+                card.className = 'lg:col-span-5 rounded-xl p-6 border flex flex-col justify-between bg-[#FDF6F3] border-[#F2DCD4]';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#C86D51] text-white';
+                badge.textContent = 'Gatekeeper Verdict: Reject / Gate';
+                scoreEl.className = 'text-sm font-bold text-[#C86D51]';
+                title.textContent = 'High Entropic Drag Detected';
+                exp.textContent = `"${name}" exploits sensory capture or degrades biological regulation. If allowed to compound to 30% of your life, it actively remodels neural and metabolic pathways toward dysfunction.`;
+                swap.textContent = swaps[channel];
+            }
+        }
+
+        const protocolItems = [
+            {
+                phase: 'Phase I • Morning',
+                window: '0–60 Mins Post-Waking',
+                title: 'Optical Synchronization',
+                channel: 'visual',
+                channelLabel: 'Visual & Light',
+                action: 'Get 10–15 minutes of direct outdoor sunlight; zero short-form screens.',
+                mechanism: 'Exceeds 1.5 melanopic lux to trigger retinal ipRGCs, suppressing residual melatonin via the SCN and preserving prefrontal executive control.',
+                restriction: 'No dopamine reward-prediction loops upon waking.'
+            },
+            {
+                phase: 'Phase I • Morning',
+                window: 'Morning Routine',
+                title: 'Scheduled Auditory Fasting',
+                channel: 'auditory',
+                channelLabel: 'Auditory',
+                action: 'Maintain pure silence during waking routines (no news, music, or podcasts).',
+                mechanism: 'Promotes adult hippocampal neurogenesis and engages the Default Mode Network (DMN) for autobiographical integration and planning.',
+                restriction: 'Avoid high-cortisol vocal media early in the day.'
+            },
+            {
+                phase: 'Phase II • Active Day',
+                window: 'Meal Windows',
+                title: 'Bioavailable Whole Substrates',
+                channel: 'nutrition',
+                channelLabel: 'Food & Taste',
+                action: 'Prioritize protein, healthy lipids, and soaked/fermented grains or millets.',
+                mechanism: 'Phytase activation degrades IP6 phytic acid, unlocking Fe, Zn, and Ca while avoiding T1R2/T1R3 sweet-receptor metabolic mismatch.',
+                restriction: 'Eliminate UPF bliss points and non-nutritive sweeteners.'
+            },
+            {
+                phase: 'Phase II • Active Day',
+                window: 'Every 20 Minutes',
+                title: '20-20-20 Optical Reset',
+                channel: 'visual',
+                channelLabel: 'Visual & Light',
+                action: 'Look 20 feet away for 20 seconds every 20 minutes and perform full blinks.',
+                mechanism: 'Viewing at optical infinity relaxes ciliary muscle accommodation spasms and restores the lipid layer of the ocular tear film.',
+                restriction: 'Avoid uninterrupted near-field screen lock.'
+            },
+            {
+                phase: 'Phase III • Evening',
+                window: 'Late Afternoon / Dusk',
+                title: 'Forward Optic Flow Walk',
+                channel: 'visual',
+                channelLabel: 'Visual & Light',
+                action: 'Walk outdoors looking toward the horizon without staring at a phone.',
+                mechanism: 'Lateral optic flow generates horizontal eye movements that actively suppress amygdala fear signaling and lower systemic cortisol.',
+                restriction: 'No downward head-tilt scrolling while walking.'
+            },
+            {
+                phase: 'Phase III • Evening',
+                window: '2 Hours Pre-Sleep',
+                title: 'Acoustic & Melanopic Tapering',
+                channel: 'auditory',
+                channelLabel: 'Auditory',
+                action: 'Dim overhead blue light; transition to 1/f pink noise or calm conversation.',
+                mechanism: 'Pink noise aligns with 1/f neural dynamics to deepen slow-wave sleep, while low lux allows endogenous melatonin for tissue repair.',
+                restriction: 'Filter out stressful voices that trigger autonomic co-regulation.'
+            }
+        ];
+
+        function renderProtocol(filter = 'all') {
+            const grid = document.getElementById('protocolGrid');
+            const filtered = filter === 'all'
+                ? protocolItems
+                : protocolItems.filter(item => item.channel === filter);
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-2xl p-5 border border-[#E5E0D8] shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#2F6F5E]">${item.phase}</span>
+                            <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#E5E0D8] text-[#525B56]">${item.channelLabel}</span>
+                        </div>
+                        <div class="text-xs text-[#525B56] font-medium">${item.window}</div>
+                        <h3 class="text-lg font-bold text-[#1E2522]">${item.title}</h3>
+                        <p class="text-sm text-[#1E2522] font-medium bg-[#F4F7F5] p-3 rounded-xl border border-[#DCE6E1]">
+                            ${item.action}
+                        </p>
+                        <p class="text-xs text-[#525B56] leading-relaxed">
+                            <strong>Mechanism:</strong> ${item.mechanism}
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-[#F0ECE4] text-xs text-[#C86D51] font-medium">
+                        Gate: ${item.restriction}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProtocol(filter) {
+            document.querySelectorAll('.proto-filter').forEach(btn => {
+                if (btn.dataset.filter === filter) {
+                    btn.className = 'proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1E2522] text-white';
+                } else {
+                    btn.className = 'proto-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E5E0D8] text-[#525B56] hover:border-[#2F6F5E]';
+                }
+            });
+            renderProtocol(filter);
+        }
+
+        // ---------- Navigation scroll-spy ----------
+        (() => {
+            const links = Array.from(document.querySelectorAll('.nav-link'));
+            const sections = ['axiom', 'channels', 'triage', 'protocol']
+                .map((id) => document.getElementById(id))
+                .filter(Boolean);
+            let activeSectionId = 'axiom';
+
+            function mark(id) {
+                const changed = activeSectionId !== id;
+                activeSectionId = id;
+                let activeLink = null;
+                links.forEach((link) => {
+                    const active = link.getAttribute('href') === `#${id}`;
+                    link.classList.toggle('active', active);
+                    if (active) {
+                        activeLink = link;
+                        link.setAttribute('aria-current', 'location');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+                // Keep the highlighted tab visible when the nav row scrolls on small screens.
+                if (changed && activeLink) {
+                    activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+                }
+            }
+
+            links.forEach((link) => {
+                link.addEventListener('click', () => mark(link.getAttribute('href').slice(1)));
+            });
+
+            function updateActiveSection() {
+                if (!sections.length) return;
+                // A section becomes active once its top crosses the upper third of the viewport.
+                const probe = window.innerHeight * 0.35;
+                let current = sections[0];
+                sections.forEach((section) => {
+                    if (section.getBoundingClientRect().top <= probe) current = section;
+                });
+                // At the very bottom of the page, always light up the final section.
+                const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+                if (atBottom) current = sections[sections.length - 1];
+                mark(current.id);
+            }
+
+            window.addEventListener('scroll', updateActiveSection, { passive: true });
+            window.addEventListener('resize', updateActiveSection);
+            updateActiveSection();
+        })();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            updateTriageButtons();
+            evaluateTriage();
+            renderProtocol('all');
+        });
+    </script>
+</body>
+</html>

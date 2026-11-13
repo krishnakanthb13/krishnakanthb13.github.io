@@ -236,6 +236,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Holistic Daily Intake Protocol](./holistic_daily_intake_protocol/)
+**Input Becomes Structure** — why every stimulus crossing the body's boundary is a structural input rather than neutral consumption: nutrition, taste, light, and sound each either build tissue, maintain homeostasis, or degrade capacity. Traces ultra-processed bliss points and D2-receptor dysregulation, phytic-acid chelation and phytase-driven mineral bioavailability, Lgr5+ taste-bud turnover across 10–14 days, ipRGC melanopic-lux melatonin thresholds and short-form attentional damage, and silence-driven hippocampal neurogenesis and acoustic cortisol contagion—then distills them into a three-question intake triage filter and a three-phase daily operating protocol.
+
+- 📝 [The Full Report](./holistic_daily_intake_protocol/readme.md) — the long-form essay with 77 cited sources. (`readme.md`)
+- 🌿 [Interactive Infographic](./holistic_daily_intake_protocol/index.html) — the complete warm alabaster & botanical sage interactive page: four-channel tabbed dashboard (Nutritional, Gustatory, Visual, Auditory) with a mineral-bioavailability chart and preparation filter, 14-day taste-recalibration simulator, melanopic-lux circadian chart, acoustic neuro-autonomic chart, a live 3-question triage filter with presets, and a filterable three-phase daily protocol. (`index.html`)
+
+---
+
 ### 📁 [Identity Habit Formation](./identity_habit_formation/)
 **The Architecture of Self-Transformation** — why behavior decoupled from identity is processed by the brain as a temporary deviation rather than an intrinsic trait, and why grafting a disciplined future self's habits onto an undisciplined present self guarantees relapse. Reverse-engineers the full change sequence: collapsing the neural distance to the future self (vmPFC, age-progression, vivid visualization), Bem's self-perception theory and Oyserman's identity-based motivation turning behavior into belief, offloading control from the fragile prefrontal cortex to the basal-ganglia habit loop, pre-loading If-Then implementation intentions and choice architecture, and reframing lapses as statistical outliers rather than identity regressions.
 
