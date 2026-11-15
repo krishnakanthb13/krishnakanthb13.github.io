@@ -47,6 +47,7 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 		- [Neuroplasticity & Procrastination](https://krishnakanthb13.github.io/D/0/neuroplasticity_n_procrastination/) — The Neuroscience of Action and Avoidance
 		- [Nice Ego vs. Good Character](https://krishnakanthb13.github.io/D/0/nice_ego_vs_good_character/) — The Psychology of Moral Motivation
 		- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/) — The Caregiver's Dilemma
+		- [Rejection Dynamics](https://krishnakanthb13.github.io/D/0/rejection_dynamics/) — The Architecture of Rejection
 		- [Relationship Seesaw](https://krishnakanthb13.github.io/D/0/relationship_seesaw/) — The Architecture of Adversarial Courtship
 		- [Respond vs. React](https://krishnakanthb13.github.io/D/0/respond_vs_react/) — The Interstitial Pause
 		- [Self-Blame Cycles](https://krishnakanthb13.github.io/D/0/self_blame_cycles/) — The Architecture of Self-Blame as a Locus of Control
@@ -311,6 +312,9 @@ All about me: [krishnakanthb13](https://krishnakanthb13.github.io/)
 	- [Receiving Paradox](https://krishnakanthb13.github.io/D/0/receiving_paradox/): The Caregiver's Dilemma — why compulsive caregivers collapse into guilt and counter-dependence the moment care is finally received.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/receiving_paradox/): Theoretical triad explorer, reciprocity-crisis sequence tracker, relational radar, burnout-vs-autonomy trajectory chart, schema mode switcher & therapeutic pathways.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/receiving_paradox/readme.md): Long-form research essay with 69 cited sources.
+	- [Rejection Dynamics](https://krishnakanthb13.github.io/D/0/rejection_dynamics/): The Architecture of Rejection — why the same professional "no" feels existential in India and transactional in the US, and how relational mobility, high-context communication, the VC soft no and EOS quarterly cadences reshape the response.
+		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/rejection_dynamics/): Neural threat simulator with dACC/RVPFC meters, US-vs-India cultural index chart, socio-ecological matrix, VC soft-no decoder, feedback-cadence chart, cognitive-reappraisal script toggle & Values-vs-GWC analyzer.
+		- [The Full Report](https://krishnakanthb13.github.io/D/0/rejection_dynamics/readme.md): Long-form research essay with 72 cited sources.
 	- [Relationship Seesaw](https://krishnakanthb13.github.io/D/0/relationship_seesaw/): The Architecture of Adversarial Courtship — why the internet's three zero-sum "seesaws" (value/comfort, leverage/cooperation, sex/purpose) mix real relational findings with paranoid bookkeeping, and what attachment science, interdependence theory and self-determination theory prescribe instead.
 		- [Interactive Infographic](https://krishnakanthb13.github.io/D/0/relationship_seesaw/): Three-stage genealogy explorer, Buss 37-culture vs. adversarial-distortion chart, three live seesaw calibration labs with outcome meters, Rusbult-vs-SDT matrices, hyper-vigilant accountant paradox chart & adversarial-rule translator.
 		- [The Full Report](https://krishnakanthb13.github.io/D/0/relationship_seesaw/readme.md): Long-form research essay with 49 cited sources.

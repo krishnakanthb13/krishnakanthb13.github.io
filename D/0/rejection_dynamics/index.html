@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A cross-cultural interactive report on rejection sensitivity: why a professional 'no' feels existential in India but transactional in the US, and how relational mobility, high-context communication, the VC soft no, and EOS quarterly cadences reshape the response." />
+  <title>The Architecture of Rejection: India vs. United States</title>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Stone & Terracotta-Teal Harmony (#FAF8F5 background, #FFFFFF cards, #1C1917 primary text, #C2410C warm terracotta accent for India/High-RS, #0F766E calm teal accent for US/Cognitive Regulation) -->
+  <!-- Application Structure Plan: Designed as a 4-stage interactive journey rather than a linear 7-chapter text dump: (1) Neurobiology & Threat Simulator (explaining why rejection feels like physical pain), (2) Cultural & Socio-Ecological Lens (comparing US vs. India via Relational Mobility and Culture Map data), (3) Ecosystem Friction Labs (decoding the VC 'Soft No' and Corporate Appraisal breakdowns), and (4) The EOS Immunization Playbook (actionable tools for cognitive reappraisal, quarterly cadences, and GWC evaluation). This structure moves the user from root biological causes to cultural drivers, real-world business symptoms, and practical organizational solutions. -->
+  <!-- Visualization & Content Choices: 
+    1. Neural Threat Simulator (HTML/CSS dynamic meters + JS state) -> Goal: Inform & Teach -> Shows dACC pain vs. RVPFC regulation across cultural contexts -> Interactive trigger buttons reinforce brain mechanisms without SVG.
+    2. Cultural Dimensions Grouped Bar Chart (Chart.js Canvas) -> Goal: Compare -> Contrasts US and India across Relational Mobility, Direct Feedback, Task Trust, and Rejection Resilience -> Toggleable metric focus with 16-char wrapped labels.
+    3. VC 'Soft No' Decoder & Iteration Lag Chart (Interactive Phrase Matrix + Chart.js Bar) -> Goal: Analyze & Compare -> Translates high-context Indian VC phrases into low-context realities and visualizes months lost to ambiguity.
+    4. Feedback Cadence & Threat Load Chart (Chart.js Line) -> Goal: Change/Compare -> Compares annual review emotional spikes against EOS 90-day quarterly conversations.
+    5. EOS Cognitive Reappraisal & People Analyzer (Interactive JS Toggles) -> Goal: Organize & Apply -> Lets leaders test framing scripts and separate Core Values from GWC capacity.
+  -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 300px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    .nav-link {
+      border-radius: 0.5rem;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .nav-link.active {
+      color: #0F766E;
+      background-color: #E7E5E4;
+      box-shadow: inset 0 -2px 0 #0F766E;
+      font-weight: 600;
+    }
+    .transition-width {
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #0F766E;
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-stone-900">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-3 focus:py-2 focus:rounded focus:bg-teal-700 focus:text-white focus:text-sm focus:font-semibold">Skip to content</a>
+
+  <!-- Layout Convention: the sticky header uses TWO rows — Row 1 = back-to-Vault link, brand and read-essay action; Row 2 = section navigation on its own row (always visible, scrolls horizontally on small screens, with scroll-spy highlighting). -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Row 1: back link + brand + page action -->
+      <div class="flex items-center justify-between gap-3 py-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <a href="../" class="shrink-0 text-stone-500 hover:text-teal-800 transition-colors text-xs font-semibold px-2.5 py-1 rounded bg-white border border-stone-300 whitespace-nowrap" title="Return to the D/0 Knowledge Vault">← Vault</a>
+          <span class="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-stone-900 text-amber-400 text-sm font-bold" aria-hidden="true">🧠</span>
+          <div class="min-w-0">
+            <span class="block font-semibold tracking-tight text-stone-900 text-sm sm:text-base truncate">The Architecture of Rejection</span>
+            <span class="hidden sm:block text-xs text-stone-500 truncate">Cross-Cultural Neurobiology, Social Ecology &amp; EOS Resilience</span>
+          </div>
+        </div>
+        <a href="./readme.md" class="shrink-0 text-xs font-semibold px-3 py-2 rounded-lg bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 transition whitespace-nowrap" title="Read the full long-form report">📄 <span class="hidden sm:inline">Read Essay</span><span class="sm:hidden">Essay</span></a>
+      </div>
+      <!-- Row 2: section navigation (always visible, scrolls horizontally on small screens, with scroll-spy highlighting) -->
+      <nav id="section-nav" class="flex items-center gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap border-t border-stone-200 py-1.5 text-xs sm:text-sm font-medium" aria-label="Page sections">
+        <a href="#synthesis" class="nav-link shrink-0 px-2.5 py-1.5 text-stone-700 hover:bg-stone-200/70 transition">Overview</a>
+        <a href="#neuro-section" class="nav-link shrink-0 px-2.5 py-1.5 text-stone-700 hover:bg-stone-200/70 transition">1. Brain &amp; Threat</a>
+        <a href="#culture-section" class="nav-link shrink-0 px-2.5 py-1.5 text-stone-700 hover:bg-stone-200/70 transition">2. Cultural Ecology</a>
+        <a href="#ecosystems-section" class="nav-link shrink-0 px-2.5 py-1.5 text-stone-700 hover:bg-stone-200/70 transition">3. VC &amp; Appraisals</a>
+        <a href="#eos-section" class="nav-link shrink-0 px-2.5 py-1.5 text-stone-700 hover:bg-stone-200/70 transition">4. EOS Playbook</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-14">
+
+    <section id="synthesis" class="scroll-mt-28 bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-sm">
+      <div class="max-w-3xl">
+        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wider bg-amber-100 text-amber-900 mb-3">Executive Synthesis</span>
+        <h1 class="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight mb-3">Why "No" Feels Personal in India—and Transactional in the US</h1>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed mb-6">
+          In global business, few fault lines create more friction than how professionals interpret rejection. In the United States, a denied venture pitch or appraisal is processed as an objective market signal. In India, where identity is tightly woven into social standing and low-mobility networks, the exact same refusal triggers an evolutionary survival alarm—turning a business decision into a perceived threat to personal self-worth.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 border-t border-stone-100">
+        <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-1">Neural Overlap</div>
+          <div class="text-2xl font-bold text-stone-900">dACC = Pain</div>
+          <p class="text-xs text-stone-600 mt-1">Social exclusion activates the exact brain circuitry responsible for physical injury.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-1">VC Base Rate</div>
+          <div class="text-2xl font-bold text-amber-800">99% "No"</div>
+          <p class="text-xs text-stone-600 mt-1">VCs reject 99% of pitches, yet Indian VCs rely on "Soft Nos" to prevent founder offense.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-1">Core Cultural Driver</div>
+          <div class="text-2xl font-bold text-teal-800">Low Mobility</div>
+          <p class="text-xs text-stone-600 mt-1">Rigid networks raise the social cost of stigma, fueling hypervigilant Rejection Sensitivity.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/70">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-1">Organizational Fix</div>
+          <div class="text-2xl font-bold text-stone-900">90-Day EOS</div>
+          <p class="text-xs text-stone-600 mt-1">Quarterly check-ins and scorecards decouple business math from personal identity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="neuro-section" class="scroll-mt-28 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part I &amp; II • Neurobiology &amp; Psychology</span>
+        <h2 class="text-2xl font-bold text-stone-900 mt-1">The Brain on Rejection: Social Pain &amp; Cognitive Braking</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Understanding "what the body and brain are doing" is the first step toward emotional immunity. Under fMRI scans, social rejection activates the dorsal anterior cingulate cortex (dACC)—the brain's physical pain alarm—while the Right Ventral Prefrontal Cortex (RVPFC) acts as a cognitive brake. Explore the interactive simulator below to see how cultural conditioning alters this neural tug-of-war.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <h3 class="text-base font-bold text-stone-900">Interactive Neural Threat Simulator</h3>
+              <div class="inline-flex rounded-lg bg-stone-100 p-1 border border-stone-200">
+                <button id="sim-ctx-india" onclick="setNeuroContext('india')" class="px-3 py-1 rounded-md text-xs font-semibold bg-amber-700 text-white transition">India (Low-RM Context)</button>
+                <button id="sim-ctx-us" onclick="setNeuroContext('us')" class="px-3 py-1 rounded-md text-xs font-semibold text-stone-700 hover:text-stone-900 transition">US (High-RM Context)</button>
+              </div>
+            </div>
+
+            <p class="text-xs text-stone-500 mb-4">Select a professional rejection trigger to observe how the brain processes the event under the selected cultural lens:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
+              <button id="trig-vc" onclick="setNeuroTrigger('vc')" class="text-left p-3 rounded-xl border-2 border-stone-900 bg-stone-50 transition">
+                <div class="text-xs font-bold text-stone-900">💼 VC Pitch Rejection</div>
+                <div class="text-xs text-stone-600 mt-0.5">"We are passing on your $1M seed round."</div>
+              </button>
+              <button id="trig-appraisal" onclick="setNeuroTrigger('appraisal')" class="text-left p-3 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition">
+                <div class="text-xs font-bold text-stone-900">📊 Appraisal Raise Denied</div>
+                <div class="text-xs text-stone-600 mt-0.5">"This raise does not fit inside our current budget."</div>
+              </button>
+            </div>
+
+            <div class="space-y-4 bg-stone-50 p-4 rounded-xl border border-stone-200/80">
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <span class="text-amber-900">dACC &amp; Anterior Insula (Social Pain Alarm)</span>
+                  <span id="dacc-val" class="text-amber-900">92% — Acute Threat</span>
+                </div>
+                <div class="w-full bg-stone-200 rounded-full h-3 overflow-hidden">
+                  <div id="dacc-bar" class="bg-amber-600 h-3 rounded-full transition-width" style="width: 92%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <span class="text-teal-900">RVPFC (Cognitive Reappraisal Brake)</span>
+                  <span id="rvpfc-val" class="text-teal-900">28% — Overwhelmed</span>
+                </div>
+                <div class="w-full bg-stone-200 rounded-full h-3 overflow-hidden">
+                  <div id="rvpfc-bar" class="bg-teal-600 h-3 rounded-full transition-width" style="width: 28%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="neuro-readout" class="mt-5 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-xs sm:text-sm text-stone-800 leading-relaxed">
+            <strong>Internalized Response:</strong> Because identity and social standing are fused, the brain treats the investor's "no" as an existential tribal expulsion. Internalized shame spikes ("I am not good enough"), overriding logical RVPFC regulation and triggering defensive offense or withdrawal.
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-base font-bold text-stone-900 mb-2">Rejection Sensitivity (RS) &amp; Internalized Shame</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4">
+              Developed by Downey &amp; Feldman, <strong>Rejection Sensitivity</strong> is the anxious expectation and heightened perception of rejection. In high-RS environments, neutral operational friction is misread as personal hostility.
+            </p>
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="text-xs font-bold text-stone-900">1. Hypervigilant Threat Radar</div>
+                <p class="text-xs text-stone-600 mt-1">High-RS individuals lower their threshold for detecting social danger, interpreting a manager's neutral status check as disapproval.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="text-xs font-bold text-stone-900">2. Shame vs. Localized Error</div>
+                <p class="text-xs text-stone-600 mt-1">Internalized shame converts "This proposal missed the budget" into "I am fundamentally flawed and unworthy of acceptance."</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="text-xs font-bold text-stone-900">3. Chronic Allostatic Load</div>
+                <p class="text-xs text-stone-600 mt-1">Anticipating rejection keeps the nervous system in pre-emptive hyperarousal, making workers feel perpetually "socially unsafe."</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-xs text-stone-500 pt-2 border-t border-stone-100">
+            Key Takeaway: Training employees in cognitive reappraisal manually engages the RVPFC to dampen dACC pain signals.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="culture-section" class="scroll-mt-28 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Part III &amp; IV • Socio-Ecology &amp; Communication</span>
+        <h2 class="text-2xl font-bold text-stone-900 mt-1">Why the Difference Exists: Relational Mobility &amp; Context</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Cultural reactions to rejection are not arbitrary—they are rational adaptations to different social markets. Using Yuki &amp; Schug's <strong>Relational Mobility</strong> framework alongside Edward T. Hall and Erin Meyer's communication scales, this section contrasts America's fluid, low-context market with India's dense, high-context social networks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <h3 class="text-base font-bold text-stone-900">US vs. India Cultural Index</h3>
+            <div class="flex gap-1.5">
+              <button onclick="updateCultureChart('all')" id="btn-cult-all" class="px-2.5 py-1 rounded text-xs font-semibold bg-stone-900 text-white">All Dimensions</button>
+              <button onclick="updateCultureChart('feedback')" id="btn-cult-fb" class="px-2.5 py-1 rounded text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200">Feedback &amp; Trust</button>
+            </div>
+          </div>
+          <p class="text-xs text-stone-500 mb-4">Comparative index (0–100 scale) synthesizing Relational Mobility and Erin Meyer's Culture Map dimensions.</p>
+          <div class="chart-container my-auto">
+            <canvas id="cultureChart"></canvas>
+          </div>
+          <p class="text-xs text-stone-500 mt-4 pt-3 border-t border-stone-100">
+            <strong>Insight:</strong> High Relational Mobility in the US lowers the opportunity cost of losing any single deal, enabling blunt, task-based feedback. Low Relational Mobility in India makes stigma costly, requiring indirect, face-saving communication.
+          </p>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">Socio-Ecological &amp; Communication Matrix</h3>
+            <p class="text-xs text-stone-500 mb-4">Click any dimension below to inspect how historical ecology shapes workplace behavior.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4" id="matrix-tabs">
+              <button onclick="selectMatrixDim(0)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-900 text-white text-left">Social Market</button>
+              <button onclick="selectMatrixDim(1)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left">Cost of "No"</button>
+              <button onclick="selectMatrixDim(2)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left">Evaluating Style</button>
+              <button onclick="selectMatrixDim(3)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left">Trust Foundation</button>
+              <button onclick="selectMatrixDim(4)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left">Disagreement</button>
+              <button onclick="selectMatrixDim(5)" class="matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left">Agrarian Roots</button>
+            </div>
+
+            <div id="matrix-detail" class="space-y-3">
+              <div class="p-4 rounded-xl bg-teal-50/70 border border-teal-200">
+                <div class="text-xs font-bold uppercase tracking-wider text-teal-900 mb-1">🇺🇸 United States (High Relational Mobility)</div>
+                <p id="matrix-us" class="text-xs sm:text-sm text-stone-800 leading-relaxed">
+                  Fluid, open free-agent social market. Relationships are formed by active mutual choice and can be exited easily when goals diverge.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+                <div class="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1">🇮🇳 India (Low Relational Mobility)</div>
+                <p id="matrix-in" class="text-xs sm:text-sm text-stone-800 leading-relaxed">
+                  Dense, interconnected, and often inherited networks. Relationships are obligatory and sticky; you cannot easily walk away to an entirely new social circle.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-600">
+            <strong>Cross-Cultural Friction Trap:</strong> When a direct US manager critiques an Indian engineer's code, the engineer hears a personal attack; when an Indian manager uses subtle hints, the US report assumes everything is fine.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ecosystems-section" class="scroll-mt-28 space-y-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part V &amp; VI • Real-World Business Friction</span>
+        <h2 class="text-2xl font-bold text-stone-900 mt-1">Ecosystem Impact: The VC "Soft No" &amp; Appraisal Breakdown</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          When high Rejection Sensitivity meets business reality, organizations pay a hidden tax. In Indian venture capital, investors disguise blunt disbelief behind polite "Soft Nos" to protect founder ego and deal-flow reputation. Inside corporations, annual performance appraisals trigger existential panic and silence dissent.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-stone-900">Indian VC "Soft No" Decoder</h3>
+            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">Click phrase to decode</span>
+          </div>
+          <p class="text-xs text-stone-500 mb-4">VCs say "no" 99% of the time. Select a common Indian VC response to see what founders hear versus what the investor actually means.</p>
+
+          <div class="space-y-2.5 mb-5">
+            <button onclick="decodeSoftNo(0)" id="soft-btn-0" class="w-full text-left p-3.5 rounded-xl border-2 border-stone-900 bg-stone-50 transition flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-semibold text-stone-900">"Sorry, we are wrong sometimes. Don't feel bad or offended."</span>
+              <span class="text-xs font-bold text-amber-800">Selected</span>
+            </button>
+            <button onclick="decodeSoftNo(1)" id="soft-btn-1" class="w-full text-left p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-semibold text-stone-900">"You're a bit too early for us. Come back with more traction."</span>
+              <span class="text-xs text-stone-400">Decode →</span>
+            </button>
+            <button onclick="decodeSoftNo(2)" id="soft-btn-2" class="w-full text-left p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-semibold text-stone-900">"We love the space, but it slightly conflicts with our portfolio."</span>
+              <span class="text-xs text-stone-400">Decode →</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+              <div class="text-xs font-bold uppercase text-stone-500 mb-1">High-Context Cushion (Why VC Says It)</div>
+              <p id="soft-surface" class="text-xs sm:text-sm text-stone-700 leading-relaxed">
+                Absorbs blame onto the investor so the founder does not lose face or spread negative word-of-mouth in a tight-knit network.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+              <div class="text-xs font-bold uppercase text-amber-900 mb-1">99% Reality &amp; Hidden Cost</div>
+              <p id="soft-reality" class="text-xs sm:text-sm text-stone-800 leading-relaxed">
+                "We do not believe you are a 10x outlier superstar." Deprived of blunt truth, the founder delays pivoting and wastes months chasing false hope.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">4 Barriers to Psychological Safety in India</h3>
+            <p class="text-xs text-stone-500 mb-4">Why teams fall into the "Illusion of Alignment" during reviews and meetings.</p>
+            <div class="space-y-3">
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-900">1. The Hierarchy Tax</span>
+                  <span class="text-xs text-stone-500">Power Distance</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-1">Questioning a superior feels like insubordination; employees learn silence is safer than candor.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-900">2. Fusion of Idea &amp; Identity</span>
+                  <span class="text-xs text-stone-500">Ego Threat</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-1">Critiquing an employee's proposal or code is experienced as critiquing their human value.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-900">3. "Log Kya Kahenge" Effect</span>
+                  <span class="text-xs text-stone-500">Social Stigma</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-1">Fear of public judgment ("What will people say?") stops risk-taking and honest admission of errors.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-900">4. Annual Review Ambush</span>
+                  <span class="text-xs text-stone-500">Stockpiled Critique</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-1">A budget-driven "no" on an annual raise triggers deep grief, distrust, and high attrition.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="eos-section" class="scroll-mt-28 space-y-6 pb-8">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Part VII • Operationalizing Resilience</span>
+        <h2 class="text-2xl font-bold text-stone-900 mt-1">The EOS Immunization Playbook: Making Rejection Objective</h2>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
+          Cultural conditioning cannot be undone with motivational posters. Organizations must build structural guardrails that sever business math from personal worth. By combining explicit <strong>Cognitive Reappraisal</strong> with the <strong>Entrepreneurial Operating System (EOS)</strong>, leaders immunize teams against rejection sensitivity.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col">
+          <h3 class="text-base font-bold text-stone-900 mb-1">Feedback Cadence &amp; Emotional Threat Load</h3>
+          <p class="text-xs text-stone-500 mb-4">Comparing stockpiled Annual Appraisals against EOS 90-Day Quarterly Conversations &amp; Weekly Scorecards.</p>
+          <div class="chart-container my-auto">
+            <canvas id="cadenceChart"></canvas>
+          </div>
+          <p class="text-xs text-stone-500 mt-4 pt-3 border-t border-stone-100">
+            <strong>Why EOS Works:</strong> Continuous, low-stakes 90-day check-ins prevent critique from accumulating into a catastrophic year-end shock, keeping dACC threat levels below the panic threshold.
+          </p>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-stone-200 p-6 shadow-sm flex flex-col justify-between space-y-5">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base font-bold text-stone-900">1. Appraisal Cognitive Reappraisal Script</h3>
+              <button id="script-toggle" onclick="toggleScriptMode()" class="px-3 py-1 rounded-full text-xs font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">Compare Unframed Approach</button>
+            </div>
+            <p class="text-xs text-stone-500 mb-3">Toggle between an unframed budget denial and the EOS pre-framed conversation that activates the employee's RVPFC.</p>
+            <div id="script-box" class="p-4 rounded-xl bg-teal-50/80 border border-teal-200 text-xs sm:text-sm text-stone-800 leading-relaxed">
+              <strong>EOS Leader Pre-Frame (Before Discussing Numbers):</strong><br />
+              "Saying a 'no' to you for this appraisal doesn't mean your value is not that much. It has nothing to do with you. Don't take it to your own self-worth and start judging yourself about this. This is a business decision. We have a budget for this—does it fit inside the budget? Otherwise, no."
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-base font-bold text-stone-900 mb-1">2. Interactive EOS People Analyzer (Values vs. GWC)</h3>
+            <p class="text-xs text-stone-500 mb-3">Test how EOS separates human dignity (Core Values) from role execution (Get it, Want it, Capacity):</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+              <button onclick="toggleGwc('values')" id="gwc-values" class="p-2 rounded-lg text-xs font-bold bg-teal-700 text-white text-center">Core Values: +</button>
+              <button onclick="toggleGwc('get')" id="gwc-get" class="p-2 rounded-lg text-xs font-bold bg-teal-700 text-white text-center">Get It: Yes</button>
+              <button onclick="toggleGwc('want')" id="gwc-want" class="p-2 rounded-lg text-xs font-bold bg-teal-700 text-white text-center">Want It: Yes</button>
+              <button onclick="toggleGwc('cap')" id="gwc-cap" class="p-2 rounded-lg text-xs font-bold bg-amber-600 text-white text-center">Capacity: No</button>
+            </div>
+
+            <div id="gwc-output" class="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-800 leading-relaxed">
+              <strong>EOS Diagnosis — Right Person, Wrong Seat (Capacity Gap):</strong> We affirm that you embody our Core Values (your human worth is validated). However, this specific seat currently exceeds your technical bandwidth or time <em>Capacity</em>. We solve the seat constraint objectively without shaming the person.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white py-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-500">
+      <span>Synthesized from Cross-Cultural Neurobiology, Relational Mobility &amp; EOS Organizational Research</span>
+      <span class="font-medium text-stone-700">Rejection is a business data point—never a measure of human worth.</span>
+    </div>
+  </footer>
+
+  <script>
+    function wrapLabel(label) {
+      if (label.length <= 16) return label;
+      const words = label.split(' ');
+      const lines = [];
+      let current = '';
+      words.forEach(word => {
+        if ((current + ' ' + word).trim().length <= 16) {
+          current = (current + ' ' + word).trim();
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    // ---------- Navigation scroll-spy ----------
+    const sectionLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const sectionTargets = Array.from(document.querySelectorAll('main section[id]'));
+    let activeSectionId = 'synthesis';
+
+    function markActiveSection(id) {
+      const changed = activeSectionId !== id;
+      activeSectionId = id;
+      let activeLink = null;
+      sectionLinks.forEach((link) => {
+        const active = link.getAttribute('href') === '#' + id;
+        link.classList.toggle('active', active);
+        if (active) {
+          activeLink = link;
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+      // Keep the highlighted tab visible when the nav row scrolls on small screens.
+      if (changed && activeLink) {
+        activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+    }
+
+    // Immediate feedback when a nav link is clicked.
+    sectionLinks.forEach((link) => {
+      link.addEventListener('click', () => markActiveSection(link.getAttribute('href').slice(1)));
+    });
+
+    function updateActiveSection() {
+      if (!sectionTargets.length) return;
+      // A section becomes active once its top crosses the upper third of the viewport.
+      const probe = window.innerHeight * 0.35;
+      let current = sectionTargets[0];
+      sectionTargets.forEach((section) => {
+        if (section.getBoundingClientRect().top <= probe) current = section;
+      });
+      // At the very bottom of the page, always light up the final section.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom) current = sectionTargets[sectionTargets.length - 1];
+      markActiveSection(current.id);
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    window.addEventListener('hashchange', updateActiveSection);
+    updateActiveSection();
+
+    let neuroState = { context: 'india', trigger: 'vc' };
+
+    const neuroData = {
+      india: {
+        vc: {
+          dacc: 92,
+          daccLabel: '92% — Acute Existential Threat',
+          rvpfc: 28,
+          rvpfcLabel: '28% — Overwhelmed',
+          bg: 'bg-amber-50/80 border-amber-200',
+          text: '<strong>Internalized Response (India • VC Pass):</strong> Because identity and social standing are fused in a low-mobility network, the brain treats the investor\'s "no" as tribal expulsion. Internalized shame spikes ("I am not a superstar"), overriding RVPFC regulation and triggering offense or defensive withdrawal.'
+        },
+        appraisal: {
+          dacc: 88,
+          daccLabel: '88% — High Social Safety Alarm',
+          rvpfc: 32,
+          rvpfcLabel: '32% — Suppressed by Shame',
+          bg: 'bg-amber-50/80 border-amber-200',
+          text: '<strong>Internalized Response (India • Appraisal Denied):</strong> Even when framed around budget limits, a high-RS nervous system hears "You do not value me." The dACC fires as if physically threatened, eroding trust and triggering quiet disengagement.'
+        }
+      },
+      us: {
+        vc: {
+          dacc: 42,
+          daccLabel: '42% — Localized Disappointment',
+          rvpfc: 84,
+          rvpfcLabel: '84% — Active Cognitive Brake',
+          bg: 'bg-teal-50/80 border-teal-200',
+          text: '<strong>Transactional Response (US • VC Pass):</strong> Operating in a high-relational-mobility market, the RVPFC rapidly contextualizes the refusal as a thesis mismatch or product gap. The founder extracts the blunt feedback, iterates, and pitches the next firm on Sand Hill Road.'
+        },
+        appraisal: {
+          dacc: 38,
+          daccLabel: '38% — Manageable Friction',
+          rvpfc: 86,
+          rvpfcLabel: '86% — Objective Evaluation',
+          bg: 'bg-teal-50/80 border-teal-200',
+          text: '<strong>Transactional Response (US • Appraisal Denied):</strong> The employee separates personal self-worth from departmental budget math—either negotiating clear milestones for the next cycle or leveraging external market mobility.'
+        }
+      }
+    };
+
+    function setNeuroContext(ctx) {
+      neuroState.context = ctx;
+      const inBtn = document.getElementById('sim-ctx-india');
+      const usBtn = document.getElementById('sim-ctx-us');
+      if (ctx === 'india') {
+        inBtn.className = 'px-3 py-1 rounded-md text-xs font-semibold bg-amber-700 text-white transition';
+        usBtn.className = 'px-3 py-1 rounded-md text-xs font-semibold text-stone-700 hover:text-stone-900 transition';
+      } else {
+        usBtn.className = 'px-3 py-1 rounded-md text-xs font-semibold bg-teal-700 text-white transition';
+        inBtn.className = 'px-3 py-1 rounded-md text-xs font-semibold text-stone-700 hover:text-stone-900 transition';
+      }
+      renderNeuro();
+    }
+
+    function setNeuroTrigger(trig) {
+      neuroState.trigger = trig;
+      const vcBtn = document.getElementById('trig-vc');
+      const apBtn = document.getElementById('trig-appraisal');
+      if (trig === 'vc') {
+        vcBtn.className = 'text-left p-3 rounded-xl border-2 border-stone-900 bg-stone-50 transition';
+        apBtn.className = 'text-left p-3 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition';
+      } else {
+        apBtn.className = 'text-left p-3 rounded-xl border-2 border-stone-900 bg-stone-50 transition';
+        vcBtn.className = 'text-left p-3 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition';
+      }
+      renderNeuro();
+    }
+
+    function renderNeuro() {
+      const data = neuroData[neuroState.context][neuroState.trigger];
+      document.getElementById('dacc-bar').style.width = data.dacc + '%';
+      document.getElementById('dacc-val').textContent = data.daccLabel;
+      document.getElementById('rvpfc-bar').style.width = data.rvpfc + '%';
+      document.getElementById('rvpfc-val').textContent = data.rvpfcLabel;
+      const readout = document.getElementById('neuro-readout');
+      readout.className = 'mt-5 p-4 rounded-xl border text-xs sm:text-sm text-stone-800 leading-relaxed ' + data.bg;
+      readout.innerHTML = data.text;
+    }
+
+    const matrixDimensions = [
+      {
+        us: 'Fluid, open free-agent social market. Relationships are formed by active mutual choice and can be exited easily when goals diverge.',
+        in: 'Dense, interconnected, and often inherited networks. Relationships are obligatory and sticky; you cannot easily walk away to an entirely new social circle.'
+      },
+      {
+        us: 'Low opportunity cost. If rejected by one VC or employer, ample alternative networks exist without permanent social stigma.',
+        in: 'High opportunity cost. Public failure or interpersonal friction attaches lasting stigma within tight-knit business and family communities.'
+      },
+      {
+        us: 'Low-context explicit messaging paired with task-focused critique. Words are taken at face value without hidden hierarchical subtext.',
+        in: 'High-context, indirect evaluation. Negative feedback is wrapped in diplomatic cushioning to save face and preserve group harmony.'
+      },
+      {
+        us: 'Task-based cognitive trust. Built quickly through competence, reliability, and clear contractual execution.',
+        in: 'Relationship-based affective trust. Built slowly through personal warmth, loyalty, and long-term mutual obligation.'
+      },
+      {
+        us: 'Open debate and intellectual confrontation are viewed as healthy for the business and separate from personal affection.',
+        in: 'Open disagreement is experienced as a threat to group harmony and a personal attack on status or authority.'
+      },
+      {
+        us: 'Shaped by pioneering, nomadic herding, and voluntary settlement requiring independent individual decision-making.',
+        in: 'Shaped by settled cooperative agrarian communities requiring tight labor coordination, shared irrigation, and strict social order.'
+      }
+    ];
+
+    function selectMatrixDim(idx) {
+      document.querySelectorAll('.matrix-btn').forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = 'matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-900 text-white text-left';
+        } else {
+          btn.className = 'matrix-btn px-3 py-2 rounded-lg text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 text-left';
+        }
+      });
+      document.getElementById('matrix-us').textContent = matrixDimensions[idx].us;
+      document.getElementById('matrix-in').textContent = matrixDimensions[idx].in;
+    }
+
+    const softNoItems = [
+      {
+        surface: 'Absorbs blame onto the investor so the founder does not lose face or spread negative word-of-mouth in a tight-knit network.',
+        reality: '"We do not believe you are a 10x outlier superstar." Deprived of blunt truth, the founder delays pivoting and wastes months chasing false hope.'
+      },
+      {
+        surface: 'Frames the rejection as a temporary timing issue rather than a judgment of the founder\'s capability or market size.',
+        reality: '"Your current unit economics or vision lack breakout potential." The founder burns runway chasing vanity metrics for a VC who will still say no later.'
+      },
+      {
+        surface: 'Blames an external structural constraint (existing portfolio) so the rejection feels completely impersonal and polite.',
+        reality: '"We backed a competitor because we believe their team will out-execute yours." High-context politeness masks a decisive competitive verdict.'
+      }
+    ];
+
+    function decodeSoftNo(idx) {
+      softNoItems.forEach((_, i) => {
+        const btn = document.getElementById('soft-btn-' + i);
+        const tag = btn.querySelector('span:last-child');
+        if (i === idx) {
+          btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-stone-900 bg-stone-50 transition flex items-center justify-between';
+          tag.className = 'text-xs font-bold text-amber-800';
+          tag.textContent = 'Selected';
+        } else {
+          btn.className = 'w-full text-left p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-white transition flex items-center justify-between';
+          tag.className = 'text-xs text-stone-400';
+          tag.textContent = 'Decode →';
+        }
+      });
+      document.getElementById('soft-surface').textContent = softNoItems[idx].surface;
+      document.getElementById('soft-reality').textContent = softNoItems[idx].reality;
+    }
+
+    let scriptEosMode = true;
+    function toggleScriptMode() {
+      scriptEosMode = !scriptEosMode;
+      const btn = document.getElementById('script-toggle');
+      const box = document.getElementById('script-box');
+      if (scriptEosMode) {
+        btn.textContent = 'Compare Unframed Approach';
+        btn.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-teal-700 text-white hover:bg-teal-800 transition';
+        box.className = 'p-4 rounded-xl bg-teal-50/80 border border-teal-200 text-xs sm:text-sm text-stone-800 leading-relaxed';
+        box.innerHTML = '<strong>EOS Leader Pre-Frame (Activates RVPFC Brake):</strong><br />"Saying a \'no\' to you for this appraisal doesn\'t mean your value is not that much. It has nothing to do with you. Don\'t take it to your own self-worth and start judging yourself about this. This is a business decision. We have a budget for this—does it fit inside the budget? Otherwise, no."';
+      } else {
+        btn.textContent = 'Switch to EOS Pre-Frame';
+        btn.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-amber-700 text-white hover:bg-amber-800 transition';
+        box.className = 'p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-xs sm:text-sm text-stone-800 leading-relaxed';
+        box.innerHTML = '<strong>Traditional Unframed Rejection (Triggers dACC Alarm):</strong><br />"We reviewed your annual performance and cannot approve your salary hike this year due to budget constraints." <em>(Result: Employee feels socially unsafe, equates budget math with low personal worth, and disengages.)</em>';
+      }
+    }
+
+    const gwcState = { values: true, get: true, want: true, cap: false };
+    function toggleGwc(key) {
+      gwcState[key] = !gwcState[key];
+      const labels = {
+        values: gwcState.values ? 'Core Values: +' : 'Core Values: -',
+        get: gwcState.get ? 'Get It: Yes' : 'Get It: No',
+        want: gwcState.want ? 'Want It: Yes' : 'Want It: No',
+        cap: gwcState.cap ? 'Capacity: Yes' : 'Capacity: No'
+      };
+      const btn = document.getElementById('gwc-' + key);
+      btn.textContent = labels[key];
+      btn.className = gwcState[key]
+        ? 'p-2 rounded-lg text-xs font-bold bg-teal-700 text-white text-center'
+        : 'p-2 rounded-lg text-xs font-bold bg-amber-600 text-white text-center';
+
+      const out = document.getElementById('gwc-output');
+      if (gwcState.values && gwcState.get && gwcState.want && gwcState.cap) {
+        out.innerHTML = '<strong>EOS Diagnosis — Right Person, Right Seat:</strong> Full alignment across Core Values and GWC. Ready for stretch goals or expanded scorecard ownership.';
+      } else if (!gwcState.values) {
+        out.innerHTML = '<strong>EOS Diagnosis — Core Values Mismatch:</strong> Even if GWC is high, behavioral misalignment erodes psychological safety for the team. Requires direct, respectful separation.';
+      } else {
+        const gaps = [];
+        if (!gwcState.get) gaps.push('Get It (role comprehension)');
+        if (!gwcState.want) gaps.push('Want It (intrinsic drive for this seat)');
+        if (!gwcState.cap) gaps.push('Capacity (time, skill, or bandwidth)');
+        out.innerHTML = '<strong>EOS Diagnosis — Right Person, Wrong Seat (' + gaps.join(', ') + '):</strong> We explicitly validate Core Values (preserving human dignity) while addressing the objective seat gap through training or role realignment—never personal shame.';
+      }
+    }
+
+    let cultureChartInstance = null;
+    const fullCultureData = {
+      labels: [
+        wrapLabel('Relational Mobility'),
+        wrapLabel('Direct Negative Feedback'),
+        wrapLabel('Task-Based Trust'),
+        wrapLabel('Rejection Resilience'),
+        wrapLabel('Egalitarian Low Power Distance')
+      ],
+      us: [88, 76, 85, 82, 78],
+      india: [26, 24, 28, 30, 22]
+    };
+
+    function initCharts() {
+      if (typeof Chart === 'undefined') {
+        ['cultureChart', 'cadenceChart'].forEach(function(id) {
+          const canvas = document.getElementById(id);
+          if (!canvas) return;
+          const fallback = document.createElement('p');
+          fallback.className = 'text-xs text-stone-500 text-center py-10';
+          fallback.textContent = 'The interactive chart could not load (Chart.js unavailable). The same comparison is documented in the full report.';
+          canvas.replaceWith(fallback);
+        });
+        return;
+      }
+
+      const ctx1 = document.getElementById('cultureChart').getContext('2d');
+      cultureChartInstance = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: fullCultureData.labels,
+          datasets: [
+            {
+              label: 'United States',
+              data: fullCultureData.us,
+              backgroundColor: '#0F766E',
+              borderRadius: 6
+            },
+            {
+              label: 'India',
+              data: fullCultureData.india,
+              backgroundColor: '#C2410C',
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { boxWidth: 12, font: { size: 12 } }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  const raw = items[0].label;
+                  return Array.isArray(raw) ? raw.join(' ') : raw;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#E7E5E4' },
+              ticks: { font: { size: 11 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 11 } }
+            }
+          }
+        }
+      });
+
+      const ctx2 = document.getElementById('cadenceChart').getContext('2d');
+      new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: ['Q1 Start', 'Mid-Q1', 'Q1 Check-in', 'Mid-Q2', 'Q2 Check-in', 'Mid-Q3', 'Q3 Check-in', 'Year-End Review'],
+          datasets: [
+            {
+              label: 'Traditional Annual Review (dACC Threat Load)',
+              data: [25, 32, 40, 48, 56, 65, 74, 94],
+              borderColor: '#C2410C',
+              backgroundColor: 'rgba(194, 65, 12, 0.12)',
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4
+            },
+            {
+              label: 'EOS 90-Day Cadence + Scorecard (Threat Load)',
+              data: [25, 28, 32, 27, 30, 26, 29, 31],
+              borderColor: '#0F766E',
+              backgroundColor: 'rgba(15, 118, 110, 0.12)',
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { boxWidth: 12, font: { size: 11 } }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: { display: true, text: 'Emotional Threat Index', font: { size: 11 } },
+              grid: { color: '#E7E5E4' },
+              ticks: { font: { size: 11 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function updateCultureChart(mode) {
+      if (!cultureChartInstance) return;
+      const btnAll = document.getElementById('btn-cult-all');
+      const btnFb = document.getElementById('btn-cult-fb');
+      if (mode === 'all') {
+        btnAll.className = 'px-2.5 py-1 rounded text-xs font-semibold bg-stone-900 text-white';
+        btnFb.className = 'px-2.5 py-1 rounded text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200';
+        cultureChartInstance.data.labels = fullCultureData.labels;
+        cultureChartInstance.data.datasets[0].data = fullCultureData.us;
+        cultureChartInstance.data.datasets[1].data = fullCultureData.india;
+      } else {
+        btnFb.className = 'px-2.5 py-1 rounded text-xs font-semibold bg-stone-900 text-white';
+        btnAll.className = 'px-2.5 py-1 rounded text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200';
+        cultureChartInstance.data.labels = [
+          wrapLabel('Direct Negative Feedback'),
+          wrapLabel('Task-Based Trust'),
+          wrapLabel('Rejection Resilience')
+        ];
+        cultureChartInstance.data.datasets[0].data = [76, 85, 82];
+        cultureChartInstance.data.datasets[1].data = [24, 28, 30];
+      }
+      cultureChartInstance.update();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initCharts();
+      document.getElementById('script-toggle').textContent = 'Compare Unframed Approach';
+    });
+  </script>
+</body>
+</html>

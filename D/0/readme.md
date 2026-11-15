@@ -333,6 +333,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Rejection Dynamics](./rejection_dynamics/)
+**The Architecture of Rejection** — why the same professional "no" is processed as a transactional market signal in the United States but as an existential threat in India. Traces the social-pain overlap (dACC/anterior insula vs. RVPFC regulation), Downey & Feldman's Rejection Sensitivity and internalized shame, Yuki & Schug's relational mobility, Hall's high/low-context scale and Meyer's Culture Map, then decodes the Indian VC "soft no" and annual-appraisal breakdowns before prescribing EOS quarterly cadences, cognitive reappraisal and a Values-vs-GWC analyzer.
+
+- 📝 [The Full Report](./rejection_dynamics/readme.md) — the long-form essay with 72 cited sources. (`readme.md`)
+- 🚫 [Interactive Infographic](./rejection_dynamics/index.html) — the complete warm-stone & terracotta-teal interactive page: neural threat simulator with dACC/RVPFC meters, US-vs-India cultural index chart, clickable socio-ecological matrix, Indian VC "soft no" decoder, annual-vs-quarterly feedback-load chart, cognitive-reappraisal script toggle and a Values-vs-GWC people analyzer. (`index.html`)
+
+---
+
 ### 📁 [Relationship Seesaw](./relationship_seesaw/)
 **The Architecture of Adversarial Courtship** — a psychological deconstruction of the internet "seesaw" model that reduces intimacy to three zero-sum ratios: Value vs. Comfort, Leverage vs. Cooperation, and Sex vs. Purpose. Traces the metaphor from James Tobin's clinical relational seesaw through the Mystery Method's M3 phases to Rollo Tomassi's "Iron Rules," audits its evolutionary claims against Buss's 37-culture data and Gould & Lewontin's "just-so" critique, then dismantles each seesaw through Attachment Theory (Mikulincer & Shaver), Esther Perel's differentiation, Interdependence Theory (Rusbult; Stanley & Rhoades), Gottman's 5:1 ratio, and Self-Determination Theory—ending with the self-refuting paradox of the hyper-vigilant accountant and a "sharper" model of authentic self-determination.
 
