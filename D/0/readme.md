@@ -300,6 +300,14 @@ The goal is simple: **knowing is cheap, structure is everything.** A fact picked
 
 ---
 
+### 📁 [Lightning & Mountain](./lightning_n_mountain/)
+**Craft, Grammar, and Genre Evaluation of the Lightning-and-Mountain Line** — why "you fall like lightning, and you stand like a mountain" is the strongest all-purpose form across three drafts: dropping the indefinite article and replacing *as* with *like* trims 11 words / 13 syllables to 10 / 12 while adding alliteration and aligning with contemporary similative grammar. Weighs PIE roots (*leuk-* vs *legwh-*), mass-to-count coercion, Vendlerian aspect and antanaclasis, intertextual echoes from Sun Tzu to the Dhammapada, and the line's fit as caption, poem, or heraldic motto.
+
+- 📝 [The Full Report](./lightning_n_mountain/readme.md) — the long-form essay with 86 cited sources. (`readme.md`)
+- ⚡ [Interactive Infographic](./lightning_n_mountain/index.html) — the warm stone & alabaster editorial studio: five modules with a three-variant line inspector (live syllable, word, character and rhetorical metrics), Chart.js structural comparison and cadence bars, PIE-root / mass-noun / Aktionsart explorer, filterable intertextual echoes matrix, and a caption-poem-motto genre evaluator with copyable adaptations. (`index.html`)
+
+---
+
 ### 📁 [Linguistic Confinement](./linguistic_confinement/)
 **The Architecture of Linguistic Confinement** — why "the only way" and "a different way" are structurally identical locks forged from exclusion, and why a closed logical system cannot be escaped using its own vocabulary. Synthesizes linguistic relativity and Lakoff's framing, Derrida's *différance*, Wegner's ironic processes, relational frame theory, Bateson's double bind, Gödel and Heidegger, semantic gravity wells in LLMs, focusing constraints, somatic experiencing, and Wittgenstein's fly-bottle.
 

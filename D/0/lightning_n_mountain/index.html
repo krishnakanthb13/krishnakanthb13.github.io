@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetic Craft &amp; Linguistic Anatomy: Lightning &amp; Mountain</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FAF8F5;
+    color: #2C2A29;
+  }
+  .font-serif-editorial {
+    font-family: 'Crimson Pro', Georgia, serif;
+  }
+  .chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    max-height: 380px;
+  }
+  @media (min-width: 768px) {
+    .chart-container {
+      height: 340px;
+    }
+  }
+  .tab-active {
+    background-color: #2C2A29;
+    color: #FAF8F5;
+    border-color: #2C2A29;
+  }
+  .tab-inactive {
+    background-color: #FFFFFF;
+    color: #57534E;
+    border-color: #E7E5E4;
+  }
+  .tab-inactive:hover {
+    background-color: #F5F5F4;
+    color: #2C2A29;
+  }
+  /* Scroll-spy highlight for the Row 2 section navigation */
+  .nav-link {
+    border-radius: 0.375rem;
+  }
+  .nav-link.active {
+    color: #92400e;
+    background-color: rgba(254, 243, 199, 0.8);
+    box-shadow: inset 0 -2px 0 #b45309;
+  }
+</style>
+</head>
+<body class="antialiased selection:bg-amber-200/60 selection:text-stone-900">
+
+<!-- Chosen Palette: Warm Stone & Alabaster (#FAF8F5 background, #FFFFFF cards, #2C2A29 charcoal ink, #B45309 warm amber-ochre accent for Lightning, #475569 slate-stone accent for Mountain) -->
+
+<!-- Application Structure Plan: 
+  The SPA is organized into a thematic, user-driven "Editorial & Linguistic Studio" rather than a linear essay. 
+  1. Hero & Interactive Line Evolution Workbench: Allows the user to switch between the 3 core variants immediately, inspecting live syllable breaks, word/character metrics, and rhetorical annotations directly on the text.
+  2. Quantitative Structural & Rhythmic Analysis: Visualizes the structural trade-offs (word count, syllable symmetry vs. asymmetry, character count) using a dynamic Chart.js comparison and a visual syllable cadence meter (6+6 isocolon vs. 5+6 organic asymmetry).
+  3. Linguistic & Etymological Deep-Dive: Interactive explorers for the three core technical pillars: (a) Orthography & PIE Roots ("lightning" vs "lightening"), (b) Mass-to-Count Coercion & Similative Grammar ("like" vs "as"), and (c) Aktionsart / Lexical Aspect (Punctual Achievement vs. Durative State).
+  4. Intertextual Echoes Matrix: A filterable/clickable comparative deck showing how the line dialogues with Sun Tzu, Luke 10:18, Psalm 125:1, Marcus Aurelius, and the Dhammapada—highlighting how binding both images to one subject inverts traditional tropes.
+  5. Genre Adaptation Studio (Caption, Poem, Motto): Interactive selector that evaluates fit against formal constraints (e.g., heraldic 2-5 word motto rules) and provides tailored, ready-to-use adaptations with live metrics.
+  Why this structure: Writers and editors engage best when they can manipulate text variants, toggle grammatical lenses, and test genre constraints interactively rather than reading static tables.
+-->
+
+<!-- Visualization & Content Choices:
+  1. Interactive Line Inspector (HTML/CSS/JS): Report Info -> 3 text variants + syllable/rhetoric breakdown -> Goal: Inform & Analyze -> Interactive variant switcher with highlighted syntax spans -> Justification: Direct visual mapping of grammar and rhythm onto the poem's words.
+  2. Structural Metrics Bar Chart (Chart.js Canvas): Report Info -> Words (11, 10, 11), Characters (52, 54, 62), Syllables (13, 12, 15) -> Goal: Compare -> Grouped horizontal/vertical bar chart with metric toggle -> Justification: Clearly illustrates the inverse trade-off where dropping "a" and changing "as" to "like" reduces words/syllables while slightly increasing characters.
+  3. Aspectual & Rhythmic Cadence Comparator (HTML/Tailwind visual blocks): Report Info -> Isocolon (6+1+6 vs 5+1+6) & Aktionsart (Punctual Achievement vs Durative State) -> Goal: Organize & Compare -> Dual-track visual cadence bars -> Justification: Makes abstract linguistic concepts (Vendler's Aktionsart and metrical balance) immediately intuitive without SVG.
+  4. Etymology & Grammar Toggle Cards (HTML/CSS/JS): Report Info -> PIE *leuk- vs *legwh-, Count vs Mass noun coercion, Similative 'like' vs Functive 'as' -> Goal: Inform -> Tabbed interactive study cards -> Justification: Organizes dense philological and grammatical notes into digestible, self-paced modules.
+  5. Genre Target Evaluator (HTML/CSS/JS): Report Info -> Caption, Poem, Motto requirements & adapted lines -> Goal: Synthesize & Apply -> Interactive genre selector updating evaluation scorecards, word-count compliance gauges, and copyable text outputs -> Justification: Directly answers the user's closing question ("caption, poem, or motto?") with actionable editorial tools.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<header class="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Row 1: identity and return link -->
+    <div class="flex items-center justify-between gap-4 py-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <a href="../" class="flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-600 hover:text-amber-800 hover:border-amber-300 transition-colors" title="Return to the D/0 Knowledge Vault">&larr; Vault</a>
+        <span class="text-amber-700 text-lg font-bold tracking-tight flex-shrink-0">&#9889;</span>
+        <span class="font-serif-editorial font-semibold text-lg sm:text-xl tracking-tight text-stone-900 truncate">Poetic Craft &amp; Linguistic Anatomy <span class="hidden sm:inline font-sans text-xs font-medium text-stone-400">&mdash; Lightning &amp; Mountain</span></span>
+      </div>
+      <a href="./readme.md" class="flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 hover:bg-amber-100 transition-colors" title="Read the full essay">&#128221; Read Essay</a>
+    </div>
+    <!-- Row 2: section navigation (own row, scroll-synced active highlighting) -->
+    <nav class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap border-t border-stone-200/70 py-2 text-sm font-medium text-stone-600" aria-label="Page sections">
+      <a href="#workbench" class="nav-link flex-shrink-0 px-2.5 py-1 hover:text-amber-800 transition-colors">Line Workbench</a>
+      <a href="#metrics" class="nav-link flex-shrink-0 px-2.5 py-1 hover:text-amber-800 transition-colors">Rhythm &amp; Metrics</a>
+      <a href="#linguistics" class="nav-link flex-shrink-0 px-2.5 py-1 hover:text-amber-800 transition-colors">Grammar &amp; Roots</a>
+      <a href="#intertext" class="nav-link flex-shrink-0 px-2.5 py-1 hover:text-amber-800 transition-colors">Traditions</a>
+      <a href="#genre-studio" class="nav-link flex-shrink-0 px-2.5 py-1 hover:text-amber-800 transition-colors">Genre Studio</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+
+  <section id="workbench" class="space-y-6 scroll-mt-28">
+    <div class="max-w-3xl space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-medium tracking-wide uppercase">
+        Interactive Textual Workbench
+      </div>
+      <h1 class="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900 leading-tight">
+        Speed &amp; Stillness: The Strike and the Stay
+      </h1>
+      <p class="text-stone-600 text-base sm:text-lg leading-relaxed">
+        Across three iterative drafts, this line binds a single-instant collapse and durable endurance to the same subject. Select a version below to inspect its exact syllable cadence, grammatical mechanics, and rhetorical shift.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div class="p-4 sm:p-6 bg-stone-50/70 border-b border-stone-200 flex flex-wrap gap-2.5">
+        <button onclick="selectVariant(0)" id="var-btn-0" class="tab-inactive px-4 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer">
+          1. Original Draft
+        </button>
+        <button onclick="selectVariant(1)" id="var-btn-1" class="tab-active px-4 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer">
+          2. Idiomatic Revision (Recommended)
+        </button>
+        <button onclick="selectVariant(2)" id="var-btn-2" class="tab-inactive px-4 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer">
+          3. Epigrammatic Expansion
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-10 space-y-8">
+        <div class="space-y-3">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-400" id="var-label">
+            Variant 2 &bull; Idiomatic Modern English
+          </div>
+          <blockquote id="var-quote" class="font-serif-editorial text-2xl sm:text-4xl text-stone-900 leading-snug">
+            &ldquo;you fall <span class="bg-amber-100/80 text-amber-950 px-1.5 rounded">like lightning</span>, and you stand <span class="bg-slate-100 text-slate-900 px-1.5 rounded">like a mountain</span>&rdquo;
+          </blockquote>
+          <p id="var-summary" class="text-stone-600 text-sm sm:text-base max-w-3xl leading-relaxed pt-1">
+            Dropping the indefinite article before <em>lightning</em> and replacing <em>as</em> with <em>like</em> trims the line to 10 words and 12 syllables, introduces natural alliteration (<em>like lightning</em>), and aligns with contemporary similative grammar.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/80">
+            <div class="text-xs font-medium text-stone-500 uppercase tracking-wider">Word Count</div>
+            <div id="metric-words" class="text-2xl sm:text-3xl font-semibold text-stone-900 mt-1">10</div>
+            <div id="metric-words-note" class="text-xs text-stone-500 mt-1">-1 word vs. original</div>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/80">
+            <div class="text-xs font-medium text-stone-500 uppercase tracking-wider">Syllables</div>
+            <div id="metric-syllables" class="text-2xl sm:text-3xl font-semibold text-stone-900 mt-1">12</div>
+            <div id="metric-syllables-note" class="text-xs text-stone-500 mt-1">5 + 1 + 6 cadence</div>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/80">
+            <div class="text-xs font-medium text-stone-500 uppercase tracking-wider">Characters</div>
+            <div id="metric-chars" class="text-2xl sm:text-3xl font-semibold text-stone-900 mt-1">54</div>
+            <div id="metric-chars-note" class="text-xs text-stone-500 mt-1">+2 chars (<em>like</em> vs <em>as</em>)</div>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200/80">
+            <div class="text-xs font-medium text-stone-500 uppercase tracking-wider">Best-Fit Form</div>
+            <div id="metric-fit" class="text-base sm:text-lg font-semibold text-amber-800 mt-1.5 leading-snug">Caption / Lyric</div>
+            <div id="metric-fit-note" class="text-xs text-stone-500 mt-1">Emblem <em>inscriptio</em></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-stone-100">
+          <div class="p-4 rounded-xl bg-amber-50/40 border border-amber-200/60">
+            <div class="text-xs font-semibold uppercase tracking-wider text-amber-900 mb-1">Rhetorical Mechanism</div>
+            <p id="var-rhetoric" class="text-sm text-stone-700 leading-relaxed">
+              Antithesis, near-isocolon (5 + 1 + 6 syllables), and crisp initial alliteration (<em>like lightning</em>).
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-800 mb-1">Grammatical &amp; Register Profile</div>
+            <p id="var-grammar" class="text-sm text-stone-700 leading-relaxed">
+              Idiomatic modern English pairing similative preposition <em>like</em> with the uncountable mass noun <em>lightning</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="metrics" class="space-y-6 scroll-mt-28">
+    <div class="max-w-3xl space-y-2">
+      <h2 class="font-serif-editorial text-2xl sm:text-3xl font-semibold text-stone-900">
+        Structural Trade-Offs &amp; Rhythmic Asymmetry
+      </h2>
+      <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+        Revising <em>&ldquo;as a lightning&rdquo;</em> to <em>&ldquo;like lightning&rdquo;</em> introduces a subtle quantitative trade-off: replacing two-letter <em>as</em> twice with four-letter <em>like</em> adds 4 characters while deleting <em>a&nbsp;</em> removes 2, nudging character count up from 52 to 54 even as the line loses a word and a syllable.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="font-semibold text-stone-900 text-base">Variant Quantitative Comparison</h3>
+            <p class="text-xs text-stone-500">Compare words, syllables, and character footprint across drafts</p>
+          </div>
+          <div class="inline-flex rounded-lg border border-stone-200 p-0.5 bg-stone-50 text-xs">
+            <button onclick="updateChartMode('all')" id="chart-btn-all" class="px-2.5 py-1 rounded-md bg-white text-stone-900 font-medium shadow-xs cursor-pointer">All Metrics</button>
+            <button onclick="updateChartMode('rhythm')" id="chart-btn-rhythm" class="px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 cursor-pointer">Words &amp; Syllables</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="metricsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6">
+        <div class="space-y-2">
+          <h3 class="font-semibold text-stone-900 text-base">Syllable Cadence &amp; Meaning</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Dropping one syllable breaks the original&rsquo;s mechanical symmetry into an organic asymmetry that mirrors the physical contrast between a fleeting strike and a heavier, enduring mass.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
+            <div class="flex justify-between text-xs font-medium text-stone-600">
+              <span>Original: Strict Isocolon (6 + 1 + 6)</span>
+              <span>13 Syllables</span>
+            </div>
+            <div class="flex gap-1.5 items-center">
+              <div class="flex-1 bg-amber-200/80 text-amber-950 text-xs font-medium py-2 px-2.5 rounded text-center truncate" title="you fall as a light-ning (6)">
+                you fall as a light-ning (6)
+              </div>
+              <span class="text-xs font-bold text-stone-400">and</span>
+              <div class="flex-1 bg-slate-200 text-slate-900 text-xs font-medium py-2 px-2.5 rounded text-center truncate" title="you stand as a moun-tain (6)">
+                you stand as a moun-tain (6)
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/40 border border-amber-200/80 space-y-2">
+            <div class="flex justify-between text-xs font-medium text-amber-950">
+              <span>Revised: Near-Isocolon (5 + 1 + 6)</span>
+              <span>12 Syllables</span>
+            </div>
+            <div class="flex gap-1.5 items-center">
+              <div class="w-[44%] bg-amber-500 text-white text-xs font-medium py-2 px-2 rounded text-center truncate" title="you fall like light-ning (5)">
+                you fall like light-ning (5)
+              </div>
+              <span class="text-xs font-bold text-stone-400">and</span>
+              <div class="w-[52%] bg-slate-700 text-white text-xs font-medium py-2 px-2 rounded text-center truncate" title="you stand like a moun-tain (6)">
+                you stand like a moun-tain (6)
+              </div>
+            </div>
+            <p class="text-xs text-stone-600 pt-1">
+              The first clause accelerates (5 beats); the second clause lands with heavier metrical weight (6 beats).
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-stone-100 text-xs text-stone-500">
+          <strong>Expansion Note:</strong> Variant 3 (<em>&ldquo;lightning lands once, a mountain has to keep landing every day&rdquo;</em>) expands to 15&ndash;16 syllables depending on whether <em>every</em> is elided (<em>ev-ry</em>) or articulated (<em>ev-er-y</em>).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="linguistics" class="space-y-6 scroll-mt-28">
+    <div class="max-w-3xl space-y-2">
+      <h2 class="font-serif-editorial text-2xl sm:text-3xl font-semibold text-stone-900">
+        Orthography, Grammar &amp; Aspectual Mechanics
+      </h2>
+      <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+        Three distinct linguistic forces shape why this line works—and why small spelling or particle adjustments dramatically change its clarity. Explore each mechanism below.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-3 border-b border-stone-200 bg-stone-50/70">
+        <button onclick="selectLingTab('etymology')" id="ling-tab-etymology" class="tab-active py-3.5 px-4 text-sm font-medium border-b sm:border-b-0 sm:border-r border-stone-200 text-left sm:text-center transition-colors cursor-pointer">
+          1. Orthography &amp; PIE Roots
+        </button>
+        <button onclick="selectLingTab('grammar')" id="ling-tab-grammar" class="tab-inactive py-3.5 px-4 text-sm font-medium border-b sm:border-b-0 sm:border-r border-stone-200 text-left sm:text-center transition-colors cursor-pointer">
+          2. Mass Nouns &amp; Similatives
+        </button>
+        <button onclick="selectLingTab('aspect')" id="ling-tab-aspect" class="tab-inactive py-3.5 px-4 text-sm font-medium text-left sm:text-center transition-colors cursor-pointer">
+          3. Aspectual Asymmetry
+        </button>
+      </div>
+
+      <div id="ling-content-etymology" class="p-6 sm:p-8 space-y-6">
+        <div class="max-w-3xl space-y-2">
+          <h3 class="font-serif-editorial text-2xl font-semibold text-stone-900">Why the &ldquo;Lightening&rdquo; Slip Resonates</h3>
+          <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+            Both <em>lightning</em> and <em>lightening</em> converged in 14th-century Middle English spelling (<em>lightenen</em> / <em>lihtenen</em>) and share the primary pronunciation <code class="bg-stone-100 px-1.5 py-0.5 rounded text-stone-800 text-xs">&#712;l&#299;t-ni&#331;</code>, yet they descend from two completely unrelated Proto-Indo-European (PIE) roots.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-xl bg-amber-50/50 border border-amber-200/80 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-serif-editorial text-xl font-semibold text-amber-950">Lightning (No &lsquo;e&rsquo;)</span>
+              <span class="text-xs font-mono bg-amber-100 text-amber-900 px-2 py-0.5 rounded">PIE *leuk-</span>
+            </div>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              <strong>Meaning:</strong> &ldquo;Light, brightness.&rdquo; Descends via Old English <em>leoht / lihting</em> and Proto-Germanic <em>*leukhtam</em> from the verb <em>lighten</em> (&ldquo;to shine, flash&rdquo;).
+            </p>
+            <div class="text-xs text-stone-600 pt-2 border-t border-amber-200/60">
+              <strong>Cognates:</strong> Latin <em>lux</em>, Greek <em>leukos</em>, English <em>lucid</em>, <em>luminous</em>. Standard orthography dropped the middle <em>-e-</em> to separate the storm noun from the participle.
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-serif-editorial text-xl font-semibold text-stone-900">Lightening (With &lsquo;e&rsquo;)</span>
+              <span class="text-xs font-mono bg-stone-200 text-stone-800 px-2 py-0.5 rounded">PIE *legwh-</span>
+            </div>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              <strong>Meaning:</strong> &ldquo;Not heavy, having little weight.&rdquo; Descends via Old English <em>leoht</em> and Proto-Germanic <em>*lingkhtaz</em> from the verb <em>lighten</em> (&ldquo;to remove weight from a load&rdquo;).
+            </p>
+            <div class="text-xs text-stone-600 pt-2 border-t border-stone-200">
+              <strong>Cognates:</strong> Latin <em>levis</em> (&ldquo;light&rdquo;) &amp; <em>levare</em> (&ldquo;to raise&rdquo;), English <em>elevate</em>, <em>alleviate</em>, <em>levity</em>. Aptly echoes shedding weight during a fall, though unmarked spelling risks reading as a typo.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="ling-content-grammar" class="p-6 sm:p-8 space-y-6 hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-3 p-5 rounded-xl bg-stone-50 border border-stone-200">
+            <div class="text-xs font-semibold uppercase tracking-wider text-amber-800">Mass-to-Count Coercion</div>
+            <h4 class="font-serif-editorial text-xl font-semibold text-stone-900">&ldquo;A Lightning&rdquo; vs. &ldquo;Lightning&rdquo;</h4>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              In modern English, <em>lightning</em> is an uncountable (mass) noun requiring unitizers (<em>a lightning bolt</em>, <em>a flash of lightning</em>)—unlike German <em>Blitz</em>, which is countable. Placing a mass noun in count syntax (<strong>mass-to-count coercion</strong>) appears in archaic or poetic texts:
+            </p>
+            <ul class="text-xs text-stone-600 space-y-1.5 list-disc pl-4">
+              <li><strong>Shakespeare (<em>Romeo &amp; Juliet</em> 5.3):</strong> <em>&ldquo;Which their keepers call / A lightning before death.&rdquo;</em></li>
+              <li><strong>OED Obsolete Idioms:</strong> <em>&ldquo;In less than a lightning&rdquo;</em>; King James <em>Revelation</em> 4:5 (<em>&ldquo;lightnings and thunderings&rdquo;</em>).</li>
+              <li><strong>Modern Verdict:</strong> Without surrounding archaic diction, <em>&ldquo;a lightning&rdquo;</em> reads as an article slip rather than a Shakespearean echo.</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3 p-5 rounded-xl bg-stone-50 border border-stone-200">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-700">Similative vs. Functive Markers</div>
+            <h4 class="font-serif-editorial text-xl font-semibold text-stone-900">Why &ldquo;Like&rdquo; Beats &ldquo;As&rdquo; Here</h4>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              English unusually maintains two distinct markers that separate equative degree (<em>as fast as lightning</em>) from similative manner (<em>like lightning</em>):
+            </p>
+            <ul class="text-xs text-stone-600 space-y-1.5 list-disc pl-4">
+              <li><strong>Similative <em>Like</em> + Noun Phrase:</strong> Signals resemblance in manner or quality (<em>&ldquo;in the manner of lightning&rdquo;</em>).</li>
+              <li><strong>Functive <em>As</em> + Noun Phrase:</strong> Modern English reserves <em>as + NP</em> primarily for roles or capacities (<em>&ldquo;works as an editor&rdquo;</em>).</li>
+              <li><strong>Clarity:</strong> Using <em>like</em> ensures the line reads unambiguously as a simile rather than role-playing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="ling-content-aspect" class="p-6 sm:p-8 space-y-6 hidden">
+        <div class="max-w-3xl space-y-2">
+          <h3 class="font-serif-editorial text-2xl font-semibold text-stone-900">Lexical Aspect (<em>Aktionsart</em>) &amp; Antanaclasis</h3>
+          <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+            The editorial insight that <em>&ldquo;falling is an act, standing is a state&rdquo;</em> maps directly onto Zeno Vendler&rsquo;s and Bernard Comrie&rsquo;s semantic classification of verbal eventualities.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-xl bg-amber-50/50 border border-amber-200/80 space-y-2">
+            <div class="text-xs font-semibold uppercase tracking-wider text-amber-900">Clause 1: &ldquo;You fall like lightning&rdquo;</div>
+            <div class="font-serif-editorial text-xl font-semibold text-stone-900">Punctual, Telic Achievement</div>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              An instantaneous change of state with an immediate endpoint and zero internal stages. Once the discharge occurs, the event is over.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-800">Clause 2: &ldquo;You stand like a mountain&rdquo;</div>
+            <div class="font-serif-editorial text-xl font-semibold text-stone-900">Durative, Non-Dynamic State</div>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              Homogeneous and unbounded across time, holding true at every instant of its duration without internal alteration.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-xl bg-stone-900 text-stone-100 space-y-2">
+          <div class="text-xs font-semibold uppercase tracking-wider text-amber-400">How the Couplet Transforms the State: Antanaclasis</div>
+          <p class="text-sm text-stone-300 leading-relaxed">
+            In <em>&ldquo;lightning <strong>lands</strong> once, a mountain has to keep <strong>landing</strong> every day,&rdquo;</em> repeating <em>land</em> in two distinct senses (<strong>antanaclasis</strong>, overlapping with <strong>polyptoton</strong>) shifts <em>lands</em> from a literal atmospheric strike to arriving intact morning after morning. This reframes the mountain from a passive geological state into an active, daily achievement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="intertext" class="space-y-6 scroll-mt-28">
+    <div class="max-w-3xl space-y-2">
+      <h2 class="font-serif-editorial text-2xl sm:text-3xl font-semibold text-stone-900">
+        Intertextual Echoes: How Your Line Inverts Tradition
+      </h2>
+      <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+        Classical military, scriptural, and contemplative traditions frequently invoke lightning and mountains—but almost always assign them to separate actors or opposing outcomes. Click any tradition below to compare its framing against your line.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-5 space-y-2.5" id="tradition-list">
+        <button onclick="selectTradition(0)" id="trad-btn-0" class="w-full text-left p-4 rounded-xl border border-stone-900 bg-stone-900 text-white transition-all cursor-pointer">
+          <div class="text-xs uppercase tracking-wider text-amber-400 font-semibold">Military Strategy</div>
+          <div class="font-serif-editorial text-lg font-semibold mt-0.5">Sun Tzu &mdash; <em>The Art of War</em> (Ch. 7)</div>
+        </button>
+        <button onclick="selectTradition(1)" id="trad-btn-1" class="w-full text-left p-4 rounded-xl border border-stone-200 bg-white text-stone-900 hover:bg-stone-50 transition-all cursor-pointer">
+          <div class="text-xs uppercase tracking-wider text-stone-500 font-semibold">Scriptural Trope</div>
+          <div class="font-serif-editorial text-lg font-semibold mt-0.5">Luke 10:18 &amp; Psalm 125:1</div>
+        </button>
+        <button onclick="selectTradition(2)" id="trad-btn-2" class="w-full text-left p-4 rounded-xl border border-stone-200 bg-white text-stone-900 hover:bg-stone-50 transition-all cursor-pointer">
+          <div class="text-xs uppercase tracking-wider text-stone-500 font-semibold">Stoic Philosophy</div>
+          <div class="font-serif-editorial text-lg font-semibold mt-0.5">Marcus Aurelius &mdash; <em>Meditations</em> 4.49</div>
+        </button>
+        <button onclick="selectTradition(3)" id="trad-btn-3" class="w-full text-left p-4 rounded-xl border border-stone-200 bg-white text-stone-900 hover:bg-stone-50 transition-all cursor-pointer">
+          <div class="text-xs uppercase tracking-wider text-stone-500 font-semibold">Buddhist &amp; Martial Stillness</div>
+          <div class="font-serif-editorial text-lg font-semibold mt-0.5"><em>Dhammapada</em> v. 81 &amp; <em>Fud&#333;shin</em></div>
+        </button>
+      </div>
+
+      <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="inline-block px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-medium" id="trad-tag">
+            Military Strategy vs. Personal Resilience
+          </div>
+          <blockquote id="trad-quote" class="font-serif-editorial italic text-xl sm:text-2xl text-stone-800 border-l-4 border-amber-500 pl-4 py-1">
+            &ldquo;In immovability like a mountain... when you move, fall like a thunderbolt.&rdquo; (&#19981;&#21205;&#22914;&#23665;... &#21205;&#22914;&#38647;&#38663;)
+          </blockquote>
+          <p id="trad-analysis" class="text-sm sm:text-base text-stone-600 leading-relaxed">
+            In Chapter 7 (<em>Maneuvering</em>), Sun Tzu pairs both images (and warlord Takeda Shingen&rsquo;s <em>F&#363;rinkazan</em> banner preserved <em>&ldquo;immovable as a mountain&rdquo;</em>). However, Sun Tzu splits the images into two separate tactical modes—defensive stillness versus offensive strike—whereas your line unites both inside a single person&rsquo;s experience of collapse and endurance.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200/70">
+          <div class="text-xs font-semibold uppercase tracking-wider text-amber-900 mb-1">Your Line&rsquo;s Original Synthesis</div>
+          <p id="trad-synthesis" class="text-xs sm:text-sm text-stone-800 leading-relaxed">
+            By assigning both <em>fall</em> and <em>stand</em> to the same &ldquo;you,&rdquo; the line shifts the imagery from battlefield tactics to internal resilience: the strike does not undo the standing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="genre-studio" class="space-y-6 scroll-mt-28">
+    <div class="max-w-3xl space-y-2">
+      <h2 class="font-serif-editorial text-2xl sm:text-3xl font-semibold text-stone-900">
+        Genre Adaptation Studio: Caption, Poem, or Motto?
+      </h2>
+      <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+        Matching the wording to its final destination requires calibrating pronoun choice, voice, and word economy to the formal rules of each genre. Select your intended format to evaluate fit and copy tailored adaptations.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div class="p-4 sm:p-6 bg-stone-50/70 border-b border-stone-200 flex flex-wrap gap-3">
+        <button onclick="selectGenre('caption')" id="genre-btn-caption" class="tab-active px-5 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer">
+          &#128444;&#65039; Image Caption
+        </button>
+        <button onclick="selectGenre('poem')" id="genre-btn-poem" class="tab-inactive px-5 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer">
+          &#128220; Poem / Epigram
+        </button>
+        <button onclick="selectGenre('motto')" id="genre-btn-motto" class="tab-inactive px-5 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer">
+          &#128737;&#65039; Personal / Heraldic Motto
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold uppercase tracking-wider text-stone-400">Genre Fit Assessment</span>
+            <span id="genre-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900">
+              Strong Fit As-Is
+            </span>
+          </div>
+          <h3 id="genre-title" class="font-serif-editorial text-2xl font-semibold text-stone-900">
+            Visual Framing &amp; Immediate Hook
+          </h3>
+          <p id="genre-eval" class="text-sm text-stone-600 leading-relaxed">
+            At 10 words, <em>&ldquo;you fall like lightning, and you stand like a mountain&rdquo;</em> works immediately alongside an image, functioning much like the brief <em>inscriptio</em> (motto or title) above a Renaissance emblem&rsquo;s visual plate without over-explaining it.
+          </p>
+          <div class="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
+            <div class="text-xs font-semibold uppercase tracking-wider text-stone-500">Formal Constraint</div>
+            <p id="genre-constraint" class="text-xs sm:text-sm text-stone-700">
+              Requires immediate visual resonance, concise self-contained framing, and direct reader engagement.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-4">
+          <div class="text-xs font-semibold uppercase tracking-wider text-stone-400">Recommended Versions (Click to Copy)</div>
+          <div id="genre-options" class="space-y-3">
+          </div>
+          <div id="copy-toast" class="text-xs font-medium text-emerald-700 opacity-0 transition-opacity duration-200">
+            &#10003; Copied line to clipboard
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t border-stone-200 bg-white mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+    <div>Craft, Grammar, and Genre Evaluation &bull; Interactive Editorial Companion</div>
+    <div>Synthesized from linguistic, philological, and literary analysis</div>
+  </div>
+</footer>
+
+<script>
+const variants = [
+  {
+    label: "Variant 1 \u2022 Initial Draft",
+    quoteHtml: '&ldquo;you fall <span class="bg-rose-100/80 text-rose-950 px-1.5 rounded">as a lightning</span>, and you stand <span class="bg-slate-100 text-slate-900 px-1.5 rounded">as a mountain</span>&rdquo;',
+    summary: "Establishes the core contrast and strict 6 + 6 syllable symmetry, but uses count-coerced <em>&lsquo;a lightning&rsquo;</em> and functive <em>&lsquo;as&rsquo;</em>, which feel archaic outside elevated historical verse.",
+    words: "11",
+    wordsNote: "Baseline length",
+    syllables: "13",
+    syllablesNote: "6 + 1 + 6 strict isocolon",
+    chars: "52",
+    charsNote: "Baseline characters",
+    fit: "Archaic Verse",
+    fitNote: "Deliberately historic register",
+    rhetoric: "Antithesis and strict mechanical isocolon (6 syllables + conjunction + 6 syllables).",
+    grammar: "Archaic/non-standard: similative 'as' paired with mass-to-count coerced 'a lightning'."
+  },
+  {
+    label: "Variant 2 \u2022 Idiomatic Revision (Recommended)",
+    quoteHtml: '&ldquo;you fall <span class="bg-amber-100/80 text-amber-950 px-1.5 rounded">like lightning</span>, and you stand <span class="bg-slate-100 text-slate-900 px-1.5 rounded">like a mountain</span>&rdquo;',
+    summary: "Dropping the indefinite article before <em>lightning</em> and replacing <em>&lsquo;as&rsquo;</em> with <em>&lsquo;like&rsquo;</em> trims the line to 10 words and 12 syllables, introduces natural alliteration (<em>like lightning</em>), and aligns with contemporary similative grammar.",
+    words: "10",
+    wordsNote: "-1 word vs. original",
+    syllables: "12",
+    syllablesNote: "5 + 1 + 6 near-isocolon",
+    chars: "54",
+    charsNote: "+2 chars (like vs. as)",
+    fit: "Caption / Lyric",
+    fitNote: "Emblem inscriptio",
+    rhetoric: "Antithesis, near-isocolon (5 + 1 + 6 syllables), and crisp initial alliteration (like lightning).",
+    grammar: "Idiomatic modern English pairing similative preposition 'like' with uncountable mass noun 'lightning'."
+  },
+  {
+    label: "Variant 3 \u2022 Epigrammatic Counterpoint",
+    quoteHtml: '&ldquo;lightning <span class="bg-amber-100/80 text-amber-950 px-1.5 rounded">lands once</span>, a mountain has to <span class="bg-slate-100 text-slate-900 px-1.5 rounded">keep landing every day</span>&rdquo;',
+    summary: "Shifts into third-person gnomic present to carry the psychological cost of endurance, reframing the mountain from a static object into a continuous <em>daily achievement</em>.",
+    words: "11",
+    wordsNote: "Matches original word count",
+    syllables: "15\u201316",
+    syllablesNote: "15 (ev-ry) or 16 (ev-er-y)",
+    chars: "62",
+    charsNote: "+10 chars vs. original",
+    fit: "Poem / Epigram",
+    fitNote: "Emblem subscriptio",
+    rhetoric: "Antithesis and antanaclasis / polyptoton ('lands' once vs. 'keep landing' every day).",
+    grammar: "Epigrammatic third-person gnomic present transforming a state into iterative action."
+  }
+];
+
+function selectVariant(idx) {
+  const v = variants[idx];
+  document.getElementById('var-label').textContent = v.label;
+  document.getElementById('var-quote').innerHTML = v.quoteHtml;
+  document.getElementById('var-summary').innerHTML = v.summary;
+  document.getElementById('metric-words').textContent = v.words;
+  document.getElementById('metric-words-note').textContent = v.wordsNote;
+  document.getElementById('metric-syllables').textContent = v.syllables;
+  document.getElementById('metric-syllables-note').textContent = v.syllablesNote;
+  document.getElementById('metric-chars').textContent = v.chars;
+  document.getElementById('metric-chars-note').textContent = v.charsNote;
+  document.getElementById('metric-fit').textContent = v.fit;
+  document.getElementById('metric-fit-note').textContent = v.fitNote;
+  document.getElementById('var-rhetoric').textContent = v.rhetoric;
+  document.getElementById('var-grammar').textContent = v.grammar;
+
+  for (let i = 0; i < 3; i++) {
+    const btn = document.getElementById('var-btn-' + i);
+    btn.className = (i === idx)
+      ? 'tab-active px-4 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer'
+      : 'tab-inactive px-4 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer';
+  }
+}
+
+let metricsChart;
+function initChart() {
+  const ctx = document.getElementById('metricsChart').getContext('2d');
+  metricsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        ['Original Draft', '("as a lightning")'],
+        ['Idiomatic Revision', '("like lightning")'],
+        ['Epigram Expansion', '("lands once...")']
+      ],
+      datasets: [
+        {
+          label: 'Words',
+          data: [11, 10, 11],
+          backgroundColor: '#D97706',
+          borderRadius: 6
+        },
+        {
+          label: 'Syllables (Min)',
+          data: [13, 12, 15],
+          backgroundColor: '#475569',
+          borderRadius: 6
+        },
+        {
+          label: 'Characters',
+          data: [52, 54, 62],
+          backgroundColor: '#A8A29E',
+          borderRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            usePointStyle: true,
+            boxWidth: 8,
+            font: { family: "'Inter', sans-serif", size: 12 }
+          }
+        },
+        tooltip: {
+          backgroundColor: '#2C2A29',
+          titleFont: { family: "'Inter', sans-serif", size: 13 },
+          bodyFont: { family: "'Inter', sans-serif", size: 12 },
+          padding: 10,
+          cornerRadius: 8
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: '#F5F5F4' },
+          ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#78716C' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#44403C' }
+        }
+      }
+    }
+  });
+}
+
+function updateChartMode(mode) {
+  const btnAll = document.getElementById('chart-btn-all');
+  const btnRhythm = document.getElementById('chart-btn-rhythm');
+  if (mode === 'all') {
+    metricsChart.data.datasets[2].hidden = false;
+    btnAll.className = 'px-2.5 py-1 rounded-md bg-white text-stone-900 font-medium shadow-xs cursor-pointer';
+    btnRhythm.className = 'px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 cursor-pointer';
+  } else {
+    metricsChart.data.datasets[2].hidden = true;
+    btnRhythm.className = 'px-2.5 py-1 rounded-md bg-white text-stone-900 font-medium shadow-xs cursor-pointer';
+    btnAll.className = 'px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 cursor-pointer';
+  }
+  metricsChart.update();
+}
+
+function selectLingTab(tab) {
+  const tabs = ['etymology', 'grammar', 'aspect'];
+  tabs.forEach(t => {
+    const btn = document.getElementById('ling-tab-' + t);
+    const content = document.getElementById('ling-content-' + t);
+    if (t === tab) {
+      btn.classList.remove('tab-inactive');
+      btn.classList.add('tab-active');
+      content.classList.remove('hidden');
+    } else {
+      btn.classList.remove('tab-active');
+      btn.classList.add('tab-inactive');
+      content.classList.add('hidden');
+    }
+  });
+}
+
+const traditions = [
+  {
+    tag: "Military Strategy vs. Personal Resilience",
+    quote: "\u201cIn immovability like a mountain... when you move, fall like a thunderbolt.\u201d (\u4e0d\u52d5\u5982\u5c71... \u52d5\u5982\u96f7\u9707)",
+    analysis: "In Chapter 7 (Maneuvering) of The Art of War, Sun Tzu pairs both images (and warlord Takeda Shingen's F\u016brinkazan banner preserved 'immovable as a mountain'). However, Sun Tzu assigns the two images to separate tactical modes—defensive stillness versus offensive strike—rather than internal endurance.",
+    synthesis: "By giving both 'fall' and 'stand' to a single 'you', your line unites strike and stillness inside one person's emotional arc."
+  },
+  {
+    tag: "Inverting Apocalyptic Collapse",
+    quote: "\u201cI saw Satan fall like lightning from heaven\u201d (Luke 10:18) vs. \u201clike Mount Zion, which cannot be shaken\u201d (Psalm 125:1)",
+    analysis: "Scriptural tradition separates these tropes into total defeat versus divine permanence. In Luke 10:18 (Greek h\u014ds astrap\u0113n), falling like lightning signifies sudden, irreversible ruin, whereas Psalm 125:1 reserves mountain imagery for unshakeable fidelity.",
+    synthesis: "Your line directly inverts Luke 10:18: the violent descent does not annihilate the subject, because what remains standing afterward is the mountain."
+  },
+  {
+    tag: "Stoic Endurance Against External Force",
+    quote: "\u201cBe like the promontory against which the waves continually break, but it stands firm and tames the fury of the water around it.\u201d (Meditations 4.49)",
+    analysis: "Marcus Aurelius uses geological steadfastness as a model for equanimity under external assault. In Stoic imagery, however, the rock endures blows arriving from outside rather than weathering its own lightning-fast collapse.",
+    synthesis: "Your phrasing internalizes the storm: the subject experiences the sudden fall itself yet emerges grounded in mountain-like permanence."
+  },
+  {
+    tag: "Contemplative & Martial Equanimity",
+    quote: "\u201cAs a solid rock is not shaken by the wind, so the wise are not moved by praise or blame.\u201d (Dhammapada, v. 81)",
+    analysis: "Buddhist verse and Zen/martial traditions (fud\u014dshin, 'immovable mind', and 'mountain' sitting posture) treat stillness as an unbroken baseline cultivated through detachment from sudden impulses.",
+    synthesis: "Your line acknowledges human volatility—allowing the rapid fall—while anchoring identity in the enduring mountain that follows."
+  }
+];
+
+function selectTradition(idx) {
+  const t = traditions[idx];
+  document.getElementById('trad-tag').textContent = t.tag;
+  document.getElementById('trad-quote').textContent = t.quote;
+  document.getElementById('trad-analysis').textContent = t.analysis;
+  document.getElementById('trad-synthesis').textContent = t.synthesis;
+
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById('trad-btn-' + i);
+    const sub = btn.querySelector('div:first-child');
+    if (i === idx) {
+      btn.className = 'w-full text-left p-4 rounded-xl border border-stone-900 bg-stone-900 text-white transition-all cursor-pointer';
+      sub.className = 'text-xs uppercase tracking-wider text-amber-400 font-semibold';
+    } else {
+      btn.className = 'w-full text-left p-4 rounded-xl border border-stone-200 bg-white text-stone-900 hover:bg-stone-50 transition-all cursor-pointer';
+      sub.className = 'text-xs uppercase tracking-wider text-stone-500 font-semibold';
+    }
+  }
+}
+
+const genres = {
+  caption: {
+    badge: "Strong Fit As-Is",
+    badgeClass: "bg-emerald-100 text-emerald-900",
+    title: "Visual Framing & Immediate Hook",
+    eval: "At 10 words, \"you fall like lightning, and you stand like a mountain\" is ready as written. Its direct second-person address draws the viewer into an image without over-explaining it—functioning like the brief inscriptio above a Renaissance emblem.",
+    constraint: "Requires immediate visual resonance, concise self-contained framing, and clean antithesis.",
+    options: [
+      {
+        label: "Primary Recommendation (10 words)",
+        text: "You fall like lightning, and you stand like a mountain.",
+        note: "Retains conversational warmth and rhythmic flow."
+      },
+      {
+        label: "Punchy Imperative Variant (8 words)",
+        text: "Fall like lightning. Stand like a mountain.",
+        note: "Drops pronouns and conjunction for stark visual impact."
+      }
+    ]
+  },
+  poem: {
+    badge: "Strong Opening or Hinge",
+    badgeClass: "bg-amber-100 text-amber-900",
+    title: "Epigrammatic Turn & Psychological Cost",
+    eval: "Works alone as a one-line aphorism or sets up a two-line emblem pairing (inscriptio + subscriptio), where the second line unpacks the quiet, daily effort required to remain standing.",
+    constraint: "Thrives on rhythmic tension, layered irony, and a volta (turn) from vivid image to reflection.",
+    options: [
+      {
+        label: "Couplet with Antanaclasis Turn (21 words)",
+        text: "You fall like lightning, and you stand like a mountain—\nlightning lands once, a mountain has to keep landing every day.",
+        note: "Pairs the 12-syllable image with the 15-syllable daily cost."
+      },
+      {
+        label: "Standalone Aphoristic Line (10 words)",
+        text: "You fall like lightning, and you stand like a mountain.",
+        note: "Effective as a closing stanza hinge."
+      }
+    ]
+  },
+  motto: {
+    badge: "Needs Compression (2\u20137 Words)",
+    badgeClass: "bg-rose-100 text-rose-900",
+    title: "Heraldic Brevity & Oral Recall",
+    eval: "At 10 words and 54 characters, descriptive \"you...\" phrasing reads like prose. Heraldic and style guides note that traditional mottos compress into 2 to 5 words and favor imperatives or nominal phrases over second-person description.",
+    constraint: "Requires extreme brevity (ideally 2\u20135 words, max 7\u20138), imperative or nominal voice, and effortless oral recall.",
+    options: [
+      {
+        label: "Imperative Maxim (7 words)",
+        text: "Fall like lightning; stand like a mountain.",
+        note: "Converts an observation into an active rule of conduct."
+      },
+      {
+        label: "Compressed Nominal Motto (8 words)",
+        text: "Lightning in the fall, mountain in the stand.",
+        note: "Eliminates verbs for symmetrical nominal balance."
+      },
+      {
+        label: "Strict Heraldic Economy (5 words)",
+        text: "Strike like lightning, stand fast.",
+        note: "Meets the strict 5-word traditional motto ceiling."
+      }
+    ]
+  }
+};
+
+function selectGenre(gKey) {
+  const g = genres[gKey];
+  const badge = document.getElementById('genre-badge');
+  badge.textContent = g.badge;
+  badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold ' + g.badgeClass;
+  document.getElementById('genre-title').textContent = g.title;
+  document.getElementById('genre-eval').textContent = g.eval;
+  document.getElementById('genre-constraint').textContent = g.constraint;
+
+  const container = document.getElementById('genre-options');
+  container.innerHTML = '';
+  g.options.forEach(opt => {
+    const card = document.createElement('div');
+    card.className = 'p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:border-amber-400 hover:bg-amber-50/30 transition-all cursor-pointer group';
+    card.onclick = () => copyLine(opt.text);
+    card.innerHTML = `
+      <div class="flex items-center justify-between text-xs text-stone-500 mb-1">
+        <span class="font-semibold uppercase tracking-wider">${opt.label}</span>
+        <span class="text-amber-800 opacity-75 group-hover:opacity-100 font-medium">Copy &#128203;</span>
+      </div>
+      <div class="font-serif-editorial text-lg sm:text-xl text-stone-900 whitespace-pre-line">${opt.text}</div>
+      <div class="text-xs text-stone-500 mt-1.5">${opt.note}</div>
+    `;
+    container.appendChild(card);
+  });
+
+  ['caption', 'poem', 'motto'].forEach(k => {
+    const btn = document.getElementById('genre-btn-' + k);
+    btn.className = (k === gKey)
+      ? 'tab-active px-5 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer'
+      : 'tab-inactive px-5 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer';
+  });
+}
+
+function copyLine(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text);
+  }
+  const toast = document.getElementById('copy-toast');
+  toast.style.opacity = '1';
+  setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initChart();
+  selectGenre('caption');
+});
+</script>
+
+<!-- Scroll-spy: highlight the active Row 2 navigation link while scrolling -->
+<script>
+(() => {
+  const links = Array.from(document.querySelectorAll('.nav-link'));
+  const sections = ['workbench', 'metrics', 'linguistics', 'intertext', 'genre-studio']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+  let activeSectionId = 'workbench';
+
+  function mark(id) {
+    const changed = activeSectionId !== id;
+    activeSectionId = id;
+    let activeLink = null;
+    links.forEach((link) => {
+      const active = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('active', active);
+      if (active) {
+        activeLink = link;
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+    // Keep the highlighted tab visible when the nav row scrolls on small screens.
+    if (changed && activeLink) {
+      activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
+  }
+
+  links.forEach((link) => {
+    link.addEventListener('click', () => mark(link.getAttribute('href').slice(1)));
+  });
+
+  function updateActiveSection() {
+    if (!sections.length) return;
+    const probe = window.innerHeight * 0.35;
+    let current = sections[0];
+    sections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= probe) current = section;
+    });
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    if (atBottom) current = sections[sections.length - 1];
+    mark(current.id);
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  window.addEventListener('resize', updateActiveSection);
+  updateActiveSection();
+})();
+</script>
+</body>
+</html>
